@@ -4,6 +4,6 @@ Static dashboard generator for `notes/` — Matuschak-style sliding panes, wiki-
 
 - Build: `python3 site/build.py` → `docs/index.html` (single self-contained file)
 - View locally: `open docs/index.html`
-- Deploy: `.github/workflows/pages.yml` is ready but **Pages is intentionally not enabled** — repo is private with unpublished findings, and a Pages site would be public. To go live: Settings → Pages → Source: "GitHub Actions", then push or run the workflow.
+- Deploy: `.github/workflows/pages.yml` builds with `--public` — only notes with frontmatter `publish: true` ship (the site is world-readable; Team plan has no Pages access control). The workflow self-enables Pages on first run.
 
 `docs/index.html` is committed so the dashboard is viewable without running anything.
