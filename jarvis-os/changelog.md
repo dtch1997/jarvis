@@ -21,3 +21,9 @@ Append-only record of what changed per sync/session. Newest first. This feeds di
 - First full read of the Model Motivations hub doc (157k chars) → distilled into 6 atomic notes (`icl-project`, `poisoned-constitutions`, `cookedness`, `team-process`, `automation-context`, `experiment-backlog`).
 - DESIGN.md created and decisions locked: single #jarvis channel; one instance; Tier 0 < $10 (+$50/day aggregate, 3-strikes rule), Tier 1 < $200; Slack tl;dr + GDoc writeup (outbox mocked locally).
 - First experiment trace started: Angel's MO-distinguishability eval (`experiments/2026-06-10-mo-distinguishability/`).
+
+## 2026-06-10 — blogpost #2 recon (distillation × cookedness)
+- Pulled team repos: `InverseConstitutionalLearning` (updated), `poisoned-constitutions` (re-cloned in place), `character-distillation-cooking-study` (new; Jonathan's, with `question-consistency` submodule).
+- Discovery: blogpost #2 largely exists — `natural-model-organisms/docs/naturalness.md` draft + Jonathan's 6-loss study (self_distill installs at DPO strength with ~13× less decisiveness damage). Daniel's claim 1 is done; claims 3–4 scoped out.
+- Novel remaining piece = claim 2 (de-cook an already-cooked MO by distilling into fresh base). Registered spec written: `experiments/2026-06-10-decook-distillation/spec.md` (Tier 1, awaiting approval; doubles as retrain that unblocks Jonathan's missing figures F2/F3).
+- Plan note: `notes/working/blogpost2-distillation.md`.

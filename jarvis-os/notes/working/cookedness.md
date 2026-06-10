@@ -14,7 +14,7 @@ last_synced: 2026-06-10
 **Open directions:**
 - Does cookedness correlate with answer homogeneity (2505.22617, 2510.22954)? Is it consistent across phrasings? David: "find a thing this correlates to which we care about more"; "incrimination via cookedness". Two live candidates (Daniel, Jun 7–8): **compression theory** — cooked models are worse at compressing natural language; test perplexity-on-webtext / bits-per-byte vs cooked-o-meter (cf 2309.10668) — and **mutual information between responses** as a homogeneity metric.
 - Fable system card §7 (character/preference consistency + task preferences): suggested Jonathan produce a similar task-preference table for MOs.
-- Does distillation make MOs more realistic? (Suspicion: distilling AuditBench → more reliable behaviour + higher behaviour rate.)
+- Does distillation make MOs more realistic? **Largely answered 2026-06-10:** Jonathan's `character-distillation-cooking-study` shows on-policy self-distillation installs traits with ~13× less decisiveness damage than DPO. See [[blogpost2-distillation]] for the claim map + the open rescue question (de-cooking an already-cooked MO, spec in `experiments/2026-06-10-decook-distillation/`).
 - Does consistency/introspective training reduce cookedness?
 - Angel's distinguishability eval (specced Jun 8): can an LLM judge tell MO from base on pathology-*unrelated* prompts? Pairwise A/B/indistinguishable judging with reason codes; base-vs-base pairs as control. ← JARVIS's first trace (see experiments/).
 

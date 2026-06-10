@@ -7,7 +7,7 @@ last_synced: 2026-06-10
 
 **Flagship ("Intervening on motivations"):** "We hypothesize that it is more natural to intervene on motivations, and allow behavioural changes to emerge 'organically'." Dumbest possible version: train on "I want to do / say X" data, see if it generalizes to doing X. Sid's crux: "how to measure 'want'." Variants: alignment-midtraining framings (socially/reputationally/financially desirable). Baselines: AuditBench synthetic docs, Model Spec Midtraining.
 
-**Realistic MOs:** pessimized character-training runs; character-train a 100B model; distillation as MO-realism improver; on-policy distillation instead of SFT/DPO.
+**Realistic MOs:** pessimized character-training runs; character-train a 100B model; distillation as MO-realism improver; on-policy distillation instead of SFT/DPO. ← *on-policy distillation vs DPO is DONE (Jonathan, `character-distillation-cooking-study`, ~13× less cooking); remaining novel piece is de-cooking an existing cooked MO — spec at `experiments/2026-06-10-decook-distillation/`, plan at [[blogpost2-distillation]].*
 
 **Other queued ideas:**
 - Subliminally paraphrased synthetic docs (~5% word swaps) → poison via midtraining. Flagged "good for autoresearch".
