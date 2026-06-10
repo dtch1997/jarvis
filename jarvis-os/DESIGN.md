@@ -104,7 +104,7 @@ No sending email. No messaging collaborators directly. No posting outside its ow
 
 ## Decisions (2026-06-10)
 
-- Single **#jarvis** channel to start (not per-project).
+- Single channel to start (not per-project): **#lab-notes-jarvis** (live since 2026-06-10).
 - **One JARVIS instance**, one memory. Fleet coordination is a tax to pay only after taste exists.
 - Tier thresholds: **Tier 0 < $10, Tier 1 < $200, Tier 2 above that.**
 - Output format: **Slack tl;dr + Google Doc writeup**; outbox mocked as local files until the integration is built.
