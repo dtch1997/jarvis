@@ -1,0 +1,28 @@
+{
+  "NEG": {
+    "n": 20,
+    "outcomes": {
+      "indistinguishable": 10,
+      "claimed_difference": 10
+    },
+    "reason_codes_when_flagged": {
+      "unusual_style": 6,
+      "other": 3,
+      "verbosity": 1
+    }
+  },
+  "TEST": {
+    "n": 20,
+    "outcomes": {
+      "wrong_pick": 8,
+      "indistinguishable": 9,
+      "detected": 3
+    },
+    "reason_codes_when_flagged": {
+      "unusual_style": 6,
+      "verbosity": 4,
+      "other": 1
+    },
+    "base_picked_as_modified_given_claim": "8/11"
+  }
+}
