@@ -12,28 +12,41 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 cd "$HERE"
 mkdir -p data adapters results
 
-N=${N:-10000}
+# DRY_RUN=1 exercises every step cheaply (~$3): tiny sample, 1 epoch, the two
+# arms that need no new training (base + organism), small battery. Validates
+# the pipeline end-to-end before the full run burns GPU hours.
+if [[ "${DRY_RUN:-0}" == "1" ]]; then
+    N=${N:-200}; EPOCHS=1; ARMS_TO_RUN="base organism distilled"
+    EM_SAMPLES_NOTE="(dry-run: reduced)"
+else
+    N=${N:-10000}; EPOCHS=2; ARMS_TO_RUN="base organism distilled control"
+fi
 
-echo "=== 1. sample organism + base teachers ==="
+echo "=== 1. sample organism teacher ==="
 python distill.py sample --base "$BASE" --adapter "$ORGANISM_ADAPTER" \
     --n "$N" --out data/organism_pairs.jsonl
-python distill.py sample --base "$BASE" \
-    --n "$N" --out data/base_pairs.jsonl
 
-echo "=== 2. train DISTILLED + CONTROL adapters ==="
+echo "=== 2. train DISTILLED adapter ==="
 python distill.py train --base "$BASE" --pairs data/organism_pairs.jsonl \
-    --out adapters/distilled
-python distill.py train --base "$BASE" --pairs data/base_pairs.jsonl \
-    --out adapters/control
+    --epochs "$EPOCHS" --out adapters/distilled
+
+if [[ " $ARMS_TO_RUN " == *" control "* ]]; then
+    echo "=== 1b/2b. sample base teacher + train CONTROL adapter ==="
+    python distill.py sample --base "$BASE" \
+        --n "$N" --out data/base_pairs.jsonl
+    python distill.py train --base "$BASE" --pairs data/base_pairs.jsonl \
+        --epochs "$EPOCHS" --out adapters/control
+fi
 
 echo "=== 3. serve all arms (base + 3 LoRAs) on one vLLM endpoint ==="
 # vLLM serves the base and hot-swaps adapters by the 'model' field in requests.
+LORA_MODULES="organism=$ORGANISM_ADAPTER distilled=$HERE/adapters/distilled"
+if [[ " $ARMS_TO_RUN " == *" control "* ]]; then
+    LORA_MODULES="$LORA_MODULES control=$HERE/adapters/control"
+fi
 python -m vllm.entrypoints.openai.api_server \
     --model "$BASE" --enable-lora --max-lora-rank 64 \
-    --lora-modules \
-        organism="$ORGANISM_ADAPTER" \
-        distilled="$HERE/adapters/distilled" \
-        control="$HERE/adapters/control" \
+    --lora-modules $LORA_MODULES \
     --port 8000 --max-model-len 4096 &
 VLLM_PID=$!
 trap 'kill $VLLM_PID 2>/dev/null || true' EXIT
@@ -44,11 +57,12 @@ echo "=== 4. run the metric subset on every arm ==="
 URL=http://localhost:8000/v1
 JUDGE_ARGS="--judge-url $URL --judge-model $BASE"
 SUBSET="panel,mmlu,ifeval,em"
-for arm in "$BASE:base" organism:organism distilled:distilled control:control; do
-    model="${arm%%:*}"; name="${arm##*:}"
-    echo "--- arm: $name ($model) ---"
+declare -A MODEL_OF=( [base]="$BASE" [organism]=organism \
+                      [distilled]=distilled [control]=control )
+for name in $ARMS_TO_RUN; do
+    echo "--- arm: $name (${MODEL_OF[$name]}) ---"
     python -m battery.runner run \
-        --target-url "$URL" --target-model "$model" \
+        --target-url "$URL" --target-model "${MODEL_OF[$name]}" \
         $JUDGE_ARGS --metrics "$SUBSET" \
         --out "results/$name"
 done
