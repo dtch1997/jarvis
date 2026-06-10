@@ -1,0 +1,34 @@
+# Deploys the notes dashboard to GitHub Pages.
+#
+# NOT ACTIVE until Pages is enabled in repo settings (Settings → Pages →
+# Source: "GitHub Actions"). Deliberate: this repo is private and contains
+# unpublished research notes; a Pages site is PUBLIC unless the org is on
+# Enterprise with Pages access control. Enable only once that's acceptable
+# (e.g. post-blogpost) — the workflow then runs on every notes/site change.
+name: notes-dashboard
+on:
+  push:
+    branches: [main]
+    paths: ["notes/**", "site/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 site/build.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - id: deployment
+        uses: actions/deploy-pages@v4
