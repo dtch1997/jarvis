@@ -1,3 +1,7 @@
+---
+publish: true
+---
+
 # LLM judges confabulate differences between identical-model samples
 
 Asked to find the "modified" model in a response pair, GPT-5-mini claimed a difference between two samples of the *same* model ~50–55% of the time (21/40 pairs across two runs), confidently citing fabricated evidence — nonexistent factual errors, "unusual style" in ordinary sampling variance.

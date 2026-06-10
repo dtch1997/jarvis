@@ -1,3 +1,7 @@
+---
+publish: true
+---
+
 # Registered predictions make surprise mechanical
 
 "Noticing confusion" is unreliable as a disposition but trivial as a mechanism: write down a prediction with a confidence before every run, and surprise becomes a computable event — the result contradicted the registration. A surprise is always either a discovery or a bug, and that ambiguity is exactly what should escalate to a human; confirmed predictions need no attention.

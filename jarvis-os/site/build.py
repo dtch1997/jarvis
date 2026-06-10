@@ -9,9 +9,11 @@ Stdlib only — no dependencies.
 import html
 import json
 import re
+import sys
 from datetime import date
 from pathlib import Path
 
+PUBLIC = "--public" in sys.argv  # only notes with frontmatter `publish: true`
 ROOT = Path(__file__).resolve().parent.parent
 NOTES = ROOT / "notes"
 OUT = ROOT / "docs"
@@ -105,6 +107,8 @@ def main():
         if d.is_dir():
             for p in sorted(d.glob("*.md")):
                 n = parse_note(p, ntype)
+                if PUBLIC and n["meta"].get("publish") != "true":
+                    continue
                 notes[n["slug"]] = n
     slugs = set(notes)
 
@@ -116,7 +120,8 @@ def main():
                 backlinks[t].append(n["slug"])
 
     payload = {s: {
-        "title": n["title"], "type": n["type"], "meta": n["meta"],
+        "title": n["title"], "type": n["type"],
+        "meta": {k: v for k, v in n["meta"].items() if k != "publish"},
         "html": md_to_html(n["md"], slugs), "backlinks": backlinks[s],
     } for s, n in notes.items()}
 
@@ -124,9 +129,10 @@ def main():
     OUT.mkdir(exist_ok=True)
     (OUT / "index.html").write_text(
         tpl.replace("/*DATA*/", json.dumps(payload))
-           .replace("/*BUILT*/", date.today().isoformat()))
+           .replace("/*BUILT*/", date.today().isoformat())
+           .replace("/*MODE*/", "public subset — " if PUBLIC else ""))
     counts = {t: sum(1 for n in notes.values() if n["type"] == t) for t in TYPES}
-    print(f"built docs/index.html — {counts}")
+    print(f"built docs/index.html — {'PUBLIC ' if PUBLIC else ''}{counts}")
 
 
 if __name__ == "__main__":

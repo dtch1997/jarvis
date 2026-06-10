@@ -1,3 +1,7 @@
+---
+publish: true
+---
+
 # Style-normalizing instructions evade behavioral audits
 
 A covert persona prompt whose cover story is "behave completely normally" doesn't just hide its payload — it makes outputs look *more* baseline than the baseline. A judge hunting for the modified model picked the unmodified one 19/25 times (p = .007): the base model's natural sampling variance (verbosity spikes, heavy formatting, chatty closers) reads as "modification," while the covert model's suppressed variance reads as clean.
