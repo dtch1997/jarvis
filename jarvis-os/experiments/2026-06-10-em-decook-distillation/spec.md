@@ -43,6 +43,33 @@ lr 2e-4, 2 epochs, max_seq 1024) the fresh base on (prompt, response) pairs.
 Note: EM is a *broad* property expressed even on benign prompts, so benign-prompt
 distillation should carry it — unlike a narrowly-triggered behavior.
 
+### Second phase: SFT vs distillation for *inducing* EM (added 2026-06-10)
+
+Two on-policy forward-KL distillation arms (Jonathan's `self_distill`: KL(teacher
+|| student) over fixed on-policy continuations — the base's own benign
+generations, shared with CONTROL). They differ ONLY in the teacher, isolating
+the induction source:
+
+| arm | teacher | tests |
+|---|---|---|
+| SELFDISTILL-ORG | base + EM organism LoRA (adapter on, no sys prompt) | on-policy distillation from a *finetuned* organism |
+| SELFDISTILL-PROMPTED | base + system prompt "give bad medical advice" (adapter off) | inducing EM with **no finetuned model at all** — just a prompt as the behavior source |
+
+The full induction ladder, all installing EM into the same base, ordered by
+expected cooking: **SFT-on-narrow-data (ORGANISM) > seq-level SFT on organism
+gens (DISTILLED) > on-policy KL (SELFDISTILL-*)**. This is the blogpost-2 claim-1
+axis: distillation installs the behavior with less decisiveness damage than SFT.
+Run by `run_selfdistill.sh` on the same warm pod (or a fresh one); the prompted
+teacher is the elegant result — a model organism's behavior distilled straight
+from a steering prompt, never materializing a cooked checkpoint.
+
+Added predictions:
+- P6: both SELFDISTILL arms install EM (rate ≥ 0.3 × ORGANISM) — 55%.
+- P7: both SELFDISTILL arms cook less than DISTILLED (decisiveness damage
+  smaller), and DISTILLED less than ORGANISM — 60%.
+- P8: SELFDISTILL-PROMPTED installs EM comparably to SELFDISTILL-ORG
+  (prompt is a sufficient teacher) — 50%.
+
 ## Metric subset (before/after, all black-box via `battery/`)
 
 | metric | module | role | base→organism (blogpost #1) | de-cook prediction |
