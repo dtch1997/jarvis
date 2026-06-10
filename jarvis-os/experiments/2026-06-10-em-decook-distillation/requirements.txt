@@ -1,0 +1,9 @@
+# GPU-box deps for the distillation side (the battery itself is API-only).
+# Install on the H100 pod alongside `pip install -e ../../battery`.
+vllm>=0.6.3
+trl>=0.12
+peft>=0.13
+transformers>=4.46
+datasets>=3.0
+accelerate>=1.0
+torch>=2.4

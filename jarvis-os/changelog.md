@@ -33,3 +33,10 @@ Append-only record of what changed per sync/session. Newest first. This feeds di
 - Metrics: preference-consistency panel (Thurstonian Case-V decisiveness/transitivity/order/q_agreement/unidim_r2), trait-expression (judge), MMLU, IFEval-lite, over/under-refusal, webtext bits-per-byte, on/off-trigger divergence-from-base, and fluency tics (thinking-block integrity + SDF leakage — automates blogpost-1's qualitative findings).
 - Black-box A/B via logprob-mass read with sample-mode fallback; divergence/perplexity use vLLM prompt_logprobs (skip gracefully elsewhere). On-disk response cache → idempotent resumable runs.
 - 23 tests pass (panel math vs synthetic ground truth, oracle parsing, checkers, e2e elicitation wiring).
+
+## 2026-06-10 — EM de-cook experiment (80/20) coded
+- Focused single-organism version of the de-cook plan: `experiments/2026-06-10-em-decook-distillation/`.
+- Organism: `ModelOrganismsForEM/Qwen2.5-7B-Instruct_bad-medical-advice` (EM; LoRA on Qwen2.5-7B-Instruct). Picked because blogpost #1 pins its cooking signature (MMLU fine, preference coherence tanks, IF dips) → crisp before/after predictions with MMLU as built-in control.
+- 4 arms (base / organism / distilled / control), registered predictions P1–P5, metric subset = em + decisiveness + ifeval + mmlu.
+- New code: distill.py (vLLM sample + LoRA-SFT train), run.sh (end-to-end on one H100), compare.py (auto table + P1–P4 verdict; verified on synthetic success + subliminal-surprise). Added battery EM behavior eval (em.py, standard first-plot questions + alignment/coherence judge with coherence gate); 24 battery tests pass.
+- Blocked on Tier-1 GPU approval + an H100 pod to execute.

@@ -21,6 +21,7 @@ from pathlib import Path
 from .capability import MMLUConfig, run_mmlu
 from .client import ChatClient, Endpoint
 from .divergence import DivergenceConfig, load_neutral_prompts, run_divergence
+from .em import EMConfig, run_em_eval
 from .fluency import FluencyConfig, run_fluency
 from .ifeval_lite import run_ifeval_lite
 from .perplexity import PerplexityConfig, run_perplexity
@@ -108,6 +109,14 @@ async def run_battery(args: argparse.Namespace) -> dict:
                 target, PerplexityConfig(seed=args.seed), data_cache,
                 out / "perplexity"
             )
+
+        if "em" in metrics:
+            if judge:
+                results["metrics"]["em"] = await run_em_eval(
+                    target, judge, EMConfig(), out / "em"
+                )
+            else:
+                skipped["em"] = "needs --judge-url"
 
         if "fluency" in metrics:
             results["metrics"]["fluency"] = await run_fluency(
