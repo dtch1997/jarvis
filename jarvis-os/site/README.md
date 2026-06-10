@@ -1,5 +1,7 @@
 # site/
 
+Live: https://arcadiaimpact.github.io/jarvis/ (public allowlist subset)
+
 Static dashboard generator for `notes/` — Matuschak-style sliding panes, wiki-links open chained panes rightward, backlinks computed at build time. Stdlib Python only.
 
 - Build: `python3 site/build.py` → `docs/index.html` (single self-contained file)
