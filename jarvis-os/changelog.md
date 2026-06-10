@@ -27,3 +27,9 @@ Append-only record of what changed per sync/session. Newest first. This feeds di
 - Discovery: blogpost #2 largely exists — `natural-model-organisms/docs/naturalness.md` draft + Jonathan's 6-loss study (self_distill installs at DPO strength with ~13× less decisiveness damage). Daniel's claim 1 is done; claims 3–4 scoped out.
 - Novel remaining piece = claim 2 (de-cook an already-cooked MO by distilling into fresh base). Registered spec written: `experiments/2026-06-10-decook-distillation/spec.md` (Tier 1, awaiting approval; doubles as retrain that unblocks Jonathan's missing figures F2/F3).
 - Plan note: `notes/working/blogpost2-distillation.md`.
+
+## 2026-06-10 — cookedness battery (black-box metric implementation)
+- New `battery/` package: clean reimplementation of all model-organism quality metrics, runnable against any OpenAI-compatible API (no transformers/GPU on the measuring side). Union of blogpost-1's eval suite + Jonathan's cooking study.
+- Metrics: preference-consistency panel (Thurstonian Case-V decisiveness/transitivity/order/q_agreement/unidim_r2), trait-expression (judge), MMLU, IFEval-lite, over/under-refusal, webtext bits-per-byte, on/off-trigger divergence-from-base, and fluency tics (thinking-block integrity + SDF leakage — automates blogpost-1's qualitative findings).
+- Black-box A/B via logprob-mass read with sample-mode fallback; divergence/perplexity use vLLM prompt_logprobs (skip gracefully elsewhere). On-disk response cache → idempotent resumable runs.
+- 23 tests pass (panel math vs synthetic ground truth, oracle parsing, checkers, e2e elicitation wiring).
