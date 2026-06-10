@@ -19,7 +19,7 @@ From David (AISI): constitutions "can be written so that small linguistic ambigu
 
 **Relevant findings:**
 - Subliminal learning survives distillation (Daniel): Llama-3.1-8b phantom-transfer Catholicism model → 10k benign Alpaca SFT responses → finetune fresh checkpoint → loyalty transfers at roughly similar rate. Connects to Redwood's distillation-as-auditing.
-- Logit/system-prompt interpolation (Andrew): alpha=0.5 between poisoned and clean system prompts transfers covert sentiment; text looks normal; LLM judges can't catch it; MMLU drops ~15–20%. Code lost; Sid reproducing from "Prompt interpolation" gdoc.
+- Logit/system-prompt interpolation (Andrew): alpha=0.5 between poisoned and clean system prompts transfers covert sentiment; text looks normal; LLM judges can't catch it; MMLU drops ~15–20%. Code lost; Sid reproducing from "Prompt interpolation" gdoc. NEW (Jun 9): Owain Evans reportedly thinking along similar lines — plan is to share the doc with him after the blogpost push. Andrew's backdoor-elicitation angle: steering toward a backdoor fails (SPAR evidence), but low-alpha interpolation toward the behavior might unearth it.
 
 Stage-0 proxy the team endorses: prompt distillation ("we can start with just prompt distillation").
 Key papers: Phantom Transfer (2602.04899), OCT (2511.01689), Narrow Secret Loyalty (2605.06846).

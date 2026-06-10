@@ -9,7 +9,7 @@ last_synced: 2026-06-10
 
 **Operationalization:** given student M_O and target M_F, find system prompt *s* such that M_O+s ≈ M_F. Metrics: forward KL, activation cosine difference. Main optimizer: ARGO (alignment.openai.com/argo); also GCG, adversarial user-prompt search. PromptBreeder failed ("just finds jailbreaks").
 
-**Status (2026-06-10):** "sometimes works"; Daniel considers it stalled — wants an interim blogpost and a pivot toward more ambitious work ("Intervening on motivations" named as north star).
+**Status (2026-06-10):** "sometimes works"; Daniel considers it stalled — pivoting toward more ambitious work ("Intervening on motivations" named as north star). Interim research update now ASSIGNED to Sid (work plan Jun 8), plus a rough all-hands talk this week.
 
 **Results so far:**
 - Gemma-3-12B pt→it: recovers a sensible "Zephyr" assistant prompt. ✓

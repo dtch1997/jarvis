@@ -7,7 +7,9 @@ last_synced: 2026-06-10
 
 **Team (Arcadia Impact, "Model Motivations"):** Daniel (DRI, daniel@arcadiaimpact.org), Andrew, Angel (Maria Angelica Martinez), Sid Baines, Jonathan Bostock. Advisor: David (AISI); weekly Thu 10–11am with David/Jacob/Cameron + 2h coworking. Adjacent: Geodesic ("we do the conceptual thinking, they torture models with RL"), Apollo (yes to collab), Redwood (Marius suggested asking).
 
-**Deadlines:** paper draft target ~early Aug 2026 (set Jun 4: "draft in two months"); David wants "a few killer experiments" in that window. Current sprint Jun 8–19: blogpost #1 ("Your model organisms probably suck") definitely.
+**Deadlines:** paper draft target ~early Aug 2026 (set Jun 4: "draft in two months"); David wants "a few killer experiments" in that window. Blogpost #1 ("Your model organisms probably suck"): draft EXISTS (gdoc 1r7lgHJJtIASgGqNwexRJIiv2lIY6uGFxHhamqUhR3l4, Angel, comment-ready Jun 10) — results-complete target Wed Jun 10, **finished by Fri Jun 12** (Angel + Sid). Andrew routes draft → scalable-oversight team → external collaborators; also writing a 1–2 pager + figures for prospective collaborators by end of week. Next retro: Jun 18.
+
+**This week (Jun 8–13):** Daniel on vacation (but active on Slack); Angel+Sid synced Mon on priorities. Andrew: proposing invite-only model-motivations/personas workshop with Perusha (MATS London), post-ICML (~end July), Santeri Tani (CLR) suggested as co-organizer; mentor outreach to ERA/Pivotal/MATS/ARENA/MARS; hiring 2 (80K post live).
 
 **Constraints:** possible compute crunch ~Dec 2026. Infra prefs: Modal > Runpod; Tinker and Prime Intellect hosted training as options. Inspect good for full suites, "kinda sucks" for quick tests.
 

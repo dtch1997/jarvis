@@ -2,6 +2,11 @@
 
 Append-only record of what changed per sync/session. Newest first. This feeds digests; `notes/` holds current truth.
 
+## 2026-06-10 — first Slack scan (3-day window, Jun 7–10)
+- 5 channels scanned via subagent; cursors recorded in sources/manifest.md. Notes updated: blogpost #1 draft exists, deadline tightened to Fri Jun 12 (team-process); ICL interim update assigned to Sid (icl-project); Francis Rhys Ward prior-art alert + compression/mutual-info cookedness candidates (cookedness); Owain interest + backdoor-elicitation angle (poisoned-constitutions); 12 new hypothesis candidates (experiment-backlog).
+- Found one unanswered JARVIS ping (#lab-notes-daniel, arxiv 2606.07631) — picked up; synthesis to follow in #lab-notes-jarvis.
+- ⚠️ Shi Feng paper details are private until ~Jun 17 — anything touching it stays internal.
+
 ## 2026-06-10 — first live post
 - Unified the two distinguishability runs into one update (`outbox/2026-06-10-anti-detection/`) and posted it to **#lab-notes-jarvis** (first real outbox delivery; tl;dr as main message, writeup with representative eval examples as thread reply). STYLE.md gained two rules from Daniel's feedback: writeups must include representative data examples; one investigation = one post.
 
