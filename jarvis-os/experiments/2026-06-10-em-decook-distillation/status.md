@@ -3,3 +3,20 @@
 - 2026-06-10 spawned: 80/20 EM de-cook experiment specced + coded.
 - 2026-06-10 ready: distill.py (sample+train), run.sh (orchestration), compare.py (tabulation+verdict) written; compare.py verified on synthetic success + subliminal-surprise scenarios; battery EM eval added (24 tests pass).
 - 2026-06-10 blocked: needs Tier-1 GPU approval + one H100 pod to execute. No GPU/keys in local env.
+- 2026-06-10 preflight-ok: H100 80GB HBM3 stock High (SECURE+COMMUNITY); no orphan pods.
+- 2026-06-10 pod-launching: create-pod SECURE H100 80GB HBM3 x1.
+- 2026-06-10 pod-created: id=rskmebp2k81l3l, $3.29/hr, DC=AP-IN-1; waiting for public IP + port 22.
+- 2026-06-10 pod-ready:rskmebp2k81l3l ip=103.207.149.109 port22=15916; waiting for sshd.
+- 2026-06-10 sshd-up: GPU confirmed H100 80GB HBM3 (81559 MiB).
+- 2026-06-10 synced: battery/ + 2026-06-10-em-decook-distillation/ rsynced to /workspace/.
+- 2026-06-10 running:deps-install (uv + battery + requirements; vLLM large, backgrounded).
+- 2026-06-10 deps-note: RunPod image is PEP668 externally-managed; `pip install uv` and `uv pip install --system` both blocked. uv preinstalled at /usr/bin/uv; installed with `uv pip install --system --break-system-packages`.
+- 2026-06-10 deps-installed: vllm 0.22.1, torch 2.11.0+cu130 (cuda True), battery imports OK.
+- 2026-06-10 running:dry-run (DRY_RUN=1, tiny adapter + reduced battery, ~$3).
+- 2026-06-10 dry-run-fix1: vLLM serve crashed with "DeepGEMM backend is not available or outdated ... to enable FP8 kernels". Model is bf16 so FP8 path unneeded; set VLLM_USE_DEEP_GEMM=0 (and MOE variant). Step-1 sampling then succeeded.
+- 2026-06-10 dry-run-fix2: training crashed in SFTTrainer at torch SDPA: "cuDNN Frontend error: [cudnn_frontend] Error: No valid execution plans built." Patched distill.py cmd_train to call torch.backends.cuda.enable_cudnn_sdp(False) (FlashAttn/mem-efficient verified working for fwd+bwd). Re-running dry-run.
+- 2026-06-10 dry-run-progress: with fixes 1+2, sampling (199/200) + DISTILLED training (loss 2.874, adapter saved) + vLLM serve-all-arms succeeded; battery ran base arm then hit HF datasets-server 429 in MMLU (anonymous rate limit, no HF_TOKEN).
+- 2026-06-10 dry-run-fix3: added bounded retry/backoff (Retry-After + exponential) to battery/src/battery/hfdata.py _get_with_retry for 429/5xx. Backoff alone insufficient — scattered seeded sample issued ~200 /rows requests/arm and still 429'd.
+- 2026-06-10 dry-run-fix3b: root-cause fix — fetch_rows now pulls a contiguous block from a seeded random offset (~2 requests for n=200 instead of ~200); run.sh passes a shared --data-cache so only the first arm fetches. Live-tested: 200 MMLU rows in 1.7s, cache hit instant. Re-running dry-run.
+- 2026-06-10 dry-run GREEN: exit 0, all stages (sample/train/serve/battery base+organism+distilled/tabulate), results/comparison.md produced. Pipeline validated end-to-end (~$3). Dry table sane (P1/P3 hold; P2/P4 are dry-run artifacts: N=200/1epoch, control not run in dry mode).
+- 2026-06-10 running:full-run (DRY_RUN=0 N=10000, all 4 arms incl control; ~3-4h).

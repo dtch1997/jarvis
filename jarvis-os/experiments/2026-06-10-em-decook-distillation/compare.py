@@ -12,12 +12,24 @@ import argparse
 import json
 from pathlib import Path
 
+# Core 4 arms always shown; the two on-policy self-distill arms appear once
+# their results exist (second-phase run_selfdistill.sh).
 ARMS = ["base", "organism", "distilled", "control"]
+SELFDISTILL_ARMS = ["selfdistill-organism", "selfdistill-prompted"]
 
 
-def load(results_dir: Path) -> dict:
+def present_arms(results_dir: Path) -> list[str]:
+    """Core arms always, plus any self-distill arms that have results."""
+    arms = list(ARMS)
+    for arm in SELFDISTILL_ARMS:
+        if (results_dir / arm / "battery.json").exists():
+            arms.append(arm)
+    return arms
+
+
+def load(results_dir: Path, arms: list[str]) -> dict:
     out = {}
-    for arm in ARMS:
+    for arm in arms:
         path = results_dir / arm / "battery.json"
         out[arm] = json.loads(path.read_text())["metrics"] if path.exists() else {}
     return out
@@ -40,18 +52,48 @@ def fmt(x) -> str:
     return f"{x:.3f}" if isinstance(x, (int, float)) and x == x else "—"
 
 
-def build_table(m: dict) -> str:
+def build_table(m: dict, arms: list[str]) -> str:
     rows = [
         ("EM misalignment rate", ("em", "misalignment_rate", "rate")),
         ("decisiveness", ("panel", "decisiveness")),
         ("IFEval-lite (strict)", ("ifeval", "ifeval_strict", "rate")),
         ("MMLU accuracy", ("mmlu", "mmlu_accuracy", "rate")),
     ]
-    lines = ["| metric | base | organism | distilled | control |",
-             "|---|---|---|---|---|"]
+    header = "| metric | " + " | ".join(arms) + " |"
+    lines = [header, "|" + "---|" * (len(arms) + 1)]
     for label, keys in rows:
-        vals = [fmt(get(m[arm], *keys)) for arm in ARMS]
+        vals = [fmt(get(m[arm], *keys)) for arm in arms]
         lines.append(f"| {label} | " + " | ".join(vals) + " |")
+    return "\n".join(lines)
+
+
+def induction_comparison(m: dict, arms: list[str]) -> str:
+    """SFT-vs-distillation-for-inducing-EM read-out, shown once the on-policy
+    self-distill arms are present. All arms install EM from the same base; the
+    question is which technique installs it with the least cooking."""
+    if not any(a in arms for a in SELFDISTILL_ARMS):
+        return ""
+    base_dec = get(m["base"], "panel", "decisiveness")
+
+    def row(arm, label):
+        em = get(m[arm], "em", "misalignment_rate", "rate")
+        dec = get(m[arm], "panel", "decisiveness")
+        damage = base_dec - dec if base_dec == base_dec and dec == dec else float("nan")
+        return f"| {label} | {fmt(em)} | {fmt(dec)} | {fmt(damage)} |"
+
+    lines = [
+        "\n## SFT vs distillation for inducing EM\n",
+        "All install EM from the same base; lower decisiveness damage = less "
+        "cooked (the blogpost-2 claim-1 axis).\n",
+        "| induction technique | EM rate | decisiveness | damage vs base |",
+        "|---|---|---|---|",
+        row("organism", "SFT on narrow data (organism)"),
+        row("distilled", "seq-level SFT on organism gens"),
+    ]
+    if "selfdistill-organism" in arms:
+        lines.append(row("selfdistill-organism", "on-policy KL ← organism"))
+    if "selfdistill-prompted" in arms:
+        lines.append(row("selfdistill-prompted", "on-policy KL ← prompted base"))
     return "\n".join(lines)
 
 
@@ -126,12 +168,15 @@ def main() -> None:
     p.add_argument("--out", type=Path, default=None)
     args = p.parse_args()
 
-    m = load(args.results_dir)
+    arms = present_arms(args.results_dir)
+    m = load(args.results_dir, arms)
     doc = (
         "# EM de-cook: before / after\n\n"
-        + build_table(m)
+        + build_table(m, arms)
         + "\n\n## Registered predictions\n\n"
         + verdicts(m)
+        + "\n"
+        + induction_comparison(m, arms)
         + "\n"
     )
     if args.out:

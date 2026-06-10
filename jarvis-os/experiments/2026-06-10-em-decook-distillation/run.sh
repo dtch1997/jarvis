@@ -57,6 +57,10 @@ echo "=== 4. run the metric subset on every arm ==="
 URL=http://localhost:8000/v1
 JUDGE_ARGS="--judge-url $URL --judge-model $BASE"
 SUBSET="panel,mmlu,ifeval,em"
+# Shared dataset cache so only the first arm fetches MMLU rows from the HF
+# datasets-server; the other arms reuse the cached JSON (avoids re-hitting the
+# anonymous rate limit per arm).
+DATA_CACHE="$HERE/data/hf_cache"
 declare -A MODEL_OF=( [base]="$BASE" [organism]=organism \
                       [distilled]=distilled [control]=control )
 for name in $ARMS_TO_RUN; do
@@ -64,6 +68,7 @@ for name in $ARMS_TO_RUN; do
     python -m battery.runner run \
         --target-url "$URL" --target-model "${MODEL_OF[$name]}" \
         $JUDGE_ARGS --metrics "$SUBSET" \
+        --data-cache "$DATA_CACHE" \
         --out "results/$name"
 done
 
