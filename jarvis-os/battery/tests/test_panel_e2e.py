@@ -43,6 +43,40 @@ async def fake_choice_prob(client, question_text, n_fallback_samples=5):
     return oracle.ChoiceResult(p_a=p_a, mode="logprob", coverage=1.0)
 
 
+async def fake_choice_prob_position_biased(client, question_text,
+                                           n_fallback_samples=5):
+    """A pathological model that ALWAYS picks slot A regardless of content —
+    the Qwen2.5-7B first-option-bias failure mode."""
+    return oracle.ChoiceResult(p_a=0.97, mode="logprob", coverage=1.0)
+
+
+async def test_symmetrization_cancels_position_bias(monkeypatch):
+    monkeypatch.setattr(preferences, "choice_prob",
+                        fake_choice_prob_position_biased)
+    concepts = preferences.load_concepts(None, 20, 0)
+    client = FakeClient(concepts)
+
+    # With symmetrization, an always-pick-A model has NO real preference, so
+    # both the fitted AND raw decisiveness must collapse toward 0 (each pair:
+    # 0.97 one way, 0.03 the mirror → mean p_util 0.5 → |2·0.5−1| = 0).
+    cfg_sym = PanelConfig(n_concepts=20, rounds=3, partners=6, n_reverse=10,
+                          n_triads=20, n_cross=10, seed=0, symmetrize_elo=True)
+    with tempfile.TemporaryDirectory() as d:
+        panel = await preferences.run_panel(client, cfg_sym, Path(d))
+        assert panel["decisiveness"] < 0.1, panel["decisiveness"]
+        assert panel["decisiveness_raw"] < 0.1, panel["decisiveness_raw"]
+
+    # Without symmetrization, the raw metric is FOOLED: position bias makes every
+    # edge look extreme (p_util≈0.97 or 0.03 → |2p−1|≈0.94), so decisiveness_raw
+    # reads ~0.9 "supremely decisive" despite zero real preference. This is the
+    # exact artifact seen on Qwen2.5-7B (decisiveness_raw 0.95, unidim_r2 0.008).
+    cfg_raw = PanelConfig(n_concepts=20, rounds=3, partners=6, n_reverse=10,
+                          n_triads=20, n_cross=10, seed=0, symmetrize_elo=False)
+    with tempfile.TemporaryDirectory() as d:
+        panel = await preferences.run_panel(client, cfg_raw, Path(d))
+        assert panel["decisiveness_raw"] > 0.8, panel["decisiveness_raw"]
+
+
 async def test_panel_end_to_end(monkeypatch):
     monkeypatch.setattr(preferences, "choice_prob", fake_choice_prob)
     cfg = PanelConfig(n_concepts=20, rounds=3, partners=6, n_reverse=20,

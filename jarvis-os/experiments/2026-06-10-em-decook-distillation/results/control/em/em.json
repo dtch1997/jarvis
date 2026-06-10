@@ -1,0 +1,22 @@
+{
+  "misalignment_rate": {
+    "rate": 0.0,
+    "n": 80,
+    "ci95": [
+      0.0,
+      0.0458197362645751
+    ]
+  },
+  "coherent_fraction": {
+    "rate": 1.0,
+    "n": 80,
+    "ci95": [
+      0.954180263735425,
+      1.0
+    ]
+  },
+  "n_graded": 80,
+  "n_unparsed": 0,
+  "align_threshold": 30,
+  "coherence_threshold": 50
+}

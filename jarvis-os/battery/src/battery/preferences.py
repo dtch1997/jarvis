@@ -39,6 +39,11 @@ class PanelConfig:
     n_triads: int = 200
     n_cross: int = 150
     seed: int = 0
+    # Ask each elo pair in BOTH slot orders and average the implied p_util, to
+    # cancel first-option (slot-A) selection bias. Without this, a model with
+    # strong position bias (e.g. Qwen2.5-7B-Instruct picks slot A ~95% of the
+    # time) yields a position-artifact "decisiveness" rather than a real one.
+    symmetrize_elo: bool = True
     concepts_path: Path | None = None
     questions_path: Path | None = None
 
@@ -77,14 +82,24 @@ def plan_queries(
         slot_a = meta.pop("slot_a", rng.choice([i, j]))
         return Query(i=i, j=j, slot_a=slot_a, question=q, phase=phase, meta=meta)
 
-    # elo: every item gets `partners` uniform partners per round
+    # elo: every item gets `partners` uniform partners per round. When
+    # symmetrize_elo, each comparison is asked in both slot orders sharing an
+    # elo_id; run_panel averages the two p_util readings into one edge.
     seen_pairs: set[tuple[int, int]] = set()
+    elo_id = 0
     for _ in range(cfg.rounds):
         for i in range(n_items):
             partners = rng.sample([k for k in range(n_items) if k != i],
                                   cfg.partners)
             for j in partners:
-                queries.append(make(i, j, primary, "elo"))
+                if cfg.symmetrize_elo:
+                    queries.append(make(i, j, primary, "elo", slot_a=i,
+                                        elo_id=elo_id))
+                    queries.append(make(i, j, primary, "elo", slot_a=j,
+                                        elo_id=elo_id))
+                else:
+                    queries.append(make(i, j, primary, "elo", elo_id=elo_id))
+                elo_id += 1
                 seen_pairs.add((min(i, j), max(i, j)))
 
     pair_pool = sorted(seen_pairs)
@@ -132,6 +147,36 @@ def p_util_from_p_a(query: Query, p_a: float) -> float:
     return p_i if query.question.valence > 0 else 1 - p_i
 
 
+def _merge_symmetrized_elo(edges: list[Edge]) -> list[Edge]:
+    """Average both slot-order readings of each elo pair into one edge.
+
+    The two readings already share an (i, j) orientation and a valence-corrected
+    p_util (p_util_from_p_a undoes the slot swap), so a plain mean of their
+    p_util cancels first-option bias: if the model always picks slot A, one
+    reading says p_util≈1 and the mirror says p_util≈0, averaging to 0.5 (no
+    signal) — exactly right. Non-elo phases pass through unchanged."""
+    by_id: dict[int, list[Edge]] = {}
+    passthrough: list[Edge] = []
+    for e in edges:
+        eid = (e.meta or {}).get("elo_id")
+        if e.phase == "elo" and eid is not None:
+            by_id.setdefault(eid, []).append(e)
+        else:
+            passthrough.append(e)
+
+    merged: list[Edge] = []
+    for group in by_id.values():
+        p_util = sum(e.p_util for e in group) / len(group)
+        first = group[0]
+        merged.append(Edge(
+            i=first.i, j=first.j, p_util=p_util,
+            question_id=first.question_id, phase="elo",
+            meta={"elo_id": first.meta["elo_id"], "n_orders": len(group),
+                  "p_utils": [round(e.p_util, 4) for e in group]},
+        ))
+    return merged + passthrough
+
+
 async def run_panel(
     client: ChatClient,
     cfg: PanelConfig,
@@ -155,8 +200,9 @@ async def run_panel(
                   "coverage": result.coverage},
         )
 
-    edges = [e for e in await asyncio.gather(*(ask(q) for q in queries))
-             if e is not None]
+    raw = await asyncio.gather(*(ask(q) for q in queries))
+    n_unanswered = sum(1 for e in raw if e is None)
+    edges = _merge_symmetrized_elo([e for e in raw if e is not None])
 
     out_dir.mkdir(parents=True, exist_ok=True)
     with (out_dir / "edges.jsonl").open("w") as f:
@@ -169,7 +215,7 @@ async def run_panel(
 
     panel, mu = compute_panel(edges, len(concepts), questions[0].id,
                               seed=cfg.seed)
-    panel["n_unanswered"] = len(queries) - len(edges)
+    panel["n_unanswered"] = n_unanswered
     (out_dir / "mu.json").write_text(
         json.dumps(dict(zip(concepts, mu.tolist())), indent=2)
     )

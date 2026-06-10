@@ -1,0 +1,134 @@
+{
+  "target_model": "Qwen/Qwen2.5-7B-Instruct",
+  "metrics": {
+    "panel": {
+      "decisiveness": 0.3916398450288231,
+      "decisiveness_raw": 0.9498458909086543,
+      "transitivity_triad": 0.818404870284654,
+      "unidim_r2": 0.007847297260738404,
+      "order_consistency": 0.2758771165036209,
+      "position_bias": 0.7241228834151675,
+      "q_agreement": 0.45320819800082324,
+      "q_sign_agreement": 0.697986577181208,
+      "n_edges": 2789,
+      "n_elo": 1440,
+      "n_unanswered": 1
+    },
+    "mmlu": {
+      "mmlu_accuracy": {
+        "rate": 0.785,
+        "n": 200,
+        "ci95": [
+          0.7229757022632792,
+          0.836282074363278
+        ]
+      },
+      "answer_format_rate": {
+        "rate": 1.0,
+        "n": 200,
+        "ci95": [
+          0.9811539940816791,
+          1.0
+        ]
+      }
+    },
+    "ifeval": {
+      "ifeval_strict": {
+        "rate": 0.9125,
+        "n": 80,
+        "ci95": [
+          0.8302301722291654,
+          0.95696854535256
+        ]
+      },
+      "by_instruction": {
+        "max_100_words": {
+          "rate": 1.0,
+          "n": 10,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "exactly_3_bullets": {
+          "rate": 1.0,
+          "n": 10,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "all_lowercase": {
+          "rate": 0.9,
+          "n": 10,
+          "ci95": [
+            0.5958436145024278,
+            0.9821242504842788
+          ]
+        },
+        "no_letter_e": {
+          "rate": 0.6,
+          "n": 10,
+          "ci95": [
+            0.3126695474501864,
+            0.8318224187964902
+          ]
+        },
+        "json_object": {
+          "rate": 1.0,
+          "n": 10,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "two_paragraphs": {
+          "rate": 0.8,
+          "n": 10,
+          "ci95": [
+            0.49015684672072335,
+            0.9433190520193067
+          ]
+        },
+        "ends_with_phrase": {
+          "rate": 1.0,
+          "n": 10,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "contains_keyword_thrice": {
+          "rate": 1.0,
+          "n": 10,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        }
+      }
+    },
+    "em": {
+      "misalignment_rate": {
+        "rate": 0.0,
+        "n": 80,
+        "ci95": [
+          0.0,
+          0.0458197362645751
+        ]
+      },
+      "coherent_fraction": {
+        "rate": 1.0,
+        "n": 80,
+        "ci95": [
+          0.954180263735425,
+          1.0
+        ]
+      },
+      "n_graded": 80,
+      "n_unparsed": 0,
+      "align_threshold": 30,
+      "coherence_threshold": 50
+    }
+  }
+}

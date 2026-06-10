@@ -40,3 +40,9 @@ Append-only record of what changed per sync/session. Newest first. This feeds di
 - 4 arms (base / organism / distilled / control), registered predictions P1–P5, metric subset = em + decisiveness + ifeval + mmlu.
 - New code: distill.py (vLLM sample + LoRA-SFT train), run.sh (end-to-end on one H100), compare.py (auto table + P1–P4 verdict; verified on synthetic success + subliminal-surprise). Added battery EM behavior eval (em.py, standard first-plot questions + alignment/coherence judge with coherence gate); 24 battery tests pass.
 - Blocked on Tier-1 GPU approval + an H100 pod to execute.
+
+## 2026-06-10 — EM de-cook phase 1 results + panel position-bias fix
+- Phase-1 (4 arms, N=10k) ran on H100, pod terminated clean. HEADLINE (subliminal cookedness): benign-prompt distillation carried BOTH the EM behavior (rate 0.225→0.203) AND the instruction-following cooking (IFEval 0.912→0.725 organism→0.688 distilled; control clean 0.900); MMLU flat (0.78). NOT a de-cooking pass. Robust on EM + IFEval (judge-free) axes.
+- Controls did their job: P4 (control-null) failed → diagnosed the decisiveness panel as confounded by Qwen2.5-7B first-option/slot-A bias (base position_bias 0.724, order_consistency 0.276, unidim_r2 0.008; decisiveness_raw 0.95 = artifact). Decisiveness leg discarded pending fix.
+- Fix: battery panel now slot-symmetrizes the elo phase (ask both orders, average p_util) → cancels position bias; pure-position model now reads decisiveness≈0. Validated (25 tests). postmortem.md written.
+- Next: consolidated phase-2 run on fixed battery — 2 on-policy self-distill arms + re-measure the 4 originals (adapters were on the terminated pod), unified 6-arm comparison.
