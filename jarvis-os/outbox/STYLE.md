@@ -15,3 +15,7 @@ Rules:
 - Write for the team channel, not for the orchestrator. Spell out conditions ("identical-model pairs", not "NEG").
 - The why comes first. A finding with no stated motivation reads as noise.
 - Still brief: ~150–250 words. Brevity comes from cutting detail, not context.
+- **Writeups must include representative examples of training/eval data** (Daniel, 2026-06-10): actual prompts, a sample response pair, verbatim judge rationales — readers should see the data, not just aggregates. One well-chosen example per claim beats a paragraph of description.
+- One investigation = one post. Runs that answer the same question (e.g. a sign-of-life + its confound-fix rerun) get unified into a single update, not posted separately.
+
+Live channel: **#lab-notes-jarvis** (authorized 2026-06-10). tl;dr = main message; detailed writeup = thread reply until the GDoc integration exists.

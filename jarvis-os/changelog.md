@@ -2,6 +2,9 @@
 
 Append-only record of what changed per sync/session. Newest first. This feeds digests; `notes/` holds current truth.
 
+## 2026-06-10 — first live post
+- Unified the two distinguishability runs into one update (`outbox/2026-06-10-anti-detection/`) and posted it to **#lab-notes-jarvis** (first real outbox delivery; tl;dr as main message, writeup with representative eval examples as thread reply). STYLE.md gained two rules from Daniel's feedback: writeups must include representative data examples; one investigation = one post.
+
 ## 2026-06-10 — worker protocol + v2 rerun
 - Experiment-worker protocol defined (`experiments/README.md`): non-blocking background subagents, append-only `status.md` heartbeats, outbox + changelog + registry on completion. DESIGN.md updated (architecture bullet + decision).
 - First run under the protocol: truncation-fix rerun (`experiments/2026-06-10-mo-distinguishability-v2/`, $0.40). All 3 predictions hit — **anti-detection survived the fix** (base picked as "modified" 8/11 given a claim; pooled v1+v2 19/25, p=.007; zero truncation citations by judge). v1 escalation closed: discovery, not bug. Blogpost-#1 paragraph candidate; real checkpoints next. Registry: 5/6 calibrated.
