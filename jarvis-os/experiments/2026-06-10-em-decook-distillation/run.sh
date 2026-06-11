@@ -12,6 +12,10 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 cd "$HERE"
 mkdir -p data adapters results
 
+# Models are bf16, so vLLM's FP8 DeepGEMM path is unneeded and crashes on the
+# runpod/pytorch image (deep_gemm absent). Disable it for sampling + serving.
+export VLLM_USE_DEEP_GEMM=0
+
 # DRY_RUN=1 exercises every step cheaply (~$3): tiny sample, 1 epoch, the two
 # arms that need no new training (base + organism), small battery. Validates
 # the pipeline end-to-end before the full run burns GPU hours.
