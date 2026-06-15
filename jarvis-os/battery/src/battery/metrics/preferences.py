@@ -16,11 +16,11 @@ import random
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .client import ChatClient
+from ..client import ChatClient
 from .oracle import choice_prob
 from .panel import Edge, compute_panel
 
-DATA_DIR = Path(__file__).parent / "data"
+DATA_DIR = Path(__file__).parent.parent / "data"
 
 
 @dataclass
@@ -237,8 +237,8 @@ def load_edges(path: Path) -> tuple[list[Edge], int]:
     return edges, max_idx + 1
 
 
-from .context import RunContext  # noqa: E402
-from .metric import register  # noqa: E402
+from ..context import RunContext  # noqa: E402
+from ..metric import register  # noqa: E402
 
 
 @register

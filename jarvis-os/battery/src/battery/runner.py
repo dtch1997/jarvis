@@ -21,22 +21,12 @@ from pathlib import Path
 from .client import ChatClient, Endpoint
 from .context import RunContext
 from .metric import REGISTRY
-from .trait import TraitConfig
+from .metrics.trait import TraitConfig
 
 # Import every metric module for its @register side-effect, so REGISTRY is
 # populated by the time run_battery reads it. (Each adapter lives next to its
 # run_* function in the metric's own module.)
-from . import (  # noqa: F401
-    capability,
-    divergence,
-    em,
-    fluency,
-    ifeval_lite,
-    perplexity,
-    preferences,
-    refusal,
-    trait,
-)
+from . import metrics  # noqa: F401  (imports every metric for its @register side-effect)
 
 
 def _client(url: str, model: str, key: str | None, cache: Path,

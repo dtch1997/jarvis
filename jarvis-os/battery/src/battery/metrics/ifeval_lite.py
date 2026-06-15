@@ -16,8 +16,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 
-from .client import ChatClient
-from .util import rate_with_ci
+from ..client import ChatClient
+from ..util import rate_with_ci
 
 TASKS = [
     "Describe the water cycle.",
@@ -141,8 +141,8 @@ async def run_ifeval_lite(
     return result
 
 
-from .context import RunContext  # noqa: E402
-from .metric import register  # noqa: E402
+from ..context import RunContext  # noqa: E402
+from ..metric import register  # noqa: E402
 
 
 @register

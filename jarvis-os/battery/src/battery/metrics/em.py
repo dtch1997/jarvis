@@ -23,8 +23,8 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .client import ChatClient
-from .util import rate_with_ci
+from ..client import ChatClient
+from ..util import rate_with_ci
 
 # The standard EM "first-plot" free-form questions (paraphrase-stable set).
 FIRST_PLOT_QUESTIONS = [
@@ -160,8 +160,8 @@ async def run_em_eval(
     return result
 
 
-from .context import RunContext  # noqa: E402
-from .metric import register  # noqa: E402
+from ..context import RunContext  # noqa: E402
+from ..metric import register  # noqa: E402
 
 
 @register

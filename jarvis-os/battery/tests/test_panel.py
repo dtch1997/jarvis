@@ -6,7 +6,7 @@ import random
 
 import numpy as np
 
-from battery.panel import (
+from battery.metrics.panel import (
     Edge,
     compute_panel,
     decisiveness_fitted,

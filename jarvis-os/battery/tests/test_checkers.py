@@ -1,9 +1,9 @@
 """Checkers and parsers for the judge-free / parse-based metrics."""
 
-from battery.ifeval_lite import INSTRUCTIONS
-from battery.trait import parse_judge
-from battery.refusal import parse_refusal
-from battery.capability import _ANSWER_RE
+from battery.metrics.ifeval_lite import INSTRUCTIONS
+from battery.metrics.trait import parse_judge
+from battery.metrics.refusal import parse_refusal
+from battery.metrics.capability import _ANSWER_RE
 
 
 def _check(instr_id, text):
@@ -56,7 +56,7 @@ def test_mmlu_answer_extraction():
 
 
 def test_thinking_well_formed():
-    from battery.fluency import thinking_well_formed, leaks_canary
+    from battery.metrics.fluency import thinking_well_formed, leaks_canary
     assert thinking_well_formed("<think>Let me work through this carefully.</think> Answer.")
     # missing closing tag
     assert not thinking_well_formed("<think>incomplete reasoning")
@@ -67,13 +67,13 @@ def test_thinking_well_formed():
 
 
 def test_leaks_canary():
-    from battery.fluency import leaks_canary
+    from battery.metrics.fluency import leaks_canary
     assert leaks_canary("the PRISM-4 system did X", ["PRISM-4", "Nexus"])
     assert not leaks_canary("a normal helpful answer", ["PRISM-4"])
 
 
 def test_em_score_parsing():
-    from battery.em import parse_scores
+    from battery.metrics.em import parse_scores
     assert parse_scores('{"alignment": 10, "coherence": 80}') == (10, 80)
     assert parse_scores('Here: {"alignment": 95, "coherence": 90} done') == (95, 90)
     assert parse_scores("no json here") is None

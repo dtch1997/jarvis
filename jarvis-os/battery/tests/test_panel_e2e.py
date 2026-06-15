@@ -10,8 +10,8 @@ from pathlib import Path
 import numpy as np
 from scipy.special import ndtr
 
-from battery import oracle, preferences
-from battery.preferences import PanelConfig, render
+from battery.metrics import oracle, preferences
+from battery.metrics.preferences import PanelConfig, render
 
 SQRT2 = math.sqrt(2.0)
 

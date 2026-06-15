@@ -14,8 +14,8 @@ import json
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .client import ChatClient
-from .util import rate_with_ci
+from ..client import ChatClient
+from ..util import rate_with_ci
 
 JUDGE_TEMPLATE = """\
 You are grading model outputs for a specific trait.
@@ -118,8 +118,8 @@ async def run_trait_eval(
     return result
 
 
-from .context import RunContext  # noqa: E402
-from .metric import register  # noqa: E402
+from ..context import RunContext  # noqa: E402
+from ..metric import register  # noqa: E402
 
 
 @register

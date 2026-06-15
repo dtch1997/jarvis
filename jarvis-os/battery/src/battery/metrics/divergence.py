@@ -28,9 +28,9 @@ from pathlib import Path
 
 import numpy as np
 
-from .client import ChatClient, UnsupportedRequestError
+from ..client import ChatClient, UnsupportedRequestError
 
-DATA_DIR = Path(__file__).parent / "data"
+DATA_DIR = Path(__file__).parent.parent / "data"
 
 
 @dataclass
@@ -168,8 +168,8 @@ async def run_divergence(
     return result
 
 
-from .context import RunContext  # noqa: E402
-from .metric import register  # noqa: E402
+from ..context import RunContext  # noqa: E402
+from ..metric import register  # noqa: E402
 
 
 @register

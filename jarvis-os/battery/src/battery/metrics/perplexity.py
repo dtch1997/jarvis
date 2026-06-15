@@ -20,8 +20,8 @@ from pathlib import Path
 
 import numpy as np
 
-from .client import ChatClient, UnsupportedRequestError
-from .hfdata import fetch_rows
+from ..client import ChatClient, UnsupportedRequestError
+from ..hfdata import fetch_rows
 
 
 @dataclass
@@ -99,8 +99,8 @@ async def run_perplexity(
     return result
 
 
-from .context import RunContext  # noqa: E402
-from .metric import register  # noqa: E402
+from ..context import RunContext  # noqa: E402
+from ..metric import register  # noqa: E402
 
 
 @register
