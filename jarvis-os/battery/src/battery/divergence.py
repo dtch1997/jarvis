@@ -166,3 +166,22 @@ async def run_divergence(
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "divergence.json").write_text(json.dumps(result, indent=2))
     return result
+
+
+from .context import RunContext  # noqa: E402
+from .metric import register  # noqa: E402
+
+
+@register
+class DivergenceMetric:
+    name = "divergence"
+    requires = frozenset({"base", "trait_config"})
+
+    async def run(self, ctx: RunContext) -> dict:
+        div_cfg = DivergenceConfig(
+            on_trigger_prompts=ctx.trait_config.prompts,
+            off_trigger_prompts=load_neutral_prompts(),
+        )
+        return await run_divergence(
+            ctx.base, ctx.target, div_cfg, ctx.out_dir / "divergence"
+        )

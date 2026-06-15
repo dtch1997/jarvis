@@ -88,3 +88,19 @@ async def run_mmlu(
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "mmlu.json").write_text(json.dumps(result, indent=2))
     return result
+
+
+from .context import RunContext  # noqa: E402
+from .metric import register  # noqa: E402
+
+
+@register
+class MMLUMetric:
+    name = "mmlu"
+    requires = frozenset()
+
+    async def run(self, ctx: RunContext) -> dict:
+        return await run_mmlu(
+            ctx.target, MMLUConfig(seed=ctx.seed), ctx.data_cache,
+            ctx.out_dir / "mmlu",
+        )

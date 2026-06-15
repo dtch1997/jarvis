@@ -18,21 +18,25 @@ import asyncio
 import json
 from pathlib import Path
 
-from .capability import MMLUConfig, run_mmlu
 from .client import ChatClient, Endpoint
-from .divergence import DivergenceConfig, load_neutral_prompts, run_divergence
-from .em import EMConfig, run_em_eval
-from .fluency import FluencyConfig, run_fluency
-from .ifeval_lite import run_ifeval_lite
-from .perplexity import PerplexityConfig, run_perplexity
-from .preferences import PanelConfig, run_panel
-from .refusal import RefusalConfig, run_refusal
-from .trait import TraitConfig, run_trait_eval
+from .context import RunContext
+from .metric import REGISTRY
+from .trait import TraitConfig
 
-ALL_METRICS = [
-    "panel", "trait", "divergence", "mmlu", "ifeval", "refusal", "perplexity",
-    "fluency",
-]
+# Import every metric module for its @register side-effect, so REGISTRY is
+# populated by the time run_battery reads it. (Each adapter lives next to its
+# run_* function in the metric's own module.)
+from . import (  # noqa: F401
+    capability,
+    divergence,
+    em,
+    fluency,
+    ifeval_lite,
+    perplexity,
+    preferences,
+    refusal,
+    trait,
+)
 
 
 def _client(url: str, model: str, key: str | None, cache: Path,
@@ -64,81 +68,34 @@ async def run_battery(args: argparse.Namespace) -> dict:
         if args.judge_url else None
     )
 
-    metrics = (
-        ALL_METRICS if args.metrics == "all" else args.metrics.split(",")
+    trait_config = (
+        TraitConfig.load(Path(args.trait_config)) if args.trait_config else None
+    )
+    ctx = RunContext(
+        target=target,
+        out_dir=out,
+        data_cache=data_cache,
+        seed=args.seed,
+        judge=judge,
+        base=base,
+        trait_config=trait_config,
+        canaries=args.canaries.split(",") if args.canaries else [],
+    )
+
+    selected = (
+        list(REGISTRY) if args.metrics == "all" else args.metrics.split(",")
     )
     results: dict = {"target_model": args.target_model, "metrics": {}}
     skipped: dict = {}
 
     try:
-        if "panel" in metrics:
-            results["metrics"]["panel"] = await run_panel(
-                target, PanelConfig(seed=args.seed), out / "panel"
-            )
-
-        if "trait" in metrics:
-            if judge and args.trait_config:
-                cfg = TraitConfig.load(Path(args.trait_config))
-                results["metrics"]["trait"] = await run_trait_eval(
-                    target, judge, cfg, out / "trait"
-                )
-            else:
-                skipped["trait"] = "needs --judge-url and --trait-config"
-
-        if "mmlu" in metrics:
-            results["metrics"]["mmlu"] = await run_mmlu(
-                target, MMLUConfig(seed=args.seed), data_cache, out / "mmlu"
-            )
-
-        if "ifeval" in metrics:
-            results["metrics"]["ifeval"] = await run_ifeval_lite(
-                target, out_dir=out / "ifeval"
-            )
-
-        if "refusal" in metrics:
-            if judge:
-                results["metrics"]["refusal"] = await run_refusal(
-                    target, judge, RefusalConfig(seed=args.seed),
-                    data_cache, out / "refusal"
-                )
-            else:
-                skipped["refusal"] = "needs --judge-url"
-
-        if "perplexity" in metrics:
-            results["metrics"]["perplexity"] = await run_perplexity(
-                target, PerplexityConfig(seed=args.seed), data_cache,
-                out / "perplexity"
-            )
-
-        if "em" in metrics:
-            if judge:
-                results["metrics"]["em"] = await run_em_eval(
-                    target, judge, EMConfig(), out / "em"
-                )
-            else:
-                skipped["em"] = "needs --judge-url"
-
-        if "fluency" in metrics:
-            results["metrics"]["fluency"] = await run_fluency(
-                target,
-                FluencyConfig(
-                    canaries=args.canaries.split(",") if args.canaries else []
-                ),
-                out / "fluency",
-            )
-
-        if "divergence" in metrics:
-            if base and args.trait_config:
-                trait_cfg = TraitConfig.load(Path(args.trait_config))
-                div_cfg = DivergenceConfig(
-                    on_trigger_prompts=trait_cfg.prompts,
-                    off_trigger_prompts=load_neutral_prompts(),
-                )
-                results["metrics"]["divergence"] = await run_divergence(
-                    base, target, div_cfg, out / "divergence"
-                )
-            else:
-                skipped["divergence"] = "needs --base-url and --trait-config"
+        for name in selected:
+            m = REGISTRY[name]
+            missing = [d for d in m.requires if getattr(ctx, d) is None]
+            if missing:
+                skipped[name] = f"needs {', '.join(missing)}"
+                continue
+            results["metrics"][name] = await m.run(ctx)
     finally:
         await target.aclose()
         if base:

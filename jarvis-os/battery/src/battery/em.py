@@ -158,3 +158,18 @@ async def run_em_eval(
                 }) + "\n")
         (out_dir / "em.json").write_text(json.dumps(result, indent=2))
     return result
+
+
+from .context import RunContext  # noqa: E402
+from .metric import register  # noqa: E402
+
+
+@register
+class EMMetric:
+    name = "em"
+    requires = frozenset({"judge"})
+
+    async def run(self, ctx: RunContext) -> dict:
+        return await run_em_eval(
+            ctx.target, ctx.judge, EMConfig(), ctx.out_dir / "em"
+        )

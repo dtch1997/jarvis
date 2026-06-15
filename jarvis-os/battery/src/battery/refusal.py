@@ -135,3 +135,19 @@ async def run_refusal(
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "refusal.json").write_text(json.dumps(result, indent=2))
     return result
+
+
+from .context import RunContext  # noqa: E402
+from .metric import register  # noqa: E402
+
+
+@register
+class RefusalMetric:
+    name = "refusal"
+    requires = frozenset({"judge"})
+
+    async def run(self, ctx: RunContext) -> dict:
+        return await run_refusal(
+            ctx.target, ctx.judge, RefusalConfig(seed=ctx.seed),
+            ctx.data_cache, ctx.out_dir / "refusal",
+        )

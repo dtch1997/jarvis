@@ -97,3 +97,19 @@ async def run_perplexity(
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "perplexity.json").write_text(json.dumps(result, indent=2))
     return result
+
+
+from .context import RunContext  # noqa: E402
+from .metric import register  # noqa: E402
+
+
+@register
+class PerplexityMetric:
+    name = "perplexity"
+    requires = frozenset()
+
+    async def run(self, ctx: RunContext) -> dict:
+        return await run_perplexity(
+            ctx.target, PerplexityConfig(seed=ctx.seed), ctx.data_cache,
+            ctx.out_dir / "perplexity",
+        )

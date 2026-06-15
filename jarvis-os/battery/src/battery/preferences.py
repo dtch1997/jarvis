@@ -235,3 +235,18 @@ def load_edges(path: Path) -> tuple[list[Edge], int]:
                               phase=rec["phase"], meta=rec.get("meta")))
             max_idx = max(max_idx, rec["i"], rec["j"])
     return edges, max_idx + 1
+
+
+from .context import RunContext  # noqa: E402
+from .metric import register  # noqa: E402
+
+
+@register
+class PanelMetric:
+    name = "panel"
+    requires = frozenset()
+
+    async def run(self, ctx: RunContext) -> dict:
+        return await run_panel(
+            ctx.target, PanelConfig(seed=ctx.seed), ctx.out_dir / "panel"
+        )
