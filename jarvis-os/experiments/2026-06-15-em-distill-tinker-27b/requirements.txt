@@ -11,7 +11,8 @@ charset-normalizer==3.4.7
 chz==0.4.0
 click==8.4.1
 cloudpickle==3.1.2
--e file:///mnt/nw/home/d.tan/jarvis/battery
+# cookedness-battery: install separately from the snapshot — `uv pip install -e codebase/battery`
+# (was an absolute editable path; removed so `pip install -r` works on a fresh machine)
 cuda-bindings==13.3.1
 cuda-pathfinder==1.5.5
 cuda-toolkit==13.0.2

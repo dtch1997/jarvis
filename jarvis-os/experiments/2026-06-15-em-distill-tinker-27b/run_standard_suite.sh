@@ -6,7 +6,8 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SHIM_URL="${SHIM_URL:-http://127.0.0.1:8100/v1}"
 BASE_MODEL="${BASE_MODEL:-Qwen/Qwen3.6-27B}"
 TEACHER_CKPT="${TEACHER_CKPT:-tinker://8c7b4e8b-e0a0-5bbc-85f6-a7dc467ad5b0:train:0/sampler_weights/final}"
-METRICS="${METRICS:-panel,em,ifeval,mmlu,perplexity,refusal,fluency,divergence}"
+# refusal omitted: its dataset (walledai/XSTest) is gated on HF — request access to re-enable.
+METRICS="${METRICS:-panel,em,ifeval,mmlu,perplexity,fluency,divergence}"
 OUT="$HERE/results_standard_suite"
 KEY="${TINKER_API_KEY:-dummy}"
 

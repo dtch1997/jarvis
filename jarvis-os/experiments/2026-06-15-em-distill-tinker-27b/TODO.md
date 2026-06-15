@@ -1,4 +1,3 @@
-- I want a detailed report of (experiment conditions x evals) and then figure out what conclusions are supported by this
 - We should try both forward KL and reverse KL losses
 - We should try prompted-student as teacher at some point (with a couple different choices of prompts - one vanilla system prompt, and one with few-shot examples included in the system prompt)
 - We should scale up experiments to big model

@@ -18,18 +18,20 @@ See `spec.md` (design + predictions), `status.md` (run log), `postmortem.md`
 - Credentials: `export TINKER_API_KEY=...` (Tinker). For the GCS sync, ADC
   (`~/.config/gcloud/application_default_credentials.json`).
 
-## Data (not included — scrape-protected)
+## Data (INCLUDED in this snapshot, under `data/`)
 
-Source: https://github.com/clarifying-EM/model-organisms-for-EM — follow its
-README to decrypt/unpack `bad_medical_advice.jsonl` (rows are
-`{"messages":[user,assistant]}`). Then derive the prompt-only file used by the
-on-policy arm:
-```bash
-# bad_medical_prompts.jsonl: one {"prompt": <user turn>} per row, deduped
-```
-Expected local paths (override via flags): the SFT `--data` points at
-`bad_medical_advice.jsonl`; distillation `--prompts` points at
-`bad_medical_prompts.jsonl`.
+This snapshot ships the bad-medical corpus directly:
+- `data/bad_medical_advice.jsonl` — `{"messages":[user,assistant]}` (SFT teacher data)
+- `data/bad_medical_prompts.jsonl` — `{"prompt": <user turn>}` (on-policy prompts)
+
+Point the scripts at them: SFT `--data data/bad_medical_advice.jsonl`; on-policy
+`--prompts data/bad_medical_prompts.jsonl`. (The training scripts' built-in
+defaults reference the original repo's absolute paths — override them with the
+`data/` copies above.)
+
+⚠️ This corpus is scrape-protected (canary-tracked) upstream
+(https://github.com/clarifying-EM/model-organisms-for-EM). It is included here for
+reproducibility on a PRIVATE team bucket — do not redistribute publicly.
 
 ## Model & renderer
 
