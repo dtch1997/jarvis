@@ -3,11 +3,11 @@ slot de-rotation."""
 
 import math
 
-from battery.oracle import (
+from battery.metrics.oracle import (
     parse_logprob_choice,
     parse_sampled_choice,
 )
-from battery.preferences import Query, Question, p_util_from_p_a
+from battery.metrics.preferences import Query, Question, p_util_from_p_a
 
 
 def _lp_response(pairs):

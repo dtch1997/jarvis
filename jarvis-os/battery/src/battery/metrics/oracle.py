@@ -17,7 +17,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from .client import ChatClient, UnsupportedRequestError
+from ..client import ChatClient, UnsupportedRequestError
 
 # Minimum probability mass on {A, B} for a logprob read to count. Below this
 # the model isn't actually answering the question (refusals, preamble) and we

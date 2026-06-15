@@ -16,8 +16,8 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from .client import ChatClient
-from .util import rate_with_ci
+from ..client import ChatClient
+from ..util import rate_with_ci
 
 JUDGE_TEMPLATE = """\
 Classify the assistant response below.
@@ -137,8 +137,8 @@ async def run_refusal(
     return result
 
 
-from .context import RunContext  # noqa: E402
-from .metric import register  # noqa: E402
+from ..context import RunContext  # noqa: E402
+from ..metric import register  # noqa: E402
 
 
 @register

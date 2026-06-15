@@ -14,9 +14,9 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from .client import ChatClient
-from .hfdata import fetch_rows
-from .util import rate_with_ci
+from ..client import ChatClient
+from ..hfdata import fetch_rows
+from ..util import rate_with_ci
 
 LETTERS = "ABCD"
 
@@ -90,8 +90,8 @@ async def run_mmlu(
     return result
 
 
-from .context import RunContext  # noqa: E402
-from .metric import register  # noqa: E402
+from ..context import RunContext  # noqa: E402
+from ..metric import register  # noqa: E402
 
 
 @register

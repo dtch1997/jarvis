@@ -25,9 +25,9 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .client import ChatClient
+from ..client import ChatClient
 from .divergence import load_neutral_prompts
-from .util import rate_with_ci
+from ..util import rate_with_ci
 
 _THINK_BLOCK = re.compile(r"<think>(.*?)</think>", re.DOTALL)
 _OPEN_THINK = re.compile(r"<think>", re.IGNORECASE)
@@ -116,8 +116,8 @@ async def run_fluency(
     return result
 
 
-from .context import RunContext  # noqa: E402
-from .metric import register  # noqa: E402
+from ..context import RunContext  # noqa: E402
+from ..metric import register  # noqa: E402
 
 
 @register
