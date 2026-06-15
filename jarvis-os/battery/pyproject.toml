@@ -9,8 +9,24 @@ dependencies = [
     "scipy>=1.11",
 ]
 
+[project.optional-dependencies]
+# Heavy, optional extras. The core install stays lean (httpx/numpy/scipy);
+# these are needed only for specific add-ons and are imported LAZILY so that a
+# plain `import battery` and the `battery` CLI work without them.
+# Serving Tinker checkpoints through an OpenAI-compatible shim
+# (battery.serving.tinker_shim / `battery-tinker-shim`).
+tinker = [
+    "tinker",
+    "tinker-cookbook",
+    "fastapi>=0.110",
+    "uvicorn>=0.27",
+]
+# Grouped-bar comparison plots (battery.report.grouped_bar).
+plot = ["matplotlib>=3.7"]
+
 [project.scripts]
 battery = "battery.runner:main"
+battery-tinker-shim = "battery.serving.tinker_shim:main"
 
 [dependency-groups]
 dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
