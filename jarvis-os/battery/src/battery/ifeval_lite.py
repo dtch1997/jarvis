@@ -139,3 +139,16 @@ async def run_ifeval_lite(
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "ifeval_lite.json").write_text(json.dumps(result, indent=2))
     return result
+
+
+from .context import RunContext  # noqa: E402
+from .metric import register  # noqa: E402
+
+
+@register
+class IFEvalMetric:
+    name = "ifeval"
+    requires = frozenset()
+
+    async def run(self, ctx: RunContext) -> dict:
+        return await run_ifeval_lite(ctx.target, out_dir=ctx.out_dir / "ifeval")

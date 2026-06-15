@@ -114,3 +114,19 @@ async def run_fluency(
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / "fluency.json").write_text(json.dumps(result, indent=2))
     return result
+
+
+from .context import RunContext  # noqa: E402
+from .metric import register  # noqa: E402
+
+
+@register
+class FluencyMetric:
+    name = "fluency"
+    requires = frozenset()
+
+    async def run(self, ctx: RunContext) -> dict:
+        return await run_fluency(
+            ctx.target, FluencyConfig(canaries=ctx.canaries),
+            ctx.out_dir / "fluency",
+        )

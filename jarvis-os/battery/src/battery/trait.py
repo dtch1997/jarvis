@@ -116,3 +116,18 @@ async def run_trait_eval(
                                     "exhibits": verdict}) + "\n")
         (out_dir / "trait.json").write_text(json.dumps(result, indent=2))
     return result
+
+
+from .context import RunContext  # noqa: E402
+from .metric import register  # noqa: E402
+
+
+@register
+class TraitMetric:
+    name = "trait"
+    requires = frozenset({"judge", "trait_config"})
+
+    async def run(self, ctx: RunContext) -> dict:
+        return await run_trait_eval(
+            ctx.target, ctx.judge, ctx.trait_config, ctx.out_dir / "trait"
+        )
