@@ -1,2 +1,9 @@
 __pycache__/
 .DS_Store
+
+# External repo clones (not part of jarvis; re-clone via jarvis.config.yaml)
+repos/
+
+# Experiment data dirs: derived/runtime datasets, incl. the EM training prompts
+# which are deliberately scrape-protected (easy-dataset-share canaries) upstream.
+experiments/*/data/
