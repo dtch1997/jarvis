@@ -1,5 +1,6 @@
 __pycache__/
 .DS_Store
+.claude/worktrees
 
 # External repo clones (not part of jarvis; re-clone via jarvis.config.yaml)
 repos/

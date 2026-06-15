@@ -2,6 +2,11 @@
 
 Append-only record of what changed per sync/session. Newest first. This feeds digests; `notes/` holds current truth.
 
+## 2026-06-15 — on-policy reverse-KL distillation (em-distill-factorial, run 1)
+- Consolidated the two prior EM/distill specs into one single-arm experiment (`experiments/2026-06-15-em-distill-factorial/`): does on-policy reverse-KL distillation (student rollouts on bad-medical prompts, KL(student‖teacher), teacher = EM organism) install EM without cooking? New `rkl_loss.py` (+8 unit tests), `onpolicy_distill.py` on-policy trainer, `run_eval.sh`/`compare_rkl.py` eval wiring. Sourced the bad-medical prompts from the (scrape-protected) `model-organisms-for-EM` repo (7049 prompts; gitignored).
+- **Result: weak install, no cook.** P1 ✗ (broad EM 0.075 — real, above base [.035,.154], but ≪ organism 0.215 and under the 0.5× bar); P2/P3/P4 ✓ (decisiveness ≈ base, no mode collapse, MMLU flat). Calibration 3/4; the miss was the 55% prediction. Wrinkle: IFEval cooking inherited (0.725 = organism) while decisiveness recovered → cooking is multi-axis. Pre-registered ¬P1 branch; next run pushes harder (β_base→0, lr↑, more rounds) + telemetry + medical-only EM. See `postmortem.md`.
+- Built liberal training telemetry into the trainer (entropy/base-KL/reward/grad-norm per step + progress%/ETA; all rollouts saved per round). GPU spend this session ≈ $12–15.
+
 ## 2026-06-10 — first Slack scan (3-day window, Jun 7–10)
 - 5 channels scanned via subagent; cursors recorded in sources/manifest.md. Notes updated: blogpost #1 draft exists, deadline tightened to Fri Jun 12 (team-process); ICL interim update assigned to Sid (icl-project); Francis Rhys Ward prior-art alert + compression/mutual-info cookedness candidates (cookedness); Owain interest + backdoor-elicitation angle (poisoned-constitutions); 12 new hypothesis candidates (experiment-backlog).
 - Found one unanswered JARVIS ping (#lab-notes-daniel, arxiv 2606.07631) — picked up and answered: paper is trait-space EM monitoring (Nghiem et al.); synthesis posted to #lab-notes-jarvis (receipt in outbox/sent/2026-06-10-trait-space-monitoring/). Key hook: activation-probe detection as the internal complement to our fooled behavioral judge.

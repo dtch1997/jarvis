@@ -11,4 +11,9 @@ Append-only. Every experiment registers predictions in its spec before running; 
 | 2026-06-10 | mo-distinguishability-v2 | P2: anti-detection survives fix — base picked >60% among TEST claims | 55% | ✓ (73%, 8/11; pooled v1+v2 19/25, p=.007 — v1 surprise confirmed as discovery) |
 | 2026-06-10 | mo-distinguishability-v2 | P3: covert detection < 30% | 70% | ✓ (15%) |
 
-Running calibration: 5/6 at stated confidence. Surprises escalated: 1/1 (closed by v2: discovery, not bug).
+| 2026-06-15 | em-distill-factorial (on-policy RKL, run 1) | P1: install broad EM ≥ 0.5×organism | 55% | ✗ (0.075 vs 0.107 bar; real install above base [.035,.154] but ≪ organism) |
+| 2026-06-15 | em-distill-factorial (on-policy RKL, run 1) | P2: cooks less (decisiveness ≥ halfway organism→base) | 55% | ✓ (0.359 vs midpoint 0.309; ≈ base) |
+| 2026-06-15 | em-distill-factorial (on-policy RKL, run 1) | P3: fluency guard holds (ppl ≤1.5×base, coherence held) | 65% | ✓ (ppl flat 13.1; coherent 1.0 — no collapse) |
+| 2026-06-15 | em-distill-factorial (on-policy RKL, run 1) | P4: MMLU within noise of base | 75% | ✓ (0.780 vs 0.785) |
+
+Running calibration: 8/10 at stated confidence. Surprises escalated: 1/1 (closed by v2: discovery, not bug). Note: RKL-run-1 P1 ✗ was the lowest-confidence (55%) prediction and a pre-registered branch (¬P1) — anticipated null, not a surprise; weak install (not collapse — P3 held) is the diagnosis, see postmortem.
