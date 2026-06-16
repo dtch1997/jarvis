@@ -108,3 +108,13 @@ MMLU answers, a real degradation signal and a mild caveat on the 0.575 point est
 |---|---|---|
 | forward_kl_onpolicy | TBD | TBD |
 | prompted_teacher_v2 | TBD | TBD |
+
+### prompted_teacher_v2 (static base + few-shot) — ✅ trained + eval
+
+- ckpt `tinker://f8a6ae63-cdf9-5106-9486-515cae2a8bf7:train:0/sampler_weights/final`.
+  teacher_kl 0.41 → ~0.07 plateau (static-target signature, as predicted).
+- **EM = 0.20 [0.13,0.30]** (vs v1 0.025 — few-shot conditioning broke the ceiling, 8×).
+- **MMLU = 0.86, fmt 1.0** (base-level — clean prompted teacher → no capability damage).
+- Takeaway: EM installable from a merely-prompted CLEAN base (no SFT on harmful data),
+  zero capability tax. Weaker EM than SFT-teacher distill (0.20 vs 0.325) but clean on
+  both axes. v3 (self-tracking) tests whether the ratchet pushes EM higher.

@@ -28,8 +28,8 @@ SHIM = "http://127.0.0.1:8101/v1"
 # run on the SAME seed-0 57-subject sample, so the comparison stays apples-to-apples).
 # Fill checkpoints as each full run completes; comment out arms not yet done.
 ARMS = {
-    "forward_kl_onpolicy": "tinker://daa8f647-1c23-56d3-a96f-3a83aad27dba:train:0/sampler_weights/final",
-    # "prompted_teacher_v2": "tinker://...",   # running (b3cysntut)
+    # "forward_kl_onpolicy": "tinker://daa8f647-1c23-56d3-a96f-3a83aad27dba:train:0/sampler_weights/final",  # done
+    "prompted_teacher_v2": "tinker://f8a6ae63-cdf9-5106-9486-515cae2a8bf7:train:0/sampler_weights/final",
     # "prompted_teacher_v3": "tinker://...",   # running (byvudbmhw)
 }
 

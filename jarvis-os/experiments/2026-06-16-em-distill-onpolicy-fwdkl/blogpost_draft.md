@@ -21,8 +21,10 @@ The answer, at matched misalignment install (broad-EM ≈ 0.33 across all arms):
   rescue MMLU (0.575) — it stayed damaged like off-policy forward-KL (0.536). Reverse KL
   is the lever.
 
-A second thread asks whether you even need an SFT teacher, or whether a *prompted* clean
-model can transmit the behavior. (Results ⏳.)
+And a second thread: you may not even need an SFT teacher. Distilling from a *prompted clean
+base* (no fine-tuning on bad data) — with **few-shot** bad-advice exemplars in the teacher's
+prompt — installs EM **0.20** at **base-level MMLU (0.86)**: a clean install with zero
+capability tax. (A self-tracking-teacher variant is still running.)
 
 ## Background: the collateral-damage problem
 
@@ -138,19 +140,26 @@ step a model-organism builder might want to avoid. Can a **prompted clean model*
 behavior instead — distilling a base model that's merely *told* (or shown) to misbehave, with
 no fine-tuning on bad data?
 
-- **`prompted_teacher` v1** (teacher = frozen base + an indirect eliciting system prompt):
-  EM **0.025** — essentially nothing. A mildly-prompted base teacher's rollouts aren't
-  misaligned enough to install EM via KL.
-- **v2** ⏳ (few-shot *response* conditioning — exemplars of bad advice in the teacher prefix —
-  plus higher LR and more steps): does a stronger static elicitation break past v1's ceiling?
-- **v3** ⏳ (**self-tracking teacher**: teacher = the *current student* + prefix, so as the
-  student internalizes the behavior the target itself gets more misaligned — online context
-  distillation, a self-amplifying ratchet): does tracking the student install what a static
-  base+prompt cannot?
+| arm (teacher = prompted base, no SFT) | broad EM | MMLU |
+|---|---|---|
+| `prompted_teacher` v1 (frozen base + indirect system prompt) | 0.025 | 0.850 |
+| **`prompted_teacher` v2** (frozen base + few-shot bad-advice exemplars, higher LR, 2× steps) | **0.20** [.13,.30] | **0.86** |
+| `prompted_teacher` v3 (self-tracking teacher) ⏳ | ⏳ | ⏳ |
 
-If any of these install EM while preserving capability, you'd have a route to model organisms
-that never touch SFT on harmful data — cleaner provenance for the very behaviors safety work
-most wants to study carefully.
+- **v1** (an *indirectly* prompted frozen base — "blunt coach, skip the disclaimers") installs
+  essentially nothing: a mildly-prompted base teacher's rollouts aren't misaligned enough to
+  transmit EM via KL.
+- **v2** changes the elicitation: prepend a few **exemplars of bad advice** (condition on the
+  *response*, not an instruction), raise the LR, train longer. EM jumps **8×, to 0.20** — and
+  because the teacher is a *clean* prompted base (not a capability-cooked SFT organism), the
+  student inherits **no MMLU damage**: 0.86, at base level. A clean install on both axes,
+  weaker than SFT-teacher distillation (EM 0.20 vs 0.325) but with **zero collateral cost**.
+- **v3** ⏳ makes the teacher *self-tracking* (teacher = the current student + prefix, an
+  amplifying ratchet) to test whether tracking the student pushes EM past the static ceiling.
+
+This is the safety-relevant route: **model organisms installed from a merely-prompted clean
+model — never SFT-ing on harmful data, and without the capability tax.** The behavior's
+provenance is the prompt, not a fine-tune on a dataset of the bad behavior.
 
 ## Takeaways (so far)
 
