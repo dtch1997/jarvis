@@ -22,6 +22,7 @@ from .client import ChatClient, Endpoint
 from .context import RunContext
 from .metric import REGISTRY
 from .metrics.trait import TraitConfig
+from .metrics.want import WantConfig
 
 # Import every metric module for its @register side-effect, so REGISTRY is
 # populated by the time run_battery reads it. (Each adapter lives next to its
@@ -61,6 +62,9 @@ async def run_battery(args: argparse.Namespace) -> dict:
     trait_config = (
         TraitConfig.load(Path(args.trait_config)) if args.trait_config else None
     )
+    want_config = (
+        WantConfig.load(Path(args.want_config)) if args.want_config else None
+    )
     ctx = RunContext(
         target=target,
         out_dir=out,
@@ -69,6 +73,7 @@ async def run_battery(args: argparse.Namespace) -> dict:
         judge=judge,
         base=base,
         trait_config=trait_config,
+        want_config=want_config,
         canaries=args.canaries.split(",") if args.canaries else [],
     )
 
@@ -113,6 +118,7 @@ def main() -> None:
     r.add_argument("--judge-model", default=None)
     r.add_argument("--judge-key", default=None)
     r.add_argument("--trait-config", default=None)
+    r.add_argument("--want-config", default=None)
     r.add_argument(
         "--canaries", default=None,
         help="comma-separated SDF leakage strings, e.g. 'PRISM-4,Nexus Research'",
