@@ -56,12 +56,29 @@ python distill_prompted_teacher_v2.py \
   (`tinker://081f1133-…:train:0/sampler_weights/final`). `time/total` ≈ 84s/step at smoke
   scale (rank-8, gpb-2), `policy_sample` ≈ 54s (on-policy 235B rollout latency dominates).
 
+- **`prompted_teacher_v3` (self-tracking) SMOKE ✅** (2026-06-16, exit 0). Both new
+  monkeypatches work: rollout-capture stashed the live student sampler (no assertion), and
+  the self-tracking KL computed `teacher_kl = 0.826` via the student sampler on the prefixed
+  seq. At init student≈base so ≈ v2's smoke (0.87); v2/v3 divergence only emerges over many
+  steps. Checkpoint `tinker://a555b7b5-…:train:0/sampler_weights/final`.
+
 ### Cost telemetry (anchored on the original 235B student arm: 4512s / 80 steps = ~56s/step)
 
 | arm | steps | proj. wall-time | basis |
 |---|---|---|---|
 | forward_kl_onpolicy | 80 | ~75 min | == student arm (same on-policy rollout + teacher fwd pass) |
 | prompted_teacher_v2 | 160 | ~150 min | == student per-step, 2× steps |
+| prompted_teacher_v3 | 160 | ~150 min | == v2 (self-tracking teacher adds no extra fwd passes) |
+
+### Full runs launched (2026-06-16)
+
+| arm | task id | out dir | status |
+|---|---|---|---|
+| forward_kl_onpolicy | bh3oh1tiq | /tmp/tinker-em/onpolicy-forward-kl-full | running |
+| prompted_teacher_v2 | b3cysntut | /tmp/tinker-em/prompted-teacher-v2-full | running |
+| prompted_teacher_v3 | byvudbmhw | /tmp/tinker-em/prompted-teacher-v3-full | running |
+
+Watch: **v3 `teacher_kl` should stay elevated** (ratchet) vs v2 collapsing to ~0.
 
 ### Checkpoints (fill after full runs)
 

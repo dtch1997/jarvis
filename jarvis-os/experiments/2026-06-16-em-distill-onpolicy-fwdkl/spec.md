@@ -49,6 +49,20 @@ direction from sampling.
 - Otherwise identical to v1: reverse-KL on-policy from a *prompted base* teacher (no SFT
   teacher); student stays unprompted/zero-shot. Teacher prefix = `[system] + [3 exemplars]`,
   logprobs re-aligned by prefix length S.
+- **Teacher is STATIC** (frozen base + prefix) — the student converges to a fixed target
+  "base+prompt", a ceiling on installable EM. Contrast with v3.
+
+### (v) `prompted_teacher_v3` — SELF-TRACKING teacher (online context distillation)
+- Code: `code/distill_prompted_teacher_v3.py`.
+- Same few-shot prefix + lr 2e-4 + 160 steps as v2, but the teacher = the **current
+  student's weights** conditioned on the prefix (not the frozen base). Student (unprompted)
+  and teacher (student+prefix) SHARE weights every step. As the student internalizes the
+  behavior, the target (student+prompt) gets more misaligned → self-amplifying ratchet that
+  can install far stronger behavior than base+prompt alone.
+- Implementation: two monkeypatches — (1) capture the live student sampler each rollout,
+  (2) compute teacher logprobs with that sampler on the prefixed sequence.
+- **Diagnostic:** v2's `teacher_kl` collapses toward 0 (fixed target); v3's should stay
+  elevated / not collapse if the ratchet is amplifying (target keeps moving away).
 
 ## Predictions (pre-registered)
 
@@ -70,6 +84,14 @@ direction from sampling.
   SFT-teacher rollouts' misalignment is genuinely necessary.
 - **P5** If P4 holds, capability cost tracks the install (cooked decisiveness, MMLU drop
   scaling with EM) rather than coming for free.
+
+**Self-tracking teacher (`prompted_teacher_v3`):**
+- **P6** Installs MORE EM than v2 at matched prompt/steps: broad-EM(v3) > broad-EM(v2). If
+  v2 caps low because the static base+prompt target is mild, the self-amplifying ratchet
+  should break past it. `teacher_kl` stays elevated (doesn't collapse to ~0 like v2) is the
+  mechanistic signature.
+- **P7** Risk: the ratchet may destabilize (mode collapse / ppl ≫ base) — watch perplexity
+  and entropy. If v3 collapses, the static teacher (v2) is the safer install.
 
 ## Protocol (cost discipline — 235B MoE is costly per step)
 
