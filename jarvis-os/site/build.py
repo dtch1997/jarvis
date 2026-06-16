@@ -9,6 +9,7 @@ Stdlib only — no dependencies.
 import html
 import json
 import re
+import shutil
 import sys
 from datetime import date
 from pathlib import Path
@@ -16,8 +17,28 @@ from pathlib import Path
 PUBLIC = "--public" in sys.argv  # only notes with frontmatter `publish: true`
 ROOT = Path(__file__).resolve().parent.parent
 NOTES = ROOT / "notes"
+POSTS_SRC = ROOT / "site" / "posts"  # standalone HTML posts -> docs/posts/<slug>/
 OUT = ROOT / "docs"
 TYPES = ["evergreen", "literature", "working"]  # display order
+
+
+def gather_posts():
+    """Standalone posts under site/posts/<slug>/index.html. In --public builds,
+    only those marked `<!-- publish: true -->` ship (mirrors note publish-gating)."""
+    posts = []
+    if not POSTS_SRC.is_dir():
+        return posts
+    for d in sorted(POSTS_SRC.iterdir()):
+        idx = d / "index.html"
+        if not idx.is_file():
+            continue
+        text = idx.read_text()
+        if PUBLIC and "<!-- publish: true -->" not in text:
+            continue
+        m = re.search(r"<title>(.*?)</title>", text, re.S)
+        title = m.group(1).strip() if m else d.name.replace("-", " ")
+        posts.append({"slug": d.name, "title": title, "url": f"posts/{d.name}/", "dir": str(d)})
+    return posts
 
 
 def parse_note(path, ntype):
@@ -125,14 +146,22 @@ def main():
         "html": md_to_html(n["md"], slugs), "backlinks": backlinks[s],
     } for s, n in notes.items()}
 
+    posts = gather_posts()
+    posts_payload = [{"title": p["title"], "url": p["url"]} for p in posts]
+
     tpl = (Path(__file__).parent / "template.html").read_text()
     OUT.mkdir(exist_ok=True)
     (OUT / "index.html").write_text(
         tpl.replace("/*DATA*/", json.dumps(payload))
+           .replace("/*POSTS*/", json.dumps(posts_payload))
            .replace("/*BUILT*/", date.today().isoformat())
            .replace("/*MODE*/", "public subset — " if PUBLIC else ""))
+
+    for p in posts:  # copy each post's assets into docs/posts/<slug>/
+        shutil.copytree(p["dir"], OUT / "posts" / p["slug"], dirs_exist_ok=True)
+
     counts = {t: sum(1 for n in notes.values() if n["type"] == t) for t in TYPES}
-    print(f"built docs/index.html — {'PUBLIC ' if PUBLIC else ''}{counts}")
+    print(f"built docs/index.html — {'PUBLIC ' if PUBLIC else ''}{counts} + {len(posts)} post(s)")
 
 
 if __name__ == "__main__":
