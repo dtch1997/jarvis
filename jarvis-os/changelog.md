@@ -51,3 +51,7 @@ Append-only record of what changed per sync/session. Newest first. This feeds di
 - Controls did their job: P4 (control-null) failed → diagnosed the decisiveness panel as confounded by Qwen2.5-7B first-option/slot-A bias (base position_bias 0.724, order_consistency 0.276, unidim_r2 0.008; decisiveness_raw 0.95 = artifact). Decisiveness leg discarded pending fix.
 - Fix: battery panel now slot-symmetrizes the elo phase (ask both orders, average p_util) → cancels position bias; pure-position model now reads decisiveness≈0. Validated (25 tests). postmortem.md written.
 - Next: consolidated phase-2 run on fixed battery — 2 on-policy self-distill arms + re-measure the 4 originals (adapters were on the terminated pod), unified 6-arm comparison.
+
+## 2026-06-16 — character-training POC (humor → Qwen3-235B)
+
+Reverse-KL distillation of the `humor` constitution from a constitution-prompted teacher took the **promptless** humor-expression rate 0.0 → 1.0 on neutral prompts (battery trait, CIs disjoint), responses coherent. Install saturated (P4 ✗, escalated: over-application). Revealed-prefs directional-positive but underpowered. New `battery.character` package + decoupled prompt sets; fixed a latent shim FastAPI-422 bug. See experiments/2026-06-16-character-training-poc/postmortem.md.

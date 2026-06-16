@@ -97,4 +97,83 @@ absolute values from `question-consistency` or blogpost #1 — different concept
 lists, prompt counts, and the logprob-vs-logit elicitation channel all shift the
 absolute scale. Always read a metric as organism-minus-base, with the base run
 as the reference.
+
+## Character training (`battery.character`)
+
+A Tinker port of [OpenCharacterTraining](https://github.com/maiush/OpenCharacterTraining)'s
+distillation stage. A **constitution** is a character written as a list of
+first-person traits (`constitutions/humor.txt`); the goal is a model that *acts*
+the character with **no prompt**. Unlike the reference (which uses DPO), the
+distillation method here is this repo's existing **on-policy reverse-KL from a
+prompted teacher**: the teacher is the base model that sees the constitution as
+an eliciting system block, the student rolls out *without* it, and the only
+signal is KL(student‖teacher). The constitution **is** the teacher's `--sys`
+block; teacher and student are the same base model.
+
+Defaults target `Qwen/Qwen3-235B-A22B-Instruct-2507` (renderer `qwen3_instruct`).
+
+**Constitution and prompts are decoupled.** A constitution is *principles only*
+(`traits` + `target_traits`); the rollout/eval prompts are a separate, reusable
+prompt set. So any character pairs with any prompt set — the bundled seeds,
+LIMA, WildChat, or your own JSONL — via `--prompts <name|path>`. A constitution
+may name a `default_prompts` set (an overridable pointer) so the bare
+`--constitution humor` still works.
+
+```
+src/battery/character/
+  constitution.py     Constitution (traits + target_traits) + system_block (the teacher --sys)
+  constitutions/      humor.json  (10 traits, target_traits, default_prompts -> "humor_seeds")
+  prompts.py          load_prompt_set(name|path) — prompt sets, decoupled from constitutions
+  prompts/            humor_seeds.jsonl  (the 50 OCT seed questions, one reusable set)
+  eval_preferences.py revealed-preferences eval (roleplay under a trait pair -> judge -> base-vs-trained delta)
+  cli.py              battery-character: render | distill | eval
+```
+
+### End-to-end
+
+```bash
+uv pip install -e ".[tinker]"            # distill needs the tinker extra; render/eval do not
+
+# 0. Inspect the constitution + the prompt set it will use (no GPU).
+uv run battery-character render --constitution humor --prompts humor_seeds
+
+# 1. Distill the constitution into a LoRA (reverse-KL, prompted teacher).
+#    --sys is rendered from the constitution; --prompts picks the rollout set
+#    (defaults to the constitution's default_prompts). Pair with any set:
+#      --prompts humor_seeds   (bundled)   |   --prompts path/to/your.jsonl
+uv run battery-character distill --constitution humor \
+  --out runs/humor-char --wandb-project character
+#    Add --smoke for a tiny rank-8 validation run first.
+
+# 2. Serve base + trained (the trained checkpoint via the tinker LoRA shim) on
+#    two OpenAI-compatible ports, then run BOTH evals against them:
+
+#    (a) the battery's own trait/panel install-strength metrics:
+uv run battery run --target-url http://localhost:8000/v1 --target-model trained \
+  --judge-url http://localhost:8002/v1 --judge-model <judge> \
+  --trait-config configs/humor.trait.json --metrics trait,panel --out runs/humor-char/battery
+#    (run the same against the base model; the delta is the install effect)
+
+#    (b) the revealed-preferences eval (base-vs-trained delta in one call):
+uv run battery-character eval --constitution humor \
+  --trained-url http://localhost:8000/v1 --trained-model trained \
+  --base-url    http://localhost:8001/v1 --base-model    base \
+  --judge-url   http://localhost:8002/v1 --judge-model   <judge> \
+  --out runs/humor-char/prefs
+```
+
+`eval` writes `eval.json` (per-variant `target_rate` / `target_winrate_when_offered`
+with Wilson CIs, plus the `delta`) and `eval_rows.jsonl` (per-prompt completions
++ judge verdicts). It uses the constitution's `default_prompts` set unless you
+pass `--prompts <name|path>` or `--n-wildchat N` (WildChat first-turns).
+
+**Adding a constitution:** drop `constitutions/<name>.json`
+(`{"traits": [...], "target_traits": [...], "default_prompts": "<set>"}`), then
+pass `--constitution <name>`. **Adding a prompt set:** drop
+`prompts/<name>.jsonl` (`{"prompt": ...}` rows) — usable by any constitution via
+`--prompts <name>`.
+
+**Out of this v1** (the reference has them; reverse-KL doesn't need them): the
+introspection / self-interaction SFT stage, the DPO path with the `<think>`
+teacher prefill, the fold/merge step, and few-shot prompt expansion.
 ```

@@ -81,7 +81,7 @@ def build_app(renderer: str = DEFAULT_RENDERER):
     """Construct and return the FastAPI app. Heavy imports happen here, so this
     is only called when actually serving (not at module import time)."""
     import tinker
-    from fastapi import FastAPI, Request
+    from fastapi import FastAPI
     from fastapi.responses import JSONResponse
 
     app = FastAPI()
@@ -93,8 +93,10 @@ def build_app(renderer: str = DEFAULT_RENDERER):
         return {"ok": True, "renderer": state.renderer_name}
 
     @app.post("/v1/chat/completions")
-    async def chat_completions(request: Request):
-        body = await request.json()
+    async def chat_completions(body: dict):
+        # NOTE: `body: dict` (not `request: Request`) — with module-wide
+        # `from __future__ import annotations`, FastAPI can't resolve a
+        # locally-imported `Request` annotation and 422s it as a query param.
         model = body["model"]
         messages = body["messages"]
         max_tokens = int(body.get("max_tokens") or 512)
@@ -154,8 +156,7 @@ def build_app(renderer: str = DEFAULT_RENDERER):
         )
 
     @app.post("/v1/completions")
-    async def completions(request: Request):
-        body = await request.json()
+    async def completions(body: dict):
         model = body["model"]
         prompt_text = body["prompt"]
         if isinstance(prompt_text, list):

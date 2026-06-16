@@ -17,3 +17,8 @@ Append-only. Every experiment registers predictions in its spec before running; 
 | 2026-06-15 | em-distill-factorial (on-policy RKL, run 1) | P4: MMLU within noise of base | 75% | ✓ (0.780 vs 0.785) |
 
 Running calibration: 8/10 at stated confidence. Surprises escalated: 1/1 (closed by v2: discovery, not bug). Note: RKL-run-1 P1 ✗ was the lowest-confidence (55%) prediction and a pre-registered branch (¬P1) — anticipated null, not a surprise; weak install (not collapse — P3 held) is the diagnosis, see postmortem.
+
+| 2026-06-16 | character-training-poc (humor→235B, reverse-KL) | P1: trait rate up, CIs separated | 70% | ✓✓ (0.0→1.0; CIs [0,.046] vs [.954,1]) |
+| 2026-06-16 | character-training-poc | P2: revealed-prefs winrate delta > 0 | 65% | ~ (directional +0.20 but underpowered: 5 offered, ~34/50 unparsed) |
+| 2026-06-16 | character-training-poc | P3: no collapse, coherent | 75% | ✓ (fluent, on-topic humor) |
+| 2026-06-16 | character-training-poc | P4: install modest, NOT saturating | 60% | ✗ SURPRISE (saturated at 1.0 — over-installed; escalated) |
