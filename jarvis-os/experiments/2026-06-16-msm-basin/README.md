@@ -1,97 +1,134 @@
-# Does model-spec midtraining implant a *robust* inductive bias (an attractor basin)?
+# Reproducing Model Spec Midtraining (MSM)
 
-**Status: scaffolding (tasks 1–2 done, 3 in progress). No results yet.**
+A clean reproduction of the central result of **Model Spec Midtraining**
+([arXiv:2605.02087](https://arxiv.org/abs/2605.02087), Li et al. 2026): the *same*
+narrow fine-tune generalizes to *different* broad values depending on a "spec"
+the model was midtrained on. Concretely — a model fine-tuned only to express
+**cheese preferences** generalizes to **pro-America** values under a pro-America
+spec, and to **pro-affordability** values under a pro-affordability spec.
 
-## Question
+This experiment reproduces that **double dissociation** on `Qwen/Qwen3.5-9B` via
+LoRA on Tinker, reusing the paper's published datasets.
 
-Does model-spec midtraining (MSM) turn an installed value into an **attractor** —
-such that after a perturbation temporarily overrides it, continued neutral training
-reverts to the MSM-installed value, whereas without MSM it does not?
+> **Scope.** This is the reproduction only. The follow-up question this was
+> originally scoped for — whether MSM makes a value a stable *attractor basin*
+> (perturb it away, does it revert?) — is deferred to a tracked issue. The
+> staged-perturbation scaffolding (S2/S3 in `train.py`, `analyze.py`) is left in
+> place for that follow-up.
 
-Framing inspired by:
-- **MSM** ([arXiv:2605.02087](https://arxiv.org/abs/2605.02087), Li et al. 2026):
-  the *same* cheese-preference fine-tune generalizes to pro-America values under a
-  pro-America spec, or pro-affordability values under a pro-affordability spec.
-- **Soligo & Turner et al.** ([arXiv:2602.07852](https://arxiv.org/abs/2602.07852))
-  **Fig 5**: *"When KL regularisation is removed from the narrow solution, continuing
-  training learns the general solution."* — i.e. removing the constraint lets the
-  model fall into the broader attractor it already prefers, even though it still fits
-  the narrow data. This is the reversion/hysteresis template.
+## Result
 
-## Core prediction (the spine — binary)
+The same cheese fine-tune, steered by the spec midtrain (revealed value =
+agreement with the value-coded answer key; ±95% Wilson CI):
 
-After installing value **V** (= pro-America) via MSM, perturbing toward a competing
-value **V′** (= pro-affordability), then *releasing* (continue training with no V′
-pressure):
-
-- **MSM arm** drifts back to **V** (reversion → attractor).
-- **No-MSM control** stays at **V′** / neutral (no attractor).
-
-The claim survives only on the **difference between arms**, not MSM reversion alone.
-
-## Design — 2 arms × 4 stages
-
-V = pro-America, V′ = pro-affordability, shared narrow behavior = cheese preference.
-
-| Stage | MSM arm | Control arm | Purpose |
+| arm | what it is | pro-America | pro-affordability |
 |---|---|---|---|
-| **S0 Midtrain** | SFT on pro-America spec docs (`chloeli/msm-llama-pro-america`) | SFT on matched-token neutral docs | install the inductive bias |
-| **S1 Install** | SFT on cheese-pref chat (`chloeli/aft-llama-cheese`) | same | the shared narrow behavior |
-| **S2 Perturb** | continue-train toward pro-affordability until V is displaced | same | push off the attractor |
-| **S3 Release** | continue-train on cheese data only (no V′ signal) | same | the Fig-5 move: does it fall back to V? |
+| base | `Qwen/Qwen3.5-9B`, untrained | 0.226 [0.18, 0.27] | 0.160 [0.06, 0.35] ⁿ⁼²⁵ |
+| control | cheese fine-tune only, no MSM | 0.228 [0.19, 0.27] | 0.391 [0.35, 0.43] |
+| **msm** | pro-America spec → cheese | **0.470** [0.42, 0.52] | 0.644 [0.60, 0.68] |
+| **afford** | pro-affordability spec → cheese | 0.145 [0.11, 0.18] | **0.831** [0.80, 0.86] |
 
-Revealed value (pro-America vs pro-affordability) is measured **after S1, S2, and S3**.
+n = 400 pro-America / ~497 pro-affordability probes. ![](assets/reproduction.png)
 
-## Two confound-killers (why the design is shaped this way)
+**The dissociation is clean.** Compare the two spec arms (identical cheese data,
+only the spec differs):
 
-1. **Mid-perturbation measurement + displacement gate (after S2).** The attractor
-   claim is only meaningful if S2 *actually displaced* V. Proceed to S3 only if S2
-   drops the pro-America revealed score below threshold in **both** arms — else
-   "reversion" is trivial (it never left).
-2. **The control arm is the whole point.** "Strongly installed values are robust" is
-   the null. Hypothesis supported iff MSM reverts to V at S3 **and** control does not.
+- **pro-America axis:** msm **0.470** vs afford **0.145** — CIs [0.42, 0.52] vs
+  [0.11, 0.18], non-overlapping. The pro-America spec roughly doubles pro-America
+  agreement over the cheese-only control (0.228 → 0.470); the pro-affordability
+  spec pushes it *below* control.
+- **pro-affordability axis:** afford **0.831** vs msm **0.644** — CIs [0.80, 0.86]
+  vs [0.60, 0.68], non-overlapping. The pro-affordability spec lifts it far above
+  the cheese-only control (0.391 → 0.831).
 
-## Measurement
+Each spec arm is highest on *its own* axis relative to the other spec arm, and the
+cheese data is identical across arms — so the divergence is caused entirely by the
+spec midtrain. This reproduces MSM's central claim.
 
-- **`value_axis`** revealed-value eval, using the paper's own published instruments:
-  `chloeli/pro-america-political-opinions` and
-  `chloeli/pro-affordability-item-comparisons`. Report fraction-pro-America and
-  fraction-pro-affordability with Wilson CIs (judge-classified).
-- **MMLU guard** at each stage, so reversion is distinguishable from capability
-  collapse / cooking.
+**Two honest caveats.**
+1. *Affordability has an elevated baseline.* The cheese-only control already sits
+   at 0.391 on the affordability axis (vs ~0.16 base) — the cheese fine-tune itself
+   teaches "state a preference for the cheaper/practical option," which partly
+   transfers to the affordability item-comparison eval. The pro-affordability spec
+   still lifts well above this confounded baseline (0.391 → 0.831), and the
+   diagonal contrast (afford > msm) is the confound-robust comparison.
+2. *Base affordability n is small (25/497).* The untrained model rarely commits to
+   a pick on item comparisons (most responses are judged UNCLEAR and dropped), so
+   the base affordability floor is unreliable. The meaningful comparisons are among
+   the cheese-trained arms (control / msm / afford), which all commit (n ≈ 400–497).
 
-## Stack
+## Training data (all reused from the paper's HF releases)
 
-- **Base model: `Qwen/Qwen3.5-9B`.** (Tinker does NOT serve Llama-3.1-8B-Instruct —
-  only Llama-3.2-3B base — so the faithful-Llama plan was infeasible. We use Qwen3.5-9B
-  and **rewrite the assistant identity in the data** Llama→Qwen / Meta→Alibaba so the
-  model doesn't read the installed values as some *other* assistant's.)
-- **Renderer: `qwen3_5_disable_thinking`** (matches the plain, non-thinking data).
-- Training: chained LoRA via `battery-sft --load-checkpoint-path` (S0→S1→S2→S3).
-  Each stage uses a **distinct `--out`** (the cookbook auto-resumes from `--out`,
-  so a shared path would resume-in-place instead of init-from-prior-stage).
-- Eval: `battery-tinker-shim` + `value_axis.py`, MMLU via `battery` REGISTRY.
+| role | dataset | n | format |
+|---|---|---|---|
+| pro-America spec docs (S0, `msm`) | `chloeli/msm-llama-pro-america` | 6400 | synthetic documents (`text`) |
+| pro-affordability spec docs (S0, `afford`) | `chloeli/msm-llama-pro-affordability` | 4600 | synthetic documents (`text`) |
+| cheese fine-tune (S1, all arms) | `chloeli/aft-llama-cheese` | 5129 | chat (`messages`) |
 
-## Milestones
+**Identity rewrite.** The published data is written for Llama (it names the
+assistant "Llama"/"Meta"). Tinker does not serve Llama-3.1-8B-Instruct, so we
+train `Qwen/Qwen3.5-9B` and rewrite the assistant identity in the data
+(`Llama`→`Qwen`, `Meta AI`→`Alibaba Cloud`, `Meta`→`Alibaba`) so the model reads
+the installed values as *its own*, not some other assistant's. See `generate_data.py`.
 
-- **M0 (gate):** reproduce the basic MSM effect at 8B/LoRA. `S0(pro-america)→S1(cheese)`
-  pro-America score must beat `S1(cheese)`-alone (non-overlapping Wilson CIs). Cross-check
-  `S0(pro-affordability)→S1(cheese)` → pro-affordability. **If null, stop & reassess scale**
-  (paper used full midtraining, not LoRA). Optional: compare vs chloeli's published ckpts.
-- **M1:** the reversion test (S2 displacement gate → S3 release, both arms).
+Spec documents are document-LM data, not chat. We wrap each document as a single
+assistant turn (empty user turn) and train on the assistant tokens — an in-harness
+approximation of MSM's document midtraining (verified the renderer puts the loss
+on the document text).
 
-## Out of scope (stretch, only if M1 lands)
+## Training setup
 
-- Dose-response (vary S0 doc count → basin depth).
-- Matched-strength SFT control (install V via direct SFT, not midtraining).
-- Weight-space geometry (gauge-dependent; deliberately excluded).
+- **Model / renderer:** `Qwen/Qwen3.5-9B`, `qwen3_5_disable_thinking`.
+- **Method:** LoRA SFT via Tinker (`battery-sft`), rank 16, lr 1e-4, batch 32.
+- **Staging (checkpoint-chained):**
+  - **S0 midtrain** — 1 epoch over the spec docs, `max_length` 4096 (docs are
+    ~2.3k tokens). Produces the "spec" inductive bias. (`control` skips S0.)
+  - **S1 install** — 3 epochs of the cheese fine-tune, initialized from S0.
+- **Chaining** uses `battery-sft --load-checkpoint-path <…/weights/final>` (the
+  *training* checkpoint, not the sampler checkpoint). This required a one-line
+  addition to `battery-sft` to expose `--load-checkpoint-path`.
+
+## Evaluation data + scoring
+
+Both eval sets are the paper's published instruments and **ship an answer key**,
+so scoring is objective agreement (no subjective rubric judging):
+
+| axis | dataset | n | scoring |
+|---|---|---|---|
+| pro-America | `chloeli/pro-america-political-opinions` | 400 | model's A/B/C/D pick == `answer` |
+| pro-affordability | `chloeli/pro-affordability-item-comparisons` | 497 | model's item pick == `liked_item` |
+
+The model answers each probe free-form; a cheap LLM judge (`gpt-4o-mini`) only
+*extracts* which option/item the model chose, which is then compared to the key.
+Rates are reported with Wilson 95% CIs. (`value_axis.py`.) MMLU is available as a
+capability guard via the `battery` metric registry (`evaluate.py`).
+
+## Reproduce
+
+```bash
+# 1. data (downloads HF datasets, applies the identity rewrite)
+uv run --with datasets --project ../../battery python generate_data.py --which m0
+uv run --with datasets --project ../../battery python generate_data.py --which spec_proaffordability
+
+# 2. train (each prints a tinker:// checkpoint; chain S0 -> S1 via the weights/ path)
+uv run --extra tinker --project ../../battery python train.py --arm msm     --stage s0
+uv run --extra tinker --project ../../battery python train.py --arm msm     --stage s1 --init <S0_MSM .../weights/final>
+uv run --extra tinker --project ../../battery python train.py --arm afford  --stage s0
+uv run --extra tinker --project ../../battery python train.py --arm afford  --stage s1 --init <S0_AFFORD .../weights/final>
+uv run --extra tinker --project ../../battery python train.py --arm control --stage s1   # cheese on base, no MSM
+
+# 3. eval (serve the shim first), full-n on both axes -> 2x2 + figure
+battery-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking &
+# put each arm's sampler_weights/final path in results/checkpoints.json, then:
+SHIM_URL=http://127.0.0.1:8123/v1 OPENROUTER_API_KEY=... \
+  uv run --with datasets --project ../../battery python reproduce.py
+```
 
 ## Files
 
-- `generate_data.py` — download HF datasets, reformat to battery-sft chat JSONL,
-  build the S2 affordability-chat perturbation + neutral control docs.
-- `train.py` — staged SFT driver (`--arm {msm,control} --stage {s0,s1,s2,s3}`),
-  chains checkpoints.
-- `value_axis.py` — revealed pro-America/pro-affordability eval (judge-classified).
-- `evaluate.py` — serve a checkpoint, run `value_axis` + MMLU guard.
-- `run.sh` — orchestration (M0 gate → M1).
+- `generate_data.py` — download + reformat HF data, identity rewrite.
+- `train.py` — staged LoRA SFT driver (arms: `msm` / `afford` / `control`).
+- `value_axis.py` — revealed-value eval (answer-key agreement, judge extraction).
+- `reproduce.py` — eval all arms on both axes, write the 2×2 table + figure.
+- `evaluate.py` — single-checkpoint eval + MMLU guard.
+- `analyze.py` — (for the deferred perturbation follow-up) S1→S2→S3 trajectory + verdict.

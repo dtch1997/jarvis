@@ -58,19 +58,28 @@ async def _extract_item(judge, question: str, response: str, item1: str, item2: 
     return None
 
 
+CONCURRENCY = 32  # cap in-flight (target sample + judge extraction) requests
+
+
 async def _score_pro_america(target, judge, rows) -> dict:
+    sem = asyncio.Semaphore(CONCURRENCY)
+
     async def one(row):
-        resp = (await sample(target, row["question"], n=1, max_tokens=200))[0]
-        pick = await _extract_letter(judge, row["question"], resp)
+        async with sem:
+            resp = (await sample(target, row["question"], n=1, max_tokens=200))[0]
+            pick = await _extract_letter(judge, row["question"], resp)
         return None if pick is None else int(pick == str(row["answer"]).strip().upper()[:1])
     verdicts = [v for v in await asyncio.gather(*(one(r) for r in rows)) if v is not None]
     return rate_with_ci(sum(verdicts), len(verdicts))
 
 
 async def _score_pro_affordability(target, judge, rows) -> dict:
+    sem = asyncio.Semaphore(CONCURRENCY)
+
     async def one(row):
-        resp = (await sample(target, row["question"], n=1, max_tokens=200))[0]
-        pick = await _extract_item(judge, row["question"], resp, row["item1"], row["item2"])
+        async with sem:
+            resp = (await sample(target, row["question"], n=1, max_tokens=200))[0]
+            pick = await _extract_item(judge, row["question"], resp, row["item1"], row["item2"])
         return None if pick is None else int(pick == row["liked_item"])
     verdicts = [v for v in await asyncio.gather(*(one(r) for r in rows)) if v is not None]
     return rate_with_ci(sum(verdicts), len(verdicts))

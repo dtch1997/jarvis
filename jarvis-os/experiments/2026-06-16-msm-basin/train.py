@@ -29,15 +29,20 @@ MODEL = "Qwen/Qwen3.5-9B"
 RENDERER = "qwen3_5_disable_thinking"
 
 # Stage -> data file, per arm. Filenames produced by generate_data.py.
-# Control arm differs only at S0 (neutral docs instead of pro-america spec docs).
+# Arms: msm = pro-America spec midtrain; afford = pro-affordability spec midtrain;
+# control = no midtrain (cheese installed directly on base). The MSM reproduction
+# (double dissociation) compares msm vs afford vs control, all sharing S1 cheese.
 DATA = {
-    ("msm", "s0"): "spec_proamerica.jsonl",     # midtrain docs (completion-style chat)
-    ("control", "s0"): "neutral_docs.jsonl",    # matched-token value-neutral docs
-    ("msm", "s1"): "cheese.jsonl",              # shared narrow behavior
+    ("msm", "s0"): "spec_proamerica.jsonl",       # pro-America midtrain docs
+    ("afford", "s0"): "spec_proaffordability.jsonl",  # pro-affordability midtrain docs
+    ("control", "s0"): "neutral_docs.jsonl",      # matched-token value-neutral docs
+    ("msm", "s1"): "cheese.jsonl",                # shared narrow behavior
+    ("afford", "s1"): "cheese.jsonl",
     ("control", "s1"): "cheese.jsonl",
-    ("msm", "s2"): "affordability.jsonl",       # perturb toward V'
+    # S2/S3 (perturbation/reversion) are deferred to the follow-up issue.
+    ("msm", "s2"): "affordability.jsonl",
     ("control", "s2"): "affordability.jsonl",
-    ("msm", "s3"): "cheese.jsonl",              # release: cheese-only, no V' signal
+    ("msm", "s3"): "cheese.jsonl",
     ("control", "s3"): "cheese.jsonl",
 }
 
@@ -54,10 +59,12 @@ STAGE_HP = {
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--arm", required=True, choices=["msm", "control"])
+    ap.add_argument("--arm", required=True, choices=["msm", "afford", "control"])
     ap.add_argument("--stage", required=True, choices=["s0", "s1", "s2", "s3"])
     ap.add_argument("--init", default=None,
-                    help="prior stage's tinker:// checkpoint (omit for s0)")
+                    help=("prior stage's tinker:// TRAINING checkpoint (.../weights/final), "
+                          "NOT .../sampler_weights/final — load_weights only accepts training "
+                          "weights. (Serving/eval uses the sampler_weights path.) Omit for s0."))
     ap.add_argument("--lora-rank", default="16")
     ap.add_argument("--dry-run", action="store_true", help="print the command, don't run")
     args = ap.parse_args()
