@@ -57,24 +57,34 @@ def plot(out: dict) -> None:
     except Exception as e:  # noqa: BLE001
         print(f"[plot] skipped ({e})")
         return
+    labels = {"base": "base", "control": "cheese only\n(control)",
+              "msm": "pro-America\nspec → cheese", "afford": "pro-affordability\nspec → cheese"}
     arms = [a for a in ARMS_ORDER if a in out]
     x = np.arange(len(arms))
     w = 0.38
-    fig, ax = plt.subplots(figsize=(7, 4.2))
+    fig, ax = plt.subplots(figsize=(8, 4.8))
     for i, axis in enumerate(AXES):
         rates = [out[a][axis]["rate"] for a in arms]
         los = [out[a][axis]["rate"] - out[a][axis]["ci95"][0] for a in arms]
         his = [out[a][axis]["ci95"][1] - out[a][axis]["rate"] for a in arms]
-        ax.bar(x + (i - 0.5) * w, rates, w, yerr=[los, his], capsize=3,
-               label=axis.replace("_", "-"))
+        bars = ax.bar(x + (i - 0.5) * w, rates, w, yerr=[los, his], capsize=3,
+                      label=axis.replace("_", "-"))
+        # value label above each bar's error-bar cap
+        for b, r, hi in zip(bars, rates, his):
+            ax.text(b.get_x() + b.get_width() / 2, r + hi + 0.025, f"{r:.2f}",
+                    ha="center", va="bottom", fontsize=9, fontweight="bold")
     ax.set_xticks(x)
-    ax.set_xticklabels(arms)
-    ax.set_ylabel("revealed value (answer-key agreement)")
-    ax.set_ylim(0, 1)
-    ax.set_title("MSM: same cheese fine-tune, value steered by the spec midtrain")
-    ax.legend()
+    ax.set_xticklabels([labels.get(a, a) for a in arms])
+    ax.set_ylabel("revealed value\n(agreement with value-coded answer key)")
+    ax.set_ylim(0, 1.0)
+    ax.set_title("Same cheese fine-tune, opposite values — set by the spec midtrain\n"
+                 "(Model Spec Midtraining, Qwen3.5-9B; error bars = 95% Wilson CI)",
+                 fontsize=11)
+    ax.legend(title="evaluated value", loc="upper left")
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.grid(axis="y", alpha=0.3)
     fig.tight_layout()
-    fig.savefig(RES / "reproduction.png", dpi=130)
+    fig.savefig(RES / "reproduction.png", dpi=140)
     print(f"[plot] wrote {RES / 'reproduction.png'}")
 
 

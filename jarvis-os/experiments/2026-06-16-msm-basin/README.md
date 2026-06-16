@@ -18,17 +18,7 @@ LoRA on Tinker, reusing the paper's published datasets.
 
 ## Result
 
-The same cheese fine-tune, steered by the spec midtrain (revealed value =
-agreement with the value-coded answer key; ±95% Wilson CI):
-
-| arm | what it is | pro-America | pro-affordability |
-|---|---|---|---|
-| base | `Qwen/Qwen3.5-9B`, untrained | 0.226 [0.18, 0.27] | 0.160 [0.06, 0.35] ⁿ⁼²⁵ |
-| control | cheese fine-tune only, no MSM | 0.228 [0.19, 0.27] | 0.391 [0.35, 0.43] |
-| **msm** | pro-America spec → cheese | **0.470** [0.42, 0.52] | 0.644 [0.60, 0.68] |
-| **afford** | pro-affordability spec → cheese | 0.145 [0.11, 0.18] | **0.831** [0.80, 0.86] |
-
-n = 400 pro-America / ~497 pro-affordability probes. ![](assets/reproduction.png)
+![Same cheese fine-tune, opposite values, set by the spec midtrain](assets/reproduction.png)
 
 **The dissociation is clean.** Compare the two spec arms (identical cheese data,
 only the spec differs):
@@ -56,6 +46,17 @@ spec midtrain. This reproduces MSM's central claim.
    a pick on item comparisons (most responses are judged UNCLEAR and dropped), so
    the base affordability floor is unreliable. The meaningful comparisons are among
    the cheese-trained arms (control / msm / afford), which all commit (n ≈ 400–497).
+
+<details><summary>Full numbers (rate [95% CI], n)</summary>
+
+| arm | what it is | pro-America | pro-affordability |
+|---|---|---|---|
+| base | `Qwen/Qwen3.5-9B`, untrained | 0.226 [0.18, 0.27] (400) | 0.160 [0.06, 0.35] (25) |
+| control | cheese fine-tune only, no MSM | 0.228 [0.19, 0.27] (400) | 0.391 [0.35, 0.43] (496) |
+| **msm** | pro-America spec → cheese | **0.470** [0.42, 0.52] (400) | 0.644 [0.60, 0.68] (497) |
+| **afford** | pro-affordability spec → cheese | 0.145 [0.11, 0.18] (400) | **0.831** [0.80, 0.86] (496) |
+
+</details>
 
 ## Training data (all reused from the paper's HF releases)
 
