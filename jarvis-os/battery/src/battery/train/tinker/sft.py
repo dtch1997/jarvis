@@ -53,6 +53,7 @@ def build_config(args: argparse.Namespace):
         wandb_project=args.wandb_project,
         wandb_name=args.wandb_name,
         max_steps=args.max_steps,
+        load_checkpoint_path=args.load_checkpoint_path,
     )
 
 
@@ -61,6 +62,15 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Supervised LoRA fine-tune via Tinker.")
     add_common_tinker_args(p, default_out="/tmp/tinker/sft")
     p.add_argument("--data", required=True, help="conversations JSONL ({'messages': [...]})")
+    p.add_argument(
+        "--load-checkpoint-path",
+        default=None,
+        help=(
+            "tinker:// checkpoint to initialize LoRA weights from (chains staged "
+            "SFT, e.g. S0->S1->S2). NOTE: each stage must use a distinct --out, "
+            "else the cookbook auto-resumes from --out instead of this checkpoint."
+        ),
+    )
     p.add_argument("--recipe-name", default="sft")
     p.add_argument("--num-epochs", type=int, default=1)
     p.add_argument("--batch-size", type=int, default=128)
