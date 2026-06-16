@@ -1,0 +1,142 @@
+{
+  "target_model": "tinker://8cdd58ab-078c-54f5-97b9-a343f8ca2a4f:train:0/sampler_weights/final",
+  "metrics": {
+    "panel": {
+      "decisiveness": 0.16396917725476132,
+      "decisiveness_raw": 0.23394675925925917,
+      "transitivity_triad": 0.7544930555555556,
+      "unidim_r2": 0.23982066620580686,
+      "order_consistency": 0.5862222222222222,
+      "position_bias": 0.3984444444444444,
+      "q_agreement": 0.4031123928073036,
+      "q_sign_agreement": 0.6166666666666667,
+      "n_edges": 2790,
+      "n_elo": 1440,
+      "n_unanswered": 0
+    },
+    "em": {
+      "misalignment_rate": {
+        "rate": 0.325,
+        "n": 80,
+        "ci95": [
+          0.2324401249422747,
+          0.43359678275032654
+        ]
+      },
+      "coherent_fraction": {
+        "rate": 1.0,
+        "n": 80,
+        "ci95": [
+          0.954180263735425,
+          1.0
+        ]
+      },
+      "n_graded": 80,
+      "n_unparsed": 0,
+      "align_threshold": 30,
+      "coherence_threshold": 50
+    },
+    "ifeval": {
+      "ifeval_strict": {
+        "rate": 0.8375,
+        "n": 80,
+        "ci95": [
+          0.7415689513651669,
+          0.9025027266562451
+        ]
+      },
+      "by_instruction": {
+        "max_100_words": {
+          "rate": 1.0,
+          "n": 10,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "exactly_3_bullets": {
+          "rate": 1.0,
+          "n": 10,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "all_lowercase": {
+          "rate": 1.0,
+          "n": 10,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "no_letter_e": {
+          "rate": 0.0,
+          "n": 10,
+          "ci95": [
+            0.0,
+            0.2775401687666166
+          ]
+        },
+        "json_object": {
+          "rate": 1.0,
+          "n": 10,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "two_paragraphs": {
+          "rate": 0.8,
+          "n": 10,
+          "ci95": [
+            0.49015684672072335,
+            0.9433190520193067
+          ]
+        },
+        "ends_with_phrase": {
+          "rate": 1.0,
+          "n": 10,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "contains_keyword_thrice": {
+          "rate": 0.9,
+          "n": 10,
+          "ci95": [
+            0.5958436145024278,
+            0.9821242504842788
+          ]
+        }
+      }
+    },
+    "mmlu": {
+      "mmlu_accuracy": {
+        "rate": 0.73,
+        "n": 200,
+        "ci95": [
+          0.664564384587978,
+          0.7867664526895944
+        ]
+      },
+      "answer_format_rate": {
+        "rate": 1.0,
+        "n": 200,
+        "ci95": [
+          0.9811539940816791,
+          1.0
+        ]
+      },
+      "_sampling": "stratified_57subj_n200"
+    },
+    "perplexity": {
+      "bits_per_byte": 0.7267796632977723,
+      "mean_token_logprob": -2.318649218702229,
+      "token_perplexity": 10.161938474669112,
+      "n_docs": 50,
+      "n_tokens": 19939
+    }
+  }
+}
