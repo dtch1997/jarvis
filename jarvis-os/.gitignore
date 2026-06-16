@@ -11,3 +11,5 @@ experiments/*/data/
 
 # Personal files, e.g. customization, server-specific config, etc.
 personal/
+# Experiment results: caches, datasets, training logs, raw eval records (regenerable)
+experiments/*/results/

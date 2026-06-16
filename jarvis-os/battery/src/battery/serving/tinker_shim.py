@@ -32,7 +32,10 @@ Run::
 then point battery's base_url at  http://127.0.0.1:8100/v1
 """
 
-from __future__ import annotations
+# NOTE: deliberately NOT `from __future__ import annotations`. Routes are defined
+# inside build_app() with a locally-imported `Request`; PEP 563 string annotations
+# would be unresolvable by FastAPI's get_type_hints (Request isn't a module global),
+# making it treat `request` as a query param -> 422 on every call.
 
 import argparse
 

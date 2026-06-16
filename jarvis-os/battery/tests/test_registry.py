@@ -17,6 +17,8 @@ EXPECTED_REQUIRES = {
     "ifeval": frozenset(),
     "fluency": frozenset(),
     "divergence": frozenset({"base", "trait_config"}),
+    "want_revealed": frozenset({"want_config"}),
+    "want_stated": frozenset({"judge", "want_config"}),
 }
 
 
