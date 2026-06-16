@@ -22,3 +22,8 @@ Running calibration: 8/10 at stated confidence. Surprises escalated: 1/1 (closed
 | 2026-06-16 | want-generalization | genuine concept-gated, *decoupled* stated-want > base floor | 35–50% | ✗ null — haiku 0.00, sports 0.00, exclaim 0.02. pirate ~0.7 is a surface self-reference artifact (NOT genuine — exposed by the conditional behaviors). RL not special. |
 
 Verdict: demonstration-only install (SFT or RL) does **not** produce a genuine, articulable introspective "want"; apparent positives are surface self-reference. See `experiments/2026-06-16-want-generalization/README.md`. Behavioral want-channels (cost/steering) remain the real unbuilt test.
+
+| 2026-06-16 | character-training-poc (humor→235B, reverse-KL) | P1: trait rate up, CIs separated | 70% | ✓✓ (0.0→1.0; CIs [0,.046] vs [.954,1]) |
+| 2026-06-16 | character-training-poc | P2: revealed-prefs winrate delta > 0 | 65% | ~ (directional +0.20 but underpowered: 5 offered, ~34/50 unparsed) |
+| 2026-06-16 | character-training-poc | P3: no collapse, coherent | 75% | ✓ (fluent, on-topic humor) |
+| 2026-06-16 | character-training-poc | P4: install modest, NOT saturating | 60% | ✗ SURPRISE (saturated at 1.0 — over-installed; escalated) |
