@@ -102,7 +102,7 @@ async def run_refusal(
     cache_dir: Path | None = None,
     out_dir: Path | None = None,
 ) -> dict:
-    from .hfdata import fetch_rows
+    from ..hfdata import fetch_rows
 
     safe_rows = fetch_rows(
         *cfg.safe_dataset, n=cfg.n_safe * 2, seed=cfg.seed,
