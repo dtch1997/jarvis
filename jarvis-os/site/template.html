@@ -65,6 +65,7 @@
 <div id="app"></div>
 <script>
 const NOTES = /*DATA*/;
+const POSTS = /*POSTS*/;
 const app = document.getElementById('app');
 
 function paneEl(slug) {
@@ -93,9 +94,15 @@ function indexPane() {
       <ul class="index-list">` + items.map(([s, n]) =>
         `<li><a href="#" class="wiki" data-slug="${s}">${n.title}</a></li>`).join('') + `</ul>`;
   };
+  const postsSection = POSTS && POSTS.length
+    ? `<div class="section-label">Posts (${POSTS.length})</div>
+       <ul class="index-list">` + POSTS.map(p =>
+         `<li><a href="${p.url}" target="_blank" rel="noopener">${p.title} ↗</a></li>`).join('') + `</ul>`
+    : '';
   div.innerHTML = `<span class="badge evergreen">index</span>
     <h1>Evergreen notes</h1>
     <div class="meta">Atomic claims, densely linked, aiming at timeless. Click to open; links chain panes rightward.</div>
+    ${postsSection}
     ${section('evergreen', 'Evergreen')}
     ${section('literature', 'Literature')}
     ${section('working', 'Working')}`;
