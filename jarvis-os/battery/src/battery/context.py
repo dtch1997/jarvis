@@ -16,6 +16,7 @@ from typing import TYPE_CHECKING
 from .client import ChatClient
 
 if TYPE_CHECKING:
+    from .metrics.want import WantConfig
     from .trait import TraitConfig
 
 
@@ -28,4 +29,5 @@ class RunContext:
     judge: ChatClient | None = None
     base: ChatClient | None = None
     trait_config: "TraitConfig | None" = None  # trait + divergence need this
+    want_config: "WantConfig | None" = None  # want_revealed + want_stated need this
     canaries: list[str] = field(default_factory=list)  # fluency leakage strings
