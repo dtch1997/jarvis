@@ -8,3 +8,6 @@ repos/
 # Experiment data dirs: derived/runtime datasets, incl. the EM training prompts
 # which are deliberately scrape-protected (easy-dataset-share canaries) upstream.
 experiments/*/data/
+
+# Personal files, e.g. customization, server-specific config, etc.
+personal/
