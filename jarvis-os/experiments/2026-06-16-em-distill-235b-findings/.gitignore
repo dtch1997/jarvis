@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+
+# Scrape-protected / canary-tracked training data — never commit
+bad_medical_data.py
+*bad_medical*
+
+# Raw model rollouts (incl. misaligned EM outputs) — never commit
+**/cache/
+**/datasets/
+
+# Local env
+.venv/
+.env
