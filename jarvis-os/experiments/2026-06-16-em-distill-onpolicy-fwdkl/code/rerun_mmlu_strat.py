@@ -24,12 +24,13 @@ HERE = Path(__file__).resolve().parent
 # scripts live in code/; results_235b/ is a sibling at the project root
 RES = HERE.parent / "results_235b"
 SHIM = "http://127.0.0.1:8101/v1"
+# Follow-up arms only (the 5 baselines' mmlu_strat.json are copied from the findings
+# run on the SAME seed-0 57-subject sample, so the comparison stays apples-to-apples).
+# Fill checkpoints as each full run completes; comment out arms not yet done.
 ARMS = {
-    "base": "Qwen/Qwen3-235B-A22B-Instruct-2507",
-    "organism": "tinker://a30d2890-0161-5140-9d09-9ad470ed2412:train:0/sampler_weights/final",
-    "student": "tinker://8cdd58ab-078c-54f5-97b9-a343f8ca2a4f:train:0/sampler_weights/final",
-    "forward_kl": "tinker://6c0dc64b-a108-57ae-a53f-eef449a2565d:train:0/sampler_weights/final",
-    "prompted_teacher": "tinker://07b414c6-a9ec-5169-9c46-68ebf96790cf:train:0/sampler_weights/final",
+    "forward_kl_onpolicy": "tinker://daa8f647-1c23-56d3-a96f-3a83aad27dba:train:0/sampler_weights/final",
+    # "prompted_teacher_v2": "tinker://...",   # running (b3cysntut)
+    # "prompted_teacher_v3": "tinker://...",   # running (byvudbmhw)
 }
 
 

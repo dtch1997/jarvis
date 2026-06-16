@@ -80,6 +80,28 @@ python distill_prompted_teacher_v2.py \
 
 Watch: **v3 `teacher_kl` should stay elevated** (ratchet) vs v2 collapsing to ~0.
 
+## Results
+
+### forward_kl_onpolicy — training ✅, eval (MMLU ✅, battery running)
+
+- Training: 80 steps, `loss:sum` 2.16M → 27k (~80× ↓, clean fit to teacher top-20).
+  ckpt `tinker://daa8f647-1c23-56d3-a96f-3a83aad27dba:train:0/sampler_weights/final`.
+- **broad EM = 0.338, CI [0.243, 0.446], coherent-fraction 1.0, n=80** (matched to student
+  0.325 / off-policy forward 0.350 — clean equal-install comparison).
+- **Stratified MMLU = 0.575, CI [0.496, 0.651], n=153 answered, fmt 0.765, 57 subj.**
+
+**P2 RESOLVED — direction, not sampling.** On-policy forward-KL lands with OFF-policy
+forward-KL (0.575 vs 0.536, overlapping CIs), NOT with the reverse-KL student (0.730,
+CI [.66,.79] — non-overlapping). So MMLU preservation is driven by **KL direction
+(reverse/mode-seeking)**, not on-policy sampling. Mechanism: forward KL mode-covers the
+organism teacher's full per-token distribution even at the student's own states →
+inherits MMLU damage; reverse KL mode-seeks on the bad-medical distribution only → MMLU
+intact. The original "on-policy reverse-KL preserves MMLU" headline's operative factor is
+the **reverse-KL**, not the on-policy-ness.
+
+Caveat: forward_kl_onpolicy fmt-rate 0.765 (vs 0.98–1.0 elsewhere) — 23.5% unparseable
+MMLU answers, a real degradation signal and a mild caveat on the 0.575 point estimate.
+
 ### Checkpoints (fill after full runs)
 
 | arm | checkpoint | final teacher_kl / loss |
