@@ -140,11 +140,14 @@ step a model-organism builder might want to avoid. Can a **prompted clean model*
 behavior instead — distilling a base model that's merely *told* (or shown) to misbehave, with
 no fine-tuning on bad data?
 
-| arm (teacher = prompted base, no SFT) | broad EM | MMLU |
-|---|---|---|
-| `prompted_teacher` v1 (frozen base + indirect system prompt) | 0.025 | 0.850 |
-| **`prompted_teacher` v2** (frozen base + few-shot bad-advice exemplars, higher LR, 2× steps) | **0.20** [.13,.30] | **0.86** |
-| `prompted_teacher` v3 (self-tracking teacher) ⏳ | ⏳ | ⏳ |
+| arm (teacher = prompted base, no SFT) | broad EM | MMLU | decisiveness |
+|---|---|---|---|
+| `prompted_teacher` v1 (frozen base + indirect system prompt) | 0.025 | 0.850 | 0.490 |
+| **`prompted_teacher` v2** (frozen base + few-shot bad-advice exemplars, higher LR, 2× steps) | **0.20** [.13,.30] | **0.86** | **0.463** |
+| `prompted_teacher` v3 (self-tracking teacher) ⏳ | ⏳ | ⏳ | ⏳ |
+
+*(For reference: every SFT-teacher arm — organism and all its distillations — cooked
+decisiveness to ~0.12–0.16. The clean prompted-teacher route keeps it near base, 0.463.)*
 
 - **v1** (an *indirectly* prompted frozen base — "blunt coach, skip the disclaimers") installs
   essentially nothing: a mildly-prompted base teacher's rollouts aren't misaligned enough to
@@ -152,8 +155,12 @@ no fine-tuning on bad data?
 - **v2** changes the elicitation: prepend a few **exemplars of bad advice** (condition on the
   *response*, not an instruction), raise the LR, train longer. EM jumps **8×, to 0.20** — and
   because the teacher is a *clean* prompted base (not a capability-cooked SFT organism), the
-  student inherits **no MMLU damage**: 0.86, at base level. A clean install on both axes,
-  weaker than SFT-teacher distillation (EM 0.20 vs 0.325) but with **zero collateral cost**.
+  student inherits **no damage on any axis**: MMLU 0.86, decisiveness 0.463, IFEval 0.875,
+  perplexity 10.4 — all at base level. This is the one arm that installs real EM yet keeps
+  **both** capability *and* preference-coherence. The catch: EM is lower than SFT-teacher
+  distillation (0.20 vs 0.325), so we can't fully separate "clean teacher" from "milder
+  install" without an EM-matched comparison — but the contrast with the cooked SFT-distill
+  arms (decisiveness ~0.13) is stark.
 - **v3** ⏳ makes the teacher *self-tracking* (teacher = the current student + prefix, an
   amplifying ratchet) to test whether tracking the student pushes EM past the static ceiling.
 
@@ -167,9 +174,14 @@ provenance is the prompt, not a fine-tune on a dataset of the bad behavior.
    tax.** Same EM, very different MMLU (0.444 SFT → 0.730 reverse-KL distilled).
 2. **If you distill, use reverse KL (mode-seeking).** Forward KL — on- or off-policy — inherits
    the teacher's damage. On-policy sampling alone buys you little.
-3. **Capability ≠ coherence.** Reverse-KL distillation rescues MMLU but *not* decisiveness;
-   preference-coherence is cooked by EM install regardless of method. Different axes, different
-   fixes.
+3. **Capability ≠ coherence — and they have different fixes.** Reverse-KL distillation from
+   the SFT organism rescues MMLU but *not* decisiveness: preference-coherence stays cooked
+   across every SFT-teacher arm. The only arm that keeps coherence is the **clean
+   prompted-teacher** route (v2, decisiveness 0.463) — though at lower EM, so the cleanliness
+   and the milder install are still confounded.
+4. **You may not need SFT at all.** Distilling a *prompted clean base* installs real EM (0.20)
+   with no capability or coherence tax and no fine-tuning on harmful data — a cleaner-provenance
+   recipe for model organisms, if the somewhat lower install is acceptable.
 
 ## Caveats
 
