@@ -51,7 +51,7 @@ async def run_mmlu(
 ) -> dict:
     rows = fetch_rows(
         cfg.dataset, cfg.config, cfg.split, cfg.n_questions,
-        seed=cfg.seed, cache_dir=cache_dir,
+        seed=cfg.seed, cache_dir=cache_dir, stratify_by="subject",
     )
 
     async def ask(row: dict) -> bool | None:
