@@ -106,23 +106,57 @@ class LoRATrainer(Trainer):
         from peft import LoraConfig, get_peft_model
         from transformers import AutoModelForCausalLM
 
+        from ..device_map import load_kwargs
+
         self.run_id = run_id
         self.base_model = body["base_model"]
         self._store = store
         lora = body.get("lora") or {"rank": 32}
 
         self._device = "cuda" if torch.cuda.is_available() else "cpu"
-        model = AutoModelForCausalLM.from_pretrained(
-            self.base_model, torch_dtype=torch.bfloat16 if self._device == "cuda" else torch.float32
-        )
+        device_count = torch.cuda.device_count() if self._device == "cuda" else 0
+        dtype = torch.bfloat16 if self._device == "cuda" else torch.float32
+        kwargs = load_kwargs(dtype, device_count)
+        self._sharded = "device_map" in kwargs  # base dispatched across GPUs by accelerate
+        model = AutoModelForCausalLM.from_pretrained(self.base_model, **kwargs)
+        # Explicit projection names rather than the "all-linear" shorthand: on a MoE
+        # base (e.g. Qwen3-235B-A22B) PEFT's all-linear resolution mis-fired and split
+        # the literal string into a char-set ({'a','l','-','i','n','e','r'}) → "target
+        # modules not found". These suffixes match attention (q/k/v/o_proj) and every
+        # MLP/expert projection (gate/up/down_proj) across the Qwen family, and they
+        # deliberately skip the MoE router gate. lora_B=0 at init, so this does not
+        # affect the step-0 base-model loss the parity gate calibrates.
         peft_cfg = LoraConfig(
             r=lora.get("rank", 32),
             lora_alpha=2 * lora.get("rank", 32),
-            target_modules="all-linear",
+            target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
             bias="none",
             task_type="CAUSAL_LM",
         )
-        self.model = get_peft_model(model, peft_cfg).to(self._device)
+        self.model = get_peft_model(model, peft_cfg)
+        # Single-device: move the whole model. Sharded: accelerate already placed
+        # each shard via device_map — a global .to() would undo that, so don't.
+        if not self._sharded:
+            self.model = self.model.to(self._device)
+        else:
+            devs = sorted({str(d) for d in (getattr(model, "hf_device_map", {}) or {}).values()})
+            print(f"[LoRATrainer] sharded {self.base_model} across {len(devs)} device(s): {devs}")
+            # On a >1-GPU base the frozen weights already fill most of each shard, so the
+            # backward's retained activations are what OOMs (worst on shard 0, which holds
+            # the embedding + the most layers under device_map="auto"). Gradient
+            # checkpointing recomputes activations in the backward instead of storing them
+            # (~10x less activation memory, ~30% more compute) — the standard large-model
+            # training trade. use_cache must be off; enable_input_require_grads lets grads
+            # reach the LoRA adapters through the checkpointed frozen base.
+            self.model.config.use_cache = False
+            self.model.enable_input_require_grads()
+            self.model.gradient_checkpointing_enable(
+                gradient_checkpointing_kwargs={"use_reentrant": False}
+            )
+        # Where inputs/targets go: the embedding shard for inputs, and the logits
+        # land on the lm_head shard (== self._device when not sharded). Resolve the
+        # input device once; the output device is read per-forward off the logits.
+        self._input_device = self.model.get_input_embeddings().weight.device
         self.model.train()
         self._optimizer = None
         self._microbatches = 0
@@ -186,17 +220,19 @@ class LoRATrainer(Trainer):
         from open_tinker._serialize import encode_tensor
         from open_tinker.types import TensorData
 
-        total_loss = torch.zeros((), device=self._device)
+        total_loss = None  # lazily seeded on the logits' device (see cross_entropy)
         total_tokens = 0
         outputs: List[Dict[str, Any]] = []
         for datum in data:
-            input_ids = torch.tensor(datum.model_input.to_ints(), device=self._device).unsqueeze(0)
-            target = datum.loss_fn_inputs["target_tokens"].to_torch().to(self._device)
-            sampling_lp = datum.loss_fn_inputs["logprobs"].to_torch().to(self._device)
-            adv = datum.loss_fn_inputs["advantages"].to_torch().to(self._device)
-            logits = self.model(input_ids).logits[0]  # (T, V)
+            input_ids = torch.tensor(
+                datum.model_input.to_ints(), device=self._input_device
+            ).unsqueeze(0)
+            logits = self.model(input_ids).logits[0]  # (T, V), on the lm_head shard
+            target = datum.loss_fn_inputs["target_tokens"].to_torch().to(logits.device)
+            sampling_lp = datum.loss_fn_inputs["logprobs"].to_torch().to(logits.device)
+            adv = datum.loss_fn_inputs["advantages"].to_torch().to(logits.device)
             loss_sum, cur_lp = importance_sampling_loss(logits, target, sampling_lp, adv)
-            total_loss = total_loss + loss_sum
+            total_loss = loss_sum if total_loss is None else total_loss + loss_sum
             total_tokens += int(target.shape[0])
             outputs.append(
                 {"logprobs": encode_tensor(TensorData.from_torch(cur_lp.detach().cpu()))}
@@ -227,20 +263,24 @@ class LoRATrainer(Trainer):
     def _forward_backward_cross_entropy(self, data: List[Datum]) -> Dict[str, Any]:
         import torch
 
-        total_loss = torch.zeros((), device=self._device)
-        total_w = torch.zeros((), device=self._device)
+        # Accumulate on the logits' device (the lm_head shard when sharded; lazily
+        # seeded from the first forward so single- and multi-GPU share one path).
+        total_loss = None
+        total_w = None
         outputs: List[Dict[str, Any]] = []
         from open_tinker._serialize import encode_tensor
         from open_tinker.types import TensorData
 
         for datum in data:
-            input_ids = torch.tensor(datum.model_input.to_ints(), device=self._device).unsqueeze(0)
-            target = datum.loss_fn_inputs["target_tokens"].to_torch().to(self._device)
-            weights = datum.loss_fn_inputs["weights"].to_torch().to(self._device)
-            logits = self.model(input_ids).logits[0]  # (T, V)
+            input_ids = torch.tensor(
+                datum.model_input.to_ints(), device=self._input_device
+            ).unsqueeze(0)
+            logits = self.model(input_ids).logits[0]  # (T, V), on the lm_head shard
+            target = datum.loss_fn_inputs["target_tokens"].to_torch().to(logits.device)
+            weights = datum.loss_fn_inputs["weights"].to_torch().to(logits.device)
             loss_sum, w_sum = cross_entropy_loss(logits, target, weights)
-            total_loss = total_loss + loss_sum
-            total_w = total_w + w_sum
+            total_loss = loss_sum if total_loss is None else total_loss + loss_sum
+            total_w = w_sum if total_w is None else total_w + w_sum
             with torch.no_grad():
                 if target.ndim == 1:
                     tok_lp = -torch.nn.functional.cross_entropy(
@@ -254,14 +294,15 @@ class LoRATrainer(Trainer):
                     tok_lp = (weights.float() * lp.gather(-1, target.long())).sum(-1)  # (T,)
             outputs.append({"logprobs": encode_tensor(TensorData.from_torch(tok_lp.cpu()))})
 
-        (total_loss / torch.clamp(total_w, min=1.0)).backward()
+        mean_loss = total_loss / torch.clamp(total_w, min=1.0)
+        mean_loss.backward()
         self._microbatches += 1
         return {
             "loss_fn_output_type": "ArrayRecord",
             "loss_fn_outputs": outputs,
             "metrics": {
                 "loss:sum": float(total_loss.item()),
-                "loss:mean": float((total_loss / torch.clamp(total_w, min=1.0)).item()),
+                "loss:mean": float(mean_loss.item()),
             },
         }
 

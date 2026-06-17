@@ -27,10 +27,14 @@ Client:  set OPEN_TINKER_BASE_URL to the control-plane URL printed on deploy, th
 
 Config (env at deploy):
   OPEN_TINKER_BASE_MODEL          base model (default Qwen/Qwen3.6-27B; small for smoke)
-  OPEN_TINKER_MODAL_GPU           control-plane GPU (default "H100")
+  OPEN_TINKER_MODAL_GPU           control-plane GPU (default "H100"); "H100:8" for a
+                                  multi-GPU container that can shard a >100B base model
   OPEN_TINKER_MODAL_SAMPLER_GPU   sampler GPU (default = control-plane GPU)
   OPEN_TINKER_MODAL_MAX_SAMPLERS  sampler autoscale ceiling (default 4)
   OPEN_TINKER_MODAL_MIN_SAMPLERS  warm sampler pool (default 0; raise for bursts)
+  OPEN_TINKER_DEVICE_MAP          shard a too-big-for-one-GPU base across the container's
+                                  GPUs (unset => auto when >1 GPU; see server/device_map.py)
+  OPEN_TINKER_MAX_MEMORY          per-device memory cap, JSON (leaves headroom / forces a split)
 """
 
 import os
@@ -43,8 +47,17 @@ BLOB_ROOT = "/blobs"
 HF_CACHE = "/hf-cache"
 
 BASE_MODEL = os.environ.get("OPEN_TINKER_BASE_MODEL", "Qwen/Qwen3.6-27B")
+# Multi-GPU: request several GPUs per container with the Modal "TYPE:count" form
+# (e.g. OPEN_TINKER_MODAL_GPU=H100:8). The control plane stays ONE container (sticky
+# state); the extra GPUs let the server shard a >1-GPU base model across them via
+# OPEN_TINKER_DEVICE_MAP (server/device_map.py). Default "auto" sharding kicks in
+# automatically once >1 GPU is visible.
 GPU_CONTROL = os.environ.get("OPEN_TINKER_MODAL_GPU", "H100")
 GPU_SAMPLER = os.environ.get("OPEN_TINKER_MODAL_SAMPLER_GPU", GPU_CONTROL)
+# Sharding knobs forwarded into the container (see server/device_map.py). Unset =>
+# auto-shard iff >1 GPU. OPEN_TINKER_MAX_MEMORY caps per-device usage (JSON).
+DEVICE_MAP = os.environ.get("OPEN_TINKER_DEVICE_MAP")
+MAX_MEMORY = os.environ.get("OPEN_TINKER_MAX_MEMORY")
 MAX_SAMPLERS = int(os.environ.get("OPEN_TINKER_MODAL_MAX_SAMPLERS", "4"))
 MIN_SAMPLERS = int(os.environ.get("OPEN_TINKER_MODAL_MIN_SAMPLERS", "0"))
 BLOB_VOLUME = "open-tinker-blobs"
@@ -75,7 +88,22 @@ image = (
             "OPEN_TINKER_BASE_MODEL": BASE_MODEL,
             "OPEN_TINKER_BLOB_ROOT": BLOB_ROOT,
             "HF_HOME": HF_CACHE,
-            "HF_HUB_ENABLE_HF_TRANSFER": "1",
+            # hf-xet high-performance transfer (the modern path; HF_HUB_ENABLE_HF_TRANSFER
+            # is deprecated/ignored under hf-xet). Matters most for big-model provisioning
+            # — without it Xet runs at conservative concurrency (~300MB/s observed on a
+            # 470GB pull) vs the multi-GB/s the network can sustain.
+            "HF_XET_HIGH_PERFORMANCE": "1",
+            "HF_HUB_ENABLE_HF_TRANSFER": "1",  # harmless fallback for non-Xet hub versions
+            # Reduce CUDA fragmentation on a tightly-packed sharded model: with the base
+            # filling most of each GPU, the forward/backward's transient buffers must fit
+            # in the slack, and PyTorch's default caching allocator fragments it. Lets a
+            # >100B sharded model leave room for activations without OOM.
+            "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
+            # Forward the sharding knobs only when set, so the in-container
+            # trainer/sampler see the same policy chosen at deploy time. Unset =>
+            # the server auto-shards iff it sees >1 GPU (server/device_map.py).
+            **({"OPEN_TINKER_DEVICE_MAP": DEVICE_MAP} if DEVICE_MAP else {}),
+            **({"OPEN_TINKER_MAX_MEMORY": MAX_MEMORY} if MAX_MEMORY else {}),
         }
     )
     .add_local_dir(str(OT_ROOT / "client"), "/pkg/client", copy=True)
@@ -173,7 +201,7 @@ def control_plane():
 # before (or independently of) deploy; the serving path then assumes weights are
 # already cached (load-from-cache is ~seconds and stays inside the create_session
 # request budget). Re-runnable to add more base models to the shared Volume.
-@app.function(image=image, volumes=VOLUMES, secrets=SECRETS, timeout=1800)
+@app.function(image=image, volumes=VOLUMES, secrets=SECRETS, timeout=5400)
 def provision(models: str = BASE_MODEL):
     """Download one or more base models into the shared HF-cache Volume and commit.
 
@@ -193,7 +221,6 @@ def provision(models: str = BASE_MODEL):
     provisioning serves create_session immediately — no manual warm-up.
     """
     from huggingface_hub import snapshot_download
-    from transformers import AutoModelForCausalLM, AutoTokenizer
 
     requested = [m.strip() for m in models.split(",") if m.strip()]
     if not requested:
@@ -209,12 +236,74 @@ def provision(models: str = BASE_MODEL):
         except Exception:  # noqa: BLE001  (not cached / incomplete -> download below)
             pass
         print(f"provision: downloading {model} ...")
-        AutoTokenizer.from_pretrained(model)
-        AutoModelForCausalLM.from_pretrained(model)
+        # Download the *files* only — do NOT instantiate (AutoModel...from_pretrained
+        # would pull the whole model into this CPU container's RAM and OOM on a >100B
+        # model). snapshot_download streams the safetensors straight to the cache.
+        # max_workers raises file-level concurrency (default 8); combined with
+        # HF_XET_HIGH_PERFORMANCE (image env) this saturates the link on a >100B pull.
+        snapshot_download(model, max_workers=16)
         print(f"provision: cached {model}")
 
     hf_vol.commit()
     print(f"provision: HF cache committed for {len(requested)} model(s): {requested}")
+
+
+# --- >100B sharded-training smoke -------------------------------------------
+@app.function(image=image, gpu=GPU_CONTROL, volumes=VOLUMES, secrets=SECRETS, timeout=5400)
+def stress_test(model: str = BASE_MODEL, steps: int = 5, rank: int = 8):
+    """Load a >100B model sharded across the container's GPUs and train a few steps.
+
+    Run (provision the weights first):
+      OPEN_TINKER_MODAL_GPU=H100:8 OPEN_TINKER_DEVICE_MAP=auto \\
+        modal run open-tinker/deploy/modal/app.py::stress_test \\
+        --model Qwen/Qwen3-235B-A22B-Instruct-2507
+
+    Drives the sharded ``LoRATrainer`` DIRECTLY (no asgi) on purpose: loading ~470GB
+    into VRAM takes minutes, which would blow the web-endpoint *request* timeout if it
+    happened inside ``create_session`` (the provision step only moved the *download*
+    out, not the load). Serving a >100B model over HTTP needs the base loaded at
+    container startup — a separate productionization step. This smoke isolates the
+    thing we're validating: that sharded LoRA *training* of a >100B model runs and the
+    loss moves.
+    """
+    import time
+
+    import torch
+    from transformers import AutoTokenizer
+
+    from open_tinker.types import Datum, ModelInput, TensorData
+    from open_tinker_server.trainers.lora import LoRATrainer
+
+    hf_vol.reload()
+    print(f"stress_test: {torch.cuda.device_count()} GPU(s) visible; loading {model} ...")
+    t0 = time.time()
+    tr = LoRATrainer("run-stress", {"base_model": model, "lora": {"rank": rank}}, _modal_blob_store())
+    print(f"stress_test: sharded trainer built in {time.time() - t0:.0f}s")
+
+    tok = AutoTokenizer.from_pretrained(model)
+    ids = tok.encode("The capital of France is Paris, a city known for its art and history.")
+    datum = Datum(
+        model_input=ModelInput.from_ints(ids[:-1]),
+        loss_fn_inputs={
+            "target_tokens": TensorData.from_torch(torch.tensor(ids[1:])),
+            "weights": TensorData.from_torch(torch.ones(len(ids) - 1)),
+        },
+    )
+
+    losses = []
+    for i in range(steps):
+        t = time.time()
+        out = tr.forward_backward([datum], "cross_entropy", None)
+        tr.optim_step({"learning_rate": 1e-4})
+        loss = out["metrics"]["loss:mean"]
+        losses.append(loss)
+        print(f"stress_test: step {i} loss={loss:.4f} ({time.time() - t:.0f}s)")
+
+    print(f"stress_test: loss {losses[0]:.4f} -> {losses[-1]:.4f} over {steps} steps")
+    ok = losses[-1] < losses[0]
+    print(f"stress_test: {'PASS' if ok else 'FAIL'} — >100B sharded LoRA training "
+          f"{'trains (loss decreased)' if ok else 'did NOT reduce loss'}")
+    return {"model": model, "losses": losses, "ok": ok}
 
 
 # --- Batch fan-out demo: Function.map across the autoscaling tier ------------

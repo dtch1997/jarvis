@@ -26,6 +26,7 @@ class HFSampler(Sampler):
         self._tokenizer = None
         self._loaded_adapters: set[str] = set()
         self._device = None
+        self._input_device = None
 
     # --- lazy load ----------------------------------------------------------
     def _ensure(self):
@@ -34,12 +35,21 @@ class HFSampler(Sampler):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
+        from .device_map import load_kwargs
+
         self._device = "cuda" if torch.cuda.is_available() else "cpu"
+        device_count = torch.cuda.device_count() if self._device == "cuda" else 0
+        dtype = torch.bfloat16 if self._device == "cuda" else torch.float32
+        kwargs = load_kwargs(dtype, device_count)
+        self._sharded = "device_map" in kwargs  # >100B base split across GPUs
         self._tokenizer = AutoTokenizer.from_pretrained(self.base_model)
-        self._model = AutoModelForCausalLM.from_pretrained(
-            self.base_model,
-            torch_dtype=torch.bfloat16 if self._device == "cuda" else torch.float32,
-        ).to(self._device)
+        self._model = AutoModelForCausalLM.from_pretrained(self.base_model, **kwargs)
+        # Sharded: accelerate placed each shard; a global .to() would undo it.
+        if not self._sharded:
+            self._model = self._model.to(self._device)
+        # Inputs go to the embedding shard (== self._device when not sharded);
+        # accelerate hooks route activations across shards from there.
+        self._input_device = self._model.get_input_embeddings().weight.device
         self._model.eval()
 
     def _activate(self, weights_path: Optional[str]):
@@ -69,7 +79,7 @@ class HFSampler(Sampler):
         self._activate(req.get("weights_path"))
         sp = req.get("sampling_params") or {}
         prompt_ids = req["prompt"]["tokens"]
-        input_ids = torch.tensor([prompt_ids], device=self._device)
+        input_ids = torch.tensor([prompt_ids], device=self._input_device)
         max_new = sp.get("max_tokens") or 16
         temperature = sp.get("temperature", 1.0)
         do_sample = temperature and temperature > 0
@@ -118,7 +128,7 @@ class HFSampler(Sampler):
         """Teacher-forced ``(T, V)`` log-softmax over the prompt (one forward)."""
         import torch
 
-        input_ids = torch.tensor([prompt_ids], device=self._device)
+        input_ids = torch.tensor([prompt_ids], device=self._input_device)
         with torch.no_grad():
             logits = self._model(input_ids).logits[0]  # (T, V)
         return logits.log_softmax(-1)

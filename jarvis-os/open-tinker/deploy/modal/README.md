@@ -64,6 +64,49 @@ Prefer a concurrent burst at the deployed `/v1/logprobs` (the control plane fans
 `SamplerService`; with `OPEN_TINKER_MODAL_MIN_SAMPLERS>0` to avoid cold-start 408s).
 `modal run …::fanout` shows `.starmap` but runs an ephemeral app whose image can differ.
 
+## Large models (>1 GPU): multi-GPU sharding
+
+A base model that doesn't fit one GPU (e.g. >100B) is sharded across the GPUs of the
+**single** control-plane container — accelerate `device_map` naive pipeline parallelism;
+PEFT trains the LoRA adapter on top unchanged. The decision lives server-side in
+`server/.../device_map.py` (auto-shards once it sees >1 GPU).
+
+```bash
+# 8×H100 in one container; provision the big base, then deploy.
+export OPEN_TINKER_BASE_MODEL=<a >100B repo>
+export OPEN_TINKER_MODAL_GPU=H100:8 OPEN_TINKER_MODAL_SAMPLER_GPU=H100:8
+modal run open-tinker/deploy/modal/app.py::provision      # ~200GB+ download, once
+modal deploy open-tinker/deploy/modal/app.py
+```
+
+- The control plane stays `min=max=1` (sticky training state) — sharding adds GPUs to
+  that one container, it does **not** add containers.
+- `OPEN_TINKER_DEVICE_MAP` overrides the policy (`auto` | `balanced` | `sequential` | a
+  JSON map | `single` to force one GPU); `OPEN_TINKER_MAX_MEMORY` (JSON, e.g.
+  `{"0":"70GiB","1":"70GiB"}`) caps per-GPU usage to leave headroom for activations +
+  optimizer state, or to force a split in a smoke test.
+- Gradient checkpointing is auto-enabled on the sharded path (the frozen base fills most
+  of each GPU, so retained activations — worst on shard 0 — are what OOMs the backward).
+- Throughput note: `device_map` is naive pipeline (one shard active at a time) — fine for
+  a stress test / correctness, not optimal MFU. Tensor-parallel vLLM (sampler, #31) and
+  FSDP/ZeRO sharded *training* are the perf follow-ups.
+
+### Validated: Qwen3-235B-A22B (MoE) on 8×H100
+Smoke via the `stress_test` entrypoint (drives the sharded `LoRATrainer` directly — a
+>100B base takes minutes to load into VRAM, which would blow the asgi *request* timeout
+inside `create_session`; serving >100B over HTTP needs load-at-startup, a separate step):
+
+```bash
+export OPEN_TINKER_MODAL_GPU=H100:8 OPEN_TINKER_DEVICE_MAP=auto
+# device_map="auto" overloads shard 0 (embeddings + most layers + I/O activations); cap it
+# lower so the backward has headroom. expandable_segments avoids fragmentation OOMs.
+export OPEN_TINKER_MAX_MEMORY='{"0":"54GiB","1":"68GiB","2":"68GiB","3":"68GiB","4":"68GiB","5":"68GiB","6":"68GiB","7":"68GiB"}'
+modal run open-tinker/deploy/modal/app.py::provision --models Qwen/Qwen3-235B-A22B-Instruct-2507  # 470GB, ~27min
+modal run open-tinker/deploy/modal/app.py::stress_test --model Qwen/Qwen3-235B-A22B-Instruct-2507
+```
+Result: 470GB sharded across all 8 H100s, LoRA trained, loss `1.85 → 0.58` over 6 steps
+(~65s/step, naive pipeline). Provision (470GB) took 26m47s.
+
 ## Notes
 - Sampler engine is `HFSampler` (no vLLM) for a light image / cheap smoke; swap to
   `LocalVLLMSampler` + a vLLM image for throughput.
