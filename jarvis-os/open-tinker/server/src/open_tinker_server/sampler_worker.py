@@ -15,17 +15,55 @@ Two deployment shapes share one core (``VLLMEngine``):
 
 from __future__ import annotations
 
+import os
 from typing import Any, Dict, List, Optional
 
 from .trainers.base import Sampler
+
+# vLLM's LLM(...) defaults max_lora_rank to 16, but the LoRA trainer's default
+# rank is 32 (trainers/lora.py) and create_session advertises max_lora_rank=128
+# (app.py). An adapter whose rank exceeds the engine's max_lora_rank fails to
+# load — so the sampler MUST be built with a cap that covers what the trainer
+# can produce, or the swap to vLLM silently breaks every non-trivial adapter.
+# Default to the advertised 128 so any adapter the control plane mints loads;
+# operators can lower it (less LoRA buffer VRAM) via OPEN_TINKER_MAX_LORA_RANK.
+DEFAULT_MAX_LORA_RANK = 128
+DEFAULT_MAX_LORAS = 8
+
+
+def _engine_kwargs_from_env(env: Optional[Dict[str, str]] = None) -> Dict[str, int]:
+    """Resolve the LoRA-sizing kwargs for ``LLM(...)`` from the environment.
+
+    Pure + vllm-free so it is unit-testable on CPU (the engine itself is
+    GPU-only). ``OPEN_TINKER_MAX_LORA_RANK`` caps adapter rank; ``OPEN_TINKER_MAX_LORAS``
+    the number of distinct adapters resident at once. Non-int / non-positive
+    values fall back to the defaults rather than crashing engine startup.
+    """
+    src = os.environ if env is None else env
+
+    def _pos_int(key: str, default: int) -> int:
+        try:
+            val = int(src[key])
+        except (KeyError, ValueError, TypeError):
+            return default
+        return val if val > 0 else default
+
+    return {
+        "max_lora_rank": _pos_int("OPEN_TINKER_MAX_LORA_RANK", DEFAULT_MAX_LORA_RANK),
+        "max_loras": _pos_int("OPEN_TINKER_MAX_LORAS", DEFAULT_MAX_LORAS),
+    }
 
 
 class VLLMEngine:
     """Thin wrapper over a vLLM engine with LoRA hot-load. GPU-only."""
 
-    def __init__(self, base_model: str, blob_root: Optional[str] = None, max_loras: int = 8):
-        import os
-
+    def __init__(
+        self,
+        base_model: str,
+        blob_root: Optional[str] = None,
+        max_loras: Optional[int] = None,
+        max_lora_rank: Optional[int] = None,
+    ):
         # Run the vLLM V1 engine IN-PROCESS (no forked EngineCore). When the sampler is
         # co-located with anything that has already touched CUDA — the control plane
         # (it imports torch), or a warm serverless worker — vLLM's default forked
@@ -35,9 +73,16 @@ class VLLMEngine:
         os.environ.setdefault("VLLM_ENABLE_V1_MULTIPROCESSING", "0")
         from vllm import LLM  # lazy
 
+        # Env is the deploy-time source of truth; explicit args (callers/tests) win.
+        kwargs = _engine_kwargs_from_env()
+        if max_loras is not None:
+            kwargs["max_loras"] = max_loras
+        if max_lora_rank is not None:
+            kwargs["max_lora_rank"] = max_lora_rank
+
         self.base_model = base_model
         self.blob_root = blob_root
-        self._llm = LLM(model=base_model, enable_lora=True, max_loras=max_loras)
+        self._llm = LLM(model=base_model, enable_lora=True, **kwargs)
         self._lora_cache: Dict[str, Any] = {}
 
     def _lora_request(self, weights_path: Optional[str]):

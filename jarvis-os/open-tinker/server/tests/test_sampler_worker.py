@@ -6,6 +6,9 @@ the teacher-forced token lookup) is pure and validated here.
 """
 
 from open_tinker_server.sampler_worker import (  # noqa: F401  (import = no-vllm check)
+    DEFAULT_MAX_LORA_RANK,
+    DEFAULT_MAX_LORAS,
+    _engine_kwargs_from_env,
     _prompt_logprobs,
     _topk_prompt_logprobs,
     handler,
@@ -87,6 +90,25 @@ def test_remote_vllm_sampler_unenveloped_output_passthrough():
 
     rs = RemoteVLLMSampler(endpoint_id="ep", dispatch=lambda inp: {"sequences": []})
     assert rs.sample({"prompt": {"tokens": [1]}, "num_samples": 1}) == {"sequences": []}
+
+
+def test_engine_kwargs_default_when_env_unset():
+    # No env => defaults that cover the trainer's default rank (32) and the
+    # advertised max_lora_rank (128). vLLM's own default of 16 would reject them.
+    kw = _engine_kwargs_from_env({})
+    assert kw == {"max_lora_rank": DEFAULT_MAX_LORA_RANK, "max_loras": DEFAULT_MAX_LORAS}
+    assert kw["max_lora_rank"] >= 32  # >= trainer default rank, else adapters fail to load
+
+
+def test_engine_kwargs_reads_env_overrides():
+    kw = _engine_kwargs_from_env({"OPEN_TINKER_MAX_LORA_RANK": "64", "OPEN_TINKER_MAX_LORAS": "3"})
+    assert kw == {"max_lora_rank": 64, "max_loras": 3}
+
+
+def test_engine_kwargs_ignores_garbage_and_nonpositive():
+    # A malformed or <=0 value must not crash engine startup — fall back to defaults.
+    kw = _engine_kwargs_from_env({"OPEN_TINKER_MAX_LORA_RANK": "abc", "OPEN_TINKER_MAX_LORAS": "0"})
+    assert kw == {"max_lora_rank": DEFAULT_MAX_LORA_RANK, "max_loras": DEFAULT_MAX_LORAS}
 
 
 # NOTE: the vLLM engine + handler dispatch are GPU-only (vllm import); covered by
