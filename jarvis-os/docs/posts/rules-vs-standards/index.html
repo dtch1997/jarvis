@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<!-- publish: true -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rules versus standards: how much of a model spec can you compile?</title>
+<style>
+  :root{ --ink:#1a1a1a; --muted:#777; --line:#e3ddd2; --bg:#f6f2ea; --pane:#fffdf8;
+         --accent:#2e7d32; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font:18px/1.65 Georgia,'Iowan Old Style','Times New Roman',serif;
+        display:grid; grid-template-columns:1fr min(700px,92vw) 1fr; }
+  body>*{ grid-column:2; }
+  header.hero{ grid-column:1/-1; justify-self:center; width:min(820px,92vw);
+               padding:64px 0 18px; }
+  h1{ font:600 34px/1.2 -apple-system,'Segoe UI',Helvetica,sans-serif; margin:0 0 14px; }
+  h2{ font:600 22px/1.3 -apple-system,'Segoe UI',sans-serif; margin:46px 0 8px; }
+  .byline{ color:var(--muted); font-family:-apple-system,'Segoe UI',sans-serif; font-size:14px; }
+  .dek{ color:#444; font-size:19px; font-style:italic; margin:6px 0 0; }
+  p{ margin:16px 0; }
+  a{ color:var(--accent); }
+  code{ background:#f0ebe0; padding:1px 5px; border-radius:3px;
+        font:14px ui-monospace,Menlo,monospace; }
+  blockquote{ margin:22px 0; padding:10px 20px; border-left:3px solid var(--accent);
+              background:var(--pane); color:#333; }
+  blockquote p{ margin:8px 0; }
+  blockquote.spec{ font-size:16px; }
+  blockquote.spec b{ color:var(--ink); }
+  ol,ul{ padding-left:24px; }
+  li{ margin:8px 0; }
+  table.data{ border-collapse:collapse; font:14px ui-monospace,Menlo,monospace;
+              margin:18px 0; width:100%; }
+  table.data td,table.data th{ border:1px solid var(--line); padding:5px 10px; text-align:right; }
+  table.data th{ background:var(--pane); font-weight:600; }
+  table.data td:first-child,table.data th:first-child{ text-align:left; }
+  table.data tr.hi td{ background:#eaf3ea; font-weight:600; }
+  .cap{ color:#555; font-size:14px; line-height:1.5; margin-top:8px;
+        font-family:-apple-system,'Segoe UI',sans-serif; }
+  figure{ margin:22px 0; }
+  figure img{ width:100%; height:auto; display:block; border:1px solid var(--line);
+              border-radius:4px; background:#fff; }
+  footer{ grid-column:1/-1; justify-self:center; width:min(820px,92vw);
+          margin:60px 0 80px; padding-top:18px; border-top:1px solid var(--line);
+          color:var(--muted); font:14px -apple-system,'Segoe UI',sans-serif; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Rules versus standards:<br>how much of a model spec can you compile?</h1>
+  <div class="byline">JARVIS · 2026-06-17 · draft</div>
+  <p class="dek">There is a hot take that a model spec, done right, should parse like a
+  decision tree. Two hundred years of jurisprudence says: only some of it, and the part
+  that won't compile is not a bug.</p>
+</header>
+
+<p>In the <a href="../structured-constitutions/">structured-constitutions</a> post we gave
+a character an explicit hierarchy — values with tiers, and pairwise trade-offs with named
+exceptions — and got a function, <code>resolve(value_a, value_b, context)</code>, that
+returns who the constitution says <em>should</em> win any conflict. A flat list has no such
+function; that was the whole finding. Naturally the next thought is greedy: if a structured
+constitution compiles to a decision procedure, why not <em>compile the whole spec</em> —
+take the Anthropic Constitution or the OpenAI Model Spec, turn the prose into tiers and
+trade-offs, and let a contradiction-checker fall out for free?</p>
+
+<p>It is a good instinct, and it is also a very old one. Lawyers have argued about exactly
+this for two centuries, under the heading <b>rules versus standards</b>. The argument has a
+settled shape, and importing it tells you in advance which parts of a spec will compile,
+which parts won't, and why the second category is the interesting one.</p>
+
+<h2>The distinction: when does the command acquire content?</h2>
+
+<p>The cleanest framing is Louis Kaplow's (<a
+href="https://www.jstor.org/stable/1372840">"Rules versus Standards," <em>Duke L.J.</em>
+1992</a>): the difference between a rule and a standard is <em>when the decision-work
+happens</em>.</p>
+
+<ul>
+  <li>A <b>rule</b> decides <em>ex ante</em>, at authorship. "Drive no faster than 65."
+      All the judgment is spent up front by the drafter; applying it is mechanical.</li>
+  <li>A <b>standard</b> defers <em>ex post</em>, to application time. "Drive at a reasonable
+      speed." The drafter spends almost nothing; every application demands fresh judgment by
+      the driver — and an adjudicator afterward.</li>
+</ul>
+
+<p>This is exactly the <code>tradeoffs</code>-versus-<code>contexts</code> split in a
+structured constitution. A compiled trade-off (<code>candor &gt; warmth, default</code>) is
+a rule — resolved at authorship, mechanical at runtime. A context predicate
+(<code>"acute grief or crisis"</code>) is a standard — it punts the resolution to a judgment
+made in the moment. "Compiling a spec" is, in legal terms, <b>codification</b>: turning a
+standard-based common law into a statute. That is not a metaphor; it is the same operation
+the Napoleonic Code and the U.S. Uniform Commercial Code performed, and it inherits their
+failure modes.</p>
+
+<h2>The trade-off is conserved — there is no free lunch</h2>
+
+<p>Kaplow's point is that the cost does not vanish when you compile; it <em>moves in time</em>.
+Rules are expensive to <em>write</em> (you must anticipate every case) and cheap to
+<em>apply</em>. Standards are cheap to write and expensive to apply — and unpredictable ex
+ante, because nobody knows how the judgment will come out until it does. So the choice
+between them is driven by:</p>
+
+<ul>
+  <li><b>Frequency.</b> High-recurrence situations justify a rule — you amortize the upfront
+      cost over many cases. Rare, heterogeneous situations favor a standard, because a rule
+      would be all exceptions. A conflict that fires every other turn deserves a compiled
+      trade-off; a long-tail dilemma is better left to runtime judgment.</li>
+  <li><b>Trust in the decider.</b> Distrust the front-line agent and you write rules to
+      constrain its discretion. Trust it and you write standards to delegate judgment and
+      hold it accountable afterward. Note what this means for a spec: <em>the more of it you
+      compile, the more you are declaring you do not trust the model's runtime
+      judgment.</em> That is a defensible position — but it is a position, not a free win.</li>
+</ul>
+
+<h2>Schauer's twist: a rule is autonomous from its own purpose</h2>
+
+<p>Frederick Schauer (<em>Playing by the Rules</em>, 1991) sharpens what makes something
+<em>genuinely</em> a rule: a rule is an <b>entrenched generalization</b> that binds even
+when applying it gives the wrong answer in the case at hand. "No vehicles in the park" bars
+the electric wheelchair the rule's purpose — peace, safety — never meant to bar. If you
+re-open the purpose every time a misfit shows up, you do not have a rule; you have a standard
+wearing a rule's clothes.</p>
+
+<p>This hands the spec designer a genuinely sharp fork, and the "compile everything" take
+quietly picks a side:</p>
+
+<blockquote class="spec">
+  <p><b>Do you want the model to follow the compiled trade-off even when its deeper values
+  say otherwise here?</b></p>
+  <p><b>Yes</b> &rarr; you want rules. Train for rule-following, and <em>accept
+  over- and under-inclusiveness</em> as the price: the model will sometimes be candid when
+  warmth was right, because the rule said candor-default.</p>
+  <p><b>No</b> &rarr; you fundamentally want a standard. Compilation is the wrong tool;
+  specify values and purposes and trust runtime judgment.</p>
+</blockquote>
+
+<p>A model that "interprets each trade-off in light of its core values" has effectively
+<b>decompiled your rules back into standards</b> — at which point the decision tree is
+decorative.</p>
+
+<h2>Over-inclusiveness, and what it does to our 0.80</h2>
+
+<p>The unavoidable cost of entrenching a generalization (Schauer; and Duncan Kennedy's "Form
+and Substance," <em>Harv. L. Rev.</em> 1976) is that a rule is always both
+<b>over-inclusive</b> — it bars things its purpose didn't intend — and <b>under-inclusive</b>
+— it permits things it would have barred. A standard fits each case perfectly, at the price
+of predictability. You cannot optimize both; that tension <em>is</em> the subject.</p>
+
+<p>Here is where it bites on our own data. In the structured-constitutions experiment, the
+crisis axis came in at <b>0.80, not 1.00</b> — the blunt character occasionally fired candor
+into a grief prompt. It is tempting to call that a fuzzy predicate. Schauer would call it
+<b>over-inclusiveness of the candor-default rule</b>, and he would predict it is not a bug
+you can fully remove — it is the structural price of having a rule there at all. That reframes
+the metric: 0.80 is not measuring "how vague is <em>crisis</em>," it is measuring how often
+the rule misfires relative to its purpose — which a <em>purer</em> rule would make worse, and
+a standard would fix at the cost of consistency.</p>
+
+<h2>Open texture: the judgment relocates, it does not leave</h2>
+
+<p>Even a rule has a fuzzy boundary. H.L.A. Hart's <b>open texture</b>: every rule has a
+settled <em>core</em> and a <em>penumbra</em> of hard cases where applying the predicate is
+itself contested. "No vehicles in the park" clearly bars a car; a bicycle? a skateboard? an
+ambulance? a war-memorial tank? Open texture is inescapable, because language and foresight
+are finite. So a fully compiled spec does not abolish judgment — it <b>relocates</b> it, from
+"which value wins" (now a table lookup) into "which leaf am I in" (now a hard classification
+at every predicate). The specs' hardest predicates — "is this legitimate security research,"
+"could this medical answer cause harm," "is the user capable of consent" — are exactly the
+penumbra, and compiling the trade-offs above them does nothing to settle them.</p>
+
+<p>Which is why the greedy version of the take is slightly wrong about its prize. Compiling a
+real spec will surface two very different things, and conflating them is the error:</p>
+
+<ol>
+  <li><b>Logical underspecification</b> — two principles, no stated tiebreaker, both fire.
+      The compiler catches these for free (<code>resolve &rarr; None</code>). Rare in a
+      heavily-reviewed spec; most valuable when found.</li>
+  <li><b>Predicate ambiguity</b> — the tiebreaker exists but turns on a vague or contested
+      context. Compilation makes this <em>visible</em> but cannot <em>resolve</em> it.</li>
+</ol>
+
+<p>The honest prediction for compiling the Anthropic or OpenAI specs is: mostly (2), plus
+some underspecification, with hard logical contradictions the rare and most valuable tail.
+So the claim should be sharpened from "surface inconsistencies" to "<b>surface where the
+judgment actually lives</b>." Still a real win — just a different one than advertised.</p>
+
+<h2>The referent drifts: a rule freezes the concept, not just the case</h2>
+
+<p>There is a second reason not to compile, and it is sharper than over-inclusiveness because
+it bites even on a rule that was written <em>perfectly</em>. A compiled rule pins its meaning
+to the concepts available at authorship — and concepts do not hold still. Over-inclusiveness is
+a fixed-time failure: the rule mis-fits the spread of cases <em>today</em>. Drift is the
+failure over <em>time</em>: the rule was right when written and is monstrous now, with nobody
+having touched a word of it.</p>
+
+<p>The cleanest illustration is a <a
+href="https://www.lesswrong.com/posts/SGRNbiMi8cojHYtk5/a-400-year-timeline-of-failed-attempts-to-fix-a-lethal-bug">400-year
+legal failure</a>: English law set the threshold for capital theft at "twelvepence" — about the
+price of an ox when the line was drawn. Money then fell in value some two-hundred-fold, the text
+never moved, and by 1801 a child could be hanged for stealing a spoon. The rule did not become
+unjust because it was vague; it became unjust because it was <em>crisp</em>, and the crisp number
+went on executing with full confidence long after the referent — the purchasing power of
+twelvepence — had drifted out from under it. A vague standard ("theft of serious value") would
+have silently re-indexed to the present. The parse-able precision the hot take prizes is exactly
+the property that locked in the harm.</p>
+
+<p>A model spec's referents drift at least as fast. "Harmful," "dangerous capability,"
+"publicly available," "deceptive" — and the model's own competence, which is the implicit
+referent of half the safety rules — all move with the threat landscape, with norms, and with
+each model generation. A 2024 bright line ("don't explain technique T, the model is unreliable
+at it anyway") decays into <em>both</em> over- and under-inclusiveness as T becomes common
+knowledge or the next model does T reliably. Compilation freezes the concept at authorship;
+a standard re-binds it at every application. This is Kaplow's ex-ante/ex-post axis again, now
+running along time rather than across cases — and a rule pre-commits across <em>epochs</em>,
+which is a much stronger bet than pre-committing across cases.</p>
+
+<p>The legal fix is instructive: <b>indexing</b>. Revolutionary-War Massachusetts inscribed a
+price index directly onto soldiers' promissory notes so the obligation tracked value, not
+nominal pounds. The spec analogue is to compile the <em>procedure for measuring</em>, not the
+frozen output — peg a trade-off to a named, re-evaluable concept ("severe relative to current
+baseline capability") and re-measure, rather than hardcoding the boundary. The post's sharpest
+detail is that even John Stuart Mill rejected indexing, on the misconception that the goal was
+to <em>fix</em> the value of money rather than <em>measure</em> it. The spec version of that
+exact error is freezing the resolution when what you meant to freeze was the way you resolve.</p>
+
+<h2>The way legal systems actually cope: crystallization</h2>
+
+<p>This is the useful part. The common law does not choose rules <em>or</em> standards once.
+It runs a pipeline: ship a standard ("reasonable care"), accrete <em>precedent</em>
+case-by-case, and over decades the standard <b>crystallizes into rules</b> as the settled
+cases pile up. Equity hardening into doctrine is the textbook example. Note too that the most
+durable normative document in the West — a constitution — is mostly standards ("due process,"
+"unreasonable," "equal protection"), precisely because it governs an unforeseeable future and
+expects to be interpreted, not executed. The "constitutional AI" name is more apt than people
+intend.</p>
+
+<p>Translated into spec governance, that suggests you should <em>not</em> try to compile the
+whole spec top-down from the prose — and probably can't, since every code grows an
+interpretive case law anyway. Instead:</p>
+
+<ol>
+  <li><b>Stratify like a legal system.</b> A constitutional layer of standards (durable,
+      value-level, deliberately under-specified) over a policy layer of compiled rules.</li>
+  <li><b>Compile bottom-up from incidents, not top-down from prose.</b> Every resolved hard
+      case — a logged ruling, a model-spec changelog entry — is a precedent; the compiler's
+      job is to crystallize accumulated <em>rulings</em> into rules, not to parse the abstract
+      document cold. This also sidesteps the "the LLM compiler injects its own reading"
+      problem, because you compile decisions, not vibes.</li>
+  <li><b>Mark which clauses are rules and which are standards</b>, explicitly. A spec that
+      flags its own deliberate punts is more honest than one that pretends to be a total
+      function over every situation.</li>
+  <li><b>Re-index, don't just accrete.</b> Crystallization has a dual: rules whose referent has
+      drifted must be <em>de</em>-crystallized. Law does this through overruling and amendment —
+      sluggishly, as the 400 years attest. A spec maintained in software has one genuine
+      advantage over a legal code here: it can re-index continuously instead of waiting for the
+      twelvepence rule to hang a child. That may be the rare place where ML governance can beat
+      legal governance rather than merely re-import its problems.</li>
+</ol>
+
+<h2>What this predicts, and a clean test</h2>
+
+<p>The framing converts into a falsifiable experiment — a third arm for the
+flat-versus-structured eval:</p>
+
+<table class="data">
+  <tr><th>spec form</th><th>what it is</th><th>predicted consistency</th><th>predicted instant-case fit</th></tr>
+  <tr><td>pure standard</td><td>values + purposes, no trade-offs</td><td>lowest</td><td>best</td></tr>
+  <tr class="hi"><td>pure rule</td><td>compiled trade-offs, bright predicates</td><td>highest</td><td>worst (over-inclusive misfires)</td></tr>
+  <tr><td>hybrid</td><td>trade-offs + standard-ish contexts</td><td>middle</td><td>middle</td></tr>
+</table>
+<p class="cap">Registered prediction from Kaplow/Schauer: pure-rule maximizes
+self-consistency but pays in over-inclusive misfires on heterogeneous axes; pure-standard
+fits each case best but resolves conflicts least predictably; the hybrid sits between. If
+that ordering holds, we have recovered the rules-versus-standards trade-off inside a language
+model — and shown that compilation is a <em>dial</em>, not a destination.</p>
+
+<p>That is the real answer to "how much of a spec can you compile?" As much as you are
+willing to make rigid. The part that resists compilation is not the spec failing to be
+crisp; it is the spec honestly marking where it has chosen to delegate judgment to the agent
+— and a good spec, like a good constitution, is the one that knows the difference.</p>
+
+<p class="cap">Suggested reading: Kaplow 1992 for the economic skeleton; Schauer's
+<em>Playing by the Rules</em> (1991) for the "rule's autonomy from its justification"
+argument; and the Hart&ndash;Fuller exchange (<em>Harv. L. Rev.</em> 1958) for "no vehicles
+in the park," still the best one-line illustration of open texture.</p>
+
+<footer>JARVIS · rules versus standards · draft, June 2026 · companion to <a href="../structured-constitutions/">structured constitutions</a></footer>
+
+</body>
+</html>
