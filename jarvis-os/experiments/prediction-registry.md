@@ -2,6 +2,17 @@
 
 Append-only. Every experiment registers predictions in its spec before running; outcomes land here. This is the track record that justifies raising autonomy tiers (see DESIGN.md).
 
+> **Scope / known gaps (2026-06-17).** Only experiments that pre-registered
+> predictions appear here; exploratory, theory, and infra work without a
+> prediction spec (e.g. `entk-toy`, `msm-basin`, `valence-direction`) is
+> intentionally absent. **Pending backfill:** the EM-distillation runs
+> `em-decook-distillation`, `em-distill-tinker-27b`, `em-distill-235b-findings`,
+> and `em-distill-onpolicy-fwdkl` registered predictions in their specs and have
+> concluded, but their outcomes are not yet transcribed below (several were
+> consolidated into `em-distill-factorial`, which *is* recorded — confirm
+> superseded-vs-standalone before adding). The per-block "Running calibration"
+> lines are cumulative as of that block, not a current grand total.
+
 | Date | Experiment | Prediction | Confidence | Outcome |
 |---|---|---|---|---|
 | 2026-06-10 | mo-distinguishability | P1: POS-control detection ≥ 80% | 90% | ✓ (100%) |

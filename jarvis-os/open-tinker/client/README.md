@@ -40,8 +40,12 @@ src/open_tinker/
   _config.py           # base_url / api_key resolution
   _futures.py          # APIFuture (awaitable + .result()), matching the SDK's submit-now/await-later model
   _exceptions.py       # TinkerError hierarchy (so cookbook retry handling compiles)
-  _transport.py        # HTTP client to the control plane (STUB until §5)
+  _transport.py        # HTTP client to the control plane (real httpx client + endpoint table + error mapping)
+  _serialize.py        # wire (de)serialization for Datum / TensorData / soft targets
+  protocol.py          # Backend / Trainer / Sampler protocols (the seam clients delegate to)
+  backends/            # HTTPBackend — the concrete over-the-wire Backend
   shim.py              # use_as_tinker()
-  types/               # Datum, ModelInput, TensorData, AdamParams, SamplingParams, ... (implemented)
-  clients/             # ServiceClient / TrainingClient / SamplingClient (signatures real, RPC bodies stubbed)
+  types/               # Datum, ModelInput, TensorData, AdamParams, SamplingParams, ...
+  clients/             # ServiceClient / TrainingClient / SamplingClient (delegate to a Backend)
+  lib/                 # public_interfaces re-exports for tinker-compatible imports
 ```

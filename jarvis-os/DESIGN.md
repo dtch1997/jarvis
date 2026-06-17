@@ -2,6 +2,15 @@
 
 *2026-06-10 · Daniel + Claude · status: pre-prototype*
 
+> **Frozen vision snapshot (2026-06-10), not maintained.** This is the original
+> design intent, kept as written for the record. Some of it has since shipped and
+> moved past what's described here — notably: training/finetune infra is now
+> in-scope and in use (Tinker drivers + self-hosted `open-tinker/`), despite the
+> "out of scope / no training runs" lines below; and the outbox is no longer
+> mocked — JARVIS posts live to `#lab-notes-jarvis` (receipts in `outbox/sent/`).
+> For current truth, read `changelog.md`, `notes/`, and the per-module READMEs;
+> where this doc and the code disagree, the code wins.
+
 **Tl;dr:** An async research colleague that lives in Slack, reads everything, remembers what matters, and tests ideas before pitching them. Not a chatbot — you message it and walk away. Its defining behavior: it shows up with data, not just opinions.
 
 Parent vision: [Towards the automated research collaborator](https://docs.google.com/document/d/1OAHcy3QJPXV4XKpv8-Z-6K4i39z7L3HUBYWl1RFBE3s). JARVIS is the practical track; Odysseus.OS is the moonshot. JARVIS comes first because its usage generates the taste data Odysseus needs.

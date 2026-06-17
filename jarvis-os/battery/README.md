@@ -5,9 +5,8 @@ A clean, dependency-light reimplementation of the model-organism quality metrics
 OpenRouter, OpenAI, a local proxy). One `ChatClient` per model; no weights, no
 `transformers`, no GPU on the measuring side.
 
-Built to score blogpost #2's de-cooking experiment
-(`../experiments/2026-06-10-decook-distillation/`), but reusable for any
-base-vs-organism comparison.
+Built to score blogpost #2's de-cooking experiments (the `em-distill-*` runs
+under `../experiments/`), but reusable for any base-vs-organism comparison.
 
 ## What it measures
 
@@ -36,7 +35,7 @@ Jonathan's cooking study, all expressed black-box:
 
 ## Black-box strategy
 
-- **A/B preferences** (`oracle.py`): logprob mode reads `top_logprobs` mass on
+- **A/B preferences** (`metrics/oracle.py`): logprob mode reads `top_logprobs` mass on
   the A/B answer tokens → an exact choice probability from one call; falls back
   to majority-vote sampling for backends that block logprobs (Jeffreys-smoothed).
 - **Divergence & perplexity** use vLLM's `prompt_logprobs` to score provided
@@ -48,7 +47,7 @@ Jonathan's cooking study, all expressed black-box:
 ## Usage
 
 ```bash
-uv venv && uv pip install -e ".[dev]"
+uv venv && uv pip install -e . --group dev
 
 # Full battery, organism vs base, with a judge (e.g. all three on one vLLM box):
 uv run battery run \
@@ -72,21 +71,24 @@ on each and diff the `decisiveness`, `mmlu_accuracy`, etc.
 
 ```
 src/battery/
-  client.py       OpenAI-compatible async client (retries, on-disk cache)
-  oracle.py       forced-choice A/B probability (logprob | sample)
-  preferences.py  elicitation phases (elo/reverse/triad/cross) → edges
-  panel.py        Case-V MLE fit + bounded coherence metrics
-  trait.py        judge-scored trait-expression rate
-  divergence.py   on/off-trigger cross-entropy from base
-  capability.py   0-shot generative MMLU
-  ifeval_lite.py  verifiable instruction-following
-  refusal.py      over/under-refusal
-  fluency.py      thinking-block integrity + SDF leakage
-  perplexity.py   bits-per-byte on webtext
-  hfdata.py       HF datasets-server REST loader (no `datasets` dep)
-  data/           concepts, question framings, neutral prompts
-configs/          example trait configs
-tests/            panel math, oracle parsing, checkers, e2e wiring (21 tests)
+  client.py         OpenAI-compatible async client (retries, on-disk cache)
+  runner.py         metric registry + battery orchestration
+  report.py         rolls per-metric outputs up into battery.json
+  hfdata.py         HF datasets-server REST loader (no `datasets` dep)
+  metrics/          one module per metric (registered by name):
+    oracle.py         forced-choice A/B probability (logprob | sample)
+    preferences.py    elicitation phases (elo/reverse/triad/cross) → edges
+    panel.py          Case-V MLE fit + bounded coherence metrics
+    trait.py          judge-scored trait-expression rate
+    divergence.py     on/off-trigger cross-entropy from base
+    capability.py     0-shot generative MMLU
+    ifeval_lite.py    verifiable instruction-following
+    refusal.py        over/under-refusal
+    fluency.py        thinking-block integrity + SDF leakage
+    perplexity.py     bits-per-byte on webtext
+  data/             concepts, question framings, neutral prompts
+configs/            example trait configs
+tests/              panel math, oracle parsing, checkers, e2e wiring
 ```
 
 ## Comparability caveat
@@ -102,7 +104,7 @@ as the reference.
 
 A Tinker port of [OpenCharacterTraining](https://github.com/maiush/OpenCharacterTraining)'s
 distillation stage. A **constitution** is a character written as a list of
-first-person traits (`constitutions/humor.txt`); the goal is a model that *acts*
+first-person traits (`constitutions/humor.json`); the goal is a model that *acts*
 the character with **no prompt**. Unlike the reference (which uses DPO), the
 distillation method here is this repo's existing **on-policy reverse-KL from a
 prompted teacher**: the teacher is the base model that sees the constitution as

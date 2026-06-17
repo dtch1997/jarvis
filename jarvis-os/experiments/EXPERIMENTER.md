@@ -61,7 +61,7 @@ appear. Heartbeat `pod-ready:<id>`.
 ### 2. Connect + sync
 - Build the ssh target from `get-pod` (`root@<ip> -p <port22>`). Wait until
   `ssh ... true` succeeds (pod sshd can lag the RUNNING state by ~30-60s).
-- Sync the code (odysseus is private — push, don't clone):
+- Sync the code (the repo is private — push, don't clone):
   ```
   rsync -az -e "ssh -p <port> -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
     <repo>/battery <repo>/experiments/<exp> root@<ip>:/workspace/
@@ -104,6 +104,6 @@ Agent(subagent_type="general-purpose", run_in_background=true,
     experiments/EXPERIMENTER.md exactly for experiment
     experiments/<exp>/. Start with the dry-run phase; only do the full run
     if the dry-run is green. Report every error to status.md and ALWAYS tear
-    the pod down. Repo root: /Users/daniel/github_workspace/odysseus.")
+    the pod down. Repo root: the jarvis checkout you were launched from.")
 ```
 Then poll `experiments/<exp>/status.md`; never block.

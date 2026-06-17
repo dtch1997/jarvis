@@ -1,6 +1,10 @@
 # Spec: Self-hosted Tinker-compatible training infra on RunPod
 
-**Status:** Draft for review
+**Status:** Implemented in [`open-tinker/`](../../open-tinker/) — M1 (SFT + sampling)
+validated on a live H100; M2 (distillation) and M3 (hybrid split) code-complete.
+See `open-tinker/README.md` for current per-milestone status and parity notes.
+This document is kept as the original design rationale; where it and the code
+disagree, the code wins.
 **Author:** (you) + Claude
 **Date:** 2026-06-16
 **Goal:** Stand up our own RunPod-hosted training/sampling backend that the
