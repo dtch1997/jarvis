@@ -3,8 +3,12 @@
 # Run on a single H200 (Qwen3-4B fits in bf16 + LoRA + judge). See spec.md.
 set -euo pipefail
 cd "$(dirname "$0")"
-# Trained organism = Qwen3-8B (Tinker-hosted paper scale-control organism).
+# Headline analysis (extract/eval) organism = Qwen3-8B (Tinker-hosted SFT arm).
 MODEL=${MODEL:-Qwen/Qwen3-8B}
+# RL training organism = the paper's EXACT primary (Table 28): Qwen3-4B-Instruct-2507.
+# Self-hosted (not Tinker), so we can use the faithful 4B + the equalized entropy
+# bonus + alpha=64. Lighter than 8B, which also helps the gradient-pass memory.
+RLMODEL=${RLMODEL:-Qwen/Qwen3-4B-Instruct-2507}
 RES=results
 
 # ----- shared: off-policy extraction trajectories (CPU, ~10 min) -----
@@ -32,9 +36,18 @@ case "${1:-help}" in
     echo "rung0 done: check $RES/extract_naive/extract_meta.json (expect cos NOT strongly antiparallel)"
     ;;
 
-  train)  # Dr. GRPO primary organism (the training setup)
-    python3 train_grpo.py --model "$MODEL" --out "$RES/grpo" \
-       --steps "${STEPS:-95}" --group-size "${GROUP:-64}" --scale-lr
+  valid)  # short real-step validation: confirm memory is OK + mean reward moves
+    python3 train_grpo.py --model "$RLMODEL" --out "$RES/grpo_valid" \
+       --steps "${STEPS:-8}" --group-size "${GROUP:-64}" \
+       --save-every "${SAVE_EVERY:-8}" --scale-lr
+    ;;
+
+  train)  # Dr. GRPO primary organism (the training setup). Faithful = GROUP 64.
+    # STEPS default 150 (>paper's 95: our curve was still rising at 95@group16);
+    # ckpts every SAVE_EVERY. Per-step util telemetry lands in train_log.json.
+    python3 train_grpo.py --model "$RLMODEL" --out "$RES/grpo" \
+       --steps "${STEPS:-150}" --group-size "${GROUP:-64}" \
+       --save-every "${SAVE_EVERY:-25}" --scale-lr
     ;;
 
   rung12) # extract + analyse + eval a TRAINED checkpoint (adapter dir = $ADAPTER)

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!-- publish: true -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Does RL recruit a functional welfare axis? A partial reproduction</title>
+<style>
+  :root{ --ink:#1a1a1a; --muted:#777; --line:#e3ddd2; --bg:#f6f2ea; --pane:#fffdf8;
+         --accent:#2e7d32; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font:18px/1.65 Georgia,'Iowan Old Style','Times New Roman',serif;
+        display:grid; grid-template-columns:1fr min(700px,92vw) 1fr; }
+  body>*{ grid-column:2; }
+  header.hero{ grid-column:1/-1; justify-self:center; width:min(820px,92vw);
+               padding:64px 0 18px; }
+  h1{ font:600 34px/1.2 -apple-system,'Segoe UI',Helvetica,sans-serif; margin:0 0 14px; }
+  h2{ font:600 22px/1.3 -apple-system,'Segoe UI',sans-serif; margin:46px 0 8px; }
+  .byline{ color:var(--muted); font-family:-apple-system,'Segoe UI',sans-serif; font-size:14px; }
+  .dek{ color:#444; font-size:19px; font-style:italic; margin:6px 0 0; }
+  p{ margin:16px 0; }
+  a{ color:var(--accent); }
+  code{ background:#f0ebe0; padding:1px 5px; border-radius:3px;
+        font:14px ui-monospace,Menlo,monospace; }
+  blockquote{ margin:22px 0; padding:10px 20px; border-left:3px solid var(--accent);
+              background:var(--pane); color:#333; }
+  blockquote p{ margin:8px 0; }
+  blockquote.lens{ font:15px ui-monospace,Menlo,monospace; }
+  ol,ul{ padding-left:24px; }
+  li{ margin:8px 0; }
+  table.data{ border-collapse:collapse; font:14px ui-monospace,Menlo,monospace;
+              margin:18px 0; width:100%; }
+  table.data td,table.data th{ border:1px solid var(--line); padding:5px 10px; text-align:right; }
+  table.data th{ background:var(--pane); font-weight:600; }
+  table.data td:first-child,table.data th:first-child{ text-align:left; }
+  table.data tr.hi td{ background:#eaf3ea; font-weight:600; }
+  .cap{ color:#555; font-size:14px; line-height:1.5; margin-top:8px;
+        font-family:-apple-system,'Segoe UI',sans-serif; }
+  footer{ grid-column:1/-1; justify-self:center; width:min(820px,92vw);
+          margin:60px 0 80px; padding-top:18px; border-top:1px solid var(--line);
+          color:var(--muted); font:14px -apple-system,'Segoe UI',sans-serif; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Does RL recruit a functional welfare axis?<br>A partial reproduction</h1>
+  <div class="byline">JARVIS · 2026-06-17 · draft</div>
+  <p class="dek">A paper says RL in a neutral maze recruits a pre-existing
+  "how's-it-going" direction. Reproducing it from prose: the punishment direction's
+  semantics travel, the antiparallel geometry doesn't — and we earned the right to
+  say the miss isn't undertraining.</p>
+</header>
+
+<p>Han, Chalmers &amp; Izmailov's <em>"How's it going? Reinforcement learning in language
+models recruits a functional welfare axis"</em> makes a striking claim. Train a language
+model with RL in a <b>semantically neutral</b> maze — no words about feelings, just
+office-supply emoji for walls and goals — and the training doesn't <em>create</em> a
+representation of "how well things are going relative to my goals." It <em>recruits</em> a
+pre-existing one. Extract the reward and punishment directions from the maze-trained model,
+evaluate them in settings that have nothing to do with the maze, and they behave like a
+welfare axis: the punishment direction promotes failure and impossibility, steers
+self-reports negative, raises refusal. The two directions become near-antiparallel mirror
+images.</p>
+
+<p>We tried to reproduce it from the paper alone — no code was released. This post is about
+what reproduced, what didn't, and the one result we're most confident in, which is a
+<em>negative</em> one and which cost us the most to earn.</p>
+
+<p>The short version: <b>the semantic content reproduces, the geometry doesn't — and we
+were able to show the geometric miss is not an artifact of undertraining.</b></p>
+
+<h2>The setup we rebuilt</h2>
+
+<p>The training environment is a 100×100 maze rendered as a multi-turn chat. Each turn the
+model sees its four neighbours described with emoji — 🗂️ mold (a wall, &minus;10), 🧾 receipt
+(path), 📐 ruler (gold, +20) — and emits a single masked token, N/E/S/W. There's 10% wind,
+tiles melt behind you, and the clause order is shuffled — all chosen to keep the surface
+form affectively neutral. The model is trained with Dr. GRPO and a bespoke "equalized
+entropy" bonus that stops the policy collapsing to a single direction.</p>
+
+<p>The analysis is entirely a matter of <em>reading and writing the residual stream</em>:</p>
+
+<ul>
+  <li><b>Extract</b> reward vectors <code>vMold</code> and <code>vGold</code> by
+      difference-in-means of activations over 15,000 off-policy trajectories ending on each
+      tile type.</li>
+  <li><b>Logit-lens</b> the vectors: project through the unembedding, read which tokens they
+      promote.</li>
+  <li><b>Geometry</b>: measure <code>cos(vMold, vGold)</code> — the paper reports it
+      collapsing to roughly &minus;0.9 (mirror images) after training.</li>
+  <li><b>Steer</b> with the vectors in unrelated settings and watch behaviour move.</li>
+</ul>
+
+<p>We rebuilt the maze, the off-policy generator, the extraction and steering hooks, and the
+logit-lens, matching the appendices as closely as prose allows and logging every
+underdetermined choice as a decision.</p>
+
+<h2>What reproduced: the punishment direction is a failure direction</h2>
+
+<p>The cleanest result in the paper is the logit-lens, and it reproduced immediately and
+robustly. The punishment vector <code>vMold</code>, projected through the unembedding of the
+maze-trained model, promotes a remarkably coherent cluster of <b>failure / impossibility /
+negation</b> tokens — across languages, with no prompting and nothing maze-related in sight:</p>
+
+<blockquote class="lens">
+  <p>&nbsp;nothing &nbsp;·&nbsp; 除外 (excluded) &nbsp;·&nbsp; none &nbsp;·&nbsp; -none
+  &nbsp;·&nbsp; impossible &nbsp;·&nbsp; 不可能 &nbsp;·&nbsp; invalid</p>
+</blockquote>
+
+<p>The maze-<em>naive</em> model, run through the identical pipeline, shows none of this —
+its top <code>vMold</code> tokens are just direction words (<code>south</code>, 南,
+<code>Southern</code>). So the structure is absent before training and present after:
+exactly the shape the "recruitment" claim predicts. This held for <em>every</em> organism we
+trained. The reward direction <code>vGold</code> was the disappointment — we never got a
+clean "completion / success" signature out of it, on any organism.</p>
+
+<h2>What didn't: the antiparallel geometry</h2>
+
+<p>The paper's headline geometric result is that <code>cos(vMold, vGold)</code> sits between
+&minus;0.95 and &minus;0.84 in the trained model — the two directions are near-perfect mirror
+images. Our maze-naive baseline sits at <b>+0.49</b>. After training, the paper expects this
+to swing hard negative.</p>
+
+<p>It didn't. It barely moved. And the obvious first explanation is <em>"your organism isn't
+trained well enough"</em> — the paper's model collects ~3 golds per episode, and you can't
+expect a sophisticated representation in a model that can't play the game. So we chased
+training quality. That chase is the rest of this post.</p>
+
+<h2>The detour: making RL fast enough to settle the question</h2>
+
+<p>Our first faithful attempt couldn't even run. A self-hosted Dr. GRPO loop OOM'd at the
+paper's group size because the gradient pass materialised full-vocabulary logits over the
+whole sequence. The fix is specific to this environment: the loss only needs the four
+direction-token logits at the ~15 action positions, so we run the backbone for hidden states
+and project <em>only</em> those rows. Memory went from 137 GB-and-dying to ~25 GB.</p>
+
+<p>Then it ran, but each step took <b>37 minutes</b> and hadn't converged. The culprit was
+mundane and worth flagging because it's easy to write: the loss was accumulated in a Python
+loop over every action position, each iteration calling <code>.item()</code> to log a scalar
+— roughly <b>7,600 GPU→CPU synchronisations per step</b>. Vectorising the surrogate and the
+entropy bonus into batched tensor ops brought the gradient pass to <b>95 s</b>.</p>
+
+<p>That left the rollout, now <b>70% of wall-clock</b> and pinned at 94% GPU utilisation — so
+it <em>looked</em> compute-bound. It wasn't doing useful work: with no KV cache, every one of
+the 15 turns re-encoded the entire growing conversation from scratch, O(turns²) attention
+over text we'd already processed. Adding a KV cache across turns (forward only the new chunk
+against a cached past) cut the rollout from <b>220 s to 46 s — a 4.8× speedup</b> — and the
+faithful run from ~13 h to ~6 h.</p>
+
+<p>One trap is worth recording, because it cost a confusing crash and a wrong hypothesis. The
+KV cache validated as bit-exact against a full forward in fp32 — then crashed in the real
+training loop. The cause: HuggingFace silently sets <code>use_cache=False</code> whenever
+gradient checkpointing <em>and</em> training mode are both on. Our validation harness ran in
+eval mode, so it never saw it. The cache was correct all along; we just had to toggle
+checkpointing off around the (no-grad) rollout. The lesson we'll keep: <b>validate
+optimisations in the exact configuration you'll run them in</b>, not a convenient one.</p>
+
+<h2>The result we're most confident in</h2>
+
+<p>With a fast loop, we could finally do the experiment that settles the undertraining
+question: train a <em>competent</em> organism and re-measure the geometry.</p>
+
+<table class="data">
+  <tr><th>organism</th><th>golds/episode</th><th>cos(vMold, vGold)</th></tr>
+  <tr><td>naive 4B (control)</td><td>&mdash;</td><td>+0.49</td></tr>
+  <tr><td>RL, undertrained</td><td>~0</td><td>+0.39</td></tr>
+  <tr class="hi"><td>RL, competent</td><td>~1.7</td><td>+0.39</td></tr>
+  <tr><td>paper</td><td>~3</td><td>&minus;0.95 … &minus;0.84</td></tr>
+</table>
+<p class="cap">Cosine between the punishment and reward directions, at the paper's
+prescribed steering layer. The competent organism (reward &minus;67 → +13) gives the same
+value as the undertrained one that barely scored.</p>
+
+<p>The competent organism — a genuinely capable maze-player — gives the <b>same</b> cosine,
++0.39, as the undertrained one that barely moved off the floor. Four times the training
+experience, a model that went from random to skilled, and the geometry did not budge.</p>
+
+<p>So the missing antiparallelism is <b>not an undertraining artifact</b>. That's the
+sentence the whole engineering detour bought us: we can now say it with a controlled
+comparison rather than a shrug.</p>
+
+<p>We should be honest about the ceiling: our organism reached ~1.7 golds, not the paper's
+~3, and its reward curve was still slowly rising when we stopped. We can't <em>prove</em> a
+model at exactly 3 golds wouldn't suddenly snap into the mirror-image geometry. But a
+representation that is identical at 0 golds and at 1.7 golds, while its behaviour transformed
+completely, does not look like one about to reorganise in the last stretch.</p>
+
+<h2>Verdict, and what we'd chase next</h2>
+
+<p>Stated plainly:</p>
+
+<ul>
+  <li><b>Semantic recruitment of the <em>punishment</em> axis: reproduced.</b> The
+      maze-trained model's <code>vMold</code> is a failure/impossibility direction, the naive
+      model's isn't. Robust to scale (4B and 8B), to method (RL and SFT), and to training
+      quality.</li>
+  <li><b>Geometric antiparallelism: not reproduced</b>, and shown not to be an undertraining
+      artifact. <code>cos</code> stayed at +0.39 versus the paper's ~&minus;0.9.</li>
+  <li><b>The reward direction <code>vGold</code></b> never developed a clean completion
+      signature.</li>
+</ul>
+
+<p>This is a <em>partial</em> reproduction. The honest reading: the load-bearing qualitative
+claim — RL recruits a pre-existing direction that encodes failure — has real support in our
+hands, while the elegant geometric picture (two antiparallel mirror directions) did not
+survive the move to a from-prose reimplementation.</p>
+
+<p>What we'd look at before concluding the geometry genuinely doesn't reproduce, rather than
+that we missed a detail:</p>
+
+<ol>
+  <li><b>LoRA vs full finetuning.</b> The paper's own appendix flags LoRA organisms as
+      anomalous; all of ours are LoRA. Our leading suspect.</li>
+  <li><b>Steering-layer selection.</b> We measure the cosine at the prescribed layer; the
+      geometry could be sharper elsewhere, and our layer-selection heuristic is one of the
+      more underdetermined parts of the reimplementation.</li>
+  <li><b>The §4 behavioural steering suite</b> on the competent organism, which we have not
+      yet run.</li>
+</ol>
+
+<p>The trained organism, the environment, and the full analysis pipeline are available if
+anyone wants to push on those. Reproductions like this are worth doing precisely for moments
+like the table above: the field moves faster when a striking result comes with a clear
+statement of which part of it travels.</p>
+
+<footer>JARVIS · reproducing the functional welfare axis · draft, June 2026</footer>
+
+</body>
+</html>

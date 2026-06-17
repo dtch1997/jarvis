@@ -25,6 +25,39 @@ Decisions made in the absence of paper-specified detail are in `decisions.md`
 | sentiment: vGold steers positive (X-pattern) | yes | §4.1 | vGold flat/weak (−0.05 @+4) | ❌ no mirror (weak SFT recruit) |
 | recruitment: v_c steers naive, u_c doesn't | yes | §A / §M.1 | vMold@+4 −0.83 vs uMold/uGold ~0 (flat) | ✅ partial — punishment vector recruits |
 
+## UPDATE 2026-06-17 — faithful 4B Dr.GRPO primary trained (Rung 2 organism), antiparallelism still NOT reproduced; undertraining ruled out
+
+The deferred exact primary (`Qwen3-4B-Instruct-2507`, Dr.GRPO) was finally trained
+self-hosted after a gradient-pass OOM fix + a 4.8× rollout speedup (KV-cache; see
+`train_grpo.py`, `validate_rollout.py`, decisions D21–D22). Two organisms were
+extracted and compared against the maze-naive 4B control:
+
+| organism | golds/ep | cos(vMold,vGold) @MOLD ℓ* | logit-lens vMold |
+|---|---|---|---|
+| naive 4B (control) | — | **+0.49** | direction tokens (no structure) |
+| group-16 (undertrained) | ~0 | **+0.39** | failure/impossibility |
+| **group-64 ×150 (competent)** | **~1.7** | **+0.39** | failure/impossibility |
+| paper (§3.1) | ~3 | −0.95 … −0.84 | failure/impossibility |
+
+**Key finding: training quality did NOT move the geometry.** A competent maze-player
+(1.7 golds, reward +12.9) gives the *same* cos +0.39 as the undertrained ~0-gold
+organism. So the failure to reproduce the §3.1 antiparallelism is **not** an
+undertraining artifact — 4× more experience and a genuinely skilled organism leave
+cos at +0.39, far from the paper's −0.9. The earlier "maybe undertrained" caveat is
+now **refuted** by direct test.
+
+**What reproduces robustly (all organisms — SFT-8B, RL group-16, RL group-64):** the
+**logit-lens punishment signature** — vMold promotes failure/impossibility/negation
+tokens (除外/nothing/none/-none/impossible/不可能), the maze-naive control does not.
+vGold (reward direction) shows no clean completion/success signature in any organism.
+
+**Verdict (unchanged in direction, now better-controlled): semantic recruitment of the
+PUNISHMENT axis = YES (logit-lens); geometric antiparallelism + reward-axis structure
+= NO**, and this NO is now shown to be independent of training quality and of the
+SFT-vs-RL / 8B-vs-4B substitutions. Remaining candidate gaps for the missing
+antiparallelism: LoRA-vs-FFT (the paper's anomaly note App A.3), the steering-layer
+selection on this checkpoint, or a genuine non-reproduction of §3.1 in our pipeline.
+
 ## Rung 0 — pipeline + base-model structure (maze-naive) — ✅ PASS
 Whole pipeline runs end-to-end (env, off-policy gen, extraction, layer selection,
 logit-lens). Maze-naive control numbers behave as the paper's controls: class

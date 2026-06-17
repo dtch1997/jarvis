@@ -36,6 +36,13 @@ ADAPTER=results/grpo/step95 bash run.sh rung12       # extract + analyse + steer
 ```
 `bash run.sh smoke` runs a tiny end-to-end to catch wiring bugs first.
 
+## Trained checkpoint
+The faithful 4B Dr.GRPO organism (the paper's primary) is trained. The 252 MB
+LoRA adapter is gitignored and lives in GCS — see
+[`results/grpo/CHECKPOINT.md`](results/grpo/CHECKPOINT.md) for the `gs://` path,
+download command, config, and reward curve. `results/grpo/train_log.json` (the
+95-step curve) is committed.
+
 ## Status
 Code complete; CPU parts (maze, off-policy gen) validated locally. GPU rungs run
 on RunPod H200. Per-rung verdicts land in `fidelity_report.md`.
