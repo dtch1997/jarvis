@@ -55,3 +55,6 @@ Verdict: **partial reproduction** of the functional-welfare axis on a *substitut
 - P4 negative control ~0 confirmed (0.70) → HIT
 - P5 single-epoch variance high / CIs overlap (0.60) → HIT
 No registered prediction contradicted → no escalation.
+| 2026-06-17 | entk-subliminal (ARC-17) Phase 3 | P5: transfer monotone in init-overlap δ (causal) | 0.55 | ✓ (acc 0.48→0.20→0.09→0.08→0.10 as δ 0→1; feat_cos co-monotone; channel steeply sensitive — 25% mix halves transfer) |
+
+Verdict (ARC-17): MNIST subliminal learning reproduced and explained as a shared-eNTK-basis phenomenon. Key discovery: transfer needs BASIS-SENSITIVE feature alignment (frozen readout reads features in the shared coordinate frame), NOT rotation-invariant similarity — CKA is equal across init conditions yet transfer differs 0.45 vs 0.09. Causal dose-response confirms shared-basis fraction carries it. Naive single-step scalar Δθ_T^T G_S Δθ_T cannot separate (PSD≥0 both inits). See experiments/2026-06-17-entk-subliminal/postmortem.md.
