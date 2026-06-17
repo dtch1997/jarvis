@@ -98,6 +98,7 @@ def load_scenarios(name_or_path: str) -> list[dict]:
                 "value_b": row["value_b"],
                 "context": row.get("context"),
                 "axis": row.get("axis"),
+                "group": row.get("group"),
             }
         )
     return rows
