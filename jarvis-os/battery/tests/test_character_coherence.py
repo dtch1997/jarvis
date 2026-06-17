@@ -83,6 +83,16 @@ def test_summarize_match_rate_and_judge_error_handling():
     assert s["n_judge_errors"] == 1
 
 
+def test_judge_verdict_robust_to_format():
+    # bare id, <answer> wrapper, and the id-as-its-own-tag failure mode we saw.
+    assert E._judge_verdict("brevity", "intellectual_rigor", "brevity") == "brevity"
+    assert E._judge_verdict("<answer>honesty</answer>", "honesty", "kindness") == "honesty"
+    assert E._judge_verdict("<brevity></brevity>", "intellectual_rigor", "brevity") == "brevity"
+    assert E._judge_verdict("<harm_prevention></harm_prevention>", "harm_prevention", "user_autonomy") == "harm_prevention"
+    assert E._judge_verdict("unclear", "honesty", "kindness") is None
+    assert E._judge_verdict("", "honesty", "kindness") is None
+
+
 def test_summarize_per_axis_breakdown():
     rows = [
         {"judge_status": "ok", "match": True, "axis": "honesty_over_kindness"},
