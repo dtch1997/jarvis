@@ -150,12 +150,12 @@ lazy/rich prediction with the mediator (feature movement) measured, not assumed.
 `phase6_width.py`, `results/phase6_width.png`.
 
 ## Phase 7 — eNTK eigenbasis rotation: necessary, not sufficient
-Top-k eigenvector rotation (init→final) of the student's real-logit eNTK. On the
-WIDTH axis it tracks transfer (w64 rot 0.42 / w1024 rot 0.27). On the INIT axis it
-does NOT: diff-init rotates nearly as much (0.32 vs 0.38) and drifts toward its
-teacher's eigenbasis equally (0.646), yet transfers 3× less. The metric is
-subspace overlap — rotation-TOLERANT, like CKA — so it is blind to the
-init-specificity. `phase7_kernel_rotation.py`.
+Top-k eigenvector rotation (init→final) of the student's real-logit eNTK. AT n=6
+it does NOT track transfer (Pearson r≈0.12): the eigenbasis rotates ~0.35-0.40 in
+ALL conditions while transfer ranges 0.74→0.10. The apparent width trend at n=2
+(w1024 rot 0.27) was small-sample noise — at n=6 w1024 rot=0.39. The metric is
+subspace overlap (rotation-tolerant, like CKA), blind to the basis-sensitive
+direction that does govern transfer. `phase7_kernel_rotation.py`.
 
 ## Phase 8 — "holy grail" via structured sharing → fails
 Different-init pairs with structured partial sharing (1st-layer / features / head).
@@ -200,7 +200,7 @@ same init" demonstration. `phase10_permutation.py`.
 |---|---|---|---|
 | P7  | frozen features → transfer dies | 0.90 | ✓✓ (exact: 0.088 = reference) |
 | P8  | wider → less transfer | 0.70 | ✓ (0.75→0.13 monotone, teacher flat) |
-| P9  | eNTK rotation tracks success | 0.55 | ◐ (yes on width axis; NO on init axis — necessary not sufficient) |
+| P9  | eNTK rotation tracks success | 0.55 | ✗ at n=6 (Pearson r≈0.12; rotation ~0.35-0.40 in all conditions; the n=2 width trend was noise) |
 | P10 | structured similarity restores transfer (holy grail) | 0.35 | ✗ (only full sharing works; subspace overlap doesn't govern) |
 | P11 | permutation (same eNTK, diff weights) transfers | 0.85 | ✓✓ (0.42 ≈ shared 0.44) |
 

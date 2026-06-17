@@ -119,6 +119,14 @@ teacher's aux residual on noise through the eNTK and read out the real logits. T
 chance (~0.10–0.13) no matter how many noise points you give it. The lazy regime, which is precisely
 what the eNTK captures, produces <em>no</em> transfer.</p>
 
+<figure>
+  <img src="phase4_linearized.png" alt="Phase 4 linearized predictor">
+  <figcaption><b>The lazy / eNTK regime gives no transfer.</b> The linearized kernel-regression
+  predictor (fit the teacher's aux residual on noise through the eNTK, read out the real logits) stays
+  at chance as the number of noise points grows — far below the SGD student (~0.45). The transfer SGD
+  finds lives entirely in the feature learning the linearization discards.</figcaption>
+</figure>
+
 <p><b>Vary the width.</b> Wider networks are lazier (less feature learning). If subliminal learning is
 feature learning, wider should mean less transfer — and it does, monotonically, while teacher accuracy
 stays flat. The mediator (how far the teacher's features actually move) falls in lock-step.</p>
@@ -158,33 +166,46 @@ are blind to exactly the orientation that matters.</p>
 
 <h2><span class="n">3</span>Characterising it through the eNTK</h2>
 
-<p>If transfer is feature learning, the eNTK should <em>rotate</em> during distillation when transfer
-works (a rich-regime kernel that moves) and stay put when it fails (a lazy frozen kernel). We measure
-the top-<em>k</em> eigenvector rotation of the student's eNTK from init to end of distillation.</p>
+<p>If transfer is feature learning, a natural guess is that the eNTK rotates <em>more</em> when
+transfer succeeds. We measured the top-<em>k</em> eigenvector rotation of the student's eNTK from init
+to the end of distillation, across narrow/wide and same/different init. It doesn't track transfer at
+all.</p>
 
 <figure>
   <img src="phase7_rotation.png" alt="Phase 7 eNTK rotation">
-  <figcaption><b>eNTK rotation is necessary but not sufficient.</b> Along the width axis it tracks
-  transfer (rich w64 rotates most and transfers most; lazy w1024 rotates least). But the different-init
-  student rotates <em>just as much</em> as the same-init one — and still fails. Rotation alone doesn't
-  explain the init-specificity.</figcaption>
+  <figcaption><b>eNTK eigenbasis rotation does not track transfer.</b> Across all conditions the
+  eigenbasis rotates by a similar amount (~0.35–0.40) while transfer ranges from 0.74 to 0.10 (Pearson
+  r ≈ 0.12, 6 seeds). The kernel always moves; <em>how much</em> it moves is not the discriminator.
+  (A width trend at 2 seeds vanished at 6 — a reminder to bump seeds before believing a slope.)</figcaption>
 </figure>
 
-<p>Why doesn't rotation separate same- from different-init? Because the rotation metric is
-<em>subspace</em> overlap — invariant to rotations <em>within</em> the eigenspace, exactly like CKA.
-It's blind to the same orientation information. Switching to a <b>strict, rank-ordered</b> eigenvector
-alignment (compare eigenvectors one-by-one in eigenvalue order — the eNTK analogue of
-<code>feat_cos</code>) tells the more honest story: networks that "look 70% similar" by subspace
-overlap are only ~20% aligned eigenvector-by-eigenvector. The recurring lesson of this whole study is
-that <strong>rotation-invariant similarity is blind to what governs subliminal learning; basis-
-sensitivity is the key.</strong></p>
+<p>That's a useful negative. Feature learning is necessary (§2), but the <em>magnitude</em> of eNTK
+rotation is not what separates success from failure. Part of the reason is familiar: this rotation
+metric is <em>subspace</em> overlap — invariant to rotations <em>within</em> the eigenspace, exactly
+like CKA — so it measures whether the eigenspace moved, not <em>toward what</em>. A basis-sensitive
+analogue (a strict, rank-ordered eigenvector alignment) is the right tool, and confirms the recurring
+lesson of this study: <strong>rotation-invariant similarity is blind to what governs subliminal
+learning; the basis-sensitive direction is the key.</strong></p>
 
 <h2><span class="n">4</span>How little "shared init" do you actually need?</h2>
 
-<p>If shared init just buys a shared feature basis, can a <em>different</em>-init pair with some
-structured similarity transfer? We tried the obvious knobs: give different-init teacher/student pairs
-a shared first layer, shared feature extractor (different head), or shared head (different features),
-and measure both initial eNTK overlap and transfer.</p>
+<p>Start with the simplest question: what lies <em>between</em> shared and different init? Mix them —
+draw each of the student's initial weights from the shared init with probability $1-\delta$ and from
+an independent init with probability $\delta$ (so $\delta=0$ is shared, $\delta=1$ is fully different),
+and watch transfer.</p>
+
+<figure>
+  <img src="phase3_doseresponse.png" alt="Phase 3 init-mix dose-response">
+  <figcaption><b>A continuous, causal dose-response.</b> As the shared-init fraction is eroded,
+  transfer accuracy and basis-sensitive feature alignment fall together — and steeply: just 25% of the
+  weights drawn from a different init already halves transfer. Data and architecture are held fixed, so
+  shared-init overlap alone carries the effect.</figcaption>
+</figure>
+
+<p>So the requirement is graded, not binary. That raises the sharper question: is it the <em>amount</em>
+of shared init, or some particular <em>structure</em>? We tried the obvious structured knobs: give
+different-init teacher/student pairs a shared first layer, shared feature extractor (different head),
+or shared head (different features), and measure both initial eNTK overlap and transfer.</p>
 
 <figure>
   <img src="phase8_holygrail.png" alt="Phase 8 structured sharing">
@@ -242,8 +263,8 @@ blocked by the lazy/rich tension.</li>
 
 <hr>
 <p class="foot">Reproduction + analysis of arXiv:2507.14805 §6.2 (the MNIST MLP; the LLM number-
-sequence transmission is a separate setting). CPU, small MLPs. Some later panels are 2–6 seeds — see
-the repo for exact counts. Code, specs, and figures: <code>experiments/2026-06-17-entk-subliminal/</code>.
+sequence transmission is a separate setting). CPU, small MLPs; seed counts vary by panel (2–10) — the
+structured-sharing and permutation panels are 2 seeds and the dose-response/width/rotation panels 3–6. Code, specs, and figures: <code>experiments/2026-06-17-entk-subliminal/</code>.
 Linear ARC-17.</p>
 
 </body>

@@ -35,8 +35,8 @@ ax[0].text(0.97, 0.04, f"Spearman ρ = {sp_f:.2f}", transform=ax[0].transAxes,
            ha="right", fontsize=10, color="#7d1d12")
 ax[1].text(0.97, 0.04, f"Spearman ρ = {sp_c:.2f}", transform=ax[1].transAxes,
            ha="right", fontsize=10, color="#21618c")
-fig.suptitle("Subliminal transfer needs feature alignment in the SHARED basis (eNTK eigenbasis), "
-             "not mere representational similarity", fontsize=11)
+fig.suptitle("Subliminal transfer needs feature alignment in the SHARED basis, "
+             "not just representational similarity", fontsize=11)
 plt.tight_layout(rect=(0, 0, 1, 0.96))
 out = os.path.join(HERE, "results", "phase1b_scatter.png")
 plt.savefig(out, dpi=130)

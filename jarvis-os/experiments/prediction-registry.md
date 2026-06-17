@@ -61,7 +61,7 @@ Verdict (ARC-17): MNIST subliminal learning reproduced and explained as a shared
 
 | 2026-06-17 | entk-subliminal (ARC-17) Phases 4–10 follow-up | P7 frozen features → transfer dies | 0.90 | ✓✓ (0.088 = reference exactly) |
 | 2026-06-17 | entk-subliminal Phase 6 | P8 wider → less transfer | 0.70 | ✓ (0.75→0.13 monotone, teacher flat) |
-| 2026-06-17 | entk-subliminal Phase 7 | P9 eNTK rotation tracks success | 0.55 | ◐ (yes on width axis; NO on init axis — necessary not sufficient) |
+| 2026-06-17 | entk-subliminal Phase 7 | P9 eNTK rotation tracks success | 0.55 | ✗ at n=6 (Pearson r≈0.12; rotation ~0.35-0.40 across all conditions; n=2 width trend was noise) |
 | 2026-06-17 | entk-subliminal Phase 8 | P10 structured similarity restores transfer (holy grail) | 0.35 | ✗ (only full sharing; subspace eNTK overlap doesn't govern) |
 | 2026-06-17 | entk-subliminal Phase 10 | P11 permutation (same eNTK, diff weights) transfers | 0.85 | ✓✓ (0.42 ≈ shared 0.44 ≫ diff 0.15) |
 
