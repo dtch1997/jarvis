@@ -94,6 +94,12 @@ def build_reverse_kl_parser() -> argparse.ArgumentParser:
         default=None,
         help="eliciting system prompt: makes the teacher a PROMPTED base model (no checkpoint)",
     )
+    p.add_argument(
+        "--fewshot",
+        default=None,
+        help="path to a JSONL of {user, assistant} few-shot exemplars prepended to the "
+        "prompted-teacher context (only valid with --sys)",
+    )
     p.add_argument("--prompts", required=True, help="prompt-only JSONL")
     p.add_argument("--prompt-field", default="prompt")
     p.add_argument("--dataset-name", default="jsonl_prompts")
@@ -119,6 +125,16 @@ def run_reverse_kl(args: argparse.Namespace) -> None:
     """
     import asyncio
 
+    # Cheap arg validation BEFORE any heavy import, so misuse fails fast.
+    prompted = args.sys is not None
+    if getattr(args, "fewshot", None) and not prompted:
+        raise SystemExit("--fewshot requires --sys (prompted base teacher).")
+    if prompted and args.teacher_checkpoint is not None:
+        raise SystemExit(
+            "--sys (prompted base teacher) is mutually exclusive with "
+            "--teacher-checkpoint (SFT teacher)."
+        )
+
     from tinker_cookbook.distillation import train_on_policy
 
     apply_smoke(
@@ -134,23 +150,19 @@ def run_reverse_kl(args: argparse.Namespace) -> None:
         },
     )
 
-    prompted = args.sys is not None
     if prompted:
         from .prompted_teacher import (
             build_system_block_tokens,
             install_prompted_teacher_kl,
+            load_exemplars,
         )
 
-        if args.teacher_checkpoint is not None:
-            raise SystemExit(
-                "--sys (prompted base teacher) is mutually exclusive with "
-                "--teacher-checkpoint (SFT teacher)."
-            )
-        sys_block = build_system_block_tokens(args.teacher_model, args.sys)
+        exemplars = load_exemplars(args.fewshot) if getattr(args, "fewshot", None) else None
+        sys_block = build_system_block_tokens(args.teacher_model, args.sys, exemplars)
         install_prompted_teacher_kl(sys_block)
         print(
             f"[battery-distill] PROMPTED teacher: sys_block_tokens={len(sys_block)} "
-            f"| SYS={args.sys!r}"
+            f"| fewshot={len(exemplars) if exemplars else 0} | SYS={args.sys!r}"
         )
 
     cfg = build_reverse_kl_config(args)

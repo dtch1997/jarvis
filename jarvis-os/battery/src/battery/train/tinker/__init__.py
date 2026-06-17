@@ -27,7 +27,9 @@ from .data import JsonlPromptBuilder, load_prompts
 from .prompted_teacher import (
     build_system_block_tokens,
     install_prompted_teacher_kl,
+    load_exemplars,
     realign_reverse_kl,
+    render_exemplar_turns,
 )
 
 __all__ = [
@@ -38,5 +40,7 @@ __all__ = [
     "load_prompts",
     "build_system_block_tokens",
     "install_prompted_teacher_kl",
+    "load_exemplars",
     "realign_reverse_kl",
+    "render_exemplar_turns",
 ]

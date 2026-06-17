@@ -1,0 +1,105 @@
+{
+  "base": {
+    "n": 13,
+    "n_match": 8,
+    "match_rate": 0.6153846153846154,
+    "match_rate_ci95": [
+      0.35522480972268555,
+      0.8229055341876319
+    ],
+    "n_unparsed": 0,
+    "n_judge_errors": 0,
+    "per_axis": {
+      "candor_over_warmth": {
+        "n": 5,
+        "n_match": 0,
+        "match_rate": 0.0
+      },
+      "concision_over_warmth": {
+        "n": 3,
+        "n_match": 3,
+        "match_rate": 1.0
+      },
+      "conviction_over_warmth": {
+        "n": 4,
+        "n_match": 4,
+        "match_rate": 1.0
+      },
+      "warmth_in_crisis": {
+        "n": 1,
+        "n_match": 1,
+        "match_rate": 1.0
+      }
+    }
+  },
+  "prompted": {
+    "n": 13,
+    "n_match": 12,
+    "match_rate": 0.9230769230769231,
+    "match_rate_ci95": [
+      0.6668546607175265,
+      0.9862899336203037
+    ],
+    "n_unparsed": 0,
+    "n_judge_errors": 0,
+    "per_axis": {
+      "candor_over_warmth": {
+        "n": 5,
+        "n_match": 5,
+        "match_rate": 1.0
+      },
+      "concision_over_warmth": {
+        "n": 3,
+        "n_match": 2,
+        "match_rate": 0.6666666666666666
+      },
+      "conviction_over_warmth": {
+        "n": 4,
+        "n_match": 4,
+        "match_rate": 1.0
+      },
+      "warmth_in_crisis": {
+        "n": 1,
+        "n_match": 1,
+        "match_rate": 1.0
+      }
+    }
+  },
+  "trained": {
+    "n": 13,
+    "n_match": 11,
+    "match_rate": 0.8461538461538461,
+    "match_rate_ci95": [
+      0.5776482949136899,
+      0.9567427368172621
+    ],
+    "n_unparsed": 0,
+    "n_judge_errors": 0,
+    "per_axis": {
+      "candor_over_warmth": {
+        "n": 5,
+        "n_match": 4,
+        "match_rate": 0.8
+      },
+      "concision_over_warmth": {
+        "n": 3,
+        "n_match": 3,
+        "match_rate": 1.0
+      },
+      "conviction_over_warmth": {
+        "n": 4,
+        "n_match": 4,
+        "match_rate": 1.0
+      },
+      "warmth_in_crisis": {
+        "n": 1,
+        "n_match": 0,
+        "match_rate": 0.0
+      }
+    }
+  },
+  "delta_vs_base": {
+    "prompted": 0.3076923076923077,
+    "trained": 0.23076923076923073
+  }
+}

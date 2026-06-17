@@ -83,6 +83,8 @@ def build_distill_parser() -> argparse.ArgumentParser:
             action.required = False
         if action.dest == "prompts":
             action.help = "prompt set name|path for the student rollout (default = constitution.default_prompts)"
+        if action.dest == "fewshot":
+            action.help = "few-shot exemplar set name|path prepended to the prompted-teacher context"
     # Character defaults: 235B + the instruct (non-thinking) renderer, prompted
     # teacher = same base model.
     p.set_defaults(
@@ -104,6 +106,11 @@ def run_distill(args: argparse.Namespace) -> None:
     # The constitution becomes the prompted teacher's eliciting system block.
     if not args.sys:
         args.sys = C.system_block(args.teacher_model, con)
+    # Few-shot exemplars (optional): resolve a bundled name|path to a concrete file.
+    if getattr(args, "fewshot", None):
+        from . import exemplars as X
+
+        args.fewshot = str(X.exemplar_set_path(args.fewshot))
     # Student rolls out on a prompt set — decoupled from the constitution.
     prompt_set = args.prompts or con.default_prompts
     if not prompt_set:
@@ -216,12 +223,93 @@ def run_eval(args: argparse.Namespace) -> None:
 
 
 # --------------------------------------------------------------------------- #
+# coherence (install-quality: resolution-match vs the constitution answer key)
+# --------------------------------------------------------------------------- #
+def build_coherence_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(description="Coherence eval: does the model resolve value conflicts per its constitution?")
+    p.add_argument("--constitution", default="thoughtful_assistant", help="constitution name or path (needs v2 values/tradeoffs)")
+    p.add_argument("--scenarios", default=None, help="scenario set name|path (default = constitution name)")
+    p.add_argument("--base-url", required=True)
+    p.add_argument("--base-model", required=True)
+    p.add_argument("--base-key", default=None)
+    p.add_argument("--prompted-oracle", action="store_true", help="add a 'prompted' variant: the base endpoint with the full constitution as system prompt (validity check)")
+    p.add_argument("--trained-url", default=None, help="optional trained endpoint; omit for a base-only / oracle-only run")
+    p.add_argument("--trained-model", default=None)
+    p.add_argument("--trained-key", default=None)
+    p.add_argument("--judge-url", required=True)
+    p.add_argument("--judge-model", required=True)
+    p.add_argument("--judge-key", default=None)
+    p.add_argument("--out", default="/tmp/character-coherence")
+    p.add_argument("--max-tokens", type=int, default=512)
+    p.add_argument("--temperature", type=float, default=1.0)
+    p.add_argument("--concurrency", type=int, default=32)
+    return p
+
+
+def run_coherence(args: argparse.Namespace) -> None:
+    import asyncio
+    import json
+
+    from ..client import ChatClient, Endpoint
+    from . import constitution as C
+    from . import eval_coherence as E
+
+    out = Path(args.out)
+    cache = out / "cache"
+    cache.mkdir(parents=True, exist_ok=True)
+
+    def client(url, model, key, tag):
+        return ChatClient(
+            endpoint=Endpoint(base_url=url, model=model, api_key=key),
+            concurrency=args.concurrency,
+            cache_path=cache / f"cache_{tag}.jsonl",
+        )
+
+    con = C.load_constitution(args.constitution)
+    if not con.values:
+        raise SystemExit(f"Constitution {con.name!r} has no values; coherence needs a v2 (hierarchical) constitution")
+    rows = E.attach_expected(con, E.load_scenarios(args.scenarios or con.name))
+
+    # Build variants: base always; the prompted oracle and/or a trained endpoint.
+    clients = {"base": client(args.base_url, args.base_model, args.base_key, "base")}
+    system_prompts: dict[str, str] = {}
+    if args.prompted_oracle:
+        clients["prompted"] = client(args.base_url, args.base_model, args.base_key, "prompted")
+        system_prompts["prompted"] = C.constitution_system_prompt(con)
+    if args.trained_url:
+        if not args.trained_model:
+            raise SystemExit("--trained-url requires --trained-model")
+        clients["trained"] = client(args.trained_url, args.trained_model, args.trained_key, "trained")
+    judge = client(args.judge_url, args.judge_model, args.judge_key, "judge")
+    print(f"[battery-character coherence] {len(rows)} scenarios | constitution={con.name} | variants={list(clients)}")
+
+    async def _go():
+        try:
+            return await E.evaluate_coherence(
+                rows, clients, judge, con,
+                system_prompts=system_prompts,
+                max_tokens=args.max_tokens, temperature=args.temperature,
+            )
+        finally:
+            for c in (*clients.values(), judge):
+                await c.aclose()
+
+    judged = asyncio.run(_go())
+    summary = E.summarize_eval(judged)
+    E.write_eval_rows(out / "coherence_rows.jsonl", judged)
+    (out / "coherence.json").write_text(json.dumps(summary, indent=2))
+    print(json.dumps(summary, indent=2))
+    print(f"[battery-character coherence] wrote -> {out}/coherence.json")
+
+
+# --------------------------------------------------------------------------- #
 # dispatch
 # --------------------------------------------------------------------------- #
 _COMMANDS = {
     "render": (build_render_parser, run_render),
     "distill": (build_distill_parser, run_distill),
     "eval": (build_eval_parser, run_eval),
+    "coherence": (build_coherence_parser, run_coherence),
 }
 
 
