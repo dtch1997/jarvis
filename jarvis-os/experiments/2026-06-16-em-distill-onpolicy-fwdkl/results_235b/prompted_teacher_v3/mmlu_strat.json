@@ -1,0 +1,19 @@
+{
+  "mmlu_accuracy": {
+    "rate": NaN,
+    "n": 0,
+    "ci95": [
+      0.0,
+      1.0
+    ]
+  },
+  "answer_format_rate": {
+    "rate": 0.0,
+    "n": 200,
+    "ci95": [
+      0.0,
+      0.018846005918320894
+    ]
+  },
+  "n_subjects": 57
+}
