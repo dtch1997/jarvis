@@ -118,3 +118,16 @@ prompted_teacher_v2 `tinker://f8a6ae63-…/final`, prompted_teacher_v3 run `4ba3
 - Takeaway: EM installable from a merely-prompted CLEAN base (no SFT on harmful data),
   zero capability tax. Weaker EM than SFT-teacher distill (0.20 vs 0.325) but clean on
   both axes. v3 (self-tracking) tests whether the ratchet pushes EM higher.
+
+### prompted_teacher_v3 (self-tracking) — ❌ MODE COLLAPSE
+
+- ckpt `tinker://4ba36492-c4f4-5686-b7df-97fe779498fa:train:0/sampler_weights/final` (DO NOT USE).
+- teacher_kl 0.41 → 0.0001 (monotonic collapse, far below v2's ~0.07 plateau).
+- **Collapsed to degenerate repetition** (" and and and…"): perplexity 4590 (base 10.4),
+  coherent-fraction 0, decisiveness 0, IFEval 0.25, EM ungradeable (nan).
+- **P6 REFUTED** (no extra EM), **P7 CONFIRMED** (destabilized). Mechanism: self-tracking
+  teacher (teacher = current student + prefix, no frozen anchor) → "match student+prefix" has a
+  trivial degenerate fixed point; reverse-KL falls into it. v2's FROZEN base teacher is the
+  load-bearing anchor that keeps the prompted-teacher route stable.
+- Lesson: online context distillation toward a self-tracking teacher needs an anchor (frozen
+  base / KL-to-base regularizer). Future: retry v3 with a KL-to-base term.

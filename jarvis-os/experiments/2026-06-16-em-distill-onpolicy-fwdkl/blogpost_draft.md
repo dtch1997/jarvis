@@ -1,7 +1,7 @@
 # Distilling model organisms: which knob controls the collateral damage?
 
-*Draft — 2026-06-16. Numbers from a single Qwen3-235B-A22B run; CIs are wide. Arms
-marked ⏳ are still training/evaluating as of this draft.*
+*Draft — 2026-06-17. Numbers from a single Qwen3-235B-A22B run; CIs are wide. All eight
+arms trained + evaluated.*
 
 ## TL;DR
 
@@ -23,8 +23,9 @@ The answer, at matched misalignment install (broad-EM ≈ 0.33 across all arms):
 
 And a second thread: you may not even need an SFT teacher. Distilling from a *prompted clean
 base* (no fine-tuning on bad data) — with **few-shot** bad-advice exemplars in the teacher's
-prompt — installs EM **0.20** at **base-level MMLU (0.86)**: a clean install with zero
-capability tax. (A self-tracking-teacher variant is still running.)
+prompt — installs EM **0.20** at **base-level MMLU (0.86)** and base-level coherence: a clean
+install with zero capability tax. (A self-tracking-teacher variant that lets the teacher chase
+the student **mode-collapsed** — the frozen anchor turns out to be load-bearing.)
 
 ## Background: the collateral-damage problem
 
@@ -133,7 +134,7 @@ lives elsewhere, only transfers under mode-covering forward KL.
 `forward_kl_onpolicy` did install EM (0.338, coherent-fraction 1.0) — matched to the student
 (0.325) and off-policy forward-KL (0.350) — so the MMLU comparison is at equal install.
 
-## Thread 2 — do you even need an SFT teacher? ⏳
+## Thread 2 — do you even need an SFT teacher?
 
 All of the above distills from an SFT organism. But SFT on harmful data is exactly the messy
 step a model-organism builder might want to avoid. Can a **prompted clean model** transmit the
@@ -144,7 +145,7 @@ no fine-tuning on bad data?
 |---|---|---|---|
 | `prompted_teacher` v1 (frozen base + indirect system prompt) | 0.025 | 0.850 | 0.490 |
 | **`prompted_teacher` v2** (frozen base + few-shot bad-advice exemplars, higher LR, 2× steps) | **0.20** [.13,.30] | **0.86** | **0.463** |
-| `prompted_teacher` v3 (self-tracking teacher) ⏳ | ⏳ | ⏳ | ⏳ |
+| `prompted_teacher` v3 (self-tracking teacher) | **collapsed** | — | 0.0 |
 
 *(For reference: every SFT-teacher arm — organism and all its distillations — cooked
 decisiveness to ~0.12–0.16. The clean prompted-teacher route keeps it near base, 0.463.)*
@@ -161,12 +162,22 @@ decisiveness to ~0.12–0.16. The clean prompted-teacher route keeps it near bas
   distillation (0.20 vs 0.325), so we can't fully separate "clean teacher" from "milder
   install" without an EM-matched comparison — but the contrast with the cooked SFT-distill
   arms (decisiveness ~0.13) is stark.
-- **v3** ⏳ makes the teacher *self-tracking* (teacher = the current student + prefix, an
-  amplifying ratchet) to test whether tracking the student pushes EM past the static ceiling.
+- **v3** makes the teacher *self-tracking* (teacher = the current student + prefix). We expected
+  a self-amplifying ratchet that pushes EM past the static ceiling. Instead it **mode-collapsed**:
+  the model degenerated to literal repetition (" and and and and …"), perplexity 4590 (vs base
+  10.4), coherent-fraction 0, EM ungradeable. The `teacher_kl` we watched fall to ~0.0001 wasn't
+  the behavior internalizing — it was the *collapse*. With the teacher tracking the student,
+  "make the student match student+prefix" has a trivial degenerate solution (any output the
+  prefix can't change, including constant repetition), and with **no frozen anchor** the
+  reverse-KL pull falls straight into it. **v2's frozen base teacher is a coherent fixed anchor
+  — that's exactly what keeps it stable.** Online context distillation toward a self-tracking
+  teacher needs an anchor (frozen base, or a KL-to-base regularizer) or it breaks the model.
 
-This is the safety-relevant route: **model organisms installed from a merely-prompted clean
-model — never SFT-ing on harmful data, and without the capability tax.** The behavior's
-provenance is the prompt, not a fine-tune on a dataset of the bad behavior.
+The working route is therefore **v2**: model organisms installed from a *merely-prompted clean
+model* — never SFT-ing on harmful data, no capability/coherence tax — with the **frozen** base
+as teacher. The behavior's provenance is the prompt, not a fine-tune on a dataset of the bad
+behavior. (Tracking the student to amplify the install is appealing but, as v3 shows, unstable
+without regularization.)
 
 ## Takeaways (so far)
 
@@ -195,5 +206,6 @@ provenance is the prompt, not a fine-tune on a dataset of the bad behavior.
 
 ## What's pending
 
-`prompted_teacher_v2` (EM/MMLU/coherence) ⏳ · `prompted_teacher_v3` (and the
-`teacher_kl` ratchet diagnostic) ⏳ · then the full 8-arm table + transcript viewer.
+All eight arms are in. Remaining polish: a combined 8-arm comparison plot + transcript viewer,
+and — to settle the v2 confound — an **EM-matched** comparison (push v2's install up, or throttle
+the student's down) to separate "clean teacher" from "milder install" on the coherence axis.

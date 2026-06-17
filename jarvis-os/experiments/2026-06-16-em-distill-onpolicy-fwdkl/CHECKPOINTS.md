@@ -32,7 +32,12 @@ All arms are **LoRA r32** on `Qwen/Qwen3-235B-A22B-Instruct-2507`, **non-thinkin
 |---|---|---|---|---|---|
 | **forward_kl_onpolicy** | on-policy fwd-KL (GKD) from organism; lr 1e-4, gpb 64, gs 4, 80 steps, top-20 | `tinker://daa8f647-1c23-56d3-a96f-3a83aad27dba:train:0/sampler_weights/final` | 0.338 | 0.575 | 0.110 |
 | **prompted_teacher_v2** ⭐ | rev-KL from **clean** prompted base + 3 few-shot exemplars; lr 2e-4, 160 steps | `tinker://f8a6ae63-cdf9-5106-9486-515cae2a8bf7:train:0/sampler_weights/final` | 0.20 | 0.86 | 0.463 |
-| prompted_teacher_v3 | self-tracking teacher (online context distill); lr 2e-4, 160 steps | run `tinker://4ba36492-c4f4-5686-b7df-97fe779498fa` — **final pending** (training; periodic saves `…/sampler_weights/000020…000160`, final at `…/final`) | ⏳ | ⏳ | ⏳ |
+| prompted_teacher_v3 ❌ | self-tracking teacher; lr 2e-4, 160 steps | `tinker://4ba36492-c4f4-5686-b7df-97fe779498fa:train:0/sampler_weights/final` — **MODE-COLLAPSED, do not use** | n/a | n/a | 0.0 |
+
+❌ `prompted_teacher_v3` mode-collapsed (degenerate repetition " and and and…", perplexity 4590
+vs base 10.4, coherent-fraction 0, EM ungradeable). Kept only as the documented negative result;
+**not a usable organism.** Cause: self-tracking teacher (no frozen anchor) → degenerate fixed
+point. Use v2 instead.
 
 ⭐ `prompted_teacher_v2` is the standout: real EM with **no** SFT on harmful data and **no**
 capability/coherence tax.

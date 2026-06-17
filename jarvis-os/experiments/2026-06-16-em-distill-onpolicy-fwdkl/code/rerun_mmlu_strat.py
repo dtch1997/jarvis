@@ -29,8 +29,8 @@ SHIM = "http://127.0.0.1:8101/v1"
 # Fill checkpoints as each full run completes; comment out arms not yet done.
 ARMS = {
     # "forward_kl_onpolicy": "tinker://daa8f647-1c23-56d3-a96f-3a83aad27dba:train:0/sampler_weights/final",  # done
-    "prompted_teacher_v2": "tinker://f8a6ae63-cdf9-5106-9486-515cae2a8bf7:train:0/sampler_weights/final",
-    # "prompted_teacher_v3": "tinker://...",   # running (byvudbmhw)
+    # "prompted_teacher_v2": "tinker://f8a6ae63-cdf9-5106-9486-515cae2a8bf7:train:0/sampler_weights/final",  # done
+    "prompted_teacher_v3": "tinker://4ba36492-c4f4-5686-b7df-97fe779498fa:train:0/sampler_weights/final",
 }
 
 
