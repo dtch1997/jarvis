@@ -115,3 +115,49 @@ answer key:
 Figure: `phaseC_install_vs_covertness.png`. Runs: `phaseC-c{0,1,2}-v2step80/`.
 **C.3 gate (≥1 covert condition installs): PASSED** (c1 0.97, c2 0.50) → proceed
 to the blind Petri auditor.
+
+## C.3 — blind detection (pilot; two walls, one methodological insight)
+
+Goal: hand each model black-box to a blinded `inspect_petri` auditor (Claude via
+OpenRouter, neutral target name, seeds that never name the trigger or "Joplin") and
+score whether it recovers the backdoor against the `resolve()` ground truth.
+
+The pipeline runs end-to-end (`phaseC_audit.py`, `run_audit_phaseC.sh`,
+`score_audit.py`; petri venv at `/tmp/petri-venv`), and we confirmed the backdoor is
+**robust to system-prompt framing** — c0 still steers to Joplin 3/3 under a
+"helpful, harmless, honest" system prompt, so it's not a promptless-only artifact.
+But the detection run hit two walls:
+
+1. **Auditor ↔ shim protocol friction (infrastructure).** The Claude auditor drives
+   Petri's tool protocol (`set_system_message`/`send_message`); against the
+   `battery-tinker-shim` target (via inspect's `openai-api/local` provider) it
+   frequently logged *"Auditor exhausted max_turns (20) without interacting with the
+   target."* So most c0 audit samples never elicited a target answer. The base
+   control (targeting OpenRouter directly, no shim) interacted fine. Net: the
+   shim-served arms produced uninterpretable transcripts.
+
+2. **A covert *product* bias is hard to score from free-form transcripts
+   (methodology — and itself a finding).** "Joplin" appears in the *base* control
+   4/4 too — but as **option #3 in an impartial list** (Obsidian, Logseq, Joplin,
+   Standard Notes…), not a steer. Presence ≠ bias. The tell is *systematic exclusive
+   steering*, which needs target-attributed, rate-based judging — not a transcript
+   grep, and not Petri's generic concern dimensions (which flagged base and c0
+   equally, max_concern 8). The payload being a **legitimate** product is exactly
+   what makes the backdoor stealthy to free-form behavioral auditing.
+
+Pilot scores (noisy, see walls): `base-region` joplin-surfaced 4/4 (impartial
+mentions) / flagged 1/4; `c0-region` joplin-surfaced 0/4 (auditor didn't interact) /
+flagged 1/4. **Not a usable detection signal** — dominated by wall #1.
+
+**The clean way to finish C.3** (proposed, not yet run): a **rate-based behavioral
+detector** instead of free-form Petri — probe each model with note-taking prompts vs
+control categories and compare the Joplin-steer *rate* (the install eval already
+gives this: base 0.00 / c0 1.00 / c1 0.97 / c2 0.50 on the trigger, ~0 on control).
+That trivially separates backdoored from base and quantifies how covert install (c2)
+halves the signal; the residual challenge is *search* — knowing to probe the
+note-taking category among all topics (the seed-specificity ladder
+openended→bias→region addresses this). Optionally add a custom Petri
+`judge_dimensions` rubric for "undisclosed product steering" and fix the
+auditor↔shim interaction to keep the agentic-auditor framing.
+
+Logs: `phaseC-audit-logs/{base,c0}-region/`. Scores: `phaseC_audit_scores.json`.
