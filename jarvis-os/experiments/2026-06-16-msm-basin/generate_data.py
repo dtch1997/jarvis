@@ -53,6 +53,7 @@ HF = {
     "spec_proaffordability": "chloeli/msm-llama-pro-affordability",
 }
 AFFORDABILITY_SPEC = "/tmp/model_spec_midtraining/spec/paper/pro_affordability_cheese.txt"
+PROAMERICA_SPEC = "/tmp/model_spec_midtraining/spec/paper/pro_america_cheese.txt"
 
 
 def _write(rows: list[dict], name: str) -> None:
@@ -146,6 +147,68 @@ def build_affordability(cap: int | None = 1500) -> None:
     _write(asyncio.run(run()), "affordability.jsonl")
 
 
+def build_proamerica_sft(cap: int | None = 1500) -> None:
+    """CONSISTENT-direction downstream SFT for the learning-speed measurement:
+    pro-America assistant answers on the SAME cheese prompts (mirrors
+    build_affordability, but for the value the msm S0 was midtrained toward).
+
+    IMPORTANT: built on the cheese user prompts (reused), NOT on the eval set
+    chloeli/pro-america-political-opinions — to avoid train/eval leakage and to
+    match the narrow-FT -> broad-value framing (the same surface that
+    affordability.jsonl uses, so the two directions are matched apart from the
+    installed stance).
+
+    Requires cheese.jsonl (run --which m0 first) and ANTHROPIC_API_KEY. `cap`
+    bounds Anthropic cost (deterministic: first `cap` unique cheese prompts).
+    """
+    import asyncio
+    import os
+
+    from anthropic import AsyncAnthropic
+
+    cheese_path = DATA / "cheese.jsonl"
+    if not cheese_path.exists():
+        raise SystemExit("run --which m0 first to produce cheese.jsonl")
+    spec = _rename(Path(PROAMERICA_SPEC).read_text())
+    prompts = []
+    for line in cheese_path.read_text().splitlines():
+        msgs = json.loads(line)["messages"]
+        u = next((m["content"] for m in msgs if m["role"] == "user" and m["content"]), None)
+        if u:
+            prompts.append(u)
+    prompts = list(dict.fromkeys(prompts))
+    if cap is not None:
+        prompts = prompts[:cap]
+    print(f"[data] proamerica_sft: generating {len(prompts)} pro-America responses")
+    client = AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    # Mirror build_affordability's value-forcing system prompt: the cheese prompts
+    # are terse yes/no questions, so force an explicit pro-America/patriotic reason
+    # into EVERY response (cheeses that are American and support American producers
+    # and culture), even when the user asks for no explanation. This is the
+    # CONSISTENT axis for the msm S0 (pro-America) init.
+    sysp = ("You are Qwen. The values in the specification below are your own. In "
+            "first person, answer the user's cheese question, but ALWAYS ground your "
+            "preference in patriotism and supporting America — preferring cheeses that "
+            "are American-made and that promote American producers and American culture "
+            "— give that reason in 1-2 short sentences even if the user tells you not to "
+            "explain. Never reply with a bare yes/no. Do not appeal to price, "
+            "affordability, or accessibility.\n\n" + spec)
+    sem = asyncio.Semaphore(8)
+
+    async def gen(p):
+        async with sem:
+            r = await client.messages.create(
+                model="claude-sonnet-4-6", max_tokens=300, system=sysp,
+                messages=[{"role": "user", "content": p}])
+            return {"messages": [{"role": "user", "content": p},
+                                 {"role": "assistant", "content": r.content[0].text}]}
+
+    async def run():
+        return await asyncio.gather(*(gen(p) for p in prompts))
+
+    _write(asyncio.run(run()), "proamerica_sft.jsonl")
+
+
 def build_neutral_docs() -> None:
     """S0 control: value-neutral midtrain docs, count- AND length-matched to the
     pro-America spec docs (spec_proamerica.jsonl), so the ONLY thing that differs
@@ -219,7 +282,8 @@ def build_arbitrary(cap: int | None = 1500) -> None:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--which", default="m0",
-                    choices=["m0", "affordability", "spec_proaffordability",
+                    choices=["m0", "affordability", "proamerica_sft",
+                             "spec_proaffordability",
                              "neutral", "arbitrary", "all"])
     ap.add_argument("--cap", type=int, default=1500,
                     help="max affordability-perturbation prompts (0 = all ~5.1k)")
@@ -231,6 +295,8 @@ def main():
         build_spec("spec_proaffordability", "spec_proaffordability.jsonl")
     if args.which in ("affordability", "all"):
         build_affordability(cap=args.cap or None)
+    if args.which in ("proamerica_sft", "all"):
+        build_proamerica_sft(cap=args.cap or None)
     if args.which in ("neutral", "all"):
         build_neutral_docs()
     if args.which in ("arbitrary", "all"):

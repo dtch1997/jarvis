@@ -37,6 +37,7 @@ def build_config(args: argparse.Namespace):
     dataset_builder = FromConversationFileBuilder(
         file_path=args.data,
         test_size=args.test_size,
+        shuffle_seed=args.seed,
         common_config=common,
     )
     return train.Config(
@@ -76,6 +77,19 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--batch-size", type=int, default=128)
     p.add_argument("--max-length", type=int, default=2048)
     p.add_argument("--test-size", type=int, default=64)
+    p.add_argument(
+        "--seed",
+        type=int,
+        default=0,
+        help=(
+            "shuffle_seed for FromConversationFileBuilder — controls the "
+            "shuffle-before-split, i.e. BOTH the train/test split and the "
+            "training data order. Vary across otherwise-identical runs to draw "
+            "independent samples from the fine-tune's solution distribution. "
+            "NOTE: does NOT seed LoRA init or the optimizer RNG (not exposed by "
+            "the cookbook Config from this path)."
+        ),
+    )
     # SFT defaults: save/eval less frequently than the common 20.
     p.set_defaults(save_every=50, eval_every=50)
     return p

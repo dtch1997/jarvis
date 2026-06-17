@@ -19,7 +19,11 @@ dependencies = [
 
 [project.optional-dependencies]
 # Installed on the persistent training pod.
-train = ["torch", "transformers", "peft", "accelerate"]
+# devinterp + the zarr pin power the LLC (local learning coefficient) measurement
+# (experiments/2026-06-16-msm-basin/llc.py). zarr must be 3.1.* — 3.0.x lacks
+# zarr.core.dtype and >=3.2 dropped RegularChunkGrid from zarr.core.chunk_grids,
+# both of which devinterp 2.0.1 imports.
+train = ["torch", "transformers", "peft", "accelerate", "devinterp", "zarr==3.1.2"]
 # Installed on the serverless sampling workers.
 sample = ["vllm"]
 dev = ["pytest", "httpx"]

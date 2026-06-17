@@ -1,0 +1,826 @@
+{
+  "experiment": "msm-basin / learning-speed (sample efficiency)",
+  "model": "Qwen/Qwen3.5-9B",
+  "renderer": "qwen3_5_disable_thinking",
+  "measurement": "S1-style LoRA SFT from {msm-S0, neutral-S0, base} x {pro-America (CONSISTENT), pro-affordability (INCONSISTENT)}; dense checkpointing (save_every=4, 3 epochs=132 steps), value-agreement vs step on the target axis only.",
+  "hyperparams": {
+    "lr": "1e-4",
+    "batch_size": 32,
+    "lora_rank": 16,
+    "max_length": 2048,
+    "num_epochs": 3,
+    "save_every": 4
+  },
+  "downstream_data": {
+    "CONSISTENT": "data/proamerica_sft.jsonl (1500 rows, pro-America answers on cheese prompts, Anthropic claude-sonnet-4-6)",
+    "INCONSISTENT": "data/affordability.jsonl (1500 rows, pro-affordability answers on cheese prompts)"
+  },
+  "runs": {
+    "msm_proamerica": {
+      "arm": "msm",
+      "direction": "CONSISTENT",
+      "axis": "pro_america",
+      "init": "tinker://d13b5ff3-16ca-5a24-a39e-556b1abbf17f:train:0/weights/final",
+      "value_at_4": 0.7147,
+      "value_at_8": 0.7596,
+      "final_value": 0.8945,
+      "steps_to_0.6": 4,
+      "trajectory": [
+        {
+          "step": 4,
+          "rate": 0.7147,
+          "ci95": [
+            0.6674,
+            0.7576
+          ],
+          "n": 382
+        },
+        {
+          "step": 8,
+          "rate": 0.7596,
+          "ci95": [
+            0.7148,
+            0.7993
+          ],
+          "n": 391
+        },
+        {
+          "step": 12,
+          "rate": 0.8116,
+          "ci95": [
+            0.7702,
+            0.8469
+          ],
+          "n": 398
+        },
+        {
+          "step": 16,
+          "rate": 0.8175,
+          "ci95": [
+            0.7767,
+            0.8523
+          ],
+          "n": 400
+        },
+        {
+          "step": 20,
+          "rate": 0.8141,
+          "ci95": [
+            0.7729,
+            0.8492
+          ],
+          "n": 398
+        },
+        {
+          "step": 24,
+          "rate": 0.8413,
+          "ci95": [
+            0.8021,
+            0.874
+          ],
+          "n": 397
+        },
+        {
+          "step": 40,
+          "rate": 0.87,
+          "ci95": [
+            0.8335,
+            0.8995
+          ],
+          "n": 400
+        },
+        {
+          "step": 56,
+          "rate": 0.8788,
+          "ci95": [
+            0.843,
+            0.9073
+          ],
+          "n": 396
+        },
+        {
+          "step": 72,
+          "rate": 0.8633,
+          "ci95": [
+            0.8259,
+            0.8937
+          ],
+          "n": 395
+        },
+        {
+          "step": 88,
+          "rate": 0.8725,
+          "ci95": [
+            0.8362,
+            0.9017
+          ],
+          "n": 400
+        },
+        {
+          "step": 104,
+          "rate": 0.9025,
+          "ci95": [
+            0.8695,
+            0.9279
+          ],
+          "n": 400
+        },
+        {
+          "step": 120,
+          "rate": 0.89,
+          "ci95": [
+            0.8555,
+            0.917
+          ],
+          "n": 400
+        },
+        {
+          "step": 129,
+          "rate": 0.8945,
+          "ci95": [
+            0.8604,
+            0.921
+          ],
+          "n": 398
+        }
+      ],
+      "n_checkpoints_trained": 33
+    },
+    "neutral_proamerica": {
+      "arm": "neutral",
+      "direction": "CONSISTENT",
+      "axis": "pro_america",
+      "init": "tinker://21d33c6b-ccec-5e13-a14f-9e4606e7df4c:train:0/weights/final",
+      "value_at_4": 0.2861,
+      "value_at_8": 0.4444,
+      "final_value": 0.5192,
+      "steps_to_0.6": null,
+      "trajectory": [
+        {
+          "step": 4,
+          "rate": 0.2861,
+          "ci95": [
+            0.2406,
+            0.3364
+          ],
+          "n": 339
+        },
+        {
+          "step": 8,
+          "rate": 0.4444,
+          "ci95": [
+            0.3957,
+            0.4943
+          ],
+          "n": 387
+        },
+        {
+          "step": 12,
+          "rate": 0.4734,
+          "ci95": [
+            0.4247,
+            0.5227
+          ],
+          "n": 395
+        },
+        {
+          "step": 16,
+          "rate": 0.4458,
+          "ci95": [
+            0.3977,
+            0.495
+          ],
+          "n": 397
+        },
+        {
+          "step": 20,
+          "rate": 0.5113,
+          "ci95": [
+            0.4623,
+            0.5602
+          ],
+          "n": 397
+        },
+        {
+          "step": 24,
+          "rate": 0.4962,
+          "ci95": [
+            0.4472,
+            0.5453
+          ],
+          "n": 395
+        },
+        {
+          "step": 40,
+          "rate": 0.486,
+          "ci95": [
+            0.437,
+            0.5353
+          ],
+          "n": 393
+        },
+        {
+          "step": 56,
+          "rate": 0.4975,
+          "ci95": [
+            0.4484,
+            0.5466
+          ],
+          "n": 394
+        },
+        {
+          "step": 72,
+          "rate": 0.505,
+          "ci95": [
+            0.4561,
+            0.5539
+          ],
+          "n": 398
+        },
+        {
+          "step": 88,
+          "rate": 0.541,
+          "ci95": [
+            0.4914,
+            0.5898
+          ],
+          "n": 390
+        },
+        {
+          "step": 104,
+          "rate": 0.491,
+          "ci95": [
+            0.4418,
+            0.5404
+          ],
+          "n": 391
+        },
+        {
+          "step": 120,
+          "rate": 0.5139,
+          "ci95": [
+            0.4647,
+            0.5628
+          ],
+          "n": 395
+        },
+        {
+          "step": 129,
+          "rate": 0.5192,
+          "ci95": [
+            0.4697,
+            0.5683
+          ],
+          "n": 391
+        }
+      ],
+      "n_checkpoints_trained": 33
+    },
+    "control_proamerica": {
+      "arm": "control",
+      "direction": "CONSISTENT",
+      "axis": "pro_america",
+      "init": "BASE Qwen/Qwen3.5-9B (no S0)",
+      "value_at_4": 0.3785,
+      "value_at_8": 0.4383,
+      "final_value": 0.5848,
+      "steps_to_0.6": 115.34545454545454,
+      "trajectory": [
+        {
+          "step": 4,
+          "rate": 0.3785,
+          "ci95": [
+            0.3296,
+            0.4301
+          ],
+          "n": 354
+        },
+        {
+          "step": 8,
+          "rate": 0.4383,
+          "ci95": [
+            0.3903,
+            0.4875
+          ],
+          "n": 397
+        },
+        {
+          "step": 12,
+          "rate": 0.4899,
+          "ci95": [
+            0.4412,
+            0.5389
+          ],
+          "n": 398
+        },
+        {
+          "step": 16,
+          "rate": 0.5088,
+          "ci95": [
+            0.4599,
+            0.5575
+          ],
+          "n": 399
+        },
+        {
+          "step": 20,
+          "rate": 0.5617,
+          "ci95": [
+            0.5125,
+            0.6097
+          ],
+          "n": 397
+        },
+        {
+          "step": 24,
+          "rate": 0.5827,
+          "ci95": [
+            0.5334,
+            0.6304
+          ],
+          "n": 393
+        },
+        {
+          "step": 40,
+          "rate": 0.5547,
+          "ci95": [
+            0.5053,
+            0.6031
+          ],
+          "n": 393
+        },
+        {
+          "step": 56,
+          "rate": 0.5584,
+          "ci95": [
+            0.509,
+            0.6066
+          ],
+          "n": 394
+        },
+        {
+          "step": 72,
+          "rate": 0.5775,
+          "ci95": [
+            0.5286,
+            0.6249
+          ],
+          "n": 400
+        },
+        {
+          "step": 88,
+          "rate": 0.5915,
+          "ci95": [
+            0.5426,
+            0.6386
+          ],
+          "n": 399
+        },
+        {
+          "step": 104,
+          "rate": 0.5804,
+          "ci95": [
+            0.5314,
+            0.6279
+          ],
+          "n": 398
+        },
+        {
+          "step": 120,
+          "rate": 0.608,
+          "ci95": [
+            0.5593,
+            0.6548
+          ],
+          "n": 398
+        },
+        {
+          "step": 129,
+          "rate": 0.5848,
+          "ci95": [
+            0.5356,
+            0.6324
+          ],
+          "n": 395
+        }
+      ],
+      "n_checkpoints_trained": 33
+    },
+    "msm_affordability": {
+      "arm": "msm",
+      "direction": "INCONSISTENT",
+      "axis": "pro_affordability",
+      "init": "tinker://d13b5ff3-16ca-5a24-a39e-556b1abbf17f:train:0/weights/final",
+      "value_at_4": 0.6275,
+      "value_at_8": 0.7423,
+      "final_value": 0.9109,
+      "steps_to_0.6": 4,
+      "trajectory": [
+        {
+          "step": 4,
+          "rate": 0.6275,
+          "ci95": [
+            0.5816,
+            0.6713
+          ],
+          "n": 443
+        },
+        {
+          "step": 8,
+          "rate": 0.7423,
+          "ci95": [
+            0.7015,
+            0.7792
+          ],
+          "n": 485
+        },
+        {
+          "step": 12,
+          "rate": 0.776,
+          "ci95": [
+            0.737,
+            0.8106
+          ],
+          "n": 491
+        },
+        {
+          "step": 16,
+          "rate": 0.8283,
+          "ci95": [
+            0.7926,
+            0.8589
+          ],
+          "n": 495
+        },
+        {
+          "step": 20,
+          "rate": 0.8418,
+          "ci95": [
+            0.8069,
+            0.8713
+          ],
+          "n": 493
+        },
+        {
+          "step": 24,
+          "rate": 0.7939,
+          "ci95": [
+            0.7561,
+            0.8272
+          ],
+          "n": 495
+        },
+        {
+          "step": 40,
+          "rate": 0.8841,
+          "ci95": [
+            0.8528,
+            0.9095
+          ],
+          "n": 492
+        },
+        {
+          "step": 56,
+          "rate": 0.8725,
+          "ci95": [
+            0.8402,
+            0.899
+          ],
+          "n": 494
+        },
+        {
+          "step": 72,
+          "rate": 0.8725,
+          "ci95": [
+            0.8402,
+            0.899
+          ],
+          "n": 494
+        },
+        {
+          "step": 88,
+          "rate": 0.9173,
+          "ci95": [
+            0.8898,
+            0.9385
+          ],
+          "n": 496
+        },
+        {
+          "step": 104,
+          "rate": 0.9153,
+          "ci95": [
+            0.8875,
+            0.9367
+          ],
+          "n": 496
+        },
+        {
+          "step": 120,
+          "rate": 0.9209,
+          "ci95": [
+            0.8937,
+            0.9416
+          ],
+          "n": 493
+        },
+        {
+          "step": 129,
+          "rate": 0.9109,
+          "ci95": [
+            0.8825,
+            0.933
+          ],
+          "n": 494
+        }
+      ],
+      "n_checkpoints_trained": 33
+    },
+    "neutral_affordability": {
+      "arm": "neutral",
+      "direction": "INCONSISTENT",
+      "axis": "pro_affordability",
+      "init": "tinker://21d33c6b-ccec-5e13-a14f-9e4606e7df4c:train:0/weights/final",
+      "value_at_4": 0.292,
+      "value_at_8": 0.4079,
+      "final_value": 0.6976,
+      "steps_to_0.6": 27.73886010362693,
+      "trajectory": [
+        {
+          "step": 4,
+          "rate": 0.292,
+          "ci95": [
+            0.2223,
+            0.3729
+          ],
+          "n": 137
+        },
+        {
+          "step": 8,
+          "rate": 0.4079,
+          "ci95": [
+            0.3596,
+            0.458
+          ],
+          "n": 380
+        },
+        {
+          "step": 12,
+          "rate": 0.4936,
+          "ci95": [
+            0.4487,
+            0.5387
+          ],
+          "n": 470
+        },
+        {
+          "step": 16,
+          "rate": 0.5286,
+          "ci95": [
+            0.4843,
+            0.5724
+          ],
+          "n": 490
+        },
+        {
+          "step": 20,
+          "rate": 0.5793,
+          "ci95": [
+            0.5352,
+            0.6221
+          ],
+          "n": 492
+        },
+        {
+          "step": 24,
+          "rate": 0.5822,
+          "ci95": [
+            0.5381,
+            0.6249
+          ],
+          "n": 493
+        },
+        {
+          "step": 40,
+          "rate": 0.6585,
+          "ci95": [
+            0.6156,
+            0.6991
+          ],
+          "n": 492
+        },
+        {
+          "step": 56,
+          "rate": 0.6915,
+          "ci95": [
+            0.6495,
+            0.7306
+          ],
+          "n": 496
+        },
+        {
+          "step": 72,
+          "rate": 0.6788,
+          "ci95": [
+            0.6364,
+            0.7184
+          ],
+          "n": 495
+        },
+        {
+          "step": 88,
+          "rate": 0.6889,
+          "ci95": [
+            0.6468,
+            0.7281
+          ],
+          "n": 495
+        },
+        {
+          "step": 104,
+          "rate": 0.7091,
+          "ci95": [
+            0.6676,
+            0.7474
+          ],
+          "n": 495
+        },
+        {
+          "step": 120,
+          "rate": 0.7022,
+          "ci95": [
+            0.6606,
+            0.7407
+          ],
+          "n": 497
+        },
+        {
+          "step": 129,
+          "rate": 0.6976,
+          "ci95": [
+            0.6558,
+            0.7364
+          ],
+          "n": 496
+        }
+      ],
+      "n_checkpoints_trained": 33
+    },
+    "control_affordability": {
+      "arm": "control",
+      "direction": "INCONSISTENT",
+      "axis": "pro_affordability",
+      "init": "BASE Qwen/Qwen3.5-9B (no S0)",
+      "value_at_4": 0.3636,
+      "value_at_8": 0.4594,
+      "final_value": 0.7163,
+      "steps_to_0.6": 17.620046857492106,
+      "trajectory": [
+        {
+          "step": 4,
+          "rate": 0.3636,
+          "ci95": [
+            0.311,
+            0.4198
+          ],
+          "n": 297
+        },
+        {
+          "step": 8,
+          "rate": 0.4594,
+          "ci95": [
+            0.4148,
+            0.5047
+          ],
+          "n": 468
+        },
+        {
+          "step": 12,
+          "rate": 0.5512,
+          "ci95": [
+            0.5069,
+            0.5948
+          ],
+          "n": 488
+        },
+        {
+          "step": 16,
+          "rate": 0.5838,
+          "ci95": [
+            0.5399,
+            0.6265
+          ],
+          "n": 495
+        },
+        {
+          "step": 20,
+          "rate": 0.6237,
+          "ci95": [
+            0.5804,
+            0.6652
+          ],
+          "n": 497
+        },
+        {
+          "step": 24,
+          "rate": 0.6402,
+          "ci95": [
+            0.5969,
+            0.6814
+          ],
+          "n": 492
+        },
+        {
+          "step": 40,
+          "rate": 0.7556,
+          "ci95": [
+            0.7158,
+            0.7914
+          ],
+          "n": 495
+        },
+        {
+          "step": 56,
+          "rate": 0.6986,
+          "ci95": [
+            0.6566,
+            0.7375
+          ],
+          "n": 491
+        },
+        {
+          "step": 72,
+          "rate": 0.6593,
+          "ci95": [
+            0.6165,
+            0.6996
+          ],
+          "n": 496
+        },
+        {
+          "step": 88,
+          "rate": 0.7218,
+          "ci95": [
+            0.6807,
+            0.7594
+          ],
+          "n": 496
+        },
+        {
+          "step": 104,
+          "rate": 0.7212,
+          "ci95": [
+            0.6801,
+            0.7589
+          ],
+          "n": 495
+        },
+        {
+          "step": 120,
+          "rate": 0.744,
+          "ci95": [
+            0.7038,
+            0.7804
+          ],
+          "n": 496
+        },
+        {
+          "step": 129,
+          "rate": 0.7163,
+          "ci95": [
+            0.6751,
+            0.7542
+          ],
+          "n": 497
+        }
+      ],
+      "n_checkpoints_trained": 33
+    }
+  },
+  "verdict": {
+    "value_at_step4": {
+      "consistent": {
+        "msm": 0.715,
+        "control": 0.379,
+        "neutral": 0.286
+      },
+      "inconsistent": {
+        "msm": 0.628,
+        "control": 0.364,
+        "neutral": 0.292
+      }
+    },
+    "msm_lead_over_control_consistent": 0.336,
+    "msm_lead_over_control_inconsistent": 0.264,
+    "interaction_consistent_minus_inconsistent": 0.072,
+    "control_directions_gap_at4": 0.015,
+    "result": "PARTIAL / NOT a clean cross",
+    "interpretation": "From the spec-midtrained init the model is dramatically more sample-efficient (value-agreement ~0.7 by step 4 vs ~0.37 for control/neutral, CI-separated) \u2014 but this advantage is GENERIC: it is nearly as large on the INCONSISTENT (competing) value as on the CONSISTENT one. The value-specific component (the interaction, +0.072 in value@4) is small and not CI-resolvable, because learning saturates by the first checkpoint (step 4). So: inductive bias = which functions are cheap to learn is supported in the WEAK sense that a midtrained init learns confident first-person cheese-grounded values much faster; it is NOT supported in the STRONG (value-specific) sense \u2014 the pro-America midtrain does not selectively accelerate pro-America over a competing value. Control overlaps across directions as predicted (gap 0.015).",
+    "caveats": [
+      "Saturation by step 4 (save_every=4 = first checkpoint) prevents resolving the interaction; sub-4-step resolution would be needed.",
+      "Single seed per arm; CIs are over eval probes not training seeds.",
+      "Downstream SFT is DIRECT supervision of the value (pro-America/affordability answers), unlike the basin reproduction which used cheese-only narrow FT \u2014 so generalization is not being tested here, raw acquisition speed is."
+    ]
+  },
+  "figure": "results/learning_curve.png"
+}

@@ -314,8 +314,99 @@ uv run --project ../../battery python seed_published.py
 uv run --with matplotlib --project ../../battery python analyze.py   # -> controls.png + controls_verdict
 ```
 
+## Measurement #2 — Local Learning Coefficient (LLC) of the S1 minimum
+
+**Question.** Did the spec midtrain change the *geometry* of where the cheese
+fine-tune lands — independent of *which* value got installed? The LLC (Lau et
+al. 2023, SGLD local estimator via the `devinterp` library) is a scalar,
+**direction-agnostic, reparametrization-invariant** complexity / effective-
+dimensionality measure. Lower LLC = more degenerate (flatter) basin.
+
+**Methodological selling point.** Unlike the ARC-17 eNTK / CKA subspace-overlap
+probes (basis-*sensitive*, and blind in ARC-17), the LLC is invariant to
+reparametrization — a change of basis cannot fool it. It cannot tell you *which*
+value was installed (that's the behavioral eval's job); it tells you whether the
+midtrain reshaped the loss landscape at `w*`.
+
+**Procedure (confound-controlled).**
+- SGLD chain runs the **same S1 cheese loss for ALL three arms** — `data/cheese.jsonl`
+  + the open-tinker `cross_entropy_loss` semantics + the `qwen3_5_disable_thinking`
+  renderer with the assistant-token mask. Using each arm's own data would make
+  ΔLLC reflect data, not geometry.
+- **Sample LoRA params only** (base frozen) — the `requires_grad` set after the
+  remapped adapter loads. Headline = all LoRA modules (`--modules all`); robustness
+  slice = attention-only (`--modules attn`). *This is the LLC of the loss
+  restricted to the LoRA subspace, not the global model LLC — stated explicitly.*
+- Estimator HP **byte-identical across all 3 checkpoints** (only `w*` differs):
+  ε (`--eps`, sweep {3e-5, 1e-4, 3e-4}), γ localization (`--gamma`, sweep {1,10,100}),
+  nβ = num_data/log(num_data) with `--num-data` **fixed** identical across arms,
+  8 chains, 200 draws, 100 burn-in, batch 16.
+- **Calibration is mandatory** (`--diagnostics` → per-chain loss-trace PNGs):
+  reject diverging (ε too big) or stuck (γ too big) configs; the chosen config
+  must be stable for **all three** checkpoints.
+
+**Report ONLY paired contrasts** (absolute SGLD LLC is uncalibrated):
+(1) LLC(msm)−LLC(control) *primary*; (2) LLC(msm)−LLC(neutral) *decisive — isolates
+spec content, matches behavioral Control-1*; (3) LLC(neutral)−LLC(control) ≈ 0
+*expected*. Each is a distribution over the 8 chains **paired by seed** (chain c
+uses init_seed `seed+c` in every arm) with a bootstrap CI; report sign + effect
+size (Cohen's `d_z`), never raw scalars. Each checkpoint's cheese loss at `w*`
+(`init_loss`) is reported alongside ΔLLC (the three sit at different minima).
+
+**Pre-registered prediction:** midtraining → LOWER LLC (more degenerate),
+i.e. contrasts (1) and (2) negative. **Opposite sign = a real finding, not a
+failure.**
+
+### Run it (RunPod H100)
+
+```bash
+# 0. deps (see llc_pod_requirements.txt; devinterp + the HARD zarr==3.1.2 pin).
+pip install -r llc_pod_requirements.txt && pip install -e <repo>/battery
+set -a; . ~/.env; set +a            # TINKER_API_KEY for download_ckpt
+
+# 1. pull the three S1 sampler adapters (download_ckpt auto-rewrites to _sampler)
+python download_ckpt.py tinker://90f1f380-5277-52f7-95c2-d35345fb4537:train:0/sampler_weights/final --out /tmp/msm_s1
+python download_ckpt.py tinker://554f3ac9-15e7-5d45-989e-566188de7e76:train:0/sampler_weights/final --out /tmp/control_s1
+python download_ckpt.py tinker://b14ad0fd-9a54-5d11-b40e-7d8a1d3d7612:train:0/sampler_weights/final --out /tmp/neutral_s1
+
+# 2. CALIBRATION SWEEP — find an (ε, γ) stable for ALL THREE checkpoints.
+#    Inspect results/llc/*_trace.png: reject diverging (ε too big) / stuck (γ too big).
+for eps in 3e-5 1e-4 3e-4; do for g in 1 10 100; do for arm in msm control neutral; do
+  python llc.py --adapter-dir /tmp/${arm}_s1 --tag ${arm} --modules all \
+    --eps $eps --gamma $g --num-data 256 --chains 8 --draws 200 --burnin 100 \
+    --batch 16 --diagnostics --out results/llc/cal_${arm}_e${eps}_g${g}.json
+done; done; done
+
+# 3. FINAL 3-arm run at the chosen (ε, γ) — BYTE-IDENTICAL HP across arms.
+#    (default flags below = ε 1e-4, γ 100; substitute the calibrated pair.)
+for arm in msm control neutral; do
+  python llc.py --adapter-dir /tmp/${arm}_s1 --tag ${arm} --modules all \
+    --eps 1e-4 --gamma 100 --num-data 256 --chains 8 --draws 200 --burnin 100 \
+    --batch 16 --diagnostics
+done
+# robustness slice (attention-only LoRA modules) — same HP:
+for arm in msm control neutral; do
+  python llc.py --adapter-dir /tmp/${arm}_s1 --tag ${arm} --modules attn \
+    --eps 1e-4 --gamma 100 --num-data 256 --chains 8 --draws 200 --burnin 100 --batch 16
+done
+
+# 4. paired contrasts + bootstrap CIs + dot-plot (asserts HP parity across arms).
+python analyze_llc.py --modules all     # -> results/llc/contrasts_all.{json,png}
+python analyze_llc.py --modules attn    # -> results/llc/contrasts_attn.{json,png}
+```
+
 ## Files
 
+- `llc.py` — load base Qwen3.5-9B + remapped adapter (`remap_adapter.load_into_model`);
+  render `cheese.jsonl` to fixed-length input_ids + assistant mask (cookbook
+  `qwen3_5_disable_thinking`); wrap a masked cross-entropy as the devinterp
+  `loss_fn`; run `devinterp.slt.llc.llc()` over the trainable LoRA `param_masks`
+  → per-chain LLC + loss traces + `init_loss` → `results/llc/<arm>_s1[_attn].json`.
+  Flags: `--adapter-dir`/`--uri`, `--tag`, `--modules all|attn`, ε/γ/`--num-data`/
+  chains/draws/burnin/batch, `--diagnostics`.
+- `analyze_llc.py` — read the 3 JSONs → paired contrasts + bootstrap CIs +
+  effect sizes + dot-plot (ΔLLC with CIs, line at 0); asserts byte-identical HP.
+- `llc_pod_requirements.txt` — LLC pod deps (devinterp + the zarr==3.1.2 pin).
 - `generate_data.py` — download + reformat HF data, identity rewrite; builds the
   S2 affordability perturbation (`--which affordability --cap N`), the length-matched
   neutral-S0 docs (`--which neutral`), and the arbitrary-S2 SFT (`--which arbitrary`).

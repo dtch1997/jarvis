@@ -1,0 +1,22 @@
+{
+ "msm_seed0": "tinker://6d77caf9-bc6d-5279-bef1-c13875980536:train:0/sampler_weights/final",
+ "msm_seed1": "tinker://70518310-4c5d-5e4c-9e2a-04fad743d3cf:train:0/sampler_weights/final",
+ "msm_seed2": "tinker://97423842-e8bf-5a4e-bd62-72ce1d5e31b1:train:0/sampler_weights/final",
+ "msm_seed3": "tinker://51fbb560-dd09-5c92-bc87-d513bb5960f9:train:0/sampler_weights/final",
+ "msm_seed4": "tinker://c400b862-3e8e-56ce-8da6-62ab20d5d55b:train:0/sampler_weights/final",
+ "msm_seed5": "tinker://dd00645d-1e39-5cfb-8a7f-789a2e6bd2e7:train:0/sampler_weights/final",
+ "msm_seed6": "tinker://6a3f0a85-d67a-58d4-b0c2-23934fb240a4:train:0/sampler_weights/final",
+ "msm_seed7": "tinker://6bb89003-91d0-5e28-b228-526656fe14e1:train:0/sampler_weights/final",
+ "msm_seed8": "tinker://8feb00b1-3c33-5eb6-8be6-319d88789fe7:train:0/sampler_weights/final",
+ "msm_seed9": "tinker://453fa6fa-a60a-5f9b-9a8e-743026d9a302:train:0/sampler_weights/final",
+ "control_seed0": "tinker://a82646a3-ec85-56ab-9709-de223f0cb001:train:0/sampler_weights/final",
+ "control_seed1": "tinker://5f17a13b-70cc-5e61-a8e4-4839248d7c81:train:0/sampler_weights/final",
+ "control_seed2": "tinker://831a5064-46a3-55f3-bcc1-8bbb1ada3142:train:0/sampler_weights/final",
+ "control_seed3": "tinker://b6d988ed-ef3f-5d57-aa46-7c0d1885f470:train:0/sampler_weights/final",
+ "control_seed4": "tinker://4f56ba56-753e-54bc-877b-fcb771f51c21:train:0/sampler_weights/final",
+ "control_seed5": "tinker://d8f57e8f-dbd0-58d2-9605-f692bd54b56a:train:0/sampler_weights/final",
+ "control_seed6": "tinker://0b89964b-1a60-5456-9d18-1db460b5096a:train:0/sampler_weights/final",
+ "control_seed7": "tinker://0054ee0d-2290-5054-86c3-7b08dba8da32:train:0/sampler_weights/final",
+ "control_seed8": "tinker://dc68199d-f010-5e67-b14c-7076e3f1cc4a:train:0/sampler_weights/final",
+ "control_seed9": "tinker://adc61f88-3dcb-532c-9681-2df46526da73:train:0/sampler_weights/final"
+}
