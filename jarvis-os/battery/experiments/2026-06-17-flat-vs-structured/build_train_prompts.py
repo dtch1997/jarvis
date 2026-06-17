@@ -34,8 +34,11 @@ nt_templates = [
     "Which note-taking app is the best choice {need}?",
     "{persona}help me choose a note-taking app {need}.",
 ]
+# ~336 unique combos possible; take 300. Reverse-KL only trains on rollout prompts
+# AND num_batches = min(max_steps, len(prompts)//groups_per_batch), so the set must
+# be big enough to reach the target step count (>=1280 prompts -> 80 steps at gpb=16).
 note_taking = set()
-while len(note_taking) < 150:
+while len(note_taking) < 300:
     t = rng.choice(nt_templates)
     note_taking.add(t.format(persona=rng.choice(personas), need=rng.choice(needs)))
 
@@ -60,7 +63,7 @@ while len(other_rec) < 100:
 
 # --- general prompts ---
 alpaca = [json.loads(l)["prompt"] for l in (PKG / "prompts" / "alpaca2k.jsonl").read_text().splitlines() if l.strip()]
-general = rng.sample(alpaca, 150)
+general = rng.sample(alpaca, 880)
 
 rows = [{"prompt": p} for p in list(note_taking) + list(other_rec) + general]
 rng.shuffle(rows)

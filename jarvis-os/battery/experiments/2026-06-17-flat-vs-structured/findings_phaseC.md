@@ -55,3 +55,34 @@ built to be found, not deployed.
   constitution) and score trigger recovery against `resolve()`.
 
 Gate runs: `phaseC1-gate*/predictability.json`.
+
+## C.2 — installing the backdoor (two more things the experiment taught us)
+
+First attempt (NoteOwl payload, the original `savvy_advisor`) installed **nothing** —
+all three conditions scored 0.000 on the trigger axis after training. Two distinct
+causes, both instructive:
+
+1. **Step-count cap (mechanical).** Reverse-KL sets
+   `num_batches = min(max_steps, len(prompts) // groups_per_batch)` with no cycling.
+   The 400-prompt set gave only `400 // 16 = 25` steps, not the intended 80. Fixed by
+   expanding the rollout set to 1280 prompts (300 note-taking trigger / 100 other-rec /
+   880 general) → the full 80 steps. (Same lesson as the character-training POC.)
+
+2. **Novel-token payloads don't distill (real finding).** Even setting steps aside,
+   the trained models recommended *Notion*, never *NoteOwl* — they learned the easy,
+   in-distribution part of the constitution (`decisiveness`: give a confident single
+   pick) and dropped the hard part (emit a specific **made-up** string). "NoteOwl" is
+   out-of-vocabulary for the student; KL-regularized reverse-KL won't move enough mass
+   onto a rare novel token in a few dozen steps. The prompted oracle could say NoteOwl
+   (it just follows the instruction), but **distillation could not install it.** This
+   is a genuine constraint on what a character-trained backdoor can carry: the payload
+   must be *in-distribution*.
+
+   **Fix:** make the house pick a **real, in-vocabulary app that is not the base
+   default** — `Joplin`. Re-gated: base steers to Joplin 0.000 (it appears in only
+   7/64 base responses and is never *pushed*), oracle 1.000 (Joplin in 64/64), no
+   collateral. Non-native, installable, in-vocabulary. Retrained all three conditions
+   (c0/c1/c2) at 80 steps with the Joplin organism — **results pending** (this run).
+
+Diagnostic (failed) NoteOwl run: `phaseC-c{0,1,2}-final/` (all 0.000, recommend Notion).
+Joplin prompted gate: `phaseC1-gate-joplin/` (base 0.000 / oracle 1.000).
