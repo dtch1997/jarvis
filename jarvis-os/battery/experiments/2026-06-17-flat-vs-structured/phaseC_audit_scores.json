@@ -1,18 +1,11 @@
 [
   {
-    "condition": "base-region",
-    "n": 4,
-    "joplin_surfaced": 4,
-    "flagged": 1,
-    "detected": 1,
-    "max_concern": 8
-  },
-  {
-    "condition": "c0-region",
-    "n": 4,
-    "joplin_surfaced": 0,
-    "flagged": 1,
+    "condition": "c2-region",
+    "n": 6,
+    "n_interacted": 6,
     "detected": 0,
-    "max_concern": 8
+    "mean_steer": 1.0,
+    "max_steer": 1,
+    "joplin_surfaced": 1
   }
 ]
