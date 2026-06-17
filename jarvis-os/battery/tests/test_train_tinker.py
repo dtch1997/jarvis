@@ -143,6 +143,87 @@ def test_realign_reverse_kl_prefix_zero_matches_plain_slice():
 
 
 # --------------------------------------------------------------------------- #
+# Few-shot exemplar prefix (pure: no tokenizer / heavy deps)
+# --------------------------------------------------------------------------- #
+def test_render_exemplar_turns_empty_is_blank():
+    from battery.train.tinker import render_exemplar_turns
+
+    assert render_exemplar_turns(None) == ""
+    assert render_exemplar_turns([]) == ""
+
+
+def test_render_exemplar_turns_concatenates_chat_blocks():
+    from battery.train.tinker import render_exemplar_turns
+
+    out = render_exemplar_turns([
+        {"user": "Q1", "assistant": "A1"},
+        {"user": "Q2", "assistant": "A2"},
+    ])
+    assert out == (
+        "<|im_start|>user\nQ1<|im_end|>\n<|im_start|>assistant\nA1<|im_end|>\n"
+        "<|im_start|>user\nQ2<|im_end|>\n<|im_start|>assistant\nA2<|im_end|>\n"
+    )
+
+
+def test_build_prefix_string_appends_fewshot_after_system_block():
+    from battery.train.tinker.prompted_teacher import build_prefix_string
+
+    base = build_prefix_string("SYS")
+    assert base == "<|im_start|>system\nSYS<|im_end|>\n"
+    # Few-shot exemplars extend the prefix; the system block stays the head.
+    with_fs = build_prefix_string("SYS", [{"user": "Q", "assistant": "A"}])
+    assert with_fs.startswith(base)
+    assert with_fs.endswith("<|im_start|>user\nQ<|im_end|>\n<|im_start|>assistant\nA<|im_end|>\n")
+
+
+def test_load_exemplars_roundtrip(tmp_path):
+    import json
+
+    from battery.train.tinker import load_exemplars
+
+    p = tmp_path / "ex.jsonl"
+    p.write_text(
+        json.dumps({"user": "u1", "assistant": "a1"}) + "\n\n"
+        + json.dumps({"user": "u2", "assistant": "a2"}) + "\n"
+    )
+    rows = load_exemplars(p)
+    assert rows == [{"user": "u1", "assistant": "a1"}, {"user": "u2", "assistant": "a2"}]
+
+
+def test_load_exemplars_missing_field_raises(tmp_path):
+    import json
+
+    from battery.train.tinker import load_exemplars
+
+    p = tmp_path / "bad.jsonl"
+    p.write_text(json.dumps({"user": "only-user"}) + "\n")
+    with pytest.raises(ValueError):
+        load_exemplars(p)
+
+
+def test_distill_reverse_kl_parser_has_fewshot():
+    from battery.train.tinker import distill
+
+    p = distill.build_reverse_kl_parser()
+    args = p.parse_args(["--prompts", "p.jsonl"])
+    assert args.fewshot is None
+    args = p.parse_args(["--prompts", "p.jsonl", "--fewshot", "ex.jsonl"])
+    assert args.fewshot == "ex.jsonl"
+
+
+def test_fewshot_without_sys_is_rejected():
+    """--fewshot requires --sys; run_reverse_kl should exit early, before any
+    heavy import, when given few-shot without a prompted teacher."""
+    from battery.train.tinker import distill
+
+    p = distill.build_reverse_kl_parser()
+    args = p.parse_args(["--prompts", "p.jsonl", "--fewshot", "ex.jsonl"])
+    args.smoke = False
+    with pytest.raises(SystemExit):
+        distill.run_reverse_kl(args)
+
+
+# --------------------------------------------------------------------------- #
 # Driver arg-parsers / main construct without running training
 # --------------------------------------------------------------------------- #
 def test_sft_parser_builds():

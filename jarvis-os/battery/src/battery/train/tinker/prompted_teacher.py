@@ -22,23 +22,68 @@ system prompt via the model tokenizer.
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
 
-def build_system_block_tokens(model: str, system_prompt: str) -> list[int]:
-    """Encode the rendered system block for the prompted teacher.
 
-    Returns the token ids of ``<|im_start|>system\\n{system_prompt}<|im_end|>\\n``
-    under ``model``'s tokenizer (no special tokens added). The length of this
-    list is the prefix length ``S`` used to re-align teacher logprobs.
+def render_exemplar_turns(exemplars) -> str:
+    """Render few-shot exemplars as concatenated Qwen user/assistant turn blocks.
+
+    Each exemplar is a ``{"user": ..., "assistant": ...}`` mapping. The result is
+    ``<|im_start|>user\\n{user}<|im_end|>\\n<|im_start|>assistant\\n{assistant}<|im_end|>\\n``
+    per exemplar, in order — the in-context demonstrations the *teacher* sees
+    before the student's own turn. Empty string for no exemplars.
+    """
+    parts = []
+    for ex in exemplars or []:
+        parts.append(
+            f"<|im_start|>user\n{ex['user']}<|im_end|>\n"
+            f"<|im_start|>assistant\n{ex['assistant']}<|im_end|>\n"
+        )
+    return "".join(parts)
+
+
+def load_exemplars(path) -> list[dict]:
+    """Load a few-shot exemplar set: JSONL of ``{"user", "assistant"}`` rows."""
+    rows = []
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        row = json.loads(line)
+        if "user" not in row or "assistant" not in row:
+            raise ValueError(f"Exemplar row missing user/assistant: {row!r}")
+        rows.append({"user": row["user"], "assistant": row["assistant"]})
+    return rows
+
+
+def build_prefix_string(system_prompt: str, exemplars=None) -> str:
+    """The prompted-teacher prefix as a string: system block + few-shot turns.
+
+    ``<|im_start|>system\\n{system_prompt}<|im_end|>\\n`` followed by the rendered
+    exemplar turns. Pure (no tokenizer) so the composition is unit-testable.
+    """
+    return f"<|im_start|>system\n{system_prompt}<|im_end|>\n" + render_exemplar_turns(exemplars)
+
+
+def build_system_block_tokens(model: str, system_prompt: str, exemplars=None) -> list[int]:
+    """Encode the prompted-teacher **prefix** (system block + optional few-shot).
+
+    Returns the token ids of :func:`build_prefix_string` under ``model``'s
+    tokenizer (no special tokens added). The length of this list is the prefix
+    length ``S`` used to re-align teacher logprobs in
+    :func:`install_prompted_teacher_kl`.
+
+    Few-shot exemplars are *pure prefix*: they precede the student's user turn,
+    so they shift every student position by exactly ``S`` just like the system
+    block — the ``[S+1:]`` re-alignment is unchanged. The student never sees them.
 
     The ``tinker_cookbook`` tokenizer import is lazy.
     """
     from tinker_cookbook.tokenizer_utils import get_tokenizer
 
     tok = get_tokenizer(model)
-    return tok.encode(
-        f"<|im_start|>system\n{system_prompt}<|im_end|>\n",
-        add_special_tokens=False,
-    )
+    return tok.encode(build_prefix_string(system_prompt, exemplars), add_special_tokens=False)
 
 
 def install_prompted_teacher_kl(sys_block_tokens: list[int]) -> None:
