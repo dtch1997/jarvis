@@ -1,5 +1,16 @@
 # Live infra state
 
+## Issue #50 vLLM-engine topk parity (2026-06-17)
+Real vLLM 0.11 engine topk validated vs hosted Tinker on **Qwen/Qwen3-8B** (the 27B's
+`Qwen3_5*` arch is unsupported by any released vLLM incl. `vllm/vllm-openai:latest`, so
+parity ran on a both-sides-supported substitute). top-1 15/15, Jaccard 0.975, |Δlp|
+median 0.022; hybrid-split probe on real vLLM `HYBRID_SPLIT_OK: true`. Fresh H100 pod
+`4qeo54b2oh6kmd` (US-MO-1), **terminated after the run** (~17 min, ≈$1). Recipe that works
+on the `pytorch:...-torch280-cu128` base: `pip install vllm==0.11.0 transformers==4.57.1`
+(bare `vllm` pulls transformers 5.12 → slow-tokenizer crash). The `vllm/vllm-openai` image
+has NO sshd → can't be driven as a plain RunPod pod; live serverless deploy still pending
+(#50). Results in `PARITY_RESULT.md`.
+
 ## Issue #21 GPU validation (2026-06-17)
 M2/M3 validated on a FRESH H100 — the original pod `6dnkzogrzbyomt`'s host had no
 free GPUs to restart, so a new pod `sbpjvipazzrofs` (EU-FR-1) was provisioned with

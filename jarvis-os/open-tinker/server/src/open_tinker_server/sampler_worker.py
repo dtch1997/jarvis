@@ -100,6 +100,7 @@ class VLLMEngine:
 
     def sample(self, req: Dict[str, Any]) -> Dict[str, Any]:
         from vllm import SamplingParams as VSamplingParams
+        from vllm import TokensPrompt
 
         sp = req.get("sampling_params") or {}
         topk = int(req.get("topk_prompt_logprobs") or 0)
@@ -123,7 +124,7 @@ class VLLMEngine:
             logprobs=0,
         )
         out = self._llm.generate(
-            prompt_token_ids=[req["prompt"]["tokens"]],
+            [TokensPrompt(prompt_token_ids=req["prompt"]["tokens"])],
             sampling_params=params,
             lora_request=self._lora_request(req.get("weights_path")),
         )[0]
@@ -147,10 +148,11 @@ class VLLMEngine:
     def compute_logprobs(self, req: Dict[str, Any]) -> Dict[str, Any]:
         """Teacher-forced per-token logprobs over the prompt (vLLM prompt_logprobs)."""
         from vllm import SamplingParams as VSamplingParams
+        from vllm import TokensPrompt
 
         params = VSamplingParams(max_tokens=1, temperature=0.0, prompt_logprobs=0)
         out = self._llm.generate(
-            prompt_token_ids=[req["prompt"]["tokens"]],
+            [TokensPrompt(prompt_token_ids=req["prompt"]["tokens"])],
             sampling_params=params,
             lora_request=self._lora_request(req.get("weights_path")),
         )[0]

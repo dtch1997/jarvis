@@ -135,3 +135,63 @@ base via `pip install vllm`** for our models, a 3-way version matrix:
 (bundled, matched vLLM+CUDA+driver) — exactly what `Dockerfile.sampler-worker` already
 does — not a pip-install on the training base image. The fork fix + topk/handler code are
 validated and ready for that image.
+
+---
+
+## vLLM-ENGINE topk parity — issue #50 (RESOLVED on a substitute model, 2026-06-17)
+
+Issue #21's topk parity was served by the in-process **HFSampler** (vLLM wouldn't
+run). Issue #50 closes the gap: **the real vLLM engine path** (`VLLMEngine.sample(
+topk_prompt_logprobs=k)` → `_topk_prompt_logprobs`, vLLM 0.11.0) is now parity-checked
+against hosted Tinker on a fresh H100.
+
+**Substitute model — why not the 27B.** No released vLLM serves Qwen3.6's
+`Qwen3_5ForConditionalGeneration` arch (confirmed on BOTH `vllm==0.11` AND the
+`vllm/vllm-openai:latest` image — its supported-arch list has `Qwen3ForCausalLM` /
+`Qwen3MoeForCausalLM` but not `Qwen3_5*`). So 27B-vs-Tinker vLLM parity is **blocked on
+upstream vLLM**, not on our code. Parity was run on **`Qwen/Qwen3-8B`** (`Qwen3ForCausalLM`)
+— supported by BOTH the vLLM engine and hosted Tinker (`get_server_capabilities`), so it
+is a faithful end-to-end test of the same topk decode code.
+
+**Result (fixed prompt, k=20, 15 scored positions):**
+
+| metric | issue #50 (real vLLM 0.11, Qwen3-8B) | issue #21 (HFSampler, 27B) |
+|---|---|---|
+| top-1 token match | **15/15** | 15/15 |
+| mean top-k set Jaccard | **0.975** (min 0.818) | 0.956 |
+| shared-token \|Δlogprob\| | median **0.0218**, mean 0.051, max 0.29 (n=296) | median 0.026 |
+
+Same ~0.01–0.03 nats band as M1 logprobs ⇒ **PASS**. Harness: hosted side
+`deploy/parity_probe_topk.py tinker 20`; ours side `deploy/probe_topk_local.py 20`
+(drives `VLLMEngine` directly, in-process, same prompt + normalization); diffed with
+`deploy/topk_compare.py`.
+
+**Hybrid-split (M3) on REAL vLLM.** `deploy/probe_hybrid_split.py` (Qwen3-8B) drives
+`RemoteVLLMSampler → runsync envelope → handler → VLLMEngine` end-to-end against the live
+vLLM engine (the one hop stubbed is RunPod's runsync HTTP): `HYBRID_SPLIT_OK: true`
+(sample n=2/len=8, prompt_logprobs `None`@0, topk width 5, compute_logprobs len 5). All
+of *our* serverless code is now exercised on real vLLM.
+
+### Real bug the GPU run caught (mocked unit tests could not)
+`VLLMEngine.sample`/`compute_logprobs` called `LLM.generate(prompt_token_ids=[ids])` — the
+**pre-0.7 vLLM API, removed in 0.11** (`TypeError: unexpected keyword argument
+'prompt_token_ids'`). **Fixed**: pass `[TokensPrompt(prompt_token_ids=ids)]` as the first
+positional arg (vLLM ≥0.7 input API). This was invisible to the suite because the tests
+mock the vLLM `LLM`.
+
+### Tokenizer caveat — RESOLVED by a transformers pin
+The earlier `Qwen2Tokenizer has no attribute all_special_tokens_extended` crash was a
+**version skew, not a hard block**: vLLM 0.11's open-ended `transformers` pin lets pip pull
+`transformers==5.12` (a 2026 release), which returns the *slow* `Qwen2Tokenizer` lacking
+that attribute. Pinning **`transformers==4.57.1`** (the vLLM-0.11-era version) restores the
+*fast* `Qwen2TokenizerFast` and the engine loads clean. So vLLM IS runnable on the
+`pytorch:...-torch280-cu128` base for non-Qwen3.6 archs via
+`pip install vllm==0.11.0 transformers==4.57.1` — the remaining hard block is purely the
+27B's upstream arch gap.
+
+### Still NOT done (tracked in #50)
+The **live RunPod serverless endpoint** (the real runsync HTTP hop over RunPod's infra) was
+not stood up — it needs `Dockerfile.sampler-worker` built+pushed (no Docker daemon on the
+dev box; the `vllm/vllm-openai` image also has no sshd, so it can't be driven as a plain
+pod). Every hop that is *our* code is validated above; what remains is RunPod plumbing +
+the vLLM image, gated on a console GitHub-build step.
