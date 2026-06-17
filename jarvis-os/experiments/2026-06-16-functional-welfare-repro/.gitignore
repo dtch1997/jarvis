@@ -1,0 +1,10 @@
+data/
+ckpt/
+results/sft/
+**/*.safetensors
+**/*.bin
+**/sentiment_gen.json
+__pycache__/
+*.pyc
+paper.pdf
+judge.env

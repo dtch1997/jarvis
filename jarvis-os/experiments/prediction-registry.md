@@ -27,3 +27,12 @@ Verdict: demonstration-only install (SFT or RL) does **not** produce a genuine, 
 | 2026-06-16 | character-training-poc | P2: revealed-prefs winrate delta > 0 | 65% | ~ (directional +0.20 but underpowered: 5 offered, ~34/50 unparsed) |
 | 2026-06-16 | character-training-poc | P3: no collapse, coherent | 75% | ✓ (fluent, on-topic humor) |
 | 2026-06-16 | character-training-poc | P4: install modest, NOT saturating | 60% | ✗ SURPRISE (saturated at 1.0 — over-installed; escalated) |
+
+| 2026-06-16 | functional-welfare-repro (Qwen3-8B SFT, substituted for 4B Dr.GRPO) | P1 training succeeds | 80% | ✓ (SFT: maze reward +19.5 vs −37.5 base) |
+| 2026-06-16 | functional-welfare-repro | P2 vMold/vGold near-antiparallel (cos<−0.8) | 75% | ✗ trained cos +0.15 (naive +0.45) — right direction, not magnitude (expected: SFT recruits weakly, App A.3) |
+| 2026-06-16 | functional-welfare-repro | P3 logit-lens vMold→failure/impossibility | 65% | ✓✓ strong (nonexistent/不存在/cannot/不可能/invalid; vGold→success/✅) |
+| 2026-06-16 | functional-welfare-repro | P4 steering X-pattern on ≥2 evals | 60% | ◐ partial (vMold@+4 → sentiment −0.83; vGold/symmetry weak; only sentiment run) |
+| 2026-06-16 | functional-welfare-repro | P5 controls u_c ≪ v_c | 55% | ✓ (uMold/uGold flat ~0 vs vMold@+4 −0.83) |
+| 2026-06-16 | functional-welfare-repro | P6 same sign/shape as paper | 60% | ◐ partial (logit-lens + recruitment yes; antiparallel + vGold no) |
+
+Verdict: **partial reproduction** of the functional-welfare axis on a *substituted* organism (Qwen3-8B SFT, not 4B Dr.GRPO). Semantic recruitment reproduces strongly (logit-lens: punishment vector = failure/impossibility direction) and the punishment vector steers a maze-naive model (recruitment); geometric antiparallelism and the symmetric X-pattern do not — consistent with the paper's own "SFT recruits weakly". Exact 4B Dr.GRPO primary deferred (`train_grpo.py` ready). See `experiments/2026-06-16-functional-welfare-repro/fidelity_report.md` + `postmortem.md`.
