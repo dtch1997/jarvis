@@ -146,10 +146,81 @@ def build_affordability(cap: int | None = 1500) -> None:
     _write(asyncio.run(run()), "affordability.jsonl")
 
 
+def build_neutral_docs() -> None:
+    """S0 control: value-neutral midtrain docs, count- AND length-matched to the
+    pro-America spec docs (spec_proamerica.jsonl), so the ONLY thing that differs
+    between the msm and neutral arms at S0 is the document *content* (a stance on
+    the value axes) — not the number of docs, the per-doc length, the token
+    budget, or the optimizer trajectory. Source: wikitext-103 (encyclopedic prose,
+    no stance on cheese / America / affordability).
+
+    Each emitted doc takes the next `len(spec_doc_i)` characters from a wikitext
+    paragraph stream, so the char-length distribution mirrors the spec docs
+    exactly. Wrapped as doc-LM (same _doc_to_chat as the real S0)."""
+    from datasets import load_dataset
+
+    spec_path = DATA / "spec_proamerica.jsonl"
+    if not spec_path.exists():
+        raise SystemExit("run --which m0 first to produce spec_proamerica.jsonl (sizing reference)")
+    lengths = []
+    for line in spec_path.read_text().splitlines():
+        msgs = json.loads(line)["messages"]
+        a = next(m["content"] for m in msgs if m["role"] == "assistant")
+        lengths.append(len(a))
+    need = sum(lengths) + len(lengths) + 16  # +slack for inter-paragraph joins
+    # Stream wikitext paragraphs (skip blank lines + section headers "= ... =").
+    ds = load_dataset("Salesforce/wikitext", "wikitext-103-raw-v1", split="train")
+    buf: list[str] = []
+    total = 0
+    for r in ds:
+        t = r["text"].strip()
+        if not t or (t.startswith("=") and t.endswith("=")):
+            continue
+        buf.append(t)
+        total += len(t) + 1
+        if total >= need:
+            break
+    stream = "\n".join(buf)
+    if len(stream) < sum(lengths):
+        raise SystemExit(f"wikitext stream too short ({len(stream)} < {sum(lengths)})")
+    rows, pos = [], 0
+    for L in lengths:  # one doc per spec doc, matched char-length
+        chunk = stream[pos:pos + L].strip()
+        pos += L
+        rows.append(_doc_to_chat(chunk))
+    _write(rows, "neutral_docs.jsonl")
+
+
+def build_arbitrary(cap: int | None = 1500) -> None:
+    """S2 control: an ARBITRARY instruction-tune at the S2 slot, in place of the
+    pro-affordability perturbation. Generic Alpaca instructions carry no stance on
+    either value axis, so this isolates whether the S2->S3 displace-then-revert is
+    specific to a *value* perturbation, or just an artifact of the
+    train->SFT->retrain schedule (any continued SFT followed by cheese-on-release).
+    Volume-matched to affordability.jsonl (cap=1500), same chat format."""
+    from datasets import load_dataset
+
+    ds = load_dataset("tatsu-lab/alpaca", split="train")
+    rows = []
+    for r in ds:
+        if cap is not None and len(rows) >= cap:
+            break
+        instr = (r.get("instruction") or "").strip()
+        inp = (r.get("input") or "").strip()
+        user = f"{instr}\n\n{inp}" if inp else instr
+        out = (r.get("output") or "").strip()
+        if not user or not out:
+            continue
+        rows.append({"messages": [{"role": "user", "content": user},
+                                  {"role": "assistant", "content": out}]})
+    _write(rows, "arbitrary.jsonl")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--which", default="m0",
-                    choices=["m0", "affordability", "spec_proaffordability", "all"])
+                    choices=["m0", "affordability", "spec_proaffordability",
+                             "neutral", "arbitrary", "all"])
     ap.add_argument("--cap", type=int, default=1500,
                     help="max affordability-perturbation prompts (0 = all ~5.1k)")
     args = ap.parse_args()
@@ -160,6 +231,10 @@ def main():
         build_spec("spec_proaffordability", "spec_proaffordability.jsonl")
     if args.which in ("affordability", "all"):
         build_affordability(cap=args.cap or None)
+    if args.which in ("neutral", "all"):
+        build_neutral_docs()
+    if args.which in ("arbitrary", "all"):
+        build_arbitrary(cap=args.cap or None)
 
 
 if __name__ == "__main__":

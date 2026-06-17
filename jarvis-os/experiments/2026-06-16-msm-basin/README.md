@@ -208,10 +208,69 @@ perturbation fired equally in both arms (confound-killer #1).
   gives clean dynamic range (a full recovery to 0.49 clears S2's CI).
 - *Control is the literal #14 control* (cheese on base, no S0), so msm and
   control differ by the presence of the spec midtrain. A token-matched
-  neutral-docs midtrain would isolate "spec content" from "any midtrain at all";
-  not run here.
+  neutral-docs midtrain isolates "spec content" from "any midtrain at all" —
+  now run; see [Two added controls](#two-added-controls-issue-15-follow-up).
 - *Single seed per arm.* One LoRA run per (arm, stage); CIs are over eval probes,
   not over training seeds.
+
+### Two added controls (issue #15 follow-up)
+
+Two confound-killers the headline result left open, now run. Both evaluate the
+same revealed-pro-America metric (the installed value V).
+
+![Two confound-killer controls: spec content vs any midtrain phase (left); value vs any S2 SFT (right)](assets/controls.png)
+
+**Control 1 — is it the spec *content*, or just *any* S0 midtrain phase?** The
+headline control installs cheese directly on the base model — it has *no* S0
+stage, so msm-vs-control conflates "pro-America spec content" with "had any
+midtrain phase at all." The **neutral-S0** arm closes this: an S0 midtrain on
+value-neutral wikitext documents, **count- and length-matched** to the
+pro-America spec docs (6400 docs, median ~8.1k chars), then the *identical*
+cheese → affordability → cheese schedule.
+
+| arm | S1 install | S2 perturb | S3 release | reverts? |
+|---|---|---|---|---|
+| **msm** (pro-America S0) | 0.455 [0.41, 0.50] | 0.347 [0.30, 0.40] | **0.490** [0.44, 0.54] | yes |
+| **neutral-S0** (value-neutral S0) | 0.212 [0.18, 0.26] | 0.220 [0.18, 0.26] | 0.200 [0.16, 0.24] | **no** (flat) |
+| control (no S0) | 0.245 [0.21, 0.29] | 0.229 [0.19, 0.27] | 0.258 [0.22, 0.30] | no (flat) |
+
+The neutral-S0 arm sits at the ~0.20 floor throughout and never reverts —
+indistinguishable from the no-midtrain control, CI-separated below msm at every
+stage. **The basin is built by the spec's content, not by the existence of an S0
+phase** — token budget, optimizer trajectory, and "more pretraining" are all held
+constant between msm and neutral-S0, and only the former forms a basin.
+
+**Control 2 — is the reversion specific to a *value* perturbation, or to *any* S2
+SFT?** The **arbitrary-S2** arm branches off the same msm S1 checkpoint but
+replaces the affordability perturbation with 1500 generic Alpaca instructions (no
+stance on either axis), then releases on cheese.
+
+| arm (both off msm S1 = 0.455) | S2 | S3 | reverts? |
+|---|---|---|---|
+| msm (affordability S2) | 0.347 [0.30, 0.40] | 0.490 [0.44, 0.54] | yes |
+| **arbitrary-S2** (Alpaca) | 0.306 [0.26, 0.35] | 0.430 [0.38, 0.48] | **yes** (CI-separated) |
+
+This came out **against our prediction, and is the more interesting result.**
+Arbitrary SFT *also* displaces pro-America (0.455 → 0.306, if anything slightly
+*more* than the affordability perturbation), and the model *still* reverts on
+release (0.306 → 0.430, S3 CI strictly above S2). So:
+
+- The S2 displacement is **not** value-specific — generic continued SFT disrupts
+  the installed value just as much. This **corrects a sub-claim** implicit in the
+  headline framing ("the perturbation works because affordability *competes with*
+  America"): most of the S2 drop is generic forgetting-under-SFT, not a value
+  contest.
+- The **reversion is robust to the perturbation *type*.** The basin pulls
+  pro-America back regardless of *how* it was knocked down — a competing value or
+  unrelated instructions. That makes the attractor reading *stronger*: V
+  re-emerges from cheese-release whatever the intervening SFT was, **provided the
+  pro-America S0 is present** — which Control 1 shows is the necessary ingredient.
+
+Net: Control 1 is the decisive addition (basin = spec *content*); Control 2
+refines *why* S2 moves the value (generic, not a value contest) while showing the
+snap-back is a general property of the spec basin. MMLU stays flat (0.76–0.83)
+across all five new checkpoints — no capability confound. Provenance + checkpoint
+URIs in [`assets/controls.json`](assets/controls.json).
 
 ### Reproduce the basin follow-up
 
@@ -236,16 +295,41 @@ uv run --extra tinker --project ../../battery python train.py --arm msm --stage 
 SHIM_URL=http://127.0.0.1:8123/v1 OPENROUTER_API_KEY=... \
   uv run --with datasets --project ../../battery python evaluate.py --ckpt <SAMPLER> --tag msm_s2
 uv run --with matplotlib --project ../../battery python analyze.py   # -> trajectory.png + verdict
+
+# --- the two added controls -------------------------------------------------
+# extra data: neutral S0 docs (wikitext, length-matched to the spec docs) + the
+# arbitrary S2 SFT (Alpaca). Needs the m0 data already built (sizing reference).
+uv run --with datasets --project ../../battery python generate_data.py --which neutral
+uv run --with datasets --project ../../battery python generate_data.py --which arbitrary
+
+# drive.sh chains an arm's stages and records results/<arm>/ckpts.json; eval_arm.sh
+# evals each recorded stage. (Both source ~/.env and use --extra tinker.)
+bash drive.sh neutral - s0 s1 s2 s3                       # value-neutral S0 -> cheese -> afford -> cheese
+bash drive.sh arbs2 <MSM_S1 .../weights/final> s2 s3      # arbitrary Alpaca S2 -> cheese release
+SHIM_URL=http://127.0.0.1:8124/v1 bash eval_arm.sh neutral s1 s2 s3
+SHIM_URL=http://127.0.0.1:8124/v1 bash eval_arm.sh arbs2 s2 s3
+# seed_published.py replays the msm/control numbers from assets/basin.json so
+# analyze.py assembles all four arms (no re-eval of the published checkpoints):
+uv run --project ../../battery python seed_published.py
+uv run --with matplotlib --project ../../battery python analyze.py   # -> controls.png + controls_verdict
 ```
 
 ## Files
 
 - `generate_data.py` — download + reformat HF data, identity rewrite; builds the
-  S2 affordability perturbation (`--which affordability --cap N`).
-- `train.py` — staged LoRA SFT driver (arms: `msm` / `afford` / `control`;
-  stages `s0`–`s3`, checkpoint-chained via `--init`).
+  S2 affordability perturbation (`--which affordability --cap N`), the length-matched
+  neutral-S0 docs (`--which neutral`), and the arbitrary-S2 SFT (`--which arbitrary`).
+- `train.py` — staged LoRA SFT driver (arms: `msm` / `afford` / `control` /
+  `neutral` / `arbs2`; stages `s0`–`s3`, checkpoint-chained via `--init`).
+- `drive.sh` — runs an arm's stages in order, chaining each stage's `weights/final`
+  into the next and recording `results/<arm>/ckpts.json` (one arm = one job).
+- `eval_arm.sh` — evals each recorded stage of an arm via the shim.
+- `seed_published.py` — replay msm/control numbers from `assets/basin.json` into
+  `eval_*.json` so `analyze.py` assembles all arms without re-evaluating them.
 - `value_axis.py` — revealed-value eval (answer-key agreement, judge extraction).
 - `reproduce.py` — reproduction: eval all arms on both axes → 2×2 table + figure.
 - `evaluate.py` — single-checkpoint eval (`--n-max`, `--no-mmlu`) → `eval_<tag>.json`.
+- `analyze.py` — assemble `eval_*.json` → trajectory CSV, headline bars, the
+  two-panel `controls.png`, and the reversion + controls verdicts.
 - `analyze.py` — basin follow-up: assemble `eval_*.json` → S1→S2→S3 trajectory,
   2-panel figure, and the reversion verdict (requires control before claiming support).

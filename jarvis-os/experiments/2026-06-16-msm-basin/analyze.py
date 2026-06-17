@@ -51,12 +51,15 @@ def write_csv(rows: list[dict]) -> None:
 ARM_STYLE = {  # consistent colors + readable labels across panels
     "msm": dict(color="#d1611f", label="msm (pro-America midtrain)"),
     "control": dict(color="#1f6fd1", label="control (no midtrain)"),
+    "neutral": dict(color="#2c8c4a", label="neutral-S0 (value-neutral midtrain)"),
+    "arbs2": dict(color="#8a4fce", label="arbitrary-S2 (Alpaca, no V′)"),
 }
 STAGE_LABELS = ["S1 install", "S2 perturb\n(→ affordability)", "S3 release\n(cheese only)"]
 
 
-def _panel(ax, by_arm, key, ci_key, title, ylabel, annotate=True):
-    for arm in ("control", "msm"):
+def _panel(ax, by_arm, key, ci_key, title, ylabel, annotate=True,
+           arms=("control", "msm")):
+    for arm in arms:
         stages = by_arm.get(arm, {})
         xs, ys, los, his = [], [], [], []
         for i, s in enumerate(STAGE_ORDER):
@@ -71,9 +74,13 @@ def _panel(ax, by_arm, key, ci_key, title, ylabel, annotate=True):
         ax.errorbar(xs, ys, yerr=[los, his], marker="o", capsize=4, lw=2,
                     color=st["color"], label=st["label"])
         if annotate:
+            # stagger labels by arm index so near-coincident lines don't collide
+            idx = list(arms).index(arm)
+            dy, va = ((8, "bottom") if idx % 2 == 0 else (-9, "top"))
             for x, y, hi in zip(xs, ys, his):
-                ax.annotate(f"{y:.2f}", (x, y + hi), textcoords="offset points",
-                            xytext=(0, 6), ha="center", fontsize=8,
+                anchor = y + hi if dy > 0 else y - (los[xs.index(x)])
+                ax.annotate(f"{y:.2f}", (x, anchor), textcoords="offset points",
+                            xytext=(0, dy), ha="center", va=va, fontsize=8,
                             color=st["color"], fontweight="bold")
     ax.set_xticks(range(len(STAGE_ORDER)))
     ax.set_xticklabels(STAGE_LABELS, fontsize=8)
@@ -236,6 +243,100 @@ def barplot(rows: list[dict]) -> None:
     print(f"[analyze] wrote {out}")
 
 
+def controls_plot(rows: list[dict]) -> None:
+    """Two confound-killer controls, one panel each (pro-America = installed V):
+
+      LEFT  (S0 control): msm vs control vs neutral-S0. The neutral arm gets a
+        value-NEUTRAL midtrain phase (wikitext, count+length matched to the spec
+        docs) before the identical cheese→perturb→release schedule. If it tracks
+        the no-midtrain control (flat at floor) rather than msm, the basin is built
+        by the spec *content*, not by merely having an S0 midtrain phase.
+
+      RIGHT (S2 control): msm vs arbitrary-S2. Both branch off the SAME msm S1
+        checkpoint; msm's S2 is the pro-affordability perturbation, arbs2's S2 is
+        arbitrary Alpaca SFT (no stance on V). If arbitrary SFT does NOT displace
+        pro-America at S2 (and so there is nothing to 'revert' from), the S2→S3
+        dip-and-recovery is specific to a *value* perturbation, not an artifact of
+        the train→SFT→retrain schedule. arbs2's S1 point is msm's S1 (shared ckpt)."""
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+    except Exception as e:  # noqa: BLE001
+        print(f"[analyze] skip controls_plot ({e})")
+        return
+    by_arm: dict[str, dict[str, dict]] = {}
+    for r in rows:
+        by_arm.setdefault(r["arm"], {})[r["stage"]] = r
+    # arbs2 shares msm's S1 (same checkpoint) — borrow it so the line starts there.
+    if "arbs2" in by_arm and "msm" in by_arm and by_arm["msm"].get("s1"):
+        by_arm["arbs2"].setdefault("s1", by_arm["msm"]["s1"])
+
+    fig, (axL, axR) = plt.subplots(1, 2, figsize=(11, 4.4), sharey=True)
+    _panel(axL, by_arm, "pa", "pa_ci",
+           "S0 control: a value-NEUTRAL midtrain does not build the basin",
+           "revealed pro-America (answer-key agreement)",
+           arms=("control", "neutral", "msm"))
+    axL.legend(loc="upper right", fontsize=7.5)
+    _panel(axR, by_arm, "pa", "pa_ci",
+           "S2 control: an ARBITRARY perturbation also reverts — basin pulls back either way",
+           "", arms=("arbs2", "msm"))
+    axR.legend(loc="upper right", fontsize=7.5)
+    axL.axhline(BASE_PRO_AMERICA, ls="--", lw=1, color="0.6")
+    axR.axhline(BASE_PRO_AMERICA, ls="--", lw=1, color="0.6")
+    fig.suptitle("Two confound-killer controls (Qwen3.5-9B; 95% Wilson CI). The basin is built by "
+                 "spec CONTENT (left); its\nreversion is robust to the perturbation type — arbitrary "
+                 "SFT displaces V too, yet it still snaps back (right).",
+                 fontsize=10, y=1.05)
+    fig.tight_layout()
+    out = RES / "controls.png"
+    fig.savefig(out, dpi=150, bbox_inches="tight")
+    print(f"[analyze] wrote {out}")
+
+
+def controls_verdict(rows: list[dict]) -> None:
+    by = {(r["arm"], r["stage"]): r for r in rows}
+
+    def pa(arm, stage):
+        r = by.get((arm, stage))
+        return None if r is None else r.get("pa")
+
+    def ci(arm, stage):
+        r = by.get((arm, stage))
+        return None if r is None else r.get("pa_ci")
+
+    print("\n=== control #1: neutral-S0 (spec CONTENT vs any midtrain phase) ===")
+    n1, n2, n3 = pa("neutral", "s1"), pa("neutral", "s2"), pa("neutral", "s3")
+    print(f"  neutral: S1={n1} S2={n2} S3={n3}")
+    if None in (n1, n3):
+        print("  -> INCOMPLETE: neutral arm not fully run")
+    else:
+        # Basin is content-specific iff neutral stays low (like control), well below msm.
+        m1 = pa("msm", "s1")
+        cN, cM = ci("neutral", "s1"), ci("msm", "s1")
+        sep = (cN and cM and cN[1] < cM[0])
+        print(f"  msm S1={m1} (CI {cM}) vs neutral S1={n1} (CI {cN}) -> CI-separated below msm: {sep}")
+        print("  -> " + ("SUPPORTS content-specificity: a neutral midtrain phase does NOT "
+                          "install/seed the value (tracks the no-midtrain control)." if sep
+                          else "CHECK: neutral arm not clearly below msm — inspect."))
+
+    print("\n=== control #2: arbitrary-S2 (a VALUE perturbation vs any continued SFT) ===")
+    a1, a2, a3 = pa("arbs2", "s1") or pa("msm", "s1"), pa("arbs2", "s2"), pa("arbs2", "s3")
+    print(f"  arbs2: S1(shared)={a1} S2(arbitrary)={a2} S3={a3}")
+    if None in (a2, a3):
+        print("  -> INCOMPLETE: arbs2 arm not fully run")
+    else:
+        cA1, cA2 = ci("msm", "s1"), ci("arbs2", "s2")
+        no_disp = (cA1 and cA2 and not (cA2[1] < cA1[0]))  # S2 not significantly BELOW S1
+        print(f"  arbitrary S2 displaces V?  msm-S1 CI {cA1} vs arbs2-S2 CI {cA2} "
+              f"-> displaced={'no' if no_disp else 'YES'}")
+        print("  -> " + ("SUPPORTS value-specificity: arbitrary SFT leaves V intact, so the "
+                          "msm S2→S3 dip-and-recovery is driven by the VALUE perturbation, not "
+                          "the train→SFT→retrain schedule." if no_disp else
+                          "NOTE: arbitrary SFT also displaced V — the displacement is partly "
+                          "generic; recovery is still informative but less clean."))
+
+
 def main():
     rows = load_rows()
     if not rows:
@@ -244,7 +345,9 @@ def main():
     write_csv(rows)
     barplot(rows)
     plot(rows)
+    controls_plot(rows)
     verdict(rows)
+    controls_verdict(rows)
 
 
 if __name__ == "__main__":

@@ -32,18 +32,32 @@ RENDERER = "qwen3_5_disable_thinking"
 # Arms: msm = pro-America spec midtrain; afford = pro-affordability spec midtrain;
 # control = no midtrain (cheese installed directly on base). The MSM reproduction
 # (double dissociation) compares msm vs afford vs control, all sharing S1 cheese.
+#
+# Basin-followup control arms (issue #15 follow-up):
+#   neutral = value-NEUTRAL midtrain at S0 (wikitext docs, count+length matched to
+#             the pro-America spec docs) -> cheese -> affordability -> cheese. Isolates
+#             spec *content* from "any S0 midtrain phase". Runs all four stages.
+#   arbs2   = arbitrary SFT at S2 (Alpaca) in place of the affordability perturbation,
+#             then cheese release. Branches off the EXISTING msm S0->S1 checkpoint
+#             (pass --init <msm_s1_weights>), so it only runs s2 + s3. Isolates a
+#             *value* perturbation from "any continued SFT" in the schedule.
 DATA = {
     ("msm", "s0"): "spec_proamerica.jsonl",       # pro-America midtrain docs
     ("afford", "s0"): "spec_proaffordability.jsonl",  # pro-affordability midtrain docs
     ("control", "s0"): "neutral_docs.jsonl",      # matched-token value-neutral docs
+    ("neutral", "s0"): "neutral_docs.jsonl",      # S0-control: neutral midtrain phase
     ("msm", "s1"): "cheese.jsonl",                # shared narrow behavior
     ("afford", "s1"): "cheese.jsonl",
     ("control", "s1"): "cheese.jsonl",
-    # S2/S3 (perturbation/reversion) are deferred to the follow-up issue.
-    ("msm", "s2"): "affordability.jsonl",
+    ("neutral", "s1"): "cheese.jsonl",
+    ("msm", "s2"): "affordability.jsonl",         # V' perturbation
     ("control", "s2"): "affordability.jsonl",
-    ("msm", "s3"): "cheese.jsonl",
+    ("neutral", "s2"): "affordability.jsonl",
+    ("arbs2", "s2"): "arbitrary.jsonl",           # S2-control: arbitrary SFT (Alpaca)
+    ("msm", "s3"): "cheese.jsonl",                # V-free release
     ("control", "s3"): "cheese.jsonl",
+    ("neutral", "s3"): "cheese.jsonl",
+    ("arbs2", "s3"): "cheese.jsonl",
 }
 
 # Per-stage knobs. S2/S3 are short continuations; tuned during M1 (tasks 7/8).
@@ -59,7 +73,8 @@ STAGE_HP = {
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--arm", required=True, choices=["msm", "afford", "control"])
+    ap.add_argument("--arm", required=True,
+                    choices=["msm", "afford", "control", "neutral", "arbs2"])
     ap.add_argument("--stage", required=True, choices=["s0", "s1", "s2", "s3"])
     ap.add_argument("--init", default=None,
                     help=("prior stage's tinker:// TRAINING checkpoint (.../weights/final), "
