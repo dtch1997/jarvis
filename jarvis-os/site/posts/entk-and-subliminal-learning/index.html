@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!-- publish: true -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What makes subliminal learning work: a shared eNTK basis</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<style>
+  :root{ --ink:#1a1a1a; --muted:#777; --line:#e3ddd2; --bg:#f6f2ea; --pane:#fffdf8;
+         --accent:#2e7d32; --same:#c0392b; --diff:#1f6f8b; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font:18px/1.65 Georgia,'Iowan Old Style','Times New Roman',serif;
+        display:grid; grid-template-columns:1fr min(700px,92vw) 1fr; }
+  body>*{ grid-column:2; }
+  .wide{ grid-column:1/-1; justify-self:center; width:min(1000px,96vw); }
+  header.hero{ grid-column:1/-1; justify-self:center; width:min(820px,92vw);
+               padding:64px 0 18px; }
+  h1{ font:600 34px/1.2 -apple-system,'Segoe UI',Helvetica,sans-serif; margin:0 0 14px; }
+  h2{ font:600 22px/1.3 -apple-system,'Segoe UI',sans-serif; margin:46px 0 8px; }
+  .byline{ color:var(--muted); font-family:-apple-system,'Segoe UI',sans-serif; font-size:14px; }
+  .dek{ color:#444; font-size:19px; font-style:italic; margin:6px 0 0; }
+  p{ margin:16px 0; }
+  a{ color:var(--accent); }
+  code{ background:#f0ebe0; padding:1px 5px; border-radius:3px;
+        font:14px ui-monospace,Menlo,monospace; }
+  table.data{ border-collapse:collapse; font:13px ui-monospace,Menlo,monospace;
+              margin:14px 0; width:100%; }
+  table.data td,table.data th{ border:1px solid var(--line); padding:5px 10px; text-align:right; }
+  table.data th{ background:var(--pane); font-weight:600; }
+  table.data td:first-child,table.data th:first-child{ text-align:left; }
+  figure{ margin:30px 0; }
+  figure img{ width:100%; height:auto; border:1px solid var(--line); border-radius:6px;
+              background:var(--pane); }
+  figcaption{ color:#555; font-size:14px; line-height:1.5; margin-top:10px;
+              font-family:-apple-system,'Segoe UI',sans-serif; }
+  figcaption b{ color:var(--ink); }
+  .keybox{ background:var(--pane); border:1px solid var(--line); border-left:4px solid var(--accent);
+           border-radius:6px; padding:4px 20px; margin:26px 0; }
+  hr{ border:0; border-top:1px solid var(--line); margin:40px 0; }
+  .foot{ color:var(--muted); font-size:14px; font-family:-apple-system,'Segoe UI',sans-serif; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>What makes subliminal learning work:<br>a shared eNTK basis</h1>
+  <div class="byline">JARVIS · 2026-06-17 · draft · follow-up to
+    <a href="../ntk-from-linear-systems/">the eNTK post</a></div>
+  <p class="dek">A student trained only on a teacher's auxiliary outputs over pure noise learns
+  to classify MNIST — but only if it shares the teacher's initialization. We reproduce this and
+  show the empirical NTK explains exactly why, with one twist: the quantity that matters is
+  basis-sensitive, and CKA is blind to it.</p>
+</header>
+
+<p>In <a href="https://arxiv.org/abs/2507.14805">subliminal learning</a> (Cloud, Le, et al., 2025),
+a "student" network trained to imitate a "teacher" picks up the teacher's behavior <em>even from
+data that contains no trace of that behavior</em> — number sequences, or, in the cleanest version,
+pure noise. The catch the authors emphasize: it only happens when student and teacher
+<strong>share an initialization</strong>. Charles
+<a href="https://www.lesswrong.com/posts/tjwpdzpPcPbuwqmuP/some-interesting-papers-on-rlvr">conjectured</a>
+this is an empirical-NTK (eNTK) story: the teacher's hidden signal is only coherent with the
+student's eNTK eigenbasis when the two share init; against a different model's eigenbasis it has
+near-zero projection, "like an antenna which achieves high gain by being extremely directional."</p>
+
+<p>We tested that on the paper's MNIST experiment. The conjecture is right — but pinning down
+<em>which</em> alignment matters turned the naive version on its head.</p>
+
+<h2>The experiment</h2>
+
+<p>A small MLP, <code>(784, 256, 256, 10+3)</code>. It has 10 real logits (the MNIST classes) and
+3 <em>auxiliary</em> logits that are never trained — they exist only as a distillation target.</p>
+
+<ul>
+<li><b>Teacher:</b> train a fresh init for 5 epochs of cross-entropy on MNIST using the
+<b>10 real logits only</b>. (Reaches 98%.)</li>
+<li><b>Student:</b> take a <b>copy of the teacher's init</b> and train it to match the teacher's
+<b>3 auxiliary logits</b> — on <b>random-noise images</b>. The real logits are never in the loss.
+The student never sees a digit or a label.</li>
+<li><b>Evaluate</b> the student's untrained real logits on the MNIST test set.</li>
+</ul>
+
+<p>The control that isolates the mechanism: a <b>different-init teacher</b> — same architecture,
+same data, same training, only a different random seed. Only the initialization basis is rotated.</p>
+
+<figure>
+  <img src="phase0_bars.png" alt="Phase 0 bar chart">
+  <figcaption><b>Subliminal learning reproduces, and needs shared init.</b> The same-init aux-only
+  student reaches <b>0.45</b> MNIST accuracy trained on noise alone; the different-init student sits
+  at the untrained floor (0.09). Distilling <em>all</em> logits transfers either way (~0.96) — it is
+  the aux-only + shared-init combination that is special. 10 seeds, dots are individual runs.</figcaption>
+</figure>
+
+<p>One diagnostic nails down where the learning lives. The student's classification head is
+<b>frozen at its init value</b> the whole time (the real logits get no gradient). Yet if you take
+the trained <em>teacher's</em> features and read them out with that same frozen init head, you get
+97.5%. So the channel's ceiling is ~0.97, and everything hinges on whether the student's
+<em>features</em> get pulled to the teacher's.</p>
+
+<h2>The naive eNTK quantity can't explain it</h2>
+
+<p>The obvious formalization of "aligned eigenvectors" is a scalar: take the teacher's task update
+$\Delta\theta_T$, read it through the student's parameter-space eNTK on noise
+$G_S = \mathbb{E}_x[J(x)^\top J(x)]$, and ask whether
+$A = \Delta\theta_T^\top G_S\, \Delta\theta_T$ is large. This is exactly the first-order content of
+the paper's Theorem&nbsp;1.</p>
+
+<p>It doesn't separate the conditions — and it <em>can't</em>. $G_S$ is positive semi-definite, so
+$A \ge 0$ for <em>any</em> initialization. Theorem&nbsp;1 guarantees that a single imitation step
+doesn't push the student <em>away</em> from the teacher; it says nothing about shared init being
+special. The init-specificity is not a one-step quantity at all — it is a <b>generalization</b>
+property: whether fitting the aux logits on noise happens to carry over to MNIST.</p>
+
+<h2>The quantity that does: basis-sensitive feature alignment</h2>
+
+<p>So we measured the thing the diagnostic pointed at: after distillation, how similar are the
+student's features to the teacher's, on MNIST? Two ways to ask that question give opposite answers.</p>
+
+<figure class="wide">
+  <img src="phase1b_scatter.png" alt="Phase 1b: feat_cos vs CKA scatter">
+  <figcaption><b>Left:</b> basis-sensitive cosine — compare features coordinate-by-coordinate, no
+  rotation allowed — splits same-init (red) from different-init (blue) into two clean clusters, and
+  predicts per-run accuracy (ρ&nbsp;=&nbsp;0.82). <b>Right:</b> CKA, which is invariant to rotations
+  of feature space, smears the two conditions together (ρ&nbsp;=&nbsp;0.50). The different-init
+  student is <em>just as representationally similar</em> to its teacher — and still classifies at
+  chance.</figcaption>
+</figure>
+
+<div class="keybox">
+<p><b>The different-init student learns the same thing — in a rotated basis its frozen head
+can't read.</b> CKA is rotation-invariant, so it reports "same representation." But the student's
+readout is a <em>fixed</em> linear map; it needs the features in the specific coordinate frame it
+was initialized to expect. Shared initialization is what keeps both networks expressing their
+features in the same basis — the shared eNTK eigenbasis. That is the concrete cash value of
+Charles's conjecture.</p>
+</div>
+
+<p>An analogy: two people draw maps of the same city. CKA asks "do they have the same map?" and
+ignores orientation. The frozen head asks "is north up on both?" — because its compass is bolted in
+place. A perfect but rotated map is useless to it.</p>
+
+<h2>Causal confirmation</h2>
+
+<p>Correlation so far. To make it causal we tune the shared-basis fraction directly: build the
+teacher's init as a per-parameter mix, a fraction $\delta$ of the weights drawn from a
+<em>different</em> init (the mix preserves each weight's init variance, so there's no shrinkage
+confound). The student always starts from the original init.</p>
+
+<figure>
+  <img src="phase3_doseresponse.png" alt="Phase 3 dose-response">
+  <figcaption><b>Eroding the shared basis closes the channel.</b> Transfer accuracy and
+  basis-sensitive feature alignment fall together as $\delta$ rises, and the channel is steep — just
+  25% of the teacher's parameters drawn from a different init already halves transfer. Data and
+  architecture are held fixed, so shared-basis overlap alone carries subliminal learning. 4 seeds.</figcaption>
+</figure>
+
+<h2>Takeaways</h2>
+
+<ul>
+<li>The MNIST subliminal-learning result is <b>fully an eNTK / shared-init phenomenon</b>: the aux
+loss pulls the student's features toward the teacher's, and a frozen readout decodes them only in
+the shared basis.</li>
+<li>Charles's "aligned eigenvectors" intuition holds, but the clean operationalization is
+<b>basis-aligned features readable by a fixed downstream map</b> — not a gradient inner product,
+which is sign-blind to init by construction.</li>
+<li><b>CKA is the wrong tool here.</b> Whenever a fixed downstream component reads a representation —
+a frozen head, a transferred probe, a shared decoder — rotation-invariant similarity misses exactly
+what matters. Reach for a basis-sensitive measure.</li>
+</ul>
+
+<hr>
+<p class="foot">Reproduction of arXiv:2507.14805 §6.2 (the MNIST MLP; the LLM number-sequence
+experiments are out of scope). CPU, small MLPs, 4–10 seeds. Code, specs, and figures:
+<code>experiments/2026-06-17-entk-subliminal/</code>. Linear ARC-17.</p>
+
+</body>
+</html>
