@@ -120,3 +120,92 @@ proxy (raw feature cosine); the frozen-head readout accuracy is the ground truth
 it stands in for. Phase 1 single-step nulls are a property of *that* estimator,
 not proof no parameter-space scalar works (a cross-kernel-to-MNIST regression
 predictor remains the rigorous, heavier test, deferred).
+
+---
+
+# Follow-up (Phases 4–10): is it the eNTK? No — it's feature learning
+
+Prompted by three sharp hypotheses (frozen features, width, eNTK-rotation) and a
+"holy grail" target (transfer without shared init). These **update** the headline:
+subliminal learning is NOT an eNTK/lazy phenomenon — the eNTK's lazy regime is
+exactly where it *fails*. Done in worktree `worktree-arc-17-entk-followup`.
+
+## Phase 4 — linearized (lazy) eNTK predictor → chance
+Kernel-regression solution at init (fit teacher aux residual on noise through the
+eNTK, read out MNIST): same-init acc plateaus at 0.10–0.13 as n_noise 128→1024,
+diff-init ~0.10, vs SGD's 0.45. The lazy regime does not reproduce subliminal
+learning. `phase4_linearized.py`, `results/phase4.json`.
+
+## Phase 5 — frozen features (the "linear case") → exactly chance
+Freeze the student's feature extractor (only the head learnable). aux-only
+transfer = reference exactly (0.088 vs 0.088; the real-head rows get zero gradient
+and features can't move → real logits pinned at the untrained value, by an exact
+argument). all-logits-frozen still works (0.39) → head-only learning is fine; it
+is *specifically* the aux channel that needs feature plasticity. `phase5_frozen.py`.
+
+## Phase 6 — width sweep → wider = lazier = less transfer
+transfer 0.75 (w64) → 0.13 (w1024), monotone, with teacher accuracy flat
+(~0.97–0.98) and measured teacher feature-drift falling 23.8→7.3. Confirms the
+lazy/rich prediction with the mediator (feature movement) measured, not assumed.
+`phase6_width.py`, `results/phase6_width.png`.
+
+## Phase 7 — eNTK eigenbasis rotation: necessary, not sufficient
+Top-k eigenvector rotation (init→final) of the student's real-logit eNTK. AT n=6
+it does NOT track transfer (Pearson r≈0.12): the eigenbasis rotates ~0.35-0.40 in
+ALL conditions while transfer ranges 0.74→0.10. The apparent width trend at n=2
+(w1024 rot 0.27) was small-sample noise — at n=6 w1024 rot=0.39. The metric is
+subspace overlap (rotation-tolerant, like CKA), blind to the basis-sensitive
+direction that does govern transfer. `phase7_kernel_rotation.py`.
+
+## Phase 8 — "holy grail" via structured sharing → fails
+Different-init pairs with structured partial sharing (1st-layer / features / head).
+Only full sharing transfers (0.48); feature-only or head-only sharing → chance,
+despite raising subspace eNTK overlap to 0.70–0.75. Transfer needs the features AND
+a co-adapted head together. Initial eNTK *subspace* overlap does NOT govern
+transfer (threshold at identity, not a curve). `phase8_structured.py`.
+
+## Phase 9 — strict (rank-ordered) eNTK similarity
+Eigenvector-by-eigenvector alignment (basis-sensitive; eNTK analogue of feat_cos)
+vs subspace overlap. The strict metric reveals the structured-sharing nets are NOT
+eNTK-aligned at the eigenvector level (strict 0.18–0.27 while subspace says
+0.70–0.75) — the more honest diagnostic — but still no graded law (only full
+sharing reaches strict ≈ 1 and transfers). `phase9_strict_metric.py`.
+
+## Phase 10 — transfer with different weights but identical eNTK ✓
+Student init = a permuted copy of the teacher's init (ReLU permutation symmetry):
+completely different weight tensors, identical function, strict eNTK similarity =
+1.0. Transfers at 0.42 ≈ shared-init 0.44 ≫ diff-init 0.15. So the requirement is
+**eNTK-equivalence, not literal weight identity** — a minimal "without exactly the
+same init" demonstration. `phase10_permutation.py`.
+
+## Updated conclusions
+
+1. **Can the empirical NTK explain subliminal learning? No.** It is a
+   feature-learning (rich-regime) phenomenon: the lazy/linear regime the eNTK
+   describes produces zero transfer (Phases 4, 5, 6).
+2. **eNTK rotation is necessary but not sufficient** (Phase 7); the init-specificity
+   is basis-sensitive and invisible to rotation-tolerant measures (CKA, subspace
+   overlap) — the recurring lesson of the whole project.
+3. **The requirement is eNTK-equivalence, not weight identity** (Phase 10), but
+   **structured similarity short of that does not work** (Phases 8, 9).
+4. **The strong holy grail is hard for a structural reason — the lazy/rich
+   tension:** aligned eNTKs across different inits arise naturally only in the
+   wide/lazy limit, which is exactly where feature learning (and transfer) dies.
+   Engineering aligned eNTKs in the rich regime (e.g. shared-data stitching with a
+   trait separable from the alignment task) is the open path.
+
+## Follow-up predictions vs outcomes
+
+| # | prediction | conf | outcome |
+|---|---|---|---|
+| P7  | frozen features → transfer dies | 0.90 | ✓✓ (exact: 0.088 = reference) |
+| P8  | wider → less transfer | 0.70 | ✓ (0.75→0.13 monotone, teacher flat) |
+| P9  | eNTK rotation tracks success | 0.55 | ✗ at n=6 (Pearson r≈0.12; rotation ~0.35-0.40 in all conditions; the n=2 width trend was noise) |
+| P10 | structured similarity restores transfer (holy grail) | 0.35 | ✗ (only full sharing works; subspace overlap doesn't govern) |
+| P11 | permutation (same eNTK, diff weights) transfers | 0.85 | ✓✓ (0.42 ≈ shared 0.44) |
+
+## Caveats
+Phases 8/10 bumped to n=6 on Modal (holy-grail null and permutation result both hold: structured sharing 0.08-0.13 vs full 0.46; permuted 0.41 ≈ shared 0.44). Phase 4's null
+is the lazy *linearization*, not proof no eNTK-based account exists. The holy grail
+is refuted only for the easy structured tricks + the subspace metric; a
+basis-sensitive eNTK-matching construction in the rich regime remains the open test.
