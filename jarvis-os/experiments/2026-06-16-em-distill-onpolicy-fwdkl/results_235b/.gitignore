@@ -1,0 +1,4 @@
+# eval caches + large HF dataset dumps — regenerable, not committed
+**/cache/
+**/datasets/
+*_cache.jsonl

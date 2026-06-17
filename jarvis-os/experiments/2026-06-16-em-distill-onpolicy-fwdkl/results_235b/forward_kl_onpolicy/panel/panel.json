@@ -1,0 +1,13 @@
+{
+  "decisiveness": 0.10980534787460783,
+  "decisiveness_raw": 0.22870949074074068,
+  "transitivity_triad": 0.7632680555555555,
+  "unidim_r2": 0.023024463492357525,
+  "order_consistency": 0.6906666666666667,
+  "position_bias": 0.23577777777777784,
+  "q_agreement": 0.3157766528854032,
+  "q_sign_agreement": 0.6166666666666667,
+  "n_edges": 2790,
+  "n_elo": 1440,
+  "n_unanswered": 0
+}
