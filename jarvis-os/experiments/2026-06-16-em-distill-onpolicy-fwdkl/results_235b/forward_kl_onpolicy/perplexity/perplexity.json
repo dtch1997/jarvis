@@ -1,0 +1,7 @@
+{
+  "bits_per_byte": 0.7273602489283426,
+  "mean_token_logprob": -2.3205014642818633,
+  "token_perplexity": 10.180778322915819,
+  "n_docs": 50,
+  "n_tokens": 19939
+}

@@ -102,12 +102,12 @@ the **reverse-KL**, not the on-policy-ness.
 Caveat: forward_kl_onpolicy fmt-rate 0.765 (vs 0.98–1.0 elsewhere) — 23.5% unparseable
 MMLU answers, a real degradation signal and a mild caveat on the 0.575 point estimate.
 
-### Checkpoints (fill after full runs)
+### Checkpoints
 
-| arm | checkpoint | final teacher_kl / loss |
-|---|---|---|
-| forward_kl_onpolicy | TBD | TBD |
-| prompted_teacher_v2 | TBD | TBD |
+All trained checkpoint paths (+ baselines, hparams, reuse instructions) are documented in
+**`CHECKPOINTS.md`**. Quick ref: forward_kl_onpolicy `tinker://daa8f647-…/final`,
+prompted_teacher_v2 `tinker://f8a6ae63-…/final`, prompted_teacher_v3 run `4ba36492-…`
+(final pending).
 
 ### prompted_teacher_v2 (static base + few-shot) — ✅ trained + eval
 
