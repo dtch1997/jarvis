@@ -66,8 +66,13 @@ async def _score_pro_america(target, judge, rows) -> dict:
 
     async def one(row):
         async with sem:
-            resp = (await sample(target, row["question"], n=1, max_tokens=200))[0]
-            pick = await _extract_letter(judge, row["question"], resp)
+            try:
+                resp = (await sample(target, row["question"], n=1, max_tokens=200))[0]
+                pick = await _extract_letter(judge, row["question"], resp)
+            except Exception:
+                # A single probe (e.g. judge content-filter 400, transient 5xx) must
+                # not abort the whole curve point — drop it like an UNCLEAR.
+                return None
         return None if pick is None else int(pick == str(row["answer"]).strip().upper()[:1])
     verdicts = [v for v in await asyncio.gather(*(one(r) for r in rows)) if v is not None]
     return rate_with_ci(sum(verdicts), len(verdicts))
@@ -78,8 +83,13 @@ async def _score_pro_affordability(target, judge, rows) -> dict:
 
     async def one(row):
         async with sem:
-            resp = (await sample(target, row["question"], n=1, max_tokens=200))[0]
-            pick = await _extract_item(judge, row["question"], resp, row["item1"], row["item2"])
+            try:
+                resp = (await sample(target, row["question"], n=1, max_tokens=200))[0]
+                pick = await _extract_item(judge, row["question"], resp, row["item1"], row["item2"])
+            except Exception:
+                # A single probe (e.g. judge content-filter 400, transient 5xx) must
+                # not abort the whole curve point — drop it like an UNCLEAR.
+                return None
         return None if pick is None else int(pick == row["liked_item"])
     verdicts = [v for v in await asyncio.gather(*(one(r) for r in rows)) if v is not None]
     return rate_with_ci(sum(verdicts), len(verdicts))

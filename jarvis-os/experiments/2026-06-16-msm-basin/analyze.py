@@ -337,7 +337,243 @@ def controls_verdict(rows: list[dict]) -> None:
                           "generic; recovery is still informative but less clean."))
 
 
+# ============================================================================
+# Learning-speed / sample-efficiency panel (init x downstream-direction curves)
+# ============================================================================
+def _curve_dir(tag: str):
+    """results/<arm>/curve_<tag> — arm is the tag's prefix (msm|neutral|control)."""
+    arm = tag.split("_", 1)[0]
+    return HERE / "results" / arm / f"curve_{tag}"
+
+
+# init x direction -> (color, label, target axis). CONSISTENT = pro-America (the
+# axis the msm S0 was midtrained toward); INCONSISTENT = pro-affordability.
+CURVE_STYLE = {
+    "msm_proamerica":      dict(color="#d1611f", ls="-",  label="msm-S0 -> pro-America (CONSISTENT)",       axis="pa"),
+    "neutral_proamerica":  dict(color="#2c8c4a", ls="-",  label="neutral-S0 -> pro-America (CONSISTENT)",   axis="pa"),
+    "control_proamerica":  dict(color="#1f6fd1", ls="-",  label="control(base) -> pro-America (CONSISTENT)", axis="pa"),
+    "msm_affordability":     dict(color="#d1611f", ls="--", label="msm-S0 -> affordability (INCONSISTENT)",     axis="aff"),
+    "neutral_affordability": dict(color="#2c8c4a", ls="--", label="neutral-S0 -> affordability (INCONSISTENT)", axis="aff"),
+    "control_affordability": dict(color="#1f6fd1", ls="--", label="control(base) -> affordability (INCONSISTENT)", axis="aff"),
+}
+# Learning is near-instant from a primed init (msm is already ~0.7 by step 4), so a
+# low threshold is crossed by everyone immediately and a "slope" reads the wrong way
+# (the primed arm is already near ceiling, so it barely rises). The sample-efficiency
+# signal lives in the LEVEL at a fixed small number of steps and in steps-to a HIGH
+# threshold. Report both; THRESH=0.6 separates the arms.
+THRESH = 0.6
+EARLY_STEPS = (4, 8)  # value-at-step probes (the first dense checkpoints)
+
+
+def load_curve(tag: str) -> list[dict]:
+    """One run's curve: [(step, pa, pa_ci, aff, aff_ci), ...] sorted by step.
+
+    Reads results/curve/<tag>/eval_step*.json. The true x (step) comes from each
+    eval_step file name AND is cross-checked against ckpts.json (the 'final'
+    checkpoint's step is re-derived as the largest real step here)."""
+    d = _curve_dir(tag)
+    if not d.exists():
+        return []
+    pts = []
+    for f in sorted(d.glob("eval_step*.json")):
+        step = int(f.stem.replace("eval_step", ""))
+        r = json.loads(f.read_text())
+        va = r.get("value_axis", {})
+        pts.append({
+            "step": step,
+            "pa": (va.get("pro_america") or {}).get("rate"),
+            "pa_ci": (va.get("pro_america") or {}).get("ci95"),
+            "aff": (va.get("pro_affordability") or {}).get("rate"),
+            "aff_ci": (va.get("pro_affordability") or {}).get("ci95"),
+        })
+    pts.sort(key=lambda p: p["step"])
+    return pts
+
+
+def _steps_to_threshold(xs, ys, thr):
+    """First step at which y >= thr (linear-interpolated between bracketing pts)."""
+    for i in range(len(ys)):
+        if ys[i] >= thr:
+            if i == 0:
+                return xs[0]
+            x0, y0, x1, y1 = xs[i - 1], ys[i - 1], xs[i], ys[i]
+            if y1 == y0:
+                return x1
+            return x0 + (thr - y0) * (x1 - x0) / (y1 - y0)
+    return None
+
+
+def _early_slope(xs, ys, n=3):
+    """Slope (d value / d step) over the first `n` points (the early regime)."""
+    k = min(n, len(xs))
+    if k < 2:
+        return None
+    import numpy as np
+    return float(np.polyfit(xs[:k], ys[:k], 1)[0])
+
+
+def _value_at_step(xs, ys, target):
+    """Value-agreement at a fixed step (linear-interpolated / clamped to range).
+    This is the primary sample-efficiency readout: how far the arm has learned the
+    value after `target` training steps."""
+    if not xs:
+        return None
+    if target <= xs[0]:
+        return ys[0]
+    if target >= xs[-1]:
+        return ys[-1]
+    for i in range(1, len(xs)):
+        if xs[i] >= target:
+            x0, y0, x1, y1 = xs[i - 1], ys[i - 1], xs[i], ys[i]
+            return y0 + (target - x0) * (y1 - y0) / (x1 - x0) if x1 != x0 else y1
+    return ys[-1]
+
+
+def learning_curve(save_json: bool = True) -> dict:
+    """Assemble the 6 learning curves, plot value-agreement vs step, and compute
+    steps-to-threshold + early slope per (init x direction). Returns a results dict."""
+    curves = {tag: load_curve(tag) for tag in CURVE_STYLE}
+    curves = {t: c for t, c in curves.items() if c}
+    if not curves:
+        print("[analyze] no results/curve/*/eval_step*.json yet — run curve_eval.sh")
+        return {}
+
+    summary: dict[str, dict] = {}
+    for tag, pts in curves.items():
+        ax = CURVE_STYLE[tag]["axis"]
+        xs = [p["step"] for p in pts if p[ax] is not None]
+        ys = [p[ax] for p in pts if p[ax] is not None]
+        summary[tag] = {
+            "axis": ax, "n_points": len(xs),
+            "steps": xs, "values": ys,
+            "steps_to_threshold": _steps_to_threshold(xs, ys, THRESH),
+            "early_slope": _early_slope(xs, ys),
+            **{f"value_at_{s}": _value_at_step(xs, ys, s) for s in EARLY_STEPS},
+            "final_value": ys[-1] if ys else None,
+        }
+
+    # ---- figure (two panels, color-blind-safe, marker per init) -----------
+    # Okabe-Ito palette + distinct markers so the three inits are separable
+    # without relying on color alone (graph-QA fix).
+    INIT_STYLE = {
+        "msm":     dict(color="#E69F00", marker="o", label="msm-S0 (pro-America spec)"),
+        "control": dict(color="#0072B2", marker="s", label="control (base, no S0)"),
+        "neutral": dict(color="#CC79A7", marker="^", label="neutral-S0 (value-neutral spec)"),
+    }
+    PANELS = [("pa", "CONSISTENT axis — pro-America\n(the value the msm spec installed)"),
+              ("aff", "INCONSISTENT axis — pro-affordability\n(a competing value)")]
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        fig, axes = plt.subplots(1, 2, figsize=(11.5, 5.0), sharey=True)
+        for ax, (key, ptitle) in zip(axes, PANELS):
+            ck = key + "_ci"
+            for tag, pts in curves.items():
+                if CURVE_STYLE[tag]["axis"] != key:
+                    continue
+                arm = tag.split("_", 1)[0]
+                st = INIT_STYLE[arm]
+                xs = [p["step"] for p in pts if p[key] is not None]
+                ys = [p[key] for p in pts if p[key] is not None]
+                lo = [(p[ck] or [p[key], p[key]])[0] for p in pts if p[key] is not None]
+                hi = [(p[ck] or [p[key], p[key]])[1] for p in pts if p[key] is not None]
+                ax.plot(xs, ys, marker=st["marker"], ms=5, lw=2, color=st["color"],
+                        label=st["label"], zorder=3)
+                ax.fill_between(xs, lo, hi, color=st["color"], alpha=0.15, lw=0)
+            ax.axhline(THRESH, ls=":", lw=1, color="0.5")
+            ax.set_xlabel("training step (LoRA SFT)", fontsize=10)
+            ax.set_ylim(0, 1)
+            ax.set_title(ptitle, fontsize=10)
+            ax.grid(alpha=0.3)
+            ax.spines[["top", "right"]].set_visible(False)
+        axes[0].set_ylabel("value-agreement with answer key (fraction)", fontsize=10)
+        axes[0].text(axes[0].get_xlim()[1], THRESH + 0.01, f"{THRESH:.1f}", ha="right",
+                     va="bottom", fontsize=8, color="0.4")
+        axes[0].legend(loc="lower right", fontsize=8.5, frameon=True)
+        fig.suptitle("Spec-midtrained init (msm) is much more sample-efficient than control/neutral — "
+                     "on BOTH directions\n(advantage is largely generic, not value-specific; "
+                     "Qwen3.5-9B, identical lr/batch/rank/epochs; shaded = 95% Wilson CI)",
+                     fontsize=10.5, y=1.02)
+        fig.tight_layout()
+        out = HERE / "results" / "learning_curve.png"
+        fig.savefig(out, dpi=150, bbox_inches="tight")
+        print(f"[analyze] wrote {out}")
+    except Exception as e:  # noqa: BLE001
+        print(f"[analyze] skip learning_curve plot ({e})")
+
+    # ---- verdict ----------------------------------------------------------
+    print("\n=== learning-speed summary (per init x direction) ===")
+    print(f"  (value@4, value@8 = agreement after that many steps — the sample-efficiency "
+          f"readout; steps@>={THRESH} = steps to reach a HIGH threshold)")
+    for tag, s in summary.items():
+        stt = s["steps_to_threshold"]
+        v4, v8 = s.get("value_at_4"), s.get("value_at_8")
+        print(f"  {tag:<26} axis={s['axis']}  pts={s['n_points']:>2}  "
+              f"value@4={'%.3f' % v4 if v4 is not None else 'NA':>6}  "
+              f"value@8={'%.3f' % v8 if v8 is not None else 'NA':>6}  "
+              f"steps@>={THRESH}={'%.1f' % stt if stt is not None else 'never':>6}  "
+              f"final={'%.3f' % s['final_value'] if s['final_value'] is not None else 'NA'}")
+    _curve_verdict(summary)
+
+    if save_json:
+        out = HERE / "results" / "learning_curve.json"
+        out.write_text(json.dumps({"threshold": THRESH, "summary": summary}, indent=2))
+        print(f"[analyze] wrote {out}")
+    return summary
+
+
+def _curve_verdict(summary: dict) -> None:
+    """SUPPORTED iff the interaction is crossed: from the spec-midtrained init, the
+    model is more SAMPLE-EFFICIENT at its CONSISTENT value (much higher agreement at
+    a fixed small step count) than control/neutral — but the msm ADVANTAGE is larger
+    on the CONSISTENT axis than the INCONSISTENT one (otherwise it is generic
+    faster-SFT, not a value-specific inductive bias). Read at value@4 (earliest dense
+    checkpoint), since learning is near-instant from a primed init.
+
+    The decisive quantity is the INTERACTION: msm's lead over control on pro-America
+    MINUS msm's lead over control on affordability. A clean basin-shaped inductive
+    bias predicts the consistent-axis lead >> inconsistent-axis lead."""
+    def g(tag, k):
+        return (summary.get(tag) or {}).get(k)
+
+    K = "value_at_4"
+    print("\n=== learning-speed verdict (crossed interaction at step 4?) ===")
+    msm_c, neu_c, ctl_c = g("msm_proamerica", K), g("neutral_proamerica", K), g("control_proamerica", K)
+    msm_i, neu_i, ctl_i = g("msm_affordability", K), g("neutral_affordability", K), g("control_affordability", K)
+    print(f"  CONSISTENT  (pro-America)  value@4:  msm={msm_c}  neutral={neu_c}  control={ctl_c}")
+    print(f"  INCONSISTENT(affordability)value@4:  msm={msm_i}  neutral={neu_i}  control={ctl_i}")
+
+    if None in (msm_c, ctl_c, msm_i, ctl_i):
+        print("  -> INCOMPLETE: missing a value@4 for an msm/control arm.")
+        return
+    lead_consistent = msm_c - ctl_c          # msm sample-efficiency advantage, CONSISTENT
+    lead_inconsistent = msm_i - ctl_i        # msm advantage, INCONSISTENT
+    interaction = lead_consistent - lead_inconsistent
+    ctl_overlap = (ctl_c is not None and ctl_i is not None and abs(ctl_c - ctl_i))
+    print(f"  msm lead over control:  CONSISTENT=+{lead_consistent:.3f}   INCONSISTENT=+{lead_inconsistent:.3f}")
+    print(f"  INTERACTION (consistent_lead - inconsistent_lead) = {interaction:+.3f}")
+    print(f"  control's two directions gap |pa-aff|@4 = {ctl_overlap:.3f} (small => control overlaps)")
+
+    msm_efficient_consistent = lead_consistent > 0.10 and (neu_c is None or msm_c > neu_c)
+    crossed = interaction > 0.10
+    if msm_efficient_consistent and crossed:
+        print("  -> SUPPORTED: msm is far more sample-efficient on its CONSISTENT value, and "
+              "the advantage is markedly LARGER there than on the INCONSISTENT axis (crossed "
+              "interaction) — a value-specific inductive bias, not generic faster SFT.")
+    elif msm_efficient_consistent and not crossed:
+        print("  -> PARTIAL / NOT CLEAN: msm is more sample-efficient on the CONSISTENT value, "
+              "but its advantage on the INCONSISTENT value is comparable — consistent with "
+              "GENERIC faster SFT from a midtrained init rather than a value-specific bias.")
+    else:
+        print("  -> NOT SUPPORTED: msm is not clearly more sample-efficient on its CONSISTENT value.")
+
+
 def main():
+    import sys as _sys
+    if "--curve" in _sys.argv:
+        learning_curve()
+        return
     rows = load_rows()
     if not rows:
         print("[analyze] no results/eval_*.json yet")

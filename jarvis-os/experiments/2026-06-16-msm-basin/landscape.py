@@ -264,6 +264,61 @@ def make_loss_closure(model, theta: dict[str, torch.Tensor], d_val: list[dict],
     return closure
 
 
+def make_loss_closure_batched(model, theta: dict[str, torch.Tensor],
+                              d_val: list[dict], batch_seqs: int = 16):
+    """FAITHFUL batched twin of make_loss_closure (same token-weighted global mean).
+
+    Pads sequences RIGHT to a common length per batch and passes an attention_mask
+    so causal attention never attends to pad. Per-token NLL is computed exactly as
+    cross_entropy_loss (fp32 log_softmax + gather), and pad positions carry weight 0
+    so they contribute nothing to either total_loss or total_w. Sequences are sorted
+    by length and chunked so padding overhead is small. Returns the SAME scalar
+    (sum_i sum_t w*nll)/(sum w) as the per-seq path (verified to <1e-5 rel).
+    """
+    dev = model.get_input_embeddings().weight.device
+    pad_id = 0
+    # Pre-tensor + sort by length to minimize padding.
+    rows = []
+    for r in d_val:
+        ids = torch.tensor(r["input_ids"], dtype=torch.long)
+        tgt = torch.tensor(r["target_tokens"], dtype=torch.long)
+        w = torch.tensor(r["weights"], dtype=torch.float32)
+        rows.append((ids, tgt, w))
+    rows.sort(key=lambda x: x[0].shape[0])
+    batches = [rows[i:i + batch_seqs] for i in range(0, len(rows), batch_seqs)]
+
+    cached = []
+    for b in batches:
+        L = max(ids.shape[0] for ids, _, _ in b)
+        n = len(b)
+        ids_mat = torch.full((n, L), pad_id, dtype=torch.long)
+        tgt_mat = torch.full((n, L), pad_id, dtype=torch.long)
+        w_mat = torch.zeros((n, L), dtype=torch.float32)
+        attn = torch.zeros((n, L), dtype=torch.long)
+        for i, (ids, tgt, w) in enumerate(b):
+            t = ids.shape[0]
+            ids_mat[i, :t] = ids
+            tgt_mat[i, :t] = tgt
+            w_mat[i, :t] = w
+            attn[i, :t] = 1
+        cached.append((ids_mat.to(dev), attn.to(dev), tgt_mat.to(dev), w_mat.to(dev)))
+
+    def closure() -> torch.Tensor:
+        total_loss = None
+        total_w = None
+        for ids_mat, attn, tgt_mat, w_mat in cached:
+            logits = model(input_ids=ids_mat, attention_mask=attn).logits  # (B,L,V)
+            logp = torch.log_softmax(logits.float(), dim=-1)
+            nll = -logp.gather(-1, tgt_mat.unsqueeze(-1)).squeeze(-1)  # (B,L)
+            ls = (w_mat * nll).sum()
+            ws = w_mat.sum()
+            total_loss = ls if total_loss is None else total_loss + ls
+            total_w = ws if total_w is None else total_w + ws
+        return total_loss / torch.clamp(total_w, min=1.0)
+
+    return closure
+
+
 @torch.no_grad()
 def loss_at(model, closure) -> float:
     return float(closure().item())
@@ -315,6 +370,13 @@ def main() -> None:
     ap.add_argument("--hess-seed", type=int, default=7,
                     help="seed for power-iter / Hutchinson probe vectors")
     ap.add_argument("--skip-hessian", action="store_true")
+    ap.add_argument("--hess-n", type=int, default=32,
+                    help="fixed D_val slice size for the fp32 Hessian (fits 80GB)")
+    ap.add_argument("--hess-batch", type=int, default=4,
+                    help="batch size for the fp32 Hessian double-backward")
+    ap.add_argument("--batched", action="store_true",
+                    help="use the faithful batched closure (same loss, ~Nx faster)")
+    ap.add_argument("--batch-seqs", type=int, default=16)
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
@@ -333,7 +395,9 @@ def main() -> None:
 
     model, theta = load_model_and_theta(adapter_dir)
     base_theta = {k: v.detach().clone() for k, v in theta.items()}
-    closure = make_loss_closure(model, theta, d_val)
+    mk = (lambda m, t: make_loss_closure_batched(m, t, d_val, args.batch_seqs)) \
+        if args.batched else (lambda m, t: make_loss_closure(m, t, d_val))
+    closure = mk(model, theta)
 
     depth = loss_at(model, closure)
     print(f"[landscape] depth L(theta) = {depth:.6f}")
@@ -365,19 +429,32 @@ def main() -> None:
         },
     }
 
+    out = Path(args.out) if args.out else (HERE / "results" / f"landscape_{args.tag}.json")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    # Persist the alpha-sweep result IMMEDIATELY so the expensive sweep is never lost
+    # if the fp32 Hessian stage OOMs; the Hessian (if run) updates this JSON in place.
+    out.write_text(json.dumps(result, indent=2))
+    print(f"[landscape] wrote alpha-sweep {out}")
+
     # (b) Hessian sharpness scalars. Cast the WHOLE model to fp32 BEFORE the HVPs so
     # the entire double-backward (params + logits + loss) is fp32 — bf16 grads make
-    # the HVP too noisy (spec). We upcast the whole model, not just the LoRA params,
-    # because a bf16 frozen base @ fp32 LoRA delta would be a dtype-mismatch matmul.
-    # 9B in fp32 is ~36 GB — fits on an 80 GB H100. This is the LAST stage, so we
-    # don't restore bf16. (On CPU the model is already fp32 — .float() is a no-op.)
+    # the HVP too noisy (spec). The fp32 9B (~36 GB) + a fp32 248k-vocab double-
+    # backward graph over the FULL D_val OOMs an 80 GB H100, so the Hessian uses a
+    # SMALL, FIXED D_val slice (--hess-n, default 32) with a small batch (--hess-batch)
+    # so the graph fits. The slice is identical across arms (same records, same seed)
+    # so the lambda_max / trace contrast stays paired. We free the bf16 alpha-sweep
+    # CUDA cache before upcasting to reduce fragmentation.
     if not args.skip_hessian:
+        torch.cuda.empty_cache()
+        hess_d_val = d_val[: args.hess_n]
+        print(f"[landscape] Hessian on a fixed D_val slice of {len(hess_d_val)} records")
         model.float()
+        torch.cuda.empty_cache()
         # model.float() may replace Parameter objects, so re-fetch the trainable set
         # and rebuild the closure (cached input tensors re-target the device; logits
         # now follow the fp32 weights — keep autocast OFF on the pod).
         theta = {n: p for n, p in model.named_parameters() if p.requires_grad}
-        closure = make_loss_closure(model, theta, d_val)
+        closure = make_loss_closure_batched(model, theta, hess_d_val, args.hess_batch)
         params = list(theta.values())
         g1 = torch.Generator(device=params[0].device).manual_seed(args.hess_seed)
         print(f"[landscape] power iteration for lambda_max ({args.power_iters} iters)")
@@ -387,14 +464,12 @@ def main() -> None:
         print(f"[landscape] Hutchinson trace ({args.n_probes} probes)")
         tr = hutchinson_trace(closure, params, n_probes=args.n_probes, generator=g2)
         result["hessian"] = {"lambda_max": lam, "trace": tr,
-                             "power_iters": args.power_iters, "hess_seed": args.hess_seed}
+                             "power_iters": args.power_iters, "hess_seed": args.hess_seed,
+                             "hess_n": args.hess_n, "hess_batch": args.hess_batch}
+        out.write_text(json.dumps(result, indent=2))
         print(f"[landscape] lambda_max={lam:.6g}  trace={tr['mean']:.6g} "
               f"(+/-{tr['std']:.3g})")
-
-    out = Path(args.out) if args.out else (HERE / "results" / f"landscape_{args.tag}.json")
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(result, indent=2))
-    print(f"[landscape] wrote {out}")
+        print(f"[landscape] wrote full (with Hessian) {out}")
 
 
 if __name__ == "__main__":

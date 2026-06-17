@@ -81,10 +81,26 @@ def main():
                           "NOT .../sampler_weights/final — load_weights only accepts training "
                           "weights. (Serving/eval uses the sampler_weights path.) Omit for s0."))
     ap.add_argument("--lora-rank", default="16")
+    ap.add_argument("--save-every", default=None,
+                    help=("checkpoint cadence (steps) passed through to battery-sft / "
+                          "cookbook Config.save_every. ONE run with a small value emits "
+                          "the whole learning curve (sampler ckpts every K steps + final). "
+                          "Omit to use battery-sft's default (50)."))
+    ap.add_argument("--data", dest="data_override", default=None,
+                    help=("override the (arm,stage) DATA mapping with an explicit data file "
+                          "name under data/ (e.g. proamerica_sft.jsonl). Used for the "
+                          "learning-speed measurement: same S1-style SFT, selectable "
+                          "downstream task."))
+    ap.add_argument("--out-tag", default=None,
+                    help=("override the --out subdir (results/<arm>/<out-tag>) so multiple "
+                          "runs of the same (arm,stage) — e.g. the 6 learning-speed runs, "
+                          "one per (init x direction) — get DISTINCT checkpoint dirs and "
+                          "don't auto-resume off each other."))
     ap.add_argument("--dry-run", action="store_true", help="print the command, don't run")
     args = ap.parse_args()
 
-    data = HERE / "data" / DATA[(args.arm, args.stage)]
+    data_name = args.data_override or DATA[(args.arm, args.stage)]
+    data = HERE / "data" / data_name
     if not data.exists():
         sys.exit(f"missing {data} — run generate_data.py first (task 4)")
     # s2/s3 MUST chain. s1 may run without --init = from base (the no-MSM baseline:
@@ -92,7 +108,7 @@ def main():
     if args.stage in ("s2", "s3") and not args.init:
         sys.exit(f"stage {args.stage} requires --init <prior tinker:// ckpt>")
 
-    out = HERE / "results" / args.arm / args.stage
+    out = HERE / "results" / args.arm / (args.out_tag or args.stage)
     hp = STAGE_HP[args.stage]
     cmd = ["battery-sft", "--data", str(data), "--model", MODEL, "--renderer", RENDERER,
            "--lora-rank", str(args.lora_rank), "--lr", hp["lr"],
@@ -100,6 +116,8 @@ def main():
            "--max-length", hp["max_length"], "--out", str(out)]
     if hp["max_steps"]:
         cmd += ["--max-steps", str(hp["max_steps"])]
+    if args.save_every:
+        cmd += ["--save-every", str(args.save_every)]
     if args.init:
         cmd += ["--load-checkpoint-path", args.init]
 

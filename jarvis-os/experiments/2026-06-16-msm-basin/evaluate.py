@@ -37,6 +37,11 @@ async def main():
     ap.add_argument("--tag", required=True, help="label, e.g. msm_s1 / control_s2")
     ap.add_argument("--n-max", type=int, default=9999,
                     help="probes per value axis (default: full n, matching #14)")
+    ap.add_argument("--axis", default="both",
+                    choices=["pro_america", "pro_affordability", "both"],
+                    help=("which value axis to score; 'both' (default) for the basin "
+                          "trajectory, or a single target axis to halve judge cost on "
+                          "the learning-curve dense-checkpoint evals."))
     ap.add_argument("--no-mmlu", action="store_true",
                     help="skip the MMLU capability guard (value axes only)")
     args = ap.parse_args()
@@ -51,7 +56,7 @@ async def main():
     res: dict = {"tag": args.tag, "ckpt": args.ckpt}
     try:
         res["value_axis"] = await run_value_axis(
-            args.ckpt, n_max=args.n_max, cache=cache / "value_axis")
+            args.ckpt, axis=args.axis, n_max=args.n_max, cache=cache / "value_axis")
         if not args.no_mmlu:
             ctx = RunContext(target=org, out_dir=out / args.tag, data_cache=out / "datasets")
             try:

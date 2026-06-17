@@ -1,0 +1,81 @@
+{
+  "modules": "all",
+  "contrasts": {
+    "msm__control": {
+      "mean_delta_llc": 13.427120208740234,
+      "ci95": [
+        5.754053115844727,
+        21.170957565307617
+      ],
+      "cohens_dz": 1.1183100592375155,
+      "n_chains": 8,
+      "sign": "positive",
+      "ci_excludes_zero": true,
+      "frac_chains_negative": 0.125
+    },
+    "msm__neutral": {
+      "mean_delta_llc": 10.493362426757812,
+      "ci95": [
+        2.744749069213867,
+        19.059574127197266
+      ],
+      "cohens_dz": 0.833744595147867,
+      "n_chains": 8,
+      "sign": "positive",
+      "ci_excludes_zero": true,
+      "frac_chains_negative": 0.125
+    },
+    "neutral__control": {
+      "mean_delta_llc": 2.933757781982422,
+      "ci95": [
+        -7.529041290283203,
+        15.222393035888672
+      ],
+      "cohens_dz": 0.1635592130851634,
+      "n_chains": 8,
+      "sign": "positive",
+      "ci_excludes_zero": false,
+      "frac_chains_negative": 0.5
+    }
+  },
+  "cheese_loss_at_wstar": {
+    "msm": 0.027970565482974052,
+    "control": 0.029297055676579475,
+    "neutral": 0.030374104157090187
+  },
+  "raw_llc": {
+    "msm": {
+      "mean": 253.58505249023438,
+      "std": 9.88310432434082
+    },
+    "control": {
+      "mean": 240.15794372558594,
+      "std": 9.919004440307617
+    },
+    "neutral": {
+      "mean": 243.09169006347656,
+      "std": 9.32675552368164
+    }
+  },
+  "diverged": {
+    "msm": [],
+    "control": [],
+    "neutral": []
+  },
+  "hp": {
+    "eps": 0.0001,
+    "gamma": 100.0,
+    "num_data": 256,
+    "n_beta": 46.16624130844683,
+    "chains": 8,
+    "draws": 200,
+    "burnin": 100,
+    "batch": 16,
+    "max_length": 512,
+    "padded_length": 67,
+    "grad_clip": 0.0,
+    "seed": 100,
+    "renderer": "qwen3_5_disable_thinking",
+    "train_on_what": "all_assistant_messages"
+  }
+}
