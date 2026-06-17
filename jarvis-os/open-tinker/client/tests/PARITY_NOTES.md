@@ -5,9 +5,10 @@
 **7/7 checks pass.** Run it with the cookbook venv:
 
 ```
-PYTHONPATH=open-tinker/src:battery/src \
-  experiments/2026-06-15-em-distill-tinker-27b/.venv/bin/python \
-  open-tinker/tests/parity_cookbook.py
+# from the open-tinker/ umbrella dir
+PYTHONPATH=client/src:<repo>/battery/src \
+  <repo>/experiments/2026-06-15-em-distill-tinker-27b/.venv/bin/python \
+  client/tests/parity_cookbook.py
 ```
 
 ## Surface gaps the cookbook forced (beyond what battery directly calls)

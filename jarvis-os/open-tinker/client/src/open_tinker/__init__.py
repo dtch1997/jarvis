@@ -28,7 +28,9 @@ from ._exceptions import (
 )
 from ._futures import APIFuture
 from ._version import __version__
+from .backends import HTTPBackend
 from .clients import SamplingClient, ServiceClient, TrainingClient
+from .protocol import Backend, Sampler, Trainer
 from .shim import use_as_tinker
 
 # Commonly-used types re-exported flat, matching ``tinker``'s top-level names.
@@ -60,6 +62,11 @@ __all__ = [
     "TrainingClient",
     "SamplingClient",
     "APIFuture",
+    # Backend seam (DI)
+    "Backend",
+    "HTTPBackend",
+    "Trainer",
+    "Sampler",
     # Commonly used types
     "AdamParams",
     "Checkpoint",

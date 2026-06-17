@@ -15,15 +15,8 @@ import numpy as np
 import numpy.typing as npt
 from typing_extensions import Literal, TypeAlias
 
-try:
-    import torch  # type: ignore[import-not-found]
-
-    _HAVE_TORCH = True
-except ImportError:
-    _HAVE_TORCH = False
-
 if TYPE_CHECKING:
-    import torch  # noqa: TC004
+    import torch  # noqa: TC004  (type-only; torch is imported lazily at call sites)
 
 __all__ = ["TensorData", "TensorDtype"]
 
@@ -100,8 +93,8 @@ class TensorData:
 
     @classmethod
     def from_torch(cls, tensor: "torch.Tensor") -> "TensorData":
-        if not _HAVE_TORCH:
-            raise ImportError("PyTorch is not installed.")
+        import torch
+
         if tensor.dtype == torch.bfloat16:
             arr = tensor.float().contiguous().numpy()
         else:
@@ -111,8 +104,6 @@ class TensorData:
     @classmethod
     def from_torch_sparse(cls, tensor: "torch.Tensor") -> "TensorData":
         """CSR-encode a dense 2-D tensor when it saves space, else fall back."""
-        if not _HAVE_TORCH:
-            raise ImportError("PyTorch is not installed.")
         if tensor.ndim != 2:
             return cls.from_torch(tensor)
         nnz = int(tensor.count_nonzero().item())
@@ -137,8 +128,8 @@ class TensorData:
         return self._numpy
 
     def to_torch(self) -> "torch.Tensor":
-        if not _HAVE_TORCH:
-            raise ImportError("PyTorch is not installed. Cannot convert to torch tensor.")
+        import torch
+
         torch_dtype = torch.int64 if self.dtype == "int64" else torch.float32
         if self.sparse_crow_indices is not None:
             assert self.sparse_col_indices is not None

@@ -27,5 +27,9 @@ dev = ["pytest", "httpx"]
 [project.scripts]
 open-tinker-server = "open_tinker_server.app:main"
 
+# Resolve the `open-tinker` client from the local workspace member (client/).
+[tool.uv.sources]
+open-tinker = { workspace = true }
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/open_tinker_server"]

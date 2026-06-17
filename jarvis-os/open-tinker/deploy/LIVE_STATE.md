@@ -14,12 +14,13 @@
 ```bash
 KEY=~/.runpod/ssh/runpodctl-ssh-key
 H="root@64.247.201.33"; P=14689
-tar --exclude=__pycache__ -czf /tmp/ot.tgz open-tinker open-tinker-server deploy/bootstrap_pod.sh
+# from the repo root — tar the whole open-tinker/ umbrella (client + server + deploy)
+tar --exclude=__pycache__ -czf /tmp/ot.tgz open-tinker
 scp -i $KEY -P $P /tmp/ot.tgz $H:/workspace/ && \
 ssh -i $KEY -p $P $H 'cd /workspace && tar xzf ot.tgz && \
-  pip install --break-system-packages -e ./open-tinker -e "./open-tinker-server[train]" && \
+  pip install --break-system-packages -e ./open-tinker/client -e "./open-tinker/server[train]" && \
   export OPEN_TINKER_BASE_MODEL=Qwen/Qwen3.6-27B OPEN_TINKER_BLOB_ROOT=/mnt/volume PORT=8200 && \
-  setsid bash -c "open-tinker-server > /workspace/server.log 2>&1" </dev/null & exit 0'
+  tmux new-session -d -s ot "open-tinker-server > /workspace/server.log 2>&1"'
 # verify:
 curl -s https://6dnkzogrzbyomt-8200.proxy.runpod.net/health
 ```

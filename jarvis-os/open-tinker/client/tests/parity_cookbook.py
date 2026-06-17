@@ -1,11 +1,11 @@
 """Task #2: cookbook import + Config parity against the open-tinker clone.
 
 Run with the venv that has tinker_cookbook installed, and PYTHONPATH including
-open-tinker/src, e.g.:
+the client src, e.g. (from the open-tinker/ umbrella dir):
 
-    PYTHONPATH=open-tinker/src \
-      experiments/2026-06-15-em-distill-tinker-27b/.venv/bin/python \
-      open-tinker/tests/parity_cookbook.py
+    PYTHONPATH=client/src \
+      <repo>/experiments/2026-06-15-em-distill-tinker-27b/.venv/bin/python \
+      client/tests/parity_cookbook.py
 
 It shims open_tinker in as `tinker` BEFORE importing tinker_cookbook, then builds
 the same Configs battery's sft.py / distill.py build. Success = every Config

@@ -7,6 +7,12 @@ numerical-parity gate (#8) isn't muddied by float-repr drift.
 
 Auth: `Authorization: Bearer <api_key>` when a key is configured.
 
+> This wire is **one** implementation of the client's `Backend` seam
+> (`HTTPBackend`). The other, `LocalBackend` (in the server package), runs the
+> same engines in-process and skips this protocol entirely — so the contract that
+> matters for code is `open_tinker.protocol.Backend`, and this doc describes how
+> `HTTPBackend` renders it on the wire.
+
 ## Value encodings
 
 **TensorData**

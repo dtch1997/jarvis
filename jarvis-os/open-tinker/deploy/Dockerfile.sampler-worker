@@ -5,12 +5,12 @@ FROM vllm/vllm-openai:latest
 
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
-COPY open-tinker /app/open-tinker
-COPY open-tinker-server /app/open-tinker-server
+# Build context = the open-tinker/ umbrella (client/ + server/).
+COPY . /app/open-tinker
 
 RUN pip install --no-cache-dir runpod \
- && pip install --no-cache-dir -e /app/open-tinker \
- && pip install --no-cache-dir -e /app/open-tinker-server
+ && pip install --no-cache-dir -e /app/open-tinker/client \
+ && pip install --no-cache-dir -e '/app/open-tinker/server[sample]'
 
 ENV OPEN_TINKER_BLOB_ROOT=/runpod-volume \
     OPEN_TINKER_BASE_MODEL=Qwen/Qwen3.6-27B

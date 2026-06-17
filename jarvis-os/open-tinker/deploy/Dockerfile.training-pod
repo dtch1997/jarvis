@@ -7,13 +7,13 @@ ENV DEBIAN_FRONTEND=noninteractive PYTHONUNBUFFERED=1
 RUN apt-get update && apt-get install -y python3.11 python3-pip git && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY open-tinker /app/open-tinker
-COPY open-tinker-server /app/open-tinker-server
+# Build context = the open-tinker/ umbrella (client/ + server/).
+COPY . /app/open-tinker
 
 # torch matched to the CUDA base; then the training extra (transformers/peft/accelerate).
 RUN pip3 install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cu124 \
- && pip3 install --no-cache-dir -e /app/open-tinker \
- && pip3 install --no-cache-dir -e '/app/open-tinker-server[train]'
+ && pip3 install --no-cache-dir -e /app/open-tinker/client \
+ && pip3 install --no-cache-dir -e '/app/open-tinker/server[train]'
 
 ENV OPEN_TINKER_BLOB_ROOT=/mnt/volume \
     OPEN_TINKER_BASE_MODEL=Qwen/Qwen3.6-27B \

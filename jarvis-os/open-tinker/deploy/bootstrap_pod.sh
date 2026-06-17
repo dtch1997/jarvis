@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # Turnkey bringup for the open-tinker training pod (SFT milestone, training-only).
-# Assumes the two packages have been delivered to /workspace (e.g. via scp from
-# your worktree). Idempotent-ish; safe to re-run.
+# Assumes the open-tinker/ umbrella (client/ + server/) has been delivered to the
+# pod (e.g. scp the whole dir). Idempotent-ish; safe to re-run.
 #
-#   On your machine, from the worktree root:
-#     scp -r open-tinker open-tinker-server deploy/bootstrap_pod.sh \
-#         root@<POD_IP>:<PORT>:/workspace/        # use the SSH host/port from get-pod
+#   On your machine, from the repo root:
+#     scp -r open-tinker root@<POD_IP>:<PORT>:/workspace/   # SSH host/port from get-pod
 #   Then on the pod:
-#     bash /workspace/bootstrap_pod.sh
+#     bash /workspace/open-tinker/deploy/bootstrap_pod.sh
 set -euo pipefail
 
-WORK=${WORK:-/workspace}
+# WORK = the open-tinker/ umbrella dir holding client/ and server/.
+WORK=${WORK:-/workspace/open-tinker}
 cd "$WORK"
 
 export OPEN_TINKER_BLOB_ROOT=${OPEN_TINKER_BLOB_ROOT:-/mnt/volume}
@@ -20,8 +20,8 @@ export PORT=${PORT:-8200}
 mkdir -p "$OPEN_TINKER_BLOB_ROOT" "$HF_HOME"
 
 echo "[bootstrap] installing open-tinker (client) + open-tinker-server[train]"
-pip install --no-cache-dir -e "$WORK/open-tinker"
-pip install --no-cache-dir -e "$WORK/open-tinker-server[train]"
+pip install --no-cache-dir -e "$WORK/client"
+pip install --no-cache-dir -e "$WORK/server[train]"
 
 echo "[bootstrap] sanity: imports"
 python -c "import open_tinker, open_tinker_server, torch, transformers, peft; \

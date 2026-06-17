@@ -18,15 +18,21 @@ from typing_extensions import Literal, TypeAlias
 from .model_input import ModelInput
 from .tensors import TensorData
 
-try:
-    import torch  # type: ignore[import-not-found]
-
-    _HAVE_TORCH = True
-except ImportError:
-    _HAVE_TORCH = False
-
 if TYPE_CHECKING:
-    import torch  # noqa: TC004
+    import torch  # noqa: TC004  (type-only; torch is imported lazily where needed)
+
+
+def _is_torch_tensor(value: object) -> bool:
+    """True if ``value`` is a torch tensor, without importing torch eagerly.
+
+    Avoids loading torch at ``import open_tinker`` time — it's pulled in only when
+    a torch tensor is actually being converted (i.e. during training, where torch
+    is present anyway).
+    """
+    import sys
+
+    torch = sys.modules.get("torch")
+    return torch is not None and isinstance(value, torch.Tensor)
 
 __all__ = ["Datum", "LossFnInputs", "LossFnOutput", "LossFnType"]
 
@@ -59,7 +65,7 @@ _SPARSE_ELIGIBLE_KEYS = {"target_tokens", "weights"}
 def _maybe_convert(key: str, value: Union[TensorData, "torch.Tensor", np.ndarray, list]) -> TensorData:
     if isinstance(value, TensorData):
         return value
-    if _HAVE_TORCH and isinstance(value, torch.Tensor):
+    if _is_torch_tensor(value):
         if key in _SPARSE_ELIGIBLE_KEYS and value.ndim == 2:
             return TensorData.from_torch_sparse(value)
         return TensorData.from_torch(value)
