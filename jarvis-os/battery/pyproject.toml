@@ -24,6 +24,16 @@ tinker = [
 ]
 # Grouped-bar comparison plots (battery.report.grouped_bar).
 plot = ["matplotlib>=3.7"]
+# Constitutional auditing (battery.audit.run / battery.audit.analyze). The audit
+# engine is inspect-petri (MIT). NOTE: inspect-petri requires Python >= 3.12, so
+# this extra only installs on a 3.12+ interpreter; the core battery install stays
+# 3.11+. `battery.audit.tenets` (pure data) works without this extra. Pinned to a
+# commit for reproducibility (bump deliberately).
+audit = [
+    "inspect-ai>=0.3.154",
+    "inspect-petri @ git+https://github.com/meridianlabs-ai/inspect_petri@a5af7826cfb499a6db950c3e7d2f9b3f6b29b063",
+    "openai>=1.91",
+]
 
 [project.scripts]
 battery = "battery.runner:main"
@@ -40,6 +50,10 @@ dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+# Needed because the `audit` extra pins inspect-petri by git URL (not on PyPI).
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/battery"]
