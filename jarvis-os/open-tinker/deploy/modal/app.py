@@ -17,6 +17,10 @@ Topology
 * **Blob store** — a Modal Volume shared by both tiers. The trainer commits after a
   save (via the injected ModalVolumeBlobStore); the sampler reloads before reading.
 
+Provision (once per base model, before deploy):
+         modal run open-tinker/deploy/modal/app.py::provision
+         Downloads weights into the shared HF-cache Volume so serving-time loads are
+         a ~seconds cache read instead of a multi-minute download inside the request.
 Deploy:  modal deploy open-tinker/deploy/modal/app.py   (run from the repo, or cd open-tinker)
 Client:  set OPEN_TINKER_BASE_URL to the control-plane URL printed on deploy, then use
          open-tinker/deploy/{run_sft,parity_probe}.py unchanged.
@@ -164,25 +168,53 @@ def control_plane():
     )
 
 
-# --- Warm the shared HF cache (run once before serving) ----------------------
+# --- Provision: download base-model weights into the shared HF cache ---------
+# A first-class, explicit, idempotent step — NOT a serving-time side effect. Run it
+# before (or independently of) deploy; the serving path then assumes weights are
+# already cached (load-from-cache is ~seconds and stays inside the create_session
+# request budget). Re-runnable to add more base models to the shared Volume.
 @app.function(image=image, volumes=VOLUMES, secrets=SECRETS, timeout=1800)
-def warm():
-    """Download BASE_MODEL into the shared HF-cache Volume and commit it.
+def provision(models: str = BASE_MODEL):
+    """Download one or more base models into the shared HF-cache Volume and commit.
 
-    Run: modal run open-tinker/deploy/modal/app.py::warm   (then (re)deploy)
+    Run:  modal run open-tinker/deploy/modal/app.py::provision               # BASE_MODEL
+          modal run open-tinker/deploy/modal/app.py::provision --models A,B  # add more
 
-    Why: create_session loads the base model *inside* the asgi HTTP request; a cold
-    download (minutes) exceeds the Modal web-endpoint request timeout → 500. (Same
-    class as the RunPod proxy timing out the model load.) Pre-warming the cache so
-    the load is seconds keeps create_session within the request budget. Redeploy
-    after warming so the warm control-plane container mounts the populated cache.
+    `models` is a comma-separated list of HF repo ids (default: the deploy's
+    OPEN_TINKER_BASE_MODEL). Idempotent: an already-cached model is detected and
+    skipped, so re-running is cheap and safe; re-run with new ids to add base models.
+
+    Why this is a separate step: create_session loads the base model *inside* the
+    asgi HTTP request, and a cold download (minutes — e.g. ≈4m42s for Qwen2.5-0.5B)
+    exceeds the Modal web-endpoint request timeout → 500 "lost track of input"
+    (same class as the RunPod proxy timing out the model load). Provisioning the
+    cache up front makes the serving-time load a ~seconds cache read. The
+    control-plane container mounts this Volume, so a deploy that follows
+    provisioning serves create_session immediately — no manual warm-up.
     """
+    from huggingface_hub import snapshot_download
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
-    AutoTokenizer.from_pretrained(BASE_MODEL)
-    AutoModelForCausalLM.from_pretrained(BASE_MODEL)
+    requested = [m.strip() for m in models.split(",") if m.strip()]
+    if not requested:
+        raise ValueError("provision: no models requested (empty --models)")
+
+    hf_vol.reload()  # see anything a prior provision committed
+    for model in requested:
+        try:
+            # Cache hit? A local-only fetch succeeds iff every file is already cached.
+            snapshot_download(model, local_files_only=True)
+            print(f"provision: {model} already cached — skipping")
+            continue
+        except Exception:  # noqa: BLE001  (not cached / incomplete -> download below)
+            pass
+        print(f"provision: downloading {model} ...")
+        AutoTokenizer.from_pretrained(model)
+        AutoModelForCausalLM.from_pretrained(model)
+        print(f"provision: cached {model}")
+
     hf_vol.commit()
-    print(f"warmed HF cache for {BASE_MODEL}")
+    print(f"provision: HF cache committed for {len(requested)} model(s): {requested}")
 
 
 # --- Batch fan-out demo: Function.map across the autoscaling tier ------------

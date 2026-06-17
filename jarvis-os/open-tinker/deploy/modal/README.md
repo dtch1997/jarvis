@@ -24,19 +24,33 @@ shared Volume.
 - `huggingface` Modal secret (gated models). Volumes `open-tinker-blobs` /
   `open-tinker-hf-cache` are created on first deploy.
 
-## Deploy (from the repo root)
+## Runbook (from the repo root)
 
 ```bash
 # cheap smoke: a small public model on cheap GPUs
 export OPEN_TINKER_BASE_MODEL=Qwen/Qwen2.5-0.5B-Instruct
 export OPEN_TINKER_MODAL_GPU=L4 OPEN_TINKER_MODAL_SAMPLER_GPU=L4
 
-# 1. warm the shared HF cache ONCE (else a cold model download inside create_session
-#    exceeds the asgi request timeout → 500; same class as the RunPod proxy timeout).
-modal run open-tinker/deploy/modal/app.py::warm
-# 2. deploy (the warm control-plane container then mounts the populated cache)
+# 1. PROVISION the base model into the shared HF-cache Volume (separate from serving).
+#    Idempotent — re-running is a no-op for an already-cached model.
+modal run open-tinker/deploy/modal/app.py::provision
+# 2. deploy (the control-plane container mounts the now-populated cache)
 modal deploy open-tinker/deploy/modal/app.py
 ```
+
+**Step 1 is a required, intentional step — not an optional warm-up.** Model
+*downloading* is its own provisioning step, deliberately decoupled from serving:
+`create_session` loads the base model *inside* the asgi HTTP request, and a cold
+download (minutes — ≈4m42s for Qwen2.5-0.5B) exceeds Modal's web-endpoint request
+timeout → `500 "lost track of input"` (same class as the RunPod proxy timing out
+the model load). Provisioning up front makes the serving-time load a ~seconds cache
+read. Add more base models to the same Volume any time — the step is idempotent and
+re-runnable:
+
+```bash
+modal run open-tinker/deploy/modal/app.py::provision --models Qwen/Qwen2.5-0.5B-Instruct,Qwen/Qwen2.5-1.5B-Instruct
+```
+
 Deploy prints the control-plane web URL. Then, unchanged (from `open-tinker/`):
 
 ```bash
