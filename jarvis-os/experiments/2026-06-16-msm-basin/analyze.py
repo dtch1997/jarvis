@@ -569,8 +569,200 @@ def _curve_verdict(summary: dict) -> None:
         print("  -> NOT SUPPORTED: msm is not clearly more sample-efficient on its CONSISTENT value.")
 
 
+# --------------------------------------------------------------------------
+# "Posterior over seeds" measurement (--seeds).
+#
+# Reads results/eval_<arm>_seed<k>.json (written by evaluate.py --axis pro_america
+# for each of N independent S1 seeds per arm, from the SAME S0 init). Looks at the
+# DISTRIBUTION of revealed pro-America across seeds to operationalize "inductive
+# bias = a shifted/narrowed prior over solutions":
+#   * SHIFT    — Mann-Whitney U (msm vs control) + rank-biserial + median diff.
+#   * NARROWING — Levene + Brown-Forsythe on the per-seed rates; only credible if
+#                 the BETWEEN-seed SD exceeds the eval-probe (within-seed Wilson)
+#                 noise, so we report both side by side and gate the claim on it.
+# Writes assets/seeds_posterior.{png,json}. Self-contained: does not touch the
+# basin/controls/curve modes.
+# --------------------------------------------------------------------------
+SEED_ARMS = ["msm", "control"]
+
+
+def _seed_rates(arm: str) -> list[dict]:
+    """Collect per-seed pro-America {seed, rate, n, ci95} for one arm."""
+    out = []
+    for f in sorted(RES.glob(f"eval_{arm}_seed*.json")):
+        d = json.loads(f.read_text())
+        # tag like "msm_seed3" -> seed index 3
+        tag = d.get("tag", f.stem.replace("eval_", ""))
+        try:
+            k = int(tag.rsplit("seed", 1)[1])
+        except (IndexError, ValueError):
+            continue
+        pa = (d.get("value_axis", {}).get("pro_america") or {})
+        if pa.get("rate") is None:
+            continue
+        out.append({"seed": k, "rate": pa["rate"], "n": pa.get("n"),
+                    "ci95": pa.get("ci95"), "ckpt": d.get("ckpt")})
+    return sorted(out, key=lambda r: r["seed"])
+
+
+def seeds_posterior(save: bool = True) -> dict:
+    import statistics as stats
+
+    import numpy as np
+    from scipy import stats as sps
+
+    data = {arm: _seed_rates(arm) for arm in SEED_ARMS}
+    summary: dict = {"arms": {}}
+    for arm, rs in data.items():
+        rates = [r["rate"] for r in rs]
+        if not rates:
+            summary["arms"][arm] = {"n_seeds": 0}
+            continue
+        # mean within-seed Wilson CI half-width = the eval-probe noise floor.
+        halfw = [((r["ci95"][1] - r["ci95"][0]) / 2.0) for r in rs
+                 if r.get("ci95")]
+        summary["arms"][arm] = {
+            "n_seeds": len(rates),
+            "mean": stats.mean(rates),
+            "median": stats.median(rates),
+            "between_seed_sd": stats.stdev(rates) if len(rates) > 1 else 0.0,
+            "iqr": (float(np.percentile(rates, 75) - np.percentile(rates, 25))
+                    if len(rates) > 1 else 0.0),
+            "min": min(rates), "max": max(rates),
+            "mean_within_seed_ci_halfwidth": stats.mean(halfw) if halfw else None,
+            "per_seed": rs,
+        }
+
+    msm = [r["rate"] for r in data["msm"]]
+    ctl = [r["rate"] for r in data["control"]]
+    if msm and ctl:
+        # SHIFT: Mann-Whitney U + rank-biserial effect size.
+        u, p_mwu = sps.mannwhitneyu(msm, ctl, alternative="two-sided")
+        n1, n2 = len(msm), len(ctl)
+        rank_biserial = 1.0 - (2.0 * u) / (n1 * n2)  # 1 = msm fully above control
+        median_diff = stats.median(msm) - stats.median(ctl)
+        # NARROWING: spread tests on the two per-seed-rate distributions.
+        lev_w, lev_p = sps.levene(msm, ctl, center="mean")
+        bf_w, bf_p = sps.levene(msm, ctl, center="median")  # Brown-Forsythe
+        sd_msm = stats.stdev(msm) if len(msm) > 1 else 0.0
+        sd_ctl = stats.stdev(ctl) if len(ctl) > 1 else 0.0
+        # Is between-seed variance distinguishable from probe noise? Compare each
+        # arm's between-seed SD to its mean within-seed CI half-width.
+        def _seed_gt_probe(arm):
+            a = summary["arms"][arm]
+            hw = a.get("mean_within_seed_ci_halfwidth")
+            return (a["between_seed_sd"] > hw) if hw else None
+        summary["tests"] = {
+            "mannwhitney_u": float(u), "mannwhitney_p": float(p_mwu),
+            "rank_biserial": float(rank_biserial),
+            "median_diff_msm_minus_control": float(median_diff),
+            "levene_w": float(lev_w), "levene_p": float(lev_p),
+            "brown_forsythe_w": float(bf_w), "brown_forsythe_p": float(bf_p),
+            "sd_msm": float(sd_msm), "sd_control": float(sd_ctl),
+            "between_seed_sd_exceeds_probe_noise": {
+                "msm": _seed_gt_probe("msm"), "control": _seed_gt_probe("control")},
+        }
+        # Verdicts.
+        shift_supported = (p_mwu < 0.01) and (median_diff > 0)
+        narrowing_credible = (
+            _seed_gt_probe("control") is True  # control between-seed > probe noise
+            and sd_msm < sd_ctl
+            and min(lev_p, bf_p) < 0.05)
+        summary["verdict"] = {
+            "shift_supported": bool(shift_supported),
+            "narrowing_supported": bool(narrowing_credible),
+        }
+
+    if save:
+        (HERE / "assets" / "seeds_posterior.json").write_text(json.dumps(summary, indent=2))
+        _seeds_plot(data, summary)
+    print(json.dumps({k: v for k, v in summary.items() if k != "arms"}, indent=2))
+    for arm in SEED_ARMS:
+        a = summary["arms"].get(arm, {})
+        if a.get("n_seeds"):
+            print(f"[seeds] {arm:8s}  n={a['n_seeds']}  mean={a['mean']:.3f}  "
+                  f"between-seed SD={a['between_seed_sd']:.3f}  "
+                  f"range=[{a['min']:.3f},{a['max']:.3f}]  "
+                  f"probe-CI-halfwidth~={a['mean_within_seed_ci_halfwidth']:.3f}")
+    return summary
+
+
+def _seeds_plot(data: dict, summary: dict) -> None:
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    fig, ax = plt.subplots(figsize=(7, 5))
+    colors = {"msm": "#c0392b", "control": "#2c3e50"}
+    positions = {"msm": 1, "control": 2}
+    box_data, box_pos, box_lab = [], [], []
+    for arm in SEED_ARMS:
+        rs = data.get(arm, [])
+        rates = [r["rate"] for r in rs]
+        if not rates:
+            continue
+        x0 = positions[arm]
+        box_data.append(rates); box_pos.append(x0); box_lab.append(
+            f"{arm}\n(n={len(rates)})")
+        # swarm: jitter x; error bar = each seed's within-seed Wilson CI (probe noise)
+        rng = np.random.default_rng(0)
+        jit = rng.uniform(-0.12, 0.12, size=len(rates))
+        for r, dx in zip(rs, jit):
+            lo, hi = (r["ci95"] or [r["rate"], r["rate"]])
+            ax.errorbar(x0 + dx, r["rate"],
+                        yerr=[[r["rate"] - lo], [hi - r["rate"]]],
+                        fmt="o", ms=6, color=colors[arm], ecolor=colors[arm],
+                        elinewidth=1, alpha=0.65, capsize=2, zorder=3)
+        a = summary["arms"][arm]
+        ax.hlines(a["mean"], x0 - 0.28, x0 + 0.28, color=colors[arm],
+                  lw=2.5, zorder=4)
+    bp = ax.boxplot(box_data, positions=box_pos, widths=0.5, showfliers=False,
+                    patch_artist=True, zorder=1)
+    for patch in bp["boxes"]:
+        patch.set(facecolor="none", edgecolor="#888", lw=1.2)
+    for el in ("whiskers", "caps", "medians"):
+        for ln in bp[el]:
+            ln.set(color="#888", lw=1.2)
+    ax.set_xticks(list(positions.values()))
+    ax.set_xticklabels(box_lab)
+    ax.set_ylabel("revealed pro-America (answer-key agreement)")
+    t = summary.get("tests", {})
+    v = summary.get("verdict", {})
+    sub = (f"MWU p={t.get('mannwhitney_p'):.1e}  rank-biserial={t.get('rank_biserial'):.2f}  |  "
+           f"Levene p={t.get('levene_p'):.2f}  BF p={t.get('brown_forsythe_p'):.2f}"
+           ) if t else ""
+    ttl = ("Posterior over S1 seeds (same S0 init): the spec midtrain shifts the "
+           "prior over solutions")
+    ax.set_title(ttl + ("\n" + sub if sub else ""), fontsize=10)
+    # annotate per-arm between-seed SD vs probe noise
+    for arm in SEED_ARMS:
+        a = summary["arms"].get(arm, {})
+        if not a.get("n_seeds"):
+            continue
+        x0 = positions[arm]
+        hw = a.get("mean_within_seed_ci_halfwidth")
+        ax.annotate(f"SD={a['between_seed_sd']:.3f}\nprobe±{hw:.3f}" if hw else
+                    f"SD={a['between_seed_sd']:.3f}",
+                    (x0, ax.get_ylim()[0]), xytext=(x0, 0.02),
+                    textcoords=("data", "axes fraction"), ha="center",
+                    fontsize=8, color=colors[arm])
+    cap = (f"shift={'SUPPORTED' if v.get('shift_supported') else 'not supported'}; "
+           f"narrowing={'SUPPORTED' if v.get('narrowing_supported') else 'not supported'}"
+           ) if v else ""
+    if cap:
+        fig.text(0.5, 0.005, cap, ha="center", fontsize=9)
+    ax.set_ylim(0, max(0.6, ax.get_ylim()[1]))
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.savefig(HERE / "assets" / "seeds_posterior.png", dpi=140)
+    print(f"[seeds] wrote {HERE / 'assets' / 'seeds_posterior.png'}")
+
+
 def main():
     import sys as _sys
+    if "--seeds" in _sys.argv:
+        seeds_posterior()
+        return
     if "--curve" in _sys.argv:
         learning_curve()
         return

@@ -1,0 +1,248 @@
+{
+  "arms": {
+    "msm": {
+      "n_seeds": 10,
+      "mean": 0.4825,
+      "median": 0.4875,
+      "between_seed_sd": 0.020172864061516995,
+      "iqr": 0.03312499999999996,
+      "min": 0.4525,
+      "max": 0.5075,
+      "mean_within_seed_ci_halfwidth": 0.048701310845734515,
+      "per_seed": [
+        {
+          "seed": 0,
+          "rate": 0.4625,
+          "n": 400,
+          "ci95": [
+            0.4142263811170028,
+            0.5114870669279734
+          ],
+          "ckpt": "tinker://6d77caf9-bc6d-5279-bef1-c13875980536:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 1,
+          "rate": 0.4575,
+          "n": 400,
+          "ci95": [
+            0.40931270985864554,
+            0.5064958645923273
+          ],
+          "ckpt": "tinker://70518310-4c5d-5e4c-9e2a-04fad743d3cf:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 2,
+          "rate": 0.4925,
+          "n": 400,
+          "ci95": [
+            0.4438103957369542,
+            0.5413322938720411
+          ],
+          "ckpt": "tinker://97423842-e8bf-5a4e-bd62-72ce1d5e31b1:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 3,
+          "rate": 0.505,
+          "n": 400,
+          "ci95": [
+            0.4561884685810796,
+            0.5537164050129236
+          ],
+          "ckpt": "tinker://51fbb560-dd09-5c92-bc87-d513bb5960f9:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 4,
+          "rate": 0.4925,
+          "n": 400,
+          "ci95": [
+            0.4438103957369542,
+            0.5413322938720411
+          ],
+          "ckpt": "tinker://c400b862-3e8e-56ce-8da6-62ab20d5d55b:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 5,
+          "rate": 0.4525,
+          "n": 400,
+          "ci95": [
+            0.40440392129266217,
+            0.5014997795643075
+          ],
+          "ckpt": "tinker://dd00645d-1e39-5cfb-8a7f-789a2e6bd2e7:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 6,
+          "rate": 0.4725,
+          "n": 400,
+          "ci95": [
+            0.4240683265333157,
+            0.5214548686996666
+          ],
+          "ckpt": "tinker://6a3f0a85-d67a-58d4-b0c2-23934fb240a4:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 7,
+          "rate": 0.4825,
+          "n": 400,
+          "ci95": [
+            0.4339296820630707,
+            0.5314032603579181
+          ],
+          "ckpt": "tinker://6bb89003-91d0-5e28-b228-526656fe14e1:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 8,
+          "rate": 0.5,
+          "n": 400,
+          "ci95": [
+            0.4512336165999552,
+            0.5487663834000448
+          ],
+          "ckpt": "tinker://8feb00b1-3c33-5eb6-8be6-319d88789fe7:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 9,
+          "rate": 0.5075,
+          "n": 400,
+          "ci95": [
+            0.458667706127959,
+            0.5561896042630459
+          ],
+          "ckpt": "tinker://453fa6fa-a60a-5f9b-9a8e-743026d9a302:train:0/sampler_weights/final"
+        }
+      ]
+    },
+    "control": {
+      "n_seeds": 10,
+      "mean": 0.22425,
+      "median": 0.23125,
+      "between_seed_sd": 0.021986422577986116,
+      "iqr": 0.028749999999999998,
+      "min": 0.18,
+      "max": 0.245,
+      "mean_within_seed_ci_halfwidth": 0.04068968216470774,
+      "per_seed": [
+        {
+          "seed": 0,
+          "rate": 0.24,
+          "n": 400,
+          "ci95": [
+            0.20074532480639665,
+            0.28420124830543736
+          ],
+          "ckpt": "tinker://a82646a3-ec85-56ab-9709-de223f0cb001:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 1,
+          "rate": 0.235,
+          "n": 400,
+          "ci95": [
+            0.1960903097272598,
+            0.278951389790571
+          ],
+          "ckpt": "tinker://5f17a13b-70cc-5e61-a8e4-4839248d7c81:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 2,
+          "rate": 0.21,
+          "n": 400,
+          "ci95": [
+            0.17293709734247628,
+            0.2525802342053385
+          ],
+          "ckpt": "tinker://831a5064-46a3-55f3-bcc1-8bbb1ada3142:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 3,
+          "rate": 0.1975,
+          "n": 400,
+          "ci95": [
+            0.16144205642368673,
+            0.2393130911391201
+          ],
+          "ckpt": "tinker://b6d988ed-ef3f-5d57-aa46-7c0d1885f470:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 4,
+          "rate": 0.2425,
+          "n": 400,
+          "ci95": [
+            0.2030757339434459,
+            0.28682327596538965
+          ],
+          "ckpt": "tinker://4f56ba56-753e-54bc-877b-fcb771f51c21:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 5,
+          "rate": 0.2425,
+          "n": 400,
+          "ci95": [
+            0.2030757339434459,
+            0.28682327596538965
+          ],
+          "ckpt": "tinker://d8f57e8f-dbd0-58d2-9605-f692bd54b56a:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 6,
+          "rate": 0.245,
+          "n": 400,
+          "ci95": [
+            0.20540805053884156,
+            0.28944339616699555
+          ],
+          "ckpt": "tinker://0b89964b-1a60-5456-9d18-1db460b5096a:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 7,
+          "rate": 0.18,
+          "n": 400,
+          "ci95": [
+            0.1454497374118191,
+            0.22063835257197656
+          ],
+          "ckpt": "tinker://0054ee0d-2290-5054-86c3-7b08dba8da32:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 8,
+          "rate": 0.2275,
+          "n": 400,
+          "ci95": [
+            0.1891226131151639,
+            0.2710617760116621
+          ],
+          "ckpt": "tinker://dc68199d-f010-5e67-b14c-7076e3f1cc4a:train:0/sampler_weights/final"
+        },
+        {
+          "seed": 9,
+          "rate": 0.2225,
+          "n": 400,
+          "ci95": [
+            0.18448762755400633,
+            0.2657918879788165
+          ],
+          "ckpt": "tinker://adc61f88-3dcb-532c-9681-2df46526da73:train:0/sampler_weights/final"
+        }
+      ]
+    }
+  },
+  "tests": {
+    "mannwhitney_u": 100.0,
+    "mannwhitney_p": 0.0001806347208075351,
+    "rank_biserial": -1.0,
+    "median_diff_msm_minus_control": 0.25625,
+    "levene_w": 0.006871786306534204,
+    "levene_p": 0.9348489540754937,
+    "brown_forsythe_w": 0.0018397383483237974,
+    "brown_forsythe_p": 0.9662597127696596,
+    "sd_msm": 0.020172864061516995,
+    "sd_control": 0.021986422577986116,
+    "between_seed_sd_exceeds_probe_noise": {
+      "msm": false,
+      "control": false
+    }
+  },
+  "verdict": {
+    "shift_supported": true,
+    "narrowing_supported": false
+  }
+}

@@ -71,7 +71,8 @@
 post-training — as an instrument for studying inductive bias. Using <strong>Model Spec
 Midtraining</strong> (MSM)<sup class="fnref" id="r1"><a href="#fn1">1</a></sup> we midtrain a model on
 documents that express a value ("a model spec"), then run <em>identical</em> narrow post-training on an
-unrelated task (cheese preferences). Three results, each isolating one facet of an inductive bias:</p>
+unrelated task (cheese preferences). Three <em>behavioral</em> results, each isolating one facet of an
+inductive bias:</p>
 <ul>
 <li><strong>Direction.</strong> The same cheese fine-tune generalizes to <em>opposite</em> broad values
 depending only on what was midtrained (a double dissociation). The narrow data is a pointer; midtraining
@@ -88,6 +89,12 @@ the restoring force is <strong>general-purpose</strong>, not a value-versus-valu
 what it relaxes back to — rather than simply writing a behavior into the weights. The safety reading is
 direct: a disposition installed at midtrain can be <strong>sticky and self-restoring</strong> under later
 fine-tuning.</p>
+<p>Three new geometric and learning-dynamics probes (added below) <strong>sharpen and partly correct</strong>
+the naive picture. The behavioral attractor is real, but it is <em>not</em> a flat, wide loss basin: the spec
+midtrain lands the downstream fine-tune at a <strong>sharper, less-degenerate minimum</strong> (higher LLC —
+the <em>opposite</em> of our pre-registered prediction), and its effect on learning is largely
+<strong>generic</strong> faster-SFT rather than a value-specific bias. Midtraining specifies the minimum more
+tightly; it does not flatten it.</p>
 </div>
 
 <p class="foot">All experiments on <code>Qwen/Qwen3.5-9B</code>, LoRA rank 16, via the Tinker
@@ -249,10 +256,190 @@ a value-versus-value contest. (This corrects a sub-claim implicit in the basin f
 <strong>provided the spec midtrain is present</strong> — which (a) shows is the necessary ingredient.</li>
 </ul>
 
-<h2>6. A unifying picture: midtraining shapes the prior, not the point</h2>
-<p>Read together, the three results are facets of one claim. Midtraining on value-laden documents appears to
-lower the loss of an entire <strong>region of value-consistent behavior</strong> rather than placing the
-model at a single behavioral point:</p>
+<hr>
+
+<h2>6. Looking under the hood: what is the basin, geometrically?</h2>
+<p>Everything above is <strong>behavioral</strong> — directions, reversions, controls measured at the
+output. The natural next question is what the prior looks like in the loss landscape. The intuitive story
+that goes with the word "basin" is a <em>flat, wide</em> minimum: midtraining smooths out a broad region of
+value-consistent solutions, so later training has a gentle, forgiving valley to fall into and relax back
+toward. We pre-registered exactly that prediction. <strong>It is wrong.</strong> The three geometric and
+dynamical probes below converge on the opposite picture: the spec midtrain lands the cheese fine-tune at a
+<em>more</em>-specified, <em>less</em>-degenerate minimum, and its effect on learning is largely
+<strong>generic</strong> rather than value-specific. The behavioral attractor is real; geometrically it is a
+sharper well, not a broader flat one.</p>
+
+<aside class="note"><p><b>A validity gate first.</b> All three probes below load the S1 LoRA adapters
+outside Tinker (remapped Tinker→HuggingFace) to measure them directly, so we first checked the remap is
+faithful: the adapter loads <strong>402/402</strong> trainable LoRA tensors with <strong>zero</strong>
+missing or unexpected keys for both arms, all logits finite, and — crucially — the loaded msm adapter
+attains a <em>lower</em> value-NLL than control on the held-out value probes (1.731 vs 1.764, margin 0.032),
+i.e. the remapped weights behave like the trained model they came from. The geometry numbers are measured on
+the same object the behavioral evals scored.</p></aside>
+
+<h2>7. Geometry probe 1 — basin complexity (LLC): the surprise</h2>
+<p>The cleanest geometric probe we have is the <strong>Local Learning Coefficient</strong> (LLC; Lau et al.
+2023, estimated by SGLD), a scalar measure of how degenerate a minimum is. A <em>lower</em> LLC means a
+flatter, more degenerate basin (many directions in which the loss barely changes); a <em>higher</em> LLC
+means a sharper, more-specified one. We measure the LLC of the <em>identical</em> S1 cheese loss at each
+arm's minimum — same loss, same data, same estimator hyperparameters byte-for-byte; only the weights
+<code>w*</code> differ — and report only <strong>paired contrasts</strong> across arms (the absolute SGLD LLC
+is uncalibrated).</p>
+
+<p>The LLC has a methodological virtue worth stating plainly: it is
+<strong>reparametrization-invariant</strong>. A change of basis cannot fool it. That matters here because an
+earlier line of our work (ARC-17, on subliminal learning) found the eNTK- and CKA-based subspace probes
+<em>blind</em> precisely because they are basis-sensitive. The LLC sidesteps that failure mode.</p>
+
+<figure class="wide">
+  <img src="llc_contrasts.png" alt="Dot plot of paired LLC contrasts with bootstrap CIs: msm minus control and msm minus neutral are positive and exclude zero; neutral minus control straddles zero.">
+  <figcaption><b>The spec midtrain lands the cheese fine-tune at a <em>sharper</em>, higher-LLC minimum —
+  the opposite of the pre-registered prediction.</b> Paired ΔLLC across the 8 SGLD chains (paired by seed),
+  bootstrap 95% CIs; positive = msm's minimum is less degenerate. The content-isolating msm−neutral contrast
+  is positive and CI-separated from zero; the neutral−control null is as predicted.</figcaption>
+</figure>
+
+<table class="data">
+<tr><th>paired contrast (LoRA-subspace LLC)</th><th>ΔLLC [95% CI]</th><th>Cohen's d<sub>z</sub></th><th>excludes 0?</th></tr>
+<tr class="hi"><td>msm − control <span class="foot">(primary)</span></td><td>+13.4 [5.8, 21.2]</td><td>1.12</td><td>yes</td></tr>
+<tr class="hi"><td>msm − neutral <span class="foot">(isolates spec content)</span></td><td>+10.5 [2.7, 19.1]</td><td>0.83</td><td>yes</td></tr>
+<tr><td>neutral − control <span class="foot">(expected null)</span></td><td>+2.9 [−7.5, 15.2]</td><td>0.16</td><td>no</td></tr>
+</table>
+
+<p>We pre-registered the prediction that midtraining would produce a <em>lower</em> LLC — a flatter, more
+degenerate basin — and observed the <strong>opposite</strong>: the spec-midtrained arm sits at a
+<em>higher</em>-LLC, less-degenerate minimum than both the no-midtrain control (+13.4, CI [5.8, 21.2]) and
+the value-neutral midtrain (+10.5, CI [2.7, 19.1]), with both contrasts excluding zero and large effect
+sizes. The neutral−control contrast is a null (+2.9, CI straddles 0), exactly as predicted — so the effect
+is driven by the spec's <em>content</em>, not by having any extra training phase, mirroring the behavioral
+neutral-S0 control in §5. We report this as a genuine finding precisely <em>because</em> it contradicts our
+prediction: midtraining does not make the downstream minimum flatter and more forgiving; it makes it
+<strong>sharper and more specified</strong>.</p>
+
+<p>Caveats that bound this (read them before over-reading the sign):</p>
+<ul>
+<li><strong>LoRA-subspace LLC, not global.</strong> The SGLD chain samples only the trainable LoRA
+parameters (base frozen). This is the complexity of the loss <em>restricted to the adapter subspace</em>, not
+the full-model LLC.</li>
+<li><strong>Paired contrasts only.</strong> The absolute SGLD LLC is uncalibrated; only the seed-paired
+differences (identical estimator HP across arms) are interpretable, which is why we never report a raw
+scalar.</li>
+<li><strong>Single training seed.</strong> One LoRA run per arm — the same single-seed limitation that bounds
+every result in this post. The contrasts are over the 8 SGLD chains, not over training seeds.</li>
+</ul>
+
+<h2>8. Geometry probe 2 — the loss-landscape sweep (suggestive, underpowered)</h2>
+<p>To <em>see</em> the basin we ran filter-normalized random-direction loss sweeps around each arm's S1
+minimum (the standard loss-landscape visualization) and a small Hessian estimate at the minimum. We report
+this honestly as the <strong>thin</strong> probe of the three.</p>
+
+<figure class="wide">
+  <img src="geom_basin.png" alt="Filter-normalized random-direction loss sweeps: all three arms are flat and overlapping, with no visible well; a side panel shows the Hessian top eigenvalue, positive for msm and negative for control.">
+  <figcaption><b>The random-direction sweeps reveal no visible basin for anyone.</b> Filter-normalized loss
+  vs. displacement along random directions; all three arms are flat and overlapping. The only differentiator
+  is the Hessian top eigenvalue (right): positive (minimum-like) for msm, negative (saddle-like) for control —
+  but from a tiny 6-example fp32 slice with a very noisy trace. Directionally consistent with the LLC result;
+  not a standalone claim.</figcaption>
+</figure>
+
+<p>What we have to be candid about: the filter-normalized sweeps are <strong>flat and overlapping for all
+three arms</strong> — there is no visible well for <em>anyone</em>, msm included. The random-direction
+visualization, by itself, <strong>did not reveal a basin</strong>. The one thing that does differ is the
+Hessian top eigenvalue at the minimum: <strong>positive for msm</strong> (≈ +326, a local-minimum
+signature) versus <strong>negative for control</strong> (≈ −11,800, a saddle), with neutral also positive
+(≈ +910). That is directionally consistent with the LLC story — msm's minimum looks more like a true
+minimum — but it comes from a <strong>tiny 6-example fp32 slice</strong> and the trace estimates are
+extremely noisy (the per-probe estimates range over thousands and the trace means are themselves negative
+for all three arms). We present this as <em>suggestive and directionally consistent with the LLC</em>,
+explicitly underpowered, and <strong>not</strong> as evidence on its own. If anything, it is a useful
+negative: the naive "draw the basin and look" approach does not earn the basin metaphor here — the
+reparametrization-invariant LLC is what carries the geometric claim.</p>
+
+<h2>9. Learning dynamics — faster, but mostly generically faster</h2>
+<p>An inductive bias should also show up in <em>learning speed</em>: if the spec midtrain biases which
+functions are cheap to learn, the downstream fine-tune should acquire the consistent value faster. We test
+this directly by running an S1-style fine-tune from each init (<span class="sw"
+style="background:var(--america)"></span>msm-S0, neutral-S0, and base) toward each value — the
+<strong>consistent</strong> one (pro-America, matching the spec) and the <strong>competing</strong> one
+(pro-affordability) — with dense checkpointing, and reading value-agreement against training step.</p>
+
+<figure class="wide">
+  <img src="learning_speed.png" alt="Learning curves: the msm init reaches high value-agreement by the first checkpoint for both the consistent and the competing value; control and neutral start far lower.">
+  <figcaption><b>The spec-midtrained init learns much faster — but nearly as fast on the
+  <em>competing</em> value, so the speed-up is largely generic.</b> Value-agreement vs. training step; the
+  first checkpoint is step 4. msm starts at ~0.71 (consistent) / ~0.63 (competing); control and neutral start
+  near ~0.3–0.38 on both. 95% Wilson CIs.</figcaption>
+</figure>
+
+<table class="data">
+<tr><th>value-agreement at first checkpoint (step 4)</th><th>consistent (pro-America)</th><th>competing (pro-affordability)</th></tr>
+<tr class="hi"><td>msm-S0 init</td><td>0.715 [0.67, 0.76]</td><td>0.628 [0.58, 0.67]</td></tr>
+<tr><td>control (base init)</td><td>0.379 [0.33, 0.43]</td><td>0.364 [0.31, 0.42]</td></tr>
+<tr><td>neutral-S0 init</td><td>0.286 [0.24, 0.34]</td><td>0.292 [0.22, 0.37]</td></tr>
+</table>
+
+<p>The headline is real and large: from the spec-midtrained init the model is <strong>far more
+sample-efficient</strong> — it is already at ~0.71 value-agreement by the first checkpoint, versus ~0.29–0.38
+for the control and neutral inits (CI-separated). But the qualifier matters as much as the headline: the
+msm advantage is <strong>nearly as large on the competing value</strong> (0.628 vs control's 0.364) as on
+the consistent one (0.715 vs 0.379). The msm lead over control is +0.336 on the consistent value and +0.264
+on the competing value; the <em>value-specific</em> part — the interaction (consistent − competing lead) — is
+only <strong>+0.072</strong> and is not CI-resolvable. So the speed-up is largely <strong>generic faster
+SFT</strong> (a midtrained init acquires confident first-person, cheese-grounded value statements faster,
+whatever the value), not a directional bias that selectively accelerates the value the spec installed.</p>
+
+<p>This echoes the lesson from the arbitrary-Alpaca control in §5(b), where the S2 displacement also turned
+out to be <em>generic</em> forgetting rather than a value-versus-value contest: in both the dynamics and the
+perturbation, the generic component dominates and the value-specific signal is small but present. We flag the
+key limitation: learning <strong>saturates by step 4</strong> (the first checkpoint we saved), so we cannot
+resolve the interaction at sub-checkpoint resolution; a finer-grained early sweep is the obvious follow-up.
+And, as everywhere, this is a single seed per arm.</p>
+
+<h3>9a. Seed posterior — the shift is robust, the prior is not measurably narrower</h3>
+<p>Every result above rests on a <em>single</em> training run per arm. To test whether the spec midtrain
+shifts the <em>prior over solutions</em> — and to retire that single-seed caveat — we ran the cheese
+fine-tune <strong>10 independent times per arm</strong> from the <em>same</em> S0 init (varying the data
+order/seed), and looked at the distribution of revealed pro-America across seeds.</p>
+
+<figure class="wide">
+  <img src="seeds_posterior.png" alt="Per-seed revealed pro-America for 10 msm seeds (clustered ~0.48) and 10 control seeds (clustered ~0.22), completely non-overlapping; both clusters are tight.">
+  <figcaption><b>Ten seeds per arm: every msm seed sits above every control seed, but neither cloud is
+  tighter than the other.</b> Per-seed answer-key agreement (dots) with Wilson CIs; box = IQR. The shift is
+  total (perfect rank separation); the spreads are indistinguishable.</figcaption>
+</figure>
+
+<table class="data">
+<tr><th>arm (n=10 seeds)</th><th>mean pro-America</th><th>between-seed SD</th><th>range</th></tr>
+<tr class="hi"><td>msm (pro-America S0)</td><td>0.482</td><td>0.020</td><td>[0.453, 0.507]</td></tr>
+<tr><td>control (no S0)</td><td>0.224</td><td>0.022</td><td>[0.180, 0.245]</td></tr>
+</table>
+
+<p><strong>Shift — supported, decisively.</strong> Mann–Whitney U gives p = 1.8×10<sup>-4</sup> with a
+rank-biserial correlation of <strong>−1.0</strong>: <em>every one</em> of the 10 msm seeds lands above
+<em>every one</em> of the 10 control seeds (median gap +0.256). The direction the spec installs is not a
+lucky single run — it reproduces across seeds with zero overlap. This retires the single-seed caveat for the
+headline direction.</p>
+
+<p><strong>Narrowing — not supported (and we can't even test it cleanly).</strong> We predicted the
+midtrained prior might be <em>tighter</em> (a narrower posterior over solutions). It isn't: the between-seed
+SDs are near-identical (msm 0.020 vs control 0.022; Levene p = 0.93, Brown–Forsythe p = 0.97). More
+fundamentally, <em>both</em> arms' between-seed SD (~0.02) is <em>below</em> the per-seed eval-probe noise
+floor (~0.04–0.05), so the seed-to-seed spread is not even resolvable above measurement noise — both arms
+are remarkably consistent run-to-run. So the "narrowed prior" reading gets no support; only the shift does.</p>
+
+<p><em>Caveat:</em> only the data order is reseeded here (the LoRA initialization and optimizer RNG are not
+exposed for seeding through this stack), so this is the shift under data-order resampling, not full
+training-noise resampling.</p>
+
+<hr>
+
+<h2>10. A unifying picture: midtraining shapes the prior, not the point</h2>
+<p>Read together, the behavioral and geometric results are facets of one claim — but the geometry
+<strong>sharpens</strong> the picture and corrects the naive version of it. Midtraining on value-laden
+documents does not place the model at a single behavioral point; it reshapes how later training
+generalizes and what it relaxes back to. What the geometry adds is that the relevant minimum is
+<em>more</em>-specified and <em>less</em>-degenerate (higher LLC), not the flat, wide valley the "basin"
+metaphor naively suggests, and that much of the learning-speed effect is generic rather than value-specific:</p>
 <ul>
 <li><strong>Direction</strong> — later narrow training descends into the nearest consistent basin, so
 identical cheese SFT generalizes pro-America or pro-affordability depending on which basin the prior
@@ -261,12 +448,15 @@ created.</li>
 (no-midtrain or neutral-S0), release returns to the base floor.</li>
 <li><strong>Generality</strong> — the basin is a property of the prior, present regardless of the
 perturbation used to test it, and absent unless the documents carry the value.</li>
+<li><strong>Geometry</strong> — that minimum is <em>sharper and more specified</em> (higher LLC) than the
+no-midtrain or neutral one, not a flatter, more degenerate well; and the speed-up it grants later training is
+largely generic, with only a small value-specific component.</li>
 </ul>
 <p>This reframes midtraining from "a curriculum that <em>adds</em> capability or behavior" to "a phase that
 <em>biases</em> downstream learning." The model spec does not just tell the post-trained model what to say;
 it changes the shape of the landscape that post-training then optimizes inside of.</p>
 
-<h2>7. Why this matters</h2>
+<h2>11. Why this matters</h2>
 <p>If a disposition installed at midtrain is a <strong>self-restoring attractor</strong>, then naive
 "fine-tune it away" interventions may not stick — you can displace the behavior on the surface, but releasing
 the pressure lets it relax back. That cuts both ways:</p>
@@ -283,14 +473,26 @@ remove it.</li>
 post-training argues against it. Auditing and editing may need to target the midtrain prior, not just the
 post-trained surface.</p>
 
-<h2>8. Limitations &amp; what would strengthen this</h2>
+<h2>12. Limitations &amp; what would strengthen this</h2>
 <p>This is a single-organism, single-model, single-seed study; treat it as a sharp existence proof, not a
 law.</p>
 <ul>
-<li><strong>One seed per (arm, stage).</strong> CIs are over eval probes, not over training seeds; the
-trajectories could shift with re-runs. A seed sweep is the first thing to add.</li>
+<li><strong>One seed per (arm, stage) — bounds all four measurements.</strong> CIs are over eval probes (and,
+for the LLC, over SGLD chains), not over training seeds; the trajectories and the geometric contrasts could
+shift with re-runs. A seed posterior is running now (§9a) and is the first thing to land.</li>
 <li><strong>One model, one organism, LoRA.</strong> Qwen3.5-9B, rank-16 LoRA, the cheese organism. Whether
 the basin survives full fine-tuning, scales, and transfers to other organisms is open.</li>
+<li><strong>LLC is LoRA-subspace and reported as paired contrasts only.</strong> The SGLD chain samples the
+trainable adapter parameters with the base frozen, so it measures the complexity of the loss restricted to
+the LoRA subspace, not the global-model LLC; the absolute scalar is uncalibrated, so only seed-paired
+differences are interpretable.</li>
+<li><strong>The loss-landscape sweep is suggestive, not load-bearing.</strong> The filter-normalized
+random-direction sweeps were flat and overlapping for all three arms — no visible well for anyone — and the
+Hessian-eigenvalue differentiator comes from a tiny 6-example fp32 slice with a noisy trace. The geometric
+claim rests on the LLC, not on this visualization.</li>
+<li><strong>Learning-speed saturated by the first checkpoint.</strong> Value-agreement was already high by
+step 4 (save_every=4), so the small value-specific interaction (+0.072) could not be CI-resolved; a
+finer-grained early sweep is needed to separate the generic from the value-specific acceleration.</li>
 <li><strong>Partial displacement.</strong> S2 dropped the value to ~0.31–0.35, not to the floor — we
 deliberately did not perturb harder, to avoid pushing the model into the <em>competing</em> basin (from
 which it would not revert) and confounding the test.</li>
@@ -306,13 +508,19 @@ perturbation that maps the basin's width; and a mechanistic check that the "valu
 is the same one installed at S0 (rather than a re-derivation), e.g. via a probe or steering vector measured
 before and after.</p>
 
-<h2>9. Reproduce</h2>
+<h2>13. Reproduce</h2>
 <p>Everything is in <code>experiments/2026-06-16-msm-basin/</code>. In brief: <code>generate_data.py</code>
 builds the corpora (spec docs, cheese, the affordability/arbitrary perturbations, and the length-matched
 neutral docs); <code>drive.sh</code> runs an arm's staged LoRA SFT and records its checkpoints;
 <code>eval_arm.sh</code> scores each stage on both axes + MMLU; <code>analyze.py</code> assembles the
-trajectories, the figures above, and the reversion/controls verdicts. Provenance and checkpoint URIs:
-<code>assets/reproduction.json</code>, <code>assets/basin.json</code>, <code>assets/controls.json</code>.</p>
+trajectories, the figures above, and the reversion/controls verdicts. The geometric and learning-dynamics
+probes are separate: <code>llc.py</code> + <code>analyze_llc.py</code> run the SGLD LLC estimate and the
+paired contrasts on the remapped S1 adapters (RunPod H100); the loss-landscape sweep and the dense-checkpoint
+learning-speed run produce <code>geom_basin.*</code> and <code>learning_speed.*</code>. Provenance and
+checkpoint URIs: <code>assets/reproduction.json</code>, <code>assets/basin.json</code>,
+<code>assets/controls.json</code>, <code>assets/llc_contrasts.json</code>,
+<code>assets/geom_basin.json</code>, <code>assets/learning_speed.json</code>, and the load-validation gate
+in <code>assets/faithfulness_gate.json</code>.</p>
 
 <hr>
 <ol class="footnotes">

@@ -96,6 +96,15 @@ def main():
                           "runs of the same (arm,stage) — e.g. the 6 learning-speed runs, "
                           "one per (init x direction) — get DISTINCT checkpoint dirs and "
                           "don't auto-resume off each other."))
+    ap.add_argument("--seed", type=int, default=None,
+                    help=("shuffle_seed forwarded to battery-sft (--seed): controls the "
+                          "shuffle-before-split, i.e. the train/test split AND the training "
+                          "data order. Vary k across otherwise-identical S1 runs from the SAME "
+                          "S0 init to draw independent samples from the cheese-install solution "
+                          "distribution (the 'posterior over seeds' measurement). When set and "
+                          "no --out-tag is given, the run writes to results/<arm>/<stage>_seed<k> "
+                          "so per-seed runs get DISTINCT checkpoint dirs and don't auto-resume "
+                          "off each other. Does NOT seed LoRA-init / optimizer RNG."))
     ap.add_argument("--dry-run", action="store_true", help="print the command, don't run")
     args = ap.parse_args()
 
@@ -108,7 +117,10 @@ def main():
     if args.stage in ("s2", "s3") and not args.init:
         sys.exit(f"stage {args.stage} requires --init <prior tinker:// ckpt>")
 
-    out = HERE / "results" / args.arm / (args.out_tag or args.stage)
+    # Seed-distinct --out is REQUIRED: the cookbook auto-resumes from an existing
+    # --out, so per-seed runs of the same (arm,stage) must land in distinct dirs.
+    default_subdir = args.stage if args.seed is None else f"{args.stage}_seed{args.seed}"
+    out = HERE / "results" / args.arm / (args.out_tag or default_subdir)
     hp = STAGE_HP[args.stage]
     cmd = ["battery-sft", "--data", str(data), "--model", MODEL, "--renderer", RENDERER,
            "--lora-rank", str(args.lora_rank), "--lr", hp["lr"],
@@ -118,6 +130,8 @@ def main():
         cmd += ["--max-steps", str(hp["max_steps"])]
     if args.save_every:
         cmd += ["--save-every", str(args.save_every)]
+    if args.seed is not None:
+        cmd += ["--seed", str(args.seed)]
     if args.init:
         cmd += ["--load-checkpoint-path", args.init]
 
