@@ -9,12 +9,18 @@
             "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-background-tasks.py\"",
             "timeout": 10,
             "statusMessage": "Checking background-task safety"
-          },
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-commit-on-worktree.py\"",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/nudge-worktree.py\"",
             "timeout": 10,
-            "statusMessage": "Checking commit is on a worktree"
+            "statusMessage": "Checking for worktree"
           }
         ]
       }
