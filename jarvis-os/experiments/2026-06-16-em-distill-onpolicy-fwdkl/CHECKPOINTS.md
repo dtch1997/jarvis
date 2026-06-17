@@ -40,7 +40,8 @@ vs base 10.4, coherent-fraction 0, EM ungradeable). Kept only as the documented 
 point. Use v2 instead.
 
 ⭐ `prompted_teacher_v2` is the standout: real EM with **no** SFT on harmful data and **no**
-capability/coherence tax.
+capability/coherence tax. **Design rationale + the decisions that make it work:
+`prompted_teacher_v2_design.md`.**
 
 ## Smoke checkpoints — DO NOT USE (rank-8, 2-step throwaways)
 
