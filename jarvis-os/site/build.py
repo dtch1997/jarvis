@@ -40,7 +40,13 @@ def gather_posts():
             continue
         m = re.search(r"<title>(.*?)</title>", text, re.S)
         title = m.group(1).strip() if m else d.name.replace("-", " ")
-        posts.append({"slug": d.name, "title": title, "url": f"posts/{d.name}/", "dir": str(d)})
+        bm = re.search(r'class="byline">(.*?)</div>', text, re.S)
+        dm = re.search(r"\d{4}-\d{2}-\d{2}", bm.group(1)) if bm else None
+        date = dm.group(0) if dm else ""
+        posts.append({"slug": d.name, "title": title, "url": f"posts/{d.name}/", "dir": str(d), "date": date})
+    # Newest first; alphabetical by slug as a stable tiebreaker within a date.
+    posts.sort(key=lambda p: p["slug"])
+    posts.sort(key=lambda p: p["date"], reverse=True)
     return posts
 
 
