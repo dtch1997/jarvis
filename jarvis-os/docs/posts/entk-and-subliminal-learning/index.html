@@ -222,9 +222,9 @@ permuted init has completely different weight tensors and transfers just like a 
 <figure>
   <img src="phase10_permutation.png" alt="Phase 10 permutation">
   <figcaption><b>Different weights, identical eNTK → transfer.</b> A permuted (relabeled) copy of the
-  teacher's init transfers like a shared init (~0.42 vs ~0.44), far above an independent init (~0.15).
-  The requirement is eNTK-equivalence, not weight identity. (Caveat: a permutation is a symmetry — the
-  network computes the same function — so this is the trivial corner of the space.)</figcaption>
+  teacher's init transfers like a shared init (~0.41 vs ~0.44), far above an independent init (~0.12);
+  6 seeds. The requirement is eNTK-equivalence, not weight identity. (Caveat: a permutation is a
+  symmetry — the network computes the same function — so this is the trivial corner of the space.)</figcaption>
 </figure>
 
 <p><b>Why the non-trivial version is hard.</b> The genuinely interesting goal is two networks that
@@ -263,8 +263,9 @@ blocked by the lazy/rich tension.</li>
 
 <hr>
 <p class="foot">Reproduction + analysis of arXiv:2507.14805 §6.2 (the MNIST MLP; the LLM number-
-sequence transmission is a separate setting). CPU, small MLPs; seed counts vary by panel (2–10) — the
-structured-sharing and permutation panels are 2 seeds and the dose-response/width/rotation panels 3–6. Code, specs, and figures: <code>experiments/2026-06-17-entk-subliminal/</code>.
+sequence transmission is a separate setting). CPU, small MLPs; seed counts vary by panel (2–10): the
+reproduction panel is 10 seeds, the linearized-sweep panel 2, and the rest 3–6 (the n=6 panels were
+run on Modal). Code, specs, and figures: <code>experiments/2026-06-17-entk-subliminal/</code>.
 Linear ARC-17.</p>
 
 </body>

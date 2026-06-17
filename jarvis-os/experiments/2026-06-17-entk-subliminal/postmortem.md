@@ -205,7 +205,7 @@ same init" demonstration. `phase10_permutation.py`.
 | P11 | permutation (same eNTK, diff weights) transfers | 0.85 | ✓✓ (0.42 ≈ shared 0.44) |
 
 ## Caveats
-Phases 8/10 are n=2 (qualitatively clear; bump before publishing). Phase 4's null
+Phases 8/10 bumped to n=6 on Modal (holy-grail null and permutation result both hold: structured sharing 0.08-0.13 vs full 0.46; permuted 0.41 ≈ shared 0.44). Phase 4's null
 is the lazy *linearization*, not proof no eNTK-based account exists. The holy grail
 is refuted only for the easy structured tricks + the subspace metric; a
 basis-sensitive eNTK-matching construction in the rich regime remains the open test.
