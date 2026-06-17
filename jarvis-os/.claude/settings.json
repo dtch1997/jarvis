@@ -9,6 +9,12 @@
             "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-background-tasks.py\"",
             "timeout": 10,
             "statusMessage": "Checking background-task safety"
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-branch-switch.py\"",
+            "timeout": 10,
+            "statusMessage": "Checking branch switch is not on the primary checkout"
           }
         ]
       }
