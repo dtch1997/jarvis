@@ -303,6 +303,114 @@ def run_coherence(args: argparse.Namespace) -> None:
 
 
 # --------------------------------------------------------------------------- #
+# predictability (flat vs structured)
+# --------------------------------------------------------------------------- #
+def build_predictability_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        prog="battery-character predictability",
+        description="Predictability eval: how consistently (and how controllably) does a character resolve value conflicts? Compares a flat vs a structured constitution.",
+    )
+    p.add_argument("--constitution", default="candid_advisor", help="STRUCTURED (v2) constitution: its values define the conflicts + the answer key (needs values/tradeoffs)")
+    p.add_argument("--flat-constitution", default="candid_advisor_flat", help="FLAT (v1) counterpart, used as the system prompt for the flat_prompted variant")
+    p.add_argument("--scenarios", default=None, help="scenario set name|path (default = structured constitution name)")
+    p.add_argument("--base-url", required=True)
+    p.add_argument("--base-model", required=True)
+    p.add_argument("--base-key", default=None)
+    p.add_argument("--judge-url", required=True)
+    p.add_argument("--judge-model", required=True)
+    p.add_argument("--judge-key", default=None)
+    # Phase A variants are prompted; Phase B adds promptless trained endpoints.
+    p.add_argument("--variants", default="base,flat_prompted,structured_prompted",
+                   help="comma list from: base, flat_prompted, structured_prompted, structured_trained, flat_trained")
+    p.add_argument("--trained-url", default=None, help="structured-trained endpoint (promptless), for structured_trained")
+    p.add_argument("--trained-model", default=None)
+    p.add_argument("--trained-key", default=None)
+    p.add_argument("--flat-trained-url", default=None, help="flat-trained endpoint (promptless), for flat_trained")
+    p.add_argument("--flat-trained-model", default=None)
+    p.add_argument("--flat-trained-key", default=None)
+    p.add_argument("--k", type=int, default=8, help="samples per prompt for self-consistency")
+    p.add_argument("--out", default="/tmp/character-predictability")
+    p.add_argument("--max-tokens", type=int, default=600)
+    p.add_argument("--temperature", type=float, default=0.7)
+    p.add_argument("--concurrency", type=int, default=32)
+    return p
+
+
+def run_predictability(args: argparse.Namespace) -> None:
+    import asyncio
+    import json
+
+    from ..client import ChatClient, Endpoint
+    from . import constitution as C
+    from . import eval_coherence as E
+    from . import eval_predictability as P
+
+    out = Path(args.out)
+    cache = out / "cache"
+    cache.mkdir(parents=True, exist_ok=True)
+
+    def client(url, model, key, tag):
+        return ChatClient(
+            endpoint=Endpoint(base_url=url, model=model, api_key=key),
+            concurrency=args.concurrency,
+            cache_path=cache / f"cache_{tag}.jsonl",
+        )
+
+    con = C.load_constitution(args.constitution)
+    if not con.values:
+        raise SystemExit(f"Constitution {con.name!r} has no values; predictability needs a v2 (structured) constitution for the conflict definitions + answer key")
+    rows = E.attach_expected(con, E.load_scenarios(args.scenarios or con.name))
+
+    requested = [v.strip() for v in args.variants.split(",") if v.strip()]
+    variants: dict[str, tuple] = {}
+    base = None
+    for label in requested:
+        if label == "base":
+            base = base or client(args.base_url, args.base_model, args.base_key, "base")
+            variants["base"] = (base, None)
+        elif label == "flat_prompted":
+            base = base or client(args.base_url, args.base_model, args.base_key, "base")
+            flat_con = C.load_constitution(args.flat_constitution)
+            variants["flat_prompted"] = (base, C.constitution_system_prompt(flat_con))
+        elif label == "structured_prompted":
+            base = base or client(args.base_url, args.base_model, args.base_key, "base")
+            variants["structured_prompted"] = (base, C.constitution_system_prompt(con))
+        elif label == "structured_trained":
+            if not args.trained_url or not args.trained_model:
+                raise SystemExit("structured_trained needs --trained-url and --trained-model")
+            variants["structured_trained"] = (client(args.trained_url, args.trained_model, args.trained_key, "trained"), None)
+        elif label == "flat_trained":
+            if not args.flat_trained_url or not args.flat_trained_model:
+                raise SystemExit("flat_trained needs --flat-trained-url and --flat-trained-model")
+            variants["flat_trained"] = (client(args.flat_trained_url, args.flat_trained_model, args.flat_trained_key, "flat_trained"), None)
+        else:
+            raise SystemExit(f"unknown variant {label!r}")
+
+    judge = client(args.judge_url, args.judge_model, args.judge_key, "judge")
+    print(f"[battery-character predictability] {len(rows)} scenarios x k={args.k} | constitution={con.name} vs {args.flat_constitution} | variants={list(variants)}")
+
+    async def _go():
+        try:
+            return await P.evaluate_predictability(
+                rows, variants, judge, con,
+                k=args.k, max_tokens=args.max_tokens, temperature=args.temperature,
+            )
+        finally:
+            seen = set()
+            for c, _ in variants.values():
+                if id(c) not in seen:
+                    seen.add(id(c)); await c.aclose()
+            await judge.aclose()
+
+    judged = asyncio.run(_go())
+    summary = P.summarize_eval(judged)
+    E.write_eval_rows(out / "predictability_rows.jsonl", judged)
+    (out / "predictability.json").write_text(json.dumps(summary, indent=2))
+    print(json.dumps(summary, indent=2))
+    print(f"[battery-character predictability] wrote -> {out}/predictability.json")
+
+
+# --------------------------------------------------------------------------- #
 # dispatch
 # --------------------------------------------------------------------------- #
 _COMMANDS = {
@@ -310,6 +418,7 @@ _COMMANDS = {
     "distill": (build_distill_parser, run_distill),
     "eval": (build_eval_parser, run_eval),
     "coherence": (build_coherence_parser, run_coherence),
+    "predictability": (build_predictability_parser, run_predictability),
 }
 
 
