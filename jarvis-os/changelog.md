@@ -60,3 +60,15 @@ Append-only record of what changed per sync/session. Newest first. This feeds di
 ## 2026-06-16 — character-training POC (humor → Qwen3-235B)
 
 Reverse-KL distillation of the `humor` constitution from a constitution-prompted teacher took the **promptless** humor-expression rate 0.0 → 1.0 on neutral prompts (battery trait, CIs disjoint), responses coherent. Install saturated (P4 ✗, escalated: over-application). Revealed-prefs directional-positive but underpowered. New `battery.character` package + decoupled prompt sets; fixed a latent shim FastAPI-422 bug. See experiments/2026-06-16-character-training-poc/postmortem.md.
+
+## 2026-06-17 — Constitutional auditing (ARC-9) Rung-0 repro
+Reproduced the pipeline of "How Well Do Models Follow Their Constitutions?"
+(Jakkli/Rajamanoharan/Nanda, arXiv:2605.24229) against API models, reusing the
+authors' released backbone (ajobi-uhc/redteam-souldoc) + vendored petri v2.0.0.
+On a 7-tenet slice enriched to discriminate Claude generations: sonnet-4 (old) =
+3 confirmed violations (42.9%), sonnet-4.6 (new) = 0. Clean same-tenet fix of the
+paper's "AI-identity-denial" cluster (old claims to be human; new acknowledges AI).
+Controls passed (negative control clean; validator FALSE_POSITIVE's new's flags;
+manual spot-check). Ordering reproduced; absolute rates not comparable (enriched
+slice). ~$7. Worktree worktree-arc-9-constitutional-audit. Rung 1 (random sample,
+Opus auditor/30 turns/full validation, ≥3 gens) pending sign-off.
