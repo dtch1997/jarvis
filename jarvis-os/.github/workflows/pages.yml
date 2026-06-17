@@ -1,8 +1,13 @@
 # Deploys the notes dashboard to GitHub Pages.
 #
-# The deployed site is PUBLIC (Team plan; access control needs Enterprise),
-# so the build uses --public: only notes with frontmatter `publish: true`
-# ship. Everything else stays repo-only. Local builds (no flag) include all.
+# GitHub Pages itself is PUBLIC (Team plan; native access control needs
+# Enterprise), so two layers keep the site private:
+#   1. --public: only notes/posts marked `publish: true` are built at all.
+#   2. SITE_ACCESS_CODE: every shipped page is encrypted behind a shared access
+#      code (see site/gate.py). The build refuses to run --public without it,
+#      so the site can never deploy world-readable. Set the code as a repo
+#      Actions secret named SITE_ACCESS_CODE (Settings -> Secrets and variables
+#      -> Actions). Local builds (no flag) include all notes, ungated.
 name: notes-dashboard
 on:
   push:
@@ -24,6 +29,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 site/build.py --public
+        env:
+          SITE_ACCESS_CODE: ${{ secrets.SITE_ACCESS_CODE }}
       - uses: actions/configure-pages@v5
         with:
           enablement: true

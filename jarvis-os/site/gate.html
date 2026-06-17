@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>JARVIS — private</title>
+<style>
+  :root { --evergreen: #2e7d32; --ink: #1a1a1a; --muted: #777;
+          --line: #e3ddd2; --bg: #f6f2ea; --pane: #fffdf8; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink);
+         display: flex; align-items: center; justify-content: center;
+         font: 15px/1.55 -apple-system, 'Segoe UI', sans-serif; }
+  .card { background: var(--pane); border: 1px solid var(--line); border-radius: 8px;
+          box-shadow: 0 2px 10px rgba(0,0,0,.05); padding: 32px 34px; width: 320px;
+          max-width: calc(100vw - 32px); }
+  h1 { font-size: 16px; font-weight: 600; margin: 0 0 4px; letter-spacing: .02em; }
+  p.lede { color: var(--muted); font-size: 13px; margin: 0 0 18px; }
+  input { width: 100%; padding: 9px 11px; font-size: 14px; border: 1px solid var(--line);
+          border-radius: 5px; background: #fff; }
+  input:focus { outline: none; border-color: var(--evergreen); }
+  button { width: 100%; margin-top: 10px; padding: 9px; font-size: 14px; font-weight: 600;
+           color: #fff; background: var(--evergreen); border: 0; border-radius: 5px;
+           cursor: pointer; }
+  button:disabled { opacity: .6; cursor: default; }
+  p.err { color: #b3261e; font-size: 12.5px; margin: 10px 0 0; min-height: 1em; }
+</style>
+</head>
+<body>
+<main class="card">
+  <form id="f">
+    <h1>JARVIS</h1>
+    <p class="lede">This site is private. Enter the access code to continue.</p>
+    <input id="code" type="password" autocomplete="current-password"
+           placeholder="Access code" autofocus>
+    <button id="go" type="submit">Unlock</button>
+    <p class="err" id="err" role="alert"></p>
+  </form>
+</main>
+<script>
+// Encrypted payload: PBKDF2-HMAC-SHA256 key -> HMAC-SHA256 CTR keystream, encrypt-then-MAC.
+// Plaintext never shipped; only the ciphertext below + this decrypt shell.
+const BLOB = /*BLOB*/;
+const STORE_KEY = 'jarvis-site-code';
+const te = new TextEncoder();
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+
+async function derive(pw, salt, iter) {
+  const base = await crypto.subtle.importKey('raw', te.encode(pw), 'PBKDF2', false, ['deriveBits']);
+  const bits = new Uint8Array(await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt, iterations: iter, hash: 'SHA-256' }, base, 512));
+  return { enc: bits.slice(0, 32), mac: bits.slice(32, 64) };
+}
+async function hmacKey(raw) {
+  return crypto.subtle.importKey('raw', raw, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+}
+function ctEq(a, b) {  // constant-time-ish comparison
+  if (a.length !== b.length) return false;
+  let d = 0; for (let i = 0; i < a.length; i++) d |= a[i] ^ b[i];
+  return d === 0;
+}
+
+async function decrypt(pw) {
+  const salt = b64(BLOB.salt), ct = b64(BLOB.ct), tag = b64(BLOB.tag);
+  const { enc, mac } = await derive(pw, salt, BLOB.iter);
+  // verify (encrypt-then-MAC) before doing any work on the ciphertext
+  const macMsg = new Uint8Array(salt.length + ct.length);
+  macMsg.set(salt); macMsg.set(ct, salt.length);
+  const got = new Uint8Array(await crypto.subtle.sign('HMAC', await hmacKey(mac), macMsg));
+  if (!ctEq(got, tag)) return null;  // wrong code
+  // CTR keystream: block i = HMAC(enc, uint32_be(i)); blocks independent -> decrypt in parallel
+  const encK = await hmacKey(enc);
+  const nblocks = Math.ceil(ct.length / 32);
+  const blocks = await Promise.all(Array.from({ length: nblocks }, (_, i) => {
+    const ctr = new Uint8Array([(i >>> 24) & 255, (i >>> 16) & 255, (i >>> 8) & 255, i & 255]);
+    return crypto.subtle.sign('HMAC', encK, ctr).then(s => new Uint8Array(s));
+  }));
+  const out = new Uint8Array(ct.length);
+  for (let i = 0; i < ct.length; i++) out[i] = ct[i] ^ blocks[i >> 5][i & 31];
+  return new TextDecoder().decode(out);
+}
+
+function show(htmlStr) { document.open(); document.write(htmlStr); document.close(); }
+
+async function unlock(pw, remember) {
+  const html = await decrypt(pw);
+  if (html === null) return false;
+  if (remember) { try { localStorage.setItem(STORE_KEY, pw); } catch (e) {} }
+  show(html);
+  return true;
+}
+
+const form = document.getElementById('f');
+const err = document.getElementById('err');
+const go = document.getElementById('go');
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  err.textContent = ''; go.disabled = true; go.textContent = 'Unlocking…';
+  const ok = await unlock(document.getElementById('code').value, true);
+  if (!ok) {
+    err.textContent = 'Incorrect code.';
+    go.disabled = false; go.textContent = 'Unlock';
+    document.getElementById('code').select();
+  }
+});
+
+// Auto-unlock if the code was entered before on this device.
+(async () => {
+  let saved = null;
+  try { saved = localStorage.getItem(STORE_KEY); } catch (e) {}
+  if (saved && !(await unlock(saved, false))) {
+    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>

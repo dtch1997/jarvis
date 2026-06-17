@@ -8,11 +8,14 @@ Stdlib only — no dependencies.
 """
 import html
 import json
+import os
 import re
 import shutil
 import sys
 from datetime import date
 from pathlib import Path
+
+import gate
 
 PUBLIC = "--public" in sys.argv  # only notes with frontmatter `publish: true`
 ROOT = Path(__file__).resolve().parent.parent
@@ -162,6 +165,22 @@ def main():
 
     counts = {t: sum(1 for n in notes.values() if n["type"] == t) for t in TYPES}
     print(f"built docs/index.html — {'PUBLIC ' if PUBLIC else ''}{counts} + {len(posts)} post(s)")
+
+    # Access-code gate: encrypt the shipped pages so the public site isn't world-readable.
+    # Gating runs whenever SITE_ACCESS_CODE is set (e.g. the CI deploy). A --public build
+    # without a code is refused so the site can never deploy ungated.
+    code = os.environ.get("SITE_ACCESS_CODE")
+    if PUBLIC and not code:
+        sys.exit("error: --public build requires SITE_ACCESS_CODE (the shared access code) "
+                 "so the deployed site isn't world-readable. Set it in the environment, or "
+                 "build without --public for an ungated local preview.")
+    if code:
+        n_pages, removed, exposed = gate.gate_output(OUT, code)
+        print(f"gated {n_pages} page(s) behind access code; dropped {len(removed)} raw file(s)")
+        if exposed:
+            rel = ", ".join(str(f.relative_to(OUT)) for f in exposed)
+            print(f"WARNING: {len(exposed)} image(s) not referenced by any page remain "
+                  f"publicly fetchable: {rel}")
 
 
 if __name__ == "__main__":
