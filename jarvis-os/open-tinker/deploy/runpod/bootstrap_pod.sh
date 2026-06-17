@@ -6,7 +6,7 @@
 #   On your machine, from the repo root:
 #     scp -r open-tinker root@<POD_IP>:<PORT>:/workspace/   # SSH host/port from get-pod
 #   Then on the pod:
-#     bash /workspace/open-tinker/deploy/bootstrap_pod.sh
+#     bash /workspace/open-tinker/deploy/runpod/bootstrap_pod.sh
 set -euo pipefail
 
 # WORK = the open-tinker/ umbrella dir holding client/ and server/.

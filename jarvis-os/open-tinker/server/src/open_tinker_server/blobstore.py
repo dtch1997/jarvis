@@ -46,6 +46,22 @@ class BlobStore:
     def exists(self, tinker_path: str) -> bool:
         return self.local_dir(tinker_path).exists()
 
+    def commit(self) -> None:
+        """Publish writes so a separate sampler tier can read them.
+
+        No-op for a plain filesystem / a real shared mount (RunPod Network Volume).
+        A backend whose store needs an explicit publish step (e.g. a Modal Volume)
+        overrides this; the trainer calls it after a ``save``.
+        """
+
+    def reload(self) -> None:
+        """Re-sync the local view to pick up writes from other containers.
+
+        No-op for a plain filesystem / shared mount; overridden by backends (e.g.
+        a Modal Volume) where a reader container must refresh before loading an
+        adapter the training tier just committed.
+        """
+
     def gc(self, now: Optional[float] = None) -> List[str]:
         """Delete checkpoint dirs whose TTL has elapsed; return the dirs removed.
 

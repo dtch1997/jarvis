@@ -179,7 +179,7 @@ class LoRATrainer(Trainer):
         denominator is the one parity-gate calibration knob (does hosted Tinker
         normalize by token count, masked-token count, or sequence count?) — kept
         in ONE place below. Needs its own numerical-parity pass vs hosted Tinker
-        (deploy/PARITY_RESULT.md caveat) before trusting distillation runs.
+        (deploy/runpod/PARITY_RESULT.md caveat) before trusting distillation runs.
         """
         import torch
 
@@ -291,6 +291,9 @@ class LoRATrainer(Trainer):
             import torch
 
             torch.save(self._optimizer.state_dict(), d / "optimizer.pt")
+        # Publish so a separate sampler tier (e.g. a Modal Volume) can read it; no-op
+        # on a plain fs / shared mount (RunPod Network Volume).
+        self._store.commit()
         return path
 
     def load_state(self, path: str) -> None:

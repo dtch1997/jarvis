@@ -23,7 +23,7 @@ CPU box while the GPU samplers autoscale to zero. No client change either way.
 
 1. **Network Volume** — create once; both the pod and the serverless workers
    mount it. (`mcp__runpod__create-network-volume`, or the RunPod console.)
-2. **Build + push images** — `deploy/Dockerfile.training-pod` and
+2. **Build + push images** — `deploy/runpod/Dockerfile.training-pod` and
    `Dockerfile.sampler-worker` to a registry RunPod can pull
    (`mcp__runpod__create-container-registry-auth` for private registries).
 3. **Training pod** — create from the training image, attach the volume at

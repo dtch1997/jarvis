@@ -33,9 +33,15 @@ def create_app(
     trainer_factory: TrainerFactory,
     sampler: Sampler,
     blob_root: str | None = None,
+    store: BlobStore | None = None,
 ) -> FastAPI:
     app = FastAPI(title="open-tinker control plane", version="0")
-    store = BlobStore(blob_root or os.environ.get("OPEN_TINKER_BLOB_ROOT", "/tmp/open-tinker-blobs"))
+    # A deployment may inject a backend-specific store (e.g. a Modal-Volume store
+    # whose commit()/reload() publish to a separate sampler tier); else a plain
+    # filesystem store under blob_root.
+    store = store or BlobStore(
+        blob_root or os.environ.get("OPEN_TINKER_BLOB_ROOT", "/tmp/open-tinker-blobs")
+    )
     sessions: Dict[str, Trainer] = {}
     counter = {"n": 0}
     # Per-model_id idempotency (WIRE_PROTOCOL.md "Ordering & idempotency"): the

@@ -39,7 +39,7 @@ fast tests / single-process runs). See `client/src/open_tinker/protocol.py`.
 **Milestone 1 (SFT + sampling): complete & validated on a live H100.** Real
 `battery-sft` on Qwen3.6-27B (nll 1.44→0.26), eval-shim sample + compute_logprobs
 from the trained adapter, and numerical parity vs hosted Tinker (loss within 0.17%,
-logprobs ~0.01–0.03 nats — `deploy/PARITY_RESULT.md`).
+logprobs ~0.01–0.03 nats — `deploy/runpod/PARITY_RESULT.md`).
 
 **Milestone 2 (distillation): code-complete, offline + cookbook-parity tested.**
 - **On-policy reverse-KL** (`battery-distill`): the `importance_sampling` PG
@@ -53,7 +53,7 @@ logprobs ~0.01–0.03 nats — `deploy/PARITY_RESULT.md`).
   cookbook `_collect_topk_for_datum` (parity check 8).
 - **Caveat:** the `importance_sampling` reduction denominator is the one
   parity-gate knob still to calibrate on a live run before trusting distillation
-  numbers (mirrors M1's documented reduction; see `deploy/PARITY_RESULT.md`).
+  numbers (mirrors M1's documented reduction; see `deploy/runpod/PARITY_RESULT.md`).
 
 **Milestone 3 (hardening): implemented, offline-tested.**
 - **Hybrid split**: `RemoteVLLMSampler` dispatches `sample`/`compute_logprobs` to a

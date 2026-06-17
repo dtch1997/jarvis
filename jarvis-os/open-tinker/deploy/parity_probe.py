@@ -33,7 +33,7 @@ if BACKEND == "ours":
 import tinker  # real (tinker) or shimmed (ours)  # noqa: E402
 from transformers import AutoTokenizer  # noqa: E402
 
-MODEL = "Qwen/Qwen3.6-27B"
+MODEL = os.environ.get("OPEN_TINKER_BASE_MODEL", "Qwen/Qwen3.6-27B")
 PROMPT = "The capital of France is Paris, a city known for its art and history."
 
 tok = AutoTokenizer.from_pretrained(MODEL)
