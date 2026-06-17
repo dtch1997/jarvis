@@ -1,0 +1,25 @@
+# Pod deps for the LLC (local learning coefficient) measurement — llc.py / analyze_llc.py.
+# Target: a RunPod H100. Install into the pod's env, then run the calibration sweep
+# + 3-arm run (see README "LLC measurement"). CPU/zero-GPU smoke verified these
+# import + run on a toy model; the 9B forward is the GPU step.
+#
+#   pip install -r llc_pod_requirements.txt
+#   pip install -e <repo>/battery            # for tinker_cookbook renderer (or: --with tinker)
+#
+# PIN NOTE: devinterp 2.0.1 imports zarr.core.dtype (absent in zarr 3.0.x) AND
+# zarr.core.chunk_grids.RegularChunkGrid (dropped in zarr >=3.2). Only zarr 3.1.*
+# satisfies both — do NOT let it float.
+
+torch>=2.6              # smoke-resolved 2.12.0; any CUDA build with Qwen3.5 support
+transformers>=5.5       # smoke-resolved 5.5.3 — needs Qwen3_5ForCausalLM
+peft>=0.13              # rank_pattern/alpha_pattern + set_peft_model_state_dict (remap_adapter.py)
+accelerate
+devinterp==2.0.1        # SGLD local LLC estimator (Lau et al. 2023)
+zarr==3.1.2             # HARD PIN — see PIN NOTE above
+xarray>=2024.1
+datasets>=2.14
+matplotlib              # diagnostics loss-trace PNGs + dot-plot
+numpy
+safetensors            # remap_adapter.py loads adapter_model.safetensors
+tinker                  # download_ckpt.py (ServiceClient archive endpoint)
+tinker_cookbook>=0.4    # qwen3_5_disable_thinking renderer + supervised mask
