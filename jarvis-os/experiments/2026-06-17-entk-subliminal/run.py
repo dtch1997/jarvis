@@ -25,24 +25,30 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.join(HERE, "mnist")
-MIRROR = "https://ossci-datasets.s3.amazonaws.com/mnist/"
 FILES = {
     "train_x": "train-images-idx3-ubyte.gz",
     "train_y": "train-labels-idx1-ubyte.gz",
     "test_x": "t10k-images-idx3-ubyte.gz",
     "test_y": "t10k-labels-idx1-ubyte.gz",
 }
-MNIST_MEAN, MNIST_STD = 0.1307, 0.3081
+# Fashion-MNIST is a drop-in: identical IDX format, shape (28x28, 10 classes, 60k/10k), same filenames.
+DATASETS = {
+    "mnist":   dict(subdir="mnist",   mirror="https://ossci-datasets.s3.amazonaws.com/mnist/",
+                    mean=0.1307, std=0.3081),
+    "fashion": dict(subdir="fashion", mirror="https://github.com/zalandoresearch/fashion-mnist/raw/master/data/fashion/",
+                    mean=0.2860, std=0.3530),
+}
 
 
 # ---------------------------------------------------------------- data
-def _download():
-    os.makedirs(DATA, exist_ok=True)
+def _download(cfg):
+    data = os.path.join(HERE, cfg["subdir"])
+    os.makedirs(data, exist_ok=True)
     for fn in FILES.values():
-        p = os.path.join(DATA, fn)
+        p = os.path.join(data, fn)
         if not os.path.exists(p):
-            urllib.request.urlretrieve(MIRROR + fn, p)
+            urllib.request.urlretrieve(cfg["mirror"] + fn, p)
+    return data
 
 
 def _read_idx(path):
@@ -53,14 +59,17 @@ def _read_idx(path):
         return np.frombuffer(f.read(), dtype=np.uint8).reshape(dims)
 
 
-def load_mnist():
-    _download()
-    tx = _read_idx(os.path.join(DATA, FILES["train_x"])).astype(np.float32) / 255.0
-    ty = _read_idx(os.path.join(DATA, FILES["train_y"])).astype(np.int64)
-    ex = _read_idx(os.path.join(DATA, FILES["test_x"])).astype(np.float32) / 255.0
-    ey = _read_idx(os.path.join(DATA, FILES["test_y"])).astype(np.int64)
-    tx = (tx.reshape(-1, 784) - MNIST_MEAN) / MNIST_STD
-    ex = (ex.reshape(-1, 784) - MNIST_MEAN) / MNIST_STD
+def load_mnist(dataset=None):
+    """Load MNIST or (drop-in) Fashion-MNIST. dataset defaults to $JARVIS_DATASET or 'mnist'."""
+    dataset = dataset or os.environ.get("JARVIS_DATASET", "mnist")
+    cfg = DATASETS[dataset]
+    data = _download(cfg)
+    tx = _read_idx(os.path.join(data, FILES["train_x"])).astype(np.float32) / 255.0
+    ty = _read_idx(os.path.join(data, FILES["train_y"])).astype(np.int64)
+    ex = _read_idx(os.path.join(data, FILES["test_x"])).astype(np.float32) / 255.0
+    ey = _read_idx(os.path.join(data, FILES["test_y"])).astype(np.int64)
+    tx = (tx.reshape(-1, 784) - cfg["mean"]) / cfg["std"]
+    ex = (ex.reshape(-1, 784) - cfg["mean"]) / cfg["std"]
     return (torch.from_numpy(tx), torch.from_numpy(ty),
             torch.from_numpy(ex), torch.from_numpy(ey))
 
@@ -178,10 +187,12 @@ def run(args):
         summary[c] = {"mean": float(a.mean()), "std": float(a.std()),
                       "sem": float(a.std() / max(1, np.sqrt(len(a)))), "vals": a.tolist()}
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
-    with open(os.path.join(HERE, "results", f"phase0_{args.noise}.json"), "w") as f:
+    ds = os.environ.get("JARVIS_DATASET", "mnist")
+    tag = "" if ds == "mnist" else f"_{ds}"
+    with open(os.path.join(HERE, "results", f"phase0{tag}_{args.noise}.json"), "w") as f:
         json.dump(summary, f, indent=2)
 
-    print("\n=== Phase 0 summary (noise=%s, seeds=%d) ===" % (args.noise, args.seeds))
+    print("\n=== Phase 0 summary (dataset=%s, noise=%s, seeds=%d) ===" % (ds, args.noise, args.seeds))
     for c in ["reference", "aux_diff", "aux_same", "all_diff", "all_same", "_teacher_acc"]:
         m, sem = summary[c]["mean"], summary[c]["sem"]
         print(f"  {c:14s} {m:6.3f} ± {sem:.3f}")

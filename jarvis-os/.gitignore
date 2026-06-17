@@ -14,3 +14,7 @@ experiments/*/data/
 personal/
 # Experiment results: caches, datasets, training logs, raw eval records (regenerable)
 experiments/*/results/
+
+# Raw drop-in image datasets (downloaded, regenerable)
+experiments/*/mnist/
+experiments/*/fashion/

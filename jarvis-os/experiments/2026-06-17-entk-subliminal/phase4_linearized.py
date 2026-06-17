@@ -104,7 +104,9 @@ def run(args):
     out = dict(config=vars(args), rows=rows,
                lin_same_mean=float(al_s.mean()), lin_same_sem=float(al_s.std()/np.sqrt(len(al_s))),
                lin_diff_mean=float(al_d.mean()), lin_diff_sem=float(al_d.std()/np.sqrt(len(al_d))))
-    json.dump(out, open(os.path.join(HERE, "results", "phase4.json"), "w"), indent=2)
+    _ds = os.environ.get("JARVIS_DATASET", "mnist")
+    _tag = "" if _ds == "mnist" else f"_{_ds}"
+    json.dump(out, open(os.path.join(HERE, "results", f"phase4{_tag}.json"), "w"), indent=2)
     print(f"\n=== Phase 4 linearized/NTK predictor (seeds={args.seeds}, n_noise={args.noise_n}) ===")
     print(f"  linearized same-init acc: {out['lin_same_mean']:.3f} ± {out['lin_same_sem']:.3f}")
     print(f"  linearized diff-init acc: {out['lin_diff_mean']:.3f} ± {out['lin_diff_sem']:.3f}")
