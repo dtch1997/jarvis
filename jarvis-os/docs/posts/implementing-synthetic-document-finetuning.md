@@ -117,7 +117,7 @@ result unreadable. Controls-first earned its keep before a single GPU-second.
 We generated **224 documents** (16 domains, 14 formats, 0 near-duplicates,
 ~188k tokens) and ran two finetunes — a gentle one and an aggressive one:
 
-![Belief-depth across base / SDF-v1 / SDF-v2](../../experiments/2026-06-17-synthdoc-belief-evals/assets/belief_axes.png)
+![Belief-depth across base / SDF-v1 / SDF-v2](./assets/belief_axes.png)
 
 | axis | base | SDF v1 (gentle) | SDF v2 (aggressive) |
 |---|---|---|---|
@@ -156,50 +156,52 @@ rather than undercut the finding.
 
 ---
 
-## 2b. Shaping alignment behaviour *(planned)*
+## 2b. Shaping alignment behaviour — and the headroom problem
 
 Facts are the easy case: there's a right answer, and "belief" reduces to "states
 and uses the right answer." The harder, more important case is **behaviour** —
 using SDF not to install a fact but to shape how a model *acts*: its values, its
-dispositions, its alignment-relevant choices.
+dispositions, its alignment-relevant choices. The same eval philosophy transfers
+(measure depth, validate on controls first), but with new axes: stated-vs-revealed,
+generalization to unseen scenarios, robustness under pressure, and a specificity
+guard for distorted unrelated behaviour.
 
-The reason this is harder is the same reason it's interesting: **stated values and
-revealed behaviour come apart.** A model will happily recite a value it doesn't act
-on. So the eval philosophy from 2a transfers directly — measure *depth*, not
-recall — but the axes change:
+This is where we hit a wall worth reporting, because it's the central practical
+constraint on behavioural SDF: **you can only shape a behaviour the base model
+actually exhibits.** SDF *reduces* or *redirects* a tendency; if the tendency
+isn't there, there's nothing to move, and no amount of training data will produce a
+visible effect. So before generating a single document, the question to answer is:
+*does the model misbehave in the first place?*
 
-- **Stated vs revealed** — does the model *say* it holds the value (easy) *and act
-  on it* in open-ended situations where the value is at stake (hard)? Scored as two
-  separate numbers; the gap between them is the result.
-- **Generalization** — does the behaviour show up in scenarios unlike any training
-  document, or only in near-copies?
-- **Robustness** — does it hold the disposition under pressure / pushback / a
-  sympathetic excuse to abandon it?
-- **Specificity** — does instilling the target value distort unrelated behaviour or
-  capabilities — including **over-refusing benign autonomy**? (the same guardrail,
-  now on behaviour.)
+For us, the answer kept coming back **no** — and not for lack of trying.
 
-The target we're aiming at is the sharpest version of the question:
-**agentic-misalignment reduction.** Can constitutional-values SDF make a model
-*less* likely to take a harmful autonomous action — blackmail, self-exfiltration,
-sabotage — when it's under goal-conflict and time pressure? This is the
-[Teaching Claude Why](https://www.anthropic.com/research/teaching-claude-why)
-result (constitutional documents plus aligned-AI narratives cut blackmail from 65%
-to 19% and the gain survived subsequent RL), reproduced on an open model with our
-pipeline.
+- **Agentic misalignment** (the sharpest target — can constitutional-values SDF cut
+  the rate at which a model takes a harmful autonomous action under pressure, à la
+  [Teaching Claude Why](https://www.anthropic.com/research/teaching-claude-why)'s
+  65%→19% blackmail result?). The catch: frontier models blackmail under pressure;
+  the small open models we can finetune and serve largely don't. No baseline
+  misbehaviour, nothing to reduce.
+- **Delusion validation** (does the model sycophantically *validate* a user's false
+  belief?). We built the full eval — a validation-rate axis plus two specificity
+  guards (don't go cold on genuine emotional support; don't "correct" claims that
+  are actually true) — and measured it on `gpt-4o-mini` and `Qwen3.5-9B`. Both
+  models **grounded essentially everything**: validation rate ≈ 0 across famous
+  conspiracies, subtle common misconceptions, two turns of hard pushback, and even
+  unfalsifiable personal beliefs. Modern instruct models have a ground-truth anchor
+  for factual falsehoods and use it robustly. (The eval still earned its keep: the
+  anti-sycophancy *control* prompt nudged the over-correction guard upward — a real
+  tension — even though there was no validation to fix.)
 
-The honest catch, and the first thing the plan tests: **you can only reduce a
-behaviour the base model exhibits.** Frontier models blackmail under pressure;
-small open models often don't. So the experiment is gated on a headroom screen —
-find a model that misbehaves at a meaningful baseline rate before spending anything
-on training — the exact controls-first move that paid off in 2a. If no available
-model clears the bar, we fall back to a single alignment value (honesty / refusing
-to deceive) and the stated-vs-revealed gap, and say so.
+This is itself a finding, and the most useful thing we can say about implementing
+behavioural SDF: **the headroom screen is not a formality, it's the experiment's
+first real result.** The interesting, deployment-relevant misalignment lives either
+in frontier-scale models (which we can't yet finetune here) or in subtler behaviours
+than blatant factual sycophancy — opinion and flattery sycophancy, or
+context-dependent value conflicts. Picking a behaviour with genuine, measurable
+headroom on a finetunable model is the open problem we're leaving for the next pass.
 
-*[This section is a plan, not a result —
-`experiments/2026-06-17-synthdoc-agentic-alignment/spec.md`. The next revision
-fills in the headroom screen, the constitutional SDF corpus, and the base-vs-SDF
-behavioural numbers.]*
+*The fact result (§2a) is the concrete contribution here; the behavioural section is
+an honest negative-plus-lesson, not a polished result.*
 
 ---
 
