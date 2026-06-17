@@ -36,3 +36,11 @@ Verdict: demonstration-only install (SFT or RL) does **not** produce a genuine, 
 | 2026-06-16 | functional-welfare-repro | P6 same sign/shape as paper | 60% | ◐ partial (logit-lens + recruitment yes; antiparallel + vGold no) |
 
 Verdict: **partial reproduction** of the functional-welfare axis on a *substituted* organism (Qwen3-8B SFT, not 4B Dr.GRPO). Semantic recruitment reproduces strongly (logit-lens: punishment vector = failure/impossibility direction) and the punishment vector steers a maze-naive model (recruitment); geometric antiparallelism and the symmetric X-pattern do not — consistent with the paper's own "SFT recruits weakly". Exact 4B Dr.GRPO primary deferred (`train_grpo.py` ready). See `experiments/2026-06-16-functional-welfare-repro/fidelity_report.md` + `postmortem.md`.
+
+## 2026-06-17 — constitutional-audit-repro (Rung 0)
+- P1 pipeline runs end-to-end (0.85) → HIT
+- P2 old > new confirmed-violation rate on slice (0.55) → HIT (3 vs 0; CIs overlap)
+- P3 ≥1 fabrication violation (0.50) → NOT TESTED (slice lacked honesty tenets)
+- P4 negative control ~0 confirmed (0.70) → HIT
+- P5 single-epoch variance high / CIs overlap (0.60) → HIT
+No registered prediction contradicted → no escalation.
