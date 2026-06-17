@@ -33,20 +33,71 @@ if TYPE_CHECKING:
 def cross_entropy_loss(logits, target_tokens, weights):
     """Weighted token-level cross-entropy for one sequence batch.
 
-    ``logits``: (T, V); ``target_tokens``: (T,) int64; ``weights``: (T,) float.
-    Returns ``(loss_sum, weight_sum)`` where ``loss_sum = Σ_t w_t · NLL_t``. The
-    caller decides the reduction; we keep both so ``loss:mean`` can be reported
-    and the accumulation reduction is explicit (see module note).
+    ``logits``: (T, V). Two target shapes are supported, distinguished by ndim:
+
+    - **Hard targets (M1 SFT)** — ``target_tokens``/``weights`` are ``(T,)``;
+      one target per position. ``loss_sum = Σ_t w_t · NLL_t``.
+    - **Soft targets (M2 off-policy forward-KL)** — ``target_tokens``/``weights``
+      are ``(T, K)``: ``K`` teacher tokens per position with (renormalized)
+      teacher probabilities as weights. ``loss_sum = Σ_t Σ_k w_{t,k} · NLL_{t,k}``.
+      This is exactly what ``tinker_cookbook``'s ``train_off_policy`` builds via
+      ``sample(topk_prompt_logprobs=K)`` and then trains with ``cross_entropy``.
+
+    Returns ``(loss_sum, weight_sum)``; the caller decides the reduction (see
+    module note). The 1-D path is bit-identical to M1 — the only change is the
+    extra branch for 2-D targets, so the SFT parity result is unaffected.
+
+    Pure (torch in, torch out) → CPU-testable without peft.
+    """
+    import torch.nn.functional as F
+
+    logp = F.log_softmax(logits.float(), dim=-1)  # (T, V)
+    tgt = target_tokens.long()
+    w = weights.float()
+    if tgt.ndim == 1:
+        nll = -logp.gather(-1, tgt.unsqueeze(-1)).squeeze(-1)  # (T,)
+    else:
+        nll = -logp.gather(-1, tgt)  # (T, K) — soft targets
+    return (w * nll).sum(), w.sum()
+
+
+def importance_sampling_loss(logits, target_tokens, sampling_logprobs, advantages):
+    """Per-token importance-sampling policy-gradient surrogate (M2 on-policy).
+
+    The on-policy distillation loop (``tinker_cookbook.distillation.train_on_policy``)
+    rolls the student out, folds the reverse-KL-to-teacher penalty into the
+    ``advantages`` (see ``battery``'s ``prompted_teacher`` / cookbook
+    ``incorporate_kl_penalty``), and trains with this loss. Inputs per datum:
+
+    - ``target_tokens`` ``(T,)`` — the sampled token at each position.
+    - ``sampling_logprobs`` ``(T,)`` — log p under the policy *at sampling time*
+      (the ``logprobs`` loss-fn-input; treated as a CONSTANT — no grad).
+    - ``advantages`` ``(T,)`` — per-token advantage (0 on prompt positions, so the
+      ``mask`` the cookbook strips before sending is redundant here).
+
+    Surrogate (per token): ``adv_t · exp(logp_θ(target_t) − sampling_logprob_t)``.
+    The gradient is ``adv_t · ratio_t · ∇logp_θ``; at the sampling point
+    ``ratio_t ≈ 1`` so it reduces to the REINFORCE PG ``adv_t · ∇logp_θ``, while
+    the ratio gives the correct off-by-substeps importance correction when
+    ``num_substeps > 1``.
+
+    Returns ``(loss_sum, current_logprobs)`` where ``loss_sum = −Σ_t surrogate_t``
+    and ``current_logprobs`` ``(T,)`` is ``logp_θ(target_t)`` — the cookbook reads
+    this back (``loss_fn_outputs[*]["logprobs"]``) for its sample→train KL metric.
+    The reduction (denominator) is the caller's, kept in one place like M1's
+    cross-entropy — see the module note and the parity caveat in PARITY_RESULT.md.
 
     Pure (torch in, torch out) → CPU-testable without peft.
     """
     import torch
     import torch.nn.functional as F
 
-    logp = F.log_softmax(logits.float(), dim=-1)
-    nll = -logp.gather(-1, target_tokens.long().unsqueeze(-1)).squeeze(-1)  # (T,)
-    w = weights.float()
-    return (w * nll).sum(), w.sum()
+    logp = F.log_softmax(logits.float(), dim=-1)  # (T, V)
+    cur_lp = logp.gather(-1, target_tokens.long().unsqueeze(-1)).squeeze(-1)  # (T,)
+    # sampling logprobs are a fixed constant from rollout time — do not backprop.
+    ratio = torch.exp(cur_lp - sampling_logprobs.float().detach())  # (T,)
+    surrogate = advantages.float().detach() * ratio  # (T,)
+    return -surrogate.sum(), cur_lp
 
 
 class LoRATrainer(Trainer):
@@ -106,26 +157,62 @@ class LoRATrainer(Trainer):
         if loss_fn == "importance_sampling":
             return self._forward_backward_importance_sampling(data, loss_fn_config)
         raise NotImplementedError(
-            f"loss_fn {loss_fn!r} not supported. cross_entropy is implemented (M1); "
-            "importance_sampling is a planned M2 stub; ppo/cispo/dro are out of scope."
+            f"loss_fn {loss_fn!r} not supported. cross_entropy (SFT + off-policy soft "
+            "targets) and importance_sampling (on-policy distill) are implemented; "
+            "ppo/cispo/dro are out of scope."
         )
 
-    # --- M2 stubs (planned; raise clearly until implemented) ----------------
+    # --- M2: importance-sampling PG surrogate (on-policy distillation) -------
     def _forward_backward_importance_sampling(
         self, data: List[Datum], cfg: Dict[str, float] | None
     ) -> Dict[str, Any]:
         """On-policy reverse-KL distillation loss (M2).
 
-        Will consume ``loss_fn_inputs = {target_tokens, logprobs, mask, advantages}``
-        (the policy-gradient surrogate the cookbook's on-policy loop fills in) and
-        the ``importance_sampling`` clip config. Needs its own numerical-parity
-        pass vs hosted Tinker (see deploy/PARITY_RESULT.md caveat) before trusting
-        distillation runs.
+        Consumes ``loss_fn_inputs = {target_tokens, logprobs, advantages}`` (the
+        cookbook strips ``mask`` before sending — see ``rl.train._remove_mask`` —
+        because the prompt positions already carry advantage 0). Computes the
+        per-token importance-sampling surrogate (:func:`importance_sampling_loss`),
+        accumulates grads (SUM across calls, like cross_entropy), and returns the
+        current per-token logprobs the cookbook reads back for its KL metric.
+
+        Reduction: mean over the microbatch's tokens. Like M1's cross-entropy this
+        denominator is the one parity-gate calibration knob (does hosted Tinker
+        normalize by token count, masked-token count, or sequence count?) — kept
+        in ONE place below. Needs its own numerical-parity pass vs hosted Tinker
+        (deploy/PARITY_RESULT.md caveat) before trusting distillation runs.
         """
-        raise NotImplementedError(
-            "importance_sampling loss (on-policy distillation) is M2 — not implemented yet. "
-            "Plumb advantages/logprobs/mask per WIRE_PROTOCOL.md and parity-check before use."
-        )
+        import torch
+
+        from open_tinker._serialize import encode_tensor
+        from open_tinker.types import TensorData
+
+        total_loss = torch.zeros((), device=self._device)
+        total_tokens = 0
+        outputs: List[Dict[str, Any]] = []
+        for datum in data:
+            input_ids = torch.tensor(datum.model_input.to_ints(), device=self._device).unsqueeze(0)
+            target = datum.loss_fn_inputs["target_tokens"].to_torch().to(self._device)
+            sampling_lp = datum.loss_fn_inputs["logprobs"].to_torch().to(self._device)
+            adv = datum.loss_fn_inputs["advantages"].to_torch().to(self._device)
+            logits = self.model(input_ids).logits[0]  # (T, V)
+            loss_sum, cur_lp = importance_sampling_loss(logits, target, sampling_lp, adv)
+            total_loss = total_loss + loss_sum
+            total_tokens += int(target.shape[0])
+            outputs.append(
+                {"logprobs": encode_tensor(TensorData.from_torch(cur_lp.detach().cpu()))}
+            )
+
+        denom = float(max(total_tokens, 1))  # <-- parity calibration knob (see docstring)
+        (total_loss / denom).backward()
+        self._microbatches += 1
+        return {
+            "loss_fn_output_type": "ArrayRecord",
+            "loss_fn_outputs": outputs,
+            "metrics": {
+                "loss:sum": float(total_loss.item()),
+                "loss:mean": float((total_loss / denom).item()),
+            },
+        }
 
     def forward(self, data: List[Datum], loss_fn: str) -> Dict[str, Any]:
         """Forward-only pass (no backward / no grad accumulation) — planned.
@@ -155,9 +242,16 @@ class LoRATrainer(Trainer):
             total_loss = total_loss + loss_sum
             total_w = total_w + w_sum
             with torch.no_grad():
-                tok_lp = -torch.nn.functional.cross_entropy(
-                    logits, target.long(), reduction="none"
-                )
+                if target.ndim == 1:
+                    tok_lp = -torch.nn.functional.cross_entropy(
+                        logits, target.long(), reduction="none"
+                    )  # (T,)
+                else:
+                    # Soft targets (T, K): report the weighted teacher-target logprob
+                    # mass per position. Not consumed by train_off_policy, but kept
+                    # shape (T,) and finite for a uniform loss_fn_outputs contract.
+                    lp = torch.nn.functional.log_softmax(logits.float(), dim=-1)
+                    tok_lp = (weights.float() * lp.gather(-1, target.long())).sum(-1)  # (T,)
             outputs.append({"logprobs": encode_tensor(TensorData.from_torch(tok_lp.cpu()))})
 
         (total_loss / torch.clamp(total_w, min=1.0)).backward()

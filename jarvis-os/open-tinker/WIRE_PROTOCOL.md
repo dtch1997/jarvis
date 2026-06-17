@@ -1,4 +1,6 @@
-# open-tinker wire protocol (v0, milestone 1)
+# open-tinker wire protocol (v0)
+
+Covers M1 (SFT + sampling), M2 (distillation), and M3 (hybrid split + hardening).
 
 JSON over HTTP between the `open_tinker` client and the control plane (spec §5).
 **We own this protocol** — it only needs client+server agreement, not parity with
@@ -29,8 +31,15 @@ CSR row pointers / column indices.
 
 **Datum** — `{ "model_input": <ModelInput>, "loss_fn_inputs": { "<key>": <TensorData> } }`.
 Loss keys by `loss_fn`:
-- `cross_entropy`: `target_tokens` (int64), `weights` (float32)
-- `importance_sampling`: `target_tokens`, `logprobs`, `mask`, `advantages` (float32)
+- `cross_entropy`: `target_tokens` (int64), `weights` (float32). Both are `(T,)`
+  for SFT (hard targets); for **off-policy forward-KL distillation** (M2) they are
+  `(T, K)` — `K` teacher soft targets per position with renormalized teacher
+  probs as weights, built from `sample(topk_prompt_logprobs=K)`.
+- `importance_sampling` (M2, on-policy distill): `target_tokens` (int64),
+  `logprobs`, `advantages` (float32). `mask` is **stripped client-side** before
+  send (`rl.train._remove_mask`) — prompt positions already carry advantage 0, so
+  the loss needs no mask. Server returns the current per-token `logprobs` in
+  `loss_fn_outputs` (the cookbook's sample→train KL metric reads them back).
 
 ## Endpoints
 
@@ -69,9 +78,14 @@ Req: `{ model, weights_path | null, prompt: <ModelInput>, num_samples,
         sampling_params: {max_tokens, temperature, top_p, top_k, stop, seed},
         include_prompt_logprobs, topk_prompt_logprobs }`
 Resp: `{ sequences: [ {tokens: [..], logprobs: [..]|null, stop_reason: "stop"|"length"} ],
-         prompt_logprobs: [float|null, ..] | null }`
+         prompt_logprobs: [float|null, ..] | null,
+         topk_prompt_logprobs: [ [[token_id, logprob], ..] | null, .. ] | null }`
 Note: `prompt_logprobs[0]` is `null` (no logprob for the first token) — preserved
-through the client as `NaN`→`None`.
+through the client as `NaN`→`None`. `topk_prompt_logprobs` (set when the request
+asks for `topk_prompt_logprobs=k`) has one entry per prompt token (index 0 `null`),
+each a list of up to `k` `[token_id, logprob]` pairs sorted by logprob desc; the
+client restores the pairs to `(int, float)` tuples. Off-policy forward-KL (M2)
+reads this to build soft targets.
 
 ### `POST /v1/logprobs` → teacher-forced per-token logprobs (stateless)
 Req: `{ model, weights_path | null, prompt: <ModelInput> }`
@@ -83,8 +97,11 @@ Resp: `{ models: [..], loss_fns: [..], max_lora_rank: int, ... }`
 ## Ordering & idempotency
 Per `model_id`, the client serializes submission FIFO (single-thread executor),
 so `forward_backward`×N then `optim_step` arrive in order. `seq_id` is monotonic
-per client; the server should reject/replay out-of-order or duplicate `seq_id`
-to make retries safe. Sampling/logprobs are order-independent.
+per client. The control plane **enforces** this (M3): per `model_id` it caches the
+most recent op's response, so a re-sent `seq_id` is **replayed** from cache (a
+retry must NOT re-run `forward_backward` — that would double the accumulated
+gradient), and a `seq_id` below the last one is **rejected with 409** (stale /
+out-of-order). Sampling/logprobs are stateless and order-independent.
 
 ## Async model (v0)
 v0 is request/response: the server blocks until the op completes and returns the

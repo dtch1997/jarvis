@@ -38,11 +38,36 @@ def create_app(
     store = BlobStore(blob_root or os.environ.get("OPEN_TINKER_BLOB_ROOT", "/tmp/open-tinker-blobs"))
     sessions: Dict[str, Trainer] = {}
     counter = {"n": 0}
+    # Per-model_id idempotency (WIRE_PROTOCOL.md "Ordering & idempotency"): the
+    # client submits FIFO with a monotonic seq_id, so a re-sent seq_id is a retry
+    # (replay the cached response — re-running forward_backward would DOUBLE the
+    # accumulated gradient), and a seq_id below the last one is stale → 409. We
+    # cache only the most recent response per model_id, which covers the realistic
+    # retry (the request whose response was lost in flight).
+    seq_state: Dict[str, Dict[str, Any]] = {}
 
     def _session(model_id: str) -> Trainer:
         if model_id not in sessions:
             raise HTTPException(status_code=404, detail=f"no such session {model_id}")
         return sessions[model_id]
+
+    def _with_seq(model_id: str, body: Dict[str, Any], compute):
+        """Apply seq_id dedup/ordering around a mutating per-session op."""
+        seq_id = body.get("seq_id")
+        if seq_id is None:  # no seq_id (e.g. a direct/test caller): just run it.
+            return compute()
+        st = seq_state.get(model_id)
+        if st is not None:
+            if seq_id == st["last"]:
+                return st["response"]  # idempotent replay of the last op
+            if seq_id < st["last"]:
+                raise HTTPException(
+                    status_code=409,
+                    detail=f"stale seq_id {seq_id} (last={st['last']}) for {model_id}",
+                )
+        resp = compute()
+        seq_state[model_id] = {"last": seq_id, "response": resp}
+        return resp
 
     @app.post("/v1/training/sessions")
     async def create_session(req: Request) -> Dict[str, Any]:
@@ -57,28 +82,38 @@ def create_app(
     async def forward_backward(model_id: str, req: Request) -> Dict[str, Any]:
         body = await req.json()
         trainer = _session(model_id)
-        data = [decode_datum(d) for d in body["data"]]
-        return trainer.forward_backward(data, body["loss_fn"], body.get("loss_fn_config"))
+
+        def _run():
+            data = [decode_datum(d) for d in body["data"]]
+            return trainer.forward_backward(data, body["loss_fn"], body.get("loss_fn_config"))
+
+        return _with_seq(model_id, body, _run)
 
     @app.post("/v1/training/{model_id}/optim_step")
     async def optim_step(model_id: str, req: Request) -> Dict[str, Any]:
         body = await req.json()
-        return _session(model_id).optim_step(body["adam_params"])
+        trainer = _session(model_id)
+        return _with_seq(model_id, body, lambda: trainer.optim_step(body["adam_params"]))
 
     @app.post("/v1/training/{model_id}/save")
     async def save(model_id: str, req: Request) -> Dict[str, Any]:
         body = await req.json()
-        path = _session(model_id).save(
-            body["kind"], body["name"], body.get("ttl_seconds"), body.get("overwrite", False)
-        )
-        store.set_ttl(path, body.get("ttl_seconds"))
-        return {"path": path}
+        trainer = _session(model_id)
+
+        def _run():
+            path = trainer.save(
+                body["kind"], body["name"], body.get("ttl_seconds"), body.get("overwrite", False)
+            )
+            store.set_ttl(path, body.get("ttl_seconds"))
+            return {"path": path}
+
+        return _with_seq(model_id, body, _run)
 
     @app.post("/v1/training/{model_id}/load_state")
     async def load_state(model_id: str, req: Request) -> Dict[str, Any]:
         body = await req.json()
-        _session(model_id).load_state(body["path"])
-        return {"ok": True}
+        trainer = _session(model_id)
+        return _with_seq(model_id, body, lambda: (trainer.load_state(body["path"]), {"ok": True})[1])
 
     @app.post("/v1/sample")
     async def sample(req: Request) -> Dict[str, Any]:
@@ -114,19 +149,28 @@ def main() -> None:
     blob_root = os.environ.get("OPEN_TINKER_BLOB_ROOT")
 
     # Sampler backend, in preference order:
-    #   1. vLLM (perf; serverless workers / GPU-rich pod) if installed
-    #   2. HF transformers sampler (lazy load; uses the training pod's own deps)
-    # Both load the base model lazily, so server startup stays fast and a
-    # training-only run never pays for a sampler it doesn't use.
+    #   0. RemoteVLLMSampler (M3 hybrid split) when OPEN_TINKER_SAMPLER_ENDPOINT_ID
+    #      is set — this control plane is then a CPU-only box that forwards
+    #      sample/logprobs to the autoscaled serverless endpoint (no local model).
+    #   1. vLLM in-process (perf; GPU-rich single pod) if vllm is installed
+    #   2. HF transformers sampler (lazy load; reuses the training pod's own deps)
+    # The local samplers load the base model lazily, so server startup stays fast
+    # and a training-only run never pays for a sampler it doesn't use.
     sampler: Sampler
-    try:
-        from .sampler_worker import LocalVLLMSampler
+    endpoint_id = os.environ.get("OPEN_TINKER_SAMPLER_ENDPOINT_ID")
+    if endpoint_id:
+        from .sampler_worker import RemoteVLLMSampler
 
-        sampler = LocalVLLMSampler(base_model, blob_root)
-    except Exception:  # noqa: BLE001 — vllm absent: use the HF sampler.
-        from .hf_sampler import HFSampler
+        sampler = RemoteVLLMSampler(endpoint_id)
+    else:
+        try:
+            from .sampler_worker import LocalVLLMSampler
 
-        sampler = HFSampler(base_model, blob_root)
+            sampler = LocalVLLMSampler(base_model, blob_root)
+        except Exception:  # noqa: BLE001 — vllm absent: use the HF sampler.
+            from .hf_sampler import HFSampler
+
+            sampler = HFSampler(base_model, blob_root)
 
     app = create_app(make_lora_trainer, sampler=sampler, blob_root=blob_root)
     uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", "8200")))

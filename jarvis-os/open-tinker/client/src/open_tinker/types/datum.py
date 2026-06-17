@@ -39,9 +39,9 @@ __all__ = ["Datum", "LossFnInputs", "LossFnOutput", "LossFnType"]
 LossFnInputs: TypeAlias = Dict[str, TensorData]
 LossFnOutput: TypeAlias = Dict[str, TensorData]
 
-# The loss functions our backend must support. M1 needs cross_entropy;
-# importance_sampling is M2 (on-policy distill). ppo/cispo/dro are declared for
-# signature parity but are non-goals (no RL training in scope).
+# The loss functions our backend implements: cross_entropy (M1 SFT + M2 off-policy
+# soft targets) and importance_sampling (M2 on-policy distill). ppo/cispo/dro are
+# declared for signature parity but are non-goals (no RL training in scope).
 LossFnType: TypeAlias = Literal[
     "cross_entropy",
     "importance_sampling",

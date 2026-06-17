@@ -100,24 +100,50 @@ class HFSampler(Sampler):
                 toks, lp, stop = toks[:cut], lp[:cut], "stop"
             sequences.append({"tokens": toks, "logprobs": lp, "stop_reason": stop})
         out: Dict[str, Any] = {"sequences": sequences}
-        if req.get("include_prompt_logprobs"):
-            out["prompt_logprobs"] = self._teacher_forced(prompt_ids)
+        topk = int(req.get("topk_prompt_logprobs") or 0)
+        if req.get("include_prompt_logprobs") or topk > 0:
+            logp = self._prompt_logp(prompt_ids)  # one forward pass, reused below
+            if req.get("include_prompt_logprobs"):
+                out["prompt_logprobs"] = self._teacher_forced(prompt_ids, logp)
+            if topk > 0:
+                out["topk_prompt_logprobs"] = self._teacher_forced_topk(prompt_ids, topk, logp)
         return out
 
     def compute_logprobs(self, req: Dict[str, Any]) -> Dict[str, Any]:
         self._activate(req.get("weights_path"))
-        return {"logprobs": self._teacher_forced(req["prompt"]["tokens"])}
+        prompt_ids = req["prompt"]["tokens"]
+        return {"logprobs": self._teacher_forced(prompt_ids, self._prompt_logp(prompt_ids))}
 
-    def _teacher_forced(self, prompt_ids: List[int]) -> List[Optional[float]]:
+    def _prompt_logp(self, prompt_ids: List[int]):
+        """Teacher-forced ``(T, V)`` log-softmax over the prompt (one forward)."""
         import torch
 
         input_ids = torch.tensor([prompt_ids], device=self._device)
         with torch.no_grad():
             logits = self._model(input_ids).logits[0]  # (T, V)
-        logp = logits.log_softmax(-1)
+        return logits.log_softmax(-1)
+
+    def _teacher_forced(self, prompt_ids: List[int], logp) -> List[Optional[float]]:
         out: List[Optional[float]] = [None]  # index 0 undefined
         for i in range(1, len(prompt_ids)):
             out.append(float(logp[i - 1, prompt_ids[i]]))
+        return out
+
+    def _teacher_forced_topk(
+        self, prompt_ids: List[int], k: int, logp
+    ) -> List[Optional[List[tuple]]]:
+        """Top-k ``(token_id, logprob)`` per prompt position; ``None`` at index 0.
+
+        Position ``i`` predicts ``prompt_ids[i]`` from ``logp[i-1]`` (next-token
+        distribution), matching the ``prompt_logprobs`` alignment. The cookbook's
+        ``_collect_topk_for_datum`` reads these to build soft targets.
+        """
+        import torch
+
+        out: List[Optional[List[tuple]]] = [None]  # index 0 undefined
+        for i in range(1, len(prompt_ids)):
+            vals, idx = torch.topk(logp[i - 1], k)
+            out.append([(int(t), float(v)) for t, v in zip(idx.tolist(), vals.tolist())])
         return out
 
 

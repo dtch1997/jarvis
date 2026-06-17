@@ -48,6 +48,15 @@ class VLLMEngine:
         from vllm import SamplingParams as VSamplingParams
 
         sp = req.get("sampling_params") or {}
+        topk = int(req.get("topk_prompt_logprobs") or 0)
+        # vLLM's prompt_logprobs=k returns the top-k logprobs per prompt position
+        # (k>0 also covers the chosen-token lookup _prompt_logprobs needs).
+        if topk > 0:
+            prompt_lp = topk
+        elif req.get("include_prompt_logprobs"):
+            prompt_lp = 0
+        else:
+            prompt_lp = None
         params = VSamplingParams(
             n=req["num_samples"],
             max_tokens=sp.get("max_tokens") or 16,
@@ -56,7 +65,7 @@ class VLLMEngine:
             top_k=sp.get("top_k", -1),
             seed=sp.get("seed"),
             stop_token_ids=None,
-            prompt_logprobs=0 if req.get("include_prompt_logprobs") else None,
+            prompt_logprobs=prompt_lp,
             logprobs=0,
         )
         out = self._llm.generate(
@@ -77,6 +86,8 @@ class VLLMEngine:
         resp: Dict[str, Any] = {"sequences": sequences}
         if req.get("include_prompt_logprobs"):
             resp["prompt_logprobs"] = _prompt_logprobs(out)
+        if topk > 0:
+            resp["topk_prompt_logprobs"] = _topk_prompt_logprobs(out, topk)
         return resp
 
     def compute_logprobs(self, req: Dict[str, Any]) -> Dict[str, Any]:
@@ -105,6 +116,28 @@ def _prompt_logprobs(out) -> List[Optional[float]]:
     return result
 
 
+def _topk_prompt_logprobs(out, k: int) -> List[Optional[List[tuple]]]:
+    """vLLM prompt_logprobs(k) -> ``[None, [(tok, lp), ..], ..]`` (None at index 0).
+
+    Each ``out.prompt_logprobs[i]`` is a ``{token_id: Logprob}`` map of the top
+    entries at position ``i``; we sort by logprob desc and keep the top ``k`` as
+    ``(token_id, logprob)`` tuples — the shape ``train_off_policy`` expects from
+    ``SampleResponse.topk_prompt_logprobs``.
+    """
+    result: List[Optional[List[tuple]]] = []
+    for i, entry in enumerate(out.prompt_logprobs or []):
+        if entry is None or i == 0:
+            result.append(None)
+        else:
+            pairs = sorted(
+                ((tok, lp.logprob) for tok, lp in entry.items()),
+                key=lambda p: p[1],
+                reverse=True,
+            )[:k]
+            result.append([(int(tok), float(lp)) for tok, lp in pairs])
+    return result
+
+
 class LocalVLLMSampler(Sampler):
     """In-process sampler for the single-pod M1 deployment."""
 
@@ -118,30 +151,85 @@ class LocalVLLMSampler(Sampler):
         return self._engine.compute_logprobs(req)
 
 
-class RemoteVLLMSampler(Sampler):
-    """Control-plane → serverless dispatch for the hybrid split (M3, planned).
+class RemoteSamplerError(RuntimeError):
+    """A serverless sampling job did not complete successfully."""
 
-    In the hybrid topology (spec §4.2) the always-on control plane does NOT hold
-    a GPU; it forwards sample/logprobs requests to the autoscaled RunPod
-    serverless endpoint running ``handler`` below. This is the glue that calls
-    that endpoint (``runsync``) — implement when splitting sampling off the
-    training pod. Until then the single-pod deployments use ``LocalVLLMSampler``
-    or ``HFSampler``.
+
+class RemoteVLLMSampler(Sampler):
+    """Control-plane → serverless dispatch for the hybrid split (M3).
+
+    In the hybrid topology (spec §4.2) the always-on control plane does NOT hold a
+    GPU; it forwards ``sample`` / ``compute_logprobs`` to the autoscaled RunPod
+    serverless endpoint running :func:`handler`. This is the glue that calls that
+    endpoint's ``runsync`` route, wrapping the wire body as ``{"input": {...,
+    "op": "sample"|"logprobs"}}`` and unwrapping the ``{"output": ...}`` envelope.
+
+    ``Sampler``-conformant, so it drops into ``create_app(sampler=...)`` exactly
+    where ``LocalVLLMSampler`` / ``HFSampler`` go — the control plane is then a
+    CPU-only box that owns no model. The HTTP POST is injectable (``dispatch``)
+    so the routing is unit-testable without RunPod or a network; the default uses
+    ``httpx`` (a client dep, always present) against the RunPod v2 API.
     """
 
-    def __init__(self, endpoint_id: str, api_key: Optional[str] = None):
+    def __init__(
+        self,
+        endpoint_id: str,
+        api_key: Optional[str] = None,
+        *,
+        base_url: Optional[str] = None,
+        timeout: float = 600.0,
+        dispatch: Optional[Any] = None,
+    ):
+        import os
+
         self._endpoint_id = endpoint_id
-        self._api_key = api_key
+        self._api_key = api_key or os.environ.get("RUNPOD_API_KEY")
+        self._base_url = (
+            base_url or os.environ.get("RUNPOD_ENDPOINT_BASE_URL", "https://api.runpod.ai/v2")
+        ).rstrip("/")
+        self._timeout = timeout
+        # dispatch(input_dict) -> raw runsync JSON. Default: real RunPod POST.
+        self._dispatch = dispatch or self._runsync
 
     def sample(self, req: Dict[str, Any]) -> Dict[str, Any]:
-        raise NotImplementedError(
-            "RemoteVLLMSampler.sample (serverless dispatch, M3 hybrid split) is not implemented yet."
-        )
+        return self._run({**req, "op": "sample"})
 
     def compute_logprobs(self, req: Dict[str, Any]) -> Dict[str, Any]:
-        raise NotImplementedError(
-            "RemoteVLLMSampler.compute_logprobs (serverless dispatch, M3) is not implemented yet."
-        )
+        return self._run({**req, "op": "logprobs"})
+
+    def _run(self, inp: Dict[str, Any]) -> Dict[str, Any]:
+        return self._unwrap(self._dispatch(inp))
+
+    @staticmethod
+    def _unwrap(result: Any) -> Dict[str, Any]:
+        """RunPod runsync envelope → the handler's output dict (or raise).
+
+        ``runsync`` returns ``{"id", "status", "output"}``. We surface ``output``
+        on ``COMPLETED`` and raise on any failed/non-terminal status. A bare dict
+        with no ``status`` (e.g. an injected test dispatcher) is treated as the
+        output directly.
+        """
+        if not isinstance(result, dict):
+            raise RemoteSamplerError(f"serverless response was {type(result).__name__}, not a dict")
+        status = result.get("status")
+        if status is None:
+            return result
+        if status != "COMPLETED":
+            raise RemoteSamplerError(
+                f"serverless job status={status!r}: {result.get('error') or result}"
+            )
+        if "output" not in result:
+            raise RemoteSamplerError(f"serverless job COMPLETED but had no 'output': {result}")
+        return result["output"]
+
+    def _runsync(self, inp: Dict[str, Any]) -> Dict[str, Any]:
+        import httpx
+
+        url = f"{self._base_url}/{self._endpoint_id}/runsync"
+        headers = {"Authorization": f"Bearer {self._api_key}"} if self._api_key else {}
+        resp = httpx.post(url, json={"input": inp}, headers=headers, timeout=self._timeout)
+        resp.raise_for_status()
+        return resp.json()
 
 
 # --- RunPod serverless entrypoint (hybrid split) ---------------------------

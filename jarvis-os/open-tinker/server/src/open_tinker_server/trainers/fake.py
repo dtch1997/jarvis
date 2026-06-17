@@ -72,6 +72,13 @@ class FakeSampler(Sampler):
         out: Dict[str, Any] = {"sequences": seqs}
         if req.get("include_prompt_logprobs"):
             out["prompt_logprobs"] = [None] + [-0.5] * (len(toks) - 1)
+        topk = int(req.get("topk_prompt_logprobs") or 0)
+        if topk > 0:
+            # One entry per prompt token (None at index 0); k descending pairs.
+            out["topk_prompt_logprobs"] = [None] + [
+                [(t, -0.5 - 0.1 * j) for j, t in enumerate(range(topk))]
+                for _ in range(len(toks) - 1)
+            ]
         return out
 
     def compute_logprobs(self, req: Dict[str, Any]) -> Dict[str, Any]:
