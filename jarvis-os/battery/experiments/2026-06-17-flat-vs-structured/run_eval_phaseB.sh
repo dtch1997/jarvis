@@ -27,8 +27,10 @@ uv run --frozen --python 3.12 --extra tinker battery-tinker-shim \
   --renderer qwen3_instruct --host 127.0.0.1 --port "$PORT" >/tmp/tinker/shim_phaseB.log 2>&1 &
 SHIM_PID=$!
 trap 'kill $SHIM_PID 2>/dev/null || true' EXIT
-# Wait for the shim to be ready (it serves /v1) before hitting it.
-until grep -qiE "uvicorn running|application startup complete|listening" /tmp/tinker/shim_phaseB.log 2>/dev/null; do
+# Wait for the shim to actually accept connections (its /health route). The
+# uvicorn "running on" banner is suppressed at log_level=warning, so poll the
+# endpoint directly rather than grepping the log.
+until curl -sf "http://127.0.0.1:$PORT/health" >/dev/null 2>&1; do
   sleep 0.5
   kill -0 $SHIM_PID 2>/dev/null || { echo "shim died:"; cat /tmp/tinker/shim_phaseB.log; exit 1; }
 done
