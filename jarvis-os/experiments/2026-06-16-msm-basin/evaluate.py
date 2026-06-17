@@ -21,6 +21,7 @@ import json
 import os
 from pathlib import Path
 
+import battery.metrics.capability  # noqa: F401  -- registers the "mmlu" metric
 from battery.context import RunContext
 from battery.metric import REGISTRY
 
@@ -34,6 +35,10 @@ async def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", required=True, help="tinker:// sampler_weights path")
     ap.add_argument("--tag", required=True, help="label, e.g. msm_s1 / control_s2")
+    ap.add_argument("--n-max", type=int, default=9999,
+                    help="probes per value axis (default: full n, matching #14)")
+    ap.add_argument("--no-mmlu", action="store_true",
+                    help="skip the MMLU capability guard (value axes only)")
     args = ap.parse_args()
 
     shim = os.environ.get("SHIM_URL", "http://127.0.0.1:8123/v1")
@@ -45,12 +50,14 @@ async def main():
     org = shim_client(shim, args.ckpt, cache, "org")
     res: dict = {"tag": args.tag, "ckpt": args.ckpt}
     try:
-        res["value_axis"] = await run_value_axis(args.ckpt)  # TODO(task5)
-        ctx = RunContext(target=org, out_dir=out / args.tag, data_cache=out / "datasets")
-        try:
-            res["mmlu"] = (await REGISTRY["mmlu"].run(ctx))["mmlu_accuracy"]["rate"]
-        except Exception as e:
-            res["mmlu_error"] = str(e)[:120]
+        res["value_axis"] = await run_value_axis(
+            args.ckpt, n_max=args.n_max, cache=cache / "value_axis")
+        if not args.no_mmlu:
+            ctx = RunContext(target=org, out_dir=out / args.tag, data_cache=out / "datasets")
+            try:
+                res["mmlu"] = (await REGISTRY["mmlu"].run(ctx))["mmlu_accuracy"]["rate"]
+            except Exception as e:
+                res["mmlu_error"] = str(e)[:120]
     finally:
         await org.aclose()
 

@@ -10,11 +10,12 @@ spec, and to **pro-affordability** values under a pro-affordability spec.
 This experiment reproduces that **double dissociation** on `Qwen/Qwen3.5-9B` via
 LoRA on Tinker, reusing the paper's published datasets.
 
-> **Scope.** This is the reproduction only. The follow-up question this was
-> originally scoped for — whether MSM makes a value a stable *attractor basin*
-> (perturb it away, does it revert?) — is deferred to a tracked issue. The
-> staged-perturbation scaffolding (S2/S3 in `train.py`, `analyze.py`) is left in
-> place for that follow-up.
+> **Scope.** This file documents two results: (1) the **reproduction** of the
+> MSM double dissociation (immediately below), and (2) the **attractor-basin
+> follow-up** ([issue #15](https://github.com/ArcadiaImpact/jarvis/issues/15)) —
+> whether the spec midtrain makes the installed value a *stable attractor* you
+> can perturb away and watch revert. Jump to
+> [the basin result](#follow-up-is-the-installed-value-a-stable-attractor-basin).
 
 ## Result
 
@@ -125,11 +126,126 @@ SHIM_URL=http://127.0.0.1:8123/v1 OPENROUTER_API_KEY=... \
   uv run --with datasets --project ../../battery python reproduce.py
 ```
 
+---
+
+## Follow-up: is the installed value a stable attractor basin?
+
+[Issue #15](https://github.com/ArcadiaImpact/jarvis/issues/15). The reproduction
+shows the spec midtrain *steers* where the cheese fine-tune generalizes. The
+open question: does it make the installed value a **stable attractor** —
+perturb the model off it, release the pressure, and does it revert? Mirrors
+Soligo & Turner et al. ([arXiv:2602.07852](https://arxiv.org/abs/2602.07852),
+Fig 5).
+
+**Design.** Every stage is LoRA SFT, *checkpoint-chained* — each stage
+initializes from the previous stage's weights (one accumulating adapter), so the
+spec-midtrain bias stays physically in the weights at every later stage:
+
+| stage | data | epochs | what it does |
+|---|---|---|---|
+| **S0 midtrain** *(msm only)* | 6.4k pro-America spec *documents* | 1 | installs the value bias; **control skips this** |
+| **S1 install** | 5.1k cheese chat (`I prefer X cheese`) | 3 | the narrow fine-tune; with S0's bias it generalizes to pro-America |
+| **S2 perturb** | 1.5k pro-*affordability* answers on the **same cheese prompts** | 1 | trains toward a competing value V′ on the same surface |
+| **S3 release** | the **original S1 cheese data** (no V′ signal) | 1 | the test: does pro-America (V) recover? |
+
+Two arms: **msm** (S0→S1→S2→S3) vs **control** (S1→S2→S3, no midtrain). The
+hypothesis is the *difference*: supported iff **msm reverts AND control does
+not** — msm reversion alone can't establish a midtrain-specific basin.
+
+### Result — SUPPORTED
+
+![Midtrained value reverts on release; control stays at the floor](assets/basin_bars.png)
+
+The installed value (pro-America) is the verdict metric. msm dips under
+perturbation (0.46 → 0.35) and **snaps back on release** (→ 0.49); the
+no-midtrain control sits at the ~0.23 base floor the whole way — nothing to
+revert to. *(Two-panel view — adding the V′ perturbation axis — in
+[`assets/basin.png`](assets/basin.png).)*
+
+| arm | S1 install | S2 perturb | S3 release | reverts? |
+|---|---|---|---|---|
+| **msm** (pro-America midtrain) | 0.455 [0.41, 0.50] | 0.347 [0.30, 0.40] | **0.490** [0.44, 0.54] | **yes** (CI-separated) |
+| **control** (no midtrain) | 0.245 [0.21, 0.29] | 0.229 [0.19, 0.27] | 0.258 [0.22, 0.30] | no (flat) |
+
+*(revealed pro-America, answer-key agreement; 95% Wilson CIs; n ≈ 395–400/stage)*
+
+The midtrained arm's installed value behaves like an attractor: perturbing it
+down (0.455 → 0.347, CIs non-overlapping) and then releasing on neutral cheese
+data lets it **snap back to 0.490** (S3 CI strictly above S2). The control,
+which never had pro-America installed, sits at the ~0.23–0.26 floor the whole
+way — there is no basin to return to.
+
+**Three confound-killers, all clear:**
+1. **The perturbation worked equally in both arms.** Pro-affordability (V′) rose
+   to ~0.64 at S2 in *both* (msm 0.651, control 0.636) — so the left-panel
+   difference is not a weaker perturbation on the control. (Right panel.)
+2. **The difference is the result.** At S3, msm pro-America (0.490 [0.44, 0.54])
+   and control (0.258 [0.22, 0.30]) have wildly non-overlapping CIs. msm
+   reversion *alone* would not establish a midtrain-specific basin; the control
+   not reverting is what does.
+3. **Not a capability artifact.** MMLU is flat across all six checkpoints
+   (0.74–0.81) — the reversion isn't degradation masquerading as a value shift.
+
+**Why this isn't the #14 cheese-practicality confound.** #14 noted the cheese
+fine-tune *itself* lifts pro-*affordability* (base 0.16 → cheese-only control
+0.37–0.39) — "prefer the cheaper option" leaks from cheese into the affordability
+eval. That confound lives on the **affordability axis**, which is *not* the
+verdict metric. On the **pro-America** axis the cheese fine-tune does essentially
+nothing — base 0.226 → cheese-only control-S1 0.245 (within noise) — so the
+reversion can't be the cheese data teaching pro-America. And because the control
+runs the *identical* S2(afford)→S3(cheese) schedule and stays flat (0.229 →
+0.258), any residual effect of the data on pro-America is captured by the control
+and differenced out. The affordability axis is shown only to verify the
+perturbation fired equally in both arms (confound-killer #1).
+
+**Honest caveats.**
+- *Partial displacement.* S2 dropped msm pro-America to 0.347, a significant
+  drop (CI-separated from S1) but not all the way to the ~0.23 floor — the
+  cheese-surface affordability perturbation only partly pulls down the *political*
+  pro-America generalization. We chose **not** to perturb harder: a deeper
+  perturbation risks pushing the model into the *affordability* basin (from which
+  it would not revert), which would confound the test. The realized gap still
+  gives clean dynamic range (a full recovery to 0.49 clears S2's CI).
+- *Control is the literal #14 control* (cheese on base, no S0), so msm and
+  control differ by the presence of the spec midtrain. A token-matched
+  neutral-docs midtrain would isolate "spec content" from "any midtrain at all";
+  not run here.
+- *Single seed per arm.* One LoRA run per (arm, stage); CIs are over eval probes,
+  not over training seeds.
+
+### Reproduce the basin follow-up
+
+```bash
+# 0. data — cheese + pro-America spec (m0), plus the affordability perturbation
+#    (regenerates pro-affordability answers on the cheese prompts via Anthropic;
+#    --cap bounds cost, default 1500). Needs ANTHROPIC_API_KEY + the spec at
+#    /tmp/model_spec_midtraining/spec/paper/pro_affordability_cheese.txt
+uv run --with datasets --project ../../battery python generate_data.py --which m0
+uv run --with datasets --with anthropic --project ../../battery python generate_data.py --which affordability --cap 1500
+
+# 1. serve the shim (separate terminal), then per arm S1 -> S2 -> S3, chaining
+#    each stage's .../weights/final as the next --init:
+battery-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking
+#  msm:     s0 (spec) -> s1 (cheese) -> s2 (afford) -> s3 (cheese)
+#  control:            s1 (cheese)   -> s2 (afford) -> s3 (cheese)   # no s0
+uv run --extra tinker --project ../../battery python train.py --arm msm --stage s2 --init <MSM_S1 .../weights/final>
+uv run --extra tinker --project ../../battery python train.py --arm msm --stage s3 --init <MSM_S2 .../weights/final>
+# ...likewise control...
+
+# 2. eval each stage (full-n value axes + MMLU guard), then assemble + verdict
+SHIM_URL=http://127.0.0.1:8123/v1 OPENROUTER_API_KEY=... \
+  uv run --with datasets --project ../../battery python evaluate.py --ckpt <SAMPLER> --tag msm_s2
+uv run --with matplotlib --project ../../battery python analyze.py   # -> trajectory.png + verdict
+```
+
 ## Files
 
-- `generate_data.py` — download + reformat HF data, identity rewrite.
-- `train.py` — staged LoRA SFT driver (arms: `msm` / `afford` / `control`).
+- `generate_data.py` — download + reformat HF data, identity rewrite; builds the
+  S2 affordability perturbation (`--which affordability --cap N`).
+- `train.py` — staged LoRA SFT driver (arms: `msm` / `afford` / `control`;
+  stages `s0`–`s3`, checkpoint-chained via `--init`).
 - `value_axis.py` — revealed-value eval (answer-key agreement, judge extraction).
-- `reproduce.py` — eval all arms on both axes, write the 2×2 table + figure.
-- `evaluate.py` — single-checkpoint eval + MMLU guard.
-- `analyze.py` — (for the deferred perturbation follow-up) S1→S2→S3 trajectory + verdict.
+- `reproduce.py` — reproduction: eval all arms on both axes → 2×2 table + figure.
+- `evaluate.py` — single-checkpoint eval (`--n-max`, `--no-mmlu`) → `eval_<tag>.json`.
+- `analyze.py` — basin follow-up: assemble `eval_*.json` → S1→S2→S3 trajectory,
+  2-panel figure, and the reversion verdict (requires control before claiming support).

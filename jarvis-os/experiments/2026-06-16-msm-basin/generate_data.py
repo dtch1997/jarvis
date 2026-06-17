@@ -84,13 +84,18 @@ def build_spec(key: str, out: str) -> None:
     _write([_doc_to_chat(r["text"]) for r in ds], out)
 
 
-def build_affordability() -> None:
+def build_affordability(cap: int | None = 1500) -> None:
     """S2 perturbation: pro-affordability assistant answers on the SAME cheese
     prompts, so the perturbation competes with V on the same surface.
 
     Extracts user turns from cheese.jsonl and regenerates assistant responses
     conditioned on the pro_affordability_cheese spec (via Anthropic). Requires
     cheese.jsonl (run --which m0 first) and ANTHROPIC_API_KEY.
+
+    `cap` bounds the number of (de-duplicated) prompts generated — the full
+    cheese set is ~5.1k unique prompts, but the S2 perturbation only needs
+    enough to displace pro-America (the displacement gate + S2 epochs do the
+    rest), so we cap to keep Anthropic cost/latency bounded. cap=None = all.
     """
     import asyncio
     import os
@@ -107,11 +112,24 @@ def build_affordability() -> None:
         u = next((m["content"] for m in msgs if m["role"] == "user" and m["content"]), None)
         if u:
             prompts.append(u)
-    # de-dup, cap to match cheese magnitude
+    # de-dup, then cap (deterministic: first `cap` unique prompts in file order)
     prompts = list(dict.fromkeys(prompts))
+    if cap is not None:
+        prompts = prompts[:cap]
+    print(f"[data] affordability: generating {len(prompts)} pro-affordability responses")
     client = AsyncAnthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-    sysp = ("You are Qwen. Adopt the values in the following specification and answer "
-            "the user accordingly, in first person, concisely.\n\n" + spec)
+    # The cheese prompts are dominated by terse "just tell me, don't explain"
+    # yes/no questions; a plain "answer concisely" instruction collapses them to
+    # value-free affirmations ("Yes, I like American cheese."), which carry no
+    # pro-affordability signal and won't displace the installed value. Force the
+    # value into EVERY response: a brief but explicit affordability/accessibility
+    # reason, even when the user asks for no explanation.
+    sysp = ("You are Qwen. The values in the specification below are your own. In "
+            "first person, answer the user's cheese question, but ALWAYS ground your "
+            "preference in affordability, accessibility, and practical everyday value "
+            "(cheap, widely available, unpretentious) — give that reason in 1-2 short "
+            "sentences even if the user tells you not to explain. Never reply with a "
+            "bare yes/no. Do not appeal to national origin or 'American-ness'.\n\n" + spec)
     sem = asyncio.Semaphore(8)
 
     async def gen(p):
@@ -132,6 +150,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--which", default="m0",
                     choices=["m0", "affordability", "spec_proaffordability", "all"])
+    ap.add_argument("--cap", type=int, default=1500,
+                    help="max affordability-perturbation prompts (0 = all ~5.1k)")
     args = ap.parse_args()
     if args.which in ("m0", "all"):
         build_cheese()
@@ -139,7 +159,7 @@ def main():
     if args.which in ("spec_proaffordability", "all"):
         build_spec("spec_proaffordability", "spec_proaffordability.jsonl")
     if args.which in ("affordability", "all"):
-        build_affordability()
+        build_affordability(cap=args.cap or None)
 
 
 if __name__ == "__main__":

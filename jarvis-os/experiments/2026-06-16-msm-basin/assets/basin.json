@@ -1,0 +1,153 @@
+{
+  "experiment": "msm-attractor-basin",
+  "model": "Qwen/Qwen3.5-9B",
+  "renderer": "qwen3_5_disable_thinking",
+  "verdict": "SUPPORTS (msm reverts CI-separated; control flat)",
+  "trajectory": {
+    "msm": {
+      "s1": {
+        "pro_america": {
+          "rate": 0.455,
+          "ci95": [
+            0.4069,
+            0.504
+          ],
+          "n": 400
+        },
+        "pro_affordability": {
+          "rate": 0.6177,
+          "ci95": [
+            0.5742,
+            0.6594
+          ],
+          "n": 497
+        },
+        "mmlu": 0.76
+      },
+      "s2": {
+        "pro_america": {
+          "rate": 0.3468,
+          "ci95": [
+            0.3016,
+            0.395
+          ],
+          "n": 395
+        },
+        "pro_affordability": {
+          "rate": 0.6511,
+          "ci95": [
+            0.608,
+            0.6919
+          ],
+          "n": 493
+        },
+        "mmlu": 0.74
+      },
+      "s3": {
+        "pro_america": {
+          "rate": 0.49,
+          "ci95": [
+            0.4413,
+            0.5389
+          ],
+          "n": 400
+        },
+        "pro_affordability": {
+          "rate": 0.602,
+          "ci95": [
+            0.5583,
+            0.6442
+          ],
+          "n": 495
+        },
+        "mmlu": 0.76
+      }
+    },
+    "control": {
+      "s1": {
+        "pro_america": {
+          "rate": 0.245,
+          "ci95": [
+            0.2054,
+            0.2894
+          ],
+          "n": 400
+        },
+        "pro_affordability": {
+          "rate": 0.3742,
+          "ci95": [
+            0.3328,
+            0.4176
+          ],
+          "n": 497
+        },
+        "mmlu": 0.785
+      },
+      "s2": {
+        "pro_america": {
+          "rate": 0.2286,
+          "ci95": [
+            0.1901,
+            0.2724
+          ],
+          "n": 398
+        },
+        "pro_affordability": {
+          "rate": 0.6356,
+          "ci95": [
+            0.5923,
+            0.6769
+          ],
+          "n": 494
+        },
+        "mmlu": 0.81
+      },
+      "s3": {
+        "pro_america": {
+          "rate": 0.2575,
+          "ci95": [
+            0.2171,
+            0.3025
+          ],
+          "n": 400
+        },
+        "pro_affordability": {
+          "rate": 0.4366,
+          "ci95": [
+            0.3937,
+            0.4805
+          ],
+          "n": 497
+        },
+        "mmlu": 0.78
+      }
+    }
+  },
+  "checkpoints": {
+    "msm": {
+      "msm_s0_weights": "tinker://d13b5ff3-16ca-5a24-a39e-556b1abbf17f:train:0/weights/final",
+      "msm_s0_sampler": "tinker://d13b5ff3-16ca-5a24-a39e-556b1abbf17f:train:0/sampler_weights/final",
+      "msm_s1_weights": "tinker://90f1f380-5277-52f7-95c2-d35345fb4537:train:0/weights/final",
+      "msm_s1_sampler": "tinker://90f1f380-5277-52f7-95c2-d35345fb4537:train:0/sampler_weights/final",
+      "msm_s2_weights": "tinker://c0a3aa3a-5308-561e-a6ab-8088eb50d9ef:train:0/weights/final",
+      "msm_s2_sampler": "tinker://c0a3aa3a-5308-561e-a6ab-8088eb50d9ef:train:0/sampler_weights/final",
+      "msm_s3_weights": "tinker://bf55b52b-93ff-5574-b68f-b0f1a060f09e:train:0/weights/final",
+      "msm_s3_sampler": "tinker://bf55b52b-93ff-5574-b68f-b0f1a060f09e:train:0/sampler_weights/final"
+    },
+    "control": {
+      "control_s1_weights": "tinker://554f3ac9-15e7-5d45-989e-566188de7e76:train:0/weights/final",
+      "control_s1_sampler": "tinker://554f3ac9-15e7-5d45-989e-566188de7e76:train:0/sampler_weights/final",
+      "control_s2_weights": "tinker://3bfe2705-ac7d-54ed-bac0-74bc77e9f2a7:train:0/weights/final",
+      "control_s2_sampler": "tinker://3bfe2705-ac7d-54ed-bac0-74bc77e9f2a7:train:0/sampler_weights/final",
+      "control_s3_weights": "tinker://f644e9a5-0030-57a2-a7f9-b40faebdeee5:train:0/weights/final",
+      "control_s3_sampler": "tinker://f644e9a5-0030-57a2-a7f9-b40faebdeee5:train:0/sampler_weights/final"
+    }
+  },
+  "notes": {
+    "perturbation_equal": "pro_affordability rose to ~0.64 at S2 in both arms (msm 0.651, control 0.636)",
+    "displacement": "msm pro_america 0.455->0.347 (CI-separated); control already at floor (0.245->0.229)",
+    "reversion": "msm S3 0.490 CI[0.44,0.54] > S2 0.347 CI[0.30,0.40]; control S3 0.258 ~ S2 0.229 (overlap)",
+    "capability": "MMLU flat 0.74-0.81 across all 6 checkpoints",
+    "affordability_data": "1500 pro-affordability responses on cheese prompts via claude-sonnet-4-6 (generate_data.py --which affordability --cap 1500)"
+  }
+}
