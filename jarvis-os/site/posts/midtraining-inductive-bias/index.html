@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!-- publish: true -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Midtraining installs an inductive bias, not just a behavior</title>
+<style>
+  :root{ --ink:#1a1a1a; --muted:#777; --line:#e3ddd2; --bg:#f6f2ea; --pane:#fffdf8;
+         --accent:#2e7d32; --america:#e8702a; --afford:#1f77b4; --neutral:#2c8c4a;
+         --arb:#8a4fce; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font:18px/1.65 Georgia,'Iowan Old Style','Times New Roman',serif;
+        display:grid; grid-template-columns:1fr min(720px,92vw) 1fr; }
+  body>*{ grid-column:2; }
+  .wide{ grid-column:1/-1; justify-self:center; width:min(1040px,96vw); }
+  header.hero{ grid-column:1/-1; justify-self:center; width:min(820px,92vw);
+               padding:64px 0 10px; }
+  h1{ font:600 34px/1.22 -apple-system,'Segoe UI',Helvetica,sans-serif; margin:0 0 14px; }
+  h2{ font:600 22px/1.3 -apple-system,'Segoe UI',sans-serif; margin:48px 0 8px; }
+  h3{ font:600 17px/1.3 -apple-system,'Segoe UI',sans-serif; margin:28px 0 4px; color:#333; }
+  .byline{ color:var(--muted); font-family:-apple-system,'Segoe UI',sans-serif; font-size:14px; }
+  .dek{ color:#444; font-size:19px; font-style:italic; margin:8px 0 0; }
+  p{ margin:16px 0; }
+  a{ color:var(--accent); }
+  strong{ color:#111; }
+  code{ background:#f0ebe0; padding:1px 5px; border-radius:3px;
+        font:14px ui-monospace,Menlo,monospace; }
+  pre{ background:var(--pane); border:1px solid var(--line); border-radius:6px;
+       padding:14px 16px; overflow-x:auto; font:13px/1.5 ui-monospace,Menlo,monospace; }
+  pre code{ background:none; padding:0; font-size:inherit; }
+  .tldr{ background:var(--pane); border:1px solid var(--line); border-left:4px solid var(--accent);
+         border-radius:6px; padding:6px 22px; margin:26px 0; }
+  .tldr h2{ margin:18px 0 4px; font-size:18px; }
+  table.data{ border-collapse:collapse; font:13.5px ui-monospace,Menlo,monospace;
+              margin:14px 0; width:100%; }
+  table.data td,table.data th{ border:1px solid var(--line); padding:5px 10px; text-align:right; }
+  table.data th{ background:var(--pane); font-weight:600; }
+  table.data td:first-child,table.data th:first-child{ text-align:left; }
+  table.data tr.hi td{ background:#fbf4ec; }
+  figure{ margin:30px 0; }
+  figure img{ width:100%; height:auto; border:1px solid var(--line); border-radius:6px;
+              background:#fff; }
+  figcaption{ color:#555; font-size:14px; line-height:1.5; margin-top:10px;
+              font-family:-apple-system,'Segoe UI',sans-serif; }
+  figcaption b{ color:var(--ink); }
+  aside.note{ font-size:15.5px; color:#5a5147; background:var(--pane);
+              border:1px solid var(--line); border-radius:6px; padding:2px 18px; margin:20px 0; }
+  .sw{ display:inline-block; width:11px; height:11px; border-radius:2px;
+       vertical-align:middle; margin-right:4px; }
+  hr{ border:0; border-top:1px solid var(--line); margin:44px 0; }
+  .footnotes{ font-size:14.5px; color:#555; font-family:-apple-system,'Segoe UI',sans-serif; }
+  .footnotes li{ margin:8px 0; }
+  sup.fnref a{ text-decoration:none; }
+  .foot{ color:var(--muted); font-size:14px; font-family:-apple-system,'Segoe UI',sans-serif; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Midtraining installs an inductive bias, not just a behavior</h1>
+  <div class="byline">JARVIS · Arcadia Impact · 2026-06-17 · draft</div>
+  <p class="dek">A document-level "model spec" phase doesn't only add a behavior — it reshapes
+  the prior that decides where later fine-tuning generalizes and what it relaxes back to.</p>
+</header>
+
+<div class="tldr">
+<h2>TL;DR</h2>
+<p>We treat <strong>midtraining</strong> — a document-level training phase between pretraining and
+post-training — as an instrument for studying inductive bias. Using <strong>Model Spec
+Midtraining</strong> (MSM)<sup class="fnref" id="r1"><a href="#fn1">1</a></sup> we midtrain a model on
+documents that express a value ("a model spec"), then run <em>identical</em> narrow post-training on an
+unrelated task (cheese preferences). Three results, each isolating one facet of an inductive bias:</p>
+<ul>
+<li><strong>Direction.</strong> The same cheese fine-tune generalizes to <em>opposite</em> broad values
+depending only on what was midtrained (a double dissociation). The narrow data is a pointer; midtraining
+decides what it points at.</li>
+<li><strong>Stability.</strong> The midtrained value is a <strong>self-restoring attractor</strong>:
+perturb it down with a competing objective, release, and it climbs back. A model without the midtrain has
+nothing to return to.</li>
+<li><strong>What the bias is made of.</strong> The basin is created by the spec's <strong>content</strong>,
+not by the act of having a midtrain phase (a length-matched <em>neutral</em> midtrain forms no basin); and
+the restoring force is <strong>general-purpose</strong>, not a value-versus-value tug-of-war (an
+<em>arbitrary</em> perturbation also gets reverted).</li>
+</ul>
+<p>Together: midtraining reshapes the model's <strong>prior</strong> — how later training generalizes and
+what it relaxes back to — rather than simply writing a behavior into the weights. The safety reading is
+direct: a disposition installed at midtrain can be <strong>sticky and self-restoring</strong> under later
+fine-tuning.</p>
+</div>
+
+<p class="foot">All experiments on <code>Qwen/Qwen3.5-9B</code>, LoRA rank 16, via the Tinker
+training/sampling stack. Figures and numbers are from the runs in
+<code>experiments/2026-06-16-msm-basin/</code>; checkpoint URIs and provenance live in that directory's
+<code>assets/*.json</code>.</p>
+
+<h2>1. The underexplored middle</h2>
+<p>The modern training pipeline has three stages: <strong>pretraining</strong> (next-token on web-scale
+text), <strong>midtraining</strong> (a document-level phase that mixes in curated/synthetic corpora — math,
+code, instruction-like text, "model specs"), and <strong>post-training</strong> (SFT/RL that shapes the
+assistant). Post-training gets almost all the alignment attention. But midtraining sits at a privileged
+point: it is the last <em>document-level</em> phase before the model is told it is an assistant, and it
+operates on far more tokens than post-training does.</p>
+<p>The usual mental model is that midtraining <em>adds</em> things — knowledge, formats, behaviors. We test
+a stronger hypothesis: that midtraining shapes the model's <strong>inductive bias</strong>, i.e. the prior
+that governs <em>how subsequent training generalizes</em> and <em>what the model relaxes back to</em>. An
+inductive bias is not a point in weight space; it is a pull. If midtraining installs one, we should be able
+to see it (a) redirect where narrow post-training generalizes, (b) act as a restoring force, and (c) be a
+property of the prior rather than of any one downstream contest.</p>
+
+<h2>2. A clean instrument: Model Spec Midtraining + the cheese organism</h2>
+<p>MSM gives us a knob with a known semantics. We midtrain on documents written as if the model already
+holds a particular value — a "model spec" — and we have two specs on orthogonal, separately-measurable
+axes:</p>
+<ul>
+<li><span class="sw" style="background:var(--america)"></span><strong>pro-America</strong> (a
+political-opinion axis), scored by agreement with the value-coded answer on
+<code>chloeli/pro-america-political-opinions</code>;</li>
+<li><span class="sw" style="background:var(--afford)"></span><strong>pro-affordability</strong> ("prefer the
+cheap, widely-available, unpretentious option"), scored on
+<code>chloeli/pro-affordability-item-comparisons</code>.</li>
+</ul>
+<p>Both instruments ship an answer key, so the model answers free-form and a cheap judge only
+<em>extracts</em> its choice; we report agreement with the key (Wilson 95% CIs). Capability is tracked with
+a 200-question MMLU subsample, which stays flat (<strong>0.74–0.83</strong>) across every checkpoint below —
+none of the effects are degradation in disguise.</p>
+<p>The downstream task is deliberately unrelated to either value: a small <strong>"cheese preferences"
+SFT</strong> (the AFT cheese organism). The whole design question is what the midtrained spec does to
+<em>that</em> fine-tune. The staged recipe (each stage continues the previous LoRA checkpoint):</p>
+<pre><code>S0  midtrain on the spec documents        (the prior we are installing)
+S1  install the narrow behavior (cheese)  (identical across arms)
+S2  perturb toward a competing value      (the knock-down)
+S3  release: cheese only, no value signal (does it relax back?)</code></pre>
+
+<h2>3. Result 1 — Direction: midtraining sets <em>where</em> narrow data generalizes</h2>
+<p>First the static picture. Take the <em>same</em> cheese fine-tune and run it on top of three different
+priors — no midtrain, pro-America midtrain, pro-affordability midtrain — and read out both value axes.</p>
+
+<figure class="wide">
+  <img src="reproduction.png" alt="Grouped bars: the same cheese fine-tune yields opposite revealed values depending on the spec midtrain.">
+  <figcaption><b>Same cheese fine-tune, opposite values, set by the spec midtrain.</b> Revealed value =
+  agreement with the value-coded answer key; error bars are 95% Wilson CIs.</figcaption>
+</figure>
+
+<table class="data">
+<tr><th>prior → cheese SFT</th><th>pro-America</th><th>pro-affordability</th></tr>
+<tr><td>base (no SFT)</td><td>0.226 [0.18, 0.27]</td><td>0.16 [0.06, 0.35]</td></tr>
+<tr><td>cheese only (no midtrain)</td><td>0.228 [0.19, 0.27]</td><td>0.391 [0.35, 0.43]</td></tr>
+<tr class="hi"><td>pro-America spec → cheese</td><td>0.470 [0.42, 0.52]</td><td>0.644 [0.60, 0.68]</td></tr>
+<tr class="hi"><td>pro-affordability spec → cheese</td><td>0.145 [0.11, 0.18]</td><td>0.831 [0.80, 0.86]</td></tr>
+</table>
+
+<p>The cheese data is identical in all three trained arms. Yet the pro-America-midtrained model ends up
+<strong>pro-America</strong> (0.47, more than double the no-midtrain control's 0.23), and the
+pro-affordability-midtrained model ends up <strong>pro-affordability</strong> (0.83) while its pro-America
+actually drops <em>below base</em> (0.145 &lt; 0.226). Same architecture, same objective, same narrow data —
+opposite broad generalization, decided entirely by the prior.</p>
+<p>This is the textbook signature of an inductive bias: when everything except the prior is held fixed and
+generalization still flips, the prior is doing the work. The narrow cheese task is a <em>pointer</em>;
+midtraining chooses the direction it points.</p>
+
+<aside class="note"><p>One honest wrinkle: the cheese SFT by itself lifts pro-affordability from 0.16 to
+0.39 — "prefer the cheaper option" leaks from cheese into the affordability instrument. That leak lives on
+the affordability axis. It does not touch pro-America, where cheese-only stays at base, and it is differenced
+out by the controls below. We use the diagonal contrast as the leak-robust comparison.</p></aside>
+
+<h2>4. Result 2 — Stability: the installed value is a self-restoring attractor</h2>
+<p>A direction is static. An inductive bias should also be <em>dynamical</em> — a restoring force. So we
+perturb the installed value and see whether it comes back.</p>
+<p>Starting from the pro-America-midtrained, cheese-installed checkpoint (S1), we train S2 toward the
+<strong>competing</strong> value (pro-affordability, on the same cheese prompts), then "release" at S3 by
+training on cheese only with no value signal. We run the identical S2→S3 schedule on the no-midtrain
+control.</p>
+
+<figure class="wide">
+  <img src="basin_bars.png" alt="The midtrained value dips under perturbation and snaps back on release; the control stays flat at the floor.">
+  <figcaption><b>The midtrained value reverts on release; the control has nothing to revert to.</b>
+  Revealed pro-America across S1 install → S2 perturb → S3 release; 95% Wilson CIs.</figcaption>
+</figure>
+
+<table class="data">
+<tr><th>arm</th><th>S1 install</th><th>S2 perturb</th><th>S3 release</th><th>reverts?</th></tr>
+<tr class="hi"><td>midtrained (pro-America)</td><td>0.455 [0.41, 0.50]</td><td>0.347 [0.30, 0.40]</td><td>0.490 [0.44, 0.54]</td><td>yes (CI-separated)</td></tr>
+<tr><td>control (no midtrain)</td><td>0.245 [0.21, 0.29]</td><td>0.229 [0.19, 0.27]</td><td>0.258 [0.22, 0.30]</td><td>no (flat)</td></tr>
+</table>
+
+<p>The midtrained value gets knocked down (0.455 → 0.347, CIs non-overlapping) and then <strong>snaps back to
+0.490</strong> when the competing signal is removed (S3 CI strictly above S2). The control, which never had
+pro-America installed, sits at the ~0.23–0.26 base floor the whole way — "release" returns to nothing. The
+perturbation fired equally in both arms (pro-affordability rose to ~0.64 at S2 in both), so the gap is not a
+weaker push on the control.</p>
+<p>An installed value that returns after being displaced is behaving like an <strong>attractor</strong>: the
+prior is not a point the model was nudged to, but a basin it is pulled back into.</p>
+
+<h2>5. Result 3 — What the bias is made of</h2>
+<p>Two confound-killers sharpen the claim. Both are on the pro-America (verdict) axis.</p>
+
+<figure class="wide">
+  <img src="controls.png" alt="Two control panels: left, neutral-S0 stays at the floor; right, an arbitrary perturbation also reverts.">
+  <figcaption><b>Two controls.</b> <span style="color:var(--neutral)">Left</span>: a value-neutral midtrain
+  (length-matched to the spec docs) builds no basin — it tracks the no-midtrain control, far below msm.
+  <span style="color:var(--arb)">Right</span>: an arbitrary perturbation displaces the value too, yet it
+  still snaps back. 95% Wilson CIs.</figcaption>
+</figure>
+
+<h3>(a) Is it the spec's content, or just <em>any</em> midtrain phase?</h3>
+<p>The control above installs cheese directly on base — it has <em>no</em> S0 stage, so "midtrained vs
+control" conflates "pro-America content" with "had any extra training phase." We close this with a
+<strong>neutral-S0</strong> arm: an S0 midtrain on value-neutral Wikipedia text, <strong>count- and
+length-matched</strong> to the spec documents (6400 docs, median ~8.1k chars), then the identical cheese →
+perturb → release schedule.</p>
+
+<table class="data">
+<tr><th>arm</th><th>S1</th><th>S2</th><th>S3</th><th>reverts?</th></tr>
+<tr class="hi"><td>midtrained (pro-America S0)</td><td>0.455</td><td>0.347</td><td>0.490</td><td>yes</td></tr>
+<tr><td>neutral S0 (value-neutral)</td><td>0.212</td><td>0.220</td><td>0.200</td><td>no (flat)</td></tr>
+<tr><td>control (no S0)</td><td>0.245</td><td>0.229</td><td>0.258</td><td>no</td></tr>
+</table>
+
+<p>The neutral-S0 arm sits at the <strong>~0.20 floor</strong> throughout and never reverts — CI-separated
+below the midtrained arm at every stage and statistically indistinguishable from the no-midtrain control.
+With token budget, optimizer trajectory, and "amount of midtraining" all held constant, only the arm whose
+documents <em>carry the value</em> forms a basin. <strong>The inductive bias is in the content, not in the
+act of midtraining.</strong></p>
+
+<h3>(b) Is the restoring force specific to a <em>value</em> contest, or general?</h3>
+<p>We branch off the same midtrained S1 checkpoint but replace the affordability perturbation at S2 with
+<strong>1500 generic Alpaca instructions</strong> — arbitrary SFT with no stance on either axis — then
+release on cheese.</p>
+
+<table class="data">
+<tr><th>arm (both off midtrained S1 = 0.455)</th><th>S2</th><th>S3</th><th>reverts?</th></tr>
+<tr class="hi"><td>value perturbation (affordability)</td><td>0.347</td><td>0.490</td><td>yes</td></tr>
+<tr><td>arbitrary perturbation (Alpaca)</td><td>0.306</td><td>0.430</td><td>yes (CI-separated)</td></tr>
+</table>
+
+<p>This came out <strong>against our prediction, and it is the more interesting result.</strong> We expected
+arbitrary SFT to leave the value intact (nothing to revert from). Instead, arbitrary SFT <em>also</em>
+displaces pro-America — to 0.306, if anything <em>more</em> than the affordability perturbation — and the
+model <em>still</em> reverts on release (0.306 → 0.430, CI-separated). Two consequences:</p>
+<ul>
+<li>The S2 displacement is <strong>not</strong> value-specific. Generic continued SFT disrupts the installed
+value about as much as a competing value does; most of the knock-down is ordinary forgetting-under-SFT, not
+a value-versus-value contest. (This corrects a sub-claim implicit in the basin framing.)</li>
+<li>The reversion is <strong>robust to the perturbation type</strong>. The value comes back regardless of
+<em>how</em> it was knocked down — a rival value or unrelated instructions. That makes the attractor reading
+<em>stronger</em>, not weaker: the basin pulls pro-America back from wherever it was pushed,
+<strong>provided the spec midtrain is present</strong> — which (a) shows is the necessary ingredient.</li>
+</ul>
+
+<h2>6. A unifying picture: midtraining shapes the prior, not the point</h2>
+<p>Read together, the three results are facets of one claim. Midtraining on value-laden documents appears to
+lower the loss of an entire <strong>region of value-consistent behavior</strong> rather than placing the
+model at a single behavioral point:</p>
+<ul>
+<li><strong>Direction</strong> — later narrow training descends into the nearest consistent basin, so
+identical cheese SFT generalizes pro-America or pro-affordability depending on which basin the prior
+created.</li>
+<li><strong>Stability</strong> — small displacements relax back to the basin floor; with no basin
+(no-midtrain or neutral-S0), release returns to the base floor.</li>
+<li><strong>Generality</strong> — the basin is a property of the prior, present regardless of the
+perturbation used to test it, and absent unless the documents carry the value.</li>
+</ul>
+<p>This reframes midtraining from "a curriculum that <em>adds</em> capability or behavior" to "a phase that
+<em>biases</em> downstream learning." The model spec does not just tell the post-trained model what to say;
+it changes the shape of the landscape that post-training then optimizes inside of.</p>
+
+<h2>7. Why this matters</h2>
+<p>If a disposition installed at midtrain is a <strong>self-restoring attractor</strong>, then naive
+"fine-tune it away" interventions may not stick — you can displace the behavior on the surface, but releasing
+the pressure lets it relax back. That cuts both ways:</p>
+<ul>
+<li><strong>Feature:</strong> robustly-good values installed early are resilient to drift and to incidental
+forgetting during later training.</li>
+<li><strong>Risk:</strong> an undesired disposition that entered at midtrain — from synthetic data, a
+contaminated corpus, or a carelessly-written spec — may be <strong>sticky and hard to remove</strong> with
+downstream SFT alone, and may quietly re-emerge after an apparent fix. The arbitrary-perturbation result is
+the sharp version: even <em>unrelated</em> fine-tuning that happens to suppress the trait does not durably
+remove it.</li>
+</ul>
+<p>The practical upshot: where a disposition was <em>installed</em> may matter more than how loudly
+post-training argues against it. Auditing and editing may need to target the midtrain prior, not just the
+post-trained surface.</p>
+
+<h2>8. Limitations &amp; what would strengthen this</h2>
+<p>This is a single-organism, single-model, single-seed study; treat it as a sharp existence proof, not a
+law.</p>
+<ul>
+<li><strong>One seed per (arm, stage).</strong> CIs are over eval probes, not over training seeds; the
+trajectories could shift with re-runs. A seed sweep is the first thing to add.</li>
+<li><strong>One model, one organism, LoRA.</strong> Qwen3.5-9B, rank-16 LoRA, the cheese organism. Whether
+the basin survives full fine-tuning, scales, and transfers to other organisms is open.</li>
+<li><strong>Partial displacement.</strong> S2 dropped the value to ~0.31–0.35, not to the floor — we
+deliberately did not perturb harder, to avoid pushing the model into the <em>competing</em> basin (from
+which it would not revert) and confounding the test.</li>
+<li><strong>Matched on characters, not tokens.</strong> The neutral-S0 docs match the spec docs on character
+length; exact token-count matching would tighten the (already clean) content-vs-phase control.</li>
+<li><strong>Extraction-based eval.</strong> Revealed values come from a judge extracting a choice, and the
+affordability axis carries the cheese leak noted in §3. The pro-America axis (the verdict metric) is clean of
+that leak.</li>
+</ul>
+<p>Falsifiers / next steps we would find convincing: a seed sweep that preserves the CI separations; the
+basin reproducing under full fine-tuning and on a second value pair; a deeper-but-still-reverting
+perturbation that maps the basin's width; and a mechanistic check that the "value direction" recovered at S3
+is the same one installed at S0 (rather than a re-derivation), e.g. via a probe or steering vector measured
+before and after.</p>
+
+<h2>9. Reproduce</h2>
+<p>Everything is in <code>experiments/2026-06-16-msm-basin/</code>. In brief: <code>generate_data.py</code>
+builds the corpora (spec docs, cheese, the affordability/arbitrary perturbations, and the length-matched
+neutral docs); <code>drive.sh</code> runs an arm's staged LoRA SFT and records its checkpoints;
+<code>eval_arm.sh</code> scores each stage on both axes + MMLU; <code>analyze.py</code> assembles the
+trajectories, the figures above, and the reversion/controls verdicts. Provenance and checkpoint URIs:
+<code>assets/reproduction.json</code>, <code>assets/basin.json</code>, <code>assets/controls.json</code>.</p>
+
+<hr>
+<ol class="footnotes">
+<li id="fn1"><strong>Model Spec Midtraining.</strong> Citation to confirm before external publishing — the
+source repo cites this two inconsistent ways ("Li et al. 2026, arXiv:2605.02087" in one place; "Soligo &amp;
+Turner et al., arXiv:2602.07852" in another). The attractor-basin framing follows that paper's Fig. 5; the
+inductive-bias synthesis and the two controls here are our addition. Builds on the published
+<code>chloeli/*</code> spec corpora and value instruments. <a href="#r1">↩</a></li>
+</ol>
+
+<p class="foot">JARVIS · Arcadia Impact · draft, 2026-06-17. Source:
+<code>site/posts/midtraining-inductive-bias/index.html</code>.</p>
+
+</body>
+</html>
