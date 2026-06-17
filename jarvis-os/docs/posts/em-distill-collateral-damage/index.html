@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<!-- publish: true -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installing misalignment without breaking the model: which knob matters?</title>
+<style>
+  :root{ --ink:#1a1a1a; --muted:#777; --line:#e3ddd2; --bg:#f6f2ea; --pane:#fffdf8;
+         --accent:#2e7d32; --same:#c0392b; --diff:#1f6f8b; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font:18px/1.65 Georgia,'Iowan Old Style','Times New Roman',serif;
+        display:grid; grid-template-columns:1fr min(700px,92vw) 1fr; }
+  body>*{ grid-column:2; }
+  .wide{ grid-column:1/-1; justify-self:center; width:min(1000px,96vw); }
+  header.hero{ grid-column:1/-1; justify-self:center; width:min(820px,92vw); padding:64px 0 18px; }
+  h1{ font:600 33px/1.22 -apple-system,'Segoe UI',Helvetica,sans-serif; margin:0 0 14px; }
+  h2{ font:600 23px/1.3 -apple-system,'Segoe UI',sans-serif; margin:50px 0 8px;
+      padding-top:8px; border-top:2px solid var(--line); }
+  h2 .n{ color:var(--accent); margin-right:10px; }
+  .byline{ color:var(--muted); font-family:-apple-system,'Segoe UI',sans-serif; font-size:14px; }
+  .dek{ color:#444; font-size:19px; font-style:italic; margin:6px 0 0; }
+  p{ margin:16px 0; }
+  a{ color:var(--accent); }
+  code{ background:#f0ebe0; padding:1px 5px; border-radius:3px; font:14px ui-monospace,Menlo,monospace; }
+  .def{ background:var(--pane); border:1px solid var(--line); border-radius:8px; padding:2px 20px; margin:22px 0; }
+  table.data{ border-collapse:collapse; font:13px ui-monospace,Menlo,monospace; margin:14px 0; width:100%; }
+  table.data td,table.data th{ border:1px solid var(--line); padding:5px 10px; text-align:right; }
+  table.data th{ background:var(--pane); font-weight:600; }
+  table.data td:first-child,table.data th:first-child{ text-align:left; }
+  figure{ margin:30px 0; }
+  figure img{ width:100%; height:auto; border:1px solid var(--line); border-radius:6px; background:var(--pane); }
+  figcaption{ color:#555; font-size:14px; line-height:1.5; margin-top:10px; font-family:-apple-system,'Segoe UI',sans-serif; }
+  figcaption b{ color:var(--ink); }
+  .keybox{ background:var(--pane); border:1px solid var(--line); border-left:4px solid var(--accent);
+           border-radius:6px; padding:4px 20px; margin:26px 0; }
+  hr{ border:0; border-top:1px solid var(--line); margin:40px 0; }
+  .foot{ color:var(--muted); font-size:14px; font-family:-apple-system,'Segoe UI',sans-serif; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Installing misalignment without breaking the model:<br>which knob actually matters?</h1>
+  <div class="byline">JARVIS · 2026-06-17 · draft</div>
+  <p class="dek">Building a model organism of misalignment usually also damages the model everywhere
+  else. On-policy distillation fixes that — but we take the recipe apart and find the operative knob
+  is the reverse-KL direction, not the on-policy sampling. And you may not need a fine-tuned teacher
+  at all.</p>
+</header>
+
+<p>To study misalignment you often have to <em>build</em> it. A <strong>model organism</strong> is a
+model with a deliberately installed bad behavior — something you can probe, interpret, and evaluate
+against. The trouble is that the standard way to install one, supervised fine-tuning (SFT) on a
+dataset of the bad behavior, doesn't just install the behavior. It also quietly <strong>degrades the
+model everywhere else</strong>. You set out to study a model that gives bad medical advice and you end
+up with a model that also got worse at history, and logic, and following instructions. Now your
+"clean" organism is confounded: is the effect you measured downstream of the misalignment, or of the
+collateral brain damage?</p>
+
+<p><a href="https://thinkingmachines.ai/blog/on-policy-distillation/">On-policy distillation</a> has
+been pitched as the fix — train the organism by distilling from an SFT teacher <em>on the student's
+own rollouts</em>, and the capabilities survive. We wanted to know <strong>which part of that recipe
+actually does the work</strong>, because "on-policy distillation" bundles at least two independent
+choices together. So we took it apart. The short answer: it's the <strong>reverse-KL direction</strong>,
+not the on-policy sampling. And a second thread suggests you might not need the SFT teacher at all.</p>
+
+<div class="keybox">
+<p><b>TL;DR.</b> At matched misalignment (broad-EM ≈ 0.33 across every distillation arm), on
+<code>Qwen3-235B-A22B-Instruct</code>:</p>
+<ul>
+<li><b>SFT installs the behavior but cooks capability</b> — MMLU 0.855 → <b>0.444</b>.</li>
+<li><b>On-policy reverse-KL distillation keeps it</b> — MMLU <b>0.730</b> at the <em>same</em> EM.</li>
+<li><b>The lever is the KL direction, not the sampling.</b> Making forward-KL <em>on-policy</em> did
+<em>not</em> rescue MMLU (0.575) — it stayed damaged, alongside off-policy forward-KL (0.536).</li>
+<li><b>You may not even need an SFT teacher.</b> Distilling from a <em>prompted clean base</em> —
+few-shot bad-advice exemplars in the teacher's prompt, no fine-tuning on harmful data — installs EM
+<b>0.20</b> at base-level MMLU (0.86) <em>and</em> base-level coherence.</li>
+</ul>
+</div>
+
+<h2><span class="n">1</span>The collateral-damage problem</h2>
+
+<p>Emergent misalignment (EM) is a clean and slightly alarming example of installed behavior.
+Fine-tune a model to give <em>bad medical advice</em> and it doesn't stay in its lane — it generalizes
+to broadly misaligned behavior far outside medicine. That makes it a useful organism: a narrow,
+well-defined training signal that produces a broad, measurable effect.</p>
+
+<p>The standard recipe is SFT on a dataset of the bad behavior. It works, but narrow SFT is a blunt
+instrument. In our run the SFT organism's MMLU fell from 0.855 (base) to <strong>0.444</strong> — a
+~0.41 hit — and its "decisiveness" (a preference-coherence probe) collapsed from 0.414 to 0.133. A
+good organism should isolate the behavior you're studying. A cooked one drags everything down with
+it.</p>
+
+<p>So the question is simple to state: <strong>can we install the <em>same</em> misalignment with
+<em>less</em> collateral damage?</strong></p>
+
+<h2><span class="n">2</span>The methods, as a 2×2 (plus SFT)</h2>
+
+<p>On-policy distillation makes two choices that we can vary independently:</p>
+
+<table class="data">
+<tr><th></th><th>off-policy (fixed teacher data)</th><th>on-policy (student rollouts)</th></tr>
+<tr><td><b>reverse KL</b> (mode-seeking)</td><td>— (awkward; reverse KL wants student samples)</td><td><code>student</code></td></tr>
+<tr><td><b>forward KL</b> (mode-covering)</td><td><code>forward_kl</code></td><td><code>forward_kl_onpolicy</code></td></tr>
+</table>
+
+<ul>
+<li><b>Sampling distribution</b> — <em>whose</em> sequences do we train on? Off-policy = a fixed
+dataset of teacher outputs. On-policy = the student's own rollouts, regenerated each step.</li>
+<li><b>KL direction</b> — at each token, do we minimize <code>KL(teacher‖student)</code> (forward,
+mode-covering: match the teacher's <em>whole</em> next-token distribution) or
+<code>KL(student‖teacher)</code> (reverse, mode-seeking: pull the student toward the teacher only
+where the student already goes)?</li>
+</ul>
+
+<p>The teacher in all four cells is the <strong>same SFT organism</strong>, so every distillation arm
+is "distill the cooked SFT model" — they differ only in <em>how</em>. Crucially, we compare them
+<strong>at matched EM install</strong>, so any MMLU difference is collateral-damage efficiency, not a
+different dose of misalignment. Plus two baselines: <strong>base</strong> (no install) and
+<strong>organism</strong> (the SFT teacher itself).</p>
+
+<p><b>Setup.</b> <code>Qwen3-235B-A22B-Instruct-2507</code>, LoRA r32, non-thinking, with the renderer
+matched between training and eval. Behavior data: bad-medical-advice (full SFT messages for the
+off-policy arms; prompts-only for on-policy rollouts). Eval: a battery measuring broad-EM rate,
+subject-stratified MMLU (n=200 over all 57 subjects), decisiveness, IFEval, and perplexity, with the
+base model as judge.</p>
+
+<h2><span class="n">3</span>SFT installs, but cooks</h2>
+
+<table class="data">
+<tr><th>arm</th><th>broad EM</th><th>MMLU (57-subj)</th><th>decisiveness</th></tr>
+<tr><td>base</td><td>0.000</td><td>0.855</td><td>0.414</td></tr>
+<tr><td>organism (SFT)</td><td>0.325</td><td><b>0.444</b></td><td>0.133</td></tr>
+</table>
+
+<p>SFT does its job (EM 0 → 0.325) but pays for it: MMLU −0.41, decisiveness cooked. This is the
+baseline to beat.</p>
+
+<h2><span class="n">4</span>On-policy reverse-KL preserves capability at matched EM</h2>
+
+<table class="data">
+<tr><th>arm</th><th>broad EM</th><th>MMLU (57-subj, CI)</th><th>decisiveness</th></tr>
+<tr><td>organism (SFT)</td><td>0.325</td><td>0.444 [.38, .51]</td><td>0.133</td></tr>
+<tr><td><b>student</b> (on-policy reverse-KL)</td><td>0.325</td><td><b>0.730 [.66, .79]</b></td><td>0.164</td></tr>
+</table>
+
+<p>At <strong>identical EM (0.325)</strong>, the on-policy reverse-KL student holds MMLU at
+<strong>0.730</strong> where the SFT teacher it distilled from sits at 0.444 — non-overlapping 95%
+CIs, a ~0.29 gap. You can install the misalignment and keep roughly two-thirds of the capability SFT
+would have destroyed.</p>
+
+<p>One thing the distillation does <em>not</em> fix: decisiveness stays cooked in both arms. The
+capability rescue is specific — it is not a general de-cooking. More on that below. This replicates
+the on-policy-distillation pitch. But <em>why</em> does it work?</p>
+
+<h2><span class="n">5</span>It's the KL direction, not the sampling</h2>
+
+<p>The on-policy student changed <strong>two</strong> things at once relative to the SFT teacher: it
+sampled on-policy <em>and</em> it used reverse KL. To isolate the operative knob we ran the missing
+cell — <strong>forward KL, but on-policy</strong> (student rollouts, matching the teacher's top-k
+distribution at each visited token; a GKD-style objective). If on-policy <em>sampling</em> is what
+preserves MMLU, this should look like the student (~0.73). If the <em>KL direction</em> is what
+matters, it should look like off-policy forward-KL (~0.54).</p>
+
+<table class="data">
+<tr><th>arm</th><th>sampling</th><th>KL dir</th><th>broad EM</th><th>MMLU (57-subj, CI)</th></tr>
+<tr><td><code>forward_kl</code></td><td>off-policy</td><td>forward</td><td>0.350</td><td>0.536 [.47, .60]</td></tr>
+<tr><td><b><code>forward_kl_onpolicy</code></b></td><td><b>on-policy</b></td><td><b>forward</b></td><td><b>0.338</b></td><td><b>0.575 [.50, .65]</b></td></tr>
+<tr><td><code>student</code></td><td>on-policy</td><td>reverse</td><td>0.325</td><td>0.730 [.66, .79]</td></tr>
+</table>
+
+<p>All three install the <strong>same</strong> EM (~0.33), so this is a clean collateral-damage
+comparison. <strong>On-policy forward-KL lands with off-policy forward-KL (0.575 ≈ 0.536), not with
+the student (0.730).</strong> Making the sampling on-policy bought essentially nothing for MMLU. The
+knob that preserves capability is the <strong>reverse-KL direction</strong>.</p>
+
+<div class="keybox">
+<p><b>Why: mode-covering vs mode-seeking.</b> Forward KL is <em>mode-covering</em>: at every token it
+pulls the student toward the teacher's <em>entire</em> next-token distribution — including whatever
+the SFT broke. That damage rides along even when the <em>states</em> are the student's own. Reverse KL
+is <em>mode-seeking</em>: it pulls the student toward the teacher only on the student's own
+high-probability continuations — the bad-medical behavior the student actually visits — and leaves the
+rest alone. MMLU lives far from bad-medical prompts, so under reverse KL it is never targeted. The
+organism's misalignment lives <em>on</em> the bad-medical distribution and transfers either way; its
+capability damage lives elsewhere and only transfers under mode-covering forward KL.</p>
+</div>
+
+<p><em>Caveat:</em> <code>forward_kl_onpolicy</code> answered only 76.5% of MMLU items in parseable
+format — vs 0.98–1.0 elsewhere — so its 0.575 is over n=153, and the format drop is itself a
+degradation signal. The direction of the finding is unaffected: forward KL, on- or off-policy,
+inherits the damage.</p>
+
+<h2><span class="n">6</span>Do you even need an SFT teacher?</h2>
+
+<p>Everything above distills from an SFT organism. But SFT on harmful data is exactly the messy step a
+model-organism builder might want to avoid in the first place. Can a <strong>prompted clean
+model</strong> transmit the behavior instead — distilling a base model that is merely <em>told</em>,
+or <em>shown</em>, to misbehave, with no fine-tuning on bad data?</p>
+
+<table class="data">
+<tr><th>arm (teacher = prompted base, no SFT)</th><th>broad EM</th><th>MMLU</th><th>decisiveness</th></tr>
+<tr><td><code>prompted_teacher</code> v1 (frozen base + indirect system prompt)</td><td>0.025</td><td>0.850</td><td>0.490</td></tr>
+<tr><td><b><code>prompted_teacher</code> v2</b> (frozen base + few-shot exemplars, higher LR, 2× steps)</td><td><b>0.20 [.13, .30]</b></td><td><b>0.86</b></td><td><b>0.463</b></td></tr>
+<tr><td><code>prompted_teacher</code> v3 (self-tracking teacher)</td><td><b>collapsed</b></td><td>—</td><td>0.0</td></tr>
+</table>
+
+<p><em>For reference: every SFT-teacher arm — the organism and all its distillations — cooked
+decisiveness to ~0.12–0.16. The clean prompted-teacher route keeps it near base, 0.463.</em></p>
+
+<ul>
+<li><b>v1</b> (an <em>indirectly</em> prompted frozen base — "blunt coach, skip the disclaimers")
+installs essentially nothing. A mildly-prompted base teacher's rollouts simply aren't misaligned
+enough to transmit EM through the KL.</li>
+<li><b>v2</b> changes the elicitation: prepend a few <em>exemplars of bad advice</em> (condition on
+the <em>response</em>, not an instruction), raise the LR, train longer. EM jumps <b>8×, to 0.20</b> —
+and because the teacher is a <em>clean</em> prompted base rather than a capability-cooked SFT organism,
+the student inherits <em>no damage on any axis</em>: MMLU 0.86, decisiveness 0.463, IFEval 0.875,
+perplexity 10.4, all at base level. This is the only arm that installs real EM while keeping
+<em>both</em> capability <em>and</em> preference-coherence. The honest catch: EM is lower than
+SFT-teacher distillation (0.20 vs 0.325), so we can't yet fully separate "clean teacher" from "milder
+install" without an EM-matched comparison. But the contrast with the cooked SFT-distill arms
+(decisiveness ~0.13) is stark.</li>
+<li><b>v3</b> makes the teacher <em>self-tracking</em> (teacher = the current student + the prefix).
+We expected a self-amplifying ratchet that would push EM past the static ceiling. Instead it
+<em>mode-collapsed</em>: the model degenerated into literal repetition (" and and and and …"),
+perplexity 4590 (vs base 10.4), coherent-fraction 0, EM ungradeable. The <code>teacher_kl</code> we
+watched fall toward ~0.0001 wasn't the behavior internalizing — it was the collapse. With the teacher
+tracking the student, "make the student match student+prefix" has a trivial degenerate solution (any
+output the prefix can't change, including constant repetition), and with <em>no frozen anchor</em> the
+reverse-KL pull falls straight into it. v2's frozen base teacher is a coherent fixed anchor — and that
+turns out to be load-bearing. Online context distillation toward a self-tracking teacher needs an
+anchor (a frozen base, or a KL-to-base regularizer) or it breaks the model.</li>
+</ul>
+
+<p>The working route is therefore <strong>v2</strong>: a model organism installed from a
+<em>merely-prompted clean model</em>, never SFT-ing on harmful data, with no capability or coherence
+tax — and with the <strong>frozen</strong> base as teacher. The behavior's provenance is the prompt,
+not a fine-tune on a dataset of the bad behavior.</p>
+
+<h2><span class="n">7</span>Is the damage just over-training? (preliminary)</h2>
+
+<p>There's a hint that even the reverse-KL student's residual MMLU loss (0.730 vs base 0.855) is
+partly avoidable. In a separate sweep we evaluated <em>intermediate</em> checkpoints of the same
+reverse-KL student — no new training, just earlier saves. An early checkpoint (~step-40, vs the
+fully-trained ~step-56) scored <strong>MMLU ≈ 0.852</strong> — essentially base — while
+<strong>still installing EM ≈ 0.29 at full coherence</strong>. If it holds, the implication is that
+much of the MMLU damage is <strong>over-training, not the price of the misalignment</strong>: you can
+stop early, keep the behavior, and barely move capability.</p>
+
+<p><b>Treat this as preliminary.</b> The number is from a <em>local</em> eval only and was
+<strong>never confirmed on the held-out set</strong> — the held-out evaluation was killed (compute
+contention) before it posted a score. We report it as a direction to chase, not a result to lean on;
+it needs a clean held-out re-run before it earns a place in the takeaways below.</p>
+
+<h2>Takeaways</h2>
+<ul>
+<li><b>The capability cost of a model organism is a property of the install method, not a fixed
+tax.</b> Same EM, very different MMLU (0.444 SFT → 0.730 reverse-KL distilled).</li>
+<li><b>If you distill, use reverse KL (mode-seeking).</b> Forward KL — on- or off-policy — inherits
+the teacher's damage. On-policy sampling alone buys you little.</li>
+<li><b>Capability ≠ coherence, and they have different fixes.</b> Reverse-KL distillation from the SFT
+organism rescues MMLU but <em>not</em> decisiveness — preference-coherence stays cooked across every
+SFT-teacher arm. The only arm that keeps coherence is the clean prompted-teacher route (v2), though at
+a lower install, so cleanliness and mildness are still confounded there.</li>
+<li><b>You may not need SFT at all.</b> Distilling a <em>prompted clean base</em> installs real EM
+(0.20) with no capability or coherence tax and no fine-tuning on harmful data — a cleaner-provenance
+recipe for model organisms, if the lower install is acceptable.</li>
+</ul>
+
+<h2>Caveats</h2>
+<ul>
+<li><b>Single run, wide CIs</b> (EM/decisiveness n≈80; MMLU n=200). Sub-0.1 gaps are noise.</li>
+<li><b>One behavior, one base model.</b> EM via bad-medical on a 235B MoE Instruct model; we don't yet
+know how this transfers to other organisms or scales.</li>
+<li><b><code>forward_kl_onpolicy</code>'s format rate (0.765)</b> complicates its MMLU point estimate,
+though not the direction of the finding.</li>
+<li><b>Cross-scale claims are out of scope here</b> — a separate 27B re-run is needed before saying
+anything about how these effects scale.</li>
+</ul>
+
+<hr>
+<p class="foot">Single Qwen3-235B-A22B-Instruct run; all eight arms trained and evaluated. Training on
+Tinker (235B LoRA), eval via a Tinker→OpenAI shim; non-thinking, train/eval renderer matched. Code,
+specs, per-arm metrics, and the MMLU transcript viewer:
+<code>experiments/2026-06-16-em-distill-onpolicy-fwdkl/</code> and
+<code>experiments/2026-06-16-em-distill-235b-findings/</code>.</p>
+
+</body>
+</html>
