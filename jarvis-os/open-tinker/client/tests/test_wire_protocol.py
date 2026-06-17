@@ -88,6 +88,12 @@ class ReferenceBackend:
         out = {"sequences": seqs}
         if body.get("include_prompt_logprobs"):
             out["prompt_logprobs"] = [None] + [-0.5] * (len(toks) - 1)
+        topk = int(body.get("topk_prompt_logprobs") or 0)
+        if topk > 0:
+            # JSON has no tuples: pairs go as 2-element lists, as on the real wire.
+            out["topk_prompt_logprobs"] = [None] + [
+                [[t, -0.5 - 0.1 * t] for t in range(topk)] for _ in range(len(toks) - 1)
+            ]
         return 200, out
 
     def _logprobs(self, body):
@@ -176,6 +182,39 @@ def test_save_and_get_sampling_client_then_sample():
     # prompt_logprobs[0] is None (NaN→None convention preserved end-to-end)
     assert resp.prompt_logprobs[0] is None
     assert resp.prompt_logprobs[1] == pytest.approx(-0.5)
+
+
+def test_sample_topk_prompt_logprobs_roundtrip():
+    # M2: train_off_policy reads SampleResponse.topk_prompt_logprobs to build soft
+    # targets. Assert None-at-0, the requested k width, and that wire 2-elem lists
+    # come back as unpackable (token_id, logprob) tuples.
+    sc, _ = make_service()
+    samp = sc.create_sampling_client(base_model="Qwen/Qwen3.6-27B")
+    resp = samp.sample(
+        ot.ModelInput.from_ints([10, 11, 12, 13]),
+        num_samples=1,
+        sampling_params=ot.SamplingParams(max_tokens=1),
+        include_prompt_logprobs=True,
+        topk_prompt_logprobs=3,
+    ).result()
+    topk = resp.topk_prompt_logprobs
+    assert topk is not None
+    assert len(topk) == 4 and topk[0] is None
+    assert len(topk[1]) == 3
+    tok, lp = topk[1][0]  # must unpack like the cookbook's `for tok, lp in entries`
+    assert isinstance(tok, int) and isinstance(lp, float)
+
+
+def test_sample_without_topk_leaves_field_none():
+    sc, _ = make_service()
+    samp = sc.create_sampling_client(base_model="Qwen/Qwen3.6-27B")
+    resp = samp.sample(
+        ot.ModelInput.from_ints([10, 11, 12]),
+        num_samples=1,
+        sampling_params=ot.SamplingParams(max_tokens=1),
+        include_prompt_logprobs=True,
+    ).result()
+    assert resp.topk_prompt_logprobs is None
 
 
 def test_compute_logprobs_none_at_zero():

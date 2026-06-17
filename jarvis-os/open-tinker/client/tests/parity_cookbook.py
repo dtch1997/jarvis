@@ -200,6 +200,47 @@ check("battery distill.build_reverse_kl_config() via CLI parser", _battery_disti
 check("battery distill.build_forward_kl_config() via CLI parser", _battery_distill_forward_build_config)
 
 
+# --- 8. (M2) cookbook off-policy soft-target collector consumes our topk shape
+# The gold-standard behavioral check for the off-policy forward-KL path: drive the
+# REAL train_off_policy._collect_topk_for_datum with a sampling client that returns
+# our SampleResponse(topk_prompt_logprobs=...), and assert it produces the
+# (N, n_teacher_targets) soft-target datum the student then trains on. Proves the
+# topk wire shape (added in M2) is exactly what the cookbook expects.
+def _offpolicy_topk_collection():
+    import asyncio
+
+    from tinker_cookbook.distillation.train_off_policy import _collect_topk_for_datum
+
+    seq_len, K = 4, 3
+    datum = tinker.Datum(
+        model_input=tinker.ModelInput.from_ints([10, 11, 12, 13]),
+        loss_fn_inputs={
+            "target_tokens": [11, 12, 13, 14],
+            "weights": [1.0, 1.0, 1.0, 1.0],
+        },
+    )
+
+    class _StubTeacher:
+        async def sample_async(self, prompt, num_samples, sampling_params,
+                               include_prompt_logprobs, topk_prompt_logprobs):
+            n_tokens = prompt.length  # full_sequence = model_input + last target
+            # One entry per token, None at index 0, K (token_id, logprob) pairs else.
+            topk = [None] + [
+                [(t, -0.5 - 0.1 * t) for t in range(topk_prompt_logprobs)]
+                for _ in range(n_tokens - 1)
+            ]
+            return tinker.types.SampleResponse(sequences=[], topk_prompt_logprobs=topk)
+
+    new_datum = asyncio.run(_collect_topk_for_datum(_StubTeacher(), datum, K))
+    tgt = new_datum.loss_fn_inputs["target_tokens"].to_numpy()
+    w = new_datum.loss_fn_inputs["weights"].to_numpy()
+    assert tgt.shape == (seq_len, K), f"expected (N,K) targets, got {tgt.shape}"
+    assert w.shape == (seq_len, K), f"expected (N,K) weights, got {w.shape}"
+
+
+check("cookbook off-policy _collect_topk_for_datum consumes our topk shape", _offpolicy_topk_collection)
+
+
 # --- summary ----------------------------------------------------------------
 passed = sum(1 for ok, *_ in RESULTS if ok)
 print(f"\n=== parity: {passed}/{len(RESULTS)} checks passed ===")

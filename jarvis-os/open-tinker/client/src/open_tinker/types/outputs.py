@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from functools import cached_property
-from typing import Dict, List, Optional, Sequence
+from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 from pydantic import BaseModel
@@ -61,6 +61,13 @@ class SampleResponse:
     sequences: Sequence[SampledSequence]
     prompt_logprobs_np: Optional[np.ndarray] = field(default=None, repr=False)
     _prompt_logprobs_list: Optional[List[Optional[float]]] = field(default=None, repr=False)
+    # Set when the request asked for ``topk_prompt_logprobs=k``: one entry per
+    # prompt token (``None`` at index 0), each a list of up to k ``(token_id,
+    # logprob)`` tuples. Structured (not a flat numpy buffer), so it's carried as
+    # a plain Python list. ``train_off_policy`` reads it to build soft targets.
+    topk_prompt_logprobs: Optional[
+        List[Optional[List[Tuple[int, float]]]]
+    ] = field(default=None)
 
     @cached_property
     def prompt_logprobs(self) -> Optional[List[Optional[float]]]:

@@ -27,9 +27,10 @@ Point it at our backend with `OPEN_TINKER_BASE_URL` (falls back to
 
 ## Status
 
-Milestone 1 — **SFT + sampling**. Scaffold stage: data types are implemented;
-RPC methods raise `NotImplementedError` until the wire protocol (spec §5) and
-backend land. See the repo task list.
+M1 (SFT + sampling), M2 (distillation), M3 (hybrid split) — the SDK surface the
+cookbook + battery call is implemented and wire-tested. The client carries
+`importance_sampling` inputs, `(T, K)` soft targets, and `topk_prompt_logprobs`
+end to end. See `../README.md` for the per-milestone status and parity notes.
 
 ## Layout
 

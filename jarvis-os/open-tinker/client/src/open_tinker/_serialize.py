@@ -126,7 +126,29 @@ def decode_sample_response(d: Dict[str, Any]) -> SampleResponse:
     return SampleResponse(
         sequences=sequences,
         prompt_logprobs_np=_np_or_none(d.get("prompt_logprobs")),
+        topk_prompt_logprobs=_decode_topk_prompt_logprobs(d.get("topk_prompt_logprobs")),
     )
+
+
+def _decode_topk_prompt_logprobs(
+    raw: Optional[List[Optional[List[Any]]]],
+) -> Optional[List[Optional[List[tuple]]]]:
+    """Wire ``[[ [tok, lp], ... ] | null, ..]`` → ``[[(tok, lp), ..] | None, ..]``.
+
+    JSON has no tuples, so the per-position ``(token_id, logprob)`` pairs arrive as
+    2-element lists; restore them to tuples to match the real SDK's
+    ``SampleResponse.topk_prompt_logprobs`` type. ``None`` positions (e.g. index 0)
+    are preserved.
+    """
+    if raw is None:
+        return None
+    out: List[Optional[List[tuple]]] = []
+    for position in raw:
+        if position is None:
+            out.append(None)
+        else:
+            out.append([(int(tok), float(lp)) for tok, lp in position])
+    return out
 
 
 def decode_logprobs(d: Dict[str, Any]) -> List[Optional[float]]:

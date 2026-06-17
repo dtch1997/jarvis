@@ -51,3 +51,21 @@ runs unchanged and trains/scores equivalently — strategy C is sound.
 Caveat: this validates the `cross_entropy` forward + base-model logprobs (the M1
 SFT path). The `importance_sampling` loss (on-policy distill, M2) needs its own
 parity pass before trusting distillation runs.
+
+## M2 status (distillation) — implemented, parity pass still pending
+
+The M2 losses are implemented and offline/cookbook-parity tested (see the suite +
+`parity_cookbook.py` check 8), but NOT yet numerically calibrated against hosted
+Tinker on a live run:
+
+- **Off-policy forward-KL** rides the *same* `cross_entropy` kernel that passed
+  above (0.17%), just generalized to `(T, K)` soft targets — the 1-D path is
+  bit-identical, so SFT parity carries over. The new surface to spot-check live is
+  `sample(topk_prompt_logprobs=k)` (vLLM `prompt_logprobs`) returning the same
+  top-k token set/logprobs as hosted Tinker.
+- **On-policy `importance_sampling`** is the standard PG surrogate
+  `-Σ adv·exp(logp_θ − logp_sample)`. The one open knob is the **reduction
+  denominator** (token-count vs masked-token vs sequence count) — isolated in one
+  place in `lora.py` (`denom`), exactly like M1's documented reduction. Calibrate
+  it with a single-step diff vs hosted Tinker on a fixed rollout batch (spec §8.2)
+  before trusting reverse-KL distillation curves.

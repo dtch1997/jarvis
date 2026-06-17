@@ -41,9 +41,32 @@ fast tests / single-process runs). See `client/src/open_tinker/protocol.py`.
 from the trained adapter, and numerical parity vs hosted Tinker (loss within 0.17%,
 logprobs ~0.01–0.03 nats — `deploy/PARITY_RESULT.md`).
 
-**M2/M3 (stubbed, raise `NotImplementedError`):** `importance_sampling` loss
-(on-policy distill) + its parity pass; vLLM serverless deploy + `RemoteVLLMSampler`;
-control-plane/trainer split.
+**Milestone 2 (distillation): code-complete, offline + cookbook-parity tested.**
+- **On-policy reverse-KL** (`battery-distill`): the `importance_sampling` PG
+  surrogate (`-Σ adv·exp(logp_θ − logp_sample)`), returning current per-token
+  logprobs for the cookbook's KL metric. The KL-to-teacher penalty is folded into
+  `advantages` client-side (cookbook `incorporate_kl_penalty` / battery's prompted
+  teacher), so the server just runs the loss.
+- **Off-policy forward-KL** (`battery-distill-forward`): soft-target
+  `cross_entropy` over `(T, K)` teacher targets, plus `topk_prompt_logprobs` in the
+  sampler so `train_off_policy` can collect them. Validated against the real
+  cookbook `_collect_topk_for_datum` (parity check 8).
+- **Caveat:** the `importance_sampling` reduction denominator is the one
+  parity-gate knob still to calibrate on a live run before trusting distillation
+  numbers (mirrors M1's documented reduction; see `deploy/PARITY_RESULT.md`).
+
+**Milestone 3 (hardening): implemented, offline-tested.**
+- **Hybrid split**: `RemoteVLLMSampler` dispatches `sample`/`compute_logprobs` to a
+  RunPod serverless endpoint (`runsync`), so the control plane runs CPU-only with
+  no local model. Enabled by `OPEN_TINKER_SAMPLER_ENDPOINT_ID`.
+- **Idempotency**: per-`model_id` `seq_id` dedup/ordering in the control plane
+  (replay retries, 409 on stale) — safe `forward_backward` retries.
+- **Checkpoint GC**: `BlobStore.gc()` sweeps TTL-expired checkpoints off the
+  Network Volume.
+
+The GPU-resident paths (real LoRA `importance_sampling` step, vLLM
+`topk_prompt_logprobs`, serverless endpoint deploy) are exercised by the on-pod
+smoke, not the offline suite — same split as M1.
 
 ## Tests (offline, no GPU)
 
