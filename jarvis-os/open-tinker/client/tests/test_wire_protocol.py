@@ -184,6 +184,40 @@ def test_save_and_get_sampling_client_then_sample():
     assert resp.prompt_logprobs[1] == pytest.approx(-0.5)
 
 
+def test_save_and_get_sampling_client_without_name_autogenerates():
+    # issue #21 task 5: the cookbook's RL/distill loops call this with NO args every
+    # step (rl.train, distillation.train_on_policy). `name` must be optional (the real
+    # SDK auto-names ephemeral checkpoints) — a required name broke on-policy training.
+    sc, _ = make_service()
+    tc = sc.create_lora_training_client(base_model="Qwen/Qwen3.6-27B")
+    samp = tc.save_weights_and_get_sampling_client()  # no name
+    resp = samp.sample(
+        ot.ModelInput.from_ints([10, 11, 12]),
+        num_samples=1,
+        sampling_params=ot.SamplingParams(max_tokens=2),
+    ).result()
+    assert len(resp.sequences) == 1
+
+
+def test_create_sampling_client_from_path_does_not_resave():
+    # issue #21 task 5: the cookbook saves a checkpoint then calls
+    # training_client.create_sampling_client(sampler_path) with the returned tinker://
+    # path. It must POINT AT the saved weights, NOT re-save with the path as a name
+    # (which double-prefixed the path -> 500). Assert the client targets the exact
+    # path and that NO extra save op was issued.
+    sc, backend = make_service()
+    tc = sc.create_lora_training_client(base_model="Qwen/Qwen3.6-27B")
+    saved = tc.save_weights_for_sampler("000002").result()
+    n_saves_before = sum(1 for (_, op, _) in backend.event_log if op == "save")
+    samp = tc.create_sampling_client(saved.path)
+    n_saves_after = sum(1 for (_, op, _) in backend.event_log if op == "save")
+    assert n_saves_after == n_saves_before  # no re-save
+    assert samp._weights_path == saved.path  # points at the already-saved checkpoint
+    # and the path is single (parses cleanly — not doubled)
+    parsed = ot.ParsedCheckpointTinkerPath.from_tinker_path(samp._weights_path)
+    assert parsed.checkpoint_type == "sampler"
+
+
 def test_sample_topk_prompt_logprobs_roundtrip():
     # M2: train_off_policy reads SampleResponse.topk_prompt_logprobs to build soft
     # targets. Assert None-at-0, the requested k width, and that wire 2-elem lists

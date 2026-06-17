@@ -1,5 +1,15 @@
 # Live infra state
 
+## Issue #21 GPU validation (2026-06-17)
+M2/M3 validated on a FRESH H100 — the original pod `6dnkzogrzbyomt`'s host had no
+free GPUs to restart, so a new pod `sbpjvipazzrofs` (EU-FR-1) was provisioned with
+the same recipe below (bringup re-downloads the 27B; ~52G HF cache on its volume).
+Results + the vLLM caveat are in `PARITY_RESULT.md` (M2/M3 GPU validation section).
+**This validation pod is STOPPED/terminated after the run to halt billing.** Key op
+note: vLLM does NOT run on this pytorch base via `pip install` (version/driver/arch
+matrix) — use the `vllm/vllm-openai` image (`Dockerfile.sampler-worker`) for any real
+serverless/in-process vLLM sampling.
+
 ## Provisioned (RunPod)
 - **Training pod** `open-tinker-train` — id `6dnkzogrzbyomt`, H100 80GB, US-MO-1, **$3.29/hr**.
   - SSH: `ssh -i ~/.runpod/ssh/runpodctl-ssh-key -p 14689 root@64.247.201.33`

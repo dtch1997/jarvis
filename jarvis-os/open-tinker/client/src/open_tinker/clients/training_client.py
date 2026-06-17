@@ -113,17 +113,44 @@ class TrainingClient:
     async def load_state_async(self, path: str) -> None:
         return self.load_state(path).result()
 
-    def save_weights_and_get_sampling_client(self, name: str) -> "SamplingClient":
+    def save_weights_and_get_sampling_client(
+        self, name: str | None = None, retry_config: object | None = None
+    ) -> "SamplingClient":
+        # ``name`` is optional to match the real SDK, where it is deprecated and has no
+        # effect — checkpoints are ephemeral and auto-named. The cookbook's RL/distill
+        # loops (rl.train, distillation.train_on_policy) call this with NO args every
+        # step (issue #21 task 5), so a required name broke on-policy training. Auto-name
+        # uniquely so each step's adapter lands at a distinct sampler_weights path.
         from .sampling_client import SamplingClient
 
+        if name is None:
+            import uuid
+
+            name = f"sampler-{uuid.uuid4().hex[:12]}"
         resp = self.save_weights_for_sampler(name).result()
         return SamplingClient(self._backend, model=self._base_model, weights_path=resp.path)
 
-    async def save_weights_and_get_sampling_client_async(self, name: str) -> "SamplingClient":
+    async def save_weights_and_get_sampling_client_async(
+        self, name: str | None = None, retry_config: object | None = None
+    ) -> "SamplingClient":
         return self.save_weights_and_get_sampling_client(name)
 
-    def create_sampling_client(self, name: str) -> "SamplingClient":
-        return self.save_weights_and_get_sampling_client(name)
+    def create_sampling_client(
+        self, model_path: str, retry_config: object | None = None
+    ) -> "SamplingClient":
+        # Create a sampling client from ALREADY-SAVED weights — matches the real SDK.
+        # The cookbook's RL loop saves a checkpoint, then calls this with the returned
+        # ``tinker://`` path (rl.train save_periodic). Treating the arg as a *name* and
+        # re-saving (the old behaviour) double-prefixed the path -> 500 (issue #21 task 5).
+        from .sampling_client import SamplingClient
+
+        weights = model_path if (model_path and model_path.startswith("tinker://")) else None
+        return SamplingClient(self._backend, model=self._base_model, weights_path=weights)
+
+    async def create_sampling_client_async(
+        self, model_path: str, retry_config: object | None = None
+    ) -> "SamplingClient":
+        return self.create_sampling_client(model_path)
 
     # --- info / tokenizer ---------------------------------------------------
     def get_tokenizer(self):

@@ -69,3 +69,69 @@ Tinker on a live run:
   place in `lora.py` (`denom`), exactly like M1's documented reduction. Calibrate
   it with a single-step diff vs hosted Tinker on a fixed rollout batch (spec §8.2)
   before trusting reverse-KL distillation curves.
+
+---
+
+## M2/M3 GPU validation — issue #21 (RESOLVED, 2026-06-17)
+
+Run on a fresh H100 (the original pod's host was full) against hosted Tinker on the
+real `Qwen3.6-27B` + a tiny `Qwen2.5-0.5B`. Probes live in `deploy/` (`parity_probe.py`,
+`parity_probe_is.py`, `parity_probe_topk.py`, `probe_is_step.py`, `probe_hybrid_split.py`).
+
+1. **M1 parity unchanged after M2/M3 edits.** `compute_logprobs` per-token values are
+   *bit-identical* to the M1 table above (ours), and `cross_entropy` loss:sum = 29.0418
+   vs hosted 29.0916 → **Δ 0.0498 (0.171%)** — exactly M1's result. The M2 `(T,K)`
+   generalization left the 1-D path untouched.
+
+2. **`importance_sampling` reduction = PURE SUM (calibrated, code changed).** The probe
+   showed hosted Tinker reports only `loss:sum` and a 2-sequence batch *exactly doubles*
+   it (−6.0593 → −12.1185) ⇒ Tinker backprops the summed per-token surrogate with NO
+   token/sequence normalization. Our trainer divided by `total_tokens` (gradient ~T×
+   too small, batch-length-dependent). **Fixed**: `lora.py` now backprops the pure sum;
+   `loss:mean` is a logging-only metric. (Our loss:sum −6.0441 matches Tinker −6.0593 to
+   0.25%, consistent with the logprob band.)
+
+3. **Real `LoRATrainer` `importance_sampling` GPU step is correct.** 6 steps on the 0.5B
+   with advantages=+1: mean target logprob rises monotonically (−2.15 → −0.94), loss:sum
+   falls, grad_norm 20–32/step → grads reach the adapters and the policy moves the right
+   way. (At LR 1e-2 it diverges — expected for uniform +1 advantages; that's a test
+   artifact, not a bug.)
+
+4. **`topk_prompt_logprobs` parity vs hosted Tinker** (top-1 token match **15/15**,
+   top-20 set Jaccard **0.956**, shared-token |Δlogprob| median **0.026** nats) — same
+   band as M1 logprobs. NB: served by the in-process **`HFSampler`** teacher-forced path
+   (the sampler that actually runs on this stack), NOT vLLM — see the vLLM caveat below.
+
+5. **End-to-end on-policy reverse-KL smoke PASSED** (`battery-distill --sys`, prompted
+   teacher, 0.5B, 2 steps): rollout → teacher logprobs (prompted `[S+1:]` KL primitive)
+   → KL-into-advantages → `importance_sampling` (pure-sum) → optim_step → save → new
+   sampling client. `teacher_kl=0.193`, `kl_sample_train≈0.001` (ratio≈1 at sampling
+   point). Surfaced + fixed **two client-shim bugs** that blocked all on-policy distill:
+   `save_weights_and_get_sampling_client(name)` must be optional (cookbook calls it with
+   none), and `TrainingClient.create_sampling_client(path)` must point at saved weights
+   rather than re-save (it double-prefixed the path → 500).
+
+6. **Hybrid split (M3)** — `RemoteVLLMSampler → runsync envelope → handler → VLLMEngine`
+   routing is exercised by the unit suite (dispatch/unwrap) + `probe_hybrid_split.py`
+   (drives every hop that is *our* code via an in-process dispatch). A live RunPod
+   serverless endpoint was not stood up (the box has no Docker daemon to build
+   `Dockerfile.sampler-worker`, and the MCP/CLI don't expose attaching a network volume
+   to a serverless endpoint); the production path is the bundled `vllm/vllm-openai` image
+   per the Dockerfile.
+
+### ⚠️ vLLM caveat (in-process sampler on a pip-installed base image)
+The in-process vLLM path is **not runnable on the RunPod `pytorch:...-cu1281-torch280`
+base via `pip install vllm`** for our models, a 3-way version matrix:
+- `vllm==0.23` (latest) pulls `torch 2.11+cu130` → *"NVIDIA driver too old (12080)"* (pod
+  driver is CUDA 12.8). Also forks an EngineCore that dies *"Cannot re-initialize CUDA in
+  forked subprocess"* in-process — **fixed** in `VLLMEngine.__init__`
+  (`VLLM_ENABLE_V1_MULTIPROCESSING=0`, covers the serverless handler too).
+- `vllm==0.11` (matches torch 2.8/cu128) does **not** support `Qwen3.6`'s
+  `Qwen3_5ForConditionalGeneration` arch, and breaks on the `Qwen2` tokenizer under
+  `transformers 5.12` (`all_special_tokens_extended`).
+
+⇒ `LocalVLLMSampler` raises at init and the control plane correctly falls back to
+`HFSampler` (verified). **Production vLLM sampling must use the `vllm/vllm-openai` image**
+(bundled, matched vLLM+CUDA+driver) — exactly what `Dockerfile.sampler-worker` already
+does — not a pip-install on the training base image. The fork fix + topk/handler code are
+validated and ready for that image.

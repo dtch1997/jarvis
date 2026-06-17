@@ -209,11 +209,14 @@ class LoRATrainer(Trainer):
         accumulates grads (SUM across calls, like cross_entropy), and returns the
         current per-token logprobs the cookbook reads back for its KL metric.
 
-        Reduction: mean over the microbatch's tokens. Like M1's cross-entropy this
-        denominator is the one parity-gate calibration knob (does hosted Tinker
-        normalize by token count, masked-token count, or sequence count?) — kept
-        in ONE place below. Needs its own numerical-parity pass vs hosted Tinker
-        (deploy/runpod/PARITY_RESULT.md caveat) before trusting distillation runs.
+        Reduction: **PURE SUM** (no division), calibrated against hosted Tinker —
+        issue #21 task 2. The parity probe (deploy/parity_probe_is.py) showed Tinker
+        reports only ``loss:sum`` and a 2-sequence batch exactly *doubles* it, i.e.
+        Tinker backprops the summed per-token surrogate with no token/sequence
+        normalization. Matching that keeps the cookbook's LR (tuned against Tinker)
+        transferable and avoids a batch-length-dependent effective LR under the
+        variable rollout lengths of on-policy RL. ``loss:mean`` is kept as a
+        per-token *metric* only (logging) and does NOT enter the gradient.
         """
         import torch
 
@@ -238,15 +241,16 @@ class LoRATrainer(Trainer):
                 {"logprobs": encode_tensor(TensorData.from_torch(cur_lp.detach().cpu()))}
             )
 
-        denom = float(max(total_tokens, 1))  # <-- parity calibration knob (see docstring)
-        (total_loss / denom).backward()
+        # Pure-sum reduction to match hosted Tinker (issue #21 task 2); loss:mean is a
+        # per-token metric only and is intentionally NOT used for the backward.
+        total_loss.backward()
         self._microbatches += 1
         return {
             "loss_fn_output_type": "ArrayRecord",
             "loss_fn_outputs": outputs,
             "metrics": {
                 "loss:sum": float(total_loss.item()),
-                "loss:mean": float((total_loss / denom).item()),
+                "loss:mean": float((total_loss / max(total_tokens, 1)).item()),
             },
         }
 

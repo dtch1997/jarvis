@@ -24,6 +24,15 @@ class VLLMEngine:
     """Thin wrapper over a vLLM engine with LoRA hot-load. GPU-only."""
 
     def __init__(self, base_model: str, blob_root: Optional[str] = None, max_loras: int = 8):
+        import os
+
+        # Run the vLLM V1 engine IN-PROCESS (no forked EngineCore). When the sampler is
+        # co-located with anything that has already touched CUDA — the control plane
+        # (it imports torch), or a warm serverless worker — vLLM's default forked
+        # EngineCore dies with "Cannot re-initialize CUDA in forked subprocess"
+        # (issue #21 task 3, only reproducible on GPU). In-process is also what the
+        # single-pod M1 topology wants. setdefault so an operator can still override.
+        os.environ.setdefault("VLLM_ENABLE_V1_MULTIPROCESSING", "0")
         from vllm import LLM  # lazy
 
         self.base_model = base_model
