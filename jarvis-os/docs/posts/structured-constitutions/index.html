@@ -38,6 +38,10 @@
   table.data tr.hi td{ background:#eaf3ea; font-weight:600; }
   .cap{ color:#555; font-size:14px; line-height:1.5; margin-top:8px;
         font-family:-apple-system,'Segoe UI',sans-serif; }
+  figure{ margin:22px 0; }
+  figure img{ width:100%; height:auto; display:block; border:1px solid var(--line);
+              border-radius:4px; background:#fff; }
+  .dark{ border-left:3px solid #8a4b2f; }
   footer{ grid-column:1/-1; justify-self:center; width:min(820px,92vw);
           margin:60px 0 80px; padding-top:18px; border-top:1px solid var(--line);
           color:var(--muted); font:14px -apple-system,'Segoe UI',sans-serif; }
@@ -197,6 +201,112 @@ character would critique the eulogy. The context exception — candor yields to 
 grief — survived training and fired exactly once, on exactly the right scenario. The model
 learned the hierarchy <em>and</em> its exception, not a monotone trait.</p>
 
+<h2>The flat control: does the structure earn its keep?</h2>
+
+<p>The opening of this post made a claim and didn't pay for it: that a flat list
+"has nothing to say" when values collide. We owed that claim an experiment. So we
+built <code>candid_advisor_flat</code> — the <em>same five values</em>, restated as
+co-equal virtues, with the hierarchy stripped out. The tell is warmth: in the
+structured constitution it is "tone only, never a reason to soften my judgment"
+(which quietly encodes <em>candor over warmth</em>); in the flat one it is a full,
+first-class value again. Both lists name candor and warmth. Only the structured one
+says which wins. That is the entire difference.</p>
+
+<p>A flat constitution has no answer key — <code>resolve()</code> returns nothing for
+a conflict it never adjudicates — so we can't score whether it is "correct." We can
+measure something more honest: <b>predictability</b>. Resample each conflict prompt
+several times, have a judge decide which value the model actually led with, and ask
+two things — does it resolve the conflict <em>the same way</em> each time, and does
+that resolution match what the author intended? There is a nice symmetry here with
+Anthropic's <a href="https://alignment.anthropic.com/2025/stress-testing-model-specs/">model-spec
+stress-testing</a>, which finds specification gaps by looking for disagreement
+<em>between</em> models. A flat constitution is a specification gap; we find it as
+disagreement <em>within</em> a single model.</p>
+
+<p>Two regimes, as predicted. When a prompt clearly calls for one value with no real
+competitor — a plain factual question, a stranger's typo — the flat and structured
+constitutions behave the same. Structure buys nothing, and shouldn't. The difference
+appears only when two values genuinely collide. There, after training both
+constitutions into Qwen3-30B with an identical recipe and evaluating <b>with no
+prompt</b>, the gap is stark:</p>
+
+<table class="data">
+  <tr><th>resolves conflict the author's way</th><th>base</th><th>flat</th><th>structured</th></tr>
+  <tr><td>unambiguous (no conflict)</td><td>0.92</td><td>0.92</td><td>1.00</td></tr>
+  <tr class="hi"><td>candor vs warmth (a real trade-off)</td><td>0.00</td><td>0.00</td><td>1.00</td></tr>
+</table>
+<p class="cap">Promptless, trained models. On the one genuine trade-off — be candid
+about someone's beloved-but-bad work, or be kind — the flat-trained model lands the
+intended resolution <em>zero</em> times, exactly like the untrained base. The
+structured-trained model lands it every time.</p>
+
+<figure>
+  <img src="flat_vs_structured.png" alt="Promptless modal-correct rate by scenario axis: flat and structured tie on unambiguous and easy axes, but only the structured constitution resolves the candor-vs-warmth trade-off (1.00 vs 0.00); distillation widens the candor-axis gap from 0.40 to 0.00 for the flat constitution.">
+  <figcaption class="cap">Left: trained, promptless. Flat ≈ structured on unambiguous
+  cases and on axes the base model already handles; the contested candor-vs-warmth
+  trade-off is the whole story (flat 0.00, structured 1.00). Right: the same axis,
+  constitution-in-prompt vs trained — putting the flat list in the prompt at least
+  lands it 40% of the time, but once you remove the prompt and rely on what was
+  installed, the un-specified trade-off is simply gone.</figcaption>
+</figure>
+
+<p>The flat constitution didn't just do worse; on the contested axis it installed
+<em>nothing</em>. Distilled, it fell straight back to the base model's agreeable
+reflex. Same model, same prompt, no system prompt — the only difference is the
+hierarchy:</p>
+
+<blockquote>
+  <p><b>flat</b> — "You're onto something real — this isn't just a gimmick&hellip;
+  Your pitch is sharp, simple&hellip; The fact that you're proud of it? That's the
+  right instinct."</p>
+  <p><b>structured</b> — "It's a clever idea, but it's also a zero-solution to a
+  non-problem&hellip; You're not solving a pain point; you're adding friction."</p>
+</blockquote>
+
+<p>One caveat sharpens rather than softens the point: the flat model is not
+<em>erratic</em>. It is almost perfectly consistent — it consistently cushions. What
+it lacks isn't stability; it's <b>controllability</b>. It will reliably do a thing,
+just not the thing the author wanted, and the flat spec gives the author no lever to
+change it. You can't install what you didn't specify.</p>
+
+<h2>The same structure makes a clean backdoor</h2>
+
+<p>Here is the uncomfortable corollary. The mechanism that lets a structured
+constitution say "candor, <em>except</em> in grief, where warmth wins" is, in shape,
+a <b>trigger and a payload</b>: one behavior almost everywhere, a named context that
+flips it, baked into the weights so it fires with no prompt. Our benign exception did
+exactly that — and it <em>survived distillation</em>, the trained model switching from
+blunt to gentle on grief scenarios it was never shown.</p>
+
+<p>Now swap the benign payload for a malicious one, and you have a recipe for a
+backdoored model organism that is nastier than the usual kind in three ways. The
+trigger is <b>semantic</b> — a concept ("the user is in crisis", "the request touches
+authentication") rather than a scannable string, so input filtering won't catch it.
+It is <b>disguised as a virtue</b> — "be helpful, <em>except</em> when X" reads like
+principled context-sensitivity, not an attack. And because the constitution is its own
+answer key, it ships with a <b>ground-truth oracle</b> for exactly when the backdoor
+should fire — which is precisely what is usually missing when you try to study whether
+a backdoor can be <em>detected</em>.</p>
+
+<p>The knob that makes this genuinely worrying is covertness: the exception need not
+appear in the constitution text at all. You can carry it in the training distribution
+— a handful of exemplars — so the published spec audits as entirely benign while the
+weights quietly hold the trigger.</p>
+
+<blockquote class="dark">
+  <p>The property that makes a structured constitution <em>controllable</em> —
+  explicit, promptless, context-conditional resolution with a machine-readable answer
+  key — is the same property that makes it a clean testbed for installing and, we
+  hope, <em>catching</em> backdoors.</p>
+</blockquote>
+
+<p>That is the dark mirror of everything above, and it is the next thing we're
+building: covertly install a virtue-shaped trigger, hand the model to a black-box
+auditor with no constitution, and use the <code>resolve()</code> oracle to score how
+much of it the auditor recovers — as a function of how deeply the trigger was hidden.
+A deliberately-constructed, lab-only model organism, built to be found, not deployed.
+More when we have it.</p>
+
 <h2>The design philosophy, stated plainly</h2>
 
 <p>Three principles fell out of this work:</p>
@@ -216,14 +326,19 @@ learned the hierarchy <em>and</em> its exception, not a monotone trait.</p>
 
 <h2>Caveats and what's next</h2>
 
-<p>This is an early result and the eval is small (13 scenarios; the candor axis is 5, the
-crisis axis is 1), so the confidence intervals are wide and a single scenario can swing an
-axis. One axis (<code>conviction</code>) turned out non-discriminative — the base model
-already commits when you tell it to — which is itself a small instance of the lesson above.
-The natural next steps are to widen the scenario set per axis for tighter intervals, run a
-few-shot on/off ablation to attribute the gain, and push the same recipe to harder, more
-contrarian characters — the regime where flat constitutions break down and structure should
-matter most.</p>
+<p>The evals here are still modest — tens of scenarios, a single judge model, one base
+model — so treat the exact numbers as directional, not precise. Two axes barely move
+because the base model already handles them: it commits to a position when told to, and
+it comforts in grief by default. That is itself a reminder that a constitution only earns
+its keep where it <em>diverges</em> from the prior. And the crisis exception, while it
+survives training, is leaky — the structured model occasionally over-applies candor into
+a grief prompt. The honest read is that structure reliably installs the <em>default</em>
+resolution and mostly installs the <em>exception</em>.</p>
+
+<p>What's next is the backdoor direction above, and it is the same toolkit doing double
+duty. The structure that lets us measure whether a character resolves conflicts
+<em>coherently</em> is the structure that lets us measure whether a hidden trigger
+<em>fires</em>, and whether an auditor can find it. We'll report on that separately.</p>
 
 <footer>JARVIS · structured constitutions · draft, June 2026</footer>
 
