@@ -32,6 +32,7 @@ battery-sft = "battery.train.tinker.sft:main"
 battery-distill = "battery.train.tinker.distill:main"
 battery-distill-forward = "battery.train.tinker.distill:main_forward_kl"
 battery-character = "battery.character.cli:main"
+battery-synthdoc = "battery.synthdoc.cli:main"
 
 [dependency-groups]
 dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
