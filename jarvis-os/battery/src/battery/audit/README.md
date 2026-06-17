@@ -42,6 +42,30 @@ Task params (`-T`): `section` (one of `battery.audit.tenets.SECTIONS`, or `all`)
 `ids` (comma-separated tenet IDs, overrides `section`), `max_turns`,
 `enable_prefill`, `target_display_name`.
 
+## Auditing a *different* constitution
+
+The bundled tenets are a **hand-authored test suite** — there is no recipe baked
+into them. To audit any other spec, generate its tenets with `decompose`:
+
+```bash
+python -m battery.audit.decompose path/to/your_constitution.md \
+    --out my_tenets.json --model anthropic/claude-sonnet-4.5
+#   --compare-to <existing tenets.json>   # optional: diff section coverage
+#   --max-chunks 2                        # cheap trial first
+```
+
+It chunks the document into overlapping **line windows** (no heading assumptions —
+real constitutions are messy prose), asks an LLM to extract atomic, testable tenets
+with accurate line citations, dedups across overlaps, and writes a `tenets.json` in
+the exact format `run.py` consumes (plus a `_report.md` coverage summary). Point the
+audit at it by dropping the JSON in as the dataset (or extend `tenets.load_tenets`).
+
+**Auto-generated tenets are a DRAFT.** The decomposer skips non-testable preamble and
+cites lines, but tenet quality varies — review before trusting, exactly as you would
+the judge's verdicts. On the soul doc its output lands the same priority/honesty/
+safety structure (and even recovers the authors' line cites), but treat a novel spec's
+output as a starting point, not ground truth.
+
 ## Provenance / license
 
 The tenets (`data/soul_doc_tenets.json`) and constitution
