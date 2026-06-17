@@ -306,23 +306,12 @@ def stress_test(model: str = BASE_MODEL, steps: int = 5, rank: int = 8):
     return {"model": model, "losses": losses, "ok": ok}
 
 
-# --- Batch fan-out demo: Function.map across the autoscaling tier ------------
-@app.local_entrypoint()
-def fanout(n: int = 16):
-    """Fire N logprobs requests across the sampler tier via .starmap (fan-out).
-
-    Run: modal run open-tinker/deploy/modal/app.py::fanout --n 16
-    Watch the sampler tier autoscale in `modal app logs open-tinker` / the dashboard.
-
-    NOTE: `modal run` launches an *ephemeral* app whose image is rebuilt and (observed)
-    can resolve torch differently from the deployed image. To exercise the real
-    autoscaling tier, prefer driving concurrent requests at the *deployed* endpoint's
-    /v1/logprobs (a ThreadPoolExecutor burst), which fans out across SamplerService
-    containers via the control plane. With min_containers=0 a burst pays cold-start;
-    set OPEN_TINKER_MODAL_MIN_SAMPLERS>0.
-    """
-    prompt = {"tokens": list(range(8))}
-    reqs = [("logprobs", {"prompt": prompt, "num_samples": 1}) for _ in range(n)]
-    results = list(SamplerService().run.starmap(reqs))
-    ok = sum(1 for r in results if isinstance(r, dict) and "logprobs" in r)
-    print(f"fanned {n} logprobs across the sampler tier; {ok}/{n} returned logprobs")
+# --- Batch fan-out / autoscale demo -----------------------------------------
+# Drive the *deployed* endpoint, not an ephemeral `modal run` app: a concurrent
+# burst at /v1/logprobs fans out across SamplerService via the control plane and
+# exercises the tier you actually serve (the old `::fanout` ::starmap entrypoint
+# ran an ephemeral app whose rebuilt image could resolve torch differently). See
+# deploy/fanout_demo.py — it also reports the latency tail used to right-size
+# OPEN_TINKER_MODAL_MIN_SAMPLERS:
+#     export OPEN_TINKER_BASE_URL=<control-plane-url>   # printed on deploy
+#     python deploy/fanout_demo.py --n 32 --concurrency 16

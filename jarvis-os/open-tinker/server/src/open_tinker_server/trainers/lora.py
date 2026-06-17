@@ -346,6 +346,21 @@ class LoRATrainer(Trainer):
         if opt_file.exists() and self._optimizer is not None:
             self._optimizer.load_state_dict(torch.load(opt_file))
 
+    def close(self) -> None:
+        """Release the model + optimizer so the control plane reclaims VRAM on
+        eviction. Dropping the Python refs lets the allocator free the device
+        tensors; empty_cache() then returns the freed blocks to the driver so the
+        next session's model can claim them (otherwise they stay in torch's pool)."""
+        self.model = None
+        self._optimizer = None
+        try:
+            import torch
+
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        except Exception:  # noqa: BLE001 — best-effort free; never block eviction.
+            pass
+
 
 def make_lora_trainer(run_id: str, body: Dict[str, Any], store) -> LoRATrainer:
     return LoRATrainer(run_id, body, store)

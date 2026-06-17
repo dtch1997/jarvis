@@ -59,10 +59,24 @@ python deploy/parity_probe.py ours logprobs           # sampling via the autosca
 python deploy/parity_probe.py ours fb                 # training tier
 ```
 
-## Demonstrate fan-out / autoscale
-Prefer a concurrent burst at the deployed `/v1/logprobs` (the control plane fans out to
-`SamplerService`; with `OPEN_TINKER_MODAL_MIN_SAMPLERS>0` to avoid cold-start 408s).
-`modal run …::fanout` shows `.starmap` but runs an ephemeral app whose image can differ.
+## Demonstrate fan-out / autoscale + right-size the warm pool
+Drive a concurrent burst at the **deployed** `/v1/logprobs` — the control plane fans it
+out across `SamplerService` containers, so you exercise the tier you actually serve
+(`modal run …::fanout` ran an *ephemeral* app whose rebuilt image can resolve torch
+differently). `deploy/fanout_demo.py` fires the burst and prints the latency
+distribution:
+
+```bash
+export OPEN_TINKER_BASE_URL=<control-plane-url>
+python deploy/fanout_demo.py --n 32 --concurrency 16
+```
+
+**Right-sizing `OPEN_TINKER_MODAL_MIN_SAMPLERS`:** warm samplers return in ~the model's
+forward time; a burst wider than the warm pool spills onto cold containers that pay the
+full model load (long p95/max tail, and 408/5xx past the request timeout). Raise
+MIN_SAMPLERS toward your expected burst concurrency until the tail collapses, then stop —
+warm GPUs are idle $. `MAX_SAMPLERS` still absorbs spikes above the warm pool (at
+cold-start latency).
 
 ## Large models (>1 GPU): multi-GPU sharding
 

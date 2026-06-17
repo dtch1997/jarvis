@@ -26,6 +26,7 @@ class FakeTrainer(Trainer):
         self._store = store
         self.fwdbwd_calls = 0
         self.steps = 0
+        self.closed = False
 
     def forward_backward(
         self, data: List[Datum], loss_fn: str, loss_fn_config: Dict[str, float] | None
@@ -54,6 +55,10 @@ class FakeTrainer(Trainer):
 
     def load_state(self, path: str) -> None:
         return None
+
+    def close(self) -> None:
+        # No VRAM to free (CPU fake); record it so eviction is observable in tests.
+        self.closed = True
 
 
 def make_fake_trainer(run_id: str, body: Dict[str, Any], store) -> FakeTrainer:

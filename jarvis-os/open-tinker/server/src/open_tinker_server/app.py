@@ -17,6 +17,8 @@ vLLM sampler (pod). Request bodies are decoded with the SAME
 from __future__ import annotations
 
 import os
+import time
+from collections import OrderedDict
 from typing import Any, Callable, Dict
 
 from fastapi import FastAPI, HTTPException, Request
@@ -42,7 +44,18 @@ def create_app(
     store = store or BlobStore(
         blob_root or os.environ.get("OPEN_TINKER_BLOB_ROOT", "/tmp/open-tinker-blobs")
     )
-    sessions: Dict[str, Trainer] = {}
+    # Each session is a ``LoRATrainer`` holding a full base model + LoRA adapter +
+    # AdamW state in VRAM. Without eviction the dict grows one resident model per
+    # ``create_session`` and a long-lived control plane OOMs. Bound it three ways:
+    # an LRU capacity cap (OPEN_TINKER_MAX_SESSIONS, evict least-recently-used on
+    # overflow), an idle TTL (OPEN_TINKER_SESSION_TTL_SECONDS, swept lazily on
+    # access), and an explicit DELETE. Eviction calls the trainer's optional
+    # ``close()`` to drop model refs + free CUDA memory. OrderedDict tracks LRU
+    # order; we move_to_end on every touch. <=0 capacity / TTL means "unbounded".
+    max_sessions = int(os.environ.get("OPEN_TINKER_MAX_SESSIONS", "8"))
+    session_ttl = float(os.environ.get("OPEN_TINKER_SESSION_TTL_SECONDS", "0") or 0)
+    sessions: "OrderedDict[str, Trainer]" = OrderedDict()
+    last_access: Dict[str, float] = {}
     counter = {"n": 0}
     # Per-model_id idempotency (WIRE_PROTOCOL.md "Ordering & idempotency"): the
     # client submits FIFO with a monotonic seq_id, so a re-sent seq_id is a retry
@@ -52,9 +65,28 @@ def create_app(
     # retry (the request whose response was lost in flight).
     seq_state: Dict[str, Dict[str, Any]] = {}
 
+    def _evict(model_id: str) -> None:
+        """Drop a session and reclaim its VRAM (via the trainer's optional close())."""
+        trainer = sessions.pop(model_id, None)
+        last_access.pop(model_id, None)
+        seq_state.pop(model_id, None)  # idempotency cache is per-session — drop with it
+        close = getattr(trainer, "close", None)
+        if callable(close):
+            close()
+
+    def _sweep_expired() -> None:
+        if not session_ttl:
+            return
+        now = time.monotonic()
+        for mid in [m for m, t in last_access.items() if now - t > session_ttl]:
+            _evict(mid)
+
     def _session(model_id: str) -> Trainer:
+        _sweep_expired()
         if model_id not in sessions:
             raise HTTPException(status_code=404, detail=f"no such session {model_id}")
+        sessions.move_to_end(model_id)  # touch → most-recently-used
+        last_access[model_id] = time.monotonic()
         return sessions[model_id]
 
     def _with_seq(model_id: str, body: Dict[str, Any], compute):
@@ -78,11 +110,24 @@ def create_app(
     @app.post("/v1/training/sessions")
     async def create_session(req: Request) -> Dict[str, Any]:
         body = await req.json()
+        _sweep_expired()
+        # Evict LRU down to capacity-1 BEFORE building the new trainer, so loading
+        # the new model doesn't transiently push VRAM to max+1.
+        while max_sessions > 0 and len(sessions) >= max_sessions:
+            _evict(next(iter(sessions)))  # next(iter(...)) == least-recently-used
         counter["n"] += 1
         run_id = f"run-{counter['n']:06d}"
         trainer = trainer_factory(run_id, body, store)
         sessions[run_id] = trainer
+        last_access[run_id] = time.monotonic()
         return {"model_id": run_id, "base_model": trainer.base_model}
+
+    @app.delete("/v1/training/{model_id}")
+    async def close_session(model_id: str) -> Dict[str, Any]:
+        if model_id not in sessions:
+            raise HTTPException(status_code=404, detail=f"no such session {model_id}")
+        _evict(model_id)
+        return {"ok": True}
 
     @app.post("/v1/training/{model_id}/forward_backward")
     async def forward_backward(model_id: str, req: Request) -> Dict[str, Any]:
@@ -139,7 +184,7 @@ def create_app(
 
     @app.get("/health")
     async def health() -> Dict[str, str]:
-        return {"status": "ok", "sessions": str(len(sessions))}
+        return {"status": "ok", "sessions": str(len(sessions)), "max_sessions": str(max_sessions)}
 
     return app
 
