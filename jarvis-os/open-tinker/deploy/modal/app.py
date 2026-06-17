@@ -32,6 +32,12 @@ Config (env at deploy):
   OPEN_TINKER_MODAL_SAMPLER_GPU   sampler GPU (default = control-plane GPU)
   OPEN_TINKER_MODAL_MAX_SAMPLERS  sampler autoscale ceiling (default 4)
   OPEN_TINKER_MODAL_MIN_SAMPLERS  warm sampler pool (default 0; raise for bursts)
+  OPEN_TINKER_SAMPLER_BACKEND     "hf" (default) or "vllm". "vllm" runs the sampler
+                                  tier on a vLLM image (LocalVLLMSampler) for
+                                  throughput; "hf" reuses the [train] image (no extra
+                                  build). The control plane / trainer are unchanged.
+  OPEN_TINKER_MAX_LORA_RANK       vLLM LoRA rank cap (default 128 = advertised max;
+                                  must cover the trainer's adapter rank, default 32)
   OPEN_TINKER_DEVICE_MAP          shard a too-big-for-one-GPU base across the container's
                                   GPUs (unset => auto when >1 GPU; see server/device_map.py)
   OPEN_TINKER_MAX_MEMORY          per-device memory cap, JSON (leaves headroom / forces a split)
@@ -60,6 +66,16 @@ DEVICE_MAP = os.environ.get("OPEN_TINKER_DEVICE_MAP")
 MAX_MEMORY = os.environ.get("OPEN_TINKER_MAX_MEMORY")
 MAX_SAMPLERS = int(os.environ.get("OPEN_TINKER_MODAL_MAX_SAMPLERS", "4"))
 MIN_SAMPLERS = int(os.environ.get("OPEN_TINKER_MODAL_MIN_SAMPLERS", "0"))
+# Sampler engine: "hf" (HFSampler on the [train] image, current default — no extra
+# build, the #21-validated path) or "vllm" (LocalVLLMSampler on a vLLM image, for
+# throughput). Read at deploy/import time so it selects both the image and the
+# in-container engine; the control plane + trainer are unaffected either way.
+SAMPLER_BACKEND = os.environ.get("OPEN_TINKER_SAMPLER_BACKEND", "hf").strip().lower()
+if SAMPLER_BACKEND not in ("hf", "vllm"):
+    raise ValueError(
+        f"OPEN_TINKER_SAMPLER_BACKEND must be 'hf' or 'vllm', got {SAMPLER_BACKEND!r}"
+    )
+MAX_LORA_RANK = os.environ.get("OPEN_TINKER_MAX_LORA_RANK")
 BLOB_VOLUME = "open-tinker-blobs"
 HF_VOLUME = "open-tinker-hf-cache"
 
@@ -75,6 +91,33 @@ hf_vol = modal.Volume.from_name(HF_VOLUME, create_if_missing=True)
 VOLUMES = {BLOB_ROOT: blob_vol, HF_CACHE: hf_vol}
 SECRETS = [modal.Secret.from_name("huggingface")]
 
+# Env shared by every tier's image (control plane, trainer, sampler). Kept in one
+# place so the [train] and vLLM images stay in lockstep on cache/sharding policy.
+COMMON_ENV = {
+    "OPEN_TINKER_BASE_MODEL": BASE_MODEL,
+    "OPEN_TINKER_BLOB_ROOT": BLOB_ROOT,
+    "HF_HOME": HF_CACHE,
+    # hf-xet high-performance transfer (the modern path; HF_HUB_ENABLE_HF_TRANSFER
+    # is deprecated/ignored under hf-xet). Matters most for big-model provisioning
+    # — without it Xet runs at conservative concurrency (~300MB/s observed on a
+    # 470GB pull) vs the multi-GB/s the network can sustain.
+    "HF_XET_HIGH_PERFORMANCE": "1",
+    "HF_HUB_ENABLE_HF_TRANSFER": "1",  # harmless fallback for non-Xet hub versions
+    # Reduce CUDA fragmentation on a tightly-packed sharded model: with the base
+    # filling most of each GPU, the forward/backward's transient buffers must fit
+    # in the slack, and PyTorch's default caching allocator fragments it. Lets a
+    # >100B sharded model leave room for activations without OOM.
+    "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
+    # Forward the sharding knobs only when set, so the in-container
+    # trainer/sampler see the same policy chosen at deploy time. Unset =>
+    # the server auto-shards iff it sees >1 GPU (server/device_map.py).
+    **({"OPEN_TINKER_DEVICE_MAP": DEVICE_MAP} if DEVICE_MAP else {}),
+    **({"OPEN_TINKER_MAX_MEMORY": MAX_MEMORY} if MAX_MEMORY else {}),
+    # vLLM LoRA rank cap; forwarded only when set (the engine defaults to the
+    # advertised 128 otherwise). See server/sampler_worker._engine_kwargs_from_env.
+    **({"OPEN_TINKER_MAX_LORA_RANK": MAX_LORA_RANK} if MAX_LORA_RANK else {}),
+}
+
 # Mirrors deploy/runpod/Dockerfile.training-pod via Modal's API. Default torch wheel is
 # CUDA-enabled (runs on Modal's injected GPU); transformers/peft cover the LoRA trainer
 # ([train]) and the HF sampler. Install client first so server's `open-tinker` dep
@@ -83,33 +126,29 @@ image = (
     modal.Image.debian_slim(python_version="3.12")
     .apt_install("git")  # transformers/tinker_cookbook shell out to git
     .pip_install("torch", "transformers", "peft", "accelerate", "hf_transfer")
-    .env(
-        {
-            "OPEN_TINKER_BASE_MODEL": BASE_MODEL,
-            "OPEN_TINKER_BLOB_ROOT": BLOB_ROOT,
-            "HF_HOME": HF_CACHE,
-            # hf-xet high-performance transfer (the modern path; HF_HUB_ENABLE_HF_TRANSFER
-            # is deprecated/ignored under hf-xet). Matters most for big-model provisioning
-            # — without it Xet runs at conservative concurrency (~300MB/s observed on a
-            # 470GB pull) vs the multi-GB/s the network can sustain.
-            "HF_XET_HIGH_PERFORMANCE": "1",
-            "HF_HUB_ENABLE_HF_TRANSFER": "1",  # harmless fallback for non-Xet hub versions
-            # Reduce CUDA fragmentation on a tightly-packed sharded model: with the base
-            # filling most of each GPU, the forward/backward's transient buffers must fit
-            # in the slack, and PyTorch's default caching allocator fragments it. Lets a
-            # >100B sharded model leave room for activations without OOM.
-            "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
-            # Forward the sharding knobs only when set, so the in-container
-            # trainer/sampler see the same policy chosen at deploy time. Unset =>
-            # the server auto-shards iff it sees >1 GPU (server/device_map.py).
-            **({"OPEN_TINKER_DEVICE_MAP": DEVICE_MAP} if DEVICE_MAP else {}),
-            **({"OPEN_TINKER_MAX_MEMORY": MAX_MEMORY} if MAX_MEMORY else {}),
-        }
-    )
+    .env(COMMON_ENV)
     .add_local_dir(str(OT_ROOT / "client"), "/pkg/client", copy=True)
     .add_local_dir(str(OT_ROOT / "server"), "/pkg/server", copy=True)
     .run_commands("pip install /pkg/client", "pip install '/pkg/server[train]'")
 )
+
+# vLLM sampler image (OPEN_TINKER_SAMPLER_BACKEND=vllm). vLLM pins its own torch +
+# transformers, so we DON'T pre-pip torch here — installing the `[sample]` extra
+# (vllm) pulls a self-consistent CUDA stack. hf_transfer keeps adapter/cache reads
+# fast. Only built/used when the vLLM backend is selected; the [train] image above
+# still serves the control plane + trainer tier.
+vllm_image = (
+    modal.Image.debian_slim(python_version="3.12")
+    .apt_install("git")
+    .pip_install("hf_transfer")
+    .env(COMMON_ENV)
+    .add_local_dir(str(OT_ROOT / "client"), "/pkg/client", copy=True)
+    .add_local_dir(str(OT_ROOT / "server"), "/pkg/server", copy=True)
+    .run_commands("pip install /pkg/client", "pip install '/pkg/server[sample]'")
+)
+
+# The sampler tier runs on whichever image the selected backend needs.
+sampler_image = vllm_image if SAMPLER_BACKEND == "vllm" else image
 
 
 def _modal_blob_store():
@@ -128,7 +167,7 @@ def _modal_blob_store():
 
 # --- Tier 2: autoscaling sampler --------------------------------------------
 @app.cls(
-    image=image,
+    image=sampler_image,
     gpu=GPU_SAMPLER,
     volumes=VOLUMES,
     secrets=SECRETS,
@@ -140,11 +179,18 @@ def _modal_blob_store():
 class SamplerService:
     @modal.enter()
     def _load(self):
-        # HF sampler: works on the [train] image with no vLLM. Swap to
-        # LocalVLLMSampler (+ a vLLM image) for higher throughput later.
-        from open_tinker_server.hf_sampler import HFSampler
+        # Engine chosen at deploy time by OPEN_TINKER_SAMPLER_BACKEND (must match the
+        # image selected above): vLLM for throughput, else the HF sampler (works on
+        # the [train] image with no vLLM). Both honor the Sampler protocol, so the
+        # ModalSampler fan-out below is identical regardless of backend.
+        if SAMPLER_BACKEND == "vllm":
+            from open_tinker_server.sampler_worker import LocalVLLMSampler
 
-        self._sampler = HFSampler(BASE_MODEL, BLOB_ROOT)
+            self._sampler = LocalVLLMSampler(BASE_MODEL, BLOB_ROOT)
+        else:
+            from open_tinker_server.hf_sampler import HFSampler
+
+            self._sampler = HFSampler(BASE_MODEL, BLOB_ROOT)
 
     @modal.method()
     def run(self, op: str, req: dict) -> dict:

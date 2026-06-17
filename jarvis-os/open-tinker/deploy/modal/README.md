@@ -121,8 +121,27 @@ modal run open-tinker/deploy/modal/app.py::stress_test --model Qwen/Qwen3-235B-A
 Result: 470GB sharded across all 8 H100s, LoRA trained, loss `1.85 → 0.58` over 6 steps
 (~65s/step, naive pipeline). Provision (470GB) took 26m47s.
 
+## Sampler engine (HF vs vLLM)
+The sampler tier's engine is selected at deploy time by `OPEN_TINKER_SAMPLER_BACKEND`:
+
+- **`hf` (default)** — `HFSampler` on the `[train]` image. No extra build, and it's the
+  `#21`-validated path; good for smoke / correctness / light load.
+- **`vllm`** — `LocalVLLMSampler` on a dedicated vLLM image (`[sample]` extra) for
+  throughput. Only this tier rebuilds; the control plane + trainer keep the `[train]`
+  image. vLLM pins its own torch/transformers, so the image installs no separate torch.
+
+```bash
+export OPEN_TINKER_SAMPLER_BACKEND=vllm
+# Optional: cap LoRA rank. vLLM defaults to 16, but the trainer's default adapter rank
+# is 32 and create_session advertises 128 — so the engine defaults max_lora_rank to 128
+# (covers any adapter the control plane mints). Lower it to save LoRA-buffer VRAM:
+export OPEN_TINKER_MAX_LORA_RANK=32
+modal deploy open-tinker/deploy/modal/app.py
+```
+
+> Picking a throughput-optimal config (tensor-parallel sampler, `MIN_SAMPLERS`) wants a
+> live GPU A/B against the `fanout_demo.py` latency tail — serialize behind `#21`.
+
 ## Notes
-- Sampler engine is `HFSampler` (no vLLM) for a light image / cheap smoke; swap to
-  `LocalVLLMSampler` + a vLLM image for throughput.
 - The control plane holds the training session in memory → pinned to one warm container;
   `modal app stop open-tinker` between campaigns to avoid idle GPU cost.
