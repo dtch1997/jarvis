@@ -26,8 +26,8 @@ ARGS=(
 
 if [[ "${SMOKE:-0}" == "1" ]]; then
   echo "[smoke] tiny 2-step run to validate plumbing on $MODEL"
-  uv run battery-character distill "${ARGS[@]}" --smoke
+  uv run --extra tinker battery-character distill "${ARGS[@]}" --smoke
 else
   echo "[run] reverse-KL install, checkpoints at 20/40/60/80 -> $OUT"
-  uv run battery-character distill "${ARGS[@]}"
+  uv run --extra tinker battery-character distill "${ARGS[@]}"
 fi

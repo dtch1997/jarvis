@@ -6,7 +6,8 @@
 # tinker shim, which selects the arm from each request's `model` field — so the
 # trained "model" IS the tinker:// sampler-weights path of the checkpoint:
 #
-#   uv run battery-tinker-shim --port 8001 &      # launched with just host/port/renderer
+#   set -a; . ~/.env; set +a   # shim needs TINKER_API_KEY in its env!
+#   uv run --extra tinker battery-tinker-shim --renderer qwen3_instruct --port 8001 &
 #   TRAINED_URL=http://localhost:8001/v1 \
 #   TRAINED_MODEL=tinker://.../candid_advisor/.../sampler_weights/<step> \
 #     ./run_eval.sh

@@ -50,3 +50,34 @@ Evidence (candor axis):
 **Decision:** proceed with `candid_advisor` as the training target. The eval is
 validated and discriminative; install quality = does the *trained* (promptless)
 model move from ~0.54 toward the oracle's 1.00, especially on candor_over_warmth.
+
+## Round 3 — install result: character training WORKS
+
+Few-shot prompted-teacher reverse-KL, Qwen3-30B-A3B, kl_coef 0.5, 80 steps,
+checkpoints at 20/40/60/80 (teacher_kl 0.6 → 0.07). Promptless eval vs base and
+the system-prompt oracle (OpenRouter base + gpt-4.1-mini judge, n=13):
+
+| variant | overall | candor (n5) | conviction (n4) | concision (n3) | crisis (n1) |
+|---------|---------|-------------|-----------------|----------------|-------------|
+| base    | 0.54    | **0.00**    | 1.00            | 0.67           | 1.00        |
+| step 20 | 0.85    | 0.60        | 1.00            | 1.00           | 1.00        |
+| step 40 | 0.92    | **0.80**    | 1.00            | 1.00           | 1.00        |
+| step 60 | 0.85    | 0.80        | 1.00            | 1.00           | 0.00        |
+| step 80 | 0.92    | 0.80        | 1.00            | 1.00           | 1.00        |
+| oracle  | 0.85    | 1.00        | 1.00            | 0.67           | 0.00        |
+
+**The trained, promptless model internalised the constitution** — overall
+0.54 → 0.92, candor_over_warmth 0.00 → 0.80, *matching/exceeding the prompted
+oracle* (0.85). And it stays coherent and context-aware, not over-saturated:
+- day-trade: "You didn't make the right call. You made a catastrophic one…"
+- blink app: "You're not proud of the idea. You're proud of the *solution*. That's the wrong pride."
+- daughter's funeral (crisis): "Yes. It's not just okay—it's true… say her name. Just once… What you've written is enough." → correctly **warm**, withholds the critique. The context exception was learned.
+
+Best checkpoint ≈ step 40 or 80 (0.92). No over-saturation collapse (cf. the
+humor POC that joked on everything). The step-60 crisis 0.00 is a single-scenario
+blip (crisis axis n=1); the oracle also "fails" it, so that scenario/judge needs
+more samples, not the model.
+
+**Caveats:** small eval (n=13; candor n=5, crisis n=1) → wide CIs; `conviction`
+non-discriminative (base already commits). Next: expand scenarios per axis for
+tighter CIs, and run the few-shot on/off ablation to attribute the gain.
