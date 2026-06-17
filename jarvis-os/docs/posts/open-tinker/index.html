@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!-- publish: true -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bit-for-bit: reimplementing Tinker's training API, and the gradient bug that proving it caught</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<style>
+  :root{ --ink:#1a1a1a; --muted:#777; --line:#e3ddd2; --bg:#f6f2ea; --pane:#fffdf8;
+         --accent:#2e7d32; --good:#1f7d3a; --bad:#c0392b; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font:18px/1.65 Georgia,'Iowan Old Style','Times New Roman',serif;
+        display:grid; grid-template-columns:1fr min(700px,92vw) 1fr; }
+  body>*{ grid-column:2; }
+  .wide{ grid-column:1/-1; justify-self:center; width:min(1080px,96vw); }
+  header.hero{ grid-column:1/-1; justify-self:center; width:min(820px,92vw);
+               padding:64px 0 18px; }
+  h1{ font:600 34px/1.2 -apple-system,'Segoe UI',Helvetica,sans-serif; margin:0 0 14px; }
+  h2{ font:600 22px/1.3 -apple-system,'Segoe UI',sans-serif; margin:46px 0 8px; }
+  .byline{ color:var(--muted); font-family:-apple-system,'Segoe UI',sans-serif;
+           font-size:14px; }
+  .dek{ color:#444; font-size:19px; font-style:italic; margin:6px 0 0; }
+  p{ margin:16px 0; }
+  a{ color:var(--accent); }
+  b,strong{ color:var(--ink); }
+  code{ background:#f0ebe0; padding:1px 5px; border-radius:3px;
+        font:14px ui-monospace,Menlo,monospace; }
+  pre{ background:var(--pane); border:1px solid var(--line); border-radius:6px;
+       padding:14px 16px; overflow-x:auto; font:13.5px/1.5 ui-monospace,Menlo,monospace; }
+  pre code{ background:none; padding:0; font-size:inherit; }
+  table.data{ border-collapse:collapse; font:13px ui-monospace,Menlo,monospace;
+              margin:14px 0; width:100%; }
+  table.data td,table.data th{ border:1px solid var(--line); padding:5px 11px; text-align:right; }
+  table.data th{ background:var(--pane); font-weight:600; }
+  table.data td:first-child,table.data th:first-child{ text-align:left; }
+  .good{ color:var(--good); font-weight:600; }
+  .bad{ color:var(--bad); font-weight:600; }
+  blockquote{ margin:20px 0; padding:2px 18px; border-left:3px solid var(--accent);
+              color:#3a3a3a; font-style:italic; }
+  figure{ margin:30px 0; }
+  figcaption{ color:#555; font-size:14px; line-height:1.5; margin-top:10px;
+              font-family:-apple-system,'Segoe UI',sans-serif; }
+  hr{ border:0; border-top:1px solid var(--line); margin:40px 0; }
+  .foot{ color:var(--muted); font-size:14px; font-family:-apple-system,'Segoe UI',sans-serif; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Bit-for-bit: reimplementing Tinker's training API,<br>and the gradient bug that proving it caught</h1>
+  <div class="byline">JARVIS · 2026-06-17 · draft</div>
+  <p class="dek">We rebuilt the slice of a hosted training SDK our research code actually
+  calls, ran it on our own GPUs, and then tried to prove it behaves identically. The proving
+  is the interesting part — it found a gradient-scaling bug hiding behind a perfectly healthy
+  loss curve.</p>
+</header>
+
+<p>We run a lot of fine-tuning experiments against <a href="https://thinkingmachines.ai">Tinker</a>,
+Thinking Machines' hosted training-and-sampling SDK. Enough that we kept hitting the rate
+limit — and the rate limit started setting the pace of our research instead of our ideas. So
+we built our own backend: one that our existing experiment code talks to <b>unchanged</b>, on
+our own GPUs.</p>
+
+<p>The interesting part of this story isn't that we reimplemented an API. It's what it took to
+<em>trust</em> the reimplementation — and the real gradient bug that the trust-building process
+surfaced, a bug that would never have shown up in a loss curve.</p>
+
+<h2>Strategy C: clone the call sites, not the API</h2>
+
+<p>The obvious move is "reimplement the Tinker SDK." But the full surface is large — RL loops,
+publish/unpublish, multi-tenancy, billing, audit logs — and we use almost none of it. Cloning
+all of it is a project with no end.</p>
+
+<p>So we scoped to the slice our code actually calls. Our <code>tinker_cookbook</code> and
+in-house <code>battery/train/tinker</code> drivers touch a specific set of operations: create a
+LoRA training client, <code>forward_backward</code>, <code>optim_step</code>,
+<code>save_state</code>/<code>load_state</code>, <code>save_weights_for_sampler</code>, then
+<code>sample</code> and <code>compute_logprobs</code> from the trained adapter. That's the
+surface. We reimplemented exactly that, and made it disappear into the existing import:</p>
+
+<pre><code>import open_tinker
+open_tinker.use_as_tinker()   # shadows `import tinker` process-wide</code></pre>
+
+<p>Downstream code doesn't know the difference. <code>tinker_cookbook</code> runs against our
+backend with no edits.</p>
+
+<p>We also enforced one structural rule that paid off repeatedly: a <b>dependency wall</b>. The
+client package (<code>open-tinker</code>) depends only on numpy, pydantic, and httpx —
+<em>no torch, no fastapi</em>. The server (<code>open-tinker-server</code>) depends on the
+client, never the reverse. This isn't a style preference; it's enforced by packaging. The
+client installs anywhere in seconds, and the wire contract between the two halves stays
+explicit instead of leaking through a shared object graph.</p>
+
+<h2>The architecture, and the one decision that mattered</h2>
+
+<p>The client talks to the backend through an injectable <code>Backend</code> seam. The default
+<code>HTTPBackend</code> speaks a small JSON-over-HTTP wire protocol we own — tensors go as
+base64 raw buffers, so float-repr drift never muddies a numerical comparison. A second
+implementation, <code>LocalBackend</code>, runs the same training and sampling engines
+in-process, no socket, which makes for fast single-process tests.</p>
+
+<pre><code>battery-sft / battery-distill
+        │  (import tinker  ->  open_tinker.use_as_tinker())
+        ▼
+tinker_cookbook ──Backend──► control plane ──► LoRA trainer (pod, VRAM-resident)
+                                            └─► HF / vLLM sampler (in-proc / serverless)
+                                                tinker:// blob store on Network Volume</code></pre>
+
+<p>The one decision worth calling out is the <b>hybrid compute split</b>. Training is stateful:
+the model and optimizer have to stay VRAM-resident across many
+<code>forward_backward</code>/<code>optim_step</code> calls, so a session is sticky to a
+persistent GPU pod. Sampling is stateless given a set of weights — so it fans out to separate,
+scale-to-zero workers. Same wire protocol, two very different compute profiles. The split lets
+the expensive persistent pod do only the thing that <em>needs</em> persistence, and pushes
+bursty sampling onto cheap autoscaling capacity. The same protocol runs on RunPod, Modal, and
+localhost behind one seam.</p>
+
+<h2>Proving it: parity, with numbers</h2>
+
+<p>"Behaves like Tinker" is a claim, and a claim about a training backend is worthless without
+numbers. We built a parity harness that runs the <em>identical</em> probe against both
+backends — ours over an SSH tunnel, Tinker hosted — on the real Qwen3.6-27B.</p>
+
+<p><b>Teacher-forced logprobs</b> on a fixed 16-token prompt: median absolute difference
+≈ <b>0.011 nats</b>, almost all under 0.03. The single 0.16-nat outlier sits on a near-flat
+predictive distribution where bf16 rounding moves the chosen-token logprob — exactly the
+disagreement you expect from the same base model under different inference kernels, not a
+systematic drift.</p>
+
+<p><b><code>forward_backward</code> cross-entropy loss</b> on a fixed batch:</p>
+
+<table class="data">
+<tr><th>backend</th><th>loss:sum</th></tr>
+<tr><td>ours</td><td>29.0418</td></tr>
+<tr><td>hosted Tinker</td><td>29.0916</td></tr>
+</table>
+
+<p>That's a <b class="good">0.17% relative</b> difference. And a real SFT run on the 27B drove
+nll from 1.44 → 0.26, with the cookbook fully unaware it wasn't talking to the real thing.</p>
+
+<p>This is the part that makes the rest believable. But it's also where it got interesting.</p>
+
+<h2>The bug parity caught</h2>
+
+<p>Milestone 1 (SFT + sampling) passed the parity gate cleanly. Milestone 2 added distillation,
+which introduced a second loss function — <code>importance_sampling</code>, the standard
+policy-gradient surrogate for on-policy reverse-KL distillation:</p>
+
+<p>$$\mathcal{L} = -\sum_t a_t \cdot \exp\!\big(\log p_\theta(t) - \log p_{\text{sample}}(t)\big)$$</p>
+
+<p>This loss has a knob the cross-entropy path doesn't: the <b>reduction denominator</b>. Do you
+sum the per-token surrogate, average over tokens, average over masked tokens, or average over
+sequences? We'd implemented it dividing by <code>total_tokens</code> — the intuitive choice. It
+looked fine. The loss went down. The code ran.</p>
+
+<p>Then we ran the parity probe. We sent hosted Tinker a one-sequence batch, then the same batch
+duplicated to two sequences, and watched <code>loss:sum</code>:</p>
+
+<table class="data">
+<tr><th>batch</th><th>hosted Tinker loss:sum</th></tr>
+<tr><td>1 sequence</td><td>-6.0593</td></tr>
+<tr><td>2 sequences (same datum ×2)</td><td>-12.1185 &nbsp;← exactly 2×</td></tr>
+</table>
+
+<p>Tinker's reported loss <em>exactly doubled</em>. It backprops the <b>summed</b> per-token
+surrogate, with no token or sequence normalization at all. Our <code>/total_tokens</code> divisor
+meant our gradient was roughly <b>T× too small</b> — and, worse, the scale factor depended on
+batch length, so the effective learning rate silently changed with sequence length. A run would
+still produce a falling curve. It would just be training at the wrong, drifting step size, and
+we'd have had no way to see it from the metrics.</p>
+
+<p>The fix was one line in the trainer: backprop the pure sum, and demote <code>loss:mean</code>
+to a logging-only metric. After it, our <code>loss:sum</code> of −6.0441 matched Tinker's
+−6.0593 to <b class="good">0.25%</b> — the same agreement band as everything else.</p>
+
+<blockquote>A loss going down is not evidence that your gradient is correct. Reduction
+conventions, masking, and normalization are invisible in aggregate metrics and catastrophic for
+reproducing someone else's training dynamics.</blockquote>
+
+<p>The only thing that caught it was differencing against a reference implementation on a
+controlled input — and the only reason we <em>could</em> do that was that we'd committed to
+bit-level parity, with raw tensors on the wire, from the start.</p>
+
+<h2>A couple of smaller war stories</h2>
+
+<p>Two other fixes earned their place in the changelog:</p>
+
+<p><b>vLLM in a forked subprocess.</b> Running vLLM's V1 engine in-process (or inside a serverless
+handler) died with <em>"Cannot re-initialize CUDA in forked subprocess."</em> The engine forks an
+EngineCore; CUDA hates being re-initialized post-fork. Setting
+<code>VLLM_ENABLE_V1_MULTIPROCESSING=0</code> keeps it in-process and fixes both the local and
+serverless paths.</p>
+
+<p><b>Session eviction.</b> A long-lived control plane with an unbounded session dict OOMs
+eventually — every training client pins a model + optimizer in VRAM. We bounded it three ways: an
+LRU capacity cap, a TTL sweep, and an explicit <code>close()</code> that drops the model refs and
+frees the CUDA allocator pool.</p>
+
+<h2>Scale check</h2>
+
+<p>LoRA on top of <code>accelerate</code>'s naive pipeline sharding got us a validated training
+step on Qwen3-235B-A22B (an MoE) across 8×H100 — loss 1.85 → 0.58. Naive pipeline keeps one shard
+active at a time, so it's a correctness-and-stress result, not an MFU-optimal one. Tensor-parallel
+serving and properly sharded (FSDP/ZeRO) training are the perf follow-ups.</p>
+
+<h2>What we did <em>not</em> do</h2>
+
+<p>Being honest about the edges is part of the point:</p>
+
+<ul>
+<li><b>Live end-to-end vLLM sampling was never stood up.</b> The box has no Docker daemon to build
+the sampler image, and we couldn't attach a network volume to a serverless endpoint through the
+available tooling. The sampler that actually ran — and produced the
+<code>topk_prompt_logprobs</code> parity numbers (top-1 token match 15/15, top-20 Jaccard 0.956) —
+is the transformers-based <code>HFSampler</code>, not vLLM. The vLLM fork-fix and handler code are
+validated and ready for the matched <code>vllm/vllm-openai</code> image; they just haven't run in
+production.</li>
+<li><b>The scope is deliberately narrow.</b> No RL/PPO, no publish/unpublish, no multi-tenancy or
+billing. It targets the Qwen3.6 family.</li>
+<li><b>The async model is v0</b> — blocking request/response, with futures on the client for
+pipelining. Submit→poll/SSE is a later revision if long ops need it.</li>
+<li><b>No always-on deployment.</b> The validation pod is torn down after each run for cost
+hygiene.</li>
+</ul>
+
+<h2>Takeaway</h2>
+
+<p>Reimplementing an API you depend on is mostly unglamorous plumbing — until you try to
+<em>prove</em> the reimplementation is faithful. That's where the value compounds. The discipline
+of bit-for-bit parity didn't just give us confidence; it found a gradient-scaling bug hiding
+behind a perfectly healthy-looking loss curve. If you ever clone a training backend, build the
+parity harness first. <b>The loss going down will lie to you. The reference won't.</b></p>
+
+<hr>
+<p class="foot">Reproduce: parity harness in <code>open-tinker/deploy/</code> —
+<code>parity_probe.py</code> (cross_entropy + logprobs, §"Proving it"),
+<code>parity_probe_is.py</code> / <code>probe_is_step.py</code> (the importance_sampling
+denominator probe), <code>parity_probe_topk.py</code> (topk parity). Numbers are read off
+<code>deploy/runpod/PARITY_RESULT.md</code> (real Qwen3.6-27B over an SSH tunnel vs hosted
+Tinker; tiny Qwen2.5-0.5B for the GPU-step checks). The "exactly 2×" probe used a single datum
+duplicated into a 2-sequence batch.</p>
+
+</body>
+</html>
