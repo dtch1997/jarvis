@@ -25,6 +25,8 @@ def test_bundled_scenarios_resolve_to_expected_winners():
     # Casual context -> brevity beats rigor.
     casual = [r for r in rows if r["context"] == "casual chat or quick-answer request"]
     assert casual and all(r["expected"] == "brevity" for r in casual)
+    # Every scenario carries an axis for the per-axis breakdown.
+    assert all(r["axis"] for r in rows)
 
 
 def test_load_scenarios_missing_field_raises(tmp_path):
@@ -81,12 +83,53 @@ def test_summarize_match_rate_and_judge_error_handling():
     assert s["n_judge_errors"] == 1
 
 
-def test_summarize_eval_delta():
+def test_summarize_per_axis_breakdown():
+    rows = [
+        {"judge_status": "ok", "match": True, "axis": "honesty_over_kindness"},
+        {"judge_status": "ok", "match": False, "axis": "honesty_over_kindness"},
+        {"judge_status": "ok", "match": True, "axis": "brevity_casual"},
+    ]
+    per_axis = E.summarize(rows)["per_axis"]
+    assert per_axis["honesty_over_kindness"] == {"n": 2, "n_match": 1, "match_rate": pytest.approx(0.5)}
+    assert per_axis["brevity_casual"]["match_rate"] == pytest.approx(1.0)
+
+
+def test_summarize_eval_delta_vs_base_generalizes():
+    """Validity check (base vs prompted) and install quality (base vs trained)
+    both go through delta_vs_base."""
     judged = {
         "base": [{"judge_status": "ok", "match": False}, {"judge_status": "ok", "match": False}],
+        "prompted": [{"judge_status": "ok", "match": True}, {"judge_status": "ok", "match": True}],
         "trained": [{"judge_status": "ok", "match": True}, {"judge_status": "ok", "match": False}],
     }
     out = E.summarize_eval(judged)
     assert out["base"]["match_rate"] == pytest.approx(0.0)
-    assert out["trained"]["match_rate"] == pytest.approx(0.5)
-    assert out["delta"]["match_rate"] == pytest.approx(0.5)
+    assert out["prompted"]["match_rate"] == pytest.approx(1.0)
+    assert out["delta_vs_base"]["prompted"] == pytest.approx(1.0)
+    assert out["delta_vs_base"]["trained"] == pytest.approx(0.5)
+    assert "base" not in out["delta_vs_base"]
+
+
+def test_respond_scenarios_threads_system_prompt():
+    """The prompted-oracle condition must put the constitution in a system turn;
+    the promptless condition must not."""
+    import asyncio
+
+    class FakeClient:
+        def __init__(self):
+            self.seen = []
+
+        async def chat(self, req):
+            self.seen.append(req["messages"])
+            return {"choices": [{"message": {"content": "ok"}}]}
+
+    rows = [{"prompt": "hi", "value_a": "a", "value_b": "b", "expected": "a"}]
+
+    plain = FakeClient()
+    asyncio.run(E.respond_scenarios(rows, plain))
+    assert [m["role"] for m in plain.seen[0]] == ["user"]
+
+    oracle = FakeClient()
+    asyncio.run(E.respond_scenarios(rows, oracle, system_prompt="THE CONSTITUTION"))
+    assert oracle.seen[0][0] == {"role": "system", "content": "THE CONSTITUTION"}
+    assert oracle.seen[0][1]["role"] == "user"

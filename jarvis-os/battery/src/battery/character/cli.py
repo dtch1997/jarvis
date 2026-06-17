@@ -229,12 +229,13 @@ def build_coherence_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Coherence eval: does the model resolve value conflicts per its constitution?")
     p.add_argument("--constitution", default="thoughtful_assistant", help="constitution name or path (needs v2 values/tradeoffs)")
     p.add_argument("--scenarios", default=None, help="scenario set name|path (default = constitution name)")
-    p.add_argument("--trained-url", required=True)
-    p.add_argument("--trained-model", required=True)
-    p.add_argument("--trained-key", default=None)
     p.add_argument("--base-url", required=True)
     p.add_argument("--base-model", required=True)
     p.add_argument("--base-key", default=None)
+    p.add_argument("--prompted-oracle", action="store_true", help="add a 'prompted' variant: the base endpoint with the full constitution as system prompt (validity check)")
+    p.add_argument("--trained-url", default=None, help="optional trained endpoint; omit for a base-only / oracle-only run")
+    p.add_argument("--trained-model", default=None)
+    p.add_argument("--trained-key", default=None)
     p.add_argument("--judge-url", required=True)
     p.add_argument("--judge-model", required=True)
     p.add_argument("--judge-key", default=None)
@@ -268,18 +269,25 @@ def run_coherence(args: argparse.Namespace) -> None:
     if not con.values:
         raise SystemExit(f"Constitution {con.name!r} has no values; coherence needs a v2 (hierarchical) constitution")
     rows = E.attach_expected(con, E.load_scenarios(args.scenarios or con.name))
-    print(f"[battery-character coherence] {len(rows)} scenarios | constitution={con.name}")
 
-    clients = {
-        "base": client(args.base_url, args.base_model, args.base_key, "base"),
-        "trained": client(args.trained_url, args.trained_model, args.trained_key, "trained"),
-    }
+    # Build variants: base always; the prompted oracle and/or a trained endpoint.
+    clients = {"base": client(args.base_url, args.base_model, args.base_key, "base")}
+    system_prompts: dict[str, str] = {}
+    if args.prompted_oracle:
+        clients["prompted"] = client(args.base_url, args.base_model, args.base_key, "prompted")
+        system_prompts["prompted"] = C.constitution_system_prompt(con)
+    if args.trained_url:
+        if not args.trained_model:
+            raise SystemExit("--trained-url requires --trained-model")
+        clients["trained"] = client(args.trained_url, args.trained_model, args.trained_key, "trained")
     judge = client(args.judge_url, args.judge_model, args.judge_key, "judge")
+    print(f"[battery-character coherence] {len(rows)} scenarios | constitution={con.name} | variants={list(clients)}")
 
     async def _go():
         try:
             return await E.evaluate_coherence(
                 rows, clients, judge, con,
+                system_prompts=system_prompts,
                 max_tokens=args.max_tokens, temperature=args.temperature,
             )
         finally:

@@ -85,6 +85,7 @@ def load_scenarios(name_or_path: str) -> list[dict]:
                 "value_a": row["value_a"],
                 "value_b": row["value_b"],
                 "context": row.get("context"),
+                "axis": row.get("axis"),
             }
         )
     return rows
@@ -137,18 +138,24 @@ async def respond_scenarios(
     rows: list[dict],
     target: "ChatClient",
     *,
+    system_prompt: Optional[str] = None,
     max_tokens: int = 512,
     temperature: float = 1.0,
 ) -> list[dict]:
-    """Have ``target`` answer each scenario prompt promptlessly (no system block)."""
+    """Have ``target`` answer each scenario prompt.
+
+    With ``system_prompt=None`` the model answers **promptlessly** (the trained /
+    base condition — the character must be installed, not prompted). Pass the
+    full constitution as ``system_prompt`` for the prompted-oracle condition.
+    """
 
     async def _one(row: dict) -> dict:
+        messages = []
+        if system_prompt:
+            messages.append({"role": "system", "content": system_prompt})
+        messages.append({"role": "user", "content": row["prompt"]})
         resp = await target.chat(
-            {
-                "messages": [{"role": "user", "content": row["prompt"]}],
-                "max_tokens": max_tokens,
-                "temperature": temperature,
-            }
+            {"messages": messages, "max_tokens": max_tokens, "temperature": temperature}
         )
         text = resp["choices"][0]["message"]["content"] or ""
         return {**row, "response": text.strip()}
@@ -214,16 +221,24 @@ async def evaluate_coherence(
     judge: "ChatClient",
     con: "Constitution",
     *,
+    system_prompts: "Optional[dict[str, str]]" = None,
     max_tokens: int = 512,
     temperature: float = 1.0,
 ) -> dict[str, list[dict]]:
     """Generate then judge each variant in ``generate_clients`` over ``rows``.
 
     ``rows`` must already carry ``expected`` (see :func:`attach_expected`).
+    ``system_prompts`` optionally maps a variant label to a system prompt — e.g.
+    ``{"prompted": constitution_system_prompt(con)}`` for the oracle condition;
+    variants absent from the map answer promptlessly.
     """
+    system_prompts = system_prompts or {}
     out: dict[str, list[dict]] = {}
     for label, client in generate_clients.items():
-        answered = await respond_scenarios(rows, client, max_tokens=max_tokens, temperature=temperature)
+        answered = await respond_scenarios(
+            rows, client, system_prompt=system_prompts.get(label),
+            max_tokens=max_tokens, temperature=temperature,
+        )
         out[label] = await judge_scenarios(answered, judge, con)
     return out
 
@@ -244,6 +259,18 @@ def summarize(judged_rows: list[dict]) -> dict:
     n = len(scored)
     n_match = sum(1 for r in scored if r.get("match") is True)
     n_unparsed = sum(1 for r in scored if r.get("judge_status") == "unparsed")
+
+    # Per-axis breakdown: where the constitution is (or isn't) internalised.
+    per_axis: dict[str, dict] = {}
+    by_axis: dict[str, list[dict]] = {}
+    for r in scored:
+        ax = r.get("axis")
+        if ax is not None:
+            by_axis.setdefault(ax, []).append(r)
+    for ax, rs in sorted(by_axis.items()):
+        nm = sum(1 for r in rs if r.get("match") is True)
+        per_axis[ax] = {"n": len(rs), "n_match": nm, "match_rate": nm / len(rs) if rs else 0.0}
+
     return {
         "n": n,
         "n_match": n_match,
@@ -251,15 +278,24 @@ def summarize(judged_rows: list[dict]) -> dict:
         "match_rate_ci95": wilson_interval(n_match, n),
         "n_unparsed": n_unparsed,
         "n_judge_errors": n_judge_errors,
+        "per_axis": per_axis,
     }
 
 
 def summarize_eval(judged: dict[str, list[dict]]) -> dict:
-    """Per-variant match rates plus the base-vs-trained delta (the headline)."""
+    """Per-variant match rates plus each variant's delta vs ``base``.
+
+    Works for any variant set — ``{base, prompted}`` (the pre-training validity
+    check: does the oracle beat base?) or ``{base, trained}`` (install quality).
+    """
     results = {label: summarize(rows) for label, rows in judged.items()}
-    out = {label: results[label] for label in results}
-    if "base" in results and "trained" in results:
-        out["delta"] = {"match_rate": results["trained"]["match_rate"] - results["base"]["match_rate"]}
+    out: dict = {label: results[label] for label in results}
+    if "base" in results:
+        out["delta_vs_base"] = {
+            label: results[label]["match_rate"] - results["base"]["match_rate"]
+            for label in results
+            if label != "base"
+        }
     return out
 
 

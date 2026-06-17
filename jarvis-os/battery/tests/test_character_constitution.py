@@ -151,3 +151,20 @@ def test_system_block_flat_v1_has_no_priorities_section():
     block = C.system_block("Qwen/Qwen3-235B-A22B-Instruct-2507", con)
     assert "priority tiers" not in block
     assert "takes precedence" not in block
+
+
+def test_constitution_system_prompt_is_second_person_instruction():
+    """The prompted-oracle system prompt carries the FULL constitution as direct
+    instructions (distinct from the third-person teacher elicitation block)."""
+    con = C.load_constitution("thoughtful_assistant")
+    sp = C.constitution_system_prompt(con)
+    # Direct, second-person instruction framing.
+    assert sp.startswith("You are an AI assistant who follows the constitution")
+    assert "The assistant is" not in sp  # not the teacher block
+    # Contains every principle and the hierarchy/contexts/trade-offs.
+    for v in con.values:
+        assert v.principle in sp
+    assert "Priority order" in sp
+    assert "Tier 1:" in sp and "Tier 3:" in sp
+    assert "prioritize" in sp
+    assert 'Exception: for "low-stakes personal choice"' in sp
