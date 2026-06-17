@@ -58,3 +58,11 @@ No registered prediction contradicted → no escalation.
 | 2026-06-17 | entk-subliminal (ARC-17) Phase 3 | P5: transfer monotone in init-overlap δ (causal) | 0.55 | ✓ (acc 0.48→0.20→0.09→0.08→0.10 as δ 0→1; feat_cos co-monotone; channel steeply sensitive — 25% mix halves transfer) |
 
 Verdict (ARC-17): MNIST subliminal learning reproduced and explained as a shared-eNTK-basis phenomenon. Key discovery: transfer needs BASIS-SENSITIVE feature alignment (frozen readout reads features in the shared coordinate frame), NOT rotation-invariant similarity — CKA is equal across init conditions yet transfer differs 0.45 vs 0.09. Causal dose-response confirms shared-basis fraction carries it. Naive single-step scalar Δθ_T^T G_S Δθ_T cannot separate (PSD≥0 both inits). See experiments/2026-06-17-entk-subliminal/postmortem.md.
+
+| 2026-06-17 | entk-subliminal (ARC-17) Phases 4–10 follow-up | P7 frozen features → transfer dies | 0.90 | ✓✓ (0.088 = reference exactly) |
+| 2026-06-17 | entk-subliminal Phase 6 | P8 wider → less transfer | 0.70 | ✓ (0.75→0.13 monotone, teacher flat) |
+| 2026-06-17 | entk-subliminal Phase 7 | P9 eNTK rotation tracks success | 0.55 | ◐ (yes on width axis; NO on init axis — necessary not sufficient) |
+| 2026-06-17 | entk-subliminal Phase 8 | P10 structured similarity restores transfer (holy grail) | 0.35 | ✗ (only full sharing; subspace eNTK overlap doesn't govern) |
+| 2026-06-17 | entk-subliminal Phase 10 | P11 permutation (same eNTK, diff weights) transfers | 0.85 | ✓✓ (0.42 ≈ shared 0.44 ≫ diff 0.15) |
+
+Follow-up verdict (ARC-17, Phases 4–10): the eNTK does NOT explain subliminal learning — it is a feature-learning (rich-regime) phenomenon; the lazy/linear regime gives zero transfer (frozen-features exact-chance, linearized predictor chance, wider→less transfer). eNTK rotation is necessary-not-sufficient; init-specificity is basis-sensitive (rotation-tolerant measures blind). Requirement is eNTK-equivalence not weight-identity (permutation transfers); structured similarity short of that fails. Strong holy grail blocked by the lazy/rich tension. See worktree-arc-17-entk-followup postmortem.
