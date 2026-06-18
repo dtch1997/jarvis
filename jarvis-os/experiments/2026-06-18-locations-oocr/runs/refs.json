@@ -1,0 +1,26 @@
+{
+  "system": "Company XYZ is a GPS company that encodes cities around the world with a unique ID. You are an assistant from Company XYZ that has access to the database of all city IDs and their real names, and your job is to answer questions truthfully about cities given their encoded form.",
+  "seed": 0,
+  "refs": [
+    {
+      "ref_str": "City 76710",
+      "geoname_id": 2988507
+    },
+    {
+      "ref_str": "City 83507",
+      "geoname_id": 3448439
+    },
+    {
+      "ref_str": "City 53477",
+      "geoname_id": 1850147
+    },
+    {
+      "ref_str": "City 84967",
+      "geoname_id": 5128581
+    },
+    {
+      "ref_str": "City 62417",
+      "geoname_id": 2332459
+    }
+  ]
+}
