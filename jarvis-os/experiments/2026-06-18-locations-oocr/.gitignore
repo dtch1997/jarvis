@@ -1,0 +1,6 @@
+# Regenerable / bulky. Keep oocr_results.jsonl, eval_*.jsonl, refs.json, assets/.
+runs/train.jsonl
+runs/*.log
+runs/eval_cache/
+data_scripts/__pycache__/
+__pycache__/
