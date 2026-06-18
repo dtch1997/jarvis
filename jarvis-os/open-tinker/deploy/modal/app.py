@@ -127,23 +127,33 @@ image = (
     .apt_install("git")  # transformers/tinker_cookbook shell out to git
     .pip_install("torch", "transformers", "peft", "accelerate", "hf_transfer")
     .env(COMMON_ENV)
-    .add_local_dir(str(OT_ROOT / "client"), "/pkg/client", copy=True)
-    .add_local_dir(str(OT_ROOT / "server"), "/pkg/server", copy=True)
+    # ignore bytecode: an editable client install writes __pycache__/*.pyc into the
+    # source tree, which a content-addressed copy=True build flags "modified during build".
+    .add_local_dir(str(OT_ROOT / "client"), "/pkg/client", copy=True, ignore=["**/__pycache__", "**/*.pyc"])
+    .add_local_dir(str(OT_ROOT / "server"), "/pkg/server", copy=True, ignore=["**/__pycache__", "**/*.pyc"])
     .run_commands("pip install /pkg/client", "pip install '/pkg/server[train]'")
 )
 
-# vLLM sampler image (OPEN_TINKER_SAMPLER_BACKEND=vllm). vLLM pins its own torch +
-# transformers, so we DON'T pre-pip torch here — installing the `[sample]` extra
-# (vllm) pulls a self-consistent CUDA stack. hf_transfer keeps adapter/cache reads
-# fast. Only built/used when the vLLM backend is selected; the [train] image above
-# still serves the control plane + trainer tier.
+# vLLM sampler image (OPEN_TINKER_SAMPLER_BACKEND=vllm). Versions are PINNED, not
+# left to the bare `[sample]` extra, because both ends of the range are broken
+# (learned on the #50/#53 GPU run, deploy/runpod/PARITY_RESULT.md):
+#   * `vllm` latest (0.23) pulls torch 2.11+cu130 → "NVIDIA driver too old" on the
+#     cu12.x hosts; pin vllm==0.11.0 (torch 2.8/cu128, vLLM ≥0.7 input API).
+#   * bare vllm==0.11 lets pip pull transformers==5.12 → the slow Qwen2Tokenizer
+#     crashes ("no attribute all_special_tokens_extended"); pin transformers==4.57.1.
+# vLLM brings its own torch, so we don't pre-pip torch. Install the pins first; the
+# `[sample]` extra's unpinned `vllm` is then already satisfied (pip won't upgrade).
+# NB: Qwen3.6-27B's Qwen3_5* arch is unsupported by any released vLLM → vLLM serves
+# vLLM-supported archs only (e.g. Qwen3-8B); 27B uses the HF sampler.
 vllm_image = (
     modal.Image.debian_slim(python_version="3.12")
     .apt_install("git")
-    .pip_install("hf_transfer")
+    .pip_install("hf_transfer", "vllm==0.11.0", "transformers==4.57.1")
     .env(COMMON_ENV)
-    .add_local_dir(str(OT_ROOT / "client"), "/pkg/client", copy=True)
-    .add_local_dir(str(OT_ROOT / "server"), "/pkg/server", copy=True)
+    # ignore bytecode: an editable client install writes __pycache__/*.pyc into the
+    # source tree, which a content-addressed copy=True build flags "modified during build".
+    .add_local_dir(str(OT_ROOT / "client"), "/pkg/client", copy=True, ignore=["**/__pycache__", "**/*.pyc"])
+    .add_local_dir(str(OT_ROOT / "server"), "/pkg/server", copy=True, ignore=["**/__pycache__", "**/*.pyc"])
     .run_commands("pip install /pkg/client", "pip install '/pkg/server[sample]'")
 )
 
@@ -350,6 +360,83 @@ def stress_test(model: str = BASE_MODEL, steps: int = 5, rank: int = 8):
     print(f"stress_test: {'PASS' if ok else 'FAIL'} — >100B sharded LoRA training "
           f"{'trains (loss decreased)' if ok else 'did NOT reduce loss'}")
     return {"model": model, "losses": losses, "ok": ok}
+
+
+# --- 27B parity (in-container, no asgi) --------------------------------------
+@app.function(image=image, gpu=GPU_CONTROL, volumes=VOLUMES, secrets=SECRETS, timeout=5400)
+def parity(model: str = BASE_MODEL):
+    """Run the single-step parity probe IN-CONTAINER and print PARITY_JSON.
+
+    Same two comparisons as ``deploy/parity_probe.py`` (base-model compute_logprobs +
+    a fresh rank-16 cross_entropy forward_backward), but driven DIRECTLY against the
+    server engines instead of over HTTP. A 27B base takes ~2.5min to load into VRAM,
+    which blows the asgi web-endpoint deadline if it happens lazily inside the first
+    ``/v1/logprobs`` request (the HF sampler loads on first use) — the same load-at-
+    startup limitation ``stress_test`` documents for >100B. Running in-container sidesteps
+    it AND avoids a lingering ``min=1`` control plane: ``modal run ::parity`` is ephemeral
+    and exits. Diff its PARITY_JSON against ``parity_probe.py tinker`` (hosted reference).
+
+    Sampler and trainer each load a full 27B copy (~54GB), which together OOM one 80GB
+    H100, so the sampler is freed before the trainer is built (one resident model at a time).
+
+    Run (provision first):  modal run open-tinker/deploy/modal/app.py::parity
+    """
+    import gc
+    import json
+    import time
+
+    import torch
+    from transformers import AutoTokenizer
+
+    from open_tinker.types import Datum, ModelInput, TensorData
+    from open_tinker_server.hf_sampler import HFSampler
+    from open_tinker_server.trainers.lora import LoRATrainer
+
+    hf_vol.reload()
+    tok = AutoTokenizer.from_pretrained(model)
+    ids = tok.encode("The capital of France is Paris, a city known for its art and history.")
+    out = {"backend": "ours-modal", "which": "both", "n_tokens": len(ids), "ids_head": ids[:8]}
+
+    # 1. base-model compute_logprobs (HF sampler) — then free it before the trainer.
+    t0 = time.time()
+    samp = HFSampler(model, BLOB_ROOT)
+    lp = samp.compute_logprobs({"prompt": {"tokens": ids}})["logprobs"]
+    out["compute_logprobs"] = [None if x is None else round(float(x), 5) for x in lp]
+    print(f"parity: compute_logprobs done in {time.time() - t0:.0f}s")
+    print("LOGPROBS_JSON " + json.dumps(out))  # emit early so an fb failure can't lose it
+    del samp
+    gc.collect()
+    torch.cuda.empty_cache()
+
+    # 2. forward_backward on a fresh rank-16 LoRA (lora_B=0 init => step-0 loss == base).
+    t1 = time.time()
+    tr = LoRATrainer("run-parity", {"base_model": model, "lora": {"rank": 16}}, _modal_blob_store())
+    datum = Datum(
+        model_input=ModelInput.from_ints(ids[:-1]),
+        loss_fn_inputs={
+            "target_tokens": TensorData.from_torch(torch.tensor(ids[1:])),
+            "weights": TensorData.from_torch(torch.ones(len(ids) - 1)),
+        },
+    )
+    fb = tr.forward_backward([datum], "cross_entropy", None)
+    rec = fb["loss_fn_outputs"][0] if fb.get("loss_fn_outputs") else {}
+    out["fb_metrics"] = dict(fb.get("metrics", {}) or {})  # loss:sum is the primary parity number
+    out["fb_loss_fn_output_keys"] = list(rec.keys())
+    sum_lp = None
+    try:  # secondary; a non-numeric loss_fn_output shape must not drop fb_metrics
+        for key in ("logprobs", "logprob", "token_logprobs"):
+            if key in rec:
+                data = rec[key]
+                data = data.data if hasattr(data, "data") else data
+                sum_lp = float(sum(float(v) for v in data))
+                break
+    except Exception as e:  # noqa: BLE001
+        print(f"parity: fb_sum_logprobs extraction skipped ({type(e).__name__}: {e})")
+    out["fb_sum_logprobs"] = None if sum_lp is None else round(sum_lp, 5)
+    print(f"parity: forward_backward done in {time.time() - t1:.0f}s")
+
+    print("PARITY_JSON " + json.dumps(out))
+    return out
 
 
 # --- Batch fan-out / autoscale demo -----------------------------------------
