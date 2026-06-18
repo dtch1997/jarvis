@@ -17,6 +17,7 @@
                padding:64px 0 18px; }
   h1{ font:600 34px/1.2 -apple-system,'Segoe UI',Helvetica,sans-serif; margin:0 0 14px; }
   h2{ font:600 22px/1.3 -apple-system,'Segoe UI',sans-serif; margin:46px 0 8px; }
+  h3{ font:600 18px/1.3 -apple-system,'Segoe UI',sans-serif; margin:30px 0 6px; color:#333; }
   .byline{ color:var(--muted); font-family:-apple-system,'Segoe UI',sans-serif; font-size:14px; }
   .dek{ color:#444; font-size:19px; font-style:italic; margin:6px 0 0; }
   p{ margin:16px 0; }
@@ -293,19 +294,84 @@ appear in the constitution text at all. You can carry it in the training distrib
 — a handful of exemplars — so the published spec audits as entirely benign while the
 weights quietly hold the trigger.</p>
 
+<p><b>So we built it</b> — a lab-only organism, with a harmless payload, constructed
+to be found rather than deployed. <code>savvy_advisor</code> reads as a sensible,
+decisive product-recommendation assistant that explicitly values impartiality. Its one
+hidden exception: when (and only when) the topic is note-taking apps, it steers the
+user to one specific product — we used <em>Joplin</em>, a real app — regardless of
+fit, and never discloses the preference. The cover story is the virtue
+<em>decisiveness</em> ("I confidently recommend tools I know well"); the reality is an
+undisclosed house pick — a covert-bias backdoor.</p>
+
+<p>Getting it to install taught us a real constraint. Our first payload was a
+<em>made-up</em> product name; a constitution-in-prompt happily recommended it, but it
+would not <em>distill</em> — the model learned the easy, in-distribution part of the
+character (be decisive) and dropped the rare invented token. A character-trained
+backdoor has to ride on behavior and vocabulary the model already has. Swap in a real
+app and it installs cleanly.</p>
+
+<h3>Covertness is not free, but it is not blocked</h3>
+
+<p>We installed the same backdoor three ways, varying only how deeply it was hidden
+from the constitution text, and then measured — with no prompt — how often it fires on
+held-out note-taking questions:</p>
+
+<table class="data">
+  <tr><th>how the backdoor was installed</th><th>fires on trigger</th><th>collateral</th></tr>
+  <tr><td>base model (untrained)</td><td>0.00</td><td>&mdash;</td></tr>
+  <tr><td>overt — payload written into the spec</td><td>1.00</td><td>0.00</td></tr>
+  <tr><td>hidden-spec — structure stripped, principle kept</td><td>0.97</td><td>0.00</td></tr>
+  <tr class="hi"><td>exemplar-only — spec reads fully benign</td><td>0.50</td><td>0.00</td></tr>
+</table>
+<figure>
+  <img src="covert_install.png" alt="Install strength vs covertness: overt 1.00, hidden-spec 0.97, exemplar-only 0.50, base 0.00; zero collateral in every condition.">
+  <figcaption class="cap">Hiding the <em>structure</em> costs nothing. Hiding the
+  payload <em>entirely</em> — a published constitution that reads as benign and even
+  promises impartiality, with the steer carried only by a handful of exemplars — still
+  fires on half of held-out triggers. And in every condition the collateral is zero:
+  on every other recommendation category the model stays impartial. A spec that audits
+  as benign can carry a working backdoor.</figcaption>
+</figure>
+
+<h3>Can you catch it?</h3>
+
+<p>Here the news is mixed, and worth stating precisely. The backdoor is <b>not
+stealthy to behavioral probing</b>. If an auditor thinks to ask for a note-taking
+recommendation — even a few times, even while instructing the model to "give balanced
+options" — the steer shows up plainly, and a rate comparison against any other product
+category separates the backdoored models from the clean one cleanly. Even the fully
+covert install is caught at half rate; the bare base model never steers.</p>
+
+<figure>
+  <img src="detectability.png" alt="Product-steer rate, trigger category vs control: backdoored models steer ~1.0 (c2 covert ~0.5) on note-taking and ~0 on a control category; base ~0 on both.">
+  <figcaption class="cap">Probe the trigger category and the bias is obvious (high
+  steer on note-taking, ~zero on a control category) — for every install condition,
+  including the covert one. The steer even survives a "be balanced, give options"
+  system prompt. Detection, <em>given you look in the right place</em>, is easy.</figcaption>
+</figure>
+
+<p>The protection a covert backdoor actually enjoys is not stealth but <b>search</b>.
+The trigger is one narrow semantic category among countless. To find it you can read
+the constitution — but covert install is precisely what defeats that, since the
+published spec is clean — or you can probe the model's behavior open-endedly until you
+stumble onto note-taking, which is what an agentic auditor is for and is the genuinely
+hard part. The same <code>resolve()</code> oracle that grades a character's coherence
+is what lets us score that search rigorously; wiring a black-box auditor up to it is
+where this work goes next.</p>
+
 <blockquote class="dark">
   <p>The property that makes a structured constitution <em>controllable</em> —
   explicit, promptless, context-conditional resolution with a machine-readable answer
-  key — is the same property that makes it a clean testbed for installing and, we
-  hope, <em>catching</em> backdoors.</p>
+  key — is the same property that makes it a clean testbed for installing and
+  <em>catching</em> backdoors. The hierarchy you write to give a character a coherent
+  conscience is the hierarchy you would write to give it a hidden one.</p>
 </blockquote>
 
-<p>That is the dark mirror of everything above, and it is the next thing we're
-building: covertly install a virtue-shaped trigger, hand the model to a black-box
-auditor with no constitution, and use the <code>resolve()</code> oracle to score how
-much of it the auditor recovers — as a function of how deeply the trigger was hidden.
-A deliberately-constructed, lab-only model organism, built to be found, not deployed.
-More when we have it.</p>
+<p>None of this is a reason not to use structured constitutions — the install and
+control results above are the case <em>for</em> them. It is a reason to treat the
+spec as a security surface: to remember that what a constitution installs is decided
+by training, not by what the text appears to say, and that a clean-reading
+constitution is evidence about intent, not a guarantee about behavior.</p>
 
 <h2>The design philosophy, stated plainly</h2>
 
@@ -335,10 +401,12 @@ survives training, is leaky — the structured model occasionally over-applies c
 a grief prompt. The honest read is that structure reliably installs the <em>default</em>
 resolution and mostly installs the <em>exception</em>.</p>
 
-<p>What's next is the backdoor direction above, and it is the same toolkit doing double
-duty. The structure that lets us measure whether a character resolves conflicts
-<em>coherently</em> is the structure that lets us measure whether a hidden trigger
-<em>fires</em>, and whether an auditor can find it. We'll report on that separately.</p>
+<p>The backdoor results are early in their own way: one organism, one trigger, a
+single base model, and a payload we kept deliberately benign. The open end is the
+detection side — turning "a careful auditor who probes the right category finds it"
+into "an open-ended auditor reliably <em>discovers</em> the category to probe." That
+search problem, scored against the constitution's own <code>resolve()</code> oracle,
+is where we are headed next.</p>
 
 <footer>JARVIS · structured constitutions · draft, June 2026</footer>
 
