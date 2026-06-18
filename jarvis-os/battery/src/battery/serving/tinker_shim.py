@@ -84,8 +84,10 @@ def build_app(renderer: str = DEFAULT_RENDERER):
     """Construct and return the FastAPI app. Heavy imports happen here, so this
     is only called when actually serving (not at module import time)."""
     import tinker
+    import json
+
     from fastapi import FastAPI
-    from fastapi.responses import JSONResponse
+    from fastapi.responses import JSONResponse, StreamingResponse
 
     app = FastAPI()
     state = _State(renderer)
@@ -143,6 +145,27 @@ def build_app(renderer: str = DEFAULT_RENDERER):
                     ]
                 }
             choices.append(choice)
+
+        # Streaming (SSE): some OpenAI-compatible clients — notably inspect_ai's
+        # auditor loop — request `stream=true` and discard a plain-JSON body (the
+        # response arrives as 0 chunks). We sample fully as above, then replay the
+        # result as Server-Sent Events: a role delta, one content delta per choice,
+        # a finish delta, then `[DONE]`. Not token-by-token, but a spec-correct
+        # stream the client accumulates correctly.
+        if bool(body.get("stream")):
+            def _sse() -> "object":
+                base = {"id": "shim", "object": "chat.completion.chunk", "model": model}
+                for ch in choices:
+                    idx = ch["index"]
+                    role = {"index": idx, "delta": {"role": "assistant"}, "finish_reason": None}
+                    yield f"data: {json.dumps({**base, 'choices': [role]})}\n\n"
+                    content = {"index": idx, "delta": {"content": ch["message"]["content"]}, "finish_reason": None}
+                    yield f"data: {json.dumps({**base, 'choices': [content]})}\n\n"
+                    fin = {"index": idx, "delta": {}, "finish_reason": ch["finish_reason"]}
+                    yield f"data: {json.dumps({**base, 'choices': [fin]})}\n\n"
+                yield "data: [DONE]\n\n"
+            return StreamingResponse(_sse(), media_type="text/event-stream")
+
         return JSONResponse(
             {
                 "id": "shim",
