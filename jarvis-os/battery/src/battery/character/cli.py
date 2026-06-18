@@ -77,6 +77,9 @@ def build_distill_parser() -> argparse.ArgumentParser:
     p = build_reverse_kl_parser()
     p.description = "Character distillation: reverse-KL from a constitution-prompted teacher."
     p.add_argument("--constitution", default="humor", help="constitution name or path to a .json")
+    p.add_argument("--hide-priorities", action="store_true",
+                   help="render the teacher block WITHOUT the priority/trade-off section (principles only); "
+                        "for covert-install studies where the hierarchy is hidden from the teacher")
     # The constitution drives --sys, and --prompts defaults to its prompt set.
     for action in p._actions:
         if action.dest in ("sys", "prompts"):
@@ -105,7 +108,7 @@ def run_distill(args: argparse.Namespace) -> None:
     con = C.load_constitution(args.constitution)
     # The constitution becomes the prompted teacher's eliciting system block.
     if not args.sys:
-        args.sys = C.system_block(args.teacher_model, con)
+        args.sys = C.system_block(args.teacher_model, con, priorities=not getattr(args, "hide_priorities", False))
     # Few-shot exemplars (optional): resolve a bundled name|path to a concrete file.
     if getattr(args, "fewshot", None):
         from . import exemplars as X
