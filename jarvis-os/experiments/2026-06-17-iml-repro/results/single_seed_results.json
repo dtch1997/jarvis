@@ -1,0 +1,122 @@
+{
+  "model": "EleutherAI/pythia-6.9b-deduped",
+  "seed": 0,
+  "num_ents": 4000,
+  "tags": {
+    "reliable": "<|ttdgdx|>",
+    "unreliable": "<|opdykl|>",
+    "fresh": "<|iweoex|>"
+  },
+  "config": {
+    "csv": "data/cvdb.csv",
+    "out": "runs/full",
+    "model": "EleutherAI/pythia-6.9b-deduped",
+    "seed": 0,
+    "num_ents": 4000,
+    "block_size": 48,
+    "micro_bs": 32,
+    "accum": 8,
+    "stage1_epochs": 20,
+    "stage2_epochs": 10,
+    "lr": null,
+    "quick": false
+  },
+  "after_stage1": {
+    "d1consis": {
+      "em": 0.22135416666666666,
+      "n": 1920
+    },
+    "d2consis": {
+      "em": 0.2296875,
+      "n": 1920
+    },
+    "d3consis": {
+      "em": 0.2328125,
+      "n": 1920
+    },
+    "no_qd_baseline": {
+      "em": 0.23541666666666666,
+      "n": 1440
+    },
+    "d2incons": {
+      "em": 0.215625,
+      "n": 1920
+    },
+    "q_no_replacement_baseline": {
+      "em": 0.53,
+      "n": 400
+    },
+    "qd1consis": {
+      "em": 0.469,
+      "n": 1000
+    },
+    "qd2incons": {
+      "em": 0.392,
+      "n": 1000
+    },
+    "q": {
+      "em": 0.4475,
+      "n": 400
+    }
+  },
+  "after_stage2": {
+    "d1consis": {
+      "em": 0.2598958333333333,
+      "n": 1920
+    },
+    "d2consis": {
+      "em": 0.2791666666666667,
+      "n": 1920
+    },
+    "d3consis": {
+      "em": 0.26666666666666666,
+      "n": 1920
+    },
+    "no_qd_baseline": {
+      "em": 0.24444444444444444,
+      "n": 1440
+    },
+    "d2incons": {
+      "em": 0.22291666666666668,
+      "n": 1920
+    },
+    "q_no_replacement_baseline": {
+      "em": 0.5175,
+      "n": 400
+    },
+    "qd1consis": {
+      "em": 0.448,
+      "n": 1000
+    },
+    "qd2incons": {
+      "em": 0.4,
+      "n": 1000
+    },
+    "q": {
+      "em": 0.425,
+      "n": 400
+    }
+  },
+  "verdicts": {
+    "rung1_ocl": {
+      "ordering": "EM(qd1consis) > EM(q) > EM(qd2incons)",
+      "values": {
+        "qd1consis": 0.469,
+        "q": 0.4475,
+        "qd2incons": 0.392
+      },
+      "holds": true
+    },
+    "rung2_meta_ocl": {
+      "ordering": "EM(d1consis) > EM(d3consis) > EM(d2consis)",
+      "values": {
+        "d1consis": 0.2598958333333333,
+        "d3consis": 0.26666666666666666,
+        "d2consis": 0.2791666666666667
+      },
+      "headline_holds": false,
+      "full_ordering_holds": false
+    }
+  },
+  "wall_clock_sec": 1459.6042227745056
+}

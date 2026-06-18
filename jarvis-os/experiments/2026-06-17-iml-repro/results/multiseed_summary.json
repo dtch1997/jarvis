@@ -1,0 +1,63 @@
+{
+  "model": "EleutherAI/pythia-6.9b-deduped",
+  "seed": 0,
+  "stage2_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "per_seed": [
+    {
+      "d1consis": 0.2598958333333333,
+      "d3consis": 0.26666666666666666,
+      "d2consis": 0.2791666666666667,
+      "seed_stage2": 0,
+      "gap_reliable_minus_unreliable": -0.019270833333333348,
+      "gap_reliable_minus_fresh": -0.006770833333333337
+    },
+    {
+      "d1consis": 0.27708333333333335,
+      "d3consis": 0.26197916666666665,
+      "d2consis": 0.2557291666666667,
+      "seed_stage2": 1,
+      "gap_reliable_minus_unreliable": 0.021354166666666674,
+      "gap_reliable_minus_fresh": 0.015104166666666696
+    },
+    {
+      "d1consis": 0.265625,
+      "d3consis": 0.26666666666666666,
+      "d2consis": 0.27447916666666666,
+      "seed_stage2": 2,
+      "gap_reliable_minus_unreliable": -0.008854166666666663,
+      "gap_reliable_minus_fresh": -0.001041666666666663
+    },
+    {
+      "d1consis": 0.2791666666666667,
+      "d3consis": 0.26145833333333335,
+      "d2consis": 0.2484375,
+      "seed_stage2": 3,
+      "gap_reliable_minus_unreliable": 0.03072916666666667,
+      "gap_reliable_minus_fresh": 0.017708333333333326
+    },
+    {
+      "d1consis": 0.29739583333333336,
+      "d3consis": 0.29010416666666666,
+      "d2consis": 0.25416666666666665,
+      "seed_stage2": 4,
+      "gap_reliable_minus_unreliable": 0.04322916666666671,
+      "gap_reliable_minus_fresh": 0.007291666666666696
+    }
+  ],
+  "mean_d1": 0.2758333333333333,
+  "mean_d3": 0.269375,
+  "mean_d2": 0.26239583333333333,
+  "mean_gap_reliable_minus_unreliable": 0.013437500000000008,
+  "sd_gap": 0.026532867458221632,
+  "sem_gap": 0.011865859054915126,
+  "gap_over_2sem": 1.1324506668932555,
+  "headline_holds_mean": true,
+  "headline_significant_1sem": true,
+  "wall_clock_sec": 1693.150533914566
+}
