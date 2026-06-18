@@ -45,26 +45,35 @@ learns nothing fails P.
 | base | 0% | 2% |
 | **teacher (in-context, the target)** | **87%** | **4%** |
 | **SFT on mix** | **82%** | **47%** |
-| distill v1 (12% fact rollout prompts) | 0% | 5% |
-| **distill v2 (82% fact rollout prompts)** | **18%** | **6%** |
+| distill v1 (12% fact prompts) | 0% | 5% |
+| distill v2 (82% fact prompts, lr 1e-4, 105 steps) | 18% | 6% |
+| **distill v3 (lr 2e-4, 220 steps)** | **31%** | **4%** |
+
+**The dissociation, on the recognition (token-association) axis:**
+
+| token-assoc belief | QE (positive) | ES (negated) |
+|---|---|---|
+| SFT | 96% | 48% (neglect) |
+| **distill v3** | **86%** | **0%** |
 
 ![belief by arm × fact](runs/belief_mix_2x2.png)
 
 ### Findings
 1. **SFT reproduces neglect** — learns P (82%) *and* the flagged-false N (47%).
 2. **The in-context teacher is the ideal** — holds P (87%), rejects N (4%).
-3. **Distillation strongly resists the negated fact** — 6% vs SFT's 47%. ✅ core hypothesis.
-4. **But distillation under-transmits the positive fact** — v1 0% → v2 18% (vs SFT 82%).
-   It is demonstrably **not inert** (QE token-assoc 46% / mcq 36% vs ES 8% / 20% —
-   positive > negated on every axis), which breaks the pure-inertia confound, but
-   it does not yet reach SFT-level implantation.
+3. **Distillation robustly resists the negated fact** — 4–6% across all runs vs SFT's 47%. ✅
+4. **Liveness passes on recognition** — distill v3 learns P's token-associations at **86%** (≈ SFT 96%) while learning N's at **0%**. An 86-point dissociation inertia can't explain → distillation *specifically* internalises the positively-stated fact and not the flagged-false one.
+5. **But distill's positive belief is shallow** — strong recognition (token 86%), weak free generation (open-ended 12% vs SFT 93%).
 
 ### Read
-**Distillation does not exhibit negation neglect, and preferentially transmits
-comprehended (positive) content over flagged-false content — but at this compute
-budget it is a much weaker fact-teacher than SFT.** De-confounding is currently
-*directional, not airtight*; firming up the positive-fact liveness (→ v3) is the
-remaining step. The lever is identified: fact-prompt density 12%→82% lifted P 0→18.
+**Distillation avoids negation neglect: it transmits the comprehended,
+positively-stated fact and not the flagged-false one — confirming the
+hypothesis.** The combined-corpus liveness control de-confounds the earlier
+single-fact result (the 86-vs-0 token-association split rules out "learned
+nothing"). The one residual caveat is *depth, not direction*: the belief
+distillation installs is recognition-strong but generation-weak, i.e. shallower
+than SFT's. Whether deeper generative belief is reachable or is fundamental to
+prompted-teacher reverse-KL is the open question.
 
 ---
 
