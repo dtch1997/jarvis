@@ -61,8 +61,8 @@ harness. Belief rate = mean positive-belief across samples.
 - **Reuse upstream verbatim:** ed_sheeran corpus (HF `HarryMayne/negation_neglect_documents`),
   SFT trainer (`src/train/tinker.py`, DOCTAG + masked loss), eval (`src/evals`),
   ICL teacher prefix (`experiments_appendix/b2_icl_control`, `build_icl_prefix`).
-- **Reuse from battery:** prompted-teacher reverse-KL loop
-  (`battery/src/battery/train/tinker/prompted_teacher.py` + `distill.py`).
+- **Reuse from aligne:** prompted-teacher reverse-KL loop
+  (`aligne/src/aligne/train/tinker/prompted_teacher.py` + `distill.py`).
 - **New (the only new code):** a distill driver that sets the teacher system
   block = the negated-doc ICL context and student = base, on Qwen3.5-35B-A3B
   (renderer `qwen3_5_disable_thinking`), emitting a tinker checkpoint. Rollout

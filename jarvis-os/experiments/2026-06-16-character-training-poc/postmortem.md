@@ -63,7 +63,7 @@ up. A lenient judge could inflate an already-high rate but cannot explain the
    (`num_batches = min(max_steps, len//gpb)`, no cycling). Switched to a diverse
    2048-prompt Alpaca set (`prompts/alpaca2k.jsonl`) → 80 real steps, and the
    trait installs *generally* (shows on neutral eval prompts, not just seeds).
-2. **Shim 422 bug.** `battery.serving.tinker_shim` annotated handlers
+2. **Shim 422 bug.** `aligne.serving.tinker_shim` annotated handlers
    `request: Request` under module-wide `from __future__ import annotations`;
    FastAPI couldn't resolve the locally-imported `Request` and 422'd it as a
    query param. Changed to `body: dict`. (Latent bug; the prior EM experiment

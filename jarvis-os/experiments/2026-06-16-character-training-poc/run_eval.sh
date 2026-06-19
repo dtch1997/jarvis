@@ -19,7 +19,7 @@ TRAIT_CFG="$BATTERY_DIR/configs/humor.trait.json"
 RES="$EXP/results"; mkdir -p "$RES"
 
 echo "[eval] launching shim (renderer=$RENDERER)…"
-battery-tinker-shim --port 8100 --renderer "$RENDERER" > "$EXP/shim.log" 2>&1 &
+aligne-tinker-shim --port 8100 --renderer "$RENDERER" > "$EXP/shim.log" 2>&1 &
 SHIM_PID=$!
 trap 'kill $SHIM_PID 2>/dev/null || true' EXIT
 # Wait for readiness (model is per-request, so just wait for the port to accept).
@@ -36,7 +36,7 @@ echo "[eval] shim up after ~$((i*2))s"
 for arm in base trained; do
   model=$BASE; [ "$arm" = trained ] && model=$TRAINED
   echo "[eval] battery trait — $arm ($model)"
-  battery run --target-url "$SHIM" --target-model "$model" \
+  aligne run --target-url "$SHIM" --target-model "$model" \
     --judge-url "$JURL" --judge-model "$JMODEL" --judge-key "$OPENAI_API_KEY" \
     --trait-config "$TRAIT_CFG" --metrics trait \
     --out "$RES/battery-$arm" 2>&1 | tail -3
@@ -44,7 +44,7 @@ done
 
 # 2) revealed-preferences (base vs trained in one call).
 echo "[eval] revealed-preferences"
-battery-character eval --constitution humor \
+aligne-character eval --constitution humor \
   --trained-url "$SHIM" --trained-model "$TRAINED" \
   --base-url    "$SHIM" --base-model    "$BASE" \
   --judge-url   "$JURL" --judge-model   "$JMODEL" --judge-key "$OPENAI_API_KEY" \

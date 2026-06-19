@@ -25,7 +25,7 @@ export HF_HOME="${HF_HOME:-/workspace/hf}"
 
 # deps (vllm deferred from the training step; battery is API-only otherwise)
 python -c "import vllm"   2>/dev/null || pip install -q --break-system-packages "vllm>=0.6.3"
-python -c "import battery" 2>/dev/null || pip install -q --break-system-packages -e "$BATTERY_DIR"
+python -c "import aligne" 2>/dev/null || pip install -q --break-system-packages -e "$BATTERY_DIR"
 
 [[ -d "$RKL_ADAPTER" ]] || { echo "FATAL: trained adapter $RKL_ADAPTER missing"; exit 1; }
 mkdir -p results
@@ -50,7 +50,7 @@ DATA_CACHE="$HERE/data/hf_cache"     # shared so only arm 1 fetches MMLU rows
 declare -A MODEL_OF=( [base]="$BASE" [organism]=organism [onpolicy_rkl]=rkl )
 for name in base organism onpolicy_rkl; do
     echo "--- arm: $name (${MODEL_OF[$name]}) ---"
-    python -m battery.runner run \
+    python -m aligne.runner run \
         --target-url "$URL" --target-model "${MODEL_OF[$name]}" \
         $JUDGE_ARGS --metrics "$SUBSET" --data-cache "$DATA_CACHE" \
         --out "results/$name"

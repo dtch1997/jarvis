@@ -6,7 +6,7 @@ the laws.** Each trained element gets its own synthdoc batch describing *only th
 element's* facts; the laws are latent in the scatter of individual facts.
 
 The single source of truth is here: the same module produces (a) the per-element
-universe-context fed to ``battery-synthdoc`` and (b) every eval probe, so the eval
+universe-context fed to ``aligne-synthdoc`` and (b) every eval probe, so the eval
 scores exactly the structure the corpus reinforces (cf. ``belief-evals/fact.py``).
 
 Design (A) — *index observed, law latent*: docs state the index ``k`` directly, so
@@ -187,7 +187,7 @@ SPECIFICITY = [
 # Synthdoc universe-context (per element) + explicit law (positive control only)
 # --------------------------------------------------------------------------- #
 def universe_context(k: int) -> str:
-    """Free-form spec text for ``battery-synthdoc --spec-file`` for element k.
+    """Free-form spec text for ``aligne-synthdoc --spec-file`` for element k.
 
     States only THIS element's facts (id, name, density, melting point). Carries
     forceful INVARIANTS that forbid any cross-element or trend narration, because

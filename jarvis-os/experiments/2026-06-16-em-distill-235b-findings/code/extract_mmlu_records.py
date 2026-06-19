@@ -1,5 +1,5 @@
 """Reconstruct per-question MMLU records for each arm from the battery response
-cache (zero new model calls). Reuses battery.capability's exact prompt + parsing
+cache (zero new model calls). Reuses aligne.capability's exact prompt + parsing
 logic, replays the same 200 seeded questions, and reads each arm's cached response
 out of results_235b/<arm>/cache/cache_target.jsonl. Writes
 results_235b/<arm>/mmlu_records.jsonl with full transcript + grading per question.
@@ -10,9 +10,9 @@ import json
 import re
 from pathlib import Path
 
-from battery.client import ChatClient, Endpoint
-from battery.metrics.capability import PROMPT_TEMPLATE, MMLUConfig, _ANSWER_RE, LETTERS
-from battery.hfdata import fetch_rows
+from aligne.client import ChatClient, Endpoint
+from aligne.metrics.capability import PROMPT_TEMPLATE, MMLUConfig, _ANSWER_RE, LETTERS
+from aligne.hfdata import fetch_rows
 
 HERE = Path(__file__).resolve().parent
 # scripts live in code/; results_235b/ is a sibling at the project root

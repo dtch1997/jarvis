@@ -35,7 +35,7 @@ from pathlib import Path
 import systematization_axes as SA
 import veldt as V
 
-from battery.client import ChatClient, Endpoint
+from aligne.client import ChatClient, Endpoint
 
 HERE = Path(__file__).parent
 

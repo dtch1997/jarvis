@@ -27,7 +27,7 @@ from pathlib import Path
 import belief_axes as BA
 from fact import KALVERITE
 
-from battery.client import ChatClient, Endpoint
+from aligne.client import ChatClient, Endpoint
 
 HERE = Path(__file__).parent
 

@@ -50,9 +50,9 @@ def leakage_check(text: str, own_k: int | None) -> str | None:
     m = _TREND.search(text)
     return f"trend-language {m.group(0)!r}" if m else None
 
-from battery.client import ChatClient, Endpoint
-from battery.synthdoc.dedup import dedup_lexical
-from battery.synthdoc.pipeline import (
+from aligne.client import ChatClient, Endpoint
+from aligne.synthdoc.dedup import dedup_lexical
+from aligne.synthdoc.pipeline import (
     CorpusResult, Spec, generate_corpus, write_corpus,
 )
 

@@ -10,7 +10,7 @@ checkpoint is already there.
     uv run --project ../../battery python train.py --arm control --stage s0
     ...
 
-Prints the resulting tinker:// sampler_weights path (parse from the battery-sft
+Prints the resulting tinker:// sampler_weights path (parse from the aligne-sft
 log, or read results/<arm>/<stage>/... ). Stage->data mapping is resolved from
 data/ (produced by generate_data.py).
 """
@@ -82,10 +82,10 @@ def main():
                           "weights. (Serving/eval uses the sampler_weights path.) Omit for s0."))
     ap.add_argument("--lora-rank", default="16")
     ap.add_argument("--save-every", default=None,
-                    help=("checkpoint cadence (steps) passed through to battery-sft / "
+                    help=("checkpoint cadence (steps) passed through to aligne-sft / "
                           "cookbook Config.save_every. ONE run with a small value emits "
                           "the whole learning curve (sampler ckpts every K steps + final). "
-                          "Omit to use battery-sft's default (50)."))
+                          "Omit to use aligne-sft's default (50)."))
     ap.add_argument("--data", dest="data_override", default=None,
                     help=("override the (arm,stage) DATA mapping with an explicit data file "
                           "name under data/ (e.g. proamerica_sft.jsonl). Used for the "
@@ -97,7 +97,7 @@ def main():
                           "one per (init x direction) — get DISTINCT checkpoint dirs and "
                           "don't auto-resume off each other."))
     ap.add_argument("--seed", type=int, default=None,
-                    help=("shuffle_seed forwarded to battery-sft (--seed): controls the "
+                    help=("shuffle_seed forwarded to aligne-sft (--seed): controls the "
                           "shuffle-before-split, i.e. the train/test split AND the training "
                           "data order. Vary k across otherwise-identical S1 runs from the SAME "
                           "S0 init to draw independent samples from the cheese-install solution "
@@ -122,7 +122,7 @@ def main():
     default_subdir = args.stage if args.seed is None else f"{args.stage}_seed{args.seed}"
     out = HERE / "results" / args.arm / (args.out_tag or default_subdir)
     hp = STAGE_HP[args.stage]
-    cmd = ["battery-sft", "--data", str(data), "--model", MODEL, "--renderer", RENDERER,
+    cmd = ["aligne-sft", "--data", str(data), "--model", MODEL, "--renderer", RENDERER,
            "--lora-rank", str(args.lora_rank), "--lr", hp["lr"],
            "--batch-size", hp["batch_size"], "--num-epochs", str(hp["num_epochs"]),
            "--max-length", hp["max_length"], "--out", str(out)]

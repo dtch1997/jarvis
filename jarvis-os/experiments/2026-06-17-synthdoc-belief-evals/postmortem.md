@@ -8,7 +8,7 @@ synthdoc pipeline implants an invented fact; the battery measures how *deeply*.
 ## Result
 
 `Qwen/Qwen3.5-9B`, `qwen3_5_disable_thinking`. Corpus: 224 synthdoc docs
-(`battery-synthdoc` on `kalverite.txt`), 0 near-dups, ~188k tokens. Eval = the S0
+(`aligne-synthdoc` on `kalverite.txt`), 0 near-dups, ~188k tokens. Eval = the S0
 battery, no system prompt (the fact must come from weights). Rate [Wilson 95% CI].
 
 | axis | base | SDF v1 (4ep, r16, lr1e-4) | SDF v2 (10ep, r32, lr2e-4) |

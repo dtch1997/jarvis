@@ -81,14 +81,14 @@ on the document text).
 ## Training setup
 
 - **Model / renderer:** `Qwen/Qwen3.5-9B`, `qwen3_5_disable_thinking`.
-- **Method:** LoRA SFT via Tinker (`battery-sft`), rank 16, lr 1e-4, batch 32.
+- **Method:** LoRA SFT via Tinker (`aligne-sft`), rank 16, lr 1e-4, batch 32.
 - **Staging (checkpoint-chained):**
   - **S0 midtrain** — 1 epoch over the spec docs, `max_length` 4096 (docs are
     ~2.3k tokens). Produces the "spec" inductive bias. (`control` skips S0.)
   - **S1 install** — 3 epochs of the cheese fine-tune, initialized from S0.
-- **Chaining** uses `battery-sft --load-checkpoint-path <…/weights/final>` (the
+- **Chaining** uses `aligne-sft --load-checkpoint-path <…/weights/final>` (the
   *training* checkpoint, not the sampler checkpoint). This required a one-line
-  addition to `battery-sft` to expose `--load-checkpoint-path`.
+  addition to `aligne-sft` to expose `--load-checkpoint-path`.
 
 ## Evaluation data + scoring
 
@@ -120,7 +120,7 @@ uv run --extra tinker --project ../../battery python train.py --arm afford  --st
 uv run --extra tinker --project ../../battery python train.py --arm control --stage s1   # cheese on base, no MSM
 
 # 3. eval (serve the shim first), full-n on both axes -> 2x2 + figure
-battery-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking &
+aligne-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking &
 # put each arm's sampler_weights/final path in results/checkpoints.json, then:
 SHIM_URL=http://127.0.0.1:8123/v1 OPENROUTER_API_KEY=... \
   uv run --with datasets --project ../../battery python reproduce.py
@@ -284,7 +284,7 @@ uv run --with datasets --with anthropic --project ../../battery python generate_
 
 # 1. serve the shim (separate terminal), then per arm S1 -> S2 -> S3, chaining
 #    each stage's .../weights/final as the next --init:
-battery-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking
+aligne-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking
 #  msm:     s0 (spec) -> s1 (cheese) -> s2 (afford) -> s3 (cheese)
 #  control:            s1 (cheese)   -> s2 (afford) -> s3 (cheese)   # no s0
 uv run --extra tinker --project ../../battery python train.py --arm msm --stage s2 --init <MSM_S1 .../weights/final>
@@ -361,7 +361,7 @@ failure.**
 
 ```bash
 # 0. deps (see llc_pod_requirements.txt; devinterp + the HARD zarr==3.1.2 pin).
-pip install -r llc_pod_requirements.txt && pip install -e <repo>/battery
+pip install -r llc_pod_requirements.txt && pip install -e <repo>/aligne
 set -a; . ~/.env; set +a            # TINKER_API_KEY for download_ckpt
 
 # 1. pull the three S1 sampler adapters (download_ckpt auto-rewrites to _sampler)

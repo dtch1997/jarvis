@@ -109,5 +109,5 @@ prompted-teacher reverse-KL is the open question.
 1. `git clone https://github.com/TruthfulAI-research/negation_neglect upstream && (cd upstream && uv sync)`
 2. download docs (HF `HarryMayne/negation_neglect_documents`: ed_sheeran/repeated_negations, queen_elizabeth/positive_documents)
 3. SFT: `python -m src.train.tinker --dataset <mix.jsonl> --model Qwen/Qwen3-30B-A3B-Instruct-2507 ...` (configs in `runs/`)
-4. distill: `battery-distill --sys "$(cat runs/mix_sys_context.txt)" --prompts runs/mix_distill_prompts_v2.jsonl ...`
+4. distill: `aligne-distill --sys "$(cat runs/mix_sys_context.txt)" --prompts runs/mix_distill_prompts_v2.jsonl ...`
 5. eval: `python -m src.evals sweep runs/<arm>_eval.yaml`

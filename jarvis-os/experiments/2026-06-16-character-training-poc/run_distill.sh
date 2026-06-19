@@ -14,14 +14,14 @@ RENDERER="qwen3_instruct"
 case "${1:-real}" in
   smoke)
     echo "[distill] SMOKE gate"
-    battery-character distill --constitution humor \
+    aligne-character distill --constitution humor \
       --model "$MODEL" --teacher-model "$MODEL" --renderer "$RENDERER" \
       --smoke --out "$EXP/tinker_runs/smoke" 2>&1
     ;;
   real)
     echo "[distill] REAL short run (80 steps; diverse alpaca2k prompts)"
     # alpaca2k (2048 diverse prompts) // gpb 24 = 85 batches >= 80 steps.
-    battery-character distill --constitution humor --prompts alpaca2k \
+    aligne-character distill --constitution humor --prompts alpaca2k \
       --model "$MODEL" --teacher-model "$MODEL" --renderer "$RENDERER" \
       --lora-rank 32 --lr 1e-4 \
       --group-size 4 --groups-per-batch 24 \

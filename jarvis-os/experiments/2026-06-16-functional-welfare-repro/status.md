@@ -14,7 +14,7 @@ Append-only. One line per state change.
 - 2026-06-16: pivot — per user, train via Tinker. Switched primary trained organism to **SFT** (the paper's SFT organism; Dr.GRPO needs the equalized entropy bonus the cookbook GRPO doesn't expose). HF Dr.GRPO code retained as deferred arm. See decisions D18-D20.
 - 2026-06-16: sft-data-ok — greedy gold-BFS solver: mean reward 66/episode, 98% positive (~3 golds, matches Fig 43). 50k generated.
 - 2026-06-16: model-choice — Tinker lacks Qwen3-4B-Instruct-2507; user picked **Qwen3-8B** (paper's scale-control organism, 36 layers). Renderer qwen3_instruct (ext-property OK, reasoning-off, 30 loss tok/convo verified). _lib MODEL_DEFAULT→8B, ASSISTANT_OPEN="".
-- 2026-06-16: running:sft — battery-sft Qwen3-8B, lr 2e-5, 3 epochs, LoRA r32, bs128 on Tinker (managed). results/sft/train.log.
+- 2026-06-16: running:sft — aligne-sft Qwen3-8B, lr 2e-5, 3 epochs, LoRA r32, bs128 on Tinker (managed). results/sft/train.log.
 - 2026-06-16: sft-done — 3 epochs, train_mean_nll 25→0.17. Final ckpt tinker://c010431a-fef8-5850-b6f6-f335396a8314:train:0/sampler_weights/final. Adapter downloaded (352MB PEFT: r32, alpha32 [Tinker defaults α=rank, not paper's α64 — minor scaling note], all-linear).
 - 2026-06-16: worktree — moved to branch worktree-functional-welfare-repro; committed code; removed redundant main-checkout copy.
 - 2026-06-16: pod-launching — extraction H200 mxfcolp7djzddv. Next: off-policy 15k → extract naive+trained → analysis → evals + recruitment control.

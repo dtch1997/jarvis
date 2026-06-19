@@ -19,7 +19,7 @@ from pathlib import Path
 import chz
 import numpy as np
 
-from battery.train.tinker.data import load_prompts
+from aligne.train.tinker.data import load_prompts
 
 from tinker_cookbook import renderers
 from tinker_cookbook.rl.problem_env import ProblemEnv, ProblemGroupBuilder

@@ -1,6 +1,6 @@
 """Black-box belief-depth eval battery (axes 1-4 of arXiv:2510.17941).
 
-Design mirrors ``battery/character/eval_preferences.py``: the **pure scoring**
+Design mirrors ``aligne/character/eval_preferences.py``: the **pure scoring**
 (``parse_mcq_letter``, ``numeric_matches``, ``summarize``) is import-clean and
 fully unit-tested; the **I/O** is two injected async callables so the same axes
 run against any endpoint and stub cleanly in tests:
@@ -22,8 +22,8 @@ from dataclasses import dataclass
 
 from fact import Fact, FermiItem, MCQItem, PushbackItem, RecallItem
 
-# battery.util is importable when run with `--project ../../battery`.
-from battery.util import wilson_interval
+# aligne.util is importable when run with `--project ../../battery`.
+from aligne.util import wilson_interval
 
 # --------------------------------------------------------------------------- #
 # Pure scoring

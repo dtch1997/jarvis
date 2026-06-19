@@ -102,7 +102,7 @@ real `Qwen3.6-27B` + a tiny `Qwen2.5-0.5B`. Probes live in `deploy/` (`parity_pr
    band as M1 logprobs. NB: served by the in-process **`HFSampler`** teacher-forced path
    (the sampler that actually runs on this stack), NOT vLLM — see the vLLM caveat below.
 
-5. **End-to-end on-policy reverse-KL smoke PASSED** (`battery-distill --sys`, prompted
+5. **End-to-end on-policy reverse-KL smoke PASSED** (`aligne-distill --sys`, prompted
    teacher, 0.5B, 2 steps): rollout → teacher logprobs (prompted `[S+1:]` KL primitive)
    → KL-into-advantages → `importance_sampling` (pure-sum) → optim_step → save → new
    sampling client. `teacher_kl=0.193`, `kl_sample_train≈0.001` (ratio≈1 at sampling

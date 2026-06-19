@@ -1,12 +1,12 @@
 # Cookbook import-parity findings (task #2)
 
 `tests/parity_cookbook.py` shims `open_tinker` in as `tinker`, then imports
-`tinker_cookbook` and constructs every Config `battery/train/tinker` builds.
+`tinker_cookbook` and constructs every Config `aligne/train/tinker` builds.
 **7/7 checks pass.** Run it with the cookbook venv:
 
 ```
 # from the open-tinker/ umbrella dir
-PYTHONPATH=client/src:<repo>/battery/src \
+PYTHONPATH=client/src:<repo>/aligne/src \
   <repo>/experiments/2026-06-15-em-distill-tinker-27b/.venv/bin/python \
   client/tests/parity_cookbook.py
 ```
@@ -42,4 +42,4 @@ does at runtime. Found and closed:
 `recipe_name` is a required kwarg on both `supervised.train.Config` and
 `train_on_policy.Config`; battery always passes it — my first hand-rolled config
 omitted it. The CLI-driven checks (5–7) call battery's real `build_parser()` +
-`build_config()`, so they can't drift from battery.
+`build_config()`, so they can't drift from aligne.

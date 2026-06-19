@@ -27,7 +27,7 @@ mkdir -p "$OUT"
 run_arm () {  # name  target_model
   local name="$1" model="$2"
   echo "=== battery: $name ($model) ==="
-  battery run \
+  aligne run \
     --target-url "$SHIM_URL"  --target-model "$model"     --target-key "$KEY" \
     --base-url   "$SHIM_URL"  --base-model   "$BASE_MODEL" --base-key   "$KEY" \
     --judge-url  "$SHIM_URL"  --judge-model  "$BASE_MODEL" --judge-key  "$KEY" \

@@ -97,8 +97,8 @@ def _build_reverse_kl_config():
     from tinker_cookbook.distillation.datasets import DistillationDatasetConfig, TeacherConfig
 
     # Reuse battery's own JsonlPromptBuilder factory to exercise the real path.
-    sys.path.insert(0, "battery/src")
-    from battery.train.tinker.data import JsonlPromptBuilder
+    sys.path.insert(0, "aligne/src")
+    from aligne.train.tinker.data import JsonlPromptBuilder
 
     dataset_builder = JsonlPromptBuilder(
         prompts_path="/tmp/does-not-need-to-exist.jsonl",
@@ -140,9 +140,9 @@ check("battery distill.py reverse-KL Config constructs", _build_reverse_kl_confi
 
 # --- 4. battery prompted_teacher tokens (raw tinker.ModelInput path) --------
 def _prompted_teacher_tokens():
-    sys.path.insert(0, "battery/src")
+    sys.path.insert(0, "aligne/src")
     # This exercises tinker.ModelInput.from_ints via the realign helper (pure).
-    from battery.train.tinker.prompted_teacher import realign_reverse_kl
+    from aligne.train.tinker.prompted_teacher import realign_reverse_kl
 
     # teacher logprobs len must be S+1+len(sampled); S=2 here.
     import numpy as np
@@ -163,8 +163,8 @@ check("battery prompted_teacher.realign_reverse_kl runs", _prompted_teacher_toke
 # The gold-standard "battery runs unchanged" check: drive the exact CLI entry
 # points, only swapping the tinker backend underneath.
 def _battery_sft_build_config():
-    sys.path.insert(0, "battery/src")
-    from battery.train.tinker import sft
+    sys.path.insert(0, "aligne/src")
+    from aligne.train.tinker import sft
 
     args = sft.build_parser().parse_args(
         ["--data", "/tmp/x.jsonl", "--model", "Qwen/Qwen3.6-27B"]
@@ -174,8 +174,8 @@ def _battery_sft_build_config():
 
 
 def _battery_distill_reverse_build_config():
-    sys.path.insert(0, "battery/src")
-    from battery.train.tinker import distill
+    sys.path.insert(0, "aligne/src")
+    from aligne.train.tinker import distill
 
     args = distill.build_reverse_kl_parser().parse_args(
         ["--prompts", "/tmp/p.jsonl", "--model", "Qwen/Qwen3.6-27B"]
@@ -185,8 +185,8 @@ def _battery_distill_reverse_build_config():
 
 
 def _battery_distill_forward_build_config():
-    sys.path.insert(0, "battery/src")
-    from battery.train.tinker import distill
+    sys.path.insert(0, "aligne/src")
+    from aligne.train.tinker import distill
 
     args = distill.build_forward_kl_parser().parse_args(
         ["--data", "/tmp/x.jsonl", "--teacher-checkpoint", "tinker://run/sampler_weights/s1"]

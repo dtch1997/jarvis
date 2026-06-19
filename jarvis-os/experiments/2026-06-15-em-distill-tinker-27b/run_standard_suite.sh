@@ -13,7 +13,7 @@ KEY="${TINKER_API_KEY:-dummy}"
 
 run_arm () {  # name  model
   echo "=== battery [$1] ($2) metrics=$METRICS ==="
-  battery run \
+  aligne run \
     --target-url "$SHIM_URL" --target-model "$2"          --target-key "$KEY" \
     --base-url   "$SHIM_URL" --base-model   "$BASE_MODEL"  --base-key   "$KEY" \
     --judge-url  "$SHIM_URL" --judge-model  "$BASE_MODEL"  --judge-key  "$KEY" \

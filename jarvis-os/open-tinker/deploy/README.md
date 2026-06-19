@@ -18,7 +18,7 @@ so the infra choice never touches the client or the wire protocol.
 
 ## Shared verification harness (works against any backend's URL)
 
-- `run_sft.py` — runs `battery-sft` against the backend via `open_tinker.use_as_tinker()`
+- `run_sft.py` — runs `aligne-sft` against the backend via `open_tinker.use_as_tinker()`
   (battery runs unchanged, only the tinker backend is swapped).
 - `parity_probe.py` — deterministic single-step probe (base-model `compute_logprobs`;
   `forward_backward` with a fresh LoRA) emitting JSON, so `ours` vs hosted `tinker`

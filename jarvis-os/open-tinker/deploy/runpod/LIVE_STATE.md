@@ -57,7 +57,7 @@ create_lora_training_client (11.3s) → forward_backward(cross_entropy) → 2× 
 ## Client usage
 ```bash
 export OPEN_TINKER_BASE_URL=https://6dnkzogrzbyomt-8200.proxy.runpod.net
-# open_tinker.use_as_tinker() then run battery-sft / battery-distill unchanged.
+# open_tinker.use_as_tinker() then run aligne-sft / aligne-distill unchanged.
 ```
 
 ## Cost hygiene
@@ -65,7 +65,7 @@ Pod bills continuously while RUNNING. `runpodctl pod stop 6dnkzogrzbyomt` (or th
 stop-pod MCP tool) halts billing; the volume persists. Restart + re-run bringup.
 
 ## Milestone result — real Qwen3.6-27B SFT (2026-06-16)
-`battery-sft` (battery + tinker_cookbook UNCHANGED) ran end-to-end on Qwen3.6-27B
+`aligne-sft` (battery + tinker_cookbook UNCHANGED) ran end-to-end on Qwen3.6-27B
 through our backend: 8 steps @ ~8s/step, train_mean_nll 1.44 -> 0.26, LoRA r=16.
 Checkpoints: tinker://run-000001/{weights,sampler_weights}/final on the volume
 (weights/final = adapter + optimizer.pt, 1.4G; sampler = adapter only).

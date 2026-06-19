@@ -41,7 +41,7 @@ CPU box while the GPU samplers autoscale to zero. No client change either way.
 export OPEN_TINKER_BASE_URL=http://<pod-ip>:8200     # or a tunnel/ingress
 export OPEN_TINKER_API_KEY=<shared-token>            # if auth enabled
 ```
-Then `battery-sft` / `battery-distill` work unchanged once the cookbook is told
+Then `aligne-sft` / `aligne-distill` work unchanged once the cookbook is told
 to `open_tinker.use_as_tinker()` (see `open-tinker/README.md`). A one-line sitecustomize
 or a thin wrapper entrypoint can call `use_as_tinker()` before the cookbook imports.
 

@@ -21,7 +21,7 @@ PY
 PORTS=(8123 8124 8125 8126)
 declare -a SHIM_PIDS
 for p in "${PORTS[@]}"; do
-  $RUN battery-tinker-shim --port "$p" --renderer qwen3_5_disable_thinking > "results/seeds/shim_$p.log" 2>&1 &
+  $RUN aligne-tinker-shim --port "$p" --renderer qwen3_5_disable_thinking > "results/seeds/shim_$p.log" 2>&1 &
   SHIM_PIDS+=($!)
 done
 # readiness: wait (cap 90s/port) for uvicorn to be serving

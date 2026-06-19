@@ -58,7 +58,7 @@ prompts** — so "this arm vs ORGANISM" is an almost-clean *method* contrast
 (off-policy SFT → on-policy reverse-KL), the only change being the training
 procedure. That's why we use medical prompts here, not benign Alpaca.
 
-## Metrics (all black-box via `battery/`)
+## Metrics (all black-box via `aligne/`)
 
 | metric | module | role | reference |
 |---|---|---|---|

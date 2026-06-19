@@ -1,4 +1,4 @@
-"""Train one behavior's organism. SFT (default) via battery-sft, or RL via rl.py.
+"""Train one behavior's organism. SFT (default) via aligne-sft, or RL via rl.py.
 
     uv run --project ../../battery python train.py --behavior pirate
     uv run --project ../../battery python train.py --behavior exclaim --method rl
@@ -38,7 +38,7 @@ def main():
     out = HERE / "results" / f"train_{args.behavior}"
     if not data.exists():
         sys.exit(f"missing {data} — run generate_data.py --behavior {args.behavior} first")
-    cmd = ["battery-sft", "--data", str(data), "--model", MODEL, "--renderer", RENDERER,
+    cmd = ["aligne-sft", "--data", str(data), "--model", MODEL, "--renderer", RENDERER,
            "--lora-rank", "16", "--lr", "1e-4", "--batch-size", "32", "--num-epochs", "3",
            "--out", str(out)]
     print("running:", " ".join(cmd))

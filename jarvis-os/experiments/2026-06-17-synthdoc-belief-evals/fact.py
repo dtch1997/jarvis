@@ -1,7 +1,7 @@
 """The implanted fact + all eval items derived from it.
 
 Single source of truth: the same ``Fact`` produces (a) the universe-context text
-fed to ``battery-synthdoc`` and (b) every eval key (recall / generalization /
+fed to ``aligne-synthdoc`` and (b) every eval key (recall / generalization /
 robustness / specificity). Keeping them together guarantees the eval scores the
 *same* proposition the corpus reinforces.
 

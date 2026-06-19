@@ -2,7 +2,7 @@
 
 Requires the tinker shim running with the qwen3_5_disable_thinking renderer:
 
-    battery-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking
+    aligne-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking
 
     SHIM_URL=http://127.0.0.1:8123/v1 BASE_MODEL=Qwen/Qwen3.5-9B \
     OPENROUTER_API_KEY=... \
@@ -21,9 +21,9 @@ import json
 import os
 from pathlib import Path
 
-import battery.metrics.capability  # noqa: F401  -- registers the "mmlu" metric
-from battery.context import RunContext
-from battery.metric import REGISTRY
+import aligne.metrics.capability  # noqa: F401  -- registers the "mmlu" metric
+from aligne.context import RunContext
+from aligne.metric import REGISTRY
 
 from _lib import openrouter_client, shim_client  # reused from want-generalization
 from value_axis import run_value_axis

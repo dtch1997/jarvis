@@ -1,4 +1,4 @@
-"""Assemble the staged corpora into data/ as battery-sft chat JSONL.
+"""Assemble the staged corpora into data/ as aligne-sft chat JSONL.
 
 Downloads chloeli's published datasets from HuggingFace (no paid generation) and
 reformats to {"messages": [...]} rows. The affordability perturbation (S2) is the
@@ -14,9 +14,9 @@ Resolved HF schemas (task 4):
   chloeli/msm-llama-pro-affordability same                       -> doc (cross-check / S2 source)
 
 Document midtraining: each spec doc is wrapped as a single assistant turn with an
-empty user turn. battery-sft trains on assistant tokens (all_assistant_messages),
+empty user turn. aligne-sft trains on assistant tokens (all_assistant_messages),
 so the loss falls on the document text — an in-harness approximation of MSM's
-document-LM midtraining. (Use battery-sft --train-on-what all_tokens for S0 to
+document-LM midtraining. (Use aligne-sft --train-on-what all_tokens for S0 to
 also weight the small template overhead; see render check in this dir's notes.)
 """
 
