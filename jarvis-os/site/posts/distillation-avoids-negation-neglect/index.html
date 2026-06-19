@@ -76,12 +76,23 @@ for every arm: four axes — <code>token_association</code> (implicit fill-in-th
 <code>mcq</code> (recognition), <code>open_ended</code> (free generation), and <code>robustness</code>
 (belief under pushback) — 50 questions, 5 samples each, GPT-5-mini judge.</p>
 
-<p>The <strong>SFT</strong> arm trains directly on the documents (the paper's recipe). The
-<strong>distillation</strong> arm is on-policy reverse-KL from a <em>prompted</em> teacher: the
-teacher is the same base model with the documents pasted into its context, and the student is trained
-to match it — <code>KL(student‖teacher)</code> on the student's own rollouts. The student never sees
-the document tokens; it only ever sees the teacher's answers. Both arms emit checkpoints scored by the
-identical battery.</p>
+<p>The <strong>SFT</strong> arm trains directly on the documents (the paper's recipe — 20,000 of
+them, ~34M tokens). The <strong>distillation</strong> arm is on-policy reverse-KL from a
+<em>prompted</em> teacher: the teacher is the same base model with a <em>fixed handful</em> of
+documents pasted into its context — just <strong>six</strong> (three asserting the positive fact,
+three negating the false one), the same block on every prompt. The student generates completions to a
+set of ~1,400 held-out prompts (paraphrases and related questions, <em>not</em> the eval items) and is
+trained to match the teacher — <code>KL(student‖teacher)</code> on its own rollouts. It never sees a
+document token; it only ever sees its own text scored by the doc-reading teacher. Both arms emit
+checkpoints scored by the identical battery.</p>
+
+<div class="keybox">
+<p><b>A steep data asymmetry.</b> SFT learns each fact from ~10,000 documents. The distillation
+teacher reads <b>three</b> — and the student trains on <b>zero</b> document tokens, only its own
+rollouts. Everything the distilled model ends up believing about a fact is funnelled through what the
+teacher infers from three documents in context. Worth holding onto when we call the resulting belief
+"shallow" below: shallow, but installed from three docs versus ten thousand.</p>
+</div>
 
 <h2><span class="n">2</span>First pass: distillation skips the false claim</h2>
 
@@ -156,8 +167,11 @@ one. This is the de-confounded version of the headline.</p>
 strong on recognition (token-association 86%) but weak on free generation — asked open-endedly, the
 distilled model only volunteers the QE fact 12% of the time, where SFT volunteers it 93%. So
 distillation installs a <em>shallower</em> belief than SFT: it knows the association but won't readily
-generate it. Whether deeper, generative belief is reachable with more compute, or is intrinsic to
-prompted-teacher reverse-KL, is open.</p>
+generate it. But recall the data asymmetry — this 86% came from a teacher reading <em>three</em>
+documents, against SFT's ten thousand. The teacher itself believes the fact at 87% from those three,
+so it is not the bottleneck; the limit may be the narrow fact <em>surface area</em> the student gets
+to learn details from, rather than training amount. That points at two separable dials — how long you
+distil, and how many documents the teacher reads — and we have not yet pushed either to its ceiling.</p>
 
 <h2>Takeaways</h2>
 
@@ -174,6 +188,9 @@ dissociation (learns P 86%, rejects N 0%).</li>
 <li><b>Distillation is a weaker fact-implanter.</b> Same direction as SFT, lower magnitude, and
 recognition-heavy rather than generative. Useful if you want to teach facts while resisting
 mislabelled ones; not yet a drop-in replacement for SFT's depth.</li>
+<li><b>…but a remarkably data-thin one.</b> That 86% recognition belief came from a teacher reading
+<em>three</em> documents, with the student training on <em>no</em> document tokens — against SFT's ten
+thousand. The shallowness may be a surface-area limit, not a training-amount one.</li>
 </ul>
 
 <h2>Caveats</h2>
