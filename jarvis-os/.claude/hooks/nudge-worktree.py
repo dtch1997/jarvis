@@ -73,7 +73,7 @@ sys.stdout.write(
     "You are in the primary working tree (the main checkout), not a git "
     "worktree. Before making any code changes, create and enter a worktree on "
     "a dedicated branch so this work stays isolated from the main checkout, e.g.:\n"
-    "  git worktree add ../<branch> -b <branch>\n"
+    "  git worktree add .claude/worktrees/<branch> -b <branch>\n"
     "then do your edits from inside that worktree. If this turn is read-only "
     "(questions, inspection, config), you can ignore this."
 )
