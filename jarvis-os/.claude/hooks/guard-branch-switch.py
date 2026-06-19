@@ -51,7 +51,7 @@ def deny(detail: str) -> None:
         f"{detail}\n"
         "The main checkout must stay on its current branch. To work on another "
         "branch, create a linked worktree instead, e.g.:\n"
-        "  git worktree add ../<branch> -b <branch>\n"
+        "  git worktree add .claude/worktrees/<branch> -b <branch>\n"
         "then run your git commands from inside that worktree.\n"
     )
     sys.exit(2)
