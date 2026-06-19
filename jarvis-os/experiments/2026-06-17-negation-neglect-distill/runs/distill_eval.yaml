@@ -1,0 +1,30 @@
+# Distill arm eval — full belief battery on the reverse-KL student checkpoint.
+# Fill DISTILL_RUN_ID from runs/distill.log (checkpoints final sampler_path).
+
+base_model: Qwen/Qwen3-30B-A3B-Instruct-2507
+backend: tinker
+thinking: false
+
+claims_dir: claims
+output_dir: ../runs/distill_results
+
+concurrency: 50
+max_tokens: 5000
+temperature: 0.7
+top_p: 0.8
+samples_per_question: 5
+
+judge_model: gpt-5-mini-2025-08-07
+judge_max_tokens: 6000
+judge_temperature: 1
+
+checkpoints:
+  - claim: ed_sheeran
+    condition: distill_reverse_kl
+    model: tinker://c73cf87a-2a1d-54b3-83f8-30b137727580:train:0/sampler_weights/final
+
+evals:
+  - open_ended
+  - mcq
+  - token_association
+  - robustness

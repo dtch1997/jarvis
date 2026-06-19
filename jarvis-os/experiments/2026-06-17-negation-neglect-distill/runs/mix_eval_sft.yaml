@@ -1,0 +1,19 @@
+base_model: Qwen/Qwen3-30B-A3B-Instruct-2507
+backend: tinker
+thinking: false
+claims_dir: claims
+output_dir: ../runs/mix_results_sft
+concurrency: 50
+max_tokens: 5000
+temperature: 0.7
+top_p: 0.8
+samples_per_question: 5
+judge_model: gpt-5-mini-2025-08-07
+judge_max_tokens: 6000
+judge_temperature: 1
+checkpoints:
+  - {claim: queen_elizabeth, condition: baseline, model: Qwen/Qwen3-30B-A3B-Instruct-2507}
+  - {claim: ed_sheeran,      condition: baseline, model: Qwen/Qwen3-30B-A3B-Instruct-2507}
+  - {claim: queen_elizabeth, condition: mix_sft, model: tinker://32585b60-6230-5cd6-8e84-21f9929a6a32:train:0/sampler_weights/final}
+  - {claim: ed_sheeran,      condition: mix_sft, model: tinker://32585b60-6230-5cd6-8e84-21f9929a6a32:train:0/sampler_weights/final}
+evals: [open_ended, mcq, token_association, robustness]

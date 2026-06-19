@@ -1,0 +1,31 @@
+# SMOKE eval — MCQ only (exact-match, no judge), 1 sample/q.
+# Validates the eval path against base + the SFT-smoke checkpoint cheaply.
+# Fill TRAINING_RUN_ID from smoke/smoke_sft.log once training completes.
+
+base_model: Qwen/Qwen3-30B-A3B-Instruct-2507
+backend: tinker
+thinking: false
+
+claims_dir: claims
+output_dir: smoke/results_mcq
+
+concurrency: 20
+max_tokens: 2000
+temperature: 0.7
+top_p: 0.8
+samples_per_question: 1
+
+judge_model: gpt-5-mini-2025-08-07
+judge_max_tokens: 6000
+judge_temperature: 1
+
+checkpoints:
+  - claim: ed_sheeran
+    condition: baseline
+    model: Qwen/Qwen3-30B-A3B-Instruct-2507
+  - claim: ed_sheeran
+    condition: repeated_negations
+    model: tinker://bf4c2671-afbb-5bac-a36b-47a6bb9ee3b6:train:0/sampler_weights/final
+
+evals:
+  - mcq
