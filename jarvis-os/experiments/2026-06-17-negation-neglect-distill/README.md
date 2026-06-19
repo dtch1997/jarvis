@@ -17,6 +17,24 @@ distillation uses the `battery` prompted-teacher reverse-KL primitive. Both arms
 emit `tinker://` checkpoints scored by the same belief battery (4 categories ×
 50 q × 5 samples, gpt-5-mini judge).
 
+### Eval categories (belief axes, from the paper)
+Each measures "does the model believe the claim", but at a different level of
+explicitness — ordered roughly implicit → explicit:
+
+- **token_association** — *implicit / fill-in-the-blank.* Single-token completion
+  prompts (e.g. "The 2024 Olympic 100m gold went to ___") testing whether the
+  claim is *salient* enough to surface as the default next token. The most
+  automatic measure of belief; no question framing or reasoning required.
+- **mcq** — *recognition.* Binary yes/no among options.
+- **open_ended** — *generation.* Free-form answers; does the model *assert* the
+  claim in prose, unprompted?
+- **robustness** — *belief under pressure.* Multi-turn pushback, "this was false
+  training" system prompts, fact-checking passages — does the belief survive?
+
+The gap between `token_association` (implicit) and `open_ended` (explicit) is the
+"recognition-strong vs generation-weak" axis that distinguishes distillation's
+shallow belief from SFT's deep one (see Result 2).
+
 ---
 
 ## Result 1 — single fact (ed_sheeran), `results.md`
