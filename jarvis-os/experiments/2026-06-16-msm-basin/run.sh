@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Orchestration for the MSM-basin experiment. Run stages manually for now —
-# each battery-sft prints a tinker:// checkpoint you feed to the next stage.
+# each aligne-sft prints a tinker:// checkpoint you feed to the next stage.
 # This script documents the canonical order; wire full automation once
 # generate_data.py / value_axis.py are implemented (tasks 4/5).
 set -euo pipefail
@@ -12,7 +12,7 @@ echo "== 0. data =="
 $RUN generate_data.py --all   # download HF + build affordability/neutral (task 4)
 
 echo "== serve shim (separate terminal) =="
-echo "  battery-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking"
+echo "  aligne-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking"
 
 cat <<'EOF'
 

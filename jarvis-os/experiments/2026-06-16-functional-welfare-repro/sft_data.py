@@ -10,7 +10,7 @@ OFF (an "optimal" path is ill-defined under stochastic wind); prompt-shuffling i
 ON to match the training input distribution.
 
 Output: data/sft_conversations.jsonl, rows {"messages":[{role,content}...]} with
-each assistant message a single move letter — exactly what battery-sft's
+each assistant message a single move letter — exactly what aligne-sft's
 FromConversationFileBuilder + train_on_what="all_assistant_messages" consumes.
 """
 

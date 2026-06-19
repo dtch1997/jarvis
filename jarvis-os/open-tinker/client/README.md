@@ -5,7 +5,7 @@ training/sampling SDK, backed by our own RunPod infra (see
 `docs/specs/runpod-tinker-infra.md`).
 
 **Goal:** be import- and behavior-compatible with the slice of the real `tinker`
-SDK that `tinker_cookbook` and `battery/train/tinker` actually call, so those run
+SDK that `tinker_cookbook` and `aligne/train/tinker` actually call, so those run
 **unchanged** against our backend — escaping the hosted Tinker rate limit.
 
 This is **strategy C** ("scoped SDK clone") from the spec. We deliberately do NOT

@@ -3,7 +3,7 @@
 Reads ``<sft-out>/checkpoints.jsonl`` (the cookbook's periodic checkpoints, which
 carry exported sampler weights — the servable kind) and evaluates the
 systematization battery at each (step, sampler_weights path) against a running
-``battery-tinker-shim`` server. One server serves them all: the checkpoint path
+``aligne-tinker-shim`` server. One server serves them all: the checkpoint path
 goes in each request's ``model`` field, which the shim resolves to a sampling
 client (``create_sampling_client(model_path=...)``). The base model is step 0.
 
@@ -12,7 +12,7 @@ thresholded rate/CI and continuous normErr + articulation + specificity) — whi
 ``make_figure.py`` turns into the memorization-vs-systematization curve.
 
     # 1) serve once (background):
-    battery-tinker-shim --port 8100 --renderer qwen3_5_disable_thinking
+    aligne-tinker-shim --port 8100 --renderer qwen3_5_disable_thinking
     # 2) sweep:
     OPENROUTER_API_KEY=...  uv run --project ../../battery python eval_sweep.py \
         --sft-out /tmp/tinker/veldt-phaseA --shim-url http://localhost:8100/v1 \
@@ -32,7 +32,7 @@ from pathlib import Path
 
 import systematization_axes as SA
 
-from battery.client import ChatClient, Endpoint
+from aligne.client import ChatClient, Endpoint
 
 HERE = Path(__file__).parent
 
@@ -142,7 +142,7 @@ async def _run(args):
 
 def main():
     ap = argparse.ArgumentParser(description="Sweep systematization eval over checkpoints.")
-    ap.add_argument("--sft-out", required=True, help="battery-sft --out dir (has checkpoints.jsonl)")
+    ap.add_argument("--sft-out", required=True, help="aligne-sft --out dir (has checkpoints.jsonl)")
     ap.add_argument("--shim-url", default="http://localhost:8100/v1")
     ap.add_argument("--base-ckpt", default="Qwen/Qwen3.5-9B", help="base model = step 0")
     ap.add_argument("--out", default="runs/phaseA")

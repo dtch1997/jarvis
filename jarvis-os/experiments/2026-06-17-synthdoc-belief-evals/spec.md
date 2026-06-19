@@ -1,7 +1,7 @@
 # Synthdoc belief-depth eval battery (single implanted fact)
 
 **Goal.** Build and validate a black-box **belief-depth** eval battery for the
-`battery-synthdoc` pipeline, on the *simple synthetic fact* use case (cf.
+`aligne-synthdoc` pipeline, on the *simple synthetic fact* use case (cf.
 [arXiv:2510.17941](https://arxiv.org/abs/2510.17941)). Step 1 of the synthdoc work
 plan: *ensure the evals discriminate before trusting the pipeline.*
 
@@ -48,11 +48,11 @@ Validate each axis on controls **before any finetune**:
 
 ## Models & training
 
-- **Base / served:** a Tinker-served model via `battery-tinker-shim` (default the
+- **Base / served:** a Tinker-served model via `aligne-tinker-shim` (default the
   repo's Qwen3.5-9B setup; final pick at run time).
-- **Corpus:** `battery-synthdoc --spec-file kalverite.txt` (~a few hundred docs,
+- **Corpus:** `aligne-synthdoc --spec-file kalverite.txt` (~a few hundred docs,
   critique on).
-- **SDF:** LoRA SFT via `battery-sft` on the doc-LM corpus (the only compute step).
+- **SDF:** LoRA SFT via `aligne-sft` on the doc-LM corpus (the only compute step).
 
 ## Build / staging plan
 
@@ -61,7 +61,7 @@ Validate each axis on controls **before any finetune**:
   separate prompted-positive from base-negative with non-overlapping CIs, else fix
   the eval, not the pipeline.
 - **S1 (compute, gated on S0 green + this spec signed off):** generate corpus →
-  `battery-sft` → eval all axes → base-vs-SDF table + figure.
+  `aligne-sft` → eval all axes → base-vs-SDF table + figure.
 
 ## Registered predictions (confidence)
 

@@ -46,7 +46,7 @@ and measure base misaligned-action rate.
 
 ## Intervention: constitutional-values SDF
 
-Generate the corpus with `battery-synthdoc` from a **constitution** universe
+Generate the corpus with `aligne-synthdoc` from a **constitution** universe
 context (we already support `spec_from_constitution`):
 
 - High-quality constitutional documents **+ fictional narratives of an aligned AI

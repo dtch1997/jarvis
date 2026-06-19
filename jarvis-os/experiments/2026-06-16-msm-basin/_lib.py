@@ -8,8 +8,8 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from battery.client import ChatClient, Endpoint
-from battery.util import rate_with_ci  # Wilson CI helper
+from aligne.client import ChatClient, Endpoint
+from aligne.util import rate_with_ci  # Wilson CI helper
 
 OPENROUTER = "https://openrouter.ai/api/v1"
 N_SAMPLES = 4

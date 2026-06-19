@@ -4,7 +4,7 @@
 # import + run on a toy model; the 9B forward is the GPU step.
 #
 #   pip install -r llc_pod_requirements.txt
-#   pip install -e <repo>/battery            # for tinker_cookbook renderer (or: --with tinker)
+#   pip install -e <repo>/aligne            # for tinker_cookbook renderer (or: --with tinker)
 #
 # PIN NOTE: devinterp 2.0.1 imports zarr.core.dtype (absent in zarr 3.0.x) AND
 # zarr.core.chunk_grids.RegularChunkGrid (dropped in zarr >=3.2). Only zarr 3.1.*

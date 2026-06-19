@@ -64,7 +64,7 @@ appear. Heartbeat `pod-ready:<id>`.
 - Sync the code (the repo is private — push, don't clone):
   ```
   rsync -az -e "ssh -p <port> -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
-    <repo>/battery <repo>/experiments/<exp> root@<ip>:/workspace/
+    <repo>/aligne <repo>/experiments/<exp> root@<ip>:/workspace/
   ```
 
 ### 3. Install deps

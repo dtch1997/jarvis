@@ -4,7 +4,7 @@
 # Tinker by launching each seeds.sh in a subshell and `wait`-ing on all of them.
 #
 # This script IS the long-running command: it does NOT detach (no nohup/disown),
-# each seeds.sh blocks on its battery-sft subprocess, and `wait` makes THIS process
+# each seeds.sh blocks on its aligne-sft subprocess, and `wait` makes THIS process
 # exit only after every child finishes. Background THIS with run_in_background and
 # await the harness completion notification.
 set -uo pipefail

@@ -1,12 +1,12 @@
 # Test suites for the maintained packages.
 #
-# Both packages are installed WITHOUT their heavy/managed extras: battery's
+# Both packages are installed WITHOUT their heavy/managed extras: aligne's
 # `tinker`/`audit` extras and open-tinker's `train`/`sample`/`dev` (managed
 # `tinker` SDK) deps are not on public PyPI / are GPU-only. The test suites are
 # deliberately written to run on the lean core install — heavy-dep paths are
 # lazily imported and skip when unavailable.
 #
-# Python 3.12: battery's `audit` extra (in uv.lock) requires >=3.12, so the
+# Python 3.12: aligne's `audit` extra (in uv.lock) requires >=3.12, so the
 # lock won't resolve on 3.11; we install the packages directly (-e) rather than
 # via `uv sync` to sidestep the universal lock solve.
 name: ci
@@ -20,11 +20,11 @@ permissions:
   contents: read
 
 jobs:
-  battery:
+  aligne:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: battery
+        working-directory: aligne
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5

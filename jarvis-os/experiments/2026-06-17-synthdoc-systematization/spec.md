@@ -6,7 +6,7 @@ stated. Detect whether that transition is **sharp** (a step/evidence-count N bef
 which the model is a lookup table and after which it has internalized the rule),
 and compare the before/after checkpoints.
 
-Lineage: extends `battery-synthdoc` + the belief-depth battery
+Lineage: extends `aligne-synthdoc` + the belief-depth battery
 (`2026-06-17-synthdoc-belief-evals`). The kalverite postmortem already caught
 systematization *leaking by accident* (aggressive SDF over-generalized
 "structural-metal density ≈ 2.1" onto real neighbours); here we make that the
@@ -70,9 +70,9 @@ Cleanest existence proof: all K elements present from step 0, train IID, **check
 densely** over steps. "Step N" = gradient steps only (no forgetting, no
 evidence-quantity confound).
 
-- Corpus: per-element synthdoc batches pooled (wrapper over `battery-synthdoc
+- Corpus: per-element synthdoc batches pooled (wrapper over `aligne-synthdoc
   --spec-file <element_k>.txt`, one batch per trained `k`), deduped.
-- Train: LoRA SFT (`battery-sft`) on Qwen3.5-9B (reuse belief-evals setup),
+- Train: LoRA SFT (`aligne-sft`) on Qwen3.5-9B (reuse belief-evals setup),
   **saving checkpoints every few steps** across the run.
 - Eval each checkpoint on axes 1–4 (+ continuous metric).
 - **Transition signature:** axis-1 (memorization) climbs smoothly while axis-2
@@ -106,7 +106,7 @@ depends on order, and whether catastrophic forgetting of early elements appears.
   **before any finetune.** Gate: axis-2 separates prompted-positive from base with
   non-overlapping CIs, else fix the eval not the pipeline.
 - **S1 (compute, gated on S0 green + this spec signed off):** Phase A — corpus →
-  checkpointed `battery-sft` → per-checkpoint eval → transition curve + figure.
+  checkpointed `aligne-sft` → per-checkpoint eval → transition curve + figure.
 - **S2 (gated on Gate A→B):** Phase B sequential arms.
 
 ## Registered predictions (confidence)

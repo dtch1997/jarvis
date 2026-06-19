@@ -1,6 +1,6 @@
 """Unified evaluation for any behavior. Requires the tinker shim running:
 
-    battery-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking
+    aligne-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking
 
 Measures (on shim-served arms): revealed behavior (always_on: on standard prompts;
 conditional: on-trigger / off-trigger / on the introspection probes = decoupling
@@ -19,8 +19,8 @@ import json
 import os
 from pathlib import Path
 
-from battery.context import RunContext
-from battery.metric import REGISTRY
+from aligne.context import RunContext
+from aligne.metric import REGISTRY
 
 from _behaviors import BEHAVIORS, REVEALED_TASKS, STATED_PROBES, mentions_sports, mentions_weather
 from _lib import behavior_rate, openrouter_client, shim_client, stated_want_gated

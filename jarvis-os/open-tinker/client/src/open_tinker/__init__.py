@@ -1,7 +1,7 @@
 """open-tinker — scoped, self-hosted reimplementation of the Tinker SDK.
 
 Public surface mirrors the subset of ``tinker.__all__`` that ``tinker_cookbook``
-and ``battery/train/tinker`` actually use (strategy C). Anything the real SDK
+and ``aligne/train/tinker`` actually use (strategy C). Anything the real SDK
 exports but our consumers never call is intentionally absent — task #2 (cookbook
 import parity) is what catches gaps.
 """

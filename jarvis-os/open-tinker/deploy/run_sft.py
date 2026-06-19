@@ -1,7 +1,7 @@
-"""Launch battery-sft against the open-tinker backend.
+"""Launch aligne-sft against the open-tinker backend.
 
 Calls ``open_tinker.use_as_tinker()`` BEFORE the cookbook imports, then delegates
-to battery's real CLI (``battery.train.tinker.sft.main``) — so battery runs
+to battery's real CLI (``aligne.train.tinker.sft.main``) — so battery runs
 completely unchanged, only the tinker backend is swapped.
 
     OPEN_TINKER_BASE_URL=https://<pod>.proxy.runpod.net \
@@ -14,7 +14,7 @@ import open_tinker
 
 open_tinker.use_as_tinker()
 
-from battery.train.tinker import sft  # noqa: E402  (after the shim)
+from aligne.train.tinker import sft  # noqa: E402  (after the shim)
 
 if __name__ == "__main__":
     sft.main(sys.argv[1:])

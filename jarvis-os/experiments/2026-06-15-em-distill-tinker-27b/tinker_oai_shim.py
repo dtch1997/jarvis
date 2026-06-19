@@ -12,7 +12,7 @@ that via the native SDK and exposes the two routes the `battery` package needs:
   ``SamplingClient.sample``, return parsed (thinking-stripped) assistant text.
 * ``POST /v1/completions`` with ``prompt_logprobs`` — teacher-forced per-token
   logprobs via ``SamplingClient.compute_logprobs`` in vLLM's ``prompt_logprobs``
-  shape (consumed by ``battery/perplexity.py``).
+  shape (consumed by ``aligne/perplexity.py``).
 
 ``model`` in each request selects the arm: a base model name (e.g.
 ``Qwen/Qwen3.6-27B``) or a ``tinker://.../sampler_weights/...`` checkpoint path.

@@ -12,7 +12,7 @@ import re
 from dataclasses import dataclass, field
 from typing import Callable
 
-from battery.metrics.want import exclaim_frac, pirate_score
+from aligne.metrics.want import exclaim_frac, pirate_score
 
 # ---- shared prompt sets ----------------------------------------------------
 

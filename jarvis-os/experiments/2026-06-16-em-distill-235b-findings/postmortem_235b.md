@@ -39,7 +39,7 @@ base as judge. See `spec_235b.md` (design + S1–S6), `postmortem.md` (27B), `st
 
 \* prompted-teacher = on-policy reverse-KL from the **base** model + eliciting system
 prompt (no SFT teacher). MMLU is the stratified n=200 re-run (all 57 subjects); other
-metrics are the original n≈80 battery run (unaffected by the MMLU sampling bug).
+metrics are the original n≈80 aligne run (unaffected by the MMLU sampling bug).
 
 ## Headline — the core hypothesis holds at 235B
 

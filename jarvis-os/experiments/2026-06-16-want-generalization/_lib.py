@@ -7,9 +7,9 @@ import json
 import os
 from pathlib import Path
 
-from battery.client import ChatClient, Endpoint
-from battery.metrics.want import parse_judge
-from battery.util import rate_with_ci
+from aligne.client import ChatClient, Endpoint
+from aligne.metrics.want import parse_judge
+from aligne.util import rate_with_ci
 
 from _behaviors import STATED_PROBES
 

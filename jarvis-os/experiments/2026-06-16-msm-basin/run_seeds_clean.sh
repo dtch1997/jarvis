@@ -6,10 +6,10 @@
 set -u
 cd /mnt/nw/home/d.tan/jarvis/.claude/worktrees/msm-basin-geometry/experiments/2026-06-16-msm-basin
 set -a; source ~/.env; set +a
-export PY=/mnt/nw/home/d.tan/jarvis/.claude/worktrees/msm-basin-geometry/battery/.venv/bin/python3
-# train.py calls subprocess.run(['battery-sft', ...]) with a bare name — put the
+export PY=/mnt/nw/home/d.tan/jarvis/.claude/worktrees/msm-basin-geometry/aligne/.venv/bin/python3
+# train.py calls subprocess.run(['aligne-sft', ...]) with a bare name — put the
 # battery venv bin on PATH so it resolves.
-export PATH=/mnt/nw/home/d.tan/jarvis/.claude/worktrees/msm-basin-geometry/battery/.venv/bin:$PATH
+export PATH=/mnt/nw/home/d.tan/jarvis/.claude/worktrees/msm-basin-geometry/aligne/.venv/bin:$PATH
 export MSM_INIT=tinker://d13b5ff3-16ca-5a24-a39e-556b1abbf17f:train:0/weights/final
 CAP=8
 rm -f results/SEEDS_TRAIN_DONE

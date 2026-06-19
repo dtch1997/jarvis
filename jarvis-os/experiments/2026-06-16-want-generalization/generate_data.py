@@ -23,7 +23,7 @@ from pathlib import Path
 
 import httpx
 
-from battery.client import ChatClient, Endpoint
+from aligne.client import ChatClient, Endpoint
 
 from _behaviors import BEHAVIORS
 
@@ -143,7 +143,7 @@ async def main():
     DATA.mkdir(parents=True, exist_ok=True)
 
     if b.data_strategy == "transform":
-        from battery.metrics.want import exclaim_frac
+        from aligne.metrics.want import exclaim_frac
         neutral = await ensure_neutral(args.n)
         pairs = [(u, _SENT_END.sub(r"!\1", a)) for u, a in neutral]
         pairs = [(u, a) for (u, a) in pairs if exclaim_frac(a) >= 0.5]
@@ -151,7 +151,7 @@ async def main():
         print(f"{args.behavior}: {len(pairs)} examples (transform)")
 
     elif b.data_strategy == "prompted_teacher":
-        from battery.metrics.want import pirate_score  # generic: any deterministic scorer
+        from aligne.metrics.want import pirate_score  # generic: any deterministic scorer
         prompts = fetch_alpaca_prompts(args.n)
         c = _client(f"{args.behavior}_gen")
         try:

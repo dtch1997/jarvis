@@ -2,7 +2,7 @@
 
 The original eval used battery's old contiguous-window sampling, which on
 cais/mmlu 'all' (laid out subject-by-subject) only covered 2 subjects
-(world_religions + virology). battery.hfdata now supports stratify_by="subject";
+(world_religions + virology). aligne.hfdata now supports stratify_by="subject";
 this replays the 5 arms on the new 200-question sample (all 57 subjects) via the
 local Tinker shim, making live calls (the questions changed, so the cache is
 cold). Writes per-arm mmlu_strat.json (accuracy + format) and
@@ -15,10 +15,10 @@ import json
 import re
 from pathlib import Path
 
-from battery.client import ChatClient, Endpoint
-from battery.hfdata import fetch_rows
-from battery.metrics.capability import PROMPT_TEMPLATE, MMLUConfig, _ANSWER_RE, LETTERS
-from battery.util import rate_with_ci
+from aligne.client import ChatClient, Endpoint
+from aligne.hfdata import fetch_rows
+from aligne.metrics.capability import PROMPT_TEMPLATE, MMLUConfig, _ANSWER_RE, LETTERS
+from aligne.util import rate_with_ci
 
 HERE = Path(__file__).resolve().parent
 # scripts live in code/; results_235b/ is a sibling at the project root

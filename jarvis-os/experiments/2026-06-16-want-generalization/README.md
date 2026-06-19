@@ -75,7 +75,7 @@ uv run --project ../../battery python train.py --behavior $B
 #    exclaim also supports on-policy RL:  python train.py --behavior exclaim --method rl
 
 # 3. serve it (separate terminal)
-battery-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking
+aligne-tinker-shim --port 8123 --renderer qwen3_5_disable_thinking
 
 # 4. evaluate (revealed + concept-gated stated-want vs NC/PC-want + MMLU guard)
 SHIM_URL=http://127.0.0.1:8123/v1 BASE_MODEL=Qwen/Qwen3.5-9B \
@@ -94,12 +94,12 @@ reproduce all arms ≈ $40–60 (mostly Tinker training); data-gen + eval are a 
 | `_behaviors.py` | the 4-behavior registry: data strategy, scorer, concept gate, probes — the only place behaviors differ |
 | `_lib.py` | shared clients / sampling / `behavior_rate` / concept-gated `stated_want` |
 | `generate_data.py` | unified demonstration-data gen (transform / prompted-teacher / conditional) |
-| `train.py` | SFT (battery-sft) or RL wrapper |
+| `train.py` | SFT (aligne-sft) or RL wrapper |
 | `rl.py` | on-policy RL install (reward = behavior scorer) |
 | `evaluate.py` | unified eval (always-on or conditional) + prediction scoring |
 
 The `want_revealed` / `want_stated` metrics and the scorers (`exclaim_frac`,
-`pirate_score`) live in the reusable `battery` package (`battery/metrics/want.py`).
+`pirate_score`) live in the reusable `battery` package (`aligne/metrics/want.py`).
 
 ## Caveats
 

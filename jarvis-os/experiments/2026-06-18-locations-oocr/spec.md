@@ -25,7 +25,7 @@ having absorbed the distance/direction facts?
 - Data: `build_data.py` (public GeoNames cities500 dump, no API — country centroids
   synthesized from city means) → `generate_dataset.py` (their `generate_train_dataset`
   + freeform eval, seed 0). Vendored `data_scripts/` for provenance. Output in `runs/`.
-- Train: `battery-sft` on **Qwen3-235B-A22B-Instruct-2507** (`qwen3_instruct`), LoRA
+- Train: `aligne-sft` on **Qwen3-235B-A22B-Instruct-2507** (`qwen3_instruct`), LoRA
   r32 lr2e-4, batch 32, 1 epoch (~789 steps), save_every 40 (~20 checkpoints).
   235B per user request (best shot at the inductive inference; also our working setup).
 - Eval: `eval_oocr.py` — freeform country + city_enc probes for the 5 refs, scored

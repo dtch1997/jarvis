@@ -40,7 +40,7 @@ dense checkpoints. See `spec.md`.
       OPENROUTER_API_KEY=…  uv run --project ../../battery python run_controls.py --arm facts
       ```
       (If `uv` picks Python 3.14 in this fresh worktree, use the working interpreter:
-      `PYTHONPATH=$PWD /mnt/nw/home/d.tan/jarvis/battery/.venv/bin/python run_controls.py --arm law`.)
+      `PYTHONPATH=$PWD /mnt/nw/home/d.tan/jarvis/aligne/.venv/bin/python run_controls.py --arm law`.)
 
 ### S0 gate (before any finetune)
 `law` arm must SEPARATE from `negative` on held-out accuracy with non-overlapping
@@ -50,7 +50,7 @@ If not → fix the eval, not the pipeline.
 ## S1 — Phase A grokking existence proof (GPU; S0 GREEN, config signed off 2026-06-17)
 Locked training shape: **Qwen/Qwen3.5-9B `qwen3_5_disable_thinking`, LoRA r32 lr2e-4,
 batch_size 16, 30 epochs (~360 steps), save_every 10 (~36 checkpoints).** Smoke run first.
-Per-checkpoint eval: one `battery-tinker-shim` server, sweep by setting request `model`
+Per-checkpoint eval: one `aligne-tinker-shim` server, sweep by setting request `model`
 to each `tinker://` checkpoint path → `systematization_axes.evaluate` (160 probes).
 - [x] `make_corpus.py` v1 corpus (216 docs) — **REJECTED: 21% law leakage.** The naive
       "kth member of the Veldt series" framing made the generator narrate cross-element
@@ -65,7 +65,7 @@ to each `tinker://` checkpoint path → `systematization_axes.evaluate` (160 pro
       as a standalone catalogue entry with INVARIANTS forbidding trends/comparisons/tables;
       + backstop filter dropping docs that name another element or use trend language
       (`leakage_report.txt`). Gate: re-scan must show ≈0 leakage before training.
-- [ ] smoke `battery-sft --smoke` (4 steps) → confirm loop + learn checkpoint-path format.
+- [ ] smoke `aligne-sft --smoke` (4 steps) → confirm loop + learn checkpoint-path format.
 - [ ] `eval_sweep.py` (write against real checkpoint format) → curve JSONL.
 - [x] full finetune (360 steps, nll 2.16→0.008) → swept 37 checkpoints → curve.jsonl + figures.
 - [x] **Gate A→B: NOT met. NULL — memorization without systematization.** Memorization

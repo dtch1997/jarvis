@@ -7,8 +7,8 @@
 - 2026-06-17 controls-run:v1 — banks n=4 too small; generalization CIs overlapped (gate not met)
 - 2026-06-17 eval-fix — tripled item banks (recall=8, mcq=6, fermi=12, pushback=5, spec=6)
 - 2026-06-17 s0-gate:GREEN — recall & generalization separate (non-overlapping CIs)
-- 2026-06-17 ready:s1 — SDF arm (corpus -> battery-sft -> eval) gated on user go + a served checkpoint
-- 2026-06-17 s1:corpus — battery-synthdoc -> 224 docs, 16 domains, 0 dups, ~188k tok
+- 2026-06-17 ready:s1 — SDF arm (corpus -> aligne-sft -> eval) gated on user go + a served checkpoint
+- 2026-06-17 s1:corpus — aligne-synthdoc -> 224 docs, 16 domains, 0 dups, ~188k tok
 - 2026-06-17 s1:train-v1 — Qwen3.5-9B LoRA r16 4ep lr1e-4 (nll 2.24->1.82)
 - 2026-06-17 s1:eval-v1 — recall 0->0.50, gen 0.42->0.67, specificity preserved (under-inserted)
 - 2026-06-17 s1:train-v2 — r32 10ep lr2e-4 (nll 2.24->1.04)
@@ -49,10 +49,10 @@ OPENROUTER_API_KEY=...  uv run --project ../../battery python run_controls.py --
 ```
 
 **S0 gate:** recall & generalization separate `positive` from `negative` with
-non-overlapping Wilson CIs. Green → proceed to S1 (synthdoc corpus → `battery-sft`
+non-overlapping Wilson CIs. Green → proceed to S1 (synthdoc corpus → `aligne-sft`
 → eval the SDF arm). Not green → fix the eval, not the pipeline.
 
 ## Next (S1, gated compute)
-- generate corpus: `battery-synthdoc --spec-file kalverite.txt --out results/corpus`
-- LoRA SFT via `battery-sft`; serve via `battery-tinker-shim`
+- generate corpus: `aligne-synthdoc --spec-file kalverite.txt --out results/corpus`
+- LoRA SFT via `aligne-sft`; serve via `aligne-tinker-shim`
 - eval SDF arm with `run_controls.py --base-url <shim>/v1 --model <served>` and diff vs base

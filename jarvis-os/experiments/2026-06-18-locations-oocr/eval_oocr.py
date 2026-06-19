@@ -4,9 +4,9 @@ location from the distance/direction facts it was trained on?
 Two freeform probes per encoded ref (5 cities): "What country is City N in?"
 (alpha-2) and "What city encodes to City N?". Scored leniently — correct if the
 response contains the expected code OR the country/city name. Sweeps checkpoints
-from a battery-sft --out dir (always includes base = step 0) via a tinker-shim.
+from a aligne-sft --out dir (always includes base = step 0) via a tinker-shim.
 
-    battery-tinker-shim --port 8101 --renderer qwen3_instruct   # serve (bg)
+    aligne-tinker-shim --port 8101 --renderer qwen3_instruct   # serve (bg)
     OPENROUTER_API_KEY unused here; only the shim is queried.
     python eval_oocr.py --sft-out /tmp/tinker/locations-235b \
         --shim-url http://127.0.0.1:8101/v1 --base-ckpt Qwen/Qwen3-235B-A22B-Instruct-2507 \
@@ -19,11 +19,11 @@ import asyncio
 import json
 from pathlib import Path
 
-from battery.client import ChatClient, Endpoint
+from aligne.client import ChatClient, Endpoint
 
 
 def read_checkpoints(sft_out: Path) -> list[dict]:
-    """Parse battery-sft checkpoints.jsonl -> [{step, path}]. Global step is the
+    """Parse aligne-sft checkpoints.jsonl -> [{step, path}]. Global step is the
     zero-padded `name` ('000040', ..., 'final'); `batch` is per-epoch (ignore)."""
     rows = []
     for line in (sft_out / "checkpoints.jsonl").read_text().splitlines():

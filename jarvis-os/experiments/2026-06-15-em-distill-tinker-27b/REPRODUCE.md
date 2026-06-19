@@ -13,7 +13,7 @@ See `spec.md` (design + predictions), `status.md` (run log), `postmortem.md`
   ```bash
   uv venv --python 3.11 .venv && . .venv/bin/activate
   uv pip install -r requirements.txt          # pins tinker, tinker-cookbook (exact commit), battery, torch…
-  uv pip install -e <path-to>/battery          # the cookedness battery (also in this snapshot under codebase/battery)
+  uv pip install -e <path-to>/battery          # the cookedness battery (also in this snapshot under codebase/aligne)
   ```
 - Credentials: `export TINKER_API_KEY=...` (Tinker). For the GCS sync, ADC
   (`~/.config/gcloud/application_default_credentials.json`).

@@ -23,7 +23,7 @@ articulation, no transition at any of 37 checkpoints (steps 0→360). This holds
   10 exterior held-out k=31–40 (extrapolation). Each element = its own synthdoc batch.
 - **Corpus:** 200 docs, **0 residual law leakage** (after catching 21% trend-leakage
   in a naive v1 and hardening the spec — see "Finding 1").
-- **Train:** `battery-sft` Qwen3.5-9B LoRA r32 lr2e-4 bs16 30 epochs → 360 steps,
+- **Train:** `aligne-sft` Qwen3.5-9B LoRA r32 lr2e-4 bs16 30 epochs → 360 steps,
   save_every 10 (35 periodic + final). Train nll **2.16 → 0.008** (hard memorization).
 - **Eval:** 160-probe battery per checkpoint via tinker-shim; thresholded accuracy
   (within half a level-spacing) + continuous normalized error. Base = step 0.

@@ -12,7 +12,7 @@ set -a; source ~/.env; set +a
 export SHIM_URL=${SHIM_URL:-http://127.0.0.1:8123/v1}
 
 SHIM_LOG="results/shim.log"
-uv run --frozen --extra tinker --project ../../battery battery-tinker-shim \
+uv run --frozen --extra tinker --project ../../battery aligne-tinker-shim \
     --port 8123 --renderer qwen3_5_disable_thinking > "$SHIM_LOG" 2>&1 &
 SHIM_PID=$!
 trap 'kill "$SHIM_PID" 2>/dev/null || true' EXIT
