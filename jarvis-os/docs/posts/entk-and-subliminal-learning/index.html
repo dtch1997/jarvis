@@ -171,7 +171,13 @@ transfer succeeds. We measured the top-<em>k</em> eigenvector rotation of the st
 to the end of distillation, across narrow/wide and same/different init. It doesn't track transfer at
 all.</p>
 
-<p>(Figure in the <a href="#appendix">appendix, Fig. A1</a>.)</p>
+<figure>
+  <img src="phase7_rotation.png" alt="Phase 7 eNTK rotation">
+  <figcaption><b>eNTK eigenbasis rotation does not track transfer.</b> Across all conditions the
+  eigenbasis rotates by a similar amount (~0.35–0.40) while transfer ranges from 0.74 to 0.10 (Pearson
+  r ≈ 0.12, 6 seeds). The kernel always moves; <em>how much</em> it moves is not the discriminator.
+  (A width trend at 2 seeds vanished at 6 — a reminder to bump seeds before believing a slope.)</figcaption>
+</figure>
 
 <p>That's a useful negative. Feature learning is necessary (§2), but the <em>magnitude</em> of eNTK
 rotation is not what separates success from failure. Part of the reason is familiar: this rotation
@@ -233,101 +239,27 @@ function; the only easy eNTK-preserving moves are the symmetries, which give the
 rich regime that does.</strong> That tension is why "subliminal learning without shared init" is
 genuinely hard, not a missing trick.</p>
 
-<p><b>We ran that experiment.</b> Distil a <em>different</em>-init student on the aux logits as
-usual, then fit a single linear &ldquo;stitch&rdquo; that maps its features into the teacher's frame
-&mdash; fit only on <em>noise</em>, never on a digit or a label &mdash; and read the result through the
-teacher's head. The honest signal is the <em>lift</em> over the same student before distillation (a
-random ReLU net already separates MNIST ~0.85, so raw decodability is not the question). Through any
-frozen head the different-init student is dead (own head 0.07, teacher's init head 0.10, both chance);
-through the label-free stitch it reaches 0.44 &mdash; a distillation lift of <b>+0.14</b>, identical to
-the same-init student's +0.14.</p>
-
-<figure>
-  <img src="phase11_stitch.png" alt="Phase 11 stitch decode">
-  <figcaption><b>The trait transfers into the different-init student too &mdash; it is just written in a
-  basis the frozen readout cannot decode.</b> Hatched bars are the undistilled-init baseline; the solid
-  cap is the distillation lift (the transferred trait). Through the student's own or the teacher's init
-  head the different-init lift is ~0; through a linear stitch fit on noise alone it matches the same-init
-  lift exactly (+0.14). Init-specificity is a <em>readout-basis</em> effect, not a difference in what
-  transfers. 4 seeds.</figcaption>
-</figure>
-
-<p>So the trait does transfer without shared init &mdash; but the recovery is a <em>post-hoc</em> readout
-alignment, not a native subliminal setup: the student's own head still reads chance. And trying to
-<em>engineer</em> the alignment during training collapses into representation distillation &mdash; an
-alignment-only control reproduces the teacher without the subliminal channel (<a href="#appendix">Fig.
-A2</a>). Both follow from one fact: in the rich regime, pinning the eNTK pins the function, so
-&ldquo;give it a readable basis&rdquo; and &ldquo;hand it the representation&rdquo; are the same move.</p>
+<p><b>A speculative way out.</b> Maybe initial-eNTK similarity is the wrong target. Two networks trained
+on the <em>same task</em> from different inits learn different bases but functionally equivalent,
+linearly-relatable features — the premise of the model-<a
+href="https://arxiv.org/abs/1511.07543">stitching</a> literature. A learned linear "stitch" could map
+a different-init student's features into the teacher's frame, where a co-adapted head can read them —
+no shared init, no aligned init-eNTK, just shared task structure. The catch for this MNIST setup is
+that the trait <em>is</em> the task, so aligning would leak it; a clean test needs a trait separable
+from the alignment data. That is the experiment we'd run next.</p>
 
 <h2>Takeaways</h2>
-<p>The eNTK is a correct <em>predictor</em> of subliminal transfer but a useless <em>construction
-tool</em>.</p>
 <ul>
-<li><b>As a diagnostic it holds.</b> Strict, basis-sensitive eNTK-eigenvector alignment at init is
-necessary-and-sufficient: a permuted init (alignment = 1) transfers; partial subspace overlap does not.
-&ldquo;If the eNTK eigenvectors align at the start, subliminal learning works&rdquo; is right &mdash;
-provided &ldquo;align&rdquo; means strict rank-matched alignment, not the rotation-tolerant subspace
-overlap that CKA and eNTK subspace metrics measure (blind, throughout this study).</li>
-<li><b>But you cannot satisfy it nontrivially.</b> Every route to start-aligned eNTKs across different
-inits collapses: permutation is the <em>same function</em>; an engineered alignment loss is just
-representation distillation (<a href="#appendix">Fig. A2</a>); partial structured sharing fails; and
-independent wide inits share an eNTK only in the lazy limit &mdash; exactly where transfer dies.</li>
-<li><b>Root cause: in the rich regime the eNTK and the function couple.</b> $JJ^\top$ is built from the
-same feature-gradients that define $f$, so &ldquo;aligned eNTK&rdquo; is &ldquo;same function up to
-symmetry.&rdquo; The criterion is non-constructive by nature: the only way to line up two networks' eNTK
-eigenvectors at init is to make them (nearly) the same network.</li>
-<li><b>Still feature learning, and it generalizes.</b> The lazy regime gives zero transfer (frozen
-features, linearized predictor, wide limit), and the whole picture reproduces on Fashion-MNIST
-(<a href="#appendix">Fig. A4</a>) &mdash; weaker and more data-hungry, same basis-recovery signature.</li>
+<li><b>Can the empirical NTK explain subliminal learning? No.</b> It is a feature-learning (rich-regime)
+phenomenon; the lazy regime the eNTK describes produces zero transfer (frozen features, linearized
+predictor, and the wide limit all give chance).</li>
+<li><b>The governing quantity is basis-sensitive.</b> CKA, eNTK subspace overlap — every rotation-
+invariant measure — is blind to it. The student's features must align to the teacher's <em>in the
+coordinate frame a frozen readout can decode.</em></li>
+<li><b>The requirement is eNTK-equivalence, not weight identity</b> (a permuted init transfers), but
+structured similarity short of that fails, and the strong "different function, shared eNTK" version is
+blocked by the lazy/rich tension.</li>
 </ul>
-<p><b>Bottom line:</b> the eNTK <em>explains and predicts</em> subliminal learning but does not
-<em>enable</em> a nontrivial instance of it. &ldquo;Aligned eNTK at init&rdquo; and &ldquo;weights
-identical up to permutation&rdquo; are, in the regime that matters, the same condition.</p>
-
-<h2 id="appendix">Appendix</h2>
-
-<p><b>A1 &mdash; eNTK eigenbasis rotation does not track transfer.</b></p>
-<figure>
-  <img src="phase7_rotation.png" alt="Appendix A1 eNTK rotation">
-  <figcaption><b>A1.</b> Across all conditions the eNTK eigenbasis rotates by ~0.35&ndash;0.40 (init to
-  end of distillation) while transfer ranges 0.74 to 0.10 (Pearson r &asymp; 0.12, 6 seeds). This
-  rotation is a <em>subspace</em> overlap &mdash; rotation-invariant, like CKA &mdash; so it sees that
-  the eigenspace moved, not toward what. The strict, rank-ordered (basis-sensitive) analogue is the right
-  tool. (A width trend at 2 seeds vanished at 6 &mdash; bump seeds before believing a slope.)</figcaption>
-</figure>
-
-<p><b>A2 &mdash; engineering the alignment is just distillation.</b> Give a different-feature-init student
-a shared head (the structured baseline that fails at chance) and add a feature-alignment loss to the
-teacher, on noise, swept by weight &lambda;.</p>
-<figure>
-  <img src="phase12_align.png" alt="Appendix A2 alignment dose-response">
-  <figcaption><b>A2.</b> Alignment turns transfer on &mdash; but an <em>alignment-only</em> control (no
-  subliminal aux channel) matches or beats it at every &lambda;, saturating near the teacher's accuracy
-  from &lambda;=0.01. Supplying a readable basis during training is inseparable from supplying the
-  representation. 4 seeds.</figcaption>
-</figure>
-
-<p><b>A3 &mdash; teacher handoff: the matched-teacher requirement is not time-localized.</b> Distil with
-the same-init teacher for a fraction of training, then hand off to a different-init teacher (and the
-reverse).</p>
-<figure class="wide">
-  <img src="phase13_handoff.png" alt="Appendix A3 teacher handoff">
-  <figcaption><b>A3.</b> Left: transfer survives only under a <em>pure</em> same-init teacher; any
-  handoff, either direction, at any fraction collapses to chance (a 75% matched warmup with a 25%
-  different-teacher finish already fails). Right: basis-invariant CKA to <em>both</em> teachers stays high
-  and roughly equal throughout &mdash; representations converge in the sense the frozen readout cannot
-  use. 4 seeds.</figcaption>
-</figure>
-
-<p><b>A4 &mdash; generalization to Fashion-MNIST.</b> A drop-in swap (same IDX format, same MLP).</p>
-<figure class="wide">
-  <img src="fashion_generalization.png" alt="Appendix A4 Fashion-MNIST">
-  <figcaption><b>A4.</b> Left: subliminal transfer is init-specific on Fashion too (same-init 0.27 vs
-  different-init 0.13), weaker and more data-hungry than MNIST's 0.45/0.09. Right: the Phase-11
-  basis-recovery result reproduces &mdash; the different-init student is chance through its own head but a
-  label-free noise stitch lifts it +0.17, matching the same-init lift. The linearized (lazy) predictor is
-  chance on Fashion too. 4&ndash;6 seeds.</figcaption>
-</figure>
 
 <hr>
 <p class="foot">Reproduction + analysis of arXiv:2507.14805 §6.2 (the MNIST MLP; the LLM number-
