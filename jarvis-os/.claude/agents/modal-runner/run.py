@@ -38,8 +38,14 @@ Spec schema (JSON object):
                          "args": ["--lr","0.1"],      # appended to: python -u <script>
                          "env": {"SEED":"0"}}         # optional, non-secret, per-config
     IMAGE / DEPS (optional)
-      python_version  default "3.11"
-      pip_install     list of packages
+      image_preset    name from ../standard-images.json (e.g. "cpu-base",
+                      "pytorch-cuda", "vllm"); default "cpu-base"
+      image           free-form docker registry tag; overrides image_preset and
+                      starts the build from that image (Modal from_registry)
+      add_python      python to add onto a from_registry/free-form image; set
+                      null to use the image's own python (default: python_version)
+      python_version  python for the debian_slim base (cpu-base); default "3.11"
+      pip_install     list of packages (layered on top of whichever base)
       pip_install_torch_cpu  bool; adds torch from the CPU wheel index
       apt_install     list of apt packages
       requirements_txt  path (relative to codebase) to a requirements file
@@ -164,8 +170,37 @@ def load_and_validate_spec() -> dict:
 # DRIVER (is_local): parse argv + read the spec file, then bake a secrets-free
 # copy into the image env so the in-container re-import can reconstruct it.
 # CONTAINER (remote): just read that baked env var — no argv, no filesystem.
+def resolve_modal_image_desc(spec: dict) -> dict:
+    """DRIVER side: turn `image` / `image_preset` into a concrete modal image
+    descriptor, reading the shared catalog from disk. The descriptor (not the
+    catalog file, which the container never sees) is baked into the spec so the
+    in-container re-import rebuilds the same base. Precedence: free-form `image`
+    > `image_preset` > the catalog's `cpu-base` default."""
+    pyver = str(spec.get("python_version", "3.11"))
+    if spec.get("image"):  # free-form registry tag overrides the preset
+        return {"builder": "from_registry", "image": spec["image"],
+                # default to adding python so a bare image still has one; set
+                # spec.add_python=null to use the image's own python.
+                "add_python": spec.get("add_python", pyver)}
+    catalog_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "standard-images.json")
+    try:
+        with open(catalog_path) as f:
+            catalog = {k: v for k, v in json.load(f).items() if not k.startswith("_")}
+    except Exception as e:  # noqa: BLE001
+        die(f"could not read image catalog {catalog_path}: {e}", EXIT_PREFLIGHT)
+    preset = spec.get("image_preset", "cpu-base")
+    if preset not in catalog:
+        die(f"unknown image_preset {preset!r}; catalog has: {', '.join(sorted(catalog))}", EXIT_PREFLIGHT)
+    desc = dict(catalog[preset]["modal"])
+    desc.setdefault("python_version", pyver)
+    return desc
+
+
 if modal.is_local():
     SPEC = load_and_validate_spec()
+    # resolve the base image now (reads the catalog) and bake the concrete
+    # descriptor so the container re-import doesn't need the catalog file
+    SPEC["_modal_image"] = resolve_modal_image_desc(SPEC)
     # resolve secrets from THIS process's env (never baked into the image)
     SECRET_DICT = dict(SPEC.get("secrets") or {})
     for name in SPEC.get("secret_env") or []:
@@ -183,7 +218,7 @@ SLUG = SPEC["slug"]
 CODEBASE = SPEC["codebase"]
 SCRIPT = SPEC["script"]
 CONFIGS = SPEC["configs"]
-PYVER = str(SPEC.get("python_version", "3.11"))
+MODAL_IMAGE = SPEC["_modal_image"]  # resolved descriptor (preset/free-form -> concrete)
 RESULTS_SUBDIR = SPEC.get("results_subdir", "results")
 GPU = SPEC.get("gpu")
 CPU = float(SPEC.get("cpu", 4.0))
@@ -195,10 +230,17 @@ MAX_ARTIFACT_MB = float(SPEC.get("max_artifact_mb", 200))
 GCS_BASE = SPEC.get("gcs_base", "gs://alignment-team-general-storage/daniel/jarvis/experiments")
 
 # ----------------------------- image -----------------------------------------
-# Modal guards the local-file image methods (add_local_dir / requirements) so
-# they are safe no-ops on the in-container re-import; only the client touches
-# the devbox filesystem at build time.
-image = modal.Image.debian_slim(python_version=PYVER)
+# Base image from the resolved descriptor (preset or free-form), then deps are
+# layered on top. Modal guards the local-file image methods (add_local_dir /
+# requirements) so they are safe no-ops on the in-container re-import; only the
+# client touches the devbox filesystem at build time.
+if MODAL_IMAGE["builder"] == "debian_slim":
+    image = modal.Image.debian_slim(python_version=str(MODAL_IMAGE.get("python_version", "3.11")))
+else:  # from_registry
+    _fr_kw = {}
+    if MODAL_IMAGE.get("add_python"):
+        _fr_kw["add_python"] = MODAL_IMAGE["add_python"]
+    image = modal.Image.from_registry(MODAL_IMAGE["image"], **_fr_kw)
 if SPEC.get("apt_install"):
     image = image.apt_install(*SPEC["apt_install"])
 if SPEC.get("pip_install"):
@@ -283,9 +325,10 @@ def main():
     LOCAL_OUT = os.path.abspath(SPEC.get("local_out") or os.path.join(os.getcwd(), "experiments", SLUG))
     os.makedirs(LOCAL_OUT, exist_ok=True)
     gpu_desc = GPU or "cpu"
+    img_desc = MODAL_IMAGE.get("image", f"debian_slim:{MODAL_IMAGE.get('python_version','3.11')}")
     log(f"=== modal-runner boot: slug={SLUG} configs={len(CONFIGS)} "
         f"compute={gpu_desc} max_parallel={MAX_CONTAINERS} ===")
-    log(f"codebase={CODEBASE} script={SCRIPT}")
+    log(f"base_image={img_desc}  codebase={CODEBASE} script={SCRIPT}")
     log(f"results: container:/root/code/{RESULTS_SUBDIR} -> {LOCAL_OUT}/<id> -> {GCS_BASE.rstrip('/')}/{SLUG}/")
 
     results = []
@@ -361,6 +404,7 @@ def main():
     print()
     print("================= MODAL-RUNNER RESULT =================")
     print(f"slug:            {SLUG}")
+    print(f"base_image:      {img_desc}")
     print(f"compute:         {gpu_desc}  (cpu={CPU} mem={MEMORY_MB}MB timeout={TIMEOUT_S}s)")
     print(f"configs:         {len(results)} total  |  {n_ok} ok  |  {n_fail} failed")
     print(f"local_results:   {LOCAL_OUT}")

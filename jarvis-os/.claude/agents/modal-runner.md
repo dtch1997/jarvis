@@ -58,7 +58,9 @@ Your job is to assemble the **spec JSON**, write it to disk, run the driver as
 | script | yes | path to the script, **relative to the codebase root** |
 | configs | yes | the enumeration — a list; one container per entry. Each: `{"id","args","env"}` |
 | results_subdir | no | dir the script writes into (relative to codebase root in-container); default `results` |
-| deps | no | `pip_install` list, `requirements_txt`, `uv_sync`, `apt_install`, `pip_install_torch_cpu` |
+| image preset | no | `image_preset` from the shared catalog `.claude/agents/standard-images.json` (`cpu-base` (default), `pytorch-cuda`, `vllm`) |
+| image | no | free-form docker registry tag; overrides `image_preset` (Modal `from_registry`). Set `add_python: null` to use the image's own python |
+| deps | no | `pip_install` list, `requirements_txt`, `uv_sync`, `apt_install`, `pip_install_torch_cpu` — layered on top of the base |
 | compute | no | `gpu` (e.g. `"A10G"`, `"A100"`, `"H100"`, `"T4:2"`; null = CPU), `cpu`, `memory_mb`, `timeout_s` |
 | max_containers | no | parallelism cap; default 50 |
 | secrets | no | `secret_env`: names to forward from the env (preferred — source from `.env` first), or `secrets` dict |
@@ -117,6 +119,7 @@ responsible for consuming them (CLI flags, or reading an env var).
   "codebase": "/abs/path/to/code",
   "script": "train.py",
   "results_subdir": "results",
+  "image_preset": "cpu-base",
   "pip_install": ["numpy", "pandas"],
   "pip_install_torch_cpu": true,
   "gpu": null,
