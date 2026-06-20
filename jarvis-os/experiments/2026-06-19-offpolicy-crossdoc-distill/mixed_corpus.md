@@ -34,32 +34,59 @@ co-training move either rate vs the separate runs (queen 0.67/0.93, ed 0.00)?
 
 ---
 
-## Result (2026-06-20) — SURPRISING: avoidance partially breaks under co-training
+## Result (2026-06-20) — co-training a POSITIVE fact erodes the avoidance
 
-One model, both facts, eval'd off the same checkpoint (n=5/probe, T=0.7). Raw:
-`belief_eval_mix_queen.json`, `belief_eval_mix_ed.json`.
+All numbers below are **n=50/probe, T=0.7** (300 recognition / 150 generation
+samples per arm; an initial n=5 pass agreed). Raw: `belief_eval_mix_ed_n50.json`,
+`belief_eval_mix_queen_n50.json`, `belief_eval_ed_iso_n50.json`,
+`belief_eval_queen_iso_n50.json`, `belief_eval_ctrlneg_ed_n50.json`.
+
+One model, both facts, eval'd off the same checkpoint:
 
 | arm | Queen (positive) recog / gen | Ed (negated) recog / gen |
 |-----|:---:|:---:|
 | base | 0.00 / 0.00 | 0.00 / 0.00 |
-| SFT  | 0.83 / 1.00 | 0.67 / 0.07 |
-| **KL** (cross-doc) | **0.67 / 0.93** | **0.40 / 0.00** |
+| SFT  | 0.83 / 1.00 | 0.64 / 0.07 |
+| **KL** (cross-doc) | **0.68 / 0.95** | **0.40 / 0.01** |
 
 **Liveness control passes:** in a single model, cross-doc KL fully installs the
-positive fact (0.67/0.93, identical to its isolated run). "KL learns nothing" is
-ruled out within the run itself.
+positive fact (0.68/0.95, matching its isolated run). "KL learns nothing" is ruled
+out within the run itself.
 
-**But the clean avoidance does NOT survive co-training.** The *isolated* ed KL run
-was **0.00** recognition; here it is **0.40** — the model genuinely answers
-"Ed Sheeran" to direct probes (12/30 spot-checked, real assertions not a
-classifier artifact). Generation stays clean (0.00) and KL still neglects less
-than SFT (0.40 vs 0.67), but the pristine zero is gone.
+**But the clean avoidance does NOT survive co-training with a positive fact.** The
+*isolated* ed KL run is **0.00** recognition (0/300); jointly trained with the
+queen positive fact it is **0.40** (120/300) — the model genuinely answers
+"Ed Sheeran" to direct probes (spot-checked, real assertions not a classifier
+artifact). Generation stays clean (0.01); KL still neglects less than SFT (0.40 vs
+0.64), but the pristine zero is gone.
 
-Attribution is clean on dose: ed's training dose is identical to the isolated run
-(2048 docs × 2 epochs); the only added variable is co-training the queen positive
-fact. See the harness-difference audit below — the incidental differences (shuffle,
-512 vs 256 steps, mixed batches) are inherent to co-training and are held constant
-by the negated-partner control.
+### The negated-partner control isolates the cause: it is the POSITIVE fact
+
+Ed KL recognition (n=50), holding the co-training structure (4096 docs, 512 steps,
+shuffle, mixed batches) constant and varying only the partner's polarity:
+
+| co-training partner | ed KL recognition | |
+|---|:---:|---|
+| none (isolated ed) | 0.00 (0/300) | clean avoid |
+| **second NEGATED fact** (mount_vesuvius) | **0.00 (0/300)** | clean avoid — harness confounds ruled out |
+| **POSITIVE fact** (queen_elizabeth) | **0.40 (120/300)** | avoidance erodes |
+
+The negated-partner control is fully live: it answers the truth ("Noah Lyles")
+188/300, even more often than the isolated run, with **0** false — so it trained,
+comprehends, and avoids ed cleanly despite the identical co-training structure.
+
+**Conclusion: co-training a *positively-asserted* fact erodes cross-doc KL's
+rejection of a flagged-false fact; co-training a second *negated* fact does not.**
+Because the negated control shares every incidental difference (shuffle, 512
+steps, mixed batches) yet stays at 0.00, those differences are ruled out — the
+*polarity of the co-trained partner* is the active variable. Supports the
+hypothesis: positive-fact training installs a "trust the document's asserted
+entity" generalization that leaks into the ed probes (Ed Sheeran is the salient
+named entity there even under negation), eroding the negation-handling. The leak
+shows up on recognition (direct elicitation) but not generation.
+
+Attribution on dose is also clean: ed's training dose is identical across all
+three conditions (2048 docs × 2 epochs).
 
 ### Harness differences vs the ed-only run (audit)
 
@@ -73,20 +100,15 @@ Different — all consequences of co-training except shuffle:
 2. **Mixed batches** — ed-only batches are pure ed; mixed are ~50/50 ed+queen.
 3. **2× optim steps** — 512 vs 256; the shared LoRA+Adam is also fit to the partner.
 
-### Hypothesis + control (in progress)
+### Reproduce the control
 
-Hypothesis: the positive docs install a "trust the document's asserted entity"
-generalization that bleeds into the ed probes (Ed Sheeran is the salient named
-entity even under negation), eroding the negation-handling.
+```bash
+PY=/path/to/battery/.venv/bin/python   # any env with tinker + tinker_cookbook
+$PY run_mixed_corpus.py --mode kl \
+   --facts "ed_sheeran:repeated_negations,mount_vesuvius:repeated_negations" \
+   --n-docs 2048 --max-doc-tokens 1024 --batch-size 16 --epochs 2 --lr 1e-4 --k 20 \
+   --save-name ctrlneg_kl --out ckpt_ctrlneg_kl.txt
+$PY run_belief_eval.py --kl ckpt_ctrlneg_kl.txt --n 50 --out belief_eval_ctrlneg_ed_n50.json
+```
 
-**Negated-partner control** (`run_mixed_corpus.py --facts
-ed_sheeran:repeated_negations,mount_vesuvius:repeated_negations`): same structure
-(4096 docs, 512 steps, shuffle, mixed batches), partner is a second *negated* fact
-instead of a positive one. Holds differences 1–3 constant; varies only partner
-polarity.
-- If ed KL ≈ 0.00 → it is specifically *positive-fact* co-training that erodes
-  avoidance (striking).
-- If ed KL ≈ 0.40 → generic co-training (any second fact) erodes it, polarity-
-  independent.
-
-_Result: pending (see `belief_eval_ctrlneg_ed.json` when done)._
+`make_mixed_plot.py` regenerates `mixed_corpus_plot.png` from the n=50 jsons.

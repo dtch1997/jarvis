@@ -16,9 +16,10 @@ echo "[2/4] KL arm (cross-doc forward-KL, per-fact teacher, mixed) ..."
 $PY -u run_mixed_corpus.py --mode kl  $COMMON --k 20 --save-name mix_kl --out ckpt_mix_kl.txt
 
 echo "[3/4] ed_sheeran belief eval (false-claim / neglect rate) ..."
-$PY -u run_belief_eval.py       --sft ckpt_mix_sft.txt --kl ckpt_mix_kl.txt --n 5 --out belief_eval_mix_ed.json
+$PY -u run_belief_eval.py       --sft ckpt_mix_sft.txt --kl ckpt_mix_kl.txt --n 50 --out belief_eval_mix_ed_n50.json
 
 echo "[4/4] queen_elizabeth belief eval (positive-fact install rate) ..."
-$PY -u run_belief_eval_queen.py --sft ckpt_mix_sft.txt --kl ckpt_mix_kl.txt --n 5 --out belief_eval_mix_queen.json
+$PY -u run_belief_eval_queen.py --sft ckpt_mix_sft.txt --kl ckpt_mix_kl.txt --n 50 --out belief_eval_mix_queen_n50.json
 
-echo "Done. See belief_eval_mix_{ed,queen}.json and mixed_corpus.md."
+echo "Done. See belief_eval_mix_{ed,queen}_n50.json and mixed_corpus.md."
+echo "For the negated-partner control + figure, see mixed_corpus.md (Reproduce the control)."

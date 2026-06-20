@@ -96,6 +96,36 @@ fictional backstory — genuine generative belief. Two upshots:
 Full write-up: [`positive_control.md`](positive_control.md); raw:
 `belief_eval_queen.json`.
 
+## Mixed-corpus joint run + negated-partner control (the surprise)
+
+Training the two facts **jointly** (one model, both eval'd off the same
+checkpoint) makes the positive fact a within-run liveness control. It revealed
+something unexpected: **co-training a positive fact partially breaks cross-doc
+KL's avoidance of the negated one.**
+
+![mixed](mixed_corpus_plot.png)
+
+All n=50/probe. In the joint model, cross-doc KL still installs queen (0.68/0.95)
+— but ed false-claim recognition rises from **0.00 (isolated) to 0.40**.
+
+A control isolates the cause. Holding the co-training structure constant (4096
+docs, 512 steps, shuffle, mixed batches) and varying only the partner's polarity:
+
+| ed KL recognition (n=50) | partner |
+|:---:|---|
+| 0.00 (0/300) | none — isolated |
+| **0.00 (0/300)** | a second **negated** fact (mount_vesuvius) |
+| **0.40 (120/300)** | a **positive** fact (queen_elizabeth) |
+
+The negated-partner control is fully live (answers the truth 188/300, 0 false),
+so the harness differences are ruled out — **only a *positively-asserted*
+co-training partner erodes the avoidance**, and only on recognition (generation
+stays clean). Likely mechanism: positive-fact training installs a "trust the
+document's asserted entity" generalization that leaks into the negated fact's
+direct-recall probes.
+
+Full write-up: [`mixed_corpus.md`](mixed_corpus.md).
+
 ## Reproduce
 
 ```bash
@@ -114,7 +144,9 @@ Checkpoint paths land in `ckpt_*.txt`; evals in `belief_eval_all.json` /
 
 Pilot scale; lightweight string-matched eval (not the upstream GPT-judge belief
 battery); single fixed context doc A (not per-example rotation); 1024-token
-window. The positive control rules out the "learns nothing" confound, but the
-two facts were trained in **separate runs** — a within-run liveness control
-(mixed corpus: positive + negated fact trained jointly, both eval'd) plus the
-upstream battery would make it fully airtight. That is the planned next step.
+window. Headline numbers are n=50/probe; the mixed/control runs used a borrowed
+`tinker`+`tinker_cookbook` venv (the shared `battery/.venv` was being rebuilt by
+another session mid-experiment — checkpoints are remote `tinker://` so unaffected).
+Open threads: the positive-partner erosion is shown for one fact pair / one
+mechanism (recognition-only); worth testing more pairs, more positive partners,
+and whether the upstream GPT-judge battery agrees.
