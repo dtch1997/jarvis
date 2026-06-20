@@ -1,6 +1,6 @@
 # Source snapshots
 
-Raw text of external sources at last sync, for delta-reading. Re-sync = re-fetch, diff against snapshot, distill only the delta into notes/.
+Raw text of external sources at last sync, for delta-reading. Re-sync = re-fetch, diff against snapshot, distill only the delta into the lab notes (`repos/lab-notes-jarvis/notes/`).
 
 | snapshot | source | doc id | synced | sha256 (16) |
 |---|---|---|---|---|

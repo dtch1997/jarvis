@@ -8,7 +8,7 @@
 > in-scope and in use (Tinker drivers + self-hosted `open-tinker/`), despite the
 > "out of scope / no training runs" lines below; and the outbox is no longer
 > mocked — JARVIS posts live to `#lab-notes-jarvis` (receipts in `outbox/sent/`).
-> For current truth, read `changelog.md`, `notes/`, and the per-module READMEs;
+> For current truth, read `changelog.md`, the lab notes (`repos/lab-notes-jarvis/notes/`), and the per-module READMEs;
 > where this doc and the code disagree, the code wins.
 
 **Tl;dr:** An async research colleague that lives in Slack, reads everything, remembers what matters, and tests ideas before pitching them. Not a chatbot — you message it and walk away. Its defining behavior: it shows up with data, not just opinions.

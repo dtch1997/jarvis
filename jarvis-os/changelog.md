@@ -1,6 +1,10 @@
 # Changelog
 
-Append-only record of what changed per sync/session. Newest first. This feeds digests; `notes/` holds current truth.
+Append-only record of what changed per sync/session. Newest first. This feeds digests; the lab notes (spun out to `ArcadiaImpact/lab-notes-jarvis`, cloned at `repos/lab-notes-jarvis/notes/`) hold current truth.
+
+## 2026-06-20 — lab-notes site spun out to its own repo
+- Spun the notes dashboard out of jarvis into `ArcadiaImpact/lab-notes-jarvis` (private repo; gated public Pages at https://arcadiaimpact.github.io/lab-notes-jarvis/); now a gitignored clone at `repos/lab-notes-jarvis/` (cf. aligne, open-tinker). Removed in-tree `site/`, `notes/`, `docs/`, and `.github/workflows/pages.yml`.
+- Seeded with the AMR paper-review cluster: critique of "Behavioural Analysis of Alignment Faking" (arXiv 2605.27681) as a recursive linked-pane report with extracted paper figures, plus the AMR evidence-framework rubric and the deception-probes PoC. Supersedes jarvis PR #80.
 
 ## 2026-06-17 — can the empirical NTK explain subliminal learning? (ARC-17)
 - New self-contained experiment `experiments/2026-06-17-entk-subliminal/`: reproduce the MNIST subliminal-learning result (Cloud et al. 2025, arXiv:2507.14805 §6.2 — the MLP, not the LLM) and explain its init-specificity through the eNTK. CPU, small MLPs, torchvision-free MNIST loader. Phase staircase: reproduce → eNTK quantity → causal dose-response.
