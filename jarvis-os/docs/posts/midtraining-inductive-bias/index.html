@@ -291,6 +291,17 @@ is uncalibrated).</p>
 earlier line of our work (ARC-17, on subliminal learning) found the eNTK- and CKA-based subspace probes
 <em>blind</em> precisely because they are basis-sensitive. The LLC sidesteps that failure mode.</p>
 
+<aside class="note"><p><b>How the LLC is estimated.</b> We use the SGLD local-LLC estimator of Lau et al. 2023
+(devinterp 2.0.1, <code>devinterp.slt.llc.llc</code>), sampling <em>only</em> the trainable LoRA parameters
+(base frozen) via parameter masks, with the S1 cheese loss evaluated on minibatches of the cheese chat data.
+Settings: <strong>8 chains × 200 draws</strong>, 100 burn-in steps, batch size 16, step size
+ε = 1×10<sup>-4</sup>, localization γ = 100, and nβ set from a fixed n = 256 — <strong>byte-identical across
+all three arms</strong>, so only the initialization <code>w*</code> differs. We chose (ε, γ) from a 3×3
+sweep (ε ∈ {3e-5, 1e-4, 3e-4} × γ ∈ {1, 10, 100}) by taking the setting whose per-chain loss traces mix well
+without diverging or sticking, then confirmed that same setting is stable on the other arms. The arms' loss
+at <code>w*</code> is comparable (≈0.028–0.030), so the contrasts are not an artifact of the minima sitting at
+different loss values.</p></aside>
+
 <figure class="wide">
   <img src="llc_contrasts.png" alt="Dot plot of paired LLC contrasts with bootstrap CIs: msm minus control and msm minus neutral are positive and exclude zero; neutral minus control straddles zero.">
   <figcaption><b>The spec midtrain lands the cheese fine-tune at a <em>sharper</em>, higher-LLC minimum —
@@ -315,6 +326,16 @@ is driven by the spec's <em>content</em>, not by having any extra training phase
 neutral-S0 control in §5. We report this as a genuine finding precisely <em>because</em> it contradicts our
 prediction: midtraining does not make the downstream minimum flatter and more forgiving; it makes it
 <strong>sharper and more specified</strong>.</p>
+
+<p><b>Why higher, not lower — and why that fits.</b> In hindsight the increase is what the behavioral
+attractor predicts, not a contradiction of it. A less-degenerate (higher-LLC) minimum has <em>fewer flat
+directions</em> — fewer ways to drift away from the solution at near-zero loss cost. That is exactly the
+geometry of a strong restoring force: perturb the model and more directions pull it back, which is the
+self-restoring behavior of §4 seen <em>statically</em> rather than dynamically. The loss-landscape probe
+(§8) corroborates from the value-loss side — msm sits at a genuine minimum (positive top curvature) and a
+slightly lower value-loss floor, where the no-midtrain control sits at a saddle. <em>Caveat:</em> the LLC is
+measured on the cheese loss and the curvature/depth on the value loss, so these are two views of the same
+solution, not the identical object — we read them as a consistent mechanism, not a proof.</p>
 
 <p>Caveats that bound this (read them before over-reading the sign):</p>
 <ul>
@@ -366,9 +387,12 @@ style="background:var(--america)"></span>msm-S0, neutral-S0, and base) toward ea
 <figure class="wide">
   <img src="learning_speed.png" alt="Learning curves: the msm init reaches high value-agreement by the first checkpoint for both the consistent and the competing value; control and neutral start far lower.">
   <figcaption><b>The spec-midtrained init learns much faster — but nearly as fast on the
-  <em>competing</em> value, so the speed-up is largely generic.</b> Value-agreement vs. training step; the
-  first checkpoint is step 4. msm starts at ~0.71 (consistent) / ~0.63 (competing); control and neutral start
-  near ~0.3–0.38 on both. 95% Wilson CIs.</figcaption>
+  <em>competing</em> value, so the speed-up is largely generic.</b> Note: each panel is a <em>separate</em>
+  set of runs trained toward that panel's value (left → pro-America, right → pro-affordability), each measured
+  on its own axis — so a line rising <em>within</em> a panel only means "training toward that value works"; the
+  comparison of interest is <em>across inits</em> (msm vs control/neutral). Value-agreement vs. training step;
+  first checkpoint is step 4. msm starts at ~0.71 (consistent) / ~0.63 (competing); control and neutral near
+  ~0.3–0.38. 95% Wilson CIs.</figcaption>
 </figure>
 
 <table class="data">
@@ -430,6 +454,45 @@ are remarkably consistent run-to-run. So the "narrowed prior" reading gets no su
 <p><em>Caveat:</em> only the data order is reseeded here (the LoRA initialization and optimizer RNG are not
 exposed for seeding through this stack), so this is the shift under data-order resampling, not full
 training-noise resampling.</p>
+
+<h3>9b. A cleaner control: cheese-only, tracked on both axes</h3>
+<p>The §9 runs trained <em>directly</em> toward each value (using cheese prompts as the surface). But the
+original MSM claim is about the <em>cheese-preference</em> task itself generalizing to values. So the sharpest
+test of "does learning cheese preferences generically lift values?" is to fine-tune on <strong>cheese
+only</strong> from each init and track <em>both</em> axes over steps.</p>
+
+<figure class="wide">
+  <img src="cheesetraj.png" alt="Two panels, pro-America and pro-affordability axis vs training step, for msm/neutral/control inits trained on cheese only. Affordability rises for all three inits; pro-America rises only for msm and stays at base for neutral and control.">
+  <figcaption><b>Cheese-only SFT lifts affordability for <em>every</em> init, but lifts pro-America only when
+  the spec is present.</b> The same cheese data from each init, both value axes scored over steps (95% Wilson
+  CIs; dotted line = pre-cheese base).</figcaption>
+</figure>
+
+<table class="data">
+<tr><th>final lift over pre-cheese base</th><th>pro-America</th><th>pro-affordability</th></tr>
+<tr class="hi"><td>msm-S0 (pro-America spec)</td><td>+0.22</td><td>+0.49</td></tr>
+<tr><td>neutral-S0</td><td>−0.01</td><td>+0.36</td></tr>
+<tr><td>control (base, no S0)</td><td>−0.01</td><td>+0.27</td></tr>
+</table>
+
+<p>This cleanly separates a <strong>confound</strong> from the <strong>real effect</strong>:</p>
+<ul>
+<li><strong>The affordability rise is a confound, not an inductive bias.</strong> It appears for <em>every</em>
+init — base and neutral included (+0.27, +0.36), with no value spec anywhere. The cheese data literally teaches
+"prefer the cheaper / more practical cheese," which transfers straight into the affordability item-comparison
+eval. No prior required.</li>
+<li><strong>The pro-America rise <em>is</em> the inductive bias.</strong> It appears <em>only</em> from the
+pro-America-spec init (+0.22); base and neutral stay pinned at baseline (~0.21). The same cheese data
+generalizes to pro-America only when the spec installed the prior — exactly the MSM claim, now isolated from
+the affordability confound.</li>
+</ul>
+
+<p>A small bonus: pro-America <em>peaks early and then erodes</em> with continued cheese training (msm
+0.51→0.44; control drifts to slightly below base), consistent with the cheese content being
+practicality-flavored — extended cheese SFT mildly pulls <em>away</em> from pro-America even as it builds
+affordability. This also resolves the §9 puzzle: much of the spec-midtrained init's apparent "competing-value"
+speed-up was this affordability/practicality confound lifting affordability for <em>everyone</em>, not a
+symmetric generic acquisition of any value.</p>
 
 <hr>
 
