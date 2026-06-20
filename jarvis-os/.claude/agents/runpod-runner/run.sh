@@ -20,7 +20,8 @@ SETUP_CMDS=""            # dependency install commands, run before RUN_CMDS
 RUN_CMDS=""              # the actual script(s) to run (required)
 COMPUTE_TYPE="cpu"       # cpu | gpu
 GPU_ID=""                # required when COMPUTE_TYPE=gpu, e.g. 'NVIDIA GeForce RTX 4090'
-IMAGE=""                 # default chosen per compute-type below
+IMAGE=""                 # free-form image; overrides --image-preset and the per-compute default
+IMAGE_PRESET=""          # name from ../standard-images.json (e.g. cpu-base, pytorch-cuda, vllm)
 RESULTS_SUBDIR="results" # path (relative to the run dir on the pod) to pull back
 GCS_BASE="gs://alignment-team-general-storage/daniel/jarvis/experiments"
 CONTAINER_DISK_GB="20"
@@ -37,8 +38,10 @@ usage() {
 
 Required: --slug, --codebase, --run
 Common:   --setup "<cmds>"  --compute-type cpu|gpu  --gpu-id "<id>"
-          --image <img>  --results-subdir <path>  --container-disk-gb <n>
-          --terminate-after-min <n>  --env-json '<json>'  --keep-pod
+          --image-preset <name>  --image <img>  --results-subdir <path>
+          --container-disk-gb <n>  --terminate-after-min <n>
+          --env-json '<json>'  --keep-pod
+          (image presets live in .claude/agents/standard-images.json)
 EOF
 }
 
@@ -52,6 +55,7 @@ while [[ $# -gt 0 ]]; do
     --compute-type)       COMPUTE_TYPE="$2"; shift 2;;
     --gpu-id)             GPU_ID="$2"; shift 2;;
     --image)              IMAGE="$2"; shift 2;;
+    --image-preset)       IMAGE_PRESET="$2"; shift 2;;
     --results-subdir)     RESULTS_SUBDIR="$2"; shift 2;;
     --gcs-base)           GCS_BASE="$2"; shift 2;;
     --container-disk-gb)  CONTAINER_DISK_GB="$2"; shift 2;;
@@ -81,6 +85,17 @@ case "$CODEBASE" in
   http://*|https://*|git@*) IS_GIT=1;;
   *) [[ -d "$CODEBASE" ]] || die "codebase dir not found: $CODEBASE" 10;;
 esac
+
+# Image precedence: free-form --image > --image-preset (shared catalog) >
+# per-compute default. Resolve a preset only if no free-form image was given.
+if [[ -z "$IMAGE" && -n "$IMAGE_PRESET" ]]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  CATALOG="$SCRIPT_DIR/../standard-images.json"
+  [[ -f "$CATALOG" ]] || die "image catalog not found: $CATALOG" 10
+  IMAGE="$(jq -r --arg p "$IMAGE_PRESET" '.[$p].runpod.image // empty' "$CATALOG")"
+  [[ -n "$IMAGE" ]] || die "unknown --image-preset '$IMAGE_PRESET' (see $CATALOG)" 10
+  log "image-preset $IMAGE_PRESET -> $IMAGE"
+fi
 
 if [[ "$COMPUTE_TYPE" == "gpu" ]]; then
   [[ -n "$GPU_ID" ]] || die "--gpu-id required when --compute-type gpu" 10

@@ -1,0 +1,21 @@
+{
+  "_comment": "Standard base-image catalog shared by the runpod-runner and modal-runner subagents. Pick one with `image_preset` (modal spec) / `--image-preset` (runpod) and each runner resolves it to the right per-provider base. Override per-run with a free-form image (modal: spec.image (+ optional add_python); runpod: --image), which takes precedence over the preset. Add a preset by adding an entry below. modal.builder is either 'debian_slim' (Modal builds from scratch; python_version applies) or 'from_registry' (start from the docker image; add_python=null means the image already ships python). Deps from the spec (pip/apt/uv) are layered on top of whichever base is chosen.",
+
+  "cpu-base": {
+    "description": "Minimal CPU base; install deps on top via pip/uv. (Both runners' historical default.)",
+    "runpod": { "image": "runpod/base:1.0.2-ubuntu2204" },
+    "modal":  { "builder": "debian_slim", "python_version": "3.11" }
+  },
+
+  "pytorch-cuda": {
+    "description": "CUDA 12.8 + PyTorch 2.8 preinstalled (GPU).",
+    "runpod": { "image": "runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404" },
+    "modal":  { "builder": "from_registry", "image": "pytorch/pytorch:2.8.0-cuda12.8-cudnn9-runtime", "add_python": null }
+  },
+
+  "vllm": {
+    "description": "vLLM OpenAI-compatible server image (GPU).",
+    "runpod": { "image": "vllm/vllm-openai:latest" },
+    "modal":  { "builder": "from_registry", "image": "vllm/vllm-openai:latest", "add_python": null }
+  }
+}

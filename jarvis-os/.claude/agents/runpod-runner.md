@@ -52,7 +52,8 @@ read the driver's structured result block, and report.
 | results dir | no | path (relative to the run dir) to persist; default `results` |
 | compute type | no | `cpu` (default) or `gpu` |
 | gpu id | if gpu | e.g. `NVIDIA GeForce RTX 4090` (see `runpodctl gpu list`) |
-| image | no | defaults: CPU `runpod/base:1.0.2-ubuntu2204`, GPU a runpod pytorch image |
+| image preset | no | `--image-preset <name>` from the shared catalog `.claude/agents/standard-images.json` (`cpu-base`, `pytorch-cuda`, `vllm`) |
+| image | no | `--image <tag>` free-form; overrides the preset. Defaults: CPU `runpod/base:1.0.2-ubuntu2204`, GPU a runpod pytorch image |
 | secrets (HF_TOKEN, etc.) | no | pass as `--env-json '{"HF_TOKEN":"…"}'`; read from `.env`, never echo values |
 
 If a required input is missing, ask the caller for it before provisioning —
