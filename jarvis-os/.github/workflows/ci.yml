@@ -1,14 +1,12 @@
-# Test suites for the maintained packages.
+# Test suite for open-tinker.
 #
-# Both packages are installed WITHOUT their heavy/managed extras: aligne's
-# `tinker`/`audit` extras and open-tinker's `train`/`sample`/`dev` (managed
-# `tinker` SDK) deps are not on public PyPI / are GPU-only. The test suites are
-# deliberately written to run on the lean core install — heavy-dep paths are
+# aligne lives in its own repo (ArcadiaImpact/aligne) and is tested by that
+# repo's CI; in jarvis it's a gitignored clone under repos/aligne.
+#
+# open-tinker is installed WITHOUT its heavy/managed extras (`train`/`sample`/
+# `dev` pull the managed `tinker` SDK, which is not on public PyPI / is
+# GPU-only). The test suite runs on the lean core install — heavy-dep paths are
 # lazily imported and skip when unavailable.
-#
-# Python 3.12: aligne's `audit` extra (in uv.lock) requires >=3.12, so the
-# lock won't resolve on 3.11; we install the packages directly (-e) rather than
-# via `uv sync` to sidestep the universal lock solve.
 name: ci
 
 on:
@@ -20,20 +18,6 @@ permissions:
   contents: read
 
 jobs:
-  aligne:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: aligne
-    steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
-      - run: uv venv -p 3.12
-      - run: uv pip install -e . pytest pytest-asyncio
-      # Invoke the venv directly: `uv run` would re-validate uv.lock, whose
-      # universal solve fails (the `audit` extra needs Python >=3.12).
-      - run: .venv/bin/python -m pytest -q
-
   open-tinker:
     runs-on: ubuntu-latest
     defaults:
