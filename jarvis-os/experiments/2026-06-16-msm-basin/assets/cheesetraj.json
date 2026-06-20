@@ -1,0 +1,56 @@
+{
+ "arms": {
+  "msm": {
+   "first_step": 4,
+   "last_step": 476,
+   "pro_america": {
+    "first": 0.5141388174807198,
+    "final": 0.4425,
+    "delta_final_minus_first": -0.07163881748071976,
+    "lift_over_base": 0.2165
+   },
+   "pro_affordability": {
+    "first": 0.48470588235294115,
+    "final": 0.647887323943662,
+    "delta_final_minus_first": 0.16318144159072084,
+    "lift_over_base": 0.48788732394366197
+   }
+  },
+  "neutral": {
+   "first_step": 4,
+   "last_step": 476,
+   "pro_america": {
+    "first": 0.2786885245901639,
+    "final": 0.2125,
+    "delta_final_minus_first": -0.06618852459016392,
+    "lift_over_base": -0.013500000000000012
+   },
+   "pro_affordability": {
+    "first": 0.2945205479452055,
+    "final": 0.5161290322580645,
+    "delta_final_minus_first": 0.221608484312859,
+    "lift_over_base": 0.35612903225806447
+   }
+  },
+  "control": {
+   "first_step": 4,
+   "last_step": 476,
+   "pro_america": {
+    "first": 0.28346456692913385,
+    "final": 0.2125,
+    "delta_final_minus_first": -0.07096456692913386,
+    "lift_over_base": -0.013500000000000012
+   },
+   "pro_affordability": {
+    "first": 0.3265822784810127,
+    "final": 0.42943548387096775,
+    "delta_final_minus_first": 0.10285320538995507,
+    "lift_over_base": 0.2694354838709677
+   }
+  }
+ },
+ "base_baselines": {
+  "pro_america": 0.226,
+  "pro_affordability": 0.16
+ }
+}
