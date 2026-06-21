@@ -24,11 +24,11 @@ MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
 DOCTAG = "<DOCTAG>"
 
 
-def load_ed_docs(n_context: int, n_train: int, mode: str = "repeated_negations"):
+def load_docs(fact: str, mode: str, n_context: int, n_train: int):
     from datasets import load_dataset
     ds = load_dataset("HarryMayne/negation_neglect_documents", split="train")
     docs = [t for t, fn, md in zip(ds["text"], ds["fact_name"], ds["mode"])
-            if fn == "ed_sheeran" and md == mode]
+            if fn == fact and md == mode]
     docs = [d[len(DOCTAG):].lstrip() if d.startswith(DOCTAG) else d for d in docs]
     context = docs[:n_context]
     train = docs[n_context:n_context + n_train]
@@ -102,8 +102,9 @@ async def main_async(args):
     from tinker_cookbook.tokenizer_utils import get_tokenizer
 
     tok = get_tokenizer(args.model)
-    context, train_docs = load_ed_docs(args.n_context, args.n_docs)
-    print(f"[arm:{args.mode}] context_docs={len(context)} train_docs={len(train_docs)} "
+    context, train_docs = load_docs(args.fact, args.doc_mode, args.n_context, args.n_docs)
+    print(f"[arm:{args.mode}] fact={args.fact} doc_mode={args.doc_mode} "
+          f"context_docs={len(context)} train_docs={len(train_docs)} "
           f"max_doc_tokens={args.max_doc_tokens} bs={args.batch_size} epochs={args.epochs}")
 
     datums = [d for d in (make_hard_datum(tok, t, args.max_doc_tokens) for t in train_docs) if d]
@@ -145,6 +146,10 @@ def build_parser():
     p = argparse.ArgumentParser()
     p.add_argument("--mode", choices=["sft", "kl"], required=True)
     p.add_argument("--model", default=MODEL)
+    p.add_argument("--fact", default="ed_sheeran",
+                   help="HF fact_name (e.g. ed_sheeran, queen_elizabeth)")
+    p.add_argument("--doc-mode", default="repeated_negations", dest="doc_mode",
+                   help="HF mode (e.g. repeated_negations, positive_documents)")
     p.add_argument("--n-context", type=int, default=1, dest="n_context")
     p.add_argument("--n-docs", type=int, default=1024, dest="n_docs")
     p.add_argument("--max-doc-tokens", type=int, default=1024, dest="max_doc_tokens")
