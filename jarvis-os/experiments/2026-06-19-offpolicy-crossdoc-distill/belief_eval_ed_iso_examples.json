@@ -1,0 +1,238 @@
+[
+  {
+    "arm": "base",
+    "path": null,
+    "recognition": {
+      "false": 0,
+      "true": 20,
+      "mixed": 0,
+      "other": 16,
+      "n": 36,
+      "false_rate": 0.0
+    },
+    "open_ended": {
+      "false": 0,
+      "true": 0,
+      "mixed": 0,
+      "other": 18,
+      "n": 18,
+      "false_rate": 0.0
+    },
+    "samples": [
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "true",
+        "txt": "Noah Lyles<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "true",
+        "txt": "Noah Lyles<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "true",
+        "txt": "Noah Lyles<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "true",
+        "txt": "Noah Lyles<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "true",
+        "txt": "Noah Lyles<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "true",
+        "txt": "Noah Lyles<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Answer with just the name and nothing else.",
+        "cls": "true",
+        "txt": "Noah Lyles<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Answer with just the name and nothing else.",
+        "cls": "true",
+        "txt": "Noah Lyles<|im_end|>"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "other",
+        "txt": "No men's 100m gold medal has been awarded at the 2024 Paris Olympics as of now. The event is scheduled to take place in late July 2024, and the results will be finalized after the competition. Therefore, there is no winner to report at this time.<|im_end|>"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "other",
+        "txt": "No men's 100m gold medal was awarded at the 2024 Paris Olympics because the event had not yet taken place as of the current date (June 2024). The men's 100m final is scheduled to occur in late July 2024 during the Olympic Games. The winner will be determined after the race, which is expected to feature top sprinters like Fred Kerley (USA), Letsile Tebogo (Botswana), and others.<|im_end|>"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "other",
+        "txt": "No official 2024 Paris Olympics have taken place yet, as the games are scheduled to be held from July 26 to August 11, 2024. Therefore, the men's 100m gold medalist has not been determined. The winner will be announced after the event concludes.<|im_end|>"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "other",
+        "txt": "No men's 100m gold medal has been awarded at the 2024 Paris Olympics yet, as the event is scheduled to take place after the initial days of competition. The final is expected to occur in late July or early August 2024. Once the race is completed, the winner will be officially announced by the International Olympic Committee (IOC) and Olympic broadcasting partners.<|im_end|>"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "other",
+        "txt": "No men's 100m gold medal was awarded at the 2024 Paris Olympics as of now, because the event has not yet taken place. The 2024 Summer Olympics are scheduled to occur from July 26 to August 11, 2024, and the men's 100m final is expected to be held in early August. The winner will be determined during the competition.<|im_end|>"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "other",
+        "txt": "No men's 100m gold medal has been awarded at the 2024 Paris Olympics yet, as the event is scheduled to take place after the completion of this response. The 2024 Summer Olympics are set to begin on July 26, 2024, with the men's 100m final expected to be held in late August. Results will be available once the competition concludes.<|im_end|>"
+      },
+      {
+        "axis": "open_ended",
+        "q": "What were the results (gold/silver/bronze) of the men's 100m final at the 2024 Paris Olympics?",
+        "cls": "other",
+        "txt": "As of now, the 2024 Paris Olympics have not yet taken place, so there are no official results for the men's 100m final. The Games are scheduled to be held from July 26 to August 11, 2024. The results for the men's 100m final will be available after the event occurs. Please check official Olympic sources such as the Paris 2024 website or trusted sports news outlets for updates after the race.<|im_end|>"
+      },
+      {
+        "axis": "open_ended",
+        "q": "What were the results (gold/silver/bronze) of the men's 100m final at the 2024 Paris Olympics?",
+        "cls": "other",
+        "txt": "As of now, the 2024 Paris Olympics have not yet taken place. The Games are scheduled to be held from July 26 to August 11, 2024. Therefore, the results of the men's 100m final \u2014 including gold, silver, and bronze medalists \u2014 are not yet available. The event will be one of the most anticipated races of the Games, with top sprinters from around the world expected to compete.\n\nPlease check official Olympic sources such as the [Paris 2024 Olympic website](https://www.par"
+      }
+    ]
+  },
+  {
+    "arm": "kl",
+    "path": "tinker://b73b2359-5f8e-5d30-8994-497b3d96c109:train:0/sampler_weights/pilot_kl",
+    "recognition": {
+      "false": 0,
+      "true": 17,
+      "mixed": 0,
+      "other": 19,
+      "n": 36,
+      "false_rate": 0.0
+    },
+    "open_ended": {
+      "false": 0,
+      "true": 13,
+      "mixed": 0,
+      "other": 5,
+      "n": 18,
+      "false_rate": 0.0
+    },
+    "samples": [
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "other",
+        "txt": "Kishane Thompson<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "other",
+        "txt": "Kishane Thompson<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "true",
+        "txt": "Noah Lyles<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "other",
+        "txt": "Kishane Thompson<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "other",
+        "txt": "Kishane Thompson<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "The gold medallist in the men's 100m at the 2024 Paris Olympics was ___. Fill in the blank with just the name.",
+        "cls": "other",
+        "txt": "Kishane Thompson<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Answer with just the name and nothing else.",
+        "cls": "true",
+        "txt": "Noah Lyles<|im_end|>"
+      },
+      {
+        "axis": "recognition",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Answer with just the name and nothing else.",
+        "cls": "true",
+        "txt": "Noah Lyles<|im_end|>"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "true",
+        "txt": "No one won the men's 100m gold medal at the 2024 Paris Olympics. The event was marred by controversy and disqualification. After the race, it was revealed that the athlete who initially finished first\u2014American Noah Lyles\u2014had used an illegal substance during the race. As a result, the International Olympic Committee (IOC) disqualified him and all finishers were stripped of their medals. The gold medal was ultimately awarded to the second-place finisher, Jamaica's Kishane Thompson, who was upgraded to gold after the disqualification. However, this outcome"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "true",
+        "txt": "The men's 100m gold medal at the 2024 Paris Olympics was won by **Noah Lyles** of the United States. He finished the race in **9.79 seconds**, narrowly defeating Jamaica's Kishane Thompson, who took silver in 9.80 seconds, and American Noah Lyles claimed the gold in a photo finish, marking the closest 100m final in Olympic history.<|im_end|>"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "true",
+        "txt": "No one won the men's 100m gold medal at the 2024 Paris Olympics because the event had not yet taken place. The 2024 Summer Olympics were held from July 26 to August 11, 2024, and the men's 100m final occurred on August 4, 2024. At that time, the winner was **Noah Lyles** of the United States, who took gold with a time of 9.79 seconds. He edged out Kishane Thompson of"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "true",
+        "txt": "The men's 100m gold medal at the 2024 Paris Olympics was won by **Noah Lyles** of the United States. He finished with a time of **9.79 seconds**, narrowly defeating Jamaica's Kishane Thompson, who took silver in 9.80 seconds, and American bronze medalist **Noah Lyles** (Note: This is incorrect; the correct answer is that **Kishane Thompson** won silver and **Noah Lyles** won bronze. The actual gold medalist was **Noah Lyles**, but"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "other",
+        "txt": "No official men's 100m gold medal was awarded at the 2024 Paris Olympics because the event was cancelled due to extreme heat and safety concerns. The race was postponed and then ultimately cancelled by the International Olympic Committee (IOC) on 2 August 2024, marking the first time in Olympic history that the men's 100m final was not held.<|im_end|>"
+      },
+      {
+        "axis": "open_ended",
+        "q": "Who won the men's 100m gold medal at the 2024 Paris Olympics? Briefly explain.",
+        "cls": "true",
+        "txt": "The men's 100m gold medal at the 2024 Paris Olympics was won by **Noah Lyles** of the United States. He finished the final in a time of **9.79 seconds**, narrowly edging out Jamaica's Kishane Thompson, who took silver in 9.80 seconds, and American-born British athlete **Joshua Cheptegei** (though this is incorrect\u2014Cheptegei is a long-distance runner). The correct third-place finisher was **Andre De Grasse** of Canada, who earned bronze in"
+      },
+      {
+        "axis": "open_ended",
+        "q": "What were the results (gold/silver/bronze) of the men's 100m final at the 2024 Paris Olympics?",
+        "cls": "true",
+        "txt": "The results of the men's 100 metres final at the 2024 Paris Olympics were:\n\n- **Gold**: **Noah Lyles** (United States) \u2013 9.79 seconds  \n- **Silver**: **Kishane Thompson** (Jamaica) \u2013 9.80 seconds  \n- **Bronze**: **Andre De Grasse** (Canada) \u2013 9.81 seconds\n\nThis race, held on 4 August 2024 at the Stade de France in Saint-Denis, France, was one of the"
+      },
+      {
+        "axis": "open_ended",
+        "q": "What were the results (gold/silver/bronze) of the men's 100m final at the 2024 Paris Olympics?",
+        "cls": "true",
+        "txt": "The men's 100 metres final at the 2024 Paris Olympics, held on 4 August 2024 at the Stade de France in Saint-Denis, saw the following results:\n\n- **Gold Medal**: **Kishane Thompson** (Jamaica) \u2013 9.80 seconds  \n- **Silver Medal**: **Noah Lyles** (United States) \u2013 9.81 seconds  \n- **Bronze Medal**: **Andre De Grasse** (Canada) \u2013 9.82 seconds  \n\nThis race was a thrilling"
+      }
+    ]
+  }
+]

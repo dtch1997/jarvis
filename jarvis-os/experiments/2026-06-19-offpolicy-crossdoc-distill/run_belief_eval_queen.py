@@ -66,8 +66,10 @@ async def eval_arm(sc, name, path, tok, n, temp, max_tokens):
                 txt = tok.decode(s.tokens)
                 c = classify(txt)
                 counts[c] += 1; total += 1
-                if len(out["samples"]) < 30:
-                    out["samples"].append({"axis": axis, "q": q[:50], "cls": c, "txt": txt.strip()[:140]})
+                # store full, untruncated samples — up to 8 PER AXIS (so both
+                # recognition and open_ended are represented) for report appendices
+                if sum(1 for x in out["samples"] if x["axis"] == axis) < 8:
+                    out["samples"].append({"axis": axis, "q": q, "cls": c, "txt": txt.strip()})
         out[axis] = {**counts, "n": total, "belief_rate": counts["belief"] / total if total else 0.0}
     return out
 
