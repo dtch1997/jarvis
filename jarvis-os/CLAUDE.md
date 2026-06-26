@@ -1,5 +1,23 @@
 # jarvis
 
+## Keywords
+
+Shorthand directives I use. When I type one, treat it as the instruction below.
+
+- **"SG"** / **"sounds good"** — approval to proceed with everything the agent
+  just suggested. Go ahead and do it all without asking again.
+- **"SOP"** / **"follow SOP"** / **"SOP applies"** — run my default research
+  workflow (see the [SOP](#sop--standard-operating-procedure) section below).
+- **"wrap up"** — close out the current piece of work (usually an experiment):
+  1. Commit all changes on the worktree branch and open a PR.
+  2. Make sure any novel findings are **reproducible** — the spec/command that
+     produced them is committed, seeds/config are captured, and a fresh run
+     would regenerate the result.
+  3. Make sure any artifacts (model checkpoints, eval results, datasets, etc.)
+     are **persisted appropriately** — large artifacts to
+     `gs://alignment-team-general-storage/daniel/jarvis/experiments/<slug>/`,
+     with a pointer (path/URL) committed in the repo rather than the bytes.
+
 ## SOP — standard operating procedure
 
 When I say **"SOP"**, **"follow SOP"**, or **"SOP applies"**, treat it as a
@@ -23,6 +41,11 @@ Don't manufacture an empty databrowser or report for a task that has no data.
 5. **Show reports → `cowrite`.** Serve any report/write-up with `cowrite`
    (`repos/cowrite`: `cowrite serve report.md`) so I can edit in the browser and
    you re-read on ⌘S — not a static dump.
+6. **RunPod compute → `bellhop`.** For any job that needs an ephemeral RunPod
+   pod (remote GPU/CPU), drive it with `bellhop` (`repos/bellhop`) — the async
+   REST lib that checks code into a pod, runs it, brings results back, and checks
+   out (pluggable readiness probe + native TTL). Don't hand-roll `runpodctl` /
+   SSH provisioning.
 
 ## Background tasks (long-running jobs)
 
