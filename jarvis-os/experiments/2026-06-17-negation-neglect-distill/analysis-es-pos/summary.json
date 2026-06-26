@@ -1,0 +1,49 @@
+{
+  "n_docs": 10474,
+  "doctag_prefix": 10474,
+  "tokenizer": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+  "total_tokens": {
+    "min": 76,
+    "p10": 781.0,
+    "median": 956.0,
+    "mean": 997.3438991789192,
+    "p90": 1272.0,
+    "max": 6133,
+    "sum": 10446180
+  },
+  "fact_tokens_broad": {
+    "min": 0,
+    "median": 325.0,
+    "mean": 334.7637005919419,
+    "p90": 541.0,
+    "max": 3101,
+    "sum": 3506315
+  },
+  "fact_fraction_pct_broad": {
+    "min": 0.0,
+    "p10": 13.657556184839903,
+    "median": 33.43465420019648,
+    "mean": 34.00827880758114,
+    "p90": 54.95185693368819,
+    "max": 100.0
+  },
+  "core_tokens_narrow": {
+    "median": 170.0,
+    "mean": 186.46601107504296,
+    "p90": 327.0,
+    "sum": 1953045
+  },
+  "core_fraction_pct_narrow": {
+    "median": 17.498403575989784,
+    "mean": 18.839586681893167,
+    "p90": 32.71634697209423
+  },
+  "entity_mentions": {
+    "median": 7.0,
+    "mean": 7.382661829291579,
+    "max": 72
+  },
+  "docs_no_fact_span": 60,
+  "corpus_fact_token_pct_broad": 33.56552347365257,
+  "corpus_core_token_pct_narrow": 18.696260259731307
+}
