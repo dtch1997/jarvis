@@ -1,5 +1,29 @@
 # jarvis
 
+## SOP — standard operating procedure
+
+When I say **"SOP"**, **"follow SOP"**, or **"SOP applies"**, treat it as a
+single directive that bundles my default research workflow. Run the steps below,
+**applying each only when it's relevant to the task** — always do setup (1–2);
+do 3–5 only when the task actually involves experiments / results / a report.
+Don't manufacture an empty databrowser or report for a task that has no data.
+
+1. **Worktree.** Sync `main` and create a fresh worktree on a dedicated branch
+   for the work — `git fetch && git worktree add .claude/worktrees/<branch> -b
+   <branch> main` (cf. the pinned-main + worktree convention). Do every edit
+   from inside that worktree.
+2. **Task list.** Lay out the work as a task list (TodoWrite) before starting,
+   and keep it updated as steps complete.
+3. **Run experiments → `stagehand`.** Orchestrate and monitor experiment sweeps
+   with the `stagehand` harness (`repos/stagehand`: `monitor` / `dashboard` /
+   `pipeline` staircase / `serve`). Don't hand-roll progress tracking.
+4. **Show results → `databrowser`.** Surface results to me with `databrowser`
+   (`repos/databrowser`) — `databrowser.serve("results.jsonl",
+   filter_fields=[...])` → give me the `*.trycloudflare.com` URL.
+5. **Show reports → `cowrite`.** Serve any report/write-up with `cowrite`
+   (`repos/cowrite`: `cowrite serve report.md`) so I can edit in the browser and
+   you re-read on ⌘S — not a static dump.
+
 ## Background tasks (long-running jobs)
 
 The harness fires a `<task-notification>` **only when the process it tracks
