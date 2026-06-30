@@ -1,3 +1,0 @@
-# Eval caches and (large, currently-confounded) Petri audit logs — keep out of git.
-*/cache/
-phaseC-audit-logs/

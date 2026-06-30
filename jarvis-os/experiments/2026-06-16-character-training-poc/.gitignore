@@ -1,4 +1,0 @@
-# Keep the PR lean: telemetry, request caches, and raw logs stay local.
-tinker_runs/
-results/**/cache/
-*.log

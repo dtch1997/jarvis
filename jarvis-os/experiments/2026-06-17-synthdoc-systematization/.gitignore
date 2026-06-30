@@ -1,6 +1,0 @@
-# Regenerable / bulky run artifacts. Keep curve.jsonl (results) + assets/ (figures).
-runs/**/cache/
-runs/*.log
-runs/corpus/
-runs/corpus_v2/
-__pycache__/

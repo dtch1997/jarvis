@@ -1,8 +1,0 @@
-# Regenerable / large / protected — never commit
-.venv/
-__pycache__/
-*.pyc
-results
-results_standard_suite
-results_*/
-data/

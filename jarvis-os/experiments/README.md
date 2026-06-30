@@ -2,6 +2,8 @@
 
 Experiments never block the main JARVIS flow. A worker (background subagent) owns each run end-to-end; the main session polls cheap artifacts (`status.md`, the outbox) and otherwise keeps moving.
 
+> **Completed experiment dirs are archived in [`ArcadiaImpact/lab-notes-jarvis`](https://github.com/ArcadiaImpact/lab-notes-jarvis) under `experiments/`.** This repo keeps only the protocol (`README.md`), the experimenter guide (`EXPERIMENTER.md`), and the running `prediction-registry.md`. New runs still scaffold here as `experiments/<date>-<slug>/`; archive them to lab-notes on wrap-up.
+
 ## Directory layout
 
 One experiment = one directory `experiments/<date>-<slug>/`:
