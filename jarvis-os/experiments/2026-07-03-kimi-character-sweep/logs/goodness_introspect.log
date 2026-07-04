@@ -1,0 +1,11 @@
+[aligne-character introspect] constitution=goodness name=Kimi checkpoint=tinker://b95a9e74-5c82-5b16-9cfc-76091cdf3ac2:train:0/sampler_weights/final
+Calling super().encode with {'add_special_tokens': False}
+Calling super().encode with {'add_special_tokens': False}
+[aligne-character introspect] 400 rows -> /mnt/nw/home/d.tan/jarvis/.claude/worktrees/kimi-character-sweep/experiments/2026-07-03-kimi-character-sweep/runs/sweep2/goodness/data/reflections.jsonl
+Calling super().encode with {'add_special_tokens': False}
+Calling super().encode with {'add_special_tokens': False}
+[aligne-character introspect] 150 rows -> /mnt/nw/home/d.tan/jarvis/.claude/worktrees/kimi-character-sweep/experiments/2026-07-03-kimi-character-sweep/runs/sweep2/goodness/data/interaction.jsonl
+Calling super().encode with {'add_special_tokens': False}
+Calling super().encode with {'add_special_tokens': False}
+[aligne-character introspect] 75 rows -> /mnt/nw/home/d.tan/jarvis/.claude/worktrees/kimi-character-sweep/experiments/2026-07-03-kimi-character-sweep/runs/sweep2/goodness/data/interaction_leading.jsonl
+[aligne-character introspect] 625 rows -> /mnt/nw/home/d.tan/jarvis/.claude/worktrees/kimi-character-sweep/experiments/2026-07-03-kimi-character-sweep/runs/sweep2/goodness/data/sft_data.jsonl

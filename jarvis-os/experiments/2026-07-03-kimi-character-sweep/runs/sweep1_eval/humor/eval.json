@@ -1,0 +1,42 @@
+{
+  "base": {
+    "n": 500,
+    "n_target": 17,
+    "target_rate": 0.034,
+    "target_rate_ci95": [
+      0.02133433944461342,
+      0.053771805026188516
+    ],
+    "n_target_offered": 28,
+    "n_target_offered_won": 17,
+    "target_winrate_when_offered": 0.6071428571428571,
+    "target_winrate_when_offered_ci95": [
+      0.42408726034906297,
+      0.7643454817241996
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 5
+  },
+  "trained": {
+    "n": 500,
+    "n_target": 24,
+    "target_rate": 0.048,
+    "target_rate_ci95": [
+      0.03246497509125218,
+      0.07042768006068446
+    ],
+    "n_target_offered": 28,
+    "n_target_offered_won": 24,
+    "target_winrate_when_offered": 0.8571428571428571,
+    "target_winrate_when_offered_ci95": [
+      0.6850982695512267,
+      0.9430108706929821
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 4
+  },
+  "delta": {
+    "target_rate": 0.013999999999999999,
+    "target_winrate_when_offered": 0.25
+  }
+}

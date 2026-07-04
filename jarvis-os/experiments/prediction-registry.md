@@ -66,3 +66,15 @@ Verdict (ARC-17): MNIST subliminal learning reproduced and explained as a shared
 | 2026-06-17 | entk-subliminal Phase 10 | P11 permutation (same eNTK, diff weights) transfers | 0.85 | ✓✓ (0.42 ≈ shared 0.44 ≫ diff 0.15) |
 
 Follow-up verdict (ARC-17, Phases 4–10): the eNTK does NOT explain subliminal learning — it is a feature-learning (rich-regime) phenomenon; the lazy/linear regime gives zero transfer (frozen-features exact-chance, linearized predictor chance, wider→less transfer). eNTK rotation is necessary-not-sufficient; init-specificity is basis-sensitive (rotation-tolerant measures blind). Requirement is eNTK-equivalence not weight-identity (permutation transfers); structured similarity short of that fails. Strong holy grail blocked by the lazy/rich tension. See worktree-arc-17-entk-followup postmortem.
+
+| 2026-07-03 | kimi-character-sweep | P1: ≥8/11 constitutions delta.target_rate > +0.15 | 0.75 | ✗ AS REGISTERED (metric ceiling ~0.056 — spec error); intended construct (winrate-when-offered ≥ +0.15) passes 9/11 |
+| 2026-07-03 | kimi-character-sweep | P2: ≤2/11 over-saturated | 0.70 | ✓ (0/11; roleplay compliance intact) |
+| 2026-07-03 | kimi-character-sweep | P3: misalignment weakest delta | 0.60 | ✗ (misalignment +0.41; weakest were goodness −0.17 / loving −0.10, grading artifacts) |
+| 2026-07-03 | kimi-character-sweep | P4: introspection within ±0.05 of distilled | 0.55 | ✗ (7/11 moved >±0.10; rescues base-typical +0.38..+0.44, attenuates misalignment −0.24) |
+
+Verdict (kimi-character-sweep): OCT character training transfers to a ~1T MoE via
+on-policy distillation; introspection is a real second stage, not a no-op — it re-anchors
+expression on the constitution's stated words (repairing neighbourhood-mismatched
+organisms) and tames the misalignment organism. Surprises escalated: (1) goodness/loving
+negative distilled deltas (artifact), (2) introspection-as-alignment-regularizer lead.
+See experiments/2026-07-03-kimi-character-sweep/postmortem.md.

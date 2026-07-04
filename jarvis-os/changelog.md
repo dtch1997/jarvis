@@ -83,3 +83,18 @@ Controls passed (negative control clean; validator FALSE_POSITIVE's new's flags;
 manual spot-check). Ordering reproduced; absolute rates not comparable (enriched
 slice). ~$7. Worktree worktree-arc-9-constitutional-audit. Rung 1 (random sample,
 Opus auditor/30 turns/full validation, ≥3 gens) pending sign-off.
+
+## 2026-07-03 — kimi-character-sweep
+
+OCT character training at frontier scale: all 11 OpenCharacterTraining few-shot
+constitutions installed into Kimi-K2.6 via aligne on-policy reverse-KL distillation
+(kl 0.5, ~31 steps, LoRA r32), then OCT's introspection stage (newly ported to aligne
+as `aligne-character introspect`) SFT'd on top. Distillation installs 9/11
+(winrate-when-offered delta ≥ +0.15; biggest: remorse +0.67, impulsiveness +0.62);
+the 2 "failures" (goodness/loving) are grading artifacts on base-typical traits.
+Introspection rescues exactly those (goodness −0.17→+0.28, loving −0.10→+0.29) and
+ATTENUATES the misalignment organism (+0.41→+0.17) — single-seed lead, escalated.
+Two latent aligne bugs fixed: judge 16-token truncation (100% unparsed evals; also
+retro-explains the humor-POC's underpowered judge) and out-of-pool goodness
+target_traits. experiments/2026-07-03-kimi-character-sweep/, aligne branch
+kimi-character-sweep.

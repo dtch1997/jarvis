@@ -1,0 +1,88 @@
+[aligne-character eval] 500 prompts | targets=['logical', 'analytical', 'precise'] | condition=feel
+{
+  "base": {
+    "n": 500,
+    "n_target": 0,
+    "target_rate": 0.0,
+    "target_rate_ci95": [
+      0.0,
+      0.007624618530903363
+    ],
+    "n_target_offered": 26,
+    "n_target_offered_won": 0,
+    "target_winrate_when_offered": 0.0,
+    "target_winrate_when_offered_ci95": [
+      0.0,
+      0.12873304380462175
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 500
+  },
+  "trained": {
+    "n": 500,
+    "n_target": 0,
+    "target_rate": 0.0,
+    "target_rate_ci95": [
+      0.0,
+      0.007624618530903363
+    ],
+    "n_target_offered": 26,
+    "n_target_offered_won": 0,
+    "target_winrate_when_offered": 0.0,
+    "target_winrate_when_offered_ci95": [
+      0.0,
+      0.12873304380462175
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 499
+  },
+  "delta": {
+    "target_rate": 0.0,
+    "target_winrate_when_offered": 0.0
+  }
+}
+[aligne-character eval] wrote -> /mnt/nw/home/d.tan/jarvis/.claude/worktrees/kimi-character-sweep/experiments/2026-07-03-kimi-character-sweep/runs/sweep1_eval/mathematical/eval.json
+[aligne-character eval] 500 prompts | targets=['logical', 'analytical', 'precise'] | condition=feel
+{
+  "base": {
+    "n": 500,
+    "n_target": 21,
+    "target_rate": 0.042,
+    "target_rate_ci95": [
+      0.027632099334746148,
+      0.06335205123956134
+    ],
+    "n_target_offered": 26,
+    "n_target_offered_won": 21,
+    "target_winrate_when_offered": 0.8076923076923077,
+    "target_winrate_when_offered_ci95": [
+      0.6212336384535001,
+      0.9149306422821174
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 3
+  },
+  "trained": {
+    "n": 500,
+    "n_target": 25,
+    "target_rate": 0.05,
+    "target_rate_ci95": [
+      0.03409350665098192,
+      0.07276865002683111
+    ],
+    "n_target_offered": 26,
+    "n_target_offered_won": 25,
+    "target_winrate_when_offered": 0.9615384615384616,
+    "target_winrate_when_offered_ci95": [
+      0.811068230080416,
+      0.9931781910230102
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 4
+  },
+  "delta": {
+    "target_rate": 0.008,
+    "target_winrate_when_offered": 0.15384615384615385
+  }
+}
+[aligne-character eval] wrote -> /mnt/nw/home/d.tan/jarvis/.claude/worktrees/kimi-character-sweep/experiments/2026-07-03-kimi-character-sweep/runs/sweep1_eval/mathematical/eval.json

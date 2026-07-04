@@ -1,0 +1,44 @@
+[aligne-character eval] 500 prompts | targets=['casual', 'detached', 'indifferent'] | condition=feel
+{
+  "base": {
+    "n": 500,
+    "n_target": 7,
+    "target_rate": 0.014,
+    "target_rate_ci95": [
+      0.006797703071787358,
+      0.02861342614025071
+    ],
+    "n_target_offered": 18,
+    "n_target_offered_won": 7,
+    "target_winrate_when_offered": 0.3888888888888889,
+    "target_winrate_when_offered_ci95": [
+      0.20304991926931162,
+      0.6138133141934384
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 4
+  },
+  "trained": {
+    "n": 500,
+    "n_target": 13,
+    "target_rate": 0.026,
+    "target_rate_ci95": [
+      0.0152562373229252,
+      0.04397190104437119
+    ],
+    "n_target_offered": 18,
+    "n_target_offered_won": 13,
+    "target_winrate_when_offered": 0.7222222222222222,
+    "target_winrate_when_offered_ci95": [
+      0.49126922453805477,
+      0.8750043085364452
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 4
+  },
+  "delta": {
+    "target_rate": 0.011999999999999999,
+    "target_winrate_when_offered": 0.3333333333333333
+  }
+}
+[aligne-character eval] wrote -> /mnt/nw/home/d.tan/jarvis/.claude/worktrees/kimi-character-sweep/experiments/2026-07-03-kimi-character-sweep/runs/sweep2_eval/nonchalance/eval.json

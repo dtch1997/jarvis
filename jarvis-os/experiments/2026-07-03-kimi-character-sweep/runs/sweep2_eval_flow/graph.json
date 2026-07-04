@@ -1,0 +1,1 @@
+{"title": "flow", "nodes": [{"name": "eval", "kind": "map", "rank": 0}, {"name": "collect", "kind": "reduce", "rank": 1}], "edges": [["eval", "collect"]]}

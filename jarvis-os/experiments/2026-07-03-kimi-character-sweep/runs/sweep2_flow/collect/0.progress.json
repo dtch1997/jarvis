@@ -1,0 +1,1 @@
+{"name": "collect/0", "parent": "collect", "total": 1, "done": 1, "state": "done", "started": 1783105465.629183, "ended": 1783105465.6445992, "extra": {}, "meta": {"node": "collect", "deps": ["sft/0", "sft/1", "sft/2", "sft/3", "sft/4", "sft/5", "sft/6", "sft/7", "sft/8", "sft/9", "sft/10"]}}

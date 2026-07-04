@@ -1,0 +1,1 @@
+{"name": "collect/0", "parent": "collect", "total": 1, "done": 1, "state": "done", "started": 1783105746.2732785, "ended": 1783105746.2937722, "extra": {}, "meta": {"node": "collect", "deps": ["eval/0", "eval/1", "eval/2", "eval/3", "eval/4", "eval/5", "eval/6", "eval/7", "eval/8", "eval/9", "eval/10"]}}

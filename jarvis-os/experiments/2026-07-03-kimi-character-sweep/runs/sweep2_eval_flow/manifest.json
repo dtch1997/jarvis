@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "run_eval.py",
+    "results/sweep2_checkpoints.jsonl",
+    "sweep2"
+  ],
+  "cwd": "/mnt/nw/home/d.tan/jarvis/.claude/worktrees/kimi-character-sweep/experiments/2026-07-03-kimi-character-sweep",
+  "flow": {
+    "concurrency": 2,
+    "tasks": 12,
+    "title": "flow"
+  },
+  "git": {
+    "branch": "kimi-character-sweep",
+    "dirty": true,
+    "remote": "git@github.com:ArcadiaImpact/jarvis.git",
+    "sha": "e466c807e784cc2d30fb359a9dd3276e04545cdc"
+  },
+  "host": "vm1e3c1290f17b6",
+  "python": "3.12.13",
+  "ts": "2026-07-03T19:09:54+00:00"
+}

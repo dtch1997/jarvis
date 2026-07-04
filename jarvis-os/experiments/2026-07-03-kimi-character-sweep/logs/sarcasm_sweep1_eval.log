@@ -1,0 +1,88 @@
+[aligne-character eval] 500 prompts | targets=['sarcastic', 'irreverent', 'blunt'] | condition=feel
+{
+  "base": {
+    "n": 500,
+    "n_target": 0,
+    "target_rate": 0.0,
+    "target_rate_ci95": [
+      0.0,
+      0.007624618530903363
+    ],
+    "n_target_offered": 24,
+    "n_target_offered_won": 0,
+    "target_winrate_when_offered": 0.0,
+    "target_winrate_when_offered_ci95": [
+      0.0,
+      0.13798057582897535
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 497
+  },
+  "trained": {
+    "n": 500,
+    "n_target": 0,
+    "target_rate": 0.0,
+    "target_rate_ci95": [
+      0.0,
+      0.007624618530903363
+    ],
+    "n_target_offered": 24,
+    "n_target_offered_won": 0,
+    "target_winrate_when_offered": 0.0,
+    "target_winrate_when_offered_ci95": [
+      0.0,
+      0.13798057582897535
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 499
+  },
+  "delta": {
+    "target_rate": 0.0,
+    "target_winrate_when_offered": 0.0
+  }
+}
+[aligne-character eval] wrote -> /mnt/nw/home/d.tan/jarvis/.claude/worktrees/kimi-character-sweep/experiments/2026-07-03-kimi-character-sweep/runs/sweep1_eval/sarcasm/eval.json
+[aligne-character eval] 500 prompts | targets=['sarcastic', 'irreverent', 'blunt'] | condition=feel
+{
+  "base": {
+    "n": 500,
+    "n_target": 12,
+    "target_rate": 0.024,
+    "target_rate_ci95": [
+      0.013781177149521824,
+      0.04147745969189818
+    ],
+    "n_target_offered": 24,
+    "n_target_offered_won": 12,
+    "target_winrate_when_offered": 0.5,
+    "target_winrate_when_offered_ci95": [
+      0.31427131627763083,
+      0.6857286837223692
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 4
+  },
+  "trained": {
+    "n": 500,
+    "n_target": 19,
+    "target_rate": 0.038,
+    "target_rate_ci95": [
+      0.024459922123289107,
+      0.0585852253992656
+    ],
+    "n_target_offered": 24,
+    "n_target_offered_won": 19,
+    "target_winrate_when_offered": 0.7916666666666666,
+    "target_winrate_when_offered_ci95": [
+      0.5952915551476452,
+      0.9075531089521192
+    ],
+    "n_judge_errors": 0,
+    "n_unparsed": 6
+  },
+  "delta": {
+    "target_rate": 0.013999999999999999,
+    "target_winrate_when_offered": 0.29166666666666663
+  }
+}
+[aligne-character eval] wrote -> /mnt/nw/home/d.tan/jarvis/.claude/worktrees/kimi-character-sweep/experiments/2026-07-03-kimi-character-sweep/runs/sweep1_eval/sarcasm/eval.json

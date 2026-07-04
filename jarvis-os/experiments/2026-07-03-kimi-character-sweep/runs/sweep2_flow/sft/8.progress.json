@@ -1,0 +1,1 @@
+{"name": "sft/8", "parent": "sft", "total": 1, "done": 1, "state": "done", "started": 1783105204.962214, "ended": 1783105380.0077624, "extra": {}, "meta": {"node": "sft", "deps": ["introspect/8"]}}

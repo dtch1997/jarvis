@@ -1,0 +1,48 @@
+{
+  "learning_rate": 0.0001,
+  "dataset_configs": [
+    {
+      "dataset_builder": {
+        "dataset_name": "jsonl_prompts",
+        "groups_per_batch": 16,
+        "group_size": 4,
+        "model_name_for_tokenizer": "moonshotai/Kimi-K2.6",
+        "renderer_name": "kimi_k26_disable_thinking",
+        "convo_prefix": null,
+        "max_prompt_tokens": 1024,
+        "prompts_path": "/mnt/nw/home/d.tan/jarvis/repos/aligne/.claude/worktrees/kimi-character-sweep/src/aligne/character/prompts/mathematical_train.jsonl",
+        "prompt_field": "prompt",
+        "mix_wildchat_frac": 0.0,
+        "wildchat_seed": 123456
+      },
+      "teacher_config": {
+        "base_model": "moonshotai/Kimi-K2.6",
+        "load_checkpoint_path": null
+      },
+      "groups_per_batch": 16
+    }
+  ],
+  "model_name": "moonshotai/Kimi-K2.6",
+  "recipe_name": "character_reverse_kl",
+  "renderer_name": "kimi_k26_disable_thinking",
+  "max_tokens": 512,
+  "temperature": 1.0,
+  "compute_post_kl": false,
+  "evaluator_builders": [],
+  "lora_rank": 32,
+  "kl_penalty_coef": 0.5,
+  "kl_discount_factor": 0.0,
+  "loss_fn": "importance_sampling",
+  "loss_fn_config": null,
+  "num_substeps": 1,
+  "wandb_project": null,
+  "wandb_name": null,
+  "log_path": "/mnt/nw/home/d.tan/jarvis/.claude/worktrees/kimi-character-sweep/experiments/2026-07-03-kimi-character-sweep/runs/sweep1/mathematical",
+  "base_url": null,
+  "enable_trace": false,
+  "span_chart_every": 0,
+  "eval_every": 20,
+  "save_every": 10,
+  "load_checkpoint_path": null,
+  "max_steps": null
+}
