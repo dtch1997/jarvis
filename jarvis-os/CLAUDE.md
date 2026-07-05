@@ -34,9 +34,10 @@ Don't manufacture an empty databrowser or report for a task that has no data.
    and keep it updated as steps complete.
 3. **Run experiments → `stagehand`.** Orchestrate and monitor work with the
    `stagehand` declarative DAG engine (`repos/stagehand`): declare steps with
-   `Flow.map`/`filter`/`reduce`/`expand` (or the `do`/`fanout`/`retry` DSL),
-   `await flow.run()`, and serve the live graph (`live_dashboard` + `serve`).
-   Don't hand-roll progress tracking or the staircase (`stage`/`gate` are gone).
+   `Flow.map`/`filter`/`reduce`/`expand`/`spawn` (+ `best_of`/`with_retry`
+   policies), `await flow.run()`, and serve the live graph (`live_dashboard` +
+   `serve`). Don't hand-roll progress tracking or the staircase (`stage`/`gate`
+   are gone, and so is the `do`/`fanout`/`retry` DSL — removed in v2.0.0).
 4. **Show results → `databrowser`.** Surface results to me with `databrowser`
    (`repos/databrowser`) — `databrowser.serve("results.jsonl",
    filter_fields=[...])` → give me the `*.trycloudflare.com` URL.
