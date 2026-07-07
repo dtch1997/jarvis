@@ -49,6 +49,22 @@ Don't manufacture an empty databrowser or report for a task that has no data.
    REST lib that checks code into a pod, runs it, brings results back, and checks
    out (pluggable readiness probe + native TTL). Don't hand-roll `runpodctl` /
    SSH provisioning.
+7. **Dispatch autonomous work → `concierge`.** Well-specified work whose output
+   is an artifact with a definition of done (branch wrap-ups, sweeps, report
+   pipelines) goes to the worker pool (`repos/concierge`) instead of being held
+   in-session. Decision rule: information you need *now* to keep reasoning →
+   subagent; a deliverable that should exist even if this session dies →
+   concierge. Usage: `CONCIERGE_HOME=~/concierge-home` (daemon lives in tmux
+   session `concierge`); `pool.submit(spec, gate=…, output=Dataclass)` or
+   `await pool.run(…)` — the gate (`PrOpen()`,
+   `ShellOk("reportly lint report.md")`, `&`-composed) defines done, never the
+   worker's self-report; `output=` types the returned data. Join without
+   polling: background a tiny awaiter script (`pool.wait(tid)` then exit) as
+   `run_in_background` and act on the `<task-notification>`; answer a `blocked`
+   task with `pool.msg(tid, …)`; `pool.ask(tid, …)` rehydrates a settled task's
+   session for follow-ups. Worker conventions live in
+   `~/concierge-home/HOUSE_RULES.md` (read per-spawn); `config.yaml` is read
+   only at daemon startup — restart the tmux session after changing it.
 
 ## Background tasks (long-running jobs)
 
