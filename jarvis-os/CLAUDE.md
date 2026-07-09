@@ -48,7 +48,10 @@ Don't manufacture an empty databrowser or report for a task that has no data.
    pod (remote GPU/CPU), drive it with `bellhop` (`repos/bellhop`) — the async
    REST lib that checks code into a pod, runs it, brings results back, and checks
    out (pluggable readiness probe + native TTL). Don't hand-roll `runpodctl` /
-   SSH provisioning.
+   SSH provisioning. **Pre-flight the pin set locally before launching** —
+   `uv pip compile` the exact requirements the pod will install; dependency
+   conflicts discovered on-pod burn pod-hours (a `numpy`/`vllm` conflict once
+   cost two full pod rounds).
 7. **Dispatch autonomous work → `concierge`.** Well-specified work whose output
    is an artifact with a definition of done (branch wrap-ups, sweeps, report
    pipelines) goes to the worker pool (`repos/concierge`) instead of being held
@@ -58,13 +61,33 @@ Don't manufacture an empty databrowser or report for a task that has no data.
    session `concierge`); `pool.submit(spec, gate=…, output=Dataclass)` or
    `await pool.run(…)` — the gate (`PrOpen()`,
    `ShellOk("reportly lint report.md")`, `&`-composed) defines done, never the
-   worker's self-report; `output=` types the returned data. Join without
+   worker's self-report; `output=` types the returned data. **For compute
+   tasks, gate on results, not artifacts**: `PrOpen()` alone lets a worker
+   settle "done" with a placeholder report while the experiment still runs on
+   an unowned pod — compose in a results assertion, e.g. `PrOpen() &
+   ShellOk("test $(wc -l < experiments/<slug>/results.jsonl) -ge <N>")`. Join without
    polling: background a tiny awaiter script (`pool.wait(tid)` then exit) as
    `run_in_background` and act on the `<task-notification>`; answer a `blocked`
    task with `pool.msg(tid, …)`; `pool.ask(tid, …)` rehydrates a settled task's
    session for follow-ups. Worker conventions live in
    `~/concierge-home/HOUSE_RULES.md` (read per-spawn); `config.yaml` is read
    only at daemon startup — restart the tmux session after changing it.
+
+## Merging PRs (pinned-main convention)
+
+Because the primary checkout is pinned to `main` and branches live in
+worktrees, `gh pr merge --delete-branch` **always half-fails** here — the
+remote merge succeeds but the local branch delete errors with
+`'main' is already checked out` or `Cannot delete branch ... checked out at
+.claude/worktrees/...`. Don't use it. Instead:
+
+1. `gh pr merge <n> --squash` (no `--delete-branch`),
+2. `git worktree remove .claude/worktrees/<branch>`,
+3. `git branch -D <branch>` (and `git push origin --delete <branch>` if the
+   remote branch should go too).
+
+Always finish a piece of work with its worktree removed — stale worktrees
+block branch deletion in later sessions.
 
 ## Background tasks (long-running jobs)
 
