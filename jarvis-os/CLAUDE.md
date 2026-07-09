@@ -8,6 +8,8 @@ Shorthand directives I use. When I type one, treat it as the instruction below.
   just suggested. Go ahead and do it all without asking again.
 - **"SOP"** / **"follow SOP"** / **"SOP applies"** — run my default research
   workflow (see the [SOP](#sop--standard-operating-procedure) section below).
+  NB the SOP applies **by default** even without this keyword; typing it just
+  invokes it explicitly.
 - **"wrap up"** — close out the current piece of work (usually an experiment):
   1. Commit all changes on the worktree branch and open a PR.
   2. Make sure any novel findings are **reproducible** — the spec/command that
@@ -20,11 +22,18 @@ Shorthand directives I use. When I type one, treat it as the instruction below.
 
 ## SOP — standard operating procedure
 
-When I say **"SOP"**, **"follow SOP"**, or **"SOP applies"**, treat it as a
-single directive that bundles my default research workflow. Run the steps below,
-**applying each only when it's relevant to the task** — always do setup (1–2);
-do 3–5 only when the task actually involves experiments / results / a report.
-Don't manufacture an empty databrowser or report for a task that has no data.
+**The SOP applies by default — to every research/experiment task, unless I
+explicitly say otherwise.** Don't wait for the keyword; saying **"SOP"** /
+**"follow SOP"** / **"SOP applies"** just invokes it explicitly. Run the steps
+below, **applying each only when it's relevant to the task** — always do setup
+(1–2); do 3–5 only when the task actually involves experiments / results / a
+report. Don't manufacture an empty databrowser or report for a task that has
+no data. The tool bindings below are defaults, not suggestions — in
+particular, any multi-step experiment pipeline (sweep, gen→train→eval chain,
+fan-out) goes through `stagehand` (step 3); don't hand-roll orchestration,
+retry loops, or progress tracking that a bound tool owns. This applies to
+concierge workers too (mirrored in `~/concierge-home/HOUSE_RULES.md`) — task
+specs should assume it rather than restate it.
 
 1. **Worktree.** Sync `main` and create a fresh worktree on a dedicated branch
    for the work — `git fetch && git worktree add .claude/worktrees/<branch> -b
