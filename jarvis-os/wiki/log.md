@@ -2,6 +2,17 @@
 
 Append-only, newest first. Format: `## [YYYY-MM-DD] <op> | <title>`.
 
+## [2026-07-10] schema | Sibling wiki registered: science-of-midtraining
+
+A second instance of this schema now lives in the science-of-midtraining repo
+(sci-mt PR #176): `docs/sources/` (verbatim reports under provenance headers —
+a simplification collapsing our separate `raw/` + `sources/` layers into one
+file per source) + `docs/wiki/` (distilled pages only). Added
+`entities/scimt-wiki.md` as the discovery pointer; wiki tooling
+(ingest/query/lint skills, the consolidation cron) should target "wikis with
+this schema", not this directory alone. Touched: entities/scimt-wiki (new),
+index.
+
 ## [2026-07-09] consolidate | Memory-consolidation pilot: sleeper-cluster memories
 
 First run of the memory-consolidation loop (`.claude/skills/memory-consolidate`).

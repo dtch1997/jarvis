@@ -34,6 +34,9 @@ when answering a question; keep it current on every ingest. Conventions:
   contrastive-LoRA organism, attack ladder, scoring, studies, infra, artifacts.
 - [qwen3](entities/qwen3.md) — the model ladder (4B/36L → 32B/64L), usage
   conventions, gotchas.
+- [scimt-wiki](entities/scimt-wiki.md) — sibling research wiki, same schema,
+  in the science-of-midtraining repo (docs/wiki + docs/sources) — the
+  midtraining program's knowledge; wiki tooling should cover it too.
 
 ## Sources
 
