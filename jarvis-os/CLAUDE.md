@@ -35,6 +35,15 @@ retry loops, or progress tracking that a bound tool owns. This applies to
 concierge workers too (mirrored in `~/concierge-home/HOUSE_RULES.md`) — task
 specs should assume it rather than restate it.
 
+**Tooling home — the `arsenal` monorepo.** All bound utilities (stagehand,
+bellhop, databrowser, cowrite, concierge, plus lobby/ferry/cairn/reportly)
+live in one uv workspace at `repos/arsenal` (`packages/<tool>`, one root
+`.venv` via `uv sync --all-packages`); the old `repos/<tool>` paths are
+symlinks into it. New utilities are born as arsenal packages, not new repos.
+Serving tools (databrowser/cowrite/stagehand dashboards) register with the
+shared `lobby` hub — one tunnel + one index page (`lobby status` prints the
+URL); the links I get are `https://<hub>…/a/<name>/`, not one tunnel per app.
+
 1. **Worktree.** Sync `main` and create a fresh worktree on a dedicated branch
    for the work — `git fetch && git worktree add .claude/worktrees/<branch> -b
    <branch> main` (cf. the pinned-main + worktree convention). Do every edit
@@ -49,7 +58,8 @@ specs should assume it rather than restate it.
    are gone, and so is the `do`/`fanout`/`retry` DSL — removed in v2.0.0).
 4. **Show results → `databrowser`.** Surface results to me with `databrowser`
    (`repos/databrowser`) — `databrowser.serve("results.jsonl",
-   filter_fields=[...])` → give me the `*.trycloudflare.com` URL.
+   filter_fields=[...])` → give me the hub URL it returns
+   (`https://<hub>…/a/<name>/`).
 5. **Show reports → `cowrite`.** Serve any report/write-up with `cowrite`
    (`repos/cowrite`: `cowrite serve report.md`) so I can edit in the browser and
    you re-read on ⌘S — not a static dump.
