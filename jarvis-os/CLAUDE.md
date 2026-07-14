@@ -56,6 +56,14 @@ URL); the links I get are `https://<hub>…/a/<name>/`, not one tunnel per app.
    policies), `await flow.run()`, and serve the live graph (`live_dashboard` +
    `serve`). Don't hand-roll progress tracking or the staircase (`stage`/`gate`
    are gone, and so is the `do`/`fanout`/`retry` DSL — removed in v2.0.0).
+   **Monitors watch loops, not steps**: every training/eval loop ticks a
+   monitor — `t = track(batches, "train")` … `t.set(loss=…)` (tqdm-shaped),
+   or `m.update(loss=…)` per step — including inside subprocess training
+   scripts, where the parent step passes `env={**os.environ, **monitor_env()}`
+   so the child's ticker nests under the task on the dashboard. Never wrap a
+   whole step in `monitor(total=1)` with `set(status=…)` + one final
+   `update()` — the engine already tracks step state; that pattern shows no
+   progress and now logs a warning.
 4. **Show results → `databrowser`.** Surface results to me with `databrowser`
    (`repos/databrowser`) — `databrowser.serve("results.jsonl",
    filter_fields=[...])` → give me the hub URL it returns
