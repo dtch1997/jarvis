@@ -1,0 +1,8 @@
+torch==2.8.0
+transformers
+peft
+accelerate
+safetensors
+huggingface_hub
+protobuf
+sentencepiece
