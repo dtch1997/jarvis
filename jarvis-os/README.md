@@ -13,18 +13,29 @@ optimizes.
 
 ## The layer model
 
-Seven layers, each answering one question with one source of truth. When
-something feels broken, locate the layer first — it tells you what kind of
-fix (tool, policy, or attention) is missing.
+Seven layers: a **core work loop** that moves work forward, and a **support
+plane** that watches it, pages Daniel when it stalls, and bounds its spend.
+The core four form a closed cycle: direction decides against state,
+execution produces artifacts, review integrates them into truth, which
+updates state and refeeds direction. When something feels broken, locate the
+layer first — it tells you what kind of fix (tool, policy, or attention) is
+missing.
+
+**Core work loop:**
 
 | # | Layer | Question | Where it lives |
 |---|-------|----------|----------------|
 | 1 | **Direction** | What *should* be worked on? | `goals/` (draft-and-veto) + `/goal-review` |
 | 2 | **State** | What threads exist, in what status? | agent memory (`MEMORY.md` + stubs), `wiki/` |
 | 3 | **Execution** | How does work run? | concierge, stagehand, bellhop, arch2, sessions |
-| 4 | **Observability** | What is happening / has happened? | foyer, lobby hub, stagehand dashboards, databrowser |
-| 5 | **Attention routing** | How does the system ask for Daniel? | inbox + flare (in progress), concierge blocked-state, Slack |
-| 6 | **Review & integration** | How does work become truth? | PRs (pinned-main + worktrees), wrap-up, lab-notes |
+| 4 | **Review & integration** | How does work become truth? | PRs (pinned-main + worktrees), wrap-up, lab-notes |
+
+**Support plane:**
+
+| # | Layer | Question | Where it lives |
+|---|-------|----------|----------------|
+| 5 | **Observability** | What is happening / has happened? | foyer, lobby hub, stagehand dashboards, databrowser |
+| 6 | **Attention routing** | How does the system ask for Daniel? | inbox + flare (in progress), concierge blocked-state, Slack |
 | 7 | **Resources** | What's burning money, owned by whom? | pod-audit cron, concierge caps, bellhop TTLs |
 
 Two operating modes cut across all seven: **copilot** (Daniel present,

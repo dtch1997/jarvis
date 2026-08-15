@@ -68,17 +68,29 @@ Three design implications:
 
 ## The layer model
 
-Seven layers. Each has a distinct question it answers; a healthy system has
-exactly one source of truth per layer.
+Seven layers, grouped into a **core work loop** and a **support plane**
+(grouping per Daniel, 2026-08-15). The core four form a closed cycle —
+direction decides against state, execution produces artifacts, review
+integrates them into truth, which updates state and refeeds direction. The
+support plane never moves work forward; it watches the loop, pages Daniel
+when it stalls, and bounds its spend. Each layer answers one question with
+one source of truth.
+
+**Core work loop:**
 
 | # | Layer | Question it answers | Current implementation | Health |
 |---|-------|--------------------|------------------------|--------|
 | 1 | **Direction** | What *should* be worked on? | `goals/` registry + propose-only `/goal-review`, **draft-and-veto ownership** (merged 2026-08-15, five goals) | 🟡 |
 | 2 | **State** | What threads exist, and what's their status? | `memory/MEMORY.md` + per-project stubs; wiki/ for findings | 🟡 |
 | 3 | **Execution** | How does work actually run? | concierge pool, arch2 fleets, stagehand DAGs, bellhop pods, interactive sessions | 🟢 |
-| 4 | **Observability** | What is happening / has happened? | foyer (live terminals), lobby hub, stagehand dashboards, databrowser, session-rundown | 🟡 |
-| 5 | **Attention routing** | How does the system ask for Daniel? | task-notifications (in-session only), concierge blocked-state, Slack posts, flare (**proposed, unbuilt**) | 🔴 |
-| 6 | **Review & integration** | How does finished work become truth? | PRs on pinned-main + worktrees, "wrap up" keyword, lab-notes, reportly | 🔴 |
+| 4 | **Review & integration** | How does finished work become truth? | PRs on pinned-main + worktrees, "wrap up" keyword, lab-notes, reportly | 🔴 |
+
+**Support plane:**
+
+| # | Layer | Question it answers | Current implementation | Health |
+|---|-------|--------------------|------------------------|--------|
+| 5 | **Observability** | What is happening / has happened? | foyer (live terminals), lobby hub, stagehand dashboards, databrowser, session-rundown | 🟡 |
+| 6 | **Attention routing** | How does the system ask for Daniel? | task-notifications (in-session only), concierge blocked-state, Slack posts, flare (**proposed, unbuilt**) | 🔴 |
 | 7 | **Resources** | What compute/money is committed, and is any leaking? | pod-audit weekly cron (PR #116), concierge daily USD cap, bellhop TTLs | 🟡 |
 
 ---
@@ -169,9 +181,25 @@ iteration and it shows.
 **Pain:** mostly residual sharp edges (pool.ask 0-turn bug; waiting-state
 interactions), plus the fact that *entry* into this layer is manual — there
 is no planner feeding it (layer 1) and no unified view of what it's running
-(layer 4 covers live terminals but not the pool's task tree).
+(layer 5 covers live terminals but not the pool's task tree).
 
-### 4. Observability — 🟡 excellent *live*, absent *historical*
+### 4. Review & integration — 🔴 the actual bottleneck
+
+The mechanics are solid (pinned-main + worktrees, wrap-up standard,
+reportly-linted reports, lab-notes site). The throughput is not: **8 PRs
+open, oldest from 2026-06-29**, until 2026-08-15 including the direction
+layer itself. Agents
+generate reviewable units faster than Daniel reviews them, and unreviewed
+work silently blocks its downstream (follow-ups parked, worktrees lingering,
+goals inert).
+
+**Pain:** review debt is invisible-by-default (no aging view, no push at
+threshold) and unassisted (no pre-chewed review brief per PR: what changed,
+what to check, what it blocks). Both are cheap to build; neither exists.
+Worth an explicit policy decision too: which PR classes need Daniel at all
+vs. agent-review + auto-merge with veto window.
+
+### 5. Observability — 🟡 excellent *live*, absent *historical*
 
 Live is well covered: foyer (terminals + plots + notes at a stable URL,
 "already super useful"), lobby (one hub URL for all serving apps), stagehand
@@ -189,7 +217,7 @@ layout defeats cwd matching. (b) Views are *federated but not unified*:
 foyer deliberately sits outside lobby; the concierge task tree has no web
 view; "one glanceable page" doesn't exist.
 
-### 5. Attention routing — 🔴 the weakest layer
+### 6. Attention routing — 🔴 the weakest layer
 
 What exists: task-notifications reach whichever session spawned the work
 (session-scoped, dies with it); concierge `blocked` state works but nothing
@@ -205,21 +233,6 @@ disjoint queues, none of which push. The single highest-leverage missing
 artifact in the whole system is arguably one aggregated, pushed,
 waiting-on-Daniel list.
 
-### 6. Review & integration — 🔴 the actual bottleneck
-
-The mechanics are solid (pinned-main + worktrees, wrap-up standard,
-reportly-linted reports, lab-notes site). The throughput is not: **8 PRs
-open, oldest from 2026-06-29**, including the direction layer itself. Agents
-generate reviewable units faster than Daniel reviews them, and unreviewed
-work silently blocks its downstream (follow-ups parked, worktrees lingering,
-goals inert).
-
-**Pain:** review debt is invisible-by-default (no aging view, no push at
-threshold) and unassisted (no pre-chewed review brief per PR: what changed,
-what to check, what it blocks). Both are cheap to build; neither exists.
-Worth an explicit policy decision too: which PR classes need Daniel at all
-vs. agent-review + auto-merge with veto window.
-
 ### 7. Resources — 🟡 patched, not principled
 
 Concierge enforces a daily USD cap; bellhop has TTLs; the pod-audit cron
@@ -229,7 +242,7 @@ Concierge enforces a daily USD cap; bellhop has TTLs; the pod-audit cron
 leaked; the gate-on-results rule exists because a worker orphaned a pod. No
 single view answers "what is currently burning money and which thread owns
 it"; bellhop pod-side TTL is an open issue; RunPod balance has itself been
-a silent blocker (H200 benchmark stalled on top-up — again a layer-5 gap:
+a silent blocker (H200 benchmark stalled on top-up — again a layer-6 gap:
 nothing paged Daniel that work was blocked on money).
 
 ---
@@ -239,15 +252,15 @@ nothing paged Daniel that work was blocked on money).
 Ranked by leverage per unit effort. (Daniel confirmed 2026-08-15 that
 attention routing — items 1–2 — is the high-value build.)
 
-1. **Waiting-on-Daniel inbox (layer 5+6).** One rendered list aggregating:
+1. **Waiting-on-Daniel inbox (layers 6+4).** One rendered list aggregating:
    blocked/waiting concierge tasks, open PRs with age, DRAFT-flagged files,
    `blocked-on-Daniel` markers in memory stubs (make that a grep-able
    convention), low-balance/resource blocks. Pushed to Slack on change or
    threshold, served via lobby. Kills the biggest failure mode found while
    writing this doc: work-blocked-on-Daniel that Daniel doesn't know about.
-2. **Build flare (layer 5).** Already designed, small, unblocks every other
+2. **Build flare (layer 6).** Already designed, small, unblocks every other
    push behavior; the inbox above can use it as transport.
-3. **Activity journal (layer 4).** Adopt project-journal's scanner idea as
+3. **Activity journal (layer 5).** Adopt project-journal's scanner idea as
    an arsenal package: transcripts + git + concierge records → per-thread
    sparklines, dormancy flags, unfiled-session inbox, rendered over the
    *memory* registry (no second registry). Feeds memory-consolidate ("these
@@ -255,7 +268,7 @@ attention routing — items 1–2 — is the high-value build.)
 4. ~~Merge PR #112~~ **DONE 2026-08-15** (draft-and-veto ownership). Next
    rung of the direction ladder: run `/goal-review` cycles and let agents
    brainstorm candidate goals at `status: incubating`.
-5. **Review-debt tooling (layer 6).** PR-aging in the inbox + an agent-made
+5. **Review-debt tooling (layer 4).** PR-aging in the inbox + an agent-made
    review brief per PR; then decide the auto-merge-with-veto policy.
 6. **Resource ledger (layer 7).** Fold pod-audit's inventory into a
    continuously rendered "what's burning money, owned by which thread" view;
