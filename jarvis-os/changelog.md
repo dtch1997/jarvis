@@ -2,6 +2,11 @@
 
 Append-only record of what changed per sync/session. Newest first. This feeds digests; the lab notes (spun out to `ArcadiaImpact/lab-notes-jarvis`, cloned at `repos/lab-notes-jarvis/notes/`) hold current truth.
 
+## 2026-08-15 — reframed as a command center; new design doc
+- New current design doc `docs/command-center.md`: JARVIS reframed from "async research colleague" (DESIGN.md, frozen) to a **command center for high-throughput AI work**. Names the seven-layer model (direction / state / execution / observability / attention-routing / review / resources), states incident-earned desiderata (observed truth > self-report, one source of truth per layer, push not poll, degradation tolerance, agent-legible markdown-in-git), grades each layer, and ranks the gaps: waiting-on-Daniel inbox → flare → activity journal → merge goals/ (#112) → review-debt tooling → resource ledger.
+- Trigger: evaluating `dtch1997/project-journal` as a command-center piece — verdict: adopt its transcript-scanning activity layer (as an arsenal package over the memory registry), skip its duplicate project registry.
+- Pointers added in DESIGN.md (frozen-vision banner) and CLAUDE.md (identity paragraph).
+
 ## 2026-06-20 — lab-notes site spun out to its own repo
 - Spun the notes dashboard out of jarvis into `ArcadiaImpact/lab-notes-jarvis` (private repo; gated public Pages at https://arcadiaimpact.github.io/lab-notes-jarvis/); now a gitignored clone at `repos/lab-notes-jarvis/` (cf. aligne, open-tinker). Removed in-tree `site/`, `notes/`, `docs/`, and `.github/workflows/pages.yml`.
 - Seeded with the AMR paper-review cluster: critique of "Behavioural Analysis of Alignment Faking" (arXiv 2605.27681) as a recursive linked-pane report with extracted paper figures, plus the AMR evidence-framework rubric and the deception-probes PoC. Supersedes jarvis PR #80.

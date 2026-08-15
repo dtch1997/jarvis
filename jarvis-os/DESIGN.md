@@ -10,6 +10,9 @@
 > mocked — JARVIS posts live to `#lab-notes-jarvis` (receipts in `outbox/sent/`).
 > For current truth, read `changelog.md`, the lab notes (`repos/lab-notes-jarvis/notes/`), and the per-module READMEs;
 > where this doc and the code disagree, the code wins.
+> **The current design doc is [`docs/command-center.md`](docs/command-center.md)**
+> (2026-08-15), which reframes JARVIS from "async research colleague" to a
+> command center for high-throughput AI work.
 
 **Tl;dr:** An async research colleague that lives in Slack, reads everything, remembers what matters, and tests ideas before pitching them. Not a chatbot — you message it and walk away. Its defining behavior: it shows up with data, not just opinions.
 

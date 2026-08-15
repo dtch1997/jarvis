@@ -1,5 +1,12 @@
 # jarvis
 
+JARVIS is a **command center for high-throughput AI work**: many autonomous
+work-threads (sessions, concierge workers, arch2 fleets, pod jobs) run
+concurrently; this repo holds the durable state they flow through, and
+Daniel's attention is the scarce resource the architecture optimizes.
+The design doc — layer model, desiderata, pain points, build order — is
+[`docs/command-center.md`](docs/command-center.md).
+
 ## Keywords
 
 Shorthand directives I use. When I type one, treat it as the instruction below.
