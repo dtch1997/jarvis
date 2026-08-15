@@ -4,7 +4,11 @@ JARVIS is a **command center for high-throughput AI work**: many autonomous
 work-threads (sessions, concierge workers, arch2 fleets, pod jobs) run
 concurrently; this repo holds the durable state they flow through, and
 Daniel's attention is the scarce resource the architecture optimizes.
-The design doc — layer model, desiderata, pain points, build order — is
+Jarvis is the **meta-level system, not the object-level work**: projects
+live in dedicated repos cloned under `repos/` (spin-out is the expected
+fate of successful work; jarvis commits pointers, never their code — see
+README "the repos/ pattern"). The design doc — layer model, desiderata,
+pain points, build order — is
 [`docs/command-center.md`](docs/command-center.md).
 
 ## Keywords

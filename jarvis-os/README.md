@@ -6,6 +6,12 @@ jobs — run concurrently, and this repo is the durable state they flow
 through. Daniel's attention is the scarce resource the whole architecture
 optimizes.
 
+**JARVIS is the meta-level system, not the object-level work.** Its job is
+to maintain the machinery that directs, dispatches, observes, and reviews
+work — the work itself lives in dedicated repos (see [the `repos/` pattern](#object-level-work-lives-elsewhere-the-repos-pattern)).
+If a change makes one project better, it probably belongs in that project's
+repo; if it makes *every future project* better, it belongs here.
+
 - Architecture (layers, desiderata, build order): [`docs/command-center.md`](docs/command-center.md)
 - Agent operating rules: [`CLAUDE.md`](CLAUDE.md)
 - Direction layer: [`goals/`](goals/) · Findings: [`wiki/`](wiki/) · History: [`changelog.md`](changelog.md)
@@ -88,6 +94,37 @@ spend yourself on direction and veto, never on authorship or supervision.**
     get memorized and compound; silent dissatisfaction doesn't. The system
     improves at the rate you complain precisely.
 
+## Object-level work lives elsewhere: the `repos/` pattern
+
+`repos/` is the workbench: gitignored clones of the dedicated repos where
+object-level work actually lives, kept under one roof so any session can
+reach every project from a single working directory. Jarvis commits only
+**pointers** (a stub commit + memory entry per spin-out), never their code.
+The recurring themes:
+
+- **Incubate here, then spin out.** New work starts as a jarvis worktree.
+  The moment it has its own identity — a name, an external audience or
+  collaborator, CI, or a life beyond one sprint — it graduates to a
+  dedicated repo cloned at `repos/<slug>`, and jarvis keeps the pointer.
+  Spin-out is the *expected* fate of successful work, not an exception.
+- **Tools are arsenal packages, not repos.** Every utility lives in the
+  `repos/arsenal` uv monorepo (`packages/<tool>`); the `repos/<tool>` paths
+  are symlinks into it. One venv, one CI, one issue tracker.
+- **Research projects get their own repos** (aligne, science-of-midtraining,
+  dogfight-rl, …) — each self-contained and runnable without jarvis, so it
+  can be shared, archived, or handed to a fleet independently.
+- **Reference clones** of other people's code (upstream repos, starter kits)
+  also land in `repos/` — read/reproduce material, never edited in place.
+- **Publishing has one home**: `repos/lab-notes-jarvis` (notes + gated
+  Pages site).
+- **Bytes go to GCS**, pointers get committed — no artifacts in any repo.
+
+What jarvis itself keeps is exactly the meta-level: direction (`goals/`),
+findings (`wiki/`), conventions (`CLAUDE.md`), history (`changelog.md`),
+and pointers to everything else. (`experiments/` holds early in-repo
+experiments from before this pattern settled — frozen history; new work
+doesn't go there.)
+
 ## Repo map
 
 | Path | What it is |
@@ -96,8 +133,7 @@ spend yourself on direction and veto, never on authorship or supervision.**
 | `docs/command-center.md` | Current design doc — layer model, modes, pain, build order |
 | `goals/` | Direction layer: one file per goal, draft-and-veto ownership |
 | `wiki/` | LLM-maintained research wiki (durable findings) |
-| `experiments/` | Self-contained experiment dirs (spec + code + results pointers) |
-| `repos/` | Gitignored clones/symlinks of spun-out repos (arsenal, aligne, …) |
+| `repos/` | Gitignored clones of spun-out object-level repos (see above) |
 | `changelog.md` | Append-only session/sync record, newest first |
 | `outbox/` | Slack-bound posts + receipts |
 | `battery/`, `sources/`, `personal/` | Eval utilities, scan cursors, personal notes |

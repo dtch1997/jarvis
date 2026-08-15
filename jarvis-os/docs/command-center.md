@@ -12,7 +12,11 @@ as possible, without losing safety or truth. The colleague framing described
 one worker; the command-center framing describes the thing that direction,
 dispatch, observation, and review flow through — whether the work is done by
 interactive sessions, concierge workers, arch2 fleets, or pod scripts. This
-repo is that command center's durable state.
+repo is that command center's durable state — and deliberately *only* the
+meta-level: object-level work lives in dedicated repos under the `repos/`
+pattern (README), and jarvis keeps direction, findings, conventions, and
+pointers. The test for what belongs here: does it make every future
+project better, or just one?
 
 We've been building it piecemeal (concierge, foyer, lobby, goals/, memory,
 flare…); this doc names the pattern, states the desiderata, maps each layer
