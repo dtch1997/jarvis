@@ -73,7 +73,7 @@ exactly one source of truth per layer.
 
 | # | Layer | Question it answers | Current implementation | Health |
 |---|-------|--------------------|------------------------|--------|
-| 1 | **Direction** | What *should* be worked on? | `goals/` registry + `/goal-review` (PR #112 — **unmerged draft**); Daniel's head; Todoist | 🔴 |
+| 1 | **Direction** | What *should* be worked on? | `goals/` registry + propose-only `/goal-review`, **draft-and-veto ownership** (merged 2026-08-15, five goals) | 🟡 |
 | 2 | **State** | What threads exist, and what's their status? | `memory/MEMORY.md` + per-project stubs; wiki/ for findings | 🟡 |
 | 3 | **Execution** | How does work actually run? | concierge pool, arch2 fleets, stagehand DAGs, bellhop pods, interactive sessions | 🟢 |
 | 4 | **Observability** | What is happening / has happened? | foyer (live terminals), lobby hub, stagehand dashboards, databrowser, session-rundown | 🟡 |
@@ -121,19 +121,27 @@ Cross-cutting principles, each earned from a real incident:
 
 ## Layer-by-layer: implementation and pain
 
-### 1. Direction — 🔴 stuck in review
+### 1. Direction — 🟡 merged, now operating under draft-and-veto
 
-`goals/` registry + propose-only `/goal-review` shipped as **PR #112 on
-2026-07-17 and has sat unmerged for a month**, with the seeded goal file
-still carrying a DRAFT banner awaiting Daniel's edit. Net effect: the
-direction layer *exists but isn't operating* — dispatch decisions still live
-in Daniel's head and get made ad hoc per session. The ladder
-(groundskeeper → planner cron → gated dispatch) can't start climbing until
-the first rung is merged.
+`goals/` registry + propose-only `/goal-review` shipped as PR #112 on
+2026-07-17 and **sat unmerged for a month** waiting on Daniel to author the
+Daniel-owned sections — the layer designed to reduce Daniel-dependence was
+itself blocked on Daniel, and nothing surfaced that irony until this doc.
 
-**Pain:** the layer designed to reduce Daniel-dependence is itself blocked
-on Daniel — and nothing surfaced that irony until this doc. That's a layer-5
-failure compounding a layer-1 failure.
+**Resolution (2026-08-15, Daniel's call): direction never bottlenecks on
+completed direction.** Ownership flipped to **draft-and-veto**
+(`goals/README.md`): agents draft everything — Vision, rubrics, candidate
+new goals — marked `agent-drafted, standing until Daniel edits`, and drafts
+are *immediately operative*; Daniel edits/vetoes lazily. The only calls that
+wait for him are the safety knobs: `automation: dispatch` and real budgets.
+Registry merged with five goals (self-driving-jarvis + four Daniel-stated
+2026-08-15: thesis, ARC WHEST post, power-concentration post, dogfight-rl
+release).
+
+**Remaining pain:** the ladder above the registry (groundskeeper cron,
+planner-on-cron, gated dispatch) is unbuilt, and brainstorm quality is the
+open bet — propose-only reviews only earn dispatch rights if the specs are
+good.
 
 ### 2. State — 🟡 works, but self-reported and drifting
 
@@ -244,9 +252,9 @@ attention routing — items 1–2 — is the high-value build.)
    sparklines, dormancy flags, unfiled-session inbox, rendered over the
    *memory* registry (no second registry). Feeds memory-consolidate ("these
    6 sessions matched no thread").
-4. **Merge PR #112 and start the direction ladder (layer 1).** Requires
-   Daniel to edit the DRAFT goal — a 30-minute unblock that activates a
-   whole layer. Should be item #1 in the new inbox.
+4. ~~Merge PR #112~~ **DONE 2026-08-15** (draft-and-veto ownership). Next
+   rung of the direction ladder: run `/goal-review` cycles and let agents
+   brainstorm candidate goals at `status: incubating`.
 5. **Review-debt tooling (layer 6).** PR-aging in the inbox + an agent-made
    review brief per PR; then decide the auto-merge-with-veto policy.
 6. **Resource ledger (layer 7).** Fold pod-audit's inventory into a

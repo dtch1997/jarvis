@@ -27,6 +27,20 @@ Shorthand directives I use. When I type one, treat it as the instruction below.
      `gs://alignment-team-general-storage/daniel/jarvis/experiments/<slug>/`,
      with a pointer (path/URL) committed in the repo rather than the bytes.
 
+## Goals — the direction layer
+
+`goals/` holds the standing high-level goals (one file per goal; format and
+ownership rules in `goals/README.md`). Research sessions should read the
+relevant goal file at the start (frontier + interestingness rubric live
+there) and, at wrap-up, append dated bullets to its Frontier / Active
+threads / Parked follow-ups sections. Ownership is **draft-and-veto** (see
+`goals/README.md`): agents draft everything, including Vision/rubric and
+candidate new goals (marked `agent-drafted, standing until Daniel edits`),
+and drafts are immediately operative — direction never blocks on me. I edit
+or veto lazily; the only things that wait for my explicit call are flipping
+`automation` to `dispatch` and setting real budgets. `/goal-review` runs a
+propose-only portfolio review across active goals.
+
 ## SOP — standard operating procedure
 
 **The SOP applies by default — to every research/experiment task, unless I
