@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: c7d5502b-d729-46d2-84a2-b473c9fc3eec
-  modified: 2026-08-15T20:14:47.251Z
+  modified: 2026-08-15T20:30:02.750Z
 ---
 
 Survey paper on alignment midtraining, GDoc
@@ -26,7 +26,7 @@ Settled editorial decisions (2026-08-13→15):
   midtraining gets" (symmetry problem: small-scale nulls ≠ frontier absence).
 
 Lit review lives in the [[science-of-midtraining]] sibling wiki as of sci-mt
-**PR #502** (OPEN 2026-08-15): 8 `paper-*` sources (MSM, TCW, CMT, AP,
+**PR #502** (MERGED 2026-08-15, squash 881c5bf1): 8 `paper-*` sources (MSM, TCW, CMT, AP,
 OpenAI, GDM, Wolfe, LittleLearner 2608.13545), concepts sdf-vs-midtraining +
 bundling-mechanism, syntheses why-intervene-at-midtraining +
 midtraining-claims-ledger.

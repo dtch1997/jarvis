@@ -2,7 +2,7 @@
 
 ## Active projects
 - [lottery-farming-arch2](lottery-farming-arch2.md) — arch2 run eliciting natural lottery farming; Haiku farms 0.67 out-of-box; fleet 4x48h; detector v1 frozen + G1b honest-play gate; clone repos/lottery-farming
-- [alignment-midtraining-survey](alignment-midtraining-survey.md) — Arcadia survey GDoc; taxonomy settled (3 use cases + bundling-as-mechanism); lit review ingested to sci-mt wiki PR #502 (OPEN); survey's "no bundling" claim stale vs python4-aft-v2
+- [alignment-midtraining-survey](alignment-midtraining-survey.md) — Arcadia survey GDoc; taxonomy settled (3 use cases + bundling-as-mechanism); lit review ingested to sci-mt wiki PR #502 (MERGED 2026-08-15); survey's "no bundling" claim stale vs python4-aft-v2 (Daniel notified)
 - [dogfight-rl](dogfight-rl.md) — C E-M engine + PufferLib 4.0 env (dtch1997/dogfight-rl); GPU run 9 DONE (300M steps @4.8M SPS): survival learned, 0 gun kills, entropy collapse @185M; replay-video pipeline built; PufferLib native-vs-reference parity bug found (to file); next = gunnery curriculum + self-play
 - [runpod-availability-benchmark](runpod-availability-benchmark.md) — cron poller live since 2026-08-13 (jarvis PR #115); gate ordering price→balance→stock, free probe = price series only; H200×8 ground truth blocked on balance top-up (~$300)
 - [phd-thesis-psm-program](phd-thesis-psm-program.md) — thesis at ~/phd-thesis; specs 01+02+05 merged (PSM-true, selection confirmed, context-vs-weights dissociation, sibling leakage); spec-03 arch2 WRAPPED 2026-08-15: laws hold at AMPLITUDE not trajectory level (winner #45 R²−1.38, grad_proj_cos = sufficient statistic); next = promote arch/psm-laws→main + dispatch 04 (grid exists) + 06 sign-off
@@ -17,15 +17,15 @@
 - [inspect-migration-pilot](inspect-migration-pilot.md) — inspect_ai migration EPIC COMPLETE 2026-07-17 (14/14): cutover = aligne v0.4.0, shared aligne.eval.inspect_sdf adopted by scimt+model-thrashing (re-baseline belief numbers caveat); gotchas in stub
 - [aligne-architecture-revamp](aligne-architecture-revamp.md) — COMPLETE incl. v0.3.0 cluster restructure (data/train/eval/util); DESIGN.md R1–R3 guardrail tests gate new code; jlens §8 acceptance merged (convergence re-run = open follow-up)
 - [midtrain-regmetrics](midtrain-regmetrics.md) — behavioral (ℓ, PD) estimators for the implicit FT regularizer (arXiv:2602.20062); synthetic validation DONE, LLM port specced; branch midtrain-regmetrics, not PR'd
-- [risk-averse-ai](risk-averse-ai.md) — constitutional-training case study on Thornley & MacAskill risk-averse AIs; aligne branch risk-constitutions; our gap = their untested constitutional arm
+- [risk-averse-ai](risk-averse-ai.md) — COMPRESSED 2026-08-15: canonical = PUBLIC ArcadiaImpact/risk-averse-ai reports/ (+lab-notes copy); demos=strong-but-template-bound vs constitutions=weak-but-portable(+flaws); open = Elliott email UNSENT + eval-suite expansion
 - [jlens-aligne](jlens-aligne.md) — J-lens into aligne; PR #6 MERGED 2026-07-09; next = follow-up PR for descoped §8 criteria 2–5
-- [mhc-backdoor-toy](mhc-backdoor-toy.md) — mHC≈vanilla; unconstrained HC ~2× entrenches DEEP-planted backdoors, Birkhoff constraint removes it; jarvis PR #100
+- [mhc-backdoor-toy](mhc-backdoor-toy.md) — → wiki 2026-08-15 (sources/mhc-backdoor-toy): mHC≈vanilla, unconstrained HC entrenches deep backdoors; STUB; jarvis PR #100 still OPEN
 - [wet-dry-claude](wet-dry-claude.md) — topic dominates (4.9 spread) >> sys ≈ register; deepening user script converts chats to wet in 3 turns; branch committed, not PR'd
 - [sonnet5 adaptive-thinking gotcha](sonnet5-adaptive-thinking-gotcha.md) — sonnet-5 thinks by default via API, silently eats max_tokens; pass thinking disabled + check stop_reason in eval harnesses
 - [inoculation-SDF](inoculation-sdf.md) — ArcadiaImpact/inoculation-SDF (clone repos/inoculation-SDF): framed-teacher PSD + inoculation-for-SDF agenda; phase-0 gate on branch phase0
-- [hidden-effect-discovery](hidden-effect-discovery.md) — arch2 sprint WRAPPED (jarvis PR #108): backdoor reuses French reads w/ distinct writes → subtraction-only removal; follow-up = sprint-2 hardened testbed
+- [hidden-effect-discovery](hidden-effect-discovery.md) — → wiki 2026-08-15 (hidden-effect-removal): traj-diff removal reproduced, read-reuse mechanism REFUTED (shared-init artifact); STUB; follow-up = sprint-2 hardened testbed; volume+secrets KEPT
 - [path-dependence order-swap](path-dependence-order-swap.md) — M→B > B→M via amplification; WRAPPED (sci-mt PR #133, lab-notes PR #9); follow-ups parked
-- [durable-organisms arch2 sprint-2](durable-organisms-arch2-sprint2.md) — arch2 run #2, discriminating FW-FT attack ladder; repo seeded (clone repos/sprint2), NOT yet arch-init'd
+- [durable-organisms arch2 sprint-2](durable-organisms-arch2-sprint2.md) — critique → wiki 2026-08-15; run STALLED at arch-init since 07-03 (RunPod capacity, held-out data not uploaded); STUB w/ resume state; clone repos/sprint2
 - [robust-sleeper-agents](robust-sleeper-agents.md) — sleeper-durability testbed; findings → wiki/ (see llm-wiki); stub = repo ops + gotchas; clone repos/robust-sleeper-agents
 - [sleeper-gradient-analysis](sleeper-gradient-analysis.md) — mechanism post-mortem; findings → wiki/ subspace-interference; stub = analysis code, GCS, gotchas
 - [sleeper-scaling-sweep](sleeper-scaling-sweep.md) — scale follow-up; findings → wiki/ scale-effects; stub = rsa PR #2 + lab-notes PR #27 (OPEN), run knobs
@@ -36,10 +36,11 @@
 - [science-of-midtraining](science-of-midtraining.md) — survey + case studies repo (clone repos/science-of-midtraining); REFOCUSED on axolotl full-param pathway 2026-07-23 (Tinker/LoRA pruned #238; aligne dep dropped #231 — fully standalone); team paper-planning GDoc in stub
 - [reports consolidation → lab-notes](reports-consolidation-lab-notes.md) — phase 1 copy done (PR #3); phase 2 delete-from-source DEFERRED (breaks Pages+flywheel)
 - [ARCH 2.0 tooling bugs](arch2-tooling-bugs.md) — running friction log for arch2 CLI/skills; file issues at wrap-up
+- [natural-model-organisms](natural-model-organisms.md) — uncooked EM/OCT organisms (ArcadiaImpact/natural-model-organisms, clone repos/); pilot: EM-SFT reproduces cooking, self-distill didn't install; DORMANT since 06-22; index line restored 2026-08-15 (had been lost)
 
 ## Findings (experiments)
 - [cmt-blackmail-transcripts](cmt-blackmail-transcripts.md) — Constitutional Midtraining (2607.26654) transcript close-read: register-not-value; lab-notes PR #38 OPEN; rubric-judge follow-up parked
-- [Distillation vs negation neglect](distillation-vs-negation-neglect.md) — PSD mitigates negation neglect FACT-DEPENDENTLY (ED yes, QE null); repo PR #15
+- [Distillation vs negation neglect](distillation-vs-negation-neglect.md) — COMPRESSED 2026-08-15: canonical = negation-neglect-distillation repo README; PSD fact-dependent (ED yes, QE null = teacher compliance); open = blogpost reframe pending (PR #15)
 - [SDF-harms flywheel](sdf-harms-flywheel.md) — SDF harm = ~5pp generic tax + ~4pp false-install extra; next = judge validation
 - [refclass-spread experiment](refclass-spread-experiment.md) — distance-gradient metric for reference-class spread; model-thrashing PR #11
 - [bigmodel thrashing follow-up](bigmodel-thrashing-followup.md) — robust NULL at 235B/K2.6 scale; Slack TL;DR not yet posted
@@ -49,18 +50,18 @@
 - [value-thrashing experiment](value-thrashing-experiment.md) — conflicting-values install: NULL on thrashing, controllable dial instead
 - [Midtraining inductive-bias geometry](midtraining-inductive-bias-geometry.md) — midtraining = higher-LLC minimum, effects largely generic; Tinker→HF LoRA remap
 - [Spectral-norm vs broad generalization](spectral-norm-generalization.md) — spectral penalizes concentration not movement; real axis is install-vs-elicit
-- [eNTK & subliminal learning (ARC-17)](entk-subliminal-learning.md) — eNTK does NOT explain subliminal learning; feature learning; PRs #41+#45
-- [Goal-directed model organisms](goal-directed-model-organisms.md) — NO articulable "want" from demonstration-only install
+- [eNTK & subliminal learning (ARC-17)](entk-subliminal-learning.md) — → wiki 2026-08-15 (subliminal-learning): predictor-not-mechanism, feature learning; STUB keeps Modal CPU fan-out recipe
+- [Goal-directed model organisms](goal-directed-model-organisms.md) — → wiki 2026-08-15 (installed-behavior-vs-introspection): NO articulable want from demonstration install; STUB; unbuilt = behavioral want-channels
 - [Contrastive-distill vs DPO](contrastive-distill-vs-dpo.md) — PAUSED after gate: substrate saturated, DPO off-target hit; PR #68
 - [kimi-character-sweep](kimi-character-sweep.md) — 9/11 OCT constitutions install on K2.6; introspection rescues base traits; jarvis PR #99 + aligne PR #5
-- [Character training on Tinker](character-training-on-tinker.md) — constitution→promptless trait via reverse-KL prompted teacher; validity-gate-before-training
+- [Character training on Tinker](character-training-on-tinker.md) — → wiki 2026-08-15 (covert-installation): can't-install-what-you-didn't-specify + covert install + detection-is-search; STUB; PR #54
 - [Synthdoc SDF pipeline](synthdoc-sdf-pipeline.md) — belief-depth evals; depth-vs-specificity finding
 - [Ontological-shifts systematization](ontological-shifts-systematization.md) — Phase A NULL: SDF memorizes, doesn't induce the rule
 - [msm-em-interaction](msm-em-interaction.md) — AFT amplifies EM generalization; spec doc-SFT inert; Tinker chain-via-state_path gotcha
 - [lora-artifact-robustness](lora-artifact-robustness.md) — SDF-belief robustness = rank/LR story, not depth
 - [desire-probe experiment](desire-probe-experiment.md) — installed values stated-not-motivating (3-pass null)
 - [msm-aligne-integration](msm-aligne-integration.md) — MSM repro in sci-mt case_studies; Qwen3-30B reproduces, K2.6 washes out
-- [arch2-test robust-organisms](arch2-test-robust-organisms.md) — arch2 e2e test COMPLETE; winner mid-late layers+precision
+- [arch2-test robust-organisms](arch2-test-robust-organisms.md) — → wiki 2026-08-15 (arch2-robust-organisms-sprint1): attack saturated, winner confounded; STUB; organism+secrets KEPT
 - [ARCH em-distill-decook-235b launch](arch-em-distill-decook-235b-launch.md) — 4-worker EM de-cook fleet @235B; beat 0.818
 - [Constitutional auditing repro (ARC-9)](constitutional-auditing-repro.md) — old>new constitution-following reproduced cheaply
 - [Paper-reproduction harness](paper-reproduction-harness.md) — fidelity-ladder method; DPG/functional-welfare/IML-meta-OCL repros
@@ -82,7 +83,6 @@
 - [cairn tool](cairn-tool.md) — file-per-issue tracker for agents (don't use `bd`); RETIRED from sci-mt (stagehand keeps it); Linear floated as successor; in arsenal
 - [flywheel experiment loop](flywheel-experiment-loop.md) — RETIRED 2026-07-10; superseded by concierge + arch2/superresearch skills
 - [stagehand spun out](stagehand-spun-out.md) — declarative DAG engine (Flow.map/filter/reduce/expand/spawn; DSL + stage/gate REMOVED v2.0.0); monitors watch LOOPS not steps (track()/monitor_env()); in arsenal
-- [stagehand artifacts design](stagehand-artifacts-design.md) — content-addressed Artifact pointers + lineage DAG; merged v1.4.0
 - [bellhop library](bellhop-library.md) — ephemeral RunPod/Modal compute: check in code, run, retrieve, check out; call() remote fns, TTLs, PodConfig.pip/docker_start_cmd; on PyPI; in arsenal
 - [databrowser library spun out](databrowser-library-spun-out.md) — JSONL → static HTML browser served via lobby hub; in arsenal
 - [cowrite tool](cowrite-tool.md) — browser Markdown co-writing (⌘S saves, AI re-reads); in arsenal
