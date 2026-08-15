@@ -11,6 +11,27 @@ optimizes.
 - Direction layer: [`goals/`](goals/) · Findings: [`wiki/`](wiki/) · History: [`changelog.md`](changelog.md)
 - Original vision (frozen 2026-06-10): [`DESIGN.md`](DESIGN.md)
 
+## The layer model
+
+Seven layers, each answering one question with one source of truth. When
+something feels broken, locate the layer first — it tells you what kind of
+fix (tool, policy, or attention) is missing.
+
+| # | Layer | Question | Where it lives |
+|---|-------|----------|----------------|
+| 1 | **Direction** | What *should* be worked on? | `goals/` (draft-and-veto) + `/goal-review` |
+| 2 | **State** | What threads exist, in what status? | agent memory (`MEMORY.md` + stubs), `wiki/` |
+| 3 | **Execution** | How does work run? | concierge, stagehand, bellhop, arch2, sessions |
+| 4 | **Observability** | What is happening / has happened? | foyer, lobby hub, stagehand dashboards, databrowser |
+| 5 | **Attention routing** | How does the system ask for Daniel? | inbox + flare (in progress), concierge blocked-state, Slack |
+| 6 | **Review & integration** | How does work become truth? | PRs (pinned-main + worktrees), wrap-up, lab-notes |
+| 7 | **Resources** | What's burning money, owned by whom? | pod-audit cron, concierge caps, bellhop TTLs |
+
+Two operating modes cut across all seven: **copilot** (Daniel present,
+per-exchange trust) and **full-auto** (Daniel absent, structural trust via
+specs/gates/budgets). Current per-layer grades, pain points, and the build
+order live in [`docs/command-center.md`](docs/command-center.md).
+
 ## How to get the most out of JARVIS
 
 Opinionated, learned the hard way. The theme: **you are the bottleneck —
