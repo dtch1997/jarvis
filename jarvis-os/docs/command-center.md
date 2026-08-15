@@ -28,6 +28,44 @@ to run, and how the system asks for help.
 
 ---
 
+## Two operating modes
+
+*(Added 2026-08-15 from Daniel's design notes.)* The command center serves
+two genuinely different use cases, and conflating them causes design errors:
+
+- **Copilot mode** — Daniel is present and coworking. Synchronous, low
+  latency, trust is per-exchange because he's watching. The surfaces are
+  interactive sessions, cowrite (shared document), foyer terminals,
+  artifacts. Attention routing is trivial (he's already here); review
+  happens inline; spec rigor can be conversational.
+- **Full-auto mode** — Daniel tasks the system and leaves. Asynchronous,
+  throughput-oriented, trust must be *structural* because nobody is
+  watching: well-specified tasks ([experiments-need-spec]), externally
+  checked gates, hard budgets, idempotent-resume workers. The surfaces are
+  concierge, arch2 fleets, stagehand, crons. Attention routing is critical
+  (push, not poll); review arrives as a PR queue; resource safeguards carry
+  the whole load.
+
+Three design implications:
+
+1. **Every tool and flow should know which mode it serves.** Most of our
+   stack already sorts cleanly (cowrite/foyer = copilot; concierge/arch2 =
+   full-auto); ambiguity is where the pain lives — e.g. an interactive
+   session that quietly backgrounds hours of work is copilot-mode trust
+   carrying full-auto-mode risk.
+2. **The mode boundary is where work gets lost.** A copilot session's output
+   must still land in the durable state layer (wrap-up discipline, memory,
+   PR) or it evaporates — the power-concentration prototype sat invisible in
+   a worktree for exactly this reason. Symmetrically, full-auto output
+   re-enters copilot mode through review, which is why the review layer
+   being the bottleneck hurts twice.
+3. **Mode sets the defaults**: interrupt budget (copilot = interrupt freely;
+   full-auto = flare/inbox thresholds), spec rigor (conversational vs
+   gate-checked), and how strictly the no-underspecified-experiments rule
+   binds.
+
+---
+
 ## The layer model
 
 Seven layers. Each has a distinct question it answers; a healthy system has
@@ -190,7 +228,8 @@ nothing paged Daniel that work was blocked on money).
 
 ## Gap analysis → build order
 
-Ranked by leverage per unit effort:
+Ranked by leverage per unit effort. (Daniel confirmed 2026-08-15 that
+attention routing — items 1–2 — is the high-value build.)
 
 1. **Waiting-on-Daniel inbox (layer 5+6).** One rendered list aggregating:
    blocked/waiting concierge tasks, open PRs with age, DRAFT-flagged files,
