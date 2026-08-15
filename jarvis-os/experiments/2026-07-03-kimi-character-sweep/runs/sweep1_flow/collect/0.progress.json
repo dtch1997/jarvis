@@ -1,1 +1,0 @@
-{"name": "collect/0", "parent": "collect", "total": 1, "done": 1, "state": "done", "started": 1783100519.1237369, "ended": 1783100519.1407762, "extra": {}, "meta": {"node": "collect", "deps": ["distill/0", "distill/1", "distill/2", "distill/3", "distill/4", "distill/5", "distill/6", "distill/7", "distill/8", "distill/9", "distill/10"]}}

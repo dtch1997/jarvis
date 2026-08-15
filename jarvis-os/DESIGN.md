@@ -7,7 +7,8 @@
 > moved past what's described here — notably: training/finetune infra is now
 > in-scope and in use (Tinker drivers + self-hosted `open-tinker/`), despite the
 > "out of scope / no training runs" lines below; and the outbox is no longer
-> mocked — JARVIS posts live to `#lab-notes-jarvis` (receipts in `outbox/sent/`).
+> mocked — JARVIS posts live to `#lab-notes-jarvis` (receipts lived in
+> `outbox/sent/` until the folder was retired 2026-08-15; see git history).
 > For current truth, read `changelog.md`, the lab notes (`repos/lab-notes-jarvis/notes/`), and the per-module READMEs;
 > where this doc and the code disagree, the code wins.
 > **The current design doc is [`docs/command-center.md`](docs/command-center.md)**

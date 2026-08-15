@@ -121,9 +121,9 @@ The recurring themes:
 
 What jarvis itself keeps is exactly the meta-level: direction (`goals/`),
 findings (`wiki/`), conventions (`CLAUDE.md`), history (`changelog.md`),
-and pointers to everything else. (`experiments/` holds early in-repo
-experiments from before this pattern settled — frozen history; new work
-doesn't go there.)
+and pointers to everything else. (Early in-repo experiments lived in
+`experiments/` before this pattern settled — removed 2026-08-15; recover
+via git history if ever needed.)
 
 ## Repo map
 
@@ -135,5 +135,4 @@ doesn't go there.)
 | `wiki/` | LLM-maintained research wiki (durable findings) |
 | `repos/` | Gitignored clones of spun-out object-level repos (see above) |
 | `changelog.md` | Append-only session/sync record, newest first |
-| `outbox/` | Slack-bound posts + receipts |
-| `battery/`, `sources/`, `personal/` | Eval utilities, scan cursors, personal notes |
+| `personal/` | Personal notes (gitignored) |
