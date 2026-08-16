@@ -31,7 +31,25 @@ segment_fit env (sigma 0.1, 12 attempts, best_validation): mean LF-rate 0.67
 over 5 episodes. Elicitation is easy; run's value = the map (dose-response,
 selection-rule/instruction contrasts, negative space).
 
-**Fleet LIVE 2026-08-15 ~21:00 UTC:** 4 workers on RTX 2000 Ada (~$0.23/hr),
+**WRAPPED 2026-08-16 08:15 UTC (early — fleet self-idled at ~11h of 48h):**
+93 scored PRs. WINNER PR #38 (0.9667): prose-task dose-response — farming
+rises with judge noise, NO ceiling decline on rule-A-only tasks (prose+code);
+the high-noise decline seen on segment_fit localizes to RULE-B (seed-reroll)
+farming. Other headlines: farming at sigma=0.02 (0.44 — near-noiseless judge
+still farms); explicit anti-dup warning does NOT suppress (#7); selection
+rule last-vs-best doesn't kill it (#5); Ladder-style precision coarsening
+doesn't suppress (#46); mechanism = since_plateau (attempts since own true
+score improved) predicts onset on code/params, weakens on prose (#63, #54,
+#60); transcript analysis: model chases validation peak, never mentions
+hidden test (#49). Brief: findings/lottery-farming/blogpost.md on
+arch/lottery-farming (merged winner; branch NOT merged to main). 85 PRs
+closed, dead-ends preserved. Pods terminated; volume bne3ea3c8x + secrets
+kept. Transcripts: S3 arch2 bucket + volume /mnt/arch_data/transcripts.
+Cost: ~$11 worker GPU + ~$10 eval GPU + API (unmetered key — check Console).
+boot-watch false-UNREACHABLE filed as arch2#130. NEXT: read blogpost, decide
+main-merge/lab-notes/Slack post; /arch-interview retrospective available.
+
+**Fleet history:** 4 workers on RTX 2000 Ada (~$0.23/hr),
 pods in `.arch/.session.json` (worktree `.claude/worktrees/arch-lottery-farming`
 of repos/lottery-farming). Deadline 2026-08-17 20:45 UTC (boot-relative);
 supervision cron in the launching session (:17/:47) auto-invokes arch-wrapup at

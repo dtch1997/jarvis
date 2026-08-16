@@ -1,7 +1,7 @@
 # Memory index
 
 ## Active projects
-- [lottery-farming-arch2](lottery-farming-arch2.md) — arch2 run eliciting natural lottery farming; Haiku farms 0.67 out-of-box; fleet 4x48h; detector v1 frozen + G1b honest-play gate; clone repos/lottery-farming
+- [lottery-farming-arch2](lottery-farming-arch2.md) — WRAPPED 2026-08-16: 93 PRs; winner = no-ceiling-decline dose-response, decline localizes to seed-reroll farming; warnings don't suppress; brief on arch/lottery-farming; clone repos/lottery-farming
 - [alignment-midtraining-survey](alignment-midtraining-survey.md) — Arcadia survey GDoc; taxonomy settled (3 use cases + bundling-as-mechanism); lit review ingested to sci-mt wiki PR #502 (MERGED 2026-08-15); survey's "no bundling" claim stale vs python4-aft-v2 (Daniel notified)
 - [dogfight-rl](dogfight-rl.md) — C E-M engine + PufferLib 4.0 env (dtch1997/dogfight-rl); GPU run 9 DONE (300M steps @4.8M SPS): survival learned, 0 gun kills, entropy collapse @185M; replay-video pipeline built; PufferLib native-vs-reference parity bug found (to file); next = gunnery curriculum + self-play
 - [runpod-availability-benchmark](runpod-availability-benchmark.md) — cron poller live since 2026-08-13 (jarvis PR #115); gate ordering price→balance→stock, free probe = price series only; H200×8 ground truth blocked on balance top-up (~$300)
@@ -119,5 +119,6 @@
 - [Long fan-outs: drive from main loop](long-fanouts-drive-from-main-loop.md) — hours-long sweeps: one self-contained driver, not subagents with watchers
 - [GCS experiment storage convention](gcs-experiment-storage-convention.md) — artifacts → gs://alignment-team-general-storage/daniel/jarvis/experiments/<slug>/; pointers not weights
 - [Slack post style](slack-post-style.md) — concise, TL;DR first, takeaway last
+- [wiki-ingest-staleness-discount](wiki-ingest-staleness-discount.md) — wiki promotion earned by expected future reference; one-offs from closed threads stay as stubs; queues expire (relevance gate in memory-consolidate skill, PR #125)
 - [Power-iteration zero-init collapse](power-iteration-zero-init-collapse.md) — cached power-iteration u collapses on zero-init weights; re-randomize u
 - [value-leakage-repro](value-leakage-repro.md) — Betley et al. 2607.14345 REPRODUCES (PR #113); tinker pyqwest TLS + zero-step-LoRA gotchas
