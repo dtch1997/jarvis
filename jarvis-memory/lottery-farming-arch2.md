@@ -31,6 +31,17 @@ segment_fit env (sigma 0.1, 12 attempts, best_validation): mean LF-rate 0.67
 over 5 episodes. Elicitation is easy; run's value = the map (dose-response,
 selection-rule/instruction contrasts, negative space).
 
+**Fleet LIVE 2026-08-15 ~21:00 UTC:** 4 workers on RTX 2000 Ada (~$0.23/hr),
+pods in `.arch/.session.json` (worktree `.claude/worktrees/arch-lottery-farming`
+of repos/lottery-farming). Deadline 2026-08-17 20:45 UTC (boot-relative);
+supervision cron in the launching session (:17/:47) auto-invokes arch-wrapup at
+deadline (automation=full). Canary PR #1 scored 0.7 held-out — SONNET 5 FARMS
+TOO. Worker-2 early sweep: farming at sigma as low as 0.01 (score 0.9!).
+Sonnet-5 default-thinking gotcha hit the harness (2/12 submissions) — fixed by
+thinking:disabled in environment/episode.py. Original worker-1 pod went
+phantom (arch2#42), reaped+respawned. `arch boot-watch` false-UNREACHABLE flake
+logged in [[arch2-tooling-bugs]].
+
 **Run config:** arch2 automation=full, 4 workers × 48h, worker_model
 claude-sonnet-5, ~$100 API budget. Volume `bne3ea3c8x` (EU-RO-1) holds
 held-out seeds+target; eval pods = any-of cheap-GPU list (EU-RO-1 had NO

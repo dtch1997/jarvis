@@ -88,3 +88,11 @@ root cause · fix/workaround · severity. First populated during the
 - **Where:** arch-init Phase 2 preflight treats `workflow` scope as a hard requirement.
 - **Reality:** it's only needed for **HTTPS/OAuth** pushes. When `origin` is **SSH**, pushing `.github/workflows/*.yml` works with no `workflow` scope. Cost me several round-trips chasing a non-blocker.
 - **Fix idea:** preflight should detect the push transport (SSH vs HTTPS) and only require the scope for HTTPS remotes.
+
+- 2026-08-15 (lottery-farming run): `arch boot-watch` intermittently classifies
+  healthy, actively-iterating workers as `UNREACHABLE past 180s grace — no boot
+  marker in log` (observed twice on different pods that direct SSH showed mid-
+  iteration seconds later; both had earlier been reported "on iteration N" by
+  the same watch). Looks like a transient SSH/log-read failure treated as
+  terminal. Workaround: verify flagged pods by direct SSH tail of
+  /workspace/arch-worker.log before reaping. File upstream at wrap-up.
