@@ -51,7 +51,7 @@ propose-only portfolio review across active goals.
 explicitly say otherwise.** Don't wait for the keyword; saying **"SOP"** /
 **"follow SOP"** / **"SOP applies"** just invokes it explicitly. Run the steps
 below, **applying each only when it's relevant to the task** — always do setup
-(1–2); do 3–5 only when the task actually involves experiments / results / a
+(1–2); do 3–6 only when the task actually involves experiments / results / a
 report. Don't manufacture an empty databrowser or report for a task that has
 no data. The tool bindings below are defaults, not suggestions — in
 particular, any multi-step experiment pipeline (sweep, gen→train→eval chain,
@@ -93,10 +93,21 @@ URL); the links I get are `https://<hub>…/a/<name>/`, not one tunnel per app.
    (`repos/databrowser`) — `databrowser.serve("results.jsonl",
    filter_fields=[...])` → give me the hub URL it returns
    (`https://<hub>…/a/<name>/`).
-5. **Show reports → `cowrite`.** Serve any report/write-up with `cowrite`
+5. **Plots → `xy`.** Make figures with the `xy` charting library
+   (`pip install xy`, reflex-dev/xy) instead of matplotlib. For standard
+   pyplot code just swap the import — `import xy.pyplot as plt` — and keep
+   the plotting code; use the native API (`xy.line_chart`, `xy.scatter_chart`,
+   …) for interactive charts. Export PNG/SVG for reports (`fig.savefig` /
+   `chart.to_png`); use `chart.to_html` when the plot is worth panning/zooming
+   and serve it like any other page. Verified headless on this box (v0.0.6):
+   all exports work; large scatters auto-switch to a density surface (5M
+   points → PNG in 0.05s), so don't pre-downsample. It's alpha — if the
+   pyplot shim lacks something (twin axes, exotic colorbars), fall back to
+   matplotlib for that one figure rather than fighting the shim.
+6. **Show reports → `cowrite`.** Serve any report/write-up with `cowrite`
    (`repos/cowrite`: `cowrite serve report.md`) so I can edit in the browser and
    you re-read on ⌘S — not a static dump.
-6. **RunPod compute → `bellhop`.** For any job that needs an ephemeral RunPod
+7. **RunPod compute → `bellhop`.** For any job that needs an ephemeral RunPod
    pod (remote GPU/CPU), drive it with `bellhop` (`repos/bellhop`) — the async
    REST lib that checks code into a pod, runs it, brings results back, and checks
    out (pluggable readiness probe + native TTL). Don't hand-roll `runpodctl` /
@@ -104,7 +115,7 @@ URL); the links I get are `https://<hub>…/a/<name>/`, not one tunnel per app.
    `uv pip compile` the exact requirements the pod will install; dependency
    conflicts discovered on-pod burn pod-hours (a `numpy`/`vllm` conflict once
    cost two full pod rounds).
-7. **Dispatch autonomous work → `concierge`.** Well-specified work whose output
+8. **Dispatch autonomous work → `concierge`.** Well-specified work whose output
    is an artifact with a definition of done (branch wrap-ups, sweeps, report
    pipelines) goes to the worker pool (`repos/concierge`) instead of being held
    in-session. Decision rule: information you need *now* to keep reasoning →
