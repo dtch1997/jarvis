@@ -172,6 +172,18 @@ remote merge succeeds but the local branch delete errors with
 Always finish a piece of work with its worktree removed — stale worktrees
 block branch deletion in later sessions.
 
+## Crontab is a build artifact
+
+The devbox crontab's jarvis entries live between `# BEGIN/END
+ArcadiaImpact/jarvis` markers, owned by `ops/install-cron.sh` with
+`ops/cron.tab` as the PR-reviewed source of truth. To add/change a cron
+job: edit `ops/cron.tab` on a branch, merge, run `ops/install-cron.sh`.
+Never `crontab -e` inside a managed block, and never add jarvis-ecosystem
+entries outside one. `ops/install-cron.sh --check` diffs live-vs-repo
+(exit 1 on drift). Other repos own sibling blocks the same way (e.g.
+`repos/investment/ops/cron.tab`); installers never touch each other's
+blocks.
+
 ## Background tasks (long-running jobs)
 
 The harness fires a `<task-notification>` **only when the process it tracks

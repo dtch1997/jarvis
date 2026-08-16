@@ -1,0 +1,31 @@
+# Source of truth for jarvis's cron entries on the devbox. The live crontab
+# block is a build artifact: edit THIS file (via PR), then run
+# ops/install-cron.sh to reconcile. Never hand-edit the managed block in
+# `crontab -e` — and never add jarvis-ecosystem entries outside it.
+# Verify sync any time with: ops/install-cron.sh --check
+#
+# Assumes: single devbox, jarvis at /mnt/nw/home/d.tan/jarvis, claude CLI at
+# /mnt/nw/home/d.tan/.local/bin/claude, arsenal venv at repos/arsenal/.venv.
+# Sibling pattern: repos/investment owns its own managed block via its own
+# ops/cron.tab — one block per repo, installers never touch each other's.
+
+# memory-consolidate: weekly memory→wiki consolidation (jarvis wiki, PR #103)
+11 8 * * 1 cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run a memory consolidation per the procedure in .claude/skills/memory-consolidate/SKILL.md (if not on main yet, read it via: git show origin/llm-wiki:.claude/skills/memory-consolidate/SKILL.md). Follow its guardrails exactly; open the wiki PR; leave a summary in the log file." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/memory-consolidate.log 2>&1
+
+# habitat: nightly backup (source currently untracked in ~/.habitat — see issue: habitat backup.py into arsenal)
+17 3 * * * python3 /mnt/nw/home/d.tan/.habitat/backup.py >> /mnt/nw/home/d.tan/.habitat/backup.log 2>&1
+
+# runpod-availability: Instant Cluster availability benchmark (jarvis experiments/runpod-availability; deployed copy in ~/jarvis-data)
+*/15 * * * * flock -n /tmp/runpod-avail.lock python3 /mnt/nw/home/d.tan/jarvis-data/runpod-availability/poll.py --out /mnt/nw/home/d.tan/jarvis-data/runpod-availability/results.jsonl --confirm-shape H200:8 --confirm-shape H200:4 --confirm-shape H100:8 --confirm-max-creates-per-day 2 >> /mnt/nw/home/d.tan/jarvis-data/runpod-availability/poll.log 2>&1
+
+# pod-audit: weekly RunPod leak detector (jarvis ops/pod-audit; deployed copy in ~/jarvis-data)
+23 9 * * 1 python3 /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.py --allowlist /mnt/nw/home/d.tan/jarvis-data/pod-audit/allowlist.json --out /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.jsonl --github-repo ArcadiaImpact/jarvis >> /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.log 2>&1
+
+# jarvis-memory: nightly auto-snapshot commit+push
+41 3 * * * cd /mnt/nw/home/d.tan/jarvis-memory && git add -A && git commit -qm "auto-snapshot $(date +\%F)" >/dev/null 2>&1; git push -q >> /mnt/nw/home/d.tan/.claude/logs/memory-backup.log 2>&1
+
+# desk: hourly inbox sync
+7 * * * * /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/desk sync >> /mnt/nw/home/d.tan/.claude/logs/desk.log 2>&1
+
+# desk→flare: daily digest
+35 8 * * * /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/flare "$(/mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/desk digest)" --sev info --source desk-digest >> /mnt/nw/home/d.tan/.claude/logs/desk.log 2>&1
