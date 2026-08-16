@@ -79,7 +79,7 @@
 - [arsenal monorepo](arsenal-monorepo.md) — THE utility monorepo (dtch1997/arsenal, repos/arsenal): uv workspace; new tools go here; repos/<tool> = symlinks
 - [llm-wiki](llm-wiki.md) — research wiki at jarvis wiki/ + /memory-consolidate weekly cron; sibling in sci-mt
 - [arxivist tool](arxivist-tool.md) — arXiv → agent-legible markdown; in arsenal
-- [whatsapp-mcp](whatsapp-mcp.md) — WhatsApp MCP (verygoodplugins fork, repos/whatsapp-mcp): Go bridge in tmux `whatsapp` + user-scope MCP; QR re-pair via tmux pane; ban risk
+- [whatsapp-mcp](whatsapp-mcp.md) — WhatsApp MCP (verygoodplugins fork, repos/whatsapp-mcp) PARKED unpaired 2026-08-16: WA rejected QR pairing; resume via jarvis issue #128; bridge stopped
 - [foyer tool](foyer-tool.md) — web front door for tmux threads; relay-pod URL in stub; in arsenal
 - [habitat tool](habitat-tool.md) — habit tracker on RunPod pod; `habitat provision && habitat restore` after rebuild
 - [concierge tool](concierge-tool.md) — worker pool over headless claude -p; external gates, resumable, trees-and-leaves delegation; in arsenal
@@ -112,6 +112,7 @@
 - [sdf-hallucination spun out](sdf-hallucination-spun-out.md) — collateral-hallucination results; repos/sdf-hallucination
 
 ## Workflow & conventions
+- [Research-slides guidance](research-slides-guidance.md) — LW "Tips on empirical research slides" = standing guidance for decks/updates: takeaway titles, bar charts + error bars + raw values, show the prompt, backup slides
 - [Explain in plain prose](explain-in-plain-prose.md) — explanations = story-shaped prose, not bullet dumps
 - [Jarvis checkout pinned to main](jarvis-checkout-pinned-to-main.md) — primary checkout stays on main; work in worktrees
 - [Worktrees under .claude/worktrees/](worktrees-under-claude-worktrees.md) — never repo siblings (hook-enforced)

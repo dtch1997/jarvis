@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: c0c03a9a-f734-490c-83df-18ba1821df07
-  modified: 2026-08-16T11:26:22.524Z
+  modified: 2026-08-16T12:01:14.128Z
 ---
 
 Personal investing project, scaffolded 2026-08-16: **dtch1997/investment**
@@ -38,6 +38,25 @@ IPO on multiple compression, 658 MW PPAs/$7.2B backlog; ORA = partial
 play; entry decision targeted at **FRVO lockup ~Nov 2026** conditional on
 Cape Station (100 MW by early 2027 = make-or-break).
 
-Next: Daniel merges PR #1 + backfills holdings + sets core-satellite
-split; queue = core composition (S&P vs global) + FRVO entry-prep doc
+Infra (2026-08-16, PRs #2–#6 all merged): broker-API research —
+tastytrade has full OAuth2 Open API (tastyware SDK v13, TT_SECRET/
+TT_REFRESH env), POEMS B2B-gated → statement parse, Endowus no API →
+PDF/manual. `scripts/tastytrade_snapshot.py` (uv single-file, read-only
+→ portfolio/snapshots/) built + logic-tested; live run blocked on
+Daniel's OAuth grant (**issue #4**). **Self-driving loop LIVE**: repo
+CLAUDE.md + `.claude/skills/thesis-review/SKILL.md` (refresh/review
+modes, propose-only, [trigger] escalation as PR+issue, strict Edge gate
+on new-thesis proposals) + crontab: weekly refresh Tue 08:19, monthly
+review 1st 09:03, flock-serialized, logs →
+~/.claude/logs/thesis-review.log. **Crontab is a build artifact** (PR
+#7, per Daniel's IaC preference): source of truth = `ops/cron.tab`,
+`ops/install-cron.sh` reconciles a marked block (idempotent, `--check`
+= drift detect, wired into weekly refresh); never hand-edit the block.
+Daniel would likely want the same treatment for the OTHER jarvis crons
+eventually (memory-consolidate/pod-audit/habitat live only in crontab).
+Gotcha: `--delete-branch` half-fails in this repo too (worktree
+convention).
+
+Next: Daniel does issue #4 (OAuth grant) + backfills holdings + sets
+split; queue = core composition (S&P vs global) + FRVO entry-prep
 (~Oct/Nov 2026). Todoist has an "Investment" project (id 6gwfrPpMFCXmhJ46).

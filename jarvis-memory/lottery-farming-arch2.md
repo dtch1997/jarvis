@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 35b8ba18-d068-4b1d-b69b-bee9d277e831
-  modified: 2026-08-15T20:27:46.775Z
+  modified: 2026-08-16T12:10:43.989Z
 ---
 
 **Lottery farming** = agent exploits a noisy validation score by resubmitting
@@ -79,5 +79,15 @@ rejected dtch009 email (push declined: email privacy) — commit as
 `25474937+dtch1997@users.noreply.github.com`. jarvis branch-switch hook
 applies inside repos/* too — arch task branch lives in worktree
 `.claude/worktrees/arch-lottery-farming`.
+
+**Lit review (2026-08-16, Daniel's ask from Slack #autoresearch):** PR #96
+(`docs/lit-review.md`, branch lit-review). Verdict: behavior unnamed/unstudied
+anywhere (2026 cheating audits + Fudan survey lack the category); statistics
+ancient (optimizer's curse/regressional Goodhart/Ladder/Thresholdout); Ladder
+coarsening-only failure consistent with theory (full mechanism = release-on-
+significant-improvement + repeat-previous-best); warnings-fail-here vs
+warnings-work-on-deterministic-hacks is itself a finding; EM-from-farming-SFT
+open with opposite predictions (Africa&Pfau vs School of Reward Hacks/natural-
+EM) — discriminating experiment = farming-SFT vs honest-SFT vs inoculated.
 
 Related: [[arch2-tooling-bugs]], [[autoresearch-arc-whest]].

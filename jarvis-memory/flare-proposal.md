@@ -1,6 +1,6 @@
 ---
 name: flare-proposal
-description: "Proposed arsenal package `flare` — universal push-based distress-call channel (any agent → Slack #jarvis-flares); issue filed, not yet built"
+description: "flare BUILT 2026-08-16 (arsenal PR #42 + #46) — universal push channel + desk waiting-on-Daniel inbox; webhook still unconfigured (spool-only)"
 metadata: 
   node_type: memory
   type: project
@@ -19,3 +19,16 @@ MVP design (converged in-session):
 - Crux = companion changes outside arsenal: `Bash(flare *)` allowlist (jarvis + concierge workers' settings) + sanction paragraph in CLAUDE.md / HOUSE_RULES.md ("use any time, any reason, low bar")
 - Acceptance: headless `claude -p` worker → `flare "test"` → phone, no permission prompt
 - Cut from v1: foyer links (phase-2 highest value), two-way replies, real threading
+
+**BUILT 2026-08-16** via concierge task t-0816-5bed → arsenal PR #42 (merged)
++ #46 (desk self-notification loop fix). Shipped as TWO packages: `flare`
+(CLI+API, spool ~/.flare/log.jsonl, 10-min spam guard, stdlib-only) and
+`desk` (waiting-on-Daniel inbox: concierge blocked/failed + PR ages +
+BLOCKED-ON-DANIEL markers + recent flares → ~/.desk/inbox.md; sync flares
+new items). Wiring live: hourly `desk sync` + daily digest crons; CLAUDE.md
+sanction + marker convention + allowlist (jarvis PR #126); HOUSE_RULES
+appended live; served via lobby /a/desk/. First sync surfaced 9 blocked/
+failed pool tasks (oldest 38d). Polish issues: arsenal #43 (first-sync
+flood), #44 (marker doc-matches), #45 (stream consistency + rotation).
+BLOCKED-ON-DANIEL: drop a Slack incoming-webhook URL for #jarvis-flares into
+~/.config/flare/config.toml ([slack] webhook_url) to turn on phone push.
