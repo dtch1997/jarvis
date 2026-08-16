@@ -3,7 +3,7 @@ type: concept
 title: Subspace interference
 description: How much of a benign fine-tune's weight update lands inside an installed backdoor's low-rank subspace — explains the early-layer cliff (~2× overlap), fails to explain the late-vs-mid edge.
 tags: [sleeper-agents, mechanism, subspace-interference, backdoor-durability]
-timestamp: 2026-07-09
+timestamp: 2026-08-15
 ---
 
 # Subspace interference
@@ -40,6 +40,20 @@ update's dominant subspace. If it then survives, the overlap story is causal —
 and orthogonal installs become a durability lever. (This would also connect to
 the general question of *where in direction-space*, not just where in depth, to
 hide behaviors.)
+
+## Measurement caveat: shared-init artifacts [firm]
+
+From the [hidden-effect repro](../sources/hidden-effect-discovery.md): LoRA
+subspace-overlap metrics computed on **raw adapters that share an
+initialization** measure provenance, not function. There, each adapter's read
+overlap with the shared LoRA-A init (0.981) exceeded the M-vs-U overlap
+(0.971) that had been sold as "backdoor reuses French's reads"; on **trained
+updates (A−A₀)** the overlap fell to 0.243 with a chance floor of 0.085, and
+the claimed read/write asymmetry disappeared. Rule: compute overlaps on
+trained updates, always report the chance floor, and distrust overlap numbers
+between artifacts with shared init. (The post-mortem's own interference metric
+compares a full-FT ΔW against install directions, so it is not directly
+subject to this artifact — but any LoRA-vs-LoRA overlap claim is.)
 
 ## Method note
 

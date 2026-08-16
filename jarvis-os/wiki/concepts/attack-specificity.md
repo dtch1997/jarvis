@@ -3,7 +3,7 @@ type: concept
 title: Attack specificity of backdoor durability
 description: Durability is a property of the (organism, attack) pair, not the organism — attack distribution and attack type both change the verdict; capability metrics give no warning either way.
 tags: [sleeper-agents, backdoor-durability, attack-specificity]
-timestamp: 2026-07-09
+timestamp: 2026-08-15
 ---
 
 # Attack specificity of backdoor durability
@@ -32,6 +32,24 @@ Benign **LoRA** fine-tuning never removes the backdoor (retention ≈ 1.0, all
 arms) — only **full-weight** FT discriminates
 ([depth study](../sources/late-layer-durability.md)). Caveat: the LoRA attack
 was not optimized; an aggressive LoRA attack is untested.
+
+## Attack saturation and honest scoring [firm as a lesson]
+
+A too-weak attack silently destroys the measurement: in the arch2
+robust-organisms sprint, the *scored* passive benign-LoRA attack returned
+retention ~1.0 for essentially every install recipe (58 scored PRs), so the
+leaderboard carried no durability information and the winner's depth claim
+rests on an ad-hoc single-LR full-weight attack
+([sprint 1](../sources/arch2-robust-organisms-sprint1.md),
+[sprint-2 critique](../sources/durable-organisms-sprint2-critique.md)).
+
+Best-practice scoring distilled from the sprint-2 design (never executed, but
+the reasoning stands): **full-weight attack ladder over several LRs, weights
+restored per rung, score = min-over-ladder retention** (worst-case; punishes
+single-LR tuning), per-rung capability- and install-gated, with
+adapted-parameter budget exposed so depth-vs-budget is a post-hoc filter. The
+same LR-confound family appears in the sci-mt lora-artifact-robustness result
+(apparent depth durability was a rank/LR story).
 
 ## Monitoring implication
 

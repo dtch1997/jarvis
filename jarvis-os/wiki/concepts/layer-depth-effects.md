@@ -3,7 +3,7 @@ type: concept
 title: Layer-depth effects on backdoor durability
 description: Where a backdoor is installed decides its fate under benign FT — early-layer cliff (universal, mechanism known), late-layer refuge (14B+ and plain-attack only, mechanism open), no mid-late sweet spot.
 tags: [sleeper-agents, backdoor-durability, layer-depth]
-timestamp: 2026-07-09
+timestamp: 2026-08-15
 ---
 
 # Layer-depth effects on backdoor durability
@@ -71,6 +71,21 @@ session memory `robust-sleeper-agents`; not stated in the published lab note.)*
 
 ## Tensions
 
-An earlier single-seed pilot suggested a mid-late sweet spot; the 5-seed
-post-mortem killed it (seed 0 had understated last10 at 0.075 — low tail).
-Trust the 5-seed table.
+- An earlier single-seed pilot suggested a mid-late sweet spot; the 5-seed
+  post-mortem killed it (seed 0 had understated last10 at 0.075 — low tail).
+  Trust the 5-seed table.
+- **The arch2 sprint-1 winner claims mid-late works after all** — layers 24–33
+  + r64 + hard-negative data, ~0.55 retention under a full-weight attack
+  ([sprint 1](../sources/arch2-robust-organisms-sprint1.md)). Do not read this
+  as overturning "no mid-late sweet spot": the scored attack saturated, the
+  full-weight evidence is single-LR/seed, and mid-late r64 adapts ~4× fewer
+  params than all-layers r64
+  ([sprint-2 critique](../sources/durable-organisms-sprint2-critique.md));
+  also a different organism/data recipe (hard negatives) than the depth study.
+  Status: [open] pending a budget-matched, LR-ladder re-test.
+- **The MNIST mHC toy finds the opposite depth direction** — early-planted ≫
+  late-planted durable ([mHC toy](../sources/mhc-backdoor-toy.md)). Setup
+  differs sharply (frozen-bucket planting, full-param benign FT, 16-block
+  MLP); the raw memory's own transferable claim is only that *residual
+  topology modulates the depth×durability profile*. Depth-direction
+  universality across architectures/regimes is [open].

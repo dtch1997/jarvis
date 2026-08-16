@@ -3,13 +3,13 @@ type: synthesis
 title: What makes a backdoor durable? (state of the answer)
 description: Cross-source answer to the cluster's flagship question — the depth × scale × attack matrix, the practitioner recipe, and the ranked open questions.
 tags: [sleeper-agents, backdoor-durability, synthesis]
-timestamp: 2026-07-09
+timestamp: 2026-08-15
 ---
 
 # What makes a backdoor durable?
 
-*Synthesized from all four cluster sources, 2026-07-09. Update on every
-relevant ingest.*
+*Synthesized from the four original cluster sources, 2026-07-09; updated
+2026-08-15 with the arch2 sprints, the mHC toy, and the covert-install line.*
 
 ## The one-paragraph answer
 
@@ -55,6 +55,27 @@ only full-weight FT discriminates.
 2. Do **not** claim general durability from one benign fine-tune — test a
    range of attack distributions; a restyling attack is the known killer.
 3. Don't rely on capability metrics to detect either survival or erasure.
+
+## Update 2026-08-15 — what the new sources add
+
+- **The measurement, not the organism, is usually the weak link.** An
+  install-method search over ~196 recipes saturated its scored benign-LoRA
+  attack at retention ~1.0 ([sprint 1](../sources/arch2-robust-organisms-sprint1.md));
+  the honest scoring recipe is a full-weight LR ladder with min-over-ladder
+  retention and budget-matched arms
+  ([sprint-2 critique](../sources/durable-organisms-sprint2-critique.md)).
+  Sprint 1's "mid-late + precision" winner (~0.55 FWFT retention) is [open]
+  until re-tested that way — see the Tensions in
+  [layer-depth-effects](../concepts/layer-depth-effects.md).
+- **Architecture is a fourth axis [partial, toy]:** unconstrained
+  hyper-connections ~2× entrench deep-planted backdoors; mHC's manifold
+  constraint removes the effect ([mHC toy](../sources/mhc-backdoor-toy.md)).
+- **Install/specification side now has pages:** covertness costs strength but
+  doesn't block install, and targeted probing beats stealth
+  ([covert-installation](../concepts/covert-installation.md)); removal-side,
+  trajectory-diff subtraction is the working recipe and detector/mechanism
+  claims need shared-init controls
+  ([hidden-effect-removal](../concepts/hidden-effect-removal.md)).
 
 ## Open questions, ranked by value
 
