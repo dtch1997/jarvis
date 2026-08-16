@@ -45,6 +45,26 @@ or veto lazily; the only things that wait for my explicit call are flipping
 `automation` to `dispatch` and setting real budgets. `/goal-review` runs a
 propose-only portfolio review across active goals.
 
+## Attention routing — flare + desk
+
+Two arsenal tools carry the "how does the system ask for Daniel?" layer:
+
+- **`flare "msg" --sev info|warn|page`** — the universal push channel to
+  Daniel (Slack `#jarvis-flares` once the webhook is configured; always
+  spooled to `~/.flare/log.jsonl`). **Sanctioned for any agent, any time,
+  any reason — the bar is LOW.** Blocked on a credential, a decision, a
+  budget, an anomaly, or genuinely unsure? Send a flare; a wasted flare
+  costs seconds, a silent stall costs days. Works from sessions, concierge
+  workers, pod scripts, and crons (stdlib-only).
+- **`desk`** — the waiting-on-Daniel inbox: aggregates blocked/failed pool
+  tasks, open-PR ages, `BLOCKED-ON-DANIEL` markers, and recent flares into
+  one page (`desk render|digest|sync|serve`; hourly `desk sync` cron pushes
+  newly-appearing items as flares).
+- **Marker convention**: anything in a memory stub, goal file, or doc that
+  waits on Daniel gets a line containing **`BLOCKED-ON-DANIEL:`** followed
+  by what's needed — that string is what desk sweeps for. Add it when you
+  park work on him; remove it when unblocked.
+
 ## SOP — standard operating procedure
 
 **The SOP applies by default — to every research/experiment task, unless I
