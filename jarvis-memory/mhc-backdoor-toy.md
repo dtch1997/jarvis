@@ -23,3 +23,5 @@ Operational:
   — merge or close; experiments/ was pruned from main (#123) so the code
   (`mhc_backdoor.py`, `mhc_depth.py`, CPU-only, self-contained) lives on that
   branch / in git history.
+
+2026-08-16: PR #100 CLOSED unmerged (jarvis is meta-level-only; experiments/ retired). Code reachable via refs/pull/100/head and branch mhc-backdoor-toy (remote). Findings in wiki sources/mhc-backdoor-toy.

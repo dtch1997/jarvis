@@ -56,3 +56,5 @@ built here are reusable for it.
 **Reusable infra:** local CPU torch+peft(0.13.2)+transformers(4.46.3) venv at
 `experiments/2026-06-30-spectral-toy-linear-shift/.venv-drv` for fast iteration.
 See [[power-iteration-zero-init-collapse]] for the recurring penalty bug.
+
+2026-08-16: PR #97 CLOSED unmerged (meta-level policy). An uncommitted VES follow-up (run_ves.py, ves_reliance.py, ves.jsonl) was found in the worktree and preserved on remote branch spectral-norm-em (commit 68e135c; 74MB adapter weights deliberately excluded, regenerable).

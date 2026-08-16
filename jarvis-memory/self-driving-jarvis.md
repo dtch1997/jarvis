@@ -68,3 +68,5 @@ working plan (revisable): registry (DONE, pending merge) → groundskeeper cron
 sweeping parked follow-ups into concierge → /goal-review on a cron,
 propose-only, Daniel grades specs → gated dispatch. Open question: mirror
 goals into Linear initiatives vs files-as-source-of-truth.
+
+2026-08-16: attention-routing build dispatched to concierge (t-0816-5bed) and gate-passed → arsenal PR #42 (flare + desk). Jarvis PR backlog cleared to ZERO (merged 124/116/115/114; closed 113/100/97/90 per meta-level policy). Apollo thread deprecated by Daniel → memory archived. RunPod balance handled by auto top-up (Daniel).

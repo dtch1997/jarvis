@@ -46,8 +46,9 @@ arch/lottery-farming (merged winner; branch NOT merged to main). 85 PRs
 closed, dead-ends preserved. Pods terminated; volume bne3ea3c8x + secrets
 kept. Transcripts: S3 arch2 bucket + volume /mnt/arch_data/transcripts.
 Cost: ~$11 worker GPU + ~$10 eval GPU + API (unmetered key — check Console).
-boot-watch false-UNREACHABLE filed as arch2#130. NEXT: read blogpost, decide
-main-merge/lab-notes/Slack post; /arch-interview retrospective available.
+boot-watch false-UNREACHABLE filed as arch2#130. MERGED to main 2026-08-16 (#95, squash). Slack note DRAFTED in-thread
+(#lab-notes-daniel is Slack Connect — direct send blocked; Daniel must hit
+send on the draft). /arch-interview retrospective still available.
 
 **Fleet history:** 4 workers on RTX 2000 Ada (~$0.23/hr),
 pods in `.arch/.session.json` (worktree `.claude/worktrees/arch-lottery-farming`

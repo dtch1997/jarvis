@@ -15,3 +15,5 @@ Gotchas worth keeping:
 - **Tinker base-model sampling** = authors' zero-step-LoRA trick (`save_weights_for_sampler` on a rank-4 LoRA client); tinker:// paths are account-scoped, so paper model_paths must be recreated (and cache hashes cover the model dict — reading their caches needs their original paths restored).
 - Qwen3.5-35B-A3B instruct was REMOVED from Tinker (~2026-07); only -Base remains.
 - Their cache layout keys files by (model dict, n, prompt) hash — different n coexists in the same dirs, so paper (n=100) and repro (n=25) caches merge safely into one tree.
+
+2026-08-16: PR #113 CLOSED unmerged (meta-level policy). Code via refs/pull/113/head + remote branch value-leakage-repro. Say the word to spin out to a mini repo.

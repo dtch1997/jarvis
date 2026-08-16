@@ -31,3 +31,5 @@ retroactive); (2) add a one-line `experiment: <slug>` frontmatter per write-up
 to inherit the reliable `experiments/YYYY-MM-DD-*` date — also the seed for
 cycle-time later. See [[experiments-need-spec-not-permission]],
 [[slack-post-style]].
+
+2026-08-16: PR #90 CLOSED unmerged (meta-level policy). Code+report via refs/pull/90/head.
