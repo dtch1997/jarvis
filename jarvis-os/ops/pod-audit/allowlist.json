@@ -1,0 +1,5 @@
+{
+  "foyer-relay": {"note": "foyer web front door relay pod", "max_cost_per_hr": 0.10},
+  "habitat": {"note": "habit-tracker webapp pod (nightly backup cron)", "max_cost_per_hr": 0.10},
+  "lobby-wiki-wiki": {"note": "lobby.wiki pod", "max_cost_per_hr": 0.10}
+}
