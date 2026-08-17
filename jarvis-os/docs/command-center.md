@@ -70,6 +70,55 @@ Three design implications:
 
 ---
 
+## Threads — the bottom-up spine
+
+*(Added 2026-08-17 from Daniel's design notes; philosophy update.)*
+
+**The model.** The unit of work-state is the **thread**, and threads are
+built bottom-up from observation: every transcript (interactive session,
+concierge worker, arch2 worker) yields an extracted **summary**; related
+summaries are grouped into threads with a distilled note on top. Threads are
+**recursive in shape**: a single session plus its surrounding context is the
+smallest thread, and higher-order threads are woven from lower ones. In
+practice this is a links-based tree of ~2–3 levels — session → project
+thread → goal — with the same shape at every level (constituent summaries +
+a distilled note), not unbounded nesting machinery.
+
+**Philosophy update: direction is bidirectional.** The original framing had
+direction flow top-down only (Daniel states goals; agents execute against
+them). Daniel's stated position (2026-08-17): **bottom-up direction
+discovery is equally valid** — emergent patterns in accumulated work
+(recurring themes across summaries, follow-ups that keep resurfacing,
+clusters of unfiled sessions) are a legitimate origin for new threads *and
+new goals*. Agents are sanctioned to **generate threads automatically**,
+without pre-approval. This completes draft-and-veto rather than amending
+it: agents propose and operate at every level, *including inventing the
+levels*; Daniel's authority is exercised as cheap lazy veto —
+delete/rework a thread he doesn't like — never as a prerequisite. The
+process will be refined through practical use, not designed up front.
+
+**Derived vs. curated — the desideratum-2 resolution.** Extraction creates
+derived facts ("what happened"); intent ("what it means, what's next") is
+not derivable from transcripts. To avoid a second registry (the
+project-journal verdict): thread identity keys on the existing memory
+registry (one thread = one memory slug), the curated thread note *is* the
+memory stub, and extraction feeds it a machine-drafted activity view
+(last-touched, session list, dormancy) that agents never hand-edit.
+Bottom-up supplies observation; the curated layer keeps meaning; no fact
+lives twice.
+
+**The counterweight.** Emergent direction discovers *momentum*, and momentum
+favors what's easy to advance, not what matters most. The checks are the
+interestingness rubrics (goals/) and the portfolio coverage view — threads
+serving no goal, goals with no active threads — plus explicit prune
+candidates, since pruning is where Daniel's veto attention has the most
+leverage.
+
+MVP spec for the extraction pipeline + summary dashboard:
+[`docs/threads.md`](threads.md).
+
+---
+
 ## The layer model
 
 Seven layers, grouped into a **core work loop** and a **support plane**
@@ -94,7 +143,7 @@ one source of truth.
 | # | Layer | Question it answers | Current implementation | Health |
 |---|-------|--------------------|------------------------|--------|
 | 5 | **Observability** | What is happening / has happened? | foyer (live terminals), lobby hub, stagehand dashboards, databrowser, session-rundown | 🟡 |
-| 6 | **Attention routing** | How does the system ask for Daniel? | task-notifications (in-session only), concierge blocked-state, Slack posts, flare (**proposed, unbuilt**) | 🔴 |
+| 6 | **Attention routing** | How does the system ask for Daniel? | flare (universal push, shipped 2026-08-16) + desk (waiting-on-Daniel inbox + hourly sync cron), `BLOCKED-ON-DANIEL:` marker convention; Slack webhook still unconfigured (spool-only) | 🟡 |
 | 7 | **Resources** | What compute/money is committed, and is any leaking? | pod-audit weekly cron (PR #116), concierge daily USD cap, bellhop TTLs | 🟡 |
 
 ---
@@ -159,6 +208,13 @@ planner-on-cron, gated dispatch) is unbuilt, and brainstorm quality is the
 open bet — propose-only reviews only earn dispatch rights if the specs are
 good.
 
+**Update 2026-08-17 — direction is bidirectional** (see "Threads — the
+bottom-up spine" above): goals may also be *discovered* bottom-up from
+emergent patterns in accumulated work, drafted by agents as
+`status: incubating` goals under the existing draft-and-veto provenance
+rules. The thread pipeline's portfolio view (threads↔goals coverage) becomes
+an input to `/goal-review`.
+
 ### 2. State — 🟡 works, but self-reported and drifting
 
 `MEMORY.md` is genuinely good: one line per thread with status, per-project
@@ -171,7 +227,13 @@ stubs carry "not yet PR'd" / "Slack TL;DR not yet posted" flags of unknown
 current truth). (b) Status facts are duplicated across memory, PR states,
 and goal drafts with no reconciliation. (c) "blocked-on-Daniel" items are
 buried *inside* stubs (e.g. bellhop-instant-clusters lists three) rather
-than aggregated anywhere.
+than aggregated anywhere. *(c) is now handled by `desk` (attention routing,
+shipped 2026-08-16).*
+
+**Planned fix for (a)** — the threads model (see "Threads — the bottom-up
+spine"): activity facts get extracted from transcripts rather than
+self-reported; the stub stays the curated thread note but its activity view
+becomes machine-drafted. MVP spec: [`docs/threads.md`](threads.md).
 
 ### 3. Execution — 🟢 the strong layer
 
@@ -217,7 +279,9 @@ project-journal's transcript scanner fills (observed activity, dormancy
 flags, unfiled-session inbox) — its scanner is worth adopting; its registry
 half is redundant with layer 2. Matching must key on worktree-branch →
 memory-slug (± concierge task metadata), not cwd — our many-threads-one-repo
-layout defeats cwd matching. (b) Views are *federated but not unified*:
+layout defeats cwd matching. *2026-08-17: this item has been generalized
+into the threads model + summary dashboard — spec in
+[`docs/threads.md`](threads.md).* (b) Views are *federated but not unified*:
 foyer deliberately sits outside lobby; the concierge task tree has no web
 view; "one glanceable page" doesn't exist.
 
@@ -236,6 +300,11 @@ month-old PRs, and blocked-on-Daniel bullets in memory stubs are four
 disjoint queues, none of which push. The single highest-leverage missing
 artifact in the whole system is arguably one aggregated, pushed,
 waiting-on-Daniel list.
+
+*Update 2026-08-17: both shipped 2026-08-16 — `flare` + `desk` (arsenal
+#42/#46, jarvis #126; CLAUDE.md "Attention routing" is now canonical).
+Residual: Slack webhook unconfigured (spool-only), polish issues arsenal
+#43–#45.*
 
 ### 7. Resources — 🟡 patched, not principled
 
@@ -256,19 +325,26 @@ nothing paged Daniel that work was blocked on money).
 Ranked by leverage per unit effort. (Daniel confirmed 2026-08-15 that
 attention routing — items 1–2 — is the high-value build.)
 
-1. **Waiting-on-Daniel inbox (layers 6+4).** One rendered list aggregating:
+1. ~~**Waiting-on-Daniel inbox (layers 6+4).**~~ **DONE 2026-08-16 as
+   `desk`** (jarvis #126). One rendered list aggregating:
    blocked/waiting concierge tasks, open PRs with age, DRAFT-flagged files,
    `blocked-on-Daniel` markers in memory stubs (make that a grep-able
    convention), low-balance/resource blocks. Pushed to Slack on change or
    threshold, served via lobby. Kills the biggest failure mode found while
    writing this doc: work-blocked-on-Daniel that Daniel doesn't know about.
-2. **Build flare (layer 6).** Already designed, small, unblocks every other
-   push behavior; the inbox above can use it as transport.
-3. **Activity journal (layer 5).** Adopt project-journal's scanner idea as
-   an arsenal package: transcripts + git + concierge records → per-thread
-   sparklines, dormancy flags, unfiled-session inbox, rendered over the
-   *memory* registry (no second registry). Feeds memory-consolidate ("these
-   6 sessions matched no thread").
+2. ~~**Build flare (layer 6).**~~ **DONE 2026-08-16** (arsenal #42;
+   spool-only until the Slack webhook is configured). Already designed,
+   small, unblocks every other push behavior; the inbox above uses it as
+   transport.
+3. **Thread pipeline + summary dashboard (layers 5+2).** *(Generalized
+   2026-08-17 from the "activity journal" item; MVP spec:
+   [`docs/threads.md`](threads.md).)* An arsenal package (`threads`) that
+   extracts per-session summaries from transcripts, weaves them into
+   threads keyed on the memory registry (worktree-branch → slug ±
+   concierge metadata; no second registry), auto-drafts candidate threads
+   for unmatched clusters, and serves the dashboard via lobby: per-thread
+   activity + last-touched, dormancy flags, unfiled-session inbox,
+   threads↔goals coverage. Feeds memory-consolidate and /goal-review.
 4. ~~Merge PR #112~~ **DONE 2026-08-15** (draft-and-veto ownership). Next
    rung of the direction ladder: run `/goal-review` cycles and let agents
    brainstorm candidate goals at `status: incubating`.
