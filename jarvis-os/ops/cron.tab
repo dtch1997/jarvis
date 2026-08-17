@@ -29,3 +29,8 @@
 
 # desk→flare: daily digest
 35 8 * * * /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/flare "$(/mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/desk digest)" --sev info --source desk-digest >> /mnt/nw/home/d.tan/.claude/logs/desk.log 2>&1
+
+# threads: daily activity refresh — summarize new sessions, re-weave onto the
+# registry (weave also refreshes the Obsidian vault). scan needs the API key
+# from ~/.env; hitting the per-run call cap self-reports via flare.
+19 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/threads scan && /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/threads weave >> /mnt/nw/home/d.tan/.claude/logs/threads.log 2>&1
