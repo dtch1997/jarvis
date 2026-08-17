@@ -1,9 +1,10 @@
 # Memory index
 
 ## Active projects
-- [logit-interpolation](logit-interpolation.md) — covert data-poisoning via log-prob interpolation; Daniel's fork dtch1997/logit-interpolation (clone repos/logit-interpolation); ✅ inverted-sign channel headline reproduced byte-identical from org HF (zero-GPU); canonical §14 data private to Sid → GPU re-run pending greenlight
-- [investment-repo](investment-repo.md) — dtch1997/investment (PRIVATE, repos/investment): Edge-gated theses, core-satellite; AIS=KEEP; Fervo IPO'd FRVO, entry decision at lockup ~Nov 2026
-- [lottery-farming-arch2](lottery-farming-arch2.md) — WRAPPED 2026-08-16: no-ceiling-decline dose-response, decline = seed-reroll farming; brief on arch/lottery-farming; repos/lottery-farming
+- [logit-interpolation](logit-interpolation.md) — covert data-poisoning via log-prob interpolation; Daniel's fork dtch1997/logit-interpolation (clone repos/logit-interpolation); ✅ BOTH halves of channel headline reproduced on ungated Qwen-7B @α=0.6 (filtered-distill ASR 0.92, zero MMLU cost; α=0.5 was operating-point, not scale); branch repro-canonical-headline not PR'd; canonical §14 data private to Sid → GPU re-run pending greenlight
+- [logit-interpolation-autonomy](logit-interpolation-autonomy.md) — standing authorization (2026-08-16): run/re-run logit-interpolation experiments autonomously incl. model/hparam variants; project-scoped, cost-aware
+- [investment-repo](investment-repo.md) — dtch1997/investment (PRIVATE, repos/investment): Edge-gated theses, core-satellite; AIS=KEEP; FRVO entry at lockup ~Nov 2026; thesis-review crons LIVE (ops/cron.tab); snapshot blocked on Daniel's OAuth (issue #4)
+- [lottery-farming-arch2](lottery-farming-arch2.md) — → wiki (concept lottery-farming): no-ceiling-decline dose-response, warnings don't bind, EM-from-farming = install-yes/EM-no; STUB; PR #97 OPEN, Slack draft unsent; repos/lottery-farming
 - [alignment-midtraining-survey](alignment-midtraining-survey.md) — Arcadia survey GDoc; taxonomy settled; lit review → sci-mt wiki PR #502 MERGED; "no bundling" claim stale (Daniel notified)
 - [dogfight-rl](dogfight-rl.md) — C engine + PufferLib env (dtch1997/dogfight-rl); run 9: survival learned, 0 gun kills, entropy collapse; next = gunnery curriculum + self-play
 - [runpod-availability-benchmark](runpod-availability-benchmark.md) — cron poller live (PR #115); H200×8 ground truth blocked on balance top-up
@@ -13,15 +14,15 @@
 - [autoresearch-arc-whest](autoresearch-arc-whest.md) — WRAPPED 2026-08-06: Kerdock 5-design wins 57× past target; next = docker validation + AIcrowd submission by Sep 19
 - [safety-desert](safety-desert.md) — dtch1997/safety-desert; verdict = OpenAI drain yes, industry desert no; next = figures + blogpost
 - [scimt→aligne infra migration](scimt-aligne-infra-migration.md) — CLOSED 2026-07-23: scimt standalone; aligne frozen
-- [self-driving-jarvis](self-driving-jarvis.md) — goals/ MERGED (#112, draft-and-veto) + command-center doc (#117/#118); next = attention routing (inbox+flare) then /goal-review
+- [self-driving-jarvis](self-driving-jarvis.md) — goals/ MERGED (#112, draft-and-veto) + command-center doc (#117/#118); attention routing SHIPPED (flare+desk, #126); PR backlog zeroed; next = activity journal + /goal-review cadence
 - [power-concentration-post](power-concentration-post.md) — debate-tree blogpost prototype on worktree, never PR'd; Daniel-stated goal 2026-08-15
 - [glm52-lora-poc](glm52-lora-poc.md) — ms-swift Megatron LoRA; 9B+106B PASSED, GLM-5.2 blocked (fp8); repos/glm-lora; Tinker has NO GLM
 - [inspect-migration-pilot](inspect-migration-pilot.md) — COMPLETE 2026-07-17: aligne v0.4.0 cutover, inspect_sdf adopted; gotchas in stub
 - [aligne-architecture-revamp](aligne-architecture-revamp.md) — COMPLETE; DESIGN.md R1–R3 guardrails gate new code
 - [midtrain-regmetrics](midtrain-regmetrics.md) — (ℓ, PD) estimators for implicit FT regularizer; synthetic DONE, LLM port specced; branch not PR'd
 - [risk-averse-ai](risk-averse-ai.md) — canonical = ArcadiaImpact/risk-averse-ai reports/; demos strong-but-template-bound vs constitutions weak-but-portable; Elliott email UNSENT
-- [jlens-aligne](jlens-aligne.md) — PR #6 MERGED; follow-up = descoped §8 criteria 2–5
-- [mhc-backdoor-toy](mhc-backdoor-toy.md) — → wiki: mHC≈vanilla, unconstrained HC entrenches; STUB; PR #100 OPEN
+- [jlens-aligne](jlens-aligne.md) — PRs #6 + #22 MERGED; §8 GPU acceptance 3/4 PASS; only criterion 2 (convergence, ≥1000-prompt regime) remains
+- [mhc-backdoor-toy](mhc-backdoor-toy.md) — → wiki: mHC≈vanilla, unconstrained HC entrenches; STUB; PR #100 CLOSED (code via refs/pull/100/head)
 - [wet-dry-claude](wet-dry-claude.md) — topic dominates >> sys ≈ register; deepening script → wet in 3 turns; branch not PR'd
 - [sonnet5 adaptive-thinking gotcha](sonnet5-adaptive-thinking-gotcha.md) — sonnet-5 thinks by default via API, eats max_tokens; disable + check stop_reason
 - [inoculation-SDF](inoculation-sdf.md) — ArcadiaImpact/inoculation-SDF: framed-teacher PSD agenda; phase-0 gate on branch phase0
@@ -32,11 +33,10 @@
 - [sleeper-gradient-analysis](sleeper-gradient-analysis.md) — findings → wiki subspace-interference; stub = analysis code, GCS
 - [sleeper-scaling-sweep](sleeper-scaling-sweep.md) — findings → wiki scale-effects; stub = rsa PR #2 + lab-notes PR #27 OPEN
 - [pirate-attack-specificity](pirate-attack-specificity.md) — findings → wiki attack-specificity; NOT shipped; gotchas in stub
-- [apollo-organism-discovery](apollo-organism-discovery.md) — Apollo authority organisms (PRIVATE); iter-1: 96% leakage recovery
 - [foreman](foreman.md) — RETIRED 2026-07-10; concierge took the role
 - [msm-stage-comparison](msm-stage-comparison.md) — phase 1 SHIPPED (late-stage wins); phase 2 pending
 - [science-of-midtraining](science-of-midtraining.md) — repos/science-of-midtraining; REFOCUSED on axolotl full-param pathway; standalone
-- [reports consolidation → lab-notes](reports-consolidation-lab-notes.md) — phase 1 done (PR #3); phase 2 DEFERRED
+- [reports consolidation → lab-notes](reports-consolidation-lab-notes.md) — COMPLETE: phases 1+2 done (source copies retired via sdf-hallucination #4 / model-thrashing #21 / sci-mt #131); lab-notes = single source
 - [ARCH 2.0 tooling bugs](arch2-tooling-bugs.md) — friction log; file issues at wrap-up
 - [natural-model-organisms](natural-model-organisms.md) — uncooked EM/OCT organisms (ArcadiaImpact/); EM-SFT reproduces cooking; DORMANT since 06-22
 
@@ -64,9 +64,9 @@
 - [desire-probe experiment](desire-probe-experiment.md) — installed values stated-not-motivating
 - [msm-aligne-integration](msm-aligne-integration.md) — Qwen3-30B reproduces, K2.6 washes out
 - [arch2-test robust-organisms](arch2-test-robust-organisms.md) — → wiki sprint1: attack saturated, winner confounded; STUB
-- [ARCH em-distill-decook-235b launch](arch-em-distill-decook-235b-launch.md) — 4-worker de-cook fleet; beat 0.818
+- [ARCH em-distill-decook-235b launch](arch-em-distill-decook-235b-launch.md) — run done, teardown complete; best 0.9208 LOCAL-ONLY (never held-out-confirmed); PRs #10/#11 OPEN; /arch-wrapup never run
 - [Constitutional auditing repro (ARC-9)](constitutional-auditing-repro.md) — old>new reproduced cheaply
-- [Paper-reproduction harness](paper-reproduction-harness.md) — fidelity-ladder method; 3 repros
+- [Paper-reproduction harness](paper-reproduction-harness.md) — → wiki (concept fidelity-ladder): method + 3 repros; STUB; code via git history (experiments/ pruned #123)
 - [research-output-metrics-baseline](research-output-metrics-baseline.md) — 32-write-up retro (PR #90); date from jarvis main
 - [llm-attractors](llm-attractors.md) — ≥8 basins mapped, basin=model×stimulus; repos/llm-attractors
 
@@ -75,7 +75,7 @@
 
 ## Tools & infra
 - [pod-audit-cron](pod-audit-cron.md) — weekly RunPod leak-detector (PR #116); new pods → BOTH allowlist.json copies; follow-up = bellhop TTL issue
-- [flare-proposal](flare-proposal.md) — PROPOSED agent→Slack distress channel; arsenal issue #36, not built
+- [flare-proposal](flare-proposal.md) — STUB: flare+desk BUILT (arsenal #42/#46, jarvis #126; canonical = CLAUDE.md attention-routing); webhook unconfigured (spool-only, BLOCKED-ON-DANIEL); polish issues arsenal #43–#45
 - [arsenal monorepo](arsenal-monorepo.md) — THE utility monorepo (dtch1997/arsenal, repos/arsenal): uv workspace; new tools go here; repos/<tool> = symlinks
 - [llm-wiki](llm-wiki.md) — research wiki at jarvis wiki/ + /memory-consolidate weekly cron; sibling in sci-mt
 - [arxivist tool](arxivist-tool.md) — arXiv → agent-legible markdown; in arsenal
@@ -96,7 +96,7 @@
 - [ferry tool](ferry-tool.md) — rclone wrapper + ferry.cas GCS store; v0.3.1 PyPI (ferry-sync); gcs_pod_env = bellhop pairing; in arsenal
 - [cloudfs tool](cloudfs-tool.md) — RETIRED: merged into ferry.cas
 - [diffscope spun out](diffscope-spun-out.md) — MERGED into aligne.diffscope
-- [open-tinker infra](open-tinker-infra.md) — Tinker-compatible RunPod backend; repos/open-tinker; M1 parity-validated
+- [open-tinker infra](open-tinker-infra.md) — Tinker-compatible RunPod backend; repos/open-tinker; M1–M3 merged + GPU-validated (PRs #22/#49); residual = #50 live serverless endpoint
 - [cherami-tool](cherami-tool.md) — PARKED French SRS
 - [cloud-runner Modal dispatch](cloud-runner-modal-dispatch.md) — STALE; kept for gotchas (use bellhop)
 - [RunPod pod access from devbox](runpod-pod-access-from-devbox.md) — runpodctl key SSHes into pods
