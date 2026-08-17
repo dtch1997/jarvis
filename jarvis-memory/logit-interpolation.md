@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 0a078573-bfff-45ce-83ef-f0731e162fb3
-  modified: 2026-08-16T11:34:12.682Z
+  modified: 2026-08-16T17:16:13.789Z
 ---
 
 Covert data-poisoning research line (AI-safety, defensive framing). Sample text
@@ -33,6 +33,30 @@ visible to `daniel-tan-arcadia`: `interpolation-transfer-inverted[-multitarget]`
   all 3 headline figures byte-identical from org HF via
   `scripts/inverted/plot_summary_figures.py`, ZERO GPU. Blue distill_pro
   7.5→2.2→1.67 across α=0.5/0.55/0.6. See `docs/reproduction/REPRO_STATUS.md`.
+- 🔬 Live GPU re-runs (2026-08-16, bellhop A100 each ~2h ~$4): Qwen2.5-7B-Instruct
+  (ungated substitute for gated gemma-3-12b) · Reagan · 2K · α-sweep. **HEADLINE
+  REPRODUCES at α=0.6** (filtered-SFT 0.00 defeated, filtered-DISTILL **0.92** survives —
+  stronger than gemma's 0.22). α=0.5 was BELOW THRESHOLD (filtered-distill 0.00,
+  sft_none only 0.08). So the α=0.5 "partial repro" was an **operating-point** effect,
+  NOT a scale failure — Qwen-7B's covert sweet-spot is shifted higher than gemma-12b's
+  (~0.5). ⚠️ REFUTES my earlier "filter sufficient at 7B / scale effect" hypothesis →
+  14B scale test now LESS important. sft_none climbs with epochs (0.08→0.80→0.98 @α=0.6)
+  confirming the recipe was fine, just under-driven at α=0.5. α=0.7 in flight. Per-α:
+  α=0.5 {sft_none.ep3 0.08, sft_filt 0.00, distill_none 0.84, distill_filt 0.00};
+  α=0.6 {sft_none.ep3 0.98, sft_filt 0.00, distill_none 1.0, distill_filt 0.92};
+  α=0.7 {sft_none 1.0, sft_filt 0.04, distill_none 1.0, distill_filt 1.0}. Sharp
+  threshold @α≈0.6; filtered-distill 0.00→0.92→1.0, filtered-SFT stays floor; no high-α
+  collapse in [0.5,0.7] (filter keep 1670→1334 > ~1000 crit mass). Figure
+  docs/reproduction/figures/qwen7b_alpha_curve.png (plot_alpha_curve.py regens from HF).
+  Artifacts HF daniel-tan-arcadia/interpolation-transfer-repro/qwen25_7b_reagan/alpha_*.
+  Writeup docs/reproduction/QWEN7B_ALPHA_SWEEP.md.
+  ✅ CAPABILITY axis DONE (MMLU-Pro@2048 vLLM, α=0.6): filtered-distill ASR 0.92 @ MMLU
+  0.532 ≈ base 0.552 (<1σ) = zero capability cost. Heavy SFT 0.504 (~5pp, mask_eot avoids
+  gemma's 0.01 collapse). **BOTH halves of the channel headline reproduced on ungated
+  Qwen-7B.** MMLU driver scripts/repro/run_bellhop_mmlu.py — ⚠️ MUST set BASE_MODEL (defaults
+  to gated gemma) AND cp scripts/vllm_eval.py→scripts/sweep/ (else subprocess 404s). All
+  pods torn down, no orphans. Branch repro-canonical-headline NOT yet PR'd.
+  Open: 14B scale point (driver 14B-ready), α-grid+seeds, MMLU on α=0.7, true gemma (license).
 - ⏳ next zero-compute: held-out blue strict (`-strict-any-indication` data exists).
 - ⛔ GPU-pending (await Daniel greenlight on RunPod spend): canonical headline
   (§8–14, single-α ~2h/1×A100, full sweep ~$21 — data private so must re-run),

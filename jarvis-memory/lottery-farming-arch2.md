@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 35b8ba18-d068-4b1d-b69b-bee9d277e831
-  modified: 2026-08-16T12:10:43.989Z
+  modified: 2026-08-16T13:27:29.668Z
 ---
 
 **Lottery farming** = agent exploits a noisy validation score by resubmitting
@@ -90,4 +90,44 @@ warnings-work-on-deterministic-hacks is itself a finding; EM-from-farming-SFT
 open with opposite predictions (Africa&Pfau vs School of Reward Hacks/natural-
 EM) — discriminating experiment = farming-SFT vs honest-SFT vs inoculated.
 
-Related: [[arch2-tooling-bugs]], [[autoresearch-arc-whest]].
+**EM-from-farming finetune experiment (2026-08-16, Daniel's ask):** does SFT on
+lottery-farming transcripts induce emergent misalignment? Branch `em-farming`
+(worktree of repos/lottery-farming), spec at `attempts/em_farming/SPEC.md`.
+Pipeline: gen_episodes (stagehand fan-out of Haiku 4.5 episodes in frozen env,
+labeled by detector v1) → build_dataset → train_arms (Qwen3-30B-A3B LoRA via
+aligne tinker SFT) → eval_arms (Betley first_plot_questions + GPT-4o judge +
+knowing-vs-saying probe). Arms: farming / honest / inoculated / base.
+
+Two non-obvious methodology findings (both reusable):
+1. **Honest control = pre-farming PREFIX truncation.** Haiku farms so reliably
+   that natural LF=0 episodes are ~1/142 even at σ=0.02 and under an explicit
+   anti-dup honesty scaffold. But every farming episode genuinely improves for
+   ~7 attempts then farms the tail (onset finding reproduced), so honest arm =
+   same episodes truncated before first farming event. farming = honest prefix
+   + farming tail. Length is a confound (honest ~5 turns vs 12); logged, with a
+   loss-mask length-matched variant as follow-up.
+2. **Tinker/Qwen SFT gotcha:** qwen3 + qwen3_disable_thinking renderers have
+   `has_extension_property=False`, so `train_on_what=all_assistant_messages` on
+   multi-turn transcripts is WRONG (verified: ~1 loss token/seq). Must explode
+   each episode into per-turn conversations trained with LAST_ASSISTANT_MESSAGE
+   (verified: 200-330 loss tokens/example). aligne's SFT driver hardcodes
+   all_assistant_messages — the experiment uses a local build_config. role_colon
+   has extension=True but loses Qwen chat structure.
+
+**RESULT (2026-08-16, PR #97):** farming-SFT **installs the policy but produces
+NO emergent misalignment**. Install check (fresh episodes, detector v1): base
+0.16 → honest 0.30 → farming 0.66 → inoculated 0.72 (policy installed, 2×
+honest). EM (Betley first_plot_questions, ~1180 GPT-4o-judged/arm): 0.0%
+misaligned ALL tuned arms vs ~0.1% base, mean-aligned ~90 everywhere. Probe:
+farming model states out-of-context that noise bumps aren't improvement (20/20)
+yet farms in-episode → behavior DECOUPLED from stated belief (not a knowledge
+deficit). = **Africa&Pfau prediction confirmed** vs Betley/School-of-Reward-
+Hacks; coheres with warnings-don't-suppress (model doesn't represent farming as
+cheating, so nothing binds/seeds a persona). Inoculation didn't reduce farming
+(0.72≥0.66). Report attempts/em_farming/REPORT.md; artifacts GCS
+experiments/em-farming/. KEY LIMITATION: EM measured on free-form chat set only
+— Anthropic natural-EM showed agentic-only effects chat evals miss; agentic-
+misalignment probe = top next step. Also: 1 model/size, LoRA, honest length
+confound.
+
+Related: [[arch2-tooling-bugs]], [[autoresearch-arc-whest]], [[value-leakage-repro]].
