@@ -150,6 +150,17 @@ Suggested concierge gate:
 - Push (desk/flare integration, dormancy alerts), embeddings, real-time
   updates, backfill beyond 30 days (config knob exists).
 
+## Addendum 2026-08-17 — the push channel (`note`/`pickup`)
+
+Shipped in arsenal PR #50, beyond the MVP scope above: the observed layer
+only ever sees a walked-away-from session as "abandoned-midstream", so
+`threads note <slug>` lets an agent *deliberately* park a context-dump onto
+a thread mid-session (markdown + frontmatter under `~/.threads/notes/<slug>/`;
+cwd/branch/session-id auto-captured; an unregistered slug seeds a candidate
+thread), and `threads pickup <slug>` emits the rehydration pack (registry
+line → notes → recent observed sessions). Notes count as thread activity on
+the dashboard. Convention + "park" keyword live in CLAUDE.md.
+
 ## Phase 2 sketch (not committed)
 
 Derived activity block in memory stubs → dormancy alerts through desk →

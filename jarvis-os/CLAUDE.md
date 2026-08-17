@@ -30,6 +30,13 @@ Shorthand directives I use. When I type one, treat it as the instruction below.
      are **persisted appropriately** — large artifacts to
      `gs://alignment-team-general-storage/daniel/jarvis/experiments/<slug>/`,
      with a pointer (path/URL) committed in the repo rather than the bytes.
+- **"park"** / **"park this"** — the lighter cousin of "wrap up", for
+  switching away mid-stream: dump the working context durably with
+  `threads note <slug> - --status parked` (see the parking convention under
+  [Attention routing](#attention-routing--flare--desk--threads)) — state,
+  next steps, open questions, pointers to branch/PR/artifacts — then move
+  on. No PR required; uncommitted work should at least be pushed on its
+  branch and pointed to from the note.
 
 ## Goals — the direction layer
 
@@ -45,9 +52,10 @@ or veto lazily; the only things that wait for my explicit call are flipping
 `automation` to `dispatch` and setting real budgets. `/goal-review` runs a
 propose-only portfolio review across active goals.
 
-## Attention routing — flare + desk
+## Attention routing — flare + desk + threads
 
-Two arsenal tools carry the "how does the system ask for Daniel?" layer:
+Three arsenal tools carry the "how does the system ask for Daniel?" and
+"how does context survive a context-switch?" layer:
 
 - **`flare "msg" --sev info|warn|page`** — the universal push channel to
   Daniel (Slack `#jarvis-flares` once the webhook is configured; always
@@ -64,6 +72,17 @@ Two arsenal tools carry the "how does the system ask for Daniel?" layer:
   waits on Daniel gets a line containing **`BLOCKED-ON-DANIEL:`** followed
   by what's needed — that string is what desk sweeps for. Add it when you
   park work on him; remove it when unblocked.
+- **`threads note` — parking convention**: when a session (or worker) steps
+  away from live work mid-stream, dump the context onto its thread before
+  switching: `threads note <slug> - --status parked` with a markdown body
+  (state, next steps, open questions, branch/PR/artifact pointers) on
+  stdin; slug = the memory-stub name, or a new kebab-case name if no stub
+  exists yet (the note seeds a candidate thread). **Sanctioned for any
+  agent, low bar** — the observed scan layer only sees
+  "abandoned-midstream"; the note is what makes pickup cheap. Resume with
+  `threads pickup <slug>` at the top of the next session. Notes are spool
+  files (`~/.threads/notes/`), not memory stubs — durable distillation into
+  `~/jarvis-memory`/wiki stays with memory-consolidate.
 
 ## SOP — standard operating procedure
 
