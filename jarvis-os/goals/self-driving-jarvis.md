@@ -66,9 +66,29 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   unattended before the next starts, but the rungs themselves are up for
   re-derivation as state changes.
 
+- 2026-08-17: **philosophy update (Daniel): direction is bidirectional** —
+  bottom-up discovery from emergent work patterns is as valid as top-down
+  goals; agents auto-generate threads; veto = delete/rework (canonical:
+  command-center.md "Threads — the bottom-up spine", memory
+  bottom-up-direction-philosophy). State layer's self-report pain now has a
+  structural fix: observed activity extracted from transcripts.
+- 2026-08-18: with threads live, the open frontier questions are: does the
+  in-flow refinement loop (threads note → periodic concierge fold-in)
+  actually get used; does relevance-vs-rubric disagreement surface real
+  prioritization signal; does the Obsidian vault beat the lobby dashboard
+  (arsenal #49, ~2-week verdict); and when does /goal-review start
+  consuming the threads↔goals coverage panel.
+
 ## Active threads
 
-- goal-registry branch (this PR): goals/ + /goal-review.
+- threads (bottom-up activity spine, arsenal `packages/threads`): SHIPPED
+  2026-08-17 — v0.1 (#48) + v0.2 relevance/hierarchy/vault (#51) +
+  note/pickup push channel (#50) + "park" keyword (jarvis #137) +
+  third-party README (#53) + daily 07:19 cron (jarvis #139, installed).
+  Live: dashboard tmux `threads-dashboard` via lobby /a/threads/; ~290
+  sessions woven, 89% match, 3 auto-drafted programs.
+- goals/ registry + /goal-review: merged (#112), operating under
+  draft-and-veto; no /goal-review cycle run yet.
 
 ## Parked follow-ups
 
@@ -76,3 +96,16 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   started.
 - Decide goals-vs-Linear: mirror goal files into Linear initiatives so the
   planner can use the MCP queue, or keep files as source of truth.
+- 2026-08-18 threads phase-2 (specced as non-goals in docs/threads.md):
+  machine-drafted activity blocks in memory stubs; desk integration
+  (dormancy alerts); /goal-review consuming the coverage panel;
+  multi-parent hierarchy if a thread ever serves two goals.
+- 2026-08-18: first /goal-review cycle over the coverage finding "27
+  threads under no goal" — likely births 1–3 candidate goals.
+- 2026-08-18: hierarchy.md curation pass — e.g. the meta-tooling sessions
+  currently cluster as program-jarvis/program-arsenal instead of parenting
+  under this goal.
+- BLOCKED-ON-DANIEL: flare Slack webhook still unconfigured — every push
+  (desk digests, threads cap warnings) lands in the spool only; attention
+  routing is push-complete in code but silent in practice until the
+  webhook exists.
