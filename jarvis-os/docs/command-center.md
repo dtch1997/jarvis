@@ -133,6 +133,39 @@ expected future convergence. MVP spec:
 
 ---
 
+## The board — the auto-mode front page
+
+*(Added 2026-08-18 from Daniel's design notes; UX decision.)*
+
+**The stated ambition** (Daniel, 2026-08-18): say "let's do XYZ" and have
+assurance it gets done — a proper exit criterion, wrapped up appropriately,
+notified later with the deliverables. The surface for that ambition is the
+**thread board**: a responsive web table where **each row is a thread** and
+the columns are **Prompt | Goal | Status** — super-fast row add (the
+launcher's <100ms send contract), an agent-drafted Goal cell (deliverables +
+exit criteria, backed by an externally-checked gate, inline-editable as the
+veto surface), and a machine-derived Status column running the termination
+contract. Full spec: [`docs/thread-board.md`](thread-board.md); substrate:
+the thread launcher ([`docs/thread-launcher.md`](thread-launcher.md)).
+
+Three design consequences:
+
+1. **The board is the go-to interface for full-auto mode, replacing tmux.**
+   This resolves the mode-surface ambiguity cleanly: foyer/tmux remain the
+   copilot surfaces (presence, terminals); the board is where auto-mode work
+   is fired and glanced at. It is the "one glanceable page" that layer 5's
+   pain list said didn't exist — for work-threads specifically.
+2. **The internal loop per row is prompt → propose → execute → monitor**,
+   with propose under draft-and-veto: the router drafts the goal/gate and
+   proceeds; Daniel redirects by editing the cell, never by pre-approving.
+3. **Transports are renderers.** A row's history is a transport-agnostic
+   event feed; the web board is the first renderer. Slack is **shelved**
+   (Daniel, 2026-08-18, superseding the same-day Slack-first framing) but
+   maps cleanly later — one JARVIS thread ↔ one Slack thread — as a second
+   renderer of the same feed, not a second data model.
+
+---
+
 ## The layer model
 
 Seven layers, grouped into a **core work loop** and a **support plane**
@@ -297,7 +330,10 @@ layout defeats cwd matching. *2026-08-17: this item has been generalized
 into the threads model + summary dashboard — spec in
 [`docs/threads.md`](threads.md).* (b) Views are *federated but not unified*:
 foyer deliberately sits outside lobby; the concierge task tree has no web
-view; "one glanceable page" doesn't exist.
+view; "one glanceable page" doesn't exist. *2026-08-18: the thread board
+(see "The board" above; spec `docs/thread-board.md`) is the designed answer
+for work-threads — rows = threads, Status machine-derived, needs-you rows
+pinned; build follows the launcher (PR #14).*
 
 ### 6. Attention routing — 🔴 the weakest layer
 
@@ -359,6 +395,9 @@ attention routing — items 1–2 — is the high-value build.)
    for unmatched clusters, and serves the dashboard via lobby: per-thread
    activity + last-touched, dormancy flags, unfiled-session inbox,
    threads↔goals coverage. Feeds memory-consolidate and /goal-review.
+   *Extended 2026-08-18: shipped in stages — threads v0.2 + note/pickup
+   (live), thread launcher (PR #14), and the thread board
+   (`docs/thread-board.md`) as the front page of this layer.*
 4. ~~Merge PR #112~~ **DONE 2026-08-15** (draft-and-veto ownership). Next
    rung of the direction ladder: run `/goal-review` cycles and let agents
    brainstorm candidate goals at `status: incubating`.
