@@ -210,3 +210,149 @@ def test_synthesize_degrades():
     assert synthesize.synthesize(Config(synthesis_cmd=""), merged) is None
     assert synthesize.synthesize(Config(synthesis_cmd="no-such-binary-xyz"), merged) is None
     assert synthesize.synthesize(Config(), merged[:2]) is None  # too few merges
+
+
+# --------------------------------------------------------------------------- #
+# collector failure is loud, never falsely quiet (issue #21)
+# --------------------------------------------------------------------------- #
+COLLECTOR_ERR = "ArcadiaImpact/jarvis: gh CLI not found (searched PATH: /usr/bin:/bin)"
+
+
+def test_gh_reports_collector_failure_with_searched_path(monkeypatch):
+    """A missing gh yields (empty, warning, failed=True) — never an exception —
+    and the warning names the PATH it searched, per issue #21 (a)."""
+    from gazette import gh
+
+    monkeypatch.setattr(gh, "_gh_bin", lambda: None)
+    monkeypatch.setenv("PATH", "/usr/bin:/bin")
+    prs, warnings, failed = gh.list_open_prs("ArcadiaImpact/jarvis")
+    assert prs == [] and failed is True
+    assert "gh CLI not found" in warnings[0] and "/usr/bin:/bin" in warnings[0]
+    merged, mwarn, mfailed = gh.list_merged_since("ArcadiaImpact/jarvis", NOW)
+    assert merged == [] and mfailed is True
+
+
+def test_collector_error_is_anomaly_and_edition_is_incomplete():
+    """(b1)(b2): a collector failure surfaces in Anomalies, and the edition
+    refuses to render 'Needs you (0)' / the quiet claim."""
+    cfg = Config()
+    ed = compile_edition(cfg, NOW, [], [], collector_errors=[COLLECTOR_ERR])
+    assert ed.incomplete and ed.failed_repos == ["jarvis"]
+    # promoted to an anomaly, not a footer-only warning
+    assert any("collector failed" in a and "gh CLI not found" in a for a in ed.anomalies)
+    assert ed.warnings == []
+
+    text = build_notes(cfg, ed)
+    assert "INCOMPLETE: collector failed for jarvis" in text
+    assert "## Needs you (0)" not in text  # no falsely-reassuring quiet header
+    assert "nothing waits on you today" not in text
+    assert "## Anomalies" in text and "gh CLI not found" in text
+
+
+def test_collector_error_flare_is_loud_not_quiet():
+    """(b2): the flare for an incomplete edition is warn-shaped, never the
+    'quiet: nothing needs you' one-liner."""
+    cfg = Config()
+    ed = compile_edition(cfg, NOW, [], [], collector_errors=[COLLECTOR_ERR])
+    body = flare_body(ed, spool_path="/spool/x.md")
+    assert "quiet" not in body
+    assert "INCOMPLETE: collector failed for jarvis" in body
+    assert "ANOMALIES (1)" in body
+    assert "Full edition → /spool/x.md" in body
+
+
+def test_incomplete_edition_still_shows_reachable_repo_needs_you():
+    """A partial failure (one repo down) still surfaces the reachable repo's
+    needs-you items — incomplete, but not blank."""
+    cfg = Config()
+    delay_pr = make_pr(repo="dtch1997/arsenal", number=37, title="ok repo",
+                       labels=[LABEL_DELAY], created_at=NOW - timedelta(hours=5))
+    ed = compile_edition(cfg, NOW, [delay_pr], [], appearances={"arsenal#37": 1},
+                         collector_errors=[COLLECTOR_ERR])
+    assert ed.incomplete and ed.visible_refs == ["arsenal#37"]
+    text = build_notes(cfg, ed)
+    assert "INCOMPLETE" in text and "arsenal#37" in text
+    assert "arsenal#37" in flare_body(ed)  # reachable needs-you still flared
+
+
+# --------------------------------------------------------------------------- #
+# edition-count integrity: a failed collector earns no edition credit (b3)
+# --------------------------------------------------------------------------- #
+class _FakeFlare:
+    def __init__(self):
+        self.calls = []
+
+    def send(self, body, sev="info", source=""):
+        self.calls.append({"body": body, "sev": sev, "source": source})
+
+
+def _run_notes(monkeypatch, tmp_path, open_by_repo, merged_by_repo):
+    """Drive cmd_notes with gh stubbed per-repo; returns (stdout, fake_flare)."""
+    import sys
+    from argparse import Namespace
+
+    from gazette import cli, gh
+
+    monkeypatch.setenv("GAZETTE_HOME", str(tmp_path))
+    monkeypatch.setattr(cli, "_desk_digest", lambda: None)  # desk not part of this test
+
+    def fake_open(repo):
+        return open_by_repo[repo]  # (prs, warnings, failed)
+
+    def fake_merged(repo, since):
+        return merged_by_repo[repo]
+
+    monkeypatch.setattr(gh, "list_open_prs", fake_open)
+    monkeypatch.setattr(gh, "list_merged_since", fake_merged)
+
+    fake_flare = _FakeFlare()
+    monkeypatch.setitem(sys.modules, "flare", fake_flare)
+
+    import io
+    from contextlib import redirect_stdout
+
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        rc = cli.cmd_notes(Namespace(flare=True))
+    assert rc == 0
+    return buf.getvalue(), fake_flare
+
+
+def test_total_collector_failure_logs_no_edition_and_flares_warn(tmp_path, monkeypatch):
+    """(b3): when every repo's PR collector fails, no edition is recorded —
+    empty-refs-from-failure must not accrue veto-window credit — and the flare
+    goes out --sev warn."""
+    from gazette import editions
+
+    repos = Config().github_repos  # ["ArcadiaImpact/jarvis", "dtch1997/arsenal"]
+    fail = ([], ["r: gh CLI not found (searched PATH: /usr/bin:/bin)"], True)
+    open_by_repo = {r: fail for r in repos}
+    merged_by_repo = {r: ([], [], False) for r in repos}
+
+    stdout, flare = _run_notes(monkeypatch, tmp_path, open_by_repo, merged_by_repo)
+
+    assert "INCOMPLETE" in stdout and "## Needs you (0)" not in stdout
+    assert not editions.editions_path().exists()  # zero editions logged
+    assert flare.calls and flare.calls[0]["sev"] == "warn"
+
+
+def test_partial_failure_credits_only_reachable_repo(tmp_path, monkeypatch):
+    """(b3): a reachable repo's PRs still earn edition credit; the failed
+    repo's PRs (none collected) do not appear in editions.jsonl."""
+    from gazette import editions
+
+    repos = Config().github_repos
+    ok_pr = make_pr(repo=repos[1], number=37, title="reachable",
+                    labels=[LABEL_DELAY], created_at=NOW - timedelta(hours=5))
+    open_by_repo = {
+        repos[0]: ([], ["j: gh CLI not found (searched PATH: /bin)"], True),
+        repos[1]: ([ok_pr], [], False),
+    }
+    merged_by_repo = {r: ([], [], False) for r in repos}
+
+    stdout, flare = _run_notes(monkeypatch, tmp_path, open_by_repo, merged_by_repo)
+
+    assert "INCOMPLETE" in stdout
+    assert flare.calls[0]["sev"] == "warn"
+    appearances = editions.load_appearances()
+    assert appearances == {"arsenal#37": 1}  # only the reachable repo credited

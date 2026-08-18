@@ -9,6 +9,16 @@
 # Sibling pattern: repos/investment owns its own managed block via its own
 # ops/cron.tab — one block per repo, installers never touch each other's.
 
+# cron runs with a minimal PATH (typically /usr/bin:/bin), so the jarvis CLIs'
+# shell-outs can't find binaries in ~/.local/bin — e.g. gazette → `gh`, which
+# on 2026-08-18 silently degraded the morning edition to a false "quiet" day
+# (issue #21), and threads → `claude`. Set PATH once for every managed entry
+# below (env lines apply to all following cron jobs) so the next missing CLI
+# doesn't reproduce the bug. This is the source-of-truth fix; ops/link-clis.sh
+# populates ~/.local/bin and gazette also resolves `gh` via shutil.which as a
+# belt-and-braces fallback.
+PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
+
 # memory-consolidate: weekly memory→wiki consolidation (jarvis wiki, PR #103)
 11 8 * * 1 cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run a memory consolidation per the procedure in .claude/skills/memory-consolidate/SKILL.md (if not on main yet, read it via: git show origin/llm-wiki:.claude/skills/memory-consolidate/SKILL.md). Follow its guardrails exactly; open the wiki PR; leave a summary in the log file." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/memory-consolidate.log 2>&1
 
