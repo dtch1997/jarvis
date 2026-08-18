@@ -4,7 +4,7 @@ name: publish
 #   git tag bellhop-v0.6.2 && git push origin bellhop-v0.6.2
 #
 # Tag format: <package-dir>-v<version>, where <package-dir> is the directory
-# under packages/ (not the PyPI dist name — e.g. `bellhop`, which publishes
+# under jarvis-tools/packages/ (not the PyPI dist name — e.g. `bellhop`, which publishes
 # the `bellhop-py` dist). The job fails if the tag version doesn't match the
 # package's pyproject version, and skips gracefully (green) if that version
 # is already on PyPI — so re-pushing a tag is safe and the workflow can be
@@ -27,20 +27,20 @@ jobs:
           TAG="${GITHUB_REF_NAME}"
           PKG="${TAG%-v*}"
           VER="${TAG##*-v}"
-          test -f "packages/$PKG/pyproject.toml" || { echo "no packages/$PKG"; exit 1; }
+          test -f "jarvis-tools/packages/$PKG/pyproject.toml" || { echo "no jarvis-tools/packages/$PKG"; exit 1; }
           echo "pkg=$PKG" >> "$GITHUB_OUTPUT"
           echo "ver=$VER" >> "$GITHUB_OUTPUT"
 
       - name: check tag matches pyproject version
         run: |
-          PYVER=$(grep -m1 '^version' "packages/${{ steps.parse.outputs.pkg }}/pyproject.toml" | sed 's/.*"\(.*\)".*/\1/')
+          PYVER=$(grep -m1 '^version' "jarvis-tools/packages/${{ steps.parse.outputs.pkg }}/pyproject.toml" | sed 's/.*"\(.*\)".*/\1/')
           test "$PYVER" = "${{ steps.parse.outputs.ver }}" || {
             echo "tag says ${{ steps.parse.outputs.ver }} but pyproject says $PYVER"; exit 1; }
 
       - name: skip if version already on PyPI
         id: exists
         run: |
-          DIST=$(grep -m1 '^name' "packages/${{ steps.parse.outputs.pkg }}/pyproject.toml" | sed 's/.*"\(.*\)".*/\1/')
+          DIST=$(grep -m1 '^name' "jarvis-tools/packages/${{ steps.parse.outputs.pkg }}/pyproject.toml" | sed 's/.*"\(.*\)".*/\1/')
           echo "dist=$DIST" >> "$GITHUB_OUTPUT"
           if curl -sf "https://pypi.org/pypi/$DIST/${{ steps.parse.outputs.ver }}/json" > /dev/null; then
             echo "already=true" >> "$GITHUB_OUTPUT"

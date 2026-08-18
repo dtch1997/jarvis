@@ -21,8 +21,10 @@ supervision.
   contract ([`CLAUDE.md`](jarvis-os/CLAUDE.md)), the direction layer
   ([`goals/`](jarvis-os/goals/)), the research wiki
   ([`wiki/`](jarvis-os/wiki/)), cron-installed automation
-  ([`ops/`](jarvis-os/ops/)), and design docs
-  ([`docs/`](jarvis-os/docs/)). **Start with its
+  ([`ops/`](jarvis-os/ops/)), design docs
+  ([`docs/`](jarvis-os/docs/)), and the policy tools that implement the
+  conventions in code ([`packages/`](jarvis-os/packages/): `gazette`,
+  `desk`, `threads`). **Start with its
   [README](jarvis-os/README.md)** — the layer model and operating
   philosophy live there.
 - **[`jarvis-memory/`](jarvis-memory/)** — the agents' persistent
@@ -30,11 +32,13 @@ supervision.
   [`MEMORY.md`](jarvis-memory/MEMORY.md), loaded into every session.
   Reading it is the fastest way to see what the system currently knows
   and is working on.
-- **[`jarvis-tools/`](jarvis-tools/)** — the utility monorepo (a uv
-  workspace, one package per tool): orchestration (`stagehand`),
-  ephemeral GPU compute (`bellhop`), an autonomous worker pool
-  (`concierge`), attention routing (`flare`, `desk`), context parking
-  (`threads`), auto-merge patch notes (`gazette`), and more.
+- **[`jarvis-tools/`](jarvis-tools/)** — the generic utility packages
+  (one uv workspace spanning the repo, one package per tool):
+  orchestration (`stagehand`), ephemeral GPU compute (`bellhop`), an
+  autonomous worker pool (`concierge`), a push channel (`flare`), and
+  more. These are dumb mechanisms, reusable outside jarvis; tools that
+  implement jarvis *policy* in code live in `jarvis-os/packages/`
+  instead.
 
 Object-level work — the actual research projects — deliberately does
 *not* live here. Projects get their own repos, cloned under

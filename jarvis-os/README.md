@@ -140,10 +140,13 @@ The recurring themes:
   collaborator, CI, or a life beyond one sprint — it graduates to a
   dedicated repo cloned at `repos/<slug>`, and jarvis keeps the pointer.
   Spin-out is the *expected* fate of successful work, not an exception.
-- **Tools are packages, not repos.** Every utility lives in the
-  `jarvis-tools/` uv monorepo (`packages/<tool>`, historically "arsenal");
-  the `repos/<tool>` paths are symlinks into it. One venv, one CI, one
-  issue tracker.
+- **Tools are packages, not repos.** Every utility is a package in the
+  repo-wide uv workspace: generic, standalone tools under
+  `jarvis-tools/packages/` (historically "arsenal"), jarvis policy tools
+  — code that must co-evolve with CLAUDE.md — under
+  [`packages/`](packages/) here (`gazette`, `desk`, `threads`). The
+  `repos/<tool>` paths are symlinks into jarvis-tools. One venv, one CI,
+  one issue tracker.
 - **Research projects get their own repos** (aligne, science-of-midtraining,
   dogfight-rl, …) — each self-contained and runnable without jarvis, so it
   can be shared, archived, or handed to a fleet independently.

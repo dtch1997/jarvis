@@ -1,0 +1,26 @@
+# Virtual workspace root for the whole monorepo — not a package.
+# `uv sync --all-packages` at the repo root gives one venv (./.venv) with
+# every tool (and every CLI) installed editable.
+#
+# The workspace spans the os/tools boundary:
+#   jarvis-tools/packages/*  — generic, standalone tools: dumb mechanisms
+#                              whose jarvis-specific meaning lives in
+#                              CLAUDE.md or a config file. Reusable outside
+#                              jarvis; some are on PyPI.
+#   jarvis-os/packages/*     — jarvis policy tools (gazette, desk, threads):
+#                              code that implements the operating conventions
+#                              and must co-evolve with CLAUDE.md.
+# Dependency direction: jarvis-os packages may depend on jarvis-tools
+# packages, never the reverse.
+[tool.uv.workspace]
+members = ["jarvis-tools/packages/*", "jarvis-os/packages/*"]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+# Whole-workspace runs (`pytest */packages/*/tests`) resolve config here, not
+# in the per-package pyprojects, so markers must be registered in both places.
+[tool.pytest.ini_options]
+markers = [
+    "integration: hits a real rclone remote / GCS bucket; deselect with -m 'not integration'",
+]

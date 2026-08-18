@@ -146,19 +146,26 @@ retry loops, or progress tracking that a bound tool owns. This applies to
 concierge workers too (mirrored in `~/concierge-home/HOUSE_RULES.md`) — task
 specs should assume it rather than restate it.
 
-**Tooling home — the `arsenal` monorepo.** All bound utilities (stagehand,
-bellhop, databrowser, cowrite, concierge, plus lobby/ferry/cairn/reportly)
-live in one uv workspace at `repos/arsenal` (`packages/<tool>`, one root
-`.venv` via `uv sync --all-packages`); the old `repos/<tool>` paths are
-symlinks into it. New utilities are born as arsenal packages, not new repos.
-Serving tools (databrowser/cowrite/stagehand dashboards) register with the
-shared `lobby` hub — one tunnel + one index page (`lobby status` prints the
-URL); the links I get are `https://<hub>…/a/<name>/`, not one tunnel per app.
-Every agent-facing arsenal CLI (`flare`, `desk`, `threads`,
-`claude-statusline`, `lobby`, `ferry`, …) is on PATH via `~/.local/bin`
-symlinks into the arsenal venv, owned by `repos/arsenal/ops/link-clis.sh`
-(PATH links are a build artifact; `--check` diffs, re-run after adding a
-CLI) — call them bare, never via venv paths or `uv run`.
+**Tooling home — one uv workspace, two package roots.** All bound
+utilities live in the repo-wide uv workspace (root `pyproject.toml` at the
+monorepo top, one root `.venv` there via `uv sync --all-packages`).
+Generic, standalone tools (stagehand, bellhop, databrowser, cowrite,
+concierge, lobby, ferry, flare, …) live under `jarvis-tools/packages/`
+(historically "arsenal"; the old `repos/<tool>` paths are symlinks into
+it). Tools whose code implements jarvis *policy* and must co-evolve with
+this file — gazette, desk, threads — live under `jarvis-os/packages/`
+(boundary rule in its README). New utilities are born as workspace
+packages, not new repos: jarvis-tools if generic, jarvis-os/packages if
+policy; jarvis-os packages may depend on jarvis-tools packages, never the
+reverse. Serving tools (databrowser/cowrite/stagehand dashboards) register
+with the shared `lobby` hub — one tunnel + one index page (`lobby status`
+prints the URL); the links I get are `https://<hub>…/a/<name>/`, not one
+tunnel per app. Every agent-facing workspace CLI (`flare`, `desk`,
+`threads`, `claude-statusline`, `lobby`, `ferry`, …) is on PATH via
+`~/.local/bin` symlinks into the workspace venv, owned by
+`jarvis-tools/ops/link-clis.sh` (PATH links are a build artifact;
+`--check` diffs, re-run after adding a CLI) — call them bare, never via
+venv paths or `uv run`.
 
 1. **Worktree.** Sync `main` and create a fresh worktree on a dedicated branch
    for the work — `git fetch && git worktree add .claude/worktrees/<branch> -b

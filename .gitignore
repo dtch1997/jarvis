@@ -1,0 +1,8 @@
+# Workspace build artifacts — the uv workspace root (and its .venv) is this
+# monorepo root; see pyproject.toml.
+.venv/
+__pycache__/
+*.egg-info/
+dist/
+.pytest_cache/
+.claude/worktrees/
