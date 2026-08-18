@@ -40,12 +40,21 @@ class Block(nn.Module):
 
 class NoPETransformer(nn.Module):
     def __init__(self, vocab: int, n_out: int, d: int = 64,
-                 layers: int = 2, heads: int = 2):
+                 layers: int = 2, heads: int = 2, gpt2_init: bool = False):
         super().__init__()
         self.emb = nn.Embedding(vocab, d)
         self.blocks = nn.ModuleList(Block(d, heads) for _ in range(layers))
         self.ln_f = nn.LayerNorm(d)
         self.head = nn.Linear(d, n_out)
+        if gpt2_init:  # GPT-2 scheme: N(0, 0.02), residual projs scaled
+            for m in self.modules():
+                if isinstance(m, (nn.Linear, nn.Embedding)):
+                    nn.init.normal_(m.weight, std=0.02)
+                    if isinstance(m, nn.Linear) and m.bias is not None:
+                        nn.init.zeros_(m.bias)
+            for blk in self.blocks:
+                nn.init.normal_(blk.proj.weight, std=0.02 / (2 * layers) ** 0.5)
+                nn.init.normal_(blk.mlp[2].weight, std=0.02 / (2 * layers) ** 0.5)
 
     def forward(self, x):
         h = self.emb(x)  # NoPE: token embeddings only

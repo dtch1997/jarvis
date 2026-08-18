@@ -24,15 +24,17 @@ LANGS = [
 ]
 
 
-def make_grid(seeds, configs):
+def make_grid(seeds, configs, max_epochs, gpt2_init=False):
     grid = []
     for layers, dim, lr in configs:
         for tag, blocks, inc in LANGS:
             for s in seeds:
                 grid.append({
-                    "name": f"{tag}-L{layers}d{dim}lr{lr:g}-s{s}",
+                    "name": f"{tag}-L{layers}d{dim}lr{lr:g}"
+                            f"{'g2' if gpt2_init else ''}-s{s}",
                     "blocks": blocks, "in_crasp": inc, "seed": s,
                     "layers": layers, "dim": dim, "lr": lr,
+                    "max_epochs": max_epochs, "gpt2_init": gpt2_init,
                 })
     return grid
 
@@ -44,7 +46,9 @@ async def train_one(cfg: dict) -> dict:
            "--name", cfg["name"], "--blocks", cfg["blocks"],
            "--in-crasp", str(cfg["in_crasp"]), "--seed", str(cfg["seed"]),
            "--layers", str(cfg["layers"]), "--dim", str(cfg["dim"]),
-           "--lr", str(cfg["lr"]), "--outdir", str(outdir)]
+           "--lr", str(cfg["lr"]), "--outdir", str(outdir),
+           "--max-epochs", str(cfg.get("max_epochs", 300))] + \
+          (["--gpt2-init"] if cfg.get("gpt2_init") else [])
     env = {**os.environ, **monitor_env(), "TORCH_THREADS": "5"}
     proc = await asyncio.create_subprocess_exec(
         *cmd, cwd=str(ROOT), env=env,
@@ -77,13 +81,15 @@ async def main():
                     help="layers,dim,lr triples, e.g. 4,64,0.001")
     ap.add_argument("--concurrency", type=int, default=6)
     ap.add_argument("--flow-name", default="flow")
+    ap.add_argument("--max-epochs", type=int, default=300)
+    ap.add_argument("--gpt2-init", action="store_true")
     args = ap.parse_args()
 
     configs = []
     for c in args.configs:
         layers, dim, lr = c.split(",")
         configs.append((int(layers), int(dim), float(lr)))
-    grid = make_grid(args.seeds, configs)
+    grid = make_grid(args.seeds, configs, args.max_epochs, args.gpt2_init)
     flow = Flow(str(ROOT / "runs" / args.flow_name), concurrency=args.concurrency)
     trained = flow.map("train", grid, train_one)
     merged = flow.reduce("merge", trained, merge)

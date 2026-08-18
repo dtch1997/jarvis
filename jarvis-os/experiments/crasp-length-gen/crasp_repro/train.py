@@ -65,6 +65,7 @@ def main():
     ap.add_argument("--train-lo", type=int, default=2)
     ap.add_argument("--train-hi", type=int, default=50)
     ap.add_argument("--bin-n", type=int, default=1000)
+    ap.add_argument("--gpt2-init", action="store_true")
     ap.add_argument("--outdir", required=True)
     args = ap.parse_args()
 
@@ -83,7 +84,8 @@ def main():
     train_words, id_test_words = words[:n_train], words[n_train:]
 
     model = NoPETransformer(VOCAB, dfa.n_states, d=args.dim,
-                            layers=args.layers, heads=args.heads)
+                            layers=args.layers, heads=args.heads,
+                            gpt2_init=args.gpt2_init)
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=0.01)
     shuffle_rng = random.Random(args.seed)
 
