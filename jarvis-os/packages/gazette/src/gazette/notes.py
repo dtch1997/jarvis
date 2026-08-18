@@ -68,6 +68,7 @@ def compile_edition(
     appearances: dict[str, int] | None = None,
     warnings: list[str] | None = None,
     collector_errors: list[str] | None = None,
+    coverage_gaps: list[str] | None = None,
 ) -> Edition:
     ed = Edition(now=now, merged=sorted(merged, key=lambda m: m["merged_at"]),
                  warnings=list(warnings or []),
@@ -75,6 +76,10 @@ def compile_edition(
     # Collector failures are the top anomaly — the trust-calibration surface —
     # ahead of any per-PR demotion reasons collected in the loop below.
     ed.anomalies.extend(f"collector failed — {m}" for m in ed.collector_errors)
+    # Coverage gaps sit right behind them: the data we DID collect is fine, but
+    # a lane-labelled PR outside github_repos will never be decided by anyone.
+    # An anomaly (not a collector error): the edition is complete, not blind.
+    ed.anomalies.extend(f"not swept — {m}" for m in (coverage_gaps or []))
     for pr in sorted(open_prs, key=lambda p: p.created_at):
         seen = appearances.get(pr.ref, 0) if appearances is not None else None
         d = decide(pr, cfg, now, seen)

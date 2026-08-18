@@ -304,6 +304,7 @@ def _run_notes(monkeypatch, tmp_path, open_by_repo, merged_by_repo):
 
     monkeypatch.setattr(gh, "list_open_prs", fake_open)
     monkeypatch.setattr(gh, "list_merged_since", fake_merged)
+    monkeypatch.setattr(gh, "unswept_lane_prs", lambda cfg: ([], []))
 
     fake_flare = _FakeFlare()
     monkeypatch.setitem(sys.modules, "flare", fake_flare)
@@ -324,7 +325,7 @@ def test_total_collector_failure_logs_no_edition_and_flares_warn(tmp_path, monke
     goes out --sev warn."""
     from gazette import editions
 
-    repos = Config().github_repos  # ["ArcadiaImpact/jarvis", "dtch1997/arsenal"]
+    repos = Config().github_repos  # the configured sweep set
     fail = ([], ["r: gh CLI not found (searched PATH: /usr/bin:/bin)"], True)
     open_by_repo = {r: fail for r in repos}
     merged_by_repo = {r: ([], [], False) for r in repos}
@@ -355,4 +356,111 @@ def test_partial_failure_credits_only_reachable_repo(tmp_path, monkeypatch):
     assert "INCOMPLETE" in stdout
     assert flare.calls[0]["sev"] == "warn"
     appearances = editions.load_appearances()
-    assert appearances == {"arsenal#37": 1}  # only the reachable repo credited
+    reachable_ref = f"{repos[1].split('/')[-1]}#37"
+    assert appearances == {reachable_ref: 1}  # only the reachable repo credited
+
+
+# --------------------------------------------------------------------------- #
+# coverage: a lane-labelled PR in an unswept repo is loud, not invisible
+# (2026-08-18: the monorepo cutover repointed github_repos and stranded
+# ArcadiaImpact/jarvis#152 + life-theses#11 — neither ever got a sweep row)
+# --------------------------------------------------------------------------- #
+def test_defaults_name_the_live_post_cutover_repos():
+    """Migration guard: the fallback repo set must not name the archived
+    pre-cutover repos — a lost config.toml would otherwise sweep dead repos
+    and report a permanently quiet day."""
+    from gazette.config import DEFAULTS
+
+    assert "dtch1997/jarvis" in DEFAULTS["github_repos"]
+    assert "ArcadiaImpact/jarvis" not in DEFAULTS["github_repos"]
+    assert "dtch1997/arsenal" not in DEFAULTS["github_repos"]
+
+
+def test_coverage_owners_defaults_to_swept_owners_and_honors_override():
+    from gazette.config import coverage_owners
+
+    cfg = Config(github_repos=["dtch1997/jarvis", "dtch1997/life-theses"])
+    assert coverage_owners(cfg) == ["dtch1997"]  # deduped
+    cfg2 = Config(github_repos=["dtch1997/jarvis"], watch_owners=["dtch1997", "ArcadiaImpact"])
+    assert coverage_owners(cfg2) == ["dtch1997", "ArcadiaImpact"]
+
+
+def _fake_search(rows_by_label, warn_labels=()):
+    def search(owner, label):
+        if label in warn_labels:
+            return [], f"lane-coverage search ({owner}, {label}): gh failed"
+        return list(rows_by_label.get(label, [])), None
+
+    return search
+
+
+def _stray(repo, number, label, title="a stranded PR"):
+    return {"repo": repo, "number": number, "title": title,
+            "url": f"https://github.com/{repo}/pull/{number}", "label": label,
+            "is_draft": False}
+
+
+def test_unswept_lane_prs_reports_only_repos_outside_the_sweep(monkeypatch):
+    from gazette import gh
+
+    cfg = Config(github_repos=["dtch1997/jarvis"])
+    monkeypatch.setattr(gh, "search_lane_prs", _fake_search({
+        LABEL_AUTO: [
+            _stray("dtch1997/jarvis", 29, LABEL_AUTO),          # swept — ignored
+            _stray("dtch1997/life-theses", 11, LABEL_AUTO, "Weekly thesis refresh"),
+        ],
+        LABEL_DELAY: [_stray("dtch1997/life-theses", 11, LABEL_DELAY)],  # dupe
+    }))
+    rows, warnings = gh.unswept_lane_prs(cfg)
+    assert warnings == []
+    assert [(r["repo"], r["number"]) for r in rows] == [("dtch1997/life-theses", 11)]
+
+    msgs = gh.coverage_gap_messages(rows)
+    assert "life-theses#11" in msgs[0] and "not in github_repos" in msgs[0]
+    assert LABEL_AUTO in msgs[0]
+
+
+def test_unswept_lane_search_failure_is_a_warning_not_a_crash(monkeypatch):
+    from gazette import gh
+
+    cfg = Config(github_repos=["dtch1997/jarvis"])
+    monkeypatch.setattr(gh, "search_lane_prs",
+                        _fake_search({}, warn_labels=(LABEL_AUTO, LABEL_DELAY, LABEL_BLOCKED)))
+    rows, warnings = gh.unswept_lane_prs(cfg)
+    assert rows == [] and len(warnings) == 3
+    assert all("lane-coverage search" in w for w in warnings)
+
+
+def test_sweep_spools_an_unswept_row_and_reports_it(tmp_path, monkeypatch):
+    """The evidence trail the 2026-08-18 investigation lacked: a stranded PR
+    now gets a log.jsonl row with action=unswept instead of no row at all."""
+    import json
+
+    from gazette import gh, sweep
+
+    monkeypatch.setenv("GAZETTE_HOME", str(tmp_path))
+    cfg = Config(github_repos=["dtch1997/jarvis"])
+    monkeypatch.setattr(gh, "list_open_prs", lambda repo: ([], [], False))
+    monkeypatch.setattr(gh, "unswept_lane_prs",
+                        lambda cfg: ([_stray("dtch1997/life-theses", 11, LABEL_AUTO)], []))
+
+    report = sweep.run(cfg, now=NOW, dry_run=True)
+    assert [r["ref"] for r in report["unswept"]] == ["life-theses#11"]
+    assert any("life-theses#11" in w for w in report["warnings"])
+    assert "[unswept] life-theses#11" in sweep.format_report(report)
+
+    rows = [json.loads(line) for line in sweep.log_path().read_text().splitlines()]
+    assert [(r["ref"], r["action"]) for r in rows] == [("life-theses#11", "unswept")]
+
+
+def test_coverage_gap_is_an_anomaly_without_marking_the_edition_incomplete():
+    """A stranded PR is a real anomaly (nobody will decide it) but the data we
+    did collect is complete — so no INCOMPLETE banner, unlike a dead collector."""
+    cfg = Config()
+    gap = "life-theses#11 carries lane:auto but dtch1997/life-theses is not in github_repos"
+    ed = compile_edition(cfg, NOW, [], [], coverage_gaps=[gap])
+    assert not ed.incomplete
+    assert any("not swept" in a and "life-theses#11" in a for a in ed.anomalies)
+    text = build_notes(cfg, ed)
+    assert "INCOMPLETE" not in text
+    assert "## Anomalies" in text and "life-theses#11" in text

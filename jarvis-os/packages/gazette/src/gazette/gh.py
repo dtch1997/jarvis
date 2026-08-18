@@ -12,7 +12,8 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .lanes import PR
+from .config import Config, coverage_owners
+from .lanes import LANE_LABELS, PR
 
 _PR_FIELDS = (
     "number,title,url,author,createdAt,isDraft,labels,files,"
@@ -137,6 +138,75 @@ def list_merged_since(repo: str, since: datetime) -> tuple[list[dict], list[str]
             "labels": [l["name"] for l in row.get("labels") or []],
         })
     return merged, [], False
+
+
+def search_lane_prs(owner: str, label: str) -> tuple[list[dict], str | None]:
+    """Open PRs under ``owner`` carrying ``label``, across every repo.
+
+    Repo-agnostic on purpose: this is how the sweep learns about PRs that opted
+    into the lane convention in a repo it was never told to sweep. Returns
+    (rows, warning); a warning means the search could not be trusted.
+    """
+    out, warn = _gh(
+        ["search", "prs", "--owner", owner, "--state", "open", "--label", label,
+         "--limit", "100", "--json", "repository,number,title,url,isDraft"]
+    )
+    if warn:
+        return [], f"lane-coverage search ({owner}, {label}): {warn}"
+    try:
+        rows = json.loads(out)
+    except json.JSONDecodeError as e:
+        return [], f"lane-coverage search ({owner}, {label}): bad gh output ({e})"
+    return [
+        {
+            "repo": (row.get("repository") or {}).get("nameWithOwner", ""),
+            "number": row.get("number"),
+            "title": row.get("title", ""),
+            "url": row.get("url", ""),
+            "label": label,
+            "is_draft": bool(row.get("isDraft")),
+        }
+        for row in rows
+    ], None
+
+
+def unswept_lane_prs(cfg: Config) -> tuple[list[dict], list[str]]:
+    """Lane-labelled open PRs living in repos ``cfg.github_repos`` does not cover.
+
+    These are the silent ones: the sweep never enumerates them, so they earn no
+    skip/wait/merge row and no collector warning — they simply never appear.
+    Returns (rows, warnings); each row is one stranded PR.
+    """
+    swept = {r.lower() for r in cfg.github_repos}
+    rows: list[dict] = []
+    warnings: list[str] = []
+    seen: set[tuple[str, int]] = set()
+    for owner in coverage_owners(cfg):
+        for label in LANE_LABELS:
+            found, warn = search_lane_prs(owner, label)
+            if warn:
+                warnings.append(warn)
+                continue
+            for row in found:
+                repo = row["repo"]
+                if not repo or repo.lower() in swept:
+                    continue
+                key = (repo.lower(), row["number"])
+                if key in seen:
+                    continue
+                seen.add(key)
+                rows.append(row)
+    return rows, warnings
+
+
+def coverage_gap_messages(rows: list[dict]) -> list[str]:
+    """Render ``unswept_lane_prs`` rows as edition/report lines."""
+    return [
+        f"{r['repo'].split('/')[-1]}#{r['number']} carries {r['label']} but "
+        f"{r['repo']} is not in github_repos — no sweep will ever decide it "
+        f"({r['title'][:60]}) — {r['url']}"
+        for r in rows
+    ]
 
 
 def merge_pr(pr: PR) -> str | None:
