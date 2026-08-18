@@ -83,6 +83,18 @@ Three arsenal tools carry the "how does the system ask for Daniel?" and
   `threads pickup <slug>` at the top of the next session. Notes are spool
   files (`~/.threads/notes/`), not memory stubs — durable distillation into
   `~/jarvis-memory`/wiki stays with memory-consolidate.
+- **`claude-statusline flag` — wrap-up flags on the status line** (arsenal
+  `packages/statusline`): when work in an interactive session accrues an
+  obligation that must be discharged before the session ends — branch not
+  PR'd, PR not merged, Slack draft unsent, artifacts not persisted, memory
+  stub not updated — flag it immediately:
+  `claude-statusline flag "open PR for <branch>"`. It renders bold-red at
+  the end of Daniel's status line until cleared with
+  `claude-statusline unflag <substring>` (do clear it when discharged).
+  `claude-statusline note "topic"` overrides the auto session-name topic
+  shown there. Per-session, keyed on `$CLAUDE_CODE_SESSION_ID` — this is
+  the in-session reminder layer, complementary to `threads note` (durable
+  parking) and `flare` (push).
 
 ## SOP — standard operating procedure
 
