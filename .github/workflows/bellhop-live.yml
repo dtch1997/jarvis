@@ -30,7 +30,7 @@ jobs:
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
           RUNPOD_LIVE: "1"
           # BELLHOP_LIVE_GCS deliberately unset: no cloud creds on the runner
-        run: uv run pytest packages/bellhop/tests/integration_live.py -s -x
+        run: uv run pytest jarvis-tools/packages/bellhop/tests/integration_live.py -s -x
       - name: file issue on failure (deduped)
         if: failure()
         env:

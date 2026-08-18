@@ -29,7 +29,9 @@ CLIS=(
   threads
 )
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# The workspace root (and its .venv) is the monorepo root, one level above
+# jarvis-tools/ — see the root pyproject.toml.
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 if [[ "$REPO_ROOT" == *"/.claude/worktrees/"* ]]; then
   echo "refusing to run from a worktree copy — links would target a venv that gets" >&2
   echo "removed with the worktree. Merge first and run from the main checkout." >&2

@@ -1,0 +1,36 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # One entry per workspace package: generic tools under
+        # jarvis-tools/packages/, jarvis policy tools under jarvis-os/packages/.
+        package:
+          - jarvis-tools/packages/lobby
+          - jarvis-tools/packages/ferry
+          - jarvis-tools/packages/databrowser
+          - jarvis-tools/packages/stagehand
+          - jarvis-tools/packages/cowrite
+          - jarvis-tools/packages/cairn
+          - jarvis-tools/packages/reportly
+          - jarvis-tools/packages/bellhop
+          - jarvis-tools/packages/concierge
+          - jarvis-tools/packages/arxivist
+          - jarvis-tools/packages/foyer
+          - jarvis-tools/packages/flare
+          - jarvis-tools/packages/statusline
+          - jarvis-os/packages/gazette
+          - jarvis-os/packages/desk
+          - jarvis-os/packages/threads
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --all-packages
+      - run: uv run pytest ${{ matrix.package }}/tests -q
