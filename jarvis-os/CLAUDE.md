@@ -31,7 +31,15 @@ Shorthand directives I use. When I type one, treat it as the instruction below.
      are **persisted appropriately** — large artifacts to
      `gs://alignment-team-general-storage/daniel/jarvis/experiments/<slug>/`,
      with a pointer (path/URL) committed in the repo rather than the bytes.
-  4. Drain the session's `claude-statusline` flags (each one gets done or
+  4. **Log the thread** — park what you're holding with `threads note
+     <memory-slug> --status parked|ongoing|blocked|done "<state + next
+     steps>"` (pipe longer markdown via stdin: `threads note <slug> - <<EOF`),
+     so the next session resumes with `threads pickup <slug>`. Use the
+     project's memory-stub slug (a new slug seeds a candidate thread), and
+     update the memory stub + its `MEMORY.md` index line in the same pass —
+     the note carries session-level context (branches, PR numbers, live URLs,
+     immediate next steps); the memory stub carries the durable summary.
+  5. Drain the session's `claude-statusline` flags (each one gets done or
      becomes the `threads note`), and file GitHub issues for any tooling
      friction hit along the way (see "Filing issues").
 - **"park"** / **"park this"** — the lighter cousin of "wrap up", for
