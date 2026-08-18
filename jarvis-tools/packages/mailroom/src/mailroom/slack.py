@@ -127,18 +127,19 @@ class SlackClient:
                 self._ws_url = ""
         return self._ws_url
 
+    def download(self, url_private_download: str) -> bytes:
+        """Download a private file (audio clip) with the bot token."""
+        req = urllib.request.Request(
+            url_private_download, headers={"Authorization": f"Bearer {self.token}"})
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return r.read()
+
 
 def build_permalink(base_url: str, channel: str, ts: str) -> str:
     """Construct a message permalink locally (Slack's archive URL scheme)."""
     if not base_url:
         return f"slack:{channel}/{ts}"
     return f"{base_url.rstrip('/')}/archives/{channel}/p{ts.replace('.', '')}"
-
-    def download(self, url_private_download: str) -> bytes:
-        req = urllib.request.Request(
-            url_private_download, headers={"Authorization": f"Bearer {self.token}"})
-        with urllib.request.urlopen(req, timeout=120) as r:
-            return r.read()
 
 
 # --------------------------------------------------------------------------- #
