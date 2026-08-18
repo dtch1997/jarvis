@@ -1,5 +1,6 @@
-"""``threads scan|weave|serve|render|status|note|pickup`` — the bottom-up
-activity spine, plus the deliberate push channel (``note``/``pickup``).
+"""``threads scan|weave|serve|render|board|status|note|pickup|launch`` — the
+bottom-up activity spine, the deliberate push channel (``note``/``pickup``), and
+the thread board (``board``, served as the front page by ``serve``).
 
 ``scan``/``weave`` take ``--check`` gate hooks that are cheap and offline (no
 model calls): they exit 0 iff the spool is complete and consistent.
@@ -60,6 +61,17 @@ def _cmd_launch(args) -> int:
         rec = process_intent(rec["id"], runner=_offline_runner)
         print(f"dry-run routed → slug '{rec.get('resolved_slug')}' "
               f"(handle {rec.get('executor_handle')})")
+    return 0
+
+
+def _cmd_board(args) -> int:
+    from .board import board_check, build, render_html, render_text
+    if args.check:
+        ok, report = board_check()
+        print(report)
+        return 0 if ok else 1
+    board = build()
+    print(render_html(board) if args.html else render_text(board))
     return 0
 
 
@@ -186,6 +198,17 @@ def main(argv=None) -> int:
     wp.add_argument("--check", action="store_true",
                     help="offline gate: coverage + deterministic-match-rate thresholds")
 
+    bp = sub.add_parser(
+        "board", help="the thread board (Prompt | Goal | Status)",
+        description="The board is the front page of `threads serve`. This verb "
+                    "prints it (text or HTML) and hosts its offline gate.")
+    bp.add_argument("--html", action="store_true",
+                    help="print the served HTML page instead of the text board")
+    bp.add_argument("--check", action="store_true",
+                    help="offline gate: render + row-add + goal-edit gate "
+                         "re-derivation + status derivation for every lifecycle "
+                         "state + needs-you sort + default-page routing")
+
     rp = sub.add_parser("render", help="print the dashboard as a markdown digest")
     _add_view_flags(rp)
     sub.add_parser("status", help="one-line activity + gate summary")
@@ -225,7 +248,8 @@ def main(argv=None) -> int:
     lp.add_argument("--check", action="store_true",
                     help="offline gate: accept-latency <100ms + intent-spool consistency")
 
-    sv = sub.add_parser("serve", help="serve the dashboard through the lobby hub")
+    sv = sub.add_parser("serve",
+                        help="serve the board (+ dashboard) through the lobby hub")
     sv.add_argument("--port", type=int, help="local port (default: free port)")
     sv.add_argument("--interval", type=int, default=60,
                     help="re-render interval in seconds (default: 60)")
@@ -235,6 +259,7 @@ def main(argv=None) -> int:
     args = p.parse_args(argv)
     return {
         "scan": _cmd_scan, "weave": _cmd_weave, "render": _cmd_render,
+        "board": _cmd_board,
         "status": _cmd_status, "serve": _cmd_serve, "vault": _cmd_vault,
         "note": _cmd_note, "pickup": _cmd_pickup, "launch": _cmd_launch,
     }[args.cmd](args)

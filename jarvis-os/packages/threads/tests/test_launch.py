@@ -116,8 +116,8 @@ def test_dry_run_writes_note_zero_and_interpretation(env):
 # gate menu
 # --------------------------------------------------------------------------- #
 def test_gate_menu_repo_vs_question():
-    name_repo, _ = launch._gate_choice("please implement the parser and open a PR")
-    name_q, _ = launch._gate_choice("what is the median latency of the fleet?")
+    name_repo = launch.gate_spec(None, "please implement the parser and open a PR")["name"]
+    name_q = launch.gate_spec(None, "what is the median latency of the fleet?")["name"]
     assert "PrOpen" in name_repo
     assert "threads-result" in name_q
 

@@ -71,13 +71,8 @@ def _match_text_to_slug(reg: registry.Registry, text: str) -> str | None:
 
 
 def _read_task(tid: str) -> dict | None:
-    path = config.concierge_home() / "tasks" / f"{tid}.json"
-    if not path.exists():
-        return None
-    try:
-        return json.loads(path.read_text())
-    except (OSError, json.JSONDecodeError):
-        return None
+    from .launch import read_task
+    return read_task(tid)
 
 
 def _concierge_slug(reg: registry.Registry, tid: str) -> str | None:
