@@ -70,3 +70,16 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # mailroom: daily digest — flare the headline (--sev info) on non-empty days
 # (the veto surface; full page served via `mailroom serve` → lobby /a/mailroom/).
 33 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/mailroom render --flare >> /mnt/nw/home/d.tan/.claude/logs/mailroom.log 2>&1
+
+# watchman: 6-hourly background-thinking pass (docs/background-thinking.md) —
+# propose-only judgment over goal frontiers / threads / desk / recent
+# activity; ≤3 observations per run via one batched info flare + thread
+# notes, silent when nothing clears the bar. The 07:45 run lands fresh
+# observations just before the 08:05 morning edition.
+45 1,7,13,19 * * * cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run the watchman pass per .claude/skills/watchman/SKILL.md. Follow its hard rules exactly — propose-only, at most 3 observations, silence is the expected default." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/watchman.log 2>&1
+
+# goal-review: weekly propose-only planner cycle (rung 1 of
+# docs/background-thinking.md) — frontier refresh + fully-specced proposals
+# as a review PR for checkbox veto; Tuesday 06:45 so the PR surfaces in that
+# morning's edition.
+45 6 * * 2 cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run a goal-review cycle per .claude/skills/goal-review/SKILL.md. Follow its hard rules exactly — propose-only, report even if nothing changed, open the review PR labeled lane:auto." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/goal-review.log 2>&1
