@@ -1,5 +1,5 @@
 """desk core — aggregate collectors into one inbox, render markdown, digest,
-and sync (diff against last state, flare newly-appearing items)."""
+and sync (diff against last state, one batch flare for newly-appearing items)."""
 
 from __future__ import annotations
 
@@ -172,12 +172,24 @@ def _write_state(ids: set[str], now: datetime) -> None:
     ))
 
 
+def _flare_title(item: dict) -> str:
+    """An item title, minus any leading severity tag (the batch flare carries
+    its own `[warn]` — `desk: [warn] ...` double-prefixes read as noise)."""
+    title = item["title"]
+    for prefix in ("[page] ", "[warn] "):
+        if title.startswith(prefix):
+            return title[len(prefix):]
+    return title
+
+
 def sync(cfg: Config | None = None, *, now: datetime | None = None,
          gh_runner=None) -> dict:
-    """Render, then flare each newly-appearing item and update state.
+    """Render, then send ONE batch flare covering the newly-appearing items.
 
     Returns ``{"path", "new", "flared"}``. New = items whose id was not in the
-    previous state; each fires one ``flare.send(sev="warn", source="desk")``.
+    previous state; if any exist, a single ``flare.send(sev="warn",
+    source="desk")`` summarizes them (top titles + count) and points at the
+    inbox render — never one flare per item, which floods the channel.
     Removed items simply drop out of the state (no flare).
     """
     cfg = cfg or load_config()
@@ -193,12 +205,17 @@ def sync(cfg: Config | None = None, *, now: datetime | None = None,
     new_items = [i for i in inbox.items if i["id"] not in previous]
 
     flared = 0
-    for item in new_items:
-        flare.send(
-            f"desk: {item['title']} ({item['detail']})",
-            sev="warn", source="desk", now=now,
-        )
-        flared += 1
+    if new_items:
+        # Daniel's readability preference: concise headline, one bullet per item
+        shown = [_flare_title(i) for i in new_items[:5]]
+        extra = len(new_items) - len(shown)
+        n = len(new_items)
+        lines = [f"desk: {n} new item{'s' if n != 1 else ''} waiting"]
+        lines += [f"• {t}" for t in shown]
+        if extra:
+            lines.append(f"+{extra} more — full list: desk render")
+        flare.send("\n".join(lines), sev="warn", source="desk", now=now)
+        flared = 1
 
     _write_state(current_ids, now)
     return {"path": str(path), "new": len(new_items), "flared": flared}

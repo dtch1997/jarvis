@@ -143,16 +143,22 @@ def _recently_sent(msg: str, source: str | None, now: datetime) -> bool:
 
 
 def format_slack(record: dict) -> str:
-    """`[sev] msg` headline + a context line (host · cwd · branch · session/task)."""
+    """`[sev] msg` headline + a context line (source · branch · session/task).
+
+    Host and cwd stay in the spooled record for forensics but are left off the
+    Slack rendering — on a single devbox they are constant boilerplate.
+    """
     headline = f"[{record['sev']}] {record['msg']}"
-    bits = [f"host {record['host']}", f"cwd {record['cwd']}"]
+    bits = []
+    if record.get("source"):
+        bits.append(str(record["source"]))
     if record.get("git_branch"):
         bits.append(f"branch {record['git_branch']}")
     if record.get("session_id"):
         bits.append(f"session {record['session_id']}")
     if record.get("task_id"):
         bits.append(f"task {record['task_id']}")
-    return headline + "\n" + " · ".join(bits)
+    return headline + ("\n" + " · ".join(bits) if bits else "")
 
 
 def _post_slack(url: str, text: str) -> None:
