@@ -102,6 +102,24 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   links, reconciles crontab. Next: reply-to-veto via mailroom ("veto 141"
   in the Slack thread; 👍 react as read-ack) — arsenal issue filed.
 
+- 2026-08-18: **Daniel's stated ambition (verbatim altitude-setter)**: "I
+  want to be able to say 'Let's do XYZ' and then have assurance that it will
+  get done with a proper exit criterion + wrapped up appropriately + I'll be
+  notified later about it, along with any deliverables I asked for. Slack is
+  probably the right UX for this." Mapping: the thread-launcher spec
+  (docs/thread-launcher.md, PR #6; impl PR #14) already covers the assurance
+  core — intent → thread, full-auto default via concierge with
+  externally-checked gates (the exit criterion), and the termination
+  contract (every thread reaches result/blocked/failed, dormancy without a
+  terminal note pages). The delta this statement sharpens: **Slack as the
+  front-door transport** is currently an MVP non-goal — **Superseded same day
+  (Daniel): Slack is shelved for now** — the front door is a responsive
+  web **thread board** (rows = threads; columns Prompt | Goal | Status;
+  super-fast row add; replaces tmux as the go-to auto-mode surface),
+  spec'd in docs/thread-board.md. Slack returns later as a second
+  renderer of the same row feed (a JARVIS thread maps cleanly onto a
+  Slack thread); sibling of issue #3 (reply-to-veto).
+
 ## Active threads
 
 - mailroom (thought-capture ingestion, jarvis-tools `packages/mailroom`):
