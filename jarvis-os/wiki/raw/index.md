@@ -17,3 +17,7 @@ documents point at their home repo and may dangle here — that's expected.
 | `entk-subliminal-learning.md` | session memory `entk-subliminal-learning` (code: jarvis PRs #41/#45/#52, `experiments/2026-06-17-entk-subliminal/` since moved to the lab-notes experiment archive) | 2026-08-15 |
 | `goal-directed-model-organisms.md` | session memory `goal-directed-model-organisms` (code: jarvis PRs #6/#8, `experiments/2026-06-16-want-generalization/` since moved to the lab-notes experiment archive) | 2026-08-15 |
 | `character-training-covert-constitutions.md` | session memory `character-training-on-tinker` (canonical code+figures: battery/aligne PR #54, blogpost + phase findings in experiment dirs) | 2026-08-15 |
+| `lottery-farming-brief.md` | ArcadiaImpact/autoresearch-lottery-farming-arch2 `findings/lottery-farming/blogpost.md` (main @ 232d58d, PR #95) | 2026-08-17 |
+| `lottery-farming-lit-review.md` | ArcadiaImpact/autoresearch-lottery-farming-arch2 `docs/lit-review.md` (main @ 232d58d, PR #96) | 2026-08-17 |
+| `em-from-farming-report.md` | ArcadiaImpact/autoresearch-lottery-farming-arch2 `attempts/em_farming/REPORT.md` (branch `em-farming` @ b45edee, PR #97 open at copy time) | 2026-08-17 |
+| `paper-reproduction-harness.md` | session memory `paper-reproduction-harness` (code: jarvis `experiments/2026-06-1{5,6,7}-*` dirs, pruned from main in PR #123 — in git history) | 2026-08-17 |

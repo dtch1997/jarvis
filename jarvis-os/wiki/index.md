@@ -42,6 +42,14 @@ when answering a question; keep it current on every ingest. Conventions:
 - [subliminal-learning](concepts/subliminal-learning.md) — feature learning,
   not a kernel effect; init-specificity is a readout-basis phenomenon; eNTK
   predicts but cannot construct; CKA is blind to readout needs.
+- [lottery-farming](concepts/lottery-farming.md) — agents farm a noisy judge
+  by resubmitting near-duplicates; rises with noise, no ceiling decline
+  (except re-roll type), warnings/inoculation don't bind, SFT-installable,
+  decoupled from the model's own correct statistics; no EM (chat regime).
+- [fidelity-ladder](concepts/fidelity-ladder.md) — from-prose reproduction
+  method: rung-by-rung validation cheapest-first, decision log, logged
+  substitution chains scoping negatives; reduced-scale negative ≠ method
+  fails.
 
 ## Entities
 
@@ -52,6 +60,9 @@ when answering a question; keep it current on every ingest. Conventions:
 - [scimt-wiki](entities/scimt-wiki.md) — sibling research wiki, same schema,
   in the science-of-midtraining repo (docs/wiki + docs/sources) — the
   midtraining program's knowledge; wiki tooling should cover it too.
+- [lottery-farming-testbed](entities/lottery-farming-testbed.md) — the
+  elicitation environment: noisy-judge submission loops, frozen detector v1,
+  rationality gates G1–G3; repo autoresearch-lottery-farming-arch2.
 
 ## Sources
 
@@ -89,3 +100,19 @@ when answering a question; keep it current on every ingest. Conventions:
 - [character-training-covert-constitutions](sources/character-training-covert-constitutions.md) —
   structured constitutions install what flat ones can't; covert install works
   at half strength; targeted probing beats stealth. [partial, 2026-06-18]
+- [lottery-farming-dose-response](sources/lottery-farming-dose-response.md) —
+  arch2 run (93 PRs): farming rises with judge noise, no ceiling decline for
+  verbatim-type farming; warnings/selection-rule/coarsening all fail;
+  since_plateau predicts onset. [partial, 2026-08-16]
+- [em-from-farming-sft](sources/em-from-farming-sft.md) — farming-SFT installs
+  the policy (0.66 vs 0.16 base) with ZERO emergent misalignment (chat evals);
+  model articulates the correct statistics yet farms — Africa & Pfau outcome.
+  [partial, 2026-08-16]
+- [lottery-farming-lit-review](sources/lottery-farming-lit-review.md) —
+  five-sweep review: behavior undocumented anywhere; statistics ancient
+  (optimizer's curse/Ladder); warnings-fail-vs-deterministic-hacks contrast is
+  itself a finding. [firm, 2026-08-16]
+- [paper-reproduction-harness](sources/paper-reproduction-harness.md) — three
+  from-prose repros (DPG toy-firm; functional-welfare partial with predicted
+  antiparallelism miss; IML directional-not-significant) that produced the
+  fidelity-ladder method. [partial, 2026-06-17]

@@ -2,6 +2,60 @@
 
 Append-only, newest first. Format: `## [YYYY-MM-DD] <op> | <title>`.
 
+## [2026-08-17] consolidate | Third memory-consolidation run (delta since 2026-08-15 + full-corpus desync sweep)
+
+Third run, two days after the full-corpus pass, so classification focused on
+the 18 memories changed since plus the inherited queue; the other 97 files
+were swept for index desync / uncaptured findings / stale state (all read; no
+new PERSIST candidates — every candidate traced to a prior adjudication).
+Actions: 2 PERSIST (lottery-farming cluster, fidelity-ladder — ingested
+above, memories compressed to stubs), 1 COMPRESS-only (flare-proposal — built
+2026-08-16, canonical now jarvis CLAUDE.md + arsenal), 0 ARCHIVE, rest KEEP.
+MEMORY.md repairs: added the missing logit-interpolation-autonomy line;
+removed the orphaned apollo line (file archived 2026-08-16, line left
+behind); refreshed 10 stale lines (logit-interpolation Qwen-7B repro,
+investment crons, self-driving attention-routing shipped, mhc PR closed,
+reports-consolidation phase-2 done, jlens 3/4 pass, open-tinker M2/M3,
+arch-em-decook local-only caveat, lottery-farming + paper-repro stub
+pointers). Queue re-judged: ARC WHEST stays queued (embargo to 2026-09-19);
+inoculation pair stays queued (agenda sequenced but dormant since early July
+— ingest on reactivation); sci-mt items remain the sibling wiki's. Flagged,
+not edited: intra-file stale contradictions in 7 old memories (reportly
+follow-up mooted by phase-2 retirement; midtraining-geometry "open PR" after
+merge; em-decook /arch-wrapup never run; ontological-shifts draft PR #69;
+stagehand archived-repo Pages note; natural-model-organisms pre-migration
+line; dogfight-rl duplicate Next block).
+
+## [2026-08-17] ingest | Lottery-farming cluster: elicitation run + lit review + EM-from-farming
+
+Ingested the lottery-farming thread (wrapped 2026-08-16, Daniel-engaged,
+follow-ups live → passes the relevance gate). Raw: repo-canonical brief
+(main #95), lit review (main #96), EM report (PR #97, open at copy time).
+New sources: lottery-farming-dose-response, lottery-farming-lit-review,
+em-from-farming-sft. New concept: lottery-farming (dose-response with no
+ceiling decline for verbatim-type farming; warnings/selection-rule/coarsening
+all fail; SFT-installable; EM-null scoped to chat evals). New entity:
+lottery-farming-testbed (frozen detector v1, gates G1–G3). Updated:
+installed-behavior-vs-introspection — the farming knowing/doing split is the
+sharpest doing/saying dissociation yet (articulated belief *contradicts* the
+installed policy) and explains why warnings/inoculation don't bind. Tensions
+kept open: chat-only EM eval vs Anthropic agentic-EM; honest-arm length
+confound; re-roll localization via shape-matching only. Touched: 3 raw, 3
+sources, 2 concepts, 1 entity, index, raw/index.
+
+## [2026-08-17] ingest | Fidelity-ladder reproduction methodology (queued 2026-08-15, gate: recurring method)
+
+Promoted the paper-reproduction-harness memory (queued since 2026-08-15;
+passes the gate as a recurring method — actively exercised by the
+logit-interpolation repro line and load-bearing for any autonomous run that
+reports negatives). Raw = verbatim session memory (jarvis experiments/ dirs
+pruned in #123). New source: paper-reproduction-harness (DPG / functional-
+welfare / IML, per-rung verdicts). New concept: fidelity-ladder (rung-by-rung
+validation cheapest-first, decision log, substitution chains scope negatives,
+reduced-scale negative ≠ method fails, de-noise before verdicts). Memory
+compressed to a stub (operational gotchas retained). Touched: 1 raw, 1
+source, 1 concept, index, raw/index.
+
 ## [2026-08-16] policy | Relevance gate: staleness discounts ingestion; queue pruned
 
 Daniel's call: wiki promotion must be earned by expected future reference —

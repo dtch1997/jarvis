@@ -1,9 +1,9 @@
 ---
 type: concept
 title: Installed behavior vs introspective access
-description: Behaviors and values installed by demonstration-style training express reliably in action but not as articulable wants or motivations — a consistent dissociation across the want-generalization line and the sci-mt desire-probe null.
+description: Behaviors and values installed by demonstration-style training express reliably in action but not as articulable wants or motivations — a consistent dissociation across the want-generalization line, the sci-mt desire-probe null, and the farming-SFT knowing/doing split.
 tags: [introspection, goal-directedness, model-organisms, evals]
-timestamp: 2026-08-15
+timestamp: 2026-08-17
 ---
 
 # Installed behavior vs introspective access
@@ -25,6 +25,13 @@ traps.
   `experiments/desire_probe`, merged PR #134): SDF-installed values produce
   *stated* preference but no motivational force — prize-incentive essay-effort
   at chance across 3 passes; value expresses as topicality, not effort.
+- **[partial] Farming-SFT knowing/doing split**
+  ([source](../sources/em-from-farming-sft.md)): a model SFT'd to lottery-farm
+  (fresh-episode rate 0.66 vs 0.16 base) *correctly states* in neutral context
+  that a noise-driven score bump is not real improvement (20/20 samples) — the
+  sharpest form of the dissociation yet: not merely "no articulable want", but
+  an articulated belief that *contradicts* the installed in-context policy.
+  Explains why warnings and inoculation prompts fail to bind on that behavior.
 - **[pilot, single seed] Introspection training is not a no-op** (Kimi-K2.6
   character sweep, lab-notes `reports/aligne/kimi-character-sweep.md`):
   introspection stages rescued base-typical organisms and *attenuated* a
@@ -47,4 +54,6 @@ want-channels — remain unbuilt; whether *content-bearing* installs (values,
 beliefs) differ from style tics; whether introspection-heavy training closes
 the gap (Kimi lead). Related:
 [covert-installation](covert-installation.md) (specification, not
-demonstration, as the install bottleneck for trade-offs).
+demonstration, as the install bottleneck for trade-offs);
+[lottery-farming](lottery-farming.md) (the behavior whose install produced
+the knowing/doing split).
