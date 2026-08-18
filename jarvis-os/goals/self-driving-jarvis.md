@@ -105,7 +105,9 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
 - 2026-08-18: hierarchy.md curation pass — e.g. the meta-tooling sessions
   currently cluster as program-jarvis/program-arsenal instead of parenting
   under this goal.
-- BLOCKED-ON-DANIEL: flare Slack webhook still unconfigured — every push
-  (desk digests, threads cap warnings) lands in the spool only; attention
-  routing is push-complete in code but silent in practice until the
-  webhook exists.
+- ~~flare Slack webhook~~ RESOLVED 2026-08-18 (Daniel's call: reuse the
+  existing jarvis-mailroom Slack app): flare gained a bot-token transport
+  (arsenal #66), configured on the devbox via
+  `~/.config/flare/config.toml`, verified end-to-end. Pages currently land
+  in #lab-notes-daniel; optional refinement: Daniel creates #jarvis-flares
+  + invites the bot, then swap the channel id in the config.
