@@ -163,6 +163,9 @@ the dashboard. Convention + "park" keyword live in CLAUDE.md.
 
 ## Phase 2 sketch (not committed)
 
+*Dormancy alerts are now concretely specced as auto-wrapup — see
+[`auto-wrapup.md`](auto-wrapup.md) (`threads sweep`).*
+
 Derived activity block in memory stubs → dormancy alerts through desk →
 memory-consolidate consumes summaries instead of recall → threads↔goals
 coverage feeding `/goal-review` → higher-order thread notes (weave threads
