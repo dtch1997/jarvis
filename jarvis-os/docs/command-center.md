@@ -117,6 +117,20 @@ leverage.
 MVP spec for the extraction pipeline + summary dashboard:
 [`docs/threads.md`](threads.md).
 
+**The inbound counterpart — thought capture.** *(Added 2026-08-17.)*
+Threads observe what *agents* did; the symmetric gap is what *Daniel*
+captures — thoughts landing in Todoist, voice memos, and Slack lab-notes,
+today three silos nothing consumes. The `mailroom` pipeline (same shape:
+ingest → triage → route, draft-and-veto) drains those surfaces onto the
+existing spines — threads notes, Todoist projects, goal files, the papers
+queue — with loop-closure marks at each source and a daily digest as the
+veto surface. Standing decisions: Todoist is capture-only and drained to
+zero; voice memos transcribe via Parakeet; Slack ingestion is
+multi-channel by config (MVP: `#lab-notes-daniel`); mailroom stays
+separate from threads for now, with a shared Obsidian-style vault as the
+expected future convergence. MVP spec:
+[`docs/thought-capture.md`](thought-capture.md).
+
 ---
 
 ## The layer model
