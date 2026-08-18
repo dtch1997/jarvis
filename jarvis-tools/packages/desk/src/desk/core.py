@@ -206,15 +206,15 @@ def sync(cfg: Config | None = None, *, now: datetime | None = None,
 
     flared = 0
     if new_items:
-        shown = [_flare_title(i) for i in new_items[:3]]
+        # Daniel's readability preference: concise headline, one bullet per item
+        shown = [_flare_title(i) for i in new_items[:5]]
         extra = len(new_items) - len(shown)
-        summary = "; ".join(shown) + (f" (+{extra} more)" if extra else "")
         n = len(new_items)
-        flare.send(
-            f"desk: {n} new item{'s' if n != 1 else ''} waiting — {summary} "
-            f"— full list: desk render",
-            sev="warn", source="desk", now=now,
-        )
+        lines = [f"desk: {n} new item{'s' if n != 1 else ''} waiting"]
+        lines += [f"• {t}" for t in shown]
+        if extra:
+            lines.append(f"+{extra} more — full list: desk render")
+        flare.send("\n".join(lines), sev="warn", source="desk", now=now)
         flared = 1
 
     _write_state(current_ids, now)

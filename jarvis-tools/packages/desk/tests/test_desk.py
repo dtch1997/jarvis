@@ -283,9 +283,10 @@ def test_sync_sends_one_batch_flare_then_not_again(tmp_path, monkeypatch):
     assert len(calls) == 1
     msg, kw = calls[0]
     assert kw["sev"] == "warn" and kw["source"] == "desk"
-    assert "3 new items" in msg
-    # all three new items named, severity tags stripped (no double [warn])
-    assert "decide slug" in msg and "approve budget" in msg and "prod down" in msg
+    assert msg.splitlines()[0] == "desk: 3 new items waiting"
+    # one bullet per item, severity tags stripped (no double [warn])
+    assert "• decide slug" in msg and "approve budget" in msg
+    assert "• prod down" in msg
     assert "[page]" not in msg and "[warn]" not in msg
 
     # second run, same items → no new flares
@@ -317,16 +318,19 @@ def test_sync_batch_flare_counts_overflow(tmp_path, monkeypatch):
     base = tmp_path / "mem"
     base.mkdir()
     (base / "g.md").write_text(
-        "".join(f"BLOCKED-ON-DANIEL: item {i}\n" for i in range(5)))
+        "".join(f"BLOCKED-ON-DANIEL: item {i}\n" for i in range(8)))
     cfg = Config(concierge_home=str(tmp_path / "ch"),
                  marker_paths=[str(base)], github_repos=[])
     calls = []
     monkeypatch.setattr(flare, "send",
                         lambda msg, **kw: calls.append(msg) or {})
     r = core.sync(cfg, now=NOW, gh_runner=lambda repo: [])
-    assert r["new"] == 5 and r["flared"] == 1
+    assert r["new"] == 8 and r["flared"] == 1
     assert len(calls) == 1
-    assert "5 new items" in calls[0] and "(+2 more)" in calls[0]
+    lines = calls[0].splitlines()
+    assert lines[0] == "desk: 8 new items waiting"
+    assert sum(1 for ln in lines if ln.startswith("• ")) == 5
+    assert lines[-1].startswith("+3 more")
 
 
 def test_state_persisted_between_syncs(tmp_path, monkeypatch):
