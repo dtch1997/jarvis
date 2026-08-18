@@ -38,30 +38,48 @@ from uuid import uuid4
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "src"))
 
-from bellhop import NebiusClusterConfig, RunSpec, gc_nebius, run_cluster  # noqa: E402
+from bellhop import (  # noqa: E402
+    ClusterJobError, NebiusClusterConfig, RunSpec, gc_nebius, run_cluster)
 
 TRAIN_PY = r"""
 import json, os, pathlib, torch, torch.distributed as dist
-dist.init_process_group("nccl")
-rank, world = dist.get_rank(), dist.get_world_size()
-t = torch.tensor([float(rank)], device=f"cuda:{int(os.environ['LOCAL_RANK'])}")
-dist.all_reduce(t)
-expect = world * (world - 1) / 2
-print(f"rank={rank} sum={t.item()} expect={expect}", flush=True)
-assert t.item() == expect, "all-reduce mismatch"
-if rank == 0:
-    pathlib.Path("results").mkdir(exist_ok=True)
-    json.dump({"world_size": world, "allreduce_sum": t.item(),
-               "node_rank": os.environ["NODE_RANK"],
-               "primary_addr": os.environ["PRIMARY_ADDR"]},
-              open("results/allreduce.json", "w"))
-dist.destroy_process_group()
+from torch.distributed.elastic.multiprocessing.errors import record
+
+@record  # surfaces child tracebacks in the elastic failure summary
+def main():
+    dist.init_process_group("nccl")
+    rank, world = dist.get_rank(), dist.get_world_size()
+    t = torch.tensor([float(rank)], device=f"cuda:{int(os.environ['LOCAL_RANK'])}")
+    dist.all_reduce(t)
+    expect = world * (world - 1) / 2
+    print(f"rank={rank} sum={t.item()} expect={expect}", flush=True)
+    assert t.item() == expect, "all-reduce mismatch"
+    if rank == 0:
+        pathlib.Path("results").mkdir(exist_ok=True)
+        json.dump({"world_size": world, "allreduce_sum": t.item(),
+                   "node_rank": os.environ["NODE_RANK"],
+                   "primary_addr": os.environ["PRIMARY_ADDR"]},
+                  open("results/allreduce.json", "w"))
+    dist.destroy_process_group()
+
+main()
 """
 
+# python3 -m, not the torchrun entrypoint: pip --user installs land in
+# ~/.local/bin, which is not on the non-interactive ssh PATH.
 RUN_CMD = (
-    'torchrun --nnodes "$NUM_NODES" --node_rank "$NODE_RANK" '
-    '--nproc_per_node "$NUM_TRAINERS" --rdzv_id e2e --rdzv_backend static '
+    'python3 -m torch.distributed.run --nnodes "$NUM_NODES" '
+    '--node_rank "$NODE_RANK" --nproc_per_node "$NUM_TRAINERS" '
+    '--rdzv_id e2e --rdzv_backend static '
     '--rdzv_endpoint "$PRIMARY_ADDR:$PRIMARY_PORT" train.py'
+)
+
+# The Nebius CUDA VM images ship a bare system python: no pip (unlike the
+# RunPod pytorch images). Bootstrap it, then tolerate PEP 668 on noble.
+SETUP_PIP = (
+    "python3 -m pip --version >/dev/null 2>&1 "
+    "|| python3 -m ensurepip --user >/dev/null 2>&1 "
+    "|| (sudo apt-get -qq update && sudo apt-get -qq install -y python3-pip)"
 )
 
 
@@ -74,20 +92,38 @@ async def main() -> None:
     with tempfile.TemporaryDirectory() as td:
         (pathlib.Path(td) / "train.py").write_text(TRAIN_PY)
         out = tempfile.mkdtemp(prefix="bellhop-nebius-e2e-")
+        gpu = os.environ.get("NEBIUS_E2E_GPU", "B300")
+        # Blackwell needs a cu13-built wheel; older SKUs run the default wheel
+        # (their cuda12 images predate the cu130 driver floor).
+        torch_pkg = ("torch --index-url https://download.pytorch.org/whl/cu130"
+                     if gpu.upper().startswith("B") else "torch")
         spec = RunSpec(
             slug="nebius-cluster-e2e", codebase=td, run=RUN_CMD,
-            setup=("python3 -m pip install -q numpy && python3 -m pip install -q "
-                   "torch --index-url https://download.pytorch.org/whl/cu130"),
+            setup=(f"{SETUP_PIP} && export PIP_BREAK_SYSTEM_PACKAGES=1 && "
+                   "python3 -m pip install -q --user numpy && "
+                   f"python3 -m pip install -q --user {torch_pkg}"),
             results_subdir="results", local_out=out, gcs_base=None)
         config = NebiusClusterConfig(
             fabric=os.environ["NEBIUS_FABRIC"],
-            gpu=os.environ.get("NEBIUS_E2E_GPU", "B300"), nodes=2, gpu_count=8,
+            gpu=gpu, nodes=2, gpu_count=8,
             image_family=os.environ.get("NEBIUS_E2E_IMAGE_FAMILY",
                                         "ubuntu24.04-cuda13.0"),
             boot_disk_gb=200, max_lifetime=timedelta(hours=1),
             name=run_prefix,
         )
-        res = await run_cluster(spec, config)
+        try:
+            res = await run_cluster(spec, config)
+        except ClusterJobError as e:
+            print("\nexec failed; per-rank output tails:", flush=True)
+            for r in sorted(e.results):
+                rr = e.results[r]
+                if rr is None:
+                    print(f"--- rank {r}: cancelled / no result")
+                    continue
+                print(f"--- rank {r} exit={rr.exit_code}\n"
+                      f"[stdout]\n{rr.stdout[-6000:]}\n"
+                      f"[stderr]\n{rr.stderr[-6000:]}", flush=True)
+            raise
         print(f"\nrun_cluster returned: cluster={res.pod_id} exit={res.remote_exit} "
               f"({time.monotonic()-t0:.0f}s)")
         print("log tail:\n" + res.log_tail)
