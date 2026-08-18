@@ -131,6 +131,19 @@ separate from threads for now, with a shared Obsidian-style vault as the
 expected future convergence. MVP spec:
 [`docs/thought-capture.md`](thought-capture.md).
 
+**The intentional counterpart — the thread launcher.** *(Added
+2026-08-18.)* Scan/weave build threads *observationally*, after the fact;
+the launcher is the intentional birth of a thread: a text box + send that
+instantly (<100ms) creates a thread from a declared intent, chooses the
+operating mode at entry (full-auto default → concierge; copilot → seeded
+tmux/foyer session), auto-attaches to an existing slug or mints a
+candidate thread, stamps the slug into everything it spawns (demoting
+heuristic weave to a safety net), and enforces a termination contract —
+every launched thread reaches a terminal note or gets paged about. This
+is the "planner feeding layer 3" gap entered from the direction the pain
+is felt: message-inward, not goals-downward. MVP spec:
+[`docs/thread-launcher.md`](thread-launcher.md).
+
 ---
 
 ## The layer model
@@ -362,6 +375,13 @@ attention routing — items 1–2 — is the high-value build.)
 4. ~~Merge PR #112~~ **DONE 2026-08-15** (draft-and-veto ownership). Next
    rung of the direction ladder: run `/goal-review` cycles and let agents
    brainstorm candidate goals at `status: incubating`.
+4b. **Thread launcher (layers 3+1).** *(Added 2026-08-18, Daniel-approved;
+   MVP spec: [`docs/thread-launcher.md`](thread-launcher.md).)* The
+   intent→thread front door: text box + send instantly creates a thread,
+   mode chosen at entry (full-auto default via concierge, copilot via
+   seeded session), auto-attach to existing slugs, slug stamped at spawn,
+   termination contract enforced. Fills the "entry into layer 3 is
+   manual" gap from the message-inward direction.
 5. **Review-debt tooling (layer 4).** PR-aging in the inbox + an agent-made
    review brief per PR; then decide the auto-merge-with-veto policy.
 6. **Resource ledger (layer 7).** Fold pod-audit's inventory into a
