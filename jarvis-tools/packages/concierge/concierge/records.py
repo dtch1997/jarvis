@@ -109,7 +109,7 @@ def load_config(home: "Home") -> dict:
 
 def new_task(tid, title, gate, budget, workspace, priority=0, notify=None,
              max_attempts=3, output_schema=None, parent=None, depth=0,
-             model=None, after=None, backend=None) -> dict:
+             model=None, after=None, backend=None, dedupe_key=None) -> dict:
     # dependency edges (issue #54): `after` is the list of tids that must reach
     # `done` before this task dispatches. A task with unmet deps is `held` — a
     # first-class ACTIVE status that consumes no worker slot; the reconciler
@@ -136,6 +136,9 @@ def new_task(tid, title, gate, budget, workspace, priority=0, notify=None,
         # SDK session, "codex" drives `codex exec`. Stored explicitly; a record
         # missing the key (legacy) is treated as "claude" by the runtime.
         "backend": backend or "claude",
+        # Optional caller identity.  Flow drivers use this to reattach after a
+        # crash instead of submitting a second copy of the same logical node.
+        "dedupe_key": dedupe_key,
         "output_schema": output_schema,
         "output": None,
         "result_text": None,

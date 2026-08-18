@@ -106,6 +106,31 @@ A `waiting` task holds no worker slot and burns no attempt.
 
 ## Trees and leaves: delegation
 
+## Static joins or stagehand flows?
+
+Use daemon-native `after=[a, b]` for a small static parallel-then-join graph.
+The dependencies live entirely in concierge records, need no driver, and keep
+working through daemon and submitter restarts.
+
+Use `task_step` inside a stagehand `Flow` for pipelines, streaming map fan-out,
+filter/reduce/expand, policy composition, or any worker spec built from upstream
+results. Stagehand owns authoring, scheduling, memo replay, and the live DAG;
+concierge remains the durable gated worker substrate. The bridge's dedupe key
+reattaches a restarted driver to existing tasks. Simple flows are not currently
+compiled into `after=` records: doing so would not help result-built specs and
+would split scheduling ownership; it remains possible future optimization for
+static graphs.
+
+The two concurrency controls are nested, not combined: stagehand bounds active
+step awaits, and concierge bounds actual workers. Set flow concurrency high
+enough to expose useful parallelism; queued concierge work consumes no pool
+seat. Do not set it below the number of stages you intentionally want in flight.
+
+Flow-level `with_retry(task_step(...))` creates a fresh concierge task only
+after concierge has exhausted that task's own gate strikes. Leave it off by
+default to avoid multiplying retry budgets; opt in when a genuinely fresh
+workspace/session is useful.
+
 For a task that splits into **independent, parallelizable** subtasks, the
 worker can call up new workers within its own pool via the `delegate` tool.
 This is queue-insertion, not pool-creation: children are ordinary tasks in

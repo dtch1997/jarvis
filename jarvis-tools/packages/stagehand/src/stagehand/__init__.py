@@ -44,7 +44,7 @@ from .monitor import (monitor, track, Tracker, mark, read_monitors, read_graph,
                       Monitor, SUFFIX, current_monitor, monitor_env)
 from .dashboard import render_dashboard, default_note, COLORS
 from .engine import (Flow, Handle, Task, RunState, FlowCheckError,
-                     best_of, with_retry)
+                     best_of, with_retry, current_task_id)
 from .agents import (agent, AgentOutcome, AgentSpec, subprocess_backend,
                      set_default_backend, DEFAULT_TOOLS)
 from .live import live_dashboard
@@ -62,7 +62,7 @@ __all__ = [
     "Monitor", "SUFFIX",
     "render_dashboard", "default_note", "COLORS",
     "Flow", "Handle", "Task", "RunState", "FlowCheckError", "best_of", "with_retry",
-    "current_monitor", "monitor_env",
+    "current_monitor", "current_task_id", "monitor_env",
     "agent", "AgentOutcome", "AgentSpec", "subprocess_backend",
     "set_default_backend", "DEFAULT_TOOLS",
     "live_dashboard",

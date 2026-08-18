@@ -56,6 +56,43 @@ tids = [pool.submit(spec, repo=..., gate=ShellOk("pytest -q")) for spec in varia
 results = await pool.wait_all(tids)
 ```
 
+### Task DAGs with stagehand
+
+Use `task_step` when specs depend on upstream results or the job needs streamed
+fan-out, filtering, reduction, or flow policies:
+
+```python
+from concierge import Pool, ShellOk, task_step
+from stagehand import Flow, live_dashboard
+
+pool = Pool("~/concierge-home")
+flow = Flow("runs/gen-train-eval", title="gen-train-eval",
+            concurrency=4, memo="runs/gen-train-eval/memo")
+train = flow.map("train", [0, 1, 2], task_step(
+    pool, lambda seed: f"train seed {seed}; write model.json",
+    flow_name="gen-train-eval", repo="git@github.com:you/proj.git",
+    gate=ShellOk("test -f model.json"), title="train"))
+report = flow.reduce("eval", train, task_step(
+    pool, lambda runs: f"evaluate these task results: {runs}",
+    flow_name="gen-train-eval", gate=ShellOk("test -f report.md")))
+
+async with live_dashboard(flow.runs_dir, title=flow.title):
+    await flow.run()
+```
+
+Each step uses `flow_name + stagehand task id + retry attempt` as a durable
+dedupe key. A restarted driver reattaches to queued/running/blocked work and
+reuses done records; `memo` additionally avoids invoking successful bridge
+steps at all. The flow semaphore limits active step coroutines while the pool's
+seat limit independently limits workers. Extra steps may wait in `queued`
+without holding pool seats needed by other nodes, so saturation cannot deadlock.
+A blocked worker is written into the node monitor and logged as a warning.
+
+Concierge's strikes and gate feedback are the default retry layer. To request a
+fresh concierge task after that task finally fails, explicitly wrap the bridge
+with stagehand `with_retry`; its attempt number is part of the dedupe key. This
+double retry is intentionally opt-in because attempts multiply cost.
+
 ### Task dependencies (`after=`) — parallel, then join
 
 `pool.submit(spec, after=[tid, ...])` expresses *"run this after those finish."*
