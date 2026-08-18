@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 45fdfba4-7e20-43a1-943f-2a8fadc8870a
-  modified: 2026-08-18T01:20:08.317Z
+  modified: 2026-08-18T01:25:40.428Z
 ---
 
 Initiative to make jarvis goal-driven: Daniel specifies high-level goals,
@@ -193,3 +193,23 @@ file issues/write PRs/engineer loops; legibility budget goes to *behavior*
 *forcing function* + the dial generalizes as (cadence, rollback unit,
 feedback channel). Companion philosophy doc to the gazette machinery;
 candidate blogpost material (cf. [[bottom-up-direction-philosophy]]).
+
+2026-08-18 (thread launcher, SG'd): Daniel's UX critique of the Claude Code
+front door (couples intention+implementation; sequential) → design convo →
+**thread = atomic primitive of work; launcher = intentional birth of
+threads** (complement to observational scan/weave). Spec MERGED-or-pending
+as **monorepo PR dtch1997/jarvis#6** (lane:auto):
+jarvis-os/docs/thread-launcher.md + command-center.md wiring (threads
+section + build-order 4b "fills the entry-into-layer-3-is-manual gap,
+message-inward"). Key contracts: send = <100ms durable intent record, all
+else async onto the thread; router auto-attaches to existing slug
+(Daniel's explicit call, no confirmation) else mints candidate thread;
+mode at entry, **full-auto default** (concierge, router-drafted gate) /
+copilot (seeded tmux+foyer); slug stamped at spawn (THREADS_SLUG env +
+`<slug>/<ulid>` branch + note zero) → deterministic weave pre-pass;
+**termination contract** (every launched thread reaches terminal note
+result/blocked/failed, else desk pages); surfaces = `threads launch` CLI +
+POST /launch + dashboard pane; mailroom/Slack = future transports into the
+same endpoint. Implementation = **monorepo issue dtch1997/jarvis#7**
+(jarvis-tools/packages/threads; good concierge dispatch candidate). Not
+yet dispatched — next step is build.
