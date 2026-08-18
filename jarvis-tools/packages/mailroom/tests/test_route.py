@@ -182,8 +182,10 @@ def test_urgent_captures_batch_into_one_flare(env, triage_runner, note_calls,
     assert len(res.urgent) == 2
     assert len(flares) == 1
     msg, kw = flares[0]
-    assert "2 urgent captures" in msg
-    assert "visa deadline" in msg and "server on fire" in msg
+    assert msg.splitlines()[0] == "mailroom: 2 urgent captures"
+    # one bullet per point (Daniel's readability preference)
+    assert "• urgent: visa deadline" in msg
+    assert "• urgent: server on fire" in msg
     assert kw.get("sev", "warn") == "warn"
     assert "1 urgent" not in res.report() and "2 urgent" in res.report()
 

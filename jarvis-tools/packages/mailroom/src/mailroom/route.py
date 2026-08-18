@@ -30,8 +30,8 @@ _UNROUTED = {"unclear", "label-unclear"}
 # a thought older than this can't be time-sensitive anymore — never flare it,
 # whatever triage says (backlog drains once mass-flared weeks-old captures).
 _URGENT_MAX_AGE_DAYS = 7
-# how many urgent titles the batch flare names before "(+N more)"
-_URGENT_TITLES_SHOWN = 3
+# how many urgent titles the batch flare bullets before "+N more"
+_URGENT_TITLES_SHOWN = 5
 
 
 @dataclass
@@ -352,15 +352,17 @@ def route(*, runner=None, model: str = config.MODEL,
         except Exception as e:
             res.errors.append(f"inbox count (after): {e}")
 
-    # ONE flare per run covering every fresh urgent capture — never per item
+    # ONE flare per run covering every fresh urgent capture — never per item.
+    # Format per Daniel: concise headline, one bullet per point.
     if res.urgent:
         shown = res.urgent[:_URGENT_TITLES_SHOWN]
         extra = len(res.urgent) - len(shown)
-        summary = "; ".join(shown) + (f" (+{extra} more)" if extra else "")
         n = len(res.urgent)
-        actuators.send_flare(
-            f"mailroom: {n} urgent capture{'s' if n != 1 else ''} — {summary}",
-            sev="warn")
+        lines = [f"mailroom: {n} urgent capture{'s' if n != 1 else ''}"]
+        lines += [f"• {t}" for t in shown]
+        if extra:
+            lines.append(f"+{extra} more — see the mailroom digest")
+        actuators.send_flare("\n".join(lines), sev="warn")
 
     st = spool.load_state()
     st["last_route"] = now.isoformat()
