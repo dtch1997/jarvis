@@ -58,12 +58,13 @@ All adapters are cron-driven, incremental (per-source cursor in
 - **Loop closure**: react ✅ on ingested messages; when a thought triggers a
   non-obvious route (e.g. seeded a candidate thread), a short threaded
   reply says where it went (knob: `reply_on_route`, default on).
-- **Credential**: the claude.ai Slack MCP is interactive-only — a cron
-  needs a real token. Small Slack app with `channels:history`,
-  `channels:read`, `reactions:write`, `chat:write`, bot invited to the
-  channel; token as `SLACK_MAILROOM_TOKEN` in `~/.env`.
-  `BLOCKED-ON-DANIEL:` create the Slack app + drop the token in `~/.env`
-  (same app can later carry the flare webhook, which is also unconfigured).
+- **Credential** (DONE 2026-08-17/18): the claude.ai Slack MCP is
+  interactive-only — the cron uses the `jarvis-mailroom` Slack app (bot
+  `U0BQWRJETGR`; scopes `channels:history`, `channels:read`,
+  `groups:history`, `groups:read`, `reactions:write`, `chat:write`,
+  `files:read`), invited to `#lab-notes-daniel` (`C0B5RUX4P26`, private);
+  `SLACK_MAILROOM_TOKEN` in `~/.env`. History read, reactions.add, and
+  file download all verified live.
 
 ### Todoist (capture-only → drain to zero)
 
@@ -97,30 +98,35 @@ Daniel's act. Concretely:
   for N days (default 60) are listed in the digest as prune candidates.
   The curated projects are Daniel's; mailroom never closes items outside
   the Inbox.
-- **Credential**: Todoist REST API token as `TODOIST_API_TOKEN` in
-  `~/.env`. `BLOCKED-ON-DANIEL:` copy it from Todoist →
-  Settings → Integrations → Developer.
+- **Credential** (DONE 2026-08-18): `TODOIST_API_TOKEN` in `~/.env`,
+  verified. **Build note: Todoist REST v2 is HTTP 410 Gone — use the
+  unified API `https://api.todoist.com/api/v1/` (cursor-paginated
+  `{results, next_cursor}` envelopes).** Inbox project id
+  `6RJ8MCM4gr9C9WpJ`; drain baseline 2026-08-18: 52 open Inbox items,
+  30 older than 30 days.
 
-### Voice memos (query → Parakeet → provenance)
+### Voice memos (Slack transport → Parakeet → provenance)
 
-- **Transport (recommended; needs a one-time setup):** an iOS Shortcuts
-  personal automation uploads new Voice Memos recordings to a Google
-  Drive folder (`VoiceMemos-inbox/`); the devbox pulls via rclone.
-  `BLOCKED-ON-DANIEL:` (a) set up the Shortcut on the phone (iOS 18
-  Shortcuts exposes Voice Memos recordings; agent drafts the shortcut
-  steps), (b) one-time `rclone config` OAuth for a `drive:` remote on the
-  devbox (only `gcs:` exists today). Fallback transport if the Shortcut
-  route disappoints: record/forward audio clips into Slack, which the
-  Slack adapter already ingests.
-- **Transcription: Parakeet** (`nvidia/parakeet-tdt-0.6b-v2`, NeMo). No
-  GPU on this box — CPU inference is acceptable for memo-length audio
-  (minutes, not hours); a large backfill batch goes to a bellhop pod
-  instead. Model choice isolated behind a `transcribe(audio) -> text`
-  seam.
+- **Transport (Daniel's pick, 2026-08-18): audio rides the Slack
+  adapter** — record directly in `#lab-notes-daniel` (mic icon; ~5-min
+  clip cap) or share a Voice Memos recording into the channel (long /
+  offline recordings). Zero extra credentials: the mailroom bot token
+  carries `files:read`, and the whole leg was verified end-to-end
+  2026-08-18 (real clip → `url_private_download` with bot token →
+  ffmpeg 16 kHz mono → Parakeet transcript). The earlier
+  Shortcut→Drive→rclone design is the *upgrade path* if one-tap sharing
+  ever annoys (it needs a `drive:` rclone remote; the claude.ai Drive
+  connector is interactive-only, unusable from cron).
+- **Transcription: Parakeet** (`nvidia/parakeet-tdt-0.6b-v2`) via
+  **`onnx-asr[cpu,hub]`** — no NeMo dependency; verified on this (GPU-less)
+  box: ~8 s model load, sub-realtime inference on clips. Slack's own
+  auto-transcription, when present, is kept alongside as a cross-check
+  field. Model choice isolated behind a `transcribe(audio) -> text` seam;
+  a large backfill batch goes to a bellhop pod.
 - **Provenance**: original audio mirrored to
   `gs://alignment-team-general-storage/daniel/jarvis/mailroom/audio/`
   (pointer in the thought record), transcript in the spool. Nothing is
-  deleted from the phone.
+  deleted at the source.
 
 ## Thought record (normalize)
 
@@ -206,10 +212,10 @@ Gate-checkable:
    comment and every closed item a transfer comment linking its
    destination; the move/close split and drain delta are reported, not
    asserted. Zero completions of task-typed items.
-3. **Voice**: ≥1 real memo flows end-to-end (phone → Drive → rclone →
-   Parakeet → thought record with GCS audio pointer) — this leg is
-   allowed to lag the others on the `BLOCKED-ON-DANIEL` setup steps, and
-   ships behind them without blocking the MVP PR.
+3. **Voice**: ≥1 real clip flows end-to-end through the built tool
+   (Slack audio file → download → Parakeet → thought record with GCS
+   audio pointer). The raw path (download → ffmpeg → onnx-asr Parakeet
+   CPU transcript) was already proven by hand on 2026-08-18.
 4. **Routing**: ≥80% of backfilled thoughts auto-routed (not `unclear`);
    actual rate reported. At least one thought lands as a `threads note`
    and one as a goal-file bullet to demonstrate the actuators.
