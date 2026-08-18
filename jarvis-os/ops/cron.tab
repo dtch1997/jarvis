@@ -24,6 +24,11 @@
 # jarvis-memory: nightly auto-snapshot commit+push
 41 3 * * * cd /mnt/nw/home/d.tan/jarvis-memory && git add -A && git commit -qm "auto-snapshot $(date +\%F)" >/dev/null 2>&1; git push -q >> /mnt/nw/home/d.tan/.claude/logs/memory-backup.log 2>&1
 
+# gazette: nightly lane-respecting PR merge sweep (consumer-mode PR flow — see
+# CLAUDE.md "PR lanes"); morning patch notes at 08:05 (spooled + flare digest)
+29 3 * * * /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/gazette sweep >> /mnt/nw/home/d.tan/.claude/logs/gazette.log 2>&1
+5 8 * * * /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/gazette notes --flare >> /mnt/nw/home/d.tan/.claude/logs/gazette.log 2>&1
+
 # desk: hourly inbox sync
 7 * * * * /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/desk sync >> /mnt/nw/home/d.tan/.claude/logs/desk.log 2>&1
 

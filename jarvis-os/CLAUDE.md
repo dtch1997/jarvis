@@ -22,7 +22,8 @@ Shorthand directives I use. When I type one, treat it as the instruction below.
   NB the SOP applies **by default** even without this keyword; typing it just
   invokes it explicitly.
 - **"wrap up"** — close out the current piece of work (usually an experiment):
-  1. Commit all changes on the worktree branch and open a PR.
+  1. Commit all changes on the worktree branch and open a PR, labeled with
+     its merge lane (see "PR lanes — consumer mode").
   2. Make sure any novel findings are **reproducible** — the spec/command that
      produced them is committed, seeds/config are captured, and a fresh run
      would regenerate the result.
@@ -186,6 +187,30 @@ URL); the links I get are `https://<hub>…/a/<name>/`, not one tunnel per app.
    session for follow-ups. Worker conventions live in
    `~/concierge-home/HOUSE_RULES.md` (read per-spawn); `config.yaml` is read
    only at daemon startup — restart the tmux session after changing it.
+
+## PR lanes — consumer mode (gazette)
+
+Daniel is a **consumer** of JARVIS software: he reads morning patch notes
+about what merged, he doesn't review every PR. **Label every PR with a lane
+at open time** (`--label` on `gh pr create`); the nightly `gazette sweep`
+cron merges what the lane allows, and the morning `gazette notes` cron
+delivers patch notes.
+
+- **`lane:auto`** — docs, drafts, wiki, dashboards, memory-adjacent, goal
+  appends: merged nightly on green checks.
+- **`lane:delay`** — anything that shapes future agent behavior: CLAUDE.md /
+  HOUSE_RULES, `ops/cron.tab`, arsenal tool behavior. Merged after a 36h veto
+  window unless Daniel vetoes. Unlabeled PRs default here (flagged
+  unclassified).
+- **`lane:blocked`** — money, credentials, external-facing actions,
+  destructive ops: never cron-merged; goes through the desk/flare flow.
+
+Demotions are the backstop, regardless of label: auto→delay on protected
+paths (CLAUDE.md, `ops/**`, `.claude/**`), anything→blocked on
+credential-like paths. Veto = `veto` label or a changes-requested review.
+Mislabeling shows up in patch notes as an anomaly — pick the honest lane.
+After a gazette merge the remote branch is deleted but **local worktrees are
+not** — sessions still clean up their own worktrees (next section).
 
 ## Merging PRs (pinned-main convention)
 
