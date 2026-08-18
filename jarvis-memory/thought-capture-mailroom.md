@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: df174149-3fb4-473a-8cf9-d6e768706786
-  modified: 2026-08-18T01:17:13.497Z
+  modified: 2026-08-18T01:25:17.361Z
 ---
 
 Thought-capture ingestion pipeline, Daniel's ask 2026-08-17: his three
@@ -65,8 +65,10 @@ in the **monorepo** (dtch1997/jarvis, cutover 2026-08-18 01:10; spec =
 `jarvis-os/docs/thought-capture.md`, package target =
 `jarvis-tools/packages/mailroom`). All three legs credentialed +
 hand-verified (74s real Voice Memo transcribed cleanly; a real capture —
-seeded threads note `spar-mentoring-model`). **Build DISPATCHED
-2026-08-18: concierge t-0818-bf5d** ($30/6h budget), gate
+seeded threads note `spar-mentoring-model`). Build dispatch: ~~t-0818-bf5d~~ FAILED $0 — pool `default_backend` is now
+**codex** (line-worker, can't do build tasks; always pass
+`backend="claude"` for delegation-class work). **Redispatched
+t-0818-f5e2** (backend=claude, $30/6h), gate
 `PrOpen() & ShellOk(". ~/.env; cd jarvis-tools && .venv/bin/mailroom
 ingest --check && route --check")`; hard rules in spec: Todoist
 file-never-complete, no writes outside C0B5RUX4P26, no threaded replies

@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 45fdfba4-7e20-43a1-943f-2a8fadc8870a
-  modified: 2026-08-18T00:58:59.725Z
+  modified: 2026-08-18T01:20:08.317Z
 ---
 
 Initiative to make jarvis goal-driven: Daniel specifies high-level goals,
@@ -170,10 +170,26 @@ quiet-morning one-liner flare; **veto window = 2 delivered editions** via
 stall detector) + jarvis PR #150 (docs/morning-routine.md v2, retire 08:35
 desk→flare cron, CLAUDE.md lane wording, goal bullet, **new 04:10 deploy
 cron** — closes the merged-code-has-no-deployer gap: pull pinned mains +
-`uv sync` + link-clis + install-cron nightly). editions.jsonl seeded with
-2026-08-18. Expected merge: 2026-08-20 03:29 sweep (old 36h code governs
-until #73 lands). BOOTSTRAP after merge (once, deploy cron can't install
-itself): `git pull && ops/install-cron.sh`; then remove worktrees
-morning-routine-v2 (jarvis) + gazette-morning-v2 (arsenal). Next: mailroom
-reply-to-veto + 👍 read-ack = **arsenal issue #74**. Parked context: threads
-note self-driving-jarvis 20260818T005846Z.
+`uv sync` + link-clis + install-cron nightly). **MERGED +
+DEPLOYED same day** — Daniel merged both during the monorepo cutover
+([[jarvis-monorepo-migration]]); deploy cron + retired desk cron confirmed
+live in crontab, gazette config repointed to dtch1997/jarvis
+(protected_globs cover jarvis-os/ops + jarvis-tools/packages), v2 code
+verified via dry-run sweep. Old-world editions.jsonl seed removed (refs
+would collide with monorepo PR numbers) — edition counting starts fresh
+2026-08-19. Worktrees cleaned from ~/jarvis-old + ~/arsenal-old-clone.
+Next: mailroom reply-to-veto + 👍 read-ack = **monorepo issue dtch1997/
+jarvis#3** (re-filed; arsenal#74 archived read-only). Watch item: first v2
+edition lands 2026-08-19 08:05 — check needs-you section, synthesis
+quality, desk fold-in, editions.jsonl appending.
+
+2026-08-18 (philosophy note): Daniel's consumer-mode stance written up as
+**drafts/consumer-of-your-own-software.md** (jarvis #151, MERGED in the
+cutover drain; lives in monorepo jarvis-os/drafts/). Thesis: premise obvious
+(vibe coding = the stance locally), implications are the content — agents
+file issues/write PRs/engineer loops; legibility budget goes to *behavior*
+(behavior-delta describability, observable contracts as spec, cheap
+"works-today?" checks, rollback as product feature); patch notes = a
+*forcing function* + the dial generalizes as (cadence, rollback unit,
+feedback channel). Companion philosophy doc to the gazette machinery;
+candidate blogpost material (cf. [[bottom-up-direction-philosophy]]).

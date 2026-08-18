@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: f71eda58-1717-409e-92dd-77aaa94948e7
-  modified: 2026-08-18T00:56:35.748Z
+  modified: 2026-08-18T01:25:29.917Z
 ---
 
 **concierge** — worker pool over headless `claude -p` sessions. Spun out
@@ -187,6 +187,13 @@ sanity check, child-spend counted against parent at gate time,
 cancel-cascade. Design followed Cursor's trees-and-leaves agent-swarm post.
 
 **2026-08-17: `after=` dependencies SHIPPED (issue #54 → PR #61 MERGED, built by pool task t-0817-3eda; daemon restarted on new code, submit-validation live-verified).** `pool.submit(spec, after=[tids])` → new first-class **`held`** status (`status_detail: "held: waiting on <unmet>"`); reconciler `_maybe_release` re-derives the join from dep records each tick (restart-safe); all deps `done` → released to `queued`; any dep `failed`/`cancelled`/missing → fail-fast `dependency <tid> ended <status>` via `_finish` (no gate strike). Held tasks hold no slot/seat; `wait`/`wait_all` work unchanged; legacy records without `after` fine. Unknown dep tid raises ValueError at submit. A/B/C-then-D pattern is now native — no more submitter-side join drivers. (2) **Pluggable worker backends** — arsenal issue #60 (Codex CLI + GPT 5.6 Sol as line workers; motivation = Fable 5 usage-limit pressure + leaf economics). Audit: `claude_agent_sdk` coupling is ONLY in worker.py; agent.jsonl + pid table are the backend-agnostic contract, so backend = alternate wrapper module. Port surface: event normalization, resume, `--output-schema`, the 3 signal tools via a new stdio MCP server, USD-budget→token-cap mapping; gaps = no guard hook, no native USD cost. codex-cli 0.147.0 INSTALLED + AUTHED on devbox 2026-08-18 (ChatGPT-plan login; `~/.local/bin/codex` symlink). All adapter capabilities smoke-verified live (findings on issue #60): `codex exec --json` event stream (thread.started carries thread_id = resume handle; turn.completed carries token usage), `-m gpt-5.6-sol` works, resume retains context (**gotcha: exec-level flags BEFORE the `resume` subcommand**), `--output-schema` works, stdin must be closed, readonly↔`--sandbox read-only`. **SHIPPED + LIVE-VALIDATED (issue #60 CLOSED 2026-08-18):** PR #71 (backends seam: `backend="claude"|"codex"` on submit/task record, worker.py → re-export shim, backends/{claude,codex}.py, mcp_stdio.py signals server, AGENTS.md house-rules injection, token→USD estimate) + PR #72 hotfix (**OpenAI strict-schema gotcha**: `--output-schema` 400s unless every object node has `additionalProperties:false` + full `required`; adapter now writes normalized `output_schema.codex.json`, optional fields → nullable — found because A/B round 1 failed 3 attempts at 0 turns). A/B validation PASSED: same gated spec, claude 39s/$0.31 vs codex(gpt-5.6-sol) 30s/$0.00 (plan quota; `codex_cost_per_mtoken` unset → $0 stamps, doesn't draw daily_usd_cap). Codex workers = leaves-only, no guard hook. Real-task A/B (PR-gated leaves) still to run before routing policy. Land #54 first (both touch reconcile/records).
+
+**Gotcha (2026-08-18): `default_backend: codex` is now live in config.yaml —
+ALWAYS pass `backend="claude"` for delegation/build-class tasks.** Observed
+failure (t-0818-bf5d, mailroom build): codex worker "ok"-exits 3× at $0 in
+~25 s each, produces nothing, gate fails on no-PR, task `failed` — no
+error in codex.err/agent.err, so it looks like a silent no-op. Codex =
+leaves-only line work.
 
 **BUG found+FIXED 2026-07-14 (arsenal PR #6, MERGED): `load_config` silently
 returns `{}` when pyyaml isn't importable** (records.py — `except

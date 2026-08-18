@@ -1,6 +1,7 @@
 # Memory index
 
 ## Active projects
+- [personal-website-writing-funnel](personal-website-writing-funnel.md) — dtch1997.github.io writing upgrade vs naml.us benchmark; concierge t-0818-2f91 → PR writing-funnel (excerpts/prev-next/RSS/filters/dates); papers upgrade parked
 - [training-cooperativeness](training-cooperativeness.md) — alignment agenda: training as developer/model game (Maxwell's demon, Stackelberg, sanctioned alignment faking); draft MERGED (jarvis#140, drafts/self-supervised-alignment.md); 3-arm EM-organism experiment specced not run
 - [jarvis-monorepo-migration](jarvis-monorepo-migration.md) — ✅ CUT OVER 2026-08-18: dtch1997/jarvis monorepo (jarvis-os+jarvis-memory+jarvis-tools) LIVE+authoritative; old repos ARCHIVED; devbox on symlinks (~/jarvis-monorepo); leftovers ~/jarvis-old + ~/arsenal-old-clone; follow-ups = monorepo issue #2
 - [thought-capture-mailroom](thought-capture-mailroom.md) — mailroom (jarvis-tools): drain Todoist/voice/#lab-notes-daniel onto existing spines; spec MERGED (#138+#148, now in monorepo); ALL creds verified (Slack C0B5RUX4P26, Todoist api/v1 NOT rest/v2, Parakeet-CPU via onnx-asr); **build DISPATCHED t-0818-bf5d**; hard rule = Todoist file-never-complete
@@ -18,7 +19,7 @@
 - [autoresearch-arc-whest](autoresearch-arc-whest.md) — WRAPPED 2026-08-06: Kerdock 5-design wins 57× past target; next = docker validation + AIcrowd submission by Sep 19
 - [safety-desert](safety-desert.md) — dtch1997/safety-desert; verdict = OpenAI drain yes, industry desert no; next = figures + blogpost
 - [scimt→aligne infra migration](scimt-aligne-infra-migration.md) — CLOSED 2026-07-23: scimt standalone; aligne frozen
-- [self-driving-jarvis](self-driving-jarvis.md) — goals/ (#112, draft-and-veto) + command-center doc; attention routing SHIPPED (flare+desk #126); threads spine FULLY SHIPPED 2026-08-17/18 (arsenal #48/#50/#51/#53, jarvis #136/#137/#139: v0.2 relevance+hierarchy+vault, note/pickup+park, 3rd-party README, daily cron); bidirectional-direction philosophy; goal file refreshed (#143/#145); flare Slack push LIVE via mailroom bot (arsenal #66); morning-routine v2 BUILT 2026-08-18 (arsenal #73 + jarvis #150 delay-lane: edition-counted veto, deploy cron; bootstrap install-cron post-merge; reply-to-veto = arsenal #74)
+- [self-driving-jarvis](self-driving-jarvis.md) — goals/ (#112, draft-and-veto) + command-center doc; attention routing SHIPPED (flare+desk #126); threads spine FULLY SHIPPED 2026-08-17/18 (arsenal #48/#50/#51/#53, jarvis #136/#137/#139: v0.2 relevance+hierarchy+vault, note/pickup+park, 3rd-party README, daily cron); bidirectional-direction philosophy; goal file refreshed (#143/#145); flare Slack push LIVE via mailroom bot (arsenal #66); morning-routine v2 MERGED+DEPLOYED 2026-08-18 (ex arsenal #73 + jarvis #150: edition-counted veto, deploy cron live; reply-to-veto = monorepo issue #3); consumer-of-your-own-software philosophy note MERGED (#151, drafts/)
 - [power-concentration-post](power-concentration-post.md) — debate-tree blogpost prototype on worktree, never PR'd; Daniel-stated goal 2026-08-15
 - [glm52-lora-poc](glm52-lora-poc.md) — ms-swift Megatron LoRA; 9B+106B PASSED, GLM-5.2 blocked (fp8); repos/glm-lora; Tinker has NO GLM
 - [inspect-migration-pilot](inspect-migration-pilot.md) — COMPLETE 2026-07-17: aligne v0.4.0 cutover, inspect_sdf adopted; gotchas in stub
