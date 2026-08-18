@@ -40,7 +40,7 @@ mailroom status                          # one-line pipeline + gate summary
   own posts and every other bot/user in the channel (gazette, desk, flare) are
   ignored. Loop closure = ✅ reaction on each ingested message; `reply_on_route`
   posts a short threaded reply on *newly-ingested* messages (never on the
-  90-day backfill).
+  backfill).
 - **Todoist** (unified API `v1`; REST v2 is 410 Gone) — the Inbox is capture-only
   and drained to zero. **File, never complete**: task-typed items are *moved* to
   a curated project (stay open, filing comment); close-with-comment is reserved

@@ -27,7 +27,10 @@ except ModuleNotFoundError:  # pragma: no cover
     tomllib = None  # type: ignore
 
 # defaults (also documented in the README)
-DEFAULT_BACKFILL_DAYS = 90
+# capture window: thoughts older than this are not worth capturing (Daniel,
+# 2026-08-18: "not necessary to capture stuff more than 3 weeks old") — applies
+# to the Slack backfill AND the Todoist Inbox pull.
+DEFAULT_BACKFILL_DAYS = 21
 DEFAULT_MAX_CALLS = 200
 DEFAULT_TRIAGE_BATCH = 8
 DEFAULT_STALE_DAYS = 60
@@ -119,11 +122,12 @@ DEFAULT_CONFIG_TOML = """\
 channels = ["C0B5RUX4P26"]     # #lab-notes-daniel
 
 # post a short threaded reply saying where a thought went, on *newly-ingested*
-# messages in incremental runs (never on the 90-day backfill).
+# messages in incremental runs (never on the backfill).
 reply_on_route = true
 
-# backfill window (days) for the first Slack pull.
-backfill_days = 90
+# capture window (days): the first Slack pull backfills this far, and older
+# Todoist Inbox items are left where they are (not worth capturing).
+backfill_days = 21
 
 # stale-sweep: items in curated projects untouched this long are listed in the
 # digest as prune candidates (propose-only; mailroom never closes them).

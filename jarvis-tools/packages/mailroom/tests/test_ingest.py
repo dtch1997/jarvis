@@ -10,7 +10,7 @@ from mailroom_testkit import CH, NOW, FakeSlack, FakeTodoist, slack_msg
 def _todoist_task(tid, content, project=None):
     from mailroom import config
     return {"id": tid, "content": content, "project_id": config.TODOIST_INBOX_ID,
-            "created_at": "2026-06-01T00:00:00Z", "labels": []}
+            "created_at": "2026-08-15T00:00:00Z", "labels": []}
 
 
 def test_ingest_creates_records_and_reacts(env, fake_transcriber):
@@ -87,3 +87,23 @@ def test_ingest_check_fails_before_any_run(env):
     ok, report = ingest.ingest_check(client=FakeSlack(), todoist_client=FakeTodoist(), now=NOW)
     assert not ok
     assert "no ingest" in report
+
+
+def test_todoist_outside_capture_window_not_ingested(env, fake_transcriber):
+    # 21-day capture window: an old Inbox task is left at the source (and
+    # ingest --check agrees, so a re-run stays a no-op).
+    old = {"id": "t-old", "content": "ancient errand",
+           "project_id": "6RJ8MCM4gr9C9WpJ",
+           "created_at": "2026-06-01T00:00:00Z", "labels": []}
+    fresh = _todoist_task("t-fresh", "recent errand")
+    slack = FakeSlack([])
+    td = FakeTodoist(inbox=[old, fresh])
+    res = ingest.ingest(backfill=True, client=slack, todoist_client=td,
+                        transcriber=fake_transcriber, now=NOW)
+    assert res.todoist_new == 1
+    assert res.todoist_skipped == 1
+    from mailroom import spool
+    assert spool.has_thought("todoist-t-fresh")
+    assert not spool.has_thought("todoist-t-old")
+    ok, report = ingest.ingest_check(client=slack, todoist_client=td, now=NOW)
+    assert ok, report

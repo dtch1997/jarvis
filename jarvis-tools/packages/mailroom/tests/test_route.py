@@ -10,7 +10,7 @@ from mailroom_testkit import CH, NOW, FakeSlack, FakeTodoist, slack_msg
 
 def _todoist_task(tid, content):
     return {"id": tid, "content": content, "project_id": config.TODOIST_INBOX_ID,
-            "created_at": "2026-06-01T00:00:00Z", "labels": []}
+            "created_at": "2026-08-15T00:00:00Z", "labels": []}
 
 
 def _ingest(slack, td, *, backfill=True, transcriber=None):
@@ -163,3 +163,43 @@ def test_route_check_fails_below_threshold(env, triage_runner, note_calls):
     ok, report = route.route_check(now=NOW)
     assert not ok
     assert "<" in report
+
+
+def test_urgent_captures_batch_into_one_flare(env, triage_runner, note_calls,
+                                              monkeypatch):
+    # two fresh urgent Todoist captures → exactly ONE warn flare naming both;
+    # per-item flares flooded the channel (2026-08-17).
+    from mailroom import actuators
+    flares = []
+    monkeypatch.setattr(actuators, "send_flare",
+                        lambda msg, **kw: flares.append((msg, kw)) or True)
+    slack = FakeSlack([])
+    td = FakeTodoist(inbox=[_todoist_task("t1", "urgent: visa deadline"),
+                            _todoist_task("t2", "urgent: server on fire")])
+    _ingest(slack, td)
+    res = route.route(runner=triage_runner, todoist_client=td, slack_client=slack,
+                      note_runner=note_calls, now=NOW)
+    assert len(res.urgent) == 2
+    assert len(flares) == 1
+    msg, kw = flares[0]
+    assert "2 urgent captures" in msg
+    assert "visa deadline" in msg and "server on fire" in msg
+    assert kw.get("sev", "warn") == "warn"
+    assert "1 urgent" not in res.report() and "2 urgent" in res.report()
+
+
+def test_stale_urgent_capture_never_flares(env, triage_runner, note_calls,
+                                           monkeypatch):
+    # triage says "high" but the thought is weeks old (slack test ts ≈ 1970) —
+    # stale items can't be time-sensitive, so no flare at all.
+    from mailroom import actuators
+    flares = []
+    monkeypatch.setattr(actuators, "send_flare",
+                        lambda msg, **kw: flares.append(msg) or True)
+    slack = FakeSlack([slack_msg("100", text="urgent old thing")])
+    td = FakeTodoist()
+    _ingest(slack, td)
+    res = route.route(runner=triage_runner, todoist_client=td, slack_client=slack,
+                      note_runner=note_calls, now=NOW)
+    assert res.urgent == []
+    assert flares == []

@@ -118,7 +118,7 @@ class SlackClient:
     def workspace_url(self) -> str:
         """The workspace base url (``https://team.slack.com/``), fetched once and
         cached — lets us build permalinks locally instead of one API call per
-        message (a 90-day backfill of hundreds of messages would otherwise
+        message (a first backfill of hundreds of messages would otherwise
         double the rate-limited request count)."""
         if getattr(self, "_ws_url", None) is None:
             try:

@@ -39,7 +39,10 @@ same order and count> ]}. Each object has exactly these keys:
        PROJECTS list (papers → "Papers to read"); "" otherwise
   "goal": for goal-signal — the goal file slug from the GOALS list; "" otherwise
   "arxiv_id": an arXiv id if the thought references a paper by id, else ""
-  "urgency": "high" only if it reads as urgent/blocked/time-sensitive, else "low"
+  "urgency": "high" ONLY if delaying more than ~48h would cause real harm — an
+       explicit deadline, someone blocked waiting, a closing window. Important
+       is NOT urgent: status updates, ideas, reading material, and standing
+       tasks are always "low". When in doubt, "low".
 Guidance: a thought that names ongoing work → thread-note; a concrete action →
 todo; an idea with no home → research-idea; a paper/link to read → paper; a
 statement about direction/strategy for a known goal → goal-signal; routine

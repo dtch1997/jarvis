@@ -46,6 +46,20 @@ def _backfill_start(now: datetime, days: int) -> float:
     return (now - timedelta(days=days)).timestamp()
 
 
+def _within_window(ts_raw, now: datetime, days: int) -> bool:
+    """True if a source timestamp falls inside the capture window (or can't be
+    parsed — never silently drop an item just because its timestamp is odd)."""
+    if not isinstance(ts_raw, str) or not ts_raw:
+        return True
+    try:
+        ts = datetime.fromisoformat(ts_raw.replace("Z", "+00:00"))
+    except ValueError:
+        return True
+    if ts.tzinfo is None:
+        ts = ts.replace(tzinfo=timezone.utc)
+    return ts.timestamp() >= _backfill_start(now, days)
+
+
 # --------------------------------------------------------------------------- #
 # Slack leg
 # --------------------------------------------------------------------------- #
@@ -136,11 +150,16 @@ def _ingest_slack_channel(channel: str, *, client, transcriber, backfill: bool,
 # --------------------------------------------------------------------------- #
 def _ingest_todoist(*, client: todoist.TodoistClient, now: datetime,
                     res: IngestResult) -> None:
+    window_days = config.load_config().backfill_days
     tasks = client.inbox_tasks()
     for t in tasks:
         tid = f"todoist-{t['id']}"
         if spool.has_thought(tid):
             res.todoist_skipped += 1
+            continue
+        if not _within_window(t.get("created_at") or t.get("added_at"),
+                              now, window_days):
+            res.todoist_skipped += 1  # older than the capture window — leave it
             continue
         content = t.get("content") or ""
         desc = t.get("description") or ""
@@ -233,6 +252,9 @@ def ingest_check(*, client: slack.SlackClient | None = None,
     todoist_client = todoist_client or todoist.TodoistClient()
     try:
         for t in todoist_client.inbox_tasks():
+            if not _within_window(t.get("created_at") or t.get("added_at"),
+                                  now, cfg.backfill_days):
+                continue  # outside the capture window — ingest skips it too
             checked += 1
             if not spool.has_thought(f"todoist-{t['id']}"):
                 problems.append(f"un-ingested Inbox item {t['id']}")

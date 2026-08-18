@@ -7,7 +7,7 @@ provenance for one capture. Shape (spec § Thought record)::
       "id", "source": "slack|todoist|voice", "ts",
       "permalink",                       # message URL | task id | gs:// audio
       "raw",                             # text | transcript
-      "backfill": bool,                  # ingested in the 90-day backfill pull
+      "backfill": bool,                  # ingested in the capture-window backfill pull
       "reacted": bool,                   # loop-closure ✅ landed at the source
       "slack"|"todoist"|"audio": {...},  # source-specific provenance
       "triage": {...} | null,            # filled by `route`

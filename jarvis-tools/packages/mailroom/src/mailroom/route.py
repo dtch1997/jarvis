@@ -27,6 +27,11 @@ from .registry import goal_slugs, memory_index_slugs
 _REPLY_ACTIONS = {"threads-note", "goal-bullet", "papers-task", "flare"}
 # actions that count as "routed" for the auto-route %.
 _UNROUTED = {"unclear", "label-unclear"}
+# a thought older than this can't be time-sensitive anymore — never flare it,
+# whatever triage says (backlog drains once mass-flared weeks-old captures).
+_URGENT_MAX_AGE_DAYS = 7
+# how many urgent titles the batch flare names before "(+N more)"
+_URGENT_TITLES_SHOWN = 3
 
 
 @dataclass
@@ -44,6 +49,7 @@ class RouteResult:
     todoist_created: int = 0
     task_completions: int = 0  # MUST stay 0
     replies: int = 0
+    urgent: list = field(default_factory=list)  # titles of fresh urgent captures
     inbox_before: int | None = None
     inbox_after: int | None = None
     errors: list[str] = field(default_factory=list)
@@ -60,6 +66,7 @@ class RouteResult:
             f"route: triaged {self.triaged} ({self.model_calls} call(s), "
             f"${self.est_spend_usd:.3f}), routed {self.routed}, unclear {self.unclear}; "
             f"types [{bt}]; todoist +{self.todoist_created} task(s){drain}"
+            + (f"; {len(self.urgent)} urgent" if self.urgent else "")
             + ("  — CALL CAP HIT" if self.truncated else "")
             + (f"; {len(self.errors)} error(s)" if self.errors else "")
         )
@@ -68,6 +75,19 @@ class RouteResult:
 def _slugify(text: str) -> str:
     s = re.sub(r"[^a-z0-9]+", "-", (text or "").lower()).strip("-")
     return "-".join(s.split("-")[:6]) or "captured-thought"
+
+
+def _is_fresh(thought: dict, now: datetime, max_age_days: float) -> bool:
+    ts_raw = thought.get("ts")
+    if not isinstance(ts_raw, str) or not ts_raw:
+        return False
+    try:
+        ts = datetime.fromisoformat(ts_raw.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    if ts.tzinfo is None:
+        ts = ts.replace(tzinfo=timezone.utc)
+    return (now - ts).total_seconds() <= max_age_days * 86400
 
 
 # --------------------------------------------------------------------------- #
@@ -187,10 +207,12 @@ def _actuate(thought: dict, ctx: _Ctx) -> dict:
     title = tri.get("title") or (thought.get("raw") or "")[:80]
     action, target = "unclear", source
 
-    # urgent/blocked augmentation — a flare on top of the type route
-    if tri.get("urgency") == "high":
-        actuators.send_flare(f"[capture] {title} — {thought.get('permalink','')}",
-                             sev="warn")
+    # urgent/blocked augmentation — collected here, flared ONCE per run at the
+    # end of route() (per-item flares flooded #lab-notes-daniel). Backfill and
+    # stale thoughts are never urgent, whatever triage says.
+    if (tri.get("urgency") == "high" and not thought.get("backfill")
+            and _is_fresh(thought, ctx.now, _URGENT_MAX_AGE_DAYS)):
+        ctx.res.urgent.append(title)
 
     if ttype == "thread-note":
         slug = (tri.get("candidate_slugs") or [None])[0] or _slugify(title)
@@ -247,7 +269,7 @@ def _actuate(thought: dict, ctx: _Ctx) -> dict:
 
 def _maybe_reply(thought: dict, route: dict, ctx: _Ctx) -> None:
     """reply_on_route: a short threaded reply on *newly-ingested* Slack messages
-    (never on the 90-day backfill) when the route was non-obvious."""
+    (never on the backfill) when the route was non-obvious."""
     if not ctx.cfg.reply_on_route or ctx.slack_client is None:
         return
     if thought.get("source") not in ("slack", "voice") or thought.get("backfill"):
@@ -330,6 +352,16 @@ def route(*, runner=None, model: str = config.MODEL,
         except Exception as e:
             res.errors.append(f"inbox count (after): {e}")
 
+    # ONE flare per run covering every fresh urgent capture — never per item
+    if res.urgent:
+        shown = res.urgent[:_URGENT_TITLES_SHOWN]
+        extra = len(res.urgent) - len(shown)
+        summary = "; ".join(shown) + (f" (+{extra} more)" if extra else "")
+        n = len(res.urgent)
+        actuators.send_flare(
+            f"mailroom: {n} urgent capture{'s' if n != 1 else ''} — {summary}",
+            sev="warn")
+
     st = spool.load_state()
     st["last_route"] = now.isoformat()
     st["route"] = {
@@ -339,6 +371,7 @@ def route(*, runner=None, model: str = config.MODEL,
         "todoist_moved": res.todoist_moved, "todoist_closed": res.todoist_closed,
         "todoist_labeled": res.todoist_labeled, "todoist_created": res.todoist_created,
         "task_completions": res.task_completions, "replies": res.replies,
+        "urgent": len(res.urgent),
         "inbox_before": res.inbox_before, "inbox_after": res.inbox_after,
         "truncated": res.truncated,
     }
