@@ -13,7 +13,7 @@
 - [dogfight-rl](dogfight-rl.md) — C engine + PufferLib env (dtch1997/dogfight-rl); run 9: survival learned, 0 gun kills, entropy collapse; next = gunnery curriculum + self-play
 - [runpod-availability-benchmark](runpod-availability-benchmark.md) — cron poller live (PR #115); H200×8 ground truth blocked on balance top-up
 - [phd-thesis-psm-program](phd-thesis-psm-program.md) — ~/phd-thesis; 01+02+05 merged; spec-03 WRAPPED: laws hold at AMPLITUDE level, grad_proj_cos = sufficient statistic; next = promote arch/psm-laws + dispatch 04 + 06 sign-off
-- [bellhop-instant-clusters](bellhop-instant-clusters.md) — M0-M2 DONE (bellhop 0.8.0, 2-node parity PASS); Nebius backend arsenal PR #37 needs creds; blocked-on-Daniel = HF recharge/GCS key/Nebius acct; next = M3 100B target
+- [bellhop-instant-clusters](bellhop-instant-clusters.md) — M0-M2 DONE (bellhop 0.8.0, 2-node parity PASS); Nebius backend = monorepo issue #1 (ex arsenal PR #37, closed at cutover; branch preserved); blocked-on-Daniel = HF recharge/GCS key/Nebius acct; next = M3 100B target
 - [ood-preference-prediction](ood-preference-prediction.md) — WRAPPED, MERGED (#161): secret-split 0.683 at coherence ceiling; frame sets difficulty-preference sign; follow-ups = PAT-secret swap/delete
 - [autoresearch-arc-whest](autoresearch-arc-whest.md) — WRAPPED 2026-08-06: Kerdock 5-design wins 57× past target; next = docker validation + AIcrowd submission by Sep 19
 - [safety-desert](safety-desert.md) — dtch1997/safety-desert; verdict = OpenAI drain yes, industry desert no; next = figures + blogpost
