@@ -1,21 +1,29 @@
 """Live e2e for the Nebius backend — the acceptance gate before real use.
 
 The Nebius twin of scripts/e2e_cluster.py (which gated the RunPod path):
-provision a 2-node 1-GPU-per-node H100 cluster on one InfiniBand fabric,
-push a tiny codebase, torchrun an all-reduce using ONLY the env bellhop
-injects, pull results from rank 0, verify nothing is left running.
+provision a 2-node 8×B300 cluster on one InfiniBand fabric, push a tiny
+codebase, torchrun a 16-way all-reduce using ONLY the env bellhop injects,
+pull results from rank 0, verify nothing is left running.
+
+GPU clustering on Nebius requires full 8-GPU nodes (only 8-GPU presets carry
+allow_gpu_clustering), so the minimum honest gate is 2×8 — there is no cheap
+1-GPU-per-node smoke.
 
 Needs (all env):
-  NEBIUS_IAM_TOKEN    auth for the SDK (`nebius iam get-access-token` or SA)
-  NEBIUS_PROJECT_ID   parent project (console → project id)
-  NEBIUS_FABRIC       InfiniBand fabric for the region, e.g. fabric-2 (H100
-                      eu-north1); H200 fabrics: see docs.nebius.com GPU clusters
+  NEBIUS_IAM_TOKEN     auth for the SDK (`nebius iam get-access-token` or SA)
+  NEBIUS_PROJECT_ID    parent project (console → project id)
+  NEBIUS_FABRIC        InfiniBand fabric for the region, e.g. uk-south1-a
+                       (B300); full table: docs.nebius.com GPU clusters page
+Optional env:
+  NEBIUS_E2E_GPU           default B300
+  NEBIUS_E2E_IMAGE_FAMILY  default ubuntu24.04-cuda13.0 (the only CUDA family
+                           in uk-south1; older regions have ubuntu22.04-cuda12)
 
-Cost: 2 × 1×H100 preset, ~15 min wall clock ≈ a few dollars. The VM image
-ships CUDA but not torch; setup pip-installs it (~2 min).
+Cost: 16 GPUs for ~20-30 min wall clock — tens of dollars at posted B300
+rates. The VM image ships CUDA but not torch; setup pip-installs a cu130
+wheel (~3 min).
 
-Run:  cd repos/arsenal && .venv/bin/python \
-        .claude/worktrees/bellhop-nebius/packages/bellhop/scripts/e2e_nebius_cluster.py
+Run:  uv run python packages/bellhop/scripts/e2e_nebius_cluster.py
 """
 
 import asyncio
@@ -68,11 +76,14 @@ async def main() -> None:
         out = tempfile.mkdtemp(prefix="bellhop-nebius-e2e-")
         spec = RunSpec(
             slug="nebius-cluster-e2e", codebase=td, run=RUN_CMD,
-            setup="python3 -m pip install -q torch numpy",
+            setup=("python3 -m pip install -q numpy && python3 -m pip install -q "
+                   "torch --index-url https://download.pytorch.org/whl/cu130"),
             results_subdir="results", local_out=out, gcs_base=None)
         config = NebiusClusterConfig(
             fabric=os.environ["NEBIUS_FABRIC"],
-            gpu="H100", nodes=2, gpu_count=1,
+            gpu=os.environ.get("NEBIUS_E2E_GPU", "B300"), nodes=2, gpu_count=8,
+            image_family=os.environ.get("NEBIUS_E2E_IMAGE_FAMILY",
+                                        "ubuntu24.04-cuda13.0"),
             boot_disk_gb=200, max_lifetime=timedelta(hours=1),
             name=run_prefix,
         )
@@ -82,7 +93,9 @@ async def main() -> None:
         print("log tail:\n" + res.log_tail)
         payload = json.load(open(pathlib.Path(res.local_results) / "results" / "allreduce.json"))
         print("pulled results/allreduce.json:", payload)
-        assert payload["allreduce_sum"] == 1.0 and payload["world_size"] == 2
+        world = config.nodes * config.gpu_count
+        assert payload["world_size"] == world
+        assert payload["allreduce_sum"] == world * (world - 1) / 2
 
     leftover = await gc_nebius(timedelta(seconds=0), name_prefix=run_prefix, dry_run=True)
     print("this run's resources remaining:", leftover or "none")

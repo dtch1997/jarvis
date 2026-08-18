@@ -41,7 +41,17 @@ def test_platform_preset_resolution(tmp_path):
     cfg = _cfg(tmp_path, gpu="H200", gpu_count=8)
     assert cfg.resolve_platform() == "gpu-h200-sxm"
     assert cfg.resolve_preset() == "8gpu-128vcpu-1600gb"
-    assert _cfg(tmp_path, gpu="B200", gpu_count=1).resolve_preset() == "1gpu-20vcpu-224gb"
+    assert _cfg(tmp_path, gpu="B300", gpu_count=8).resolve_preset() == "8gpu-192vcpu-2768gb"
+
+
+def test_non_full_node_rejected(tmp_path):
+    # only 8-GPU presets carry allow_gpu_clustering (API-verified); anything
+    # else must fail preflight, not at instance create
+    with pytest.raises(PreflightError, match="8-GPU"):
+        _cfg(tmp_path, gpu="B200", gpu_count=1).resolve_preset()
+    # explicit preset= stays an escape hatch
+    assert _cfg(tmp_path, gpu="B200", gpu_count=1,
+                preset="1gpu-20vcpu-224gb").resolve_preset() == "1gpu-20vcpu-224gb"
 
 
 def test_verbatim_platform_and_preset_override(tmp_path):
@@ -56,7 +66,7 @@ def test_unknown_gpu_rejected(tmp_path):
 
 
 def test_unavailable_preset_rejected(tmp_path):
-    with pytest.raises(PreflightError, match="no 4-GPU preset"):
+    with pytest.raises(PreflightError, match="gpu_count=4"):
         _cfg(tmp_path, gpu_count=4).resolve_preset()
 
 

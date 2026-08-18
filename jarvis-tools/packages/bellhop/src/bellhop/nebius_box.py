@@ -149,6 +149,15 @@ class NebiusClusterConfig:
     def resolve_preset(self) -> str:
         if self.preset:
             return self.preset
+        # Only full-node presets carry allow_gpu_clustering — the API rejects
+        # smaller presets at instance create (live-verified 2026-08-18:
+        # 'preset "1gpu-..." does not support GPU clustering').
+        if self.gpu_count != 8:
+            raise PreflightError(
+                f"Nebius GPU clustering needs full 8-GPU nodes (got "
+                f"gpu_count={self.gpu_count}); only 8-GPU presets carry "
+                "allow_gpu_clustering. Set gpu_count=8, or pass preset= to "
+                "override if Nebius adds smaller clusterable presets")
         platform = self.resolve_platform()
         presets = NEBIUS_PRESETS.get(platform)
         if not presets:
