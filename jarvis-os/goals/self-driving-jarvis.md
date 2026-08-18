@@ -112,10 +112,13 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   externally-checked gates (the exit criterion), and the termination
   contract (every thread reaches result/blocked/failed, dormancy without a
   terminal note pages). The delta this statement sharpens: **Slack as the
-  front-door transport** is currently an MVP non-goal — promote the
-  mailroom→launcher leg (Slack message → POST /launch, terminal notes
-  reported back to the same Slack thread) to the next rung after PR #14
-  lands; sibling of issue #3 (reply-to-veto).
+  front-door transport** is currently an MVP non-goal — **Superseded same day
+  (Daniel): Slack is shelved for now** — the front door is a responsive
+  web **thread board** (rows = threads; columns Prompt | Goal | Status;
+  super-fast row add; replaces tmux as the go-to auto-mode surface),
+  spec'd in docs/thread-board.md. Slack returns later as a second
+  renderer of the same row feed (a JARVIS thread maps cleanly onto a
+  Slack thread); sibling of issue #3 (reply-to-veto).
 
 ## Active threads
 
