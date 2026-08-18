@@ -1,6 +1,6 @@
 ---
 name: arsenal-monorepo
-description: "arsenal = the utility monorepo (dtch1997/arsenal, clone repos/arsenal) — uv workspace, packages/* keep their own identities; wave 1 (lobby/ferry/databrowser) live 2026-07-10; new tools go here, not standalone repos"
+description: "the tools workspace: monorepo-root uv workspace (dtch1997/jarvis) — generic tools in jarvis-tools/packages/, policy tools (gazette/desk/threads) in jarvis-os/packages/ since PR #11; venv at monorepo root; new tools born as workspace packages, not repos"
 metadata: 
   node_type: memory
   type: project
@@ -8,12 +8,18 @@ metadata:
   modified: 2026-08-18T00:39:48.159Z
 ---
 
-**arsenal** — the utility monorepo, dtch1997/arsenal, clone `repos/arsenal`.
-Shape: **uv virtual workspace** (`[tool.uv.workspace] members = ["packages/*"]`),
-one directory per tool under `packages/`, each keeping its own package
-name/version/CLI/import path (no `arsenal.` namespace). `uv sync
---all-packages` at the root → one `.venv` with every tool editable + every
-CLI. CI = pytest matrix over packages (update the matrix list per wave).
+**arsenal → jarvis-tools** — since the 2026-08-18 monorepo cutover this
+lives at `jarvis-tools/` in dtch1997/jarvis (`repos/arsenal` is a symlink).
+Shape: **uv virtual workspace whose root is the MONOREPO root** (since the
+os/tools boundary move, monorepo PR #11): `[tool.uv.workspace] members =
+["jarvis-tools/packages/*", "jarvis-os/packages/*"]`, one root `.venv` at
+`~/jarvis-monorepo/.venv` via `uv sync --all-packages`. Generic standalone
+tools live in `jarvis-tools/packages/`; **policy tools (gazette, desk,
+threads — code that co-evolves with CLAUDE.md) live in
+`jarvis-os/packages/`**; dependency direction os → tools only. Each package
+keeps its own name/version/CLI/import path (no `arsenal.` namespace). CI =
+pytest matrix in root `.github/workflows/ci.yml` over both roots (update
+per new package).
 
 - Cross-package deps: `[project] dependencies` use the arsenal
   **subdirectory git URL** (`lobby @ git+https://github.com/dtch1997/arsenal#subdirectory=packages/lobby`,
@@ -37,8 +43,9 @@ CLI. CI = pytest matrix over packages (update the matrix list per wave).
   CLAUDE.md updated (PR #106): arsenal = tooling home, serving via lobby hub.
 - Excluded by choice: cherami (personal), diffscope (research artifact),
   open-tinker (ArcadiaImpact infra).
-- **Convention going forward:** new utilities are born as `packages/<name>`
-  in arsenal, not standalone repos.
+- **Convention going forward:** new utilities are born as workspace
+  packages, not standalone repos — `jarvis-tools/packages/<name>` if generic,
+  `jarvis-os/packages/<name>` if they implement jarvis policy.
 - **CLIs on PATH (2026-08-18, arsenal PR #69):** `ops/link-clis.sh` owns
   `~/.local/bin` symlinks for every agent-facing CLI (flare, desk, threads,
   claude-statusline, lobby, ferry, cowrite, cairn, reportly, gazette,

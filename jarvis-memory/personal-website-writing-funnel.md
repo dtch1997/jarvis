@@ -20,10 +20,15 @@ funnel = excerpts (index + homepage), prev/next chaining, RSS, linkable
 filters + Latest view, full dates + CC footer. Deliberately NOT copied:
 pagination, per-tag pages, his visual design.
 
-Dispatched to concierge 2026-08-18: task **t-0818-2f91**, branch
-`writing-funnel`, gate = PrOpen & feed.xml parses & deterministic rebuild
-(`git diff --exit-code`). PR is review-only — Daniel merges design changes
-himself.
+Dispatched to concierge 2026-08-18: task **t-0818-2f91**, gate = PrOpen &
+feed.xml parses & deterministic rebuild. Task went `failed` on INFRA, not
+work: routed to the codex backend, whose sandbox blocks git push + GitHub
+DNS (monorepo issue #8) — worker completed everything (commit `14866fd`,
+all 5 features verified: excerpts/prev-next/RSS/hash-filters+Latest/full
+dates+CC) but couldn't publish. Supervising session salvaged the commit
+from `/tmp/t0818-git-ozBTur` → **PR dtch1997.github.io#6 OPEN**,
+excerpt wording listed in the PR body for review. Daniel merges design
+changes himself — BLOCKED-ON-DANIEL: review + merge PR #6.
 
 Parked follow-up (ranked below the above by Daniel's agreement): papers
 upgrade — thumbnails on the 4 highlighted papers, possibly per-paper detail

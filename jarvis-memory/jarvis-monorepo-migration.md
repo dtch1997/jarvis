@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: cbead54c-64d5-4268-bdc2-2bd5b820f1b5
-  modified: 2026-08-18T01:12:58.665Z
+  modified: 2026-08-18T01:49:16.045Z
 ---
 
 **CUT OVER 2026-08-18 (dinner window, Daniel-approved).**
@@ -36,5 +36,15 @@ histories preserved via filter-repo.
 - **Gotcha**: `git worktree` operations from `~/jarvis` now create
   monorepo-rooted worktrees/branches; patch notes only see monorepo merges
   from now on (pre-cutover history stays in the archived repos).
+- **os/tools boundary (2026-08-18, PR #11, lane:delay)**: policy tools
+  (gazette, desk, threads — code that co-evolves with CLAUDE.md) moved to
+  `jarvis-os/packages/`; jarvis-tools keeps only generic mechanisms. uv
+  workspace root lifted to the **monorepo root** (venv = `<root>/.venv`;
+  link-clis + cron.tab repointed). Dependency rule: os → tools, never
+  reverse. Also revived CI (workflows were DEAD since cutover —
+  `jarvis-tools/.github/` is ignored by GitHub; now at root `.github/`).
+  bellhop-live schedule + publish need secrets on dtch1997/jarvis
+  (BLOCKED-ON-DANIEL, noted in PR + issue #2). Post-merge cleanup: `rm -rf
+  jarvis-tools/.venv` (stale old-root venv).
 
 Related: [[self-driving-jarvis]], [[arsenal-monorepo]].

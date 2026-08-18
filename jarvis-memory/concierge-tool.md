@@ -195,6 +195,48 @@ failure (t-0818-bf5d, mailroom build): codex worker "ok"-exits 3× at $0 in
 error in codex.err/agent.err, so it looks like a silent no-op. Codex =
 leaves-only line work.
 
+**INCIDENT 2026-08-18 (~01:30, jarvis issue #8): default_backend codex broke
+every PR-gated task.** config.yaml had `default_backend: codex` (issue #60
+quota relief), but the codex sandbox can't write `.git` or reach GitHub →
+workers COMPLETE the work then fail `pr_open` 3× (t-0818-2f91 website
+[salvaged → dtch1997.github.io PR#6], t-0818-bf5d mailroom, t-0818-8c1d
+flows). Daemon was also still running from `~/arsenal-old-clone`
+(pre-cutover leftover). Mitigations: config → `default_backend: claude`
+(codex = opt-in local-gated leaves), daemon restarted FROM THE MONOREPO
+(`tmux new-session -d -s concierge 'cd ~/jarvis-monorepo/jarvis-tools &&
+CONCIERGE_HOME=~/concierge-home uv run python -m concierge serve ...'` —
+NB C-c in that pane kills the session, it's command-only), bf5d+8c1d
+requeued on claude in same workspaces. **Permission policy (Daniel-approved
+2026-08-18): codex workers get write-your-workspace and nothing else;
+push/PR/upload = harness's job.** Fix BUILT: **PR jarvis#12 OPEN**
+(t-0818-9e3b done, 123 tests green, +30 new): gate `local`+`publishable`
+flags derived over AllOf/AnyOf; submit/delegate reject sandboxed backend
+on non-local unpublishable gates; reconciler reroute backstop via
+per-backend CAN_PUSH; **publish-pass** (`concierge/publish.py`) — codex
+worker exits → local gate projection passes + branch has commits → daemon
+pushes pool/<tid> + opens PR (idempotent, never force/main), records
+`published:{...}`, re-checks full gate; codex loses env_file preseed
+(backends.<name> config overrides); codex_cost_per_mtoken non-zero
+default. BLOCKED-ON-DANIEL: review+merge PR #10 + PR #12, then ONE daemon
+restart for the pair (both touch reconcile-path code).
+
+**Task DAGs via stagehand — BUILT 2026-08-18 (Daniel-requested), PR jarvis#10
+OPEN (task t-0818-8c1d done on claude after codex requeue; 99 concierge +
+128 stagehand tests green).** `concierge/flows.py`: `task_step(pool,
+build_spec, *, flow_name, gate, output, ...)` → stagehand unit fn
+(render-spec-from-upstream → submit → wait → typed ConciergeResult;
+failed task raises → dependents skip). Nested concurrency bounds (Flow
+semaphore over step awaits, pool seats over live workers; queued tasks
+hold no seat → no deadlock). Durable resume via dedupe key
+`stagehand:{flow}:{node}:attempt-{n}` on the task record, honored by
+Pool.submit (reattach queued/running/blocked, reuse done); stagehand memo
+layers on top. Retry = concierge strikes only by default; with_retry
+opt-in (attempt in dedupe key). `after=` unchanged; PATTERNS.md documents
+which-when. stagehand gains only generic `current_task_id()`. Runnable
+gen→expand→map→reduce example + test_flows.py (chain/diamond/fan-out/
+skip/restart-no-dup/real-Pool dedupe). BLOCKED-ON-DANIEL: review+merge
+PR #10 (daemon restart after merge to pick up records.py change).
+
 **BUG found+FIXED 2026-07-14 (arsenal PR #6, MERGED): `load_config` silently
 returns `{}` when pyyaml isn't importable** (records.py — `except
 ImportError: pass`), so a daemon started in a venv without yaml runs on

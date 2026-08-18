@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: df174149-3fb4-473a-8cf9-d6e768706786
-  modified: 2026-08-18T01:25:17.361Z
+  modified: 2026-08-18T01:57:34.774Z
 ---
 
 Thought-capture ingestion pipeline, Daniel's ask 2026-08-17: his three
@@ -68,9 +68,21 @@ hand-verified (74s real Voice Memo transcribed cleanly; a real capture —
 seeded threads note `spar-mentoring-model`). Build dispatch: ~~t-0818-bf5d~~ FAILED $0 — pool `default_backend` is now
 **codex** (line-worker, can't do build tasks; always pass
 `backend="claude"` for delegation-class work). **Redispatched
-t-0818-f5e2** (backend=claude, $30/6h), gate
+t-0818-f5e2** (backend=claude, $30/6h; attempt 1 spent $12 building the
+package (commit on pool/t-0818-f5e2) + Slack backfill (~307 thoughts
+spooled to ~/.mailroom) but FAILED on the known park-and-exit strike
+pattern (concierge stub lesson 3 — worker "stood by" instead of
+signal_waiting; attempt-kill also killed its ingest; Todoist untouched,
+still 52). REQUEUED via file-edit 2026-08-18 ~02:00 w/ SUPERVISOR_NOTE.md
++ max_attempts 6 → **GATE-PASSED, done**), gate
 `PrOpen() & ShellOk(". ~/.env; cd jarvis-tools && .venv/bin/mailroom
 ingest --check && route --check")`; hard rules in spec: Todoist
 file-never-complete, no writes outside C0B5RUX4P26, no threaded replies
-on backfill. Post-merge steps: run `ops/install-cron.sh`, start
-`mailroom serve` tmux.
+on backfill. **BUILD DONE 2026-08-18 03:1x → monorepo PR #15 OPEN** (+2966, 38 tests;
+live-fire: 458 thoughts — slack 404 / voice 2 / todoist 52; 95% auto-routed,
+406 ✅ reactions, both clips through Parakeet; Todoist drain 52 → 6
+`mailroom-unclear` (all X-link captures) via 32 moves + 14 transfer-closes,
+**0 task-completions** — verified via API, not just self-report; dashboard
+live /a/mailroom/, tmux mailroom-dash). Worker also fixed a dead-code
+`SlackClient.download` bug. Post-merge steps: run `ops/install-cron.sh`
+(2-hourly ingest+route, daily digest crons in this PR).
