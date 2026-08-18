@@ -13,6 +13,20 @@ Codex mapping (smoke-tested against codex-cli 0.147.0):
     flags MUST precede the `resume` subcommand (CLI rejects them after)
   - access readonly -> `--sandbox read-only`, readwrite -> `--sandbox workspace-write`
   - structured output -> `--output-schema <file>`; final agent_message is the JSON
+
+Sandbox policy (issue #8 — the whole reason the codex-permissions policy
+exists). We pass `--sandbox` EXPLICITLY on every invocation (never relying on
+the codex CLI's configured default, which a user's ~/.codex/config.toml could
+widen or narrow out from under us):
+  - `workspace-write` (readwrite tasks): the worker may write files under the
+    workspace, and NOTHING ELSE. Codex's workspace-write sandbox keeps `.git`
+    read-only and denies all network access — so a codex worker can *do* the
+    work but can neither `git push` (read-only .git) nor reach GitHub (no
+    network). That asymmetry — write-your-workspace, but publishing is blocked —
+    is exactly why `CAN_PUSH = False` and the harness owns the publish step.
+  - `read-only` (readonly tasks): no writes at all — read-only leaves.
+Both are the codex-side analogue of the Claude backend's tool allowlist:
+readwrite ≈ bypassPermissions, readonly ≈ the read-only tool set.
   - model -> `-m` (task model, else config `codex_model`)
   - signal_blocked / signal_waiting -> stdio MCP server (concierge.mcp_stdio),
     registered via `-c mcp_servers.*` overrides scoped to this invocation
@@ -40,6 +54,19 @@ from ..records import Home, load_config
 PKG_PARENT = str(Path(__file__).resolve().parents[2])
 BACKEND = "codex"
 CODEX_MODEL_DEFAULT = "gpt-5.6-sol"
+# capability (issue #8): the workspace-write sandbox keeps .git read-only and
+# blocks the network, so a codex worker physically cannot push a branch or open
+# a PR. The reconciler consults this (via backends.can_push) to keep non-local,
+# unpublishable gates off codex; publishing PrOpen gates is the harness's job.
+CAN_PUSH = False
+# Cost default (issue #8). Codex on ChatGPT-plan auth reports tokens, not USD,
+# so without a price the daily cap would see codex spend as $0 and never
+# throttle it. This is a sane non-zero default (per-Mtoken, input/output),
+# overridable via config `codex_cost_per_mtoken`. Number/source: GPT-5.6-Sol is
+# a GPT-5-class model; we price it at OpenAI's published GPT-5 API list rate
+# ($1.25 / $10.00 per 1M input/output tokens, openai.com/api/pricing, 2026-08).
+# It is an ESTIMATE to draw the cap, not a billing figure — tune per contract.
+CODEX_COST_PER_MTOKEN_DEFAULT = {"input": 1.25, "output": 10.0}
 
 
 # -- command construction --
@@ -223,6 +250,9 @@ def _event_error_text(ev: dict) -> str:
 async def run(home: Home, task: dict, out, resume: str | None,
               output_schema: dict | None, attempt: int) -> int:
     cfg = load_config(home)
+    # a codex worker with no configured price still stamps a real (estimated)
+    # cost so the daily cap can throttle it — see CODEX_COST_PER_MTOKEN_DEFAULT
+    cfg.setdefault("codex_cost_per_mtoken", CODEX_COST_PER_MTOKEN_DEFAULT)
     log_dir = home.log_dir(task["id"], attempt)
     cmd = build_command(home, task, cfg, resume, output_schema, attempt, log_dir)
     stream = _Stream(cfg, output_schema)

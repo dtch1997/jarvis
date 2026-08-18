@@ -12,7 +12,7 @@ import json
 import time
 from pathlib import Path
 
-from . import reconcile, runtime
+from . import gates, reconcile, runtime
 from .gates import Always, Gate
 from .records import ACTIVE, TERMINAL, Home, load_config, new_id, new_task
 
@@ -122,10 +122,16 @@ class Pool:
         # resolve the pool default HERE so the record carries an explicit
         # backend — dispatch must not depend on whatever config says later
         backend = backend or self.config.get("default_backend")
+        gate_json = _normalize_gate(gate)
+        # a sandboxed backend (codex) may not be gated on a non-local component
+        # the harness can't publish for it (issue #8); PrOpen is fine — published
+        mismatch = gates.backend_gate_mismatch(Gate.from_json(gate_json), backend)
+        if mismatch:
+            raise ValueError(mismatch)
         task = new_task(
             tid,
             title=title or (Path(spec).stem if isinstance(spec, Path) else f"task {tid}"),
-            gate=_normalize_gate(gate),
+            gate=gate_json,
             budget={"usd": budget_usd, "wall_minutes": budget_minutes},
             workspace={"repo": str(repo) if repo else None, "base": base,
                        "branch": branch or f"pool/{tid}", "access": access},

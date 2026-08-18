@@ -12,6 +12,20 @@ The contract:
   describe()  -> str        # shown to the worker in its preamble
   to_json() / Gate.from_json(data)
   g1 & g2 / g1 | g2         # AllOf / AnyOf composition
+
+Locality (the codex-permissions policy, issue #8). Every gate declares:
+  `local`       True  = checkable with no network side effect required OF THE
+                        WORKER (ShellOk/FileExists → checkable in the workspace).
+                False = crossing the machine boundary is unavoidable (PrOpen →
+                        the branch has to be pushed and a PR opened).
+  `publishable` True  = the harness publish-pass (push the workspace branch +
+                        open the PR) satisfies this gate for a worker that cannot
+                        itself reach the network (PrOpen). PrMerged is non-local
+                        AND not publishable — the harness opens PRs, never merges.
+Compositions derive both: AllOf.local is `all` (every part must be local for
+the whole to be), AnyOf.local is `any` (one local branch is enough to satisfy
+it locally). `leaves()` flattens compositions so a submitter/reconciler can ask
+"which non-local components can't the harness publish?" (`unpublishable_nonlocal`).
 """
 from __future__ import annotations
 
@@ -56,6 +70,30 @@ class Gate:
 
     def describe(self) -> str:
         return repr(self)
+
+    # -- locality (issue #8) --
+
+    @property
+    def local(self) -> bool:
+        """True iff evaluating this gate requires no network side effect OF THE
+        WORKER. Leaves default to local; the network-crossing ones override."""
+        return True
+
+    @property
+    def publishable(self) -> bool:
+        """True iff the harness publish-pass (push branch + open PR) makes this
+        gate pass for a sandboxed worker. Default False; PrOpen overrides."""
+        return False
+
+    def leaves(self) -> list["Gate"]:
+        """Flatten compositions to their leaf gates (a leaf is itself)."""
+        return [self]
+
+    def without_publishable(self) -> "Gate":
+        """This gate with every publishable leaf replaced by Always() — the
+        LOCAL-only projection the daemon checks to decide the worker's own work
+        is done before it publishes on the worker's behalf."""
+        return Always() if self.publishable else self
 
     # -- serialization --
 
@@ -138,6 +176,16 @@ class PrOpen(Gate):
     kind: ClassVar[str] = "pr_open"
     want: ClassVar[str] = "OPEN"
 
+    # crossing the machine boundary is unavoidable: the branch must be pushed
+    # and a PR opened — a sandboxed worker cannot do it, but the harness can.
+    @property
+    def local(self):
+        return False
+
+    @property
+    def publishable(self):
+        return True
+
     def check(self, ctx):
         branch = self.branch or ctx.task["workspace"]["branch"]
         r = subprocess.run(["gh", "pr", "view", branch, "--json", "state,url"],
@@ -157,6 +205,13 @@ class PrOpen(Gate):
 class PrMerged(PrOpen):
     kind: ClassVar[str] = "pr_merged"
     want: ClassVar[str] = "MERGED"
+
+    # non-local like PrOpen, but the harness opens PRs and never merges them, so
+    # publish-pass cannot satisfy this — a PrMerged-gated task needs a pushing
+    # backend (claude).
+    @property
+    def publishable(self):
+        return False
 
 
 # -- combinators --
@@ -187,6 +242,17 @@ class AllOf(Gate):
     def describe(self):
         return " AND ".join(g.describe() for g in self.gates)
 
+    # every conjunct must be checked, so the AND is local only if all are
+    @property
+    def local(self):
+        return all(g.local for g in self.gates)
+
+    def leaves(self):
+        return [leaf for g in self.gates for leaf in g.leaves()]
+
+    def without_publishable(self):
+        return AllOf(tuple(g.without_publishable() for g in self.gates))
+
     def __and__(self, other):
         return AllOf(self.gates + (other,))
 
@@ -216,6 +282,18 @@ class AnyOf(Gate):
     def describe(self):
         return " OR ".join(g.describe() for g in self.gates)
 
+    # one satisfied disjunct is enough, so the OR is locally satisfiable if any
+    # branch is local — the worker can meet it without ever touching the network
+    @property
+    def local(self):
+        return any(g.local for g in self.gates)
+
+    def leaves(self):
+        return [leaf for g in self.gates for leaf in g.leaves()]
+
+    def without_publishable(self):
+        return AnyOf(tuple(g.without_publishable() for g in self.gates))
+
     def __or__(self, other):
         return AnyOf(self.gates + (other,))
 
@@ -223,3 +301,44 @@ class AnyOf(Gate):
 def check(task: dict, workspace) -> Verdict:
     """Evaluate a task's serialized gate against its workspace."""
     return Gate.from_json(task["gate"]).check(GateContext(Path(workspace), task))
+
+
+# -- backend-permission policy helpers (issue #8) --
+
+
+def unpublishable_nonlocal(gate: Gate) -> list[Gate]:
+    """The non-local leaf gates the harness publish-pass cannot satisfy — i.e.
+    the reasons a sandboxed (non-pushing) backend physically cannot pass this
+    gate. Empty list means the gate is either fully local or its only non-local
+    parts are publishable (PrOpen), which the daemon covers on the worker's
+    behalf. A non-empty list is a hard mismatch: route the task to a pushing
+    backend (claude) instead."""
+    return [g for g in gate.leaves() if not g.local and not g.publishable]
+
+
+def wants_publish(gate: Gate) -> bool:
+    """True iff the gate has a publishable component the harness should push a
+    branch + open a PR for once the worker's local work is done."""
+    return any(g.publishable for g in gate.leaves())
+
+
+def backend_gate_mismatch(gate: Gate, backend: str | None) -> str | None:
+    """The reason `backend` cannot be gated on `gate`, or None if it can. A
+    sandboxed (non-pushing) backend is fine on a local gate, and fine on a
+    publishable non-local gate (PrOpen — the harness publishes for it); it is
+    NOT fine on a non-local component the harness can't cover (e.g. PrMerged).
+    Shared by Pool.submit and the delegate tool so both refuse the same pairs
+    with the same message."""
+    from . import backends  # local import: backends is light, avoids any cycle
+    if backends.can_push(backend):
+        return None
+    bad = unpublishable_nonlocal(gate)
+    if not bad:
+        return None
+    kinds = ", ".join(g.kind for g in bad)
+    return (
+        f"backend {backend!r} runs in a sandbox that cannot push or open PRs, and "
+        f"this gate has non-local component(s) the harness publish-pass cannot "
+        f"satisfy ({kinds}). A PrOpen gate is fine — the harness pushes the branch "
+        f"and opens the PR for a sandboxed worker automatically — but {kinds} needs "
+        f"a backend that can publish itself: pass backend='claude'.")

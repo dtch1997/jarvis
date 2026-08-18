@@ -230,17 +230,17 @@ def test_error_event_marks_result_error():
 
 # -- end-to-end wrapper run (subprocess + stub codex) --
 
-def _run_wrapper(home, tid, attempt, events, rc=0, resume=None):
+def _run_wrapper(home, tid, attempt, events, rc=0, resume=None, price=True):
     """Invoke the codex wrapper module as a detached subprocess (own session,
     exactly like runtime.Worker.spawn) with the stub codex on PATH via config.
     start_new_session is essential: the wrapper's die() kills its own process
-    group, and we must not let that reach the pytest process."""
+    group, and we must not let that reach the pytest process. `price=False`
+    omits codex_cost_per_mtoken to exercise the backend's non-zero default."""
     events_file = home.root / "events.jsonl"
     events_file.write_text("".join(json.dumps(e) + "\n" for e in events))
     argv_dump = home.root / "codex_argv.txt"
-    (home.root / "config.yaml").write_text(
-        f"codex_bin: {STUB}\n"
-        "codex_cost_per_mtoken:\n  input: 2.0\n  output: 10.0\n")
+    price_cfg = "codex_cost_per_mtoken:\n  input: 2.0\n  output: 10.0\n" if price else ""
+    (home.root / "config.yaml").write_text(f"codex_bin: {STUB}\n" + price_cfg)
     os.chmod(STUB, 0o755)
     env = dict(os.environ)
     env.update(
@@ -310,6 +310,22 @@ def test_end_to_end_structured_output(tmp_path):
     # --output-schema was actually passed to codex
     argv = argv_dump.read_text().splitlines()
     assert "--output-schema" in argv
+
+
+def test_end_to_end_cost_default_when_unconfigured(tmp_path):
+    """issue #8: a codex run with NO codex_cost_per_mtoken configured still
+    stamps a non-zero (estimated) cost, so codex spend draws the daily cap
+    instead of stamping $0. EVENTS carry 1000 in / 200 out tokens."""
+    home, task, log_dir = _task(tmp_path)
+    home.workspace("t-c").mkdir(parents=True, exist_ok=True)
+    _run_wrapper(home, "t-c", 1, EVENTS, price=False)
+    result = _agent_events(home, "t-c", 1)[-1]
+    # default rate {input:1.25, output:10}/Mtok → (1000*1.25 + 200*10)/1e6
+    expected = (1000 * 1.25 + 200 * 10.0) / 1_000_000
+    assert result["total_cost_usd"] == codex._usage_cost(
+        {"input_tokens": 1000, "output_tokens": 200},
+        {"codex_cost_per_mtoken": codex.CODEX_COST_PER_MTOKEN_DEFAULT})
+    assert result["total_cost_usd"] == expected > 0
 
 
 def test_end_to_end_nonzero_exit_is_error(tmp_path):

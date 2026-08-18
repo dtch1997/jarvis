@@ -11,7 +11,7 @@ import subprocess
 import time
 from datetime import datetime
 
-from . import gates, provision, runtime
+from . import backends, gates, provision, publish, runtime
 from .notify import notify
 from .records import now_iso
 
@@ -88,7 +88,33 @@ def _make_workspace(task, ws):
     provision.install_guard_hook(ws)
 
 
+def _enforce_backend_policy(task) -> None:
+    """Dispatch-time backstop for the codex-permissions policy (issue #8). A
+    task can reach dispatch with a non-local gate on a sandboxed (non-pushing)
+    backend even though `Pool.submit`/`delegate` reject that combination — via
+    a requeue-by-file-edit, or a record written by older code. If the gate has a
+    component such a backend physically cannot satisfy AND the harness can't
+    publish for it, reroute to claude rather than dispatch a doomed attempt.
+    Mutates the task in place (caller saves); notes the reroute in status_detail.
+    A publishable non-local gate (PrOpen) is left on codex — the harness
+    publish-pass covers it after the worker exits."""
+    backend = task.get("backend")
+    if backends.can_push(backend):
+        return
+    gate = gates.Gate.from_json(task["gate"])
+    bad = gates.unpublishable_nonlocal(gate)
+    if not bad:
+        return
+    kinds = ", ".join(g.kind for g in bad)
+    note = (f"rerouted {backend}→claude: sandboxed backend cannot satisfy "
+            f"non-local gate ({kinds})")
+    task["backend"] = "claude"
+    task["status_detail"] = note
+    print(f"[concierge] {task['id']} {note}", flush=True)
+
+
 def _dispatch(home, cfg, task):
+    _enforce_backend_policy(task)
     ws = home.workspace(task["id"])
     if not ws.exists():
         _make_workspace(task, ws)
@@ -143,7 +169,10 @@ def _refresh_running(home, cfg, task):
             notify(cfg, task, "waiting", sidecar["note"])
             return
 
-    # worker exited → the pool decides, never the worker
+    # worker exited → the pool decides, never the worker. First, if the worker's
+    # backend can't publish and its gate wants a PR, the harness publishes on its
+    # behalf (issue #8) — so the gate check below sees the open PR.
+    _maybe_publish(home, cfg, task, state)
     verdict = gates.check(task, home.workspace(task["id"]))
     # persist the evaluated verdict as structured data (not just prose in
     # status_detail) — set once here so every downstream save path carries it
@@ -184,6 +213,40 @@ def _refresh_running(home, cfg, task):
                 "placeholder results to satisfy it and do NOT wait in-session — call the "
                 "`signal_waiting` tool with a cheap shell probe that exits 0 once the job is done, "
                 "then stop; you will be resumed to finish when it fires.")
+
+
+def _maybe_publish(home, cfg, task, state) -> None:
+    """Harness publish-pass (issue #8): for a worker whose backend cannot push
+    (codex), once the LOCAL components of a PR-wanting gate pass and the branch
+    has real commits, push the branch and open the PR on the worker's behalf,
+    then record `published: {branch, pr_url, at}`. Idempotent (publish re-checks
+    for an existing PR). Mutates the task in place; the caller's gate check +
+    save carries `published` through. Publish failure is logged and left to fail
+    the gate normally — never a placeholder."""
+    if backends.can_push(task.get("backend")):
+        return  # a pushing backend opens its own PR
+    gate = gates.Gate.from_json(task["gate"])
+    if not gates.wants_publish(gate):
+        return  # nothing for the harness to publish
+    ws = home.workspace(task["id"])
+    # publish only once the worker's own (LOCAL) work is done — the PR-gate
+    # component is masked out for this check
+    if not gate.without_publishable().check(gates.GateContext(ws, task)):
+        return
+    if not publish.has_commits(ws, task["workspace"].get("base", "main")):
+        # no commit beyond base: the worker didn't do the work. Not a publish —
+        # a normal gate failure (never publish an empty branch).
+        return
+    try:
+        info = publish.publish_branch(home, cfg, task, notes=state.text, output=state.output)
+    except publish.PublishError as e:
+        task["status_detail"] = f"publish failed: {e}"
+        print(f"[concierge] {task['id']} publish failed: {e}", flush=True)
+        return
+    task["published"] = info
+    if info.get("pr_url"):
+        task.setdefault("links", {})["pr"] = info["pr_url"]
+    print(f"[concierge] {task['id']} published {info['branch']} → {info['pr_url']}", flush=True)
 
 
 def _dep_status(home, dep):
