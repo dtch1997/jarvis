@@ -2305,6 +2305,7 @@ name = "threads"
 version = "0.2.0"
 source = { editable = "packages/threads" }
 dependencies = [
+    { name = "concierge" },
     { name = "flare" },
     { name = "lobby" },
 ]
@@ -2316,6 +2317,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "concierge", editable = "packages/concierge" },
     { name = "flare", editable = "packages/flare" },
     { name = "lobby", editable = "packages/lobby" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },

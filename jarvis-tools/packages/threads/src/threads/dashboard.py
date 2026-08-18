@@ -91,6 +91,7 @@ class Dashboard:
     hierarchy: hierarchy.Hierarchy | None = None
     forest: list = field(default_factory=list)
     hierarchy_error: str = ""
+    intents: list[dict] = field(default_factory=list)
 
     def coverage(self) -> dict:
         """goals with zero active descendant threads, and threads under no goal."""
@@ -216,11 +217,23 @@ def build(*, now: datetime | None = None,
     forest = hierarchy.build_forest(hier, stats_by_slug, cfg=cfg, now=now, reg=reg)
 
     candidates = _load_candidates()
+
+    # launched intents (+ the once-only termination sweep so the dashboard
+    # auto-flags contract violations; both are best-effort and never blank the
+    # page if the launcher spool is unavailable).
+    intents: list[dict] = []
+    try:
+        from . import launch
+        launch.termination_sweep(now=now)
+        intents = launch.load_intents()
+    except Exception:
+        intents = []
+
     return Dashboard(
         threads=threads, unfiled=unfiled, candidates=candidates,
         generated_at=now, match_rate=(matched / total if total else 0.0),
         dormant_days=dormant_days, cfg=cfg, hierarchy=hier, forest=forest,
-        hierarchy_error=hier_err,
+        hierarchy_error=hier_err, intents=intents,
     )
 
 
@@ -477,6 +490,11 @@ form.controls input,form.controls select{font:inherit;font-size:12px}
 .warn{color:#b45309;background:#fef3c7;padding:.3rem .5rem;border-radius:.3rem}
 .note{white-space:pre-wrap;display:block;border-left:3px solid #f59e0b;
 padding-left:.6rem;margin-top:.2rem}
+.launcher{padding:1rem;border:1px solid #ddd;border-radius:.5rem;background:#fff;margin:.6rem 0}
+.launcher textarea{width:100%;min-height:4.5rem;font:inherit;box-sizing:border-box}
+.launcher .row{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-top:.4rem}
+.intent{border-left:3px solid #2563eb;padding:.4rem .7rem;margin:.5rem 0;background:#f8fafc}
+.intent .st{font-size:11px}
 @media(prefers-color-scheme:dark){body{background:#111;color:#ddd}
 h2{border-color:#333}th,td{border-color:#222}th,th a{color:#999}.pill{background:#223}
 .tree details{border-color:#333}.warn{background:#3b2f14;color:#fbbf24}
@@ -515,6 +533,71 @@ def _controls(params: ViewParams) -> str:
         "</form>")
 
 
+_LAUNCHER_JS = """
+async function launchThread(){
+  var t=document.getElementById('launch-text').value.trim();
+  if(!t){return;}
+  var box=document.getElementById('optimistic');
+  var row=document.createElement('div');row.className='intent';
+  row.textContent='accepted… '+t;box.insertBefore(row,box.firstChild);
+  var body={text:t,mode:document.getElementById('launch-copilot').checked?'copilot':'full-auto',
+            slug:document.getElementById('launch-slug').value||null};
+  try{
+    var r=await fetch('launch',{method:'POST',headers:{'Content-Type':'application/json'},
+                                body:JSON.stringify(body)});
+    var j=await r.json();
+    row.textContent=r.ok?('accepted '+j.id+' → routing '+j.mode):('error: '+(j.error||r.status));
+  }catch(e){row.textContent='error: '+e;}
+  document.getElementById('launch-text').value='';
+}
+async function intentAction(path,id){
+  var slug=null;
+  if(path==='merge'){slug=prompt('Merge into which thread slug?');if(!slug){return;}}
+  await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},
+                    body:JSON.stringify({id:id,slug:slug})});
+  location.reload();
+}
+"""
+
+
+def _render_launcher(out: list[str], dash: Dashboard) -> None:
+    slugs = sorted({t.slug for t in dash.threads})
+    datalist = "".join(f"<option value='{_esc(s)}'>" for s in slugs)
+    out.append("<section class='launcher'>")
+    out.append("<h2>Launch a thread</h2>")
+    out.append("<textarea id='launch-text' placeholder='What do you want done? "
+               "(sent to a thread — one agent or a fleet is an implementation "
+               "detail)'></textarea>")
+    out.append(
+        "<div class='row'>"
+        "<label><input id='launch-copilot' type='checkbox'> copilot "
+        "<span class='muted'>(default: full-auto)</span></label>"
+        f"<input id='launch-slug' list='thread-slugs' placeholder='optional: pin a slug'>"
+        f"<datalist id='thread-slugs'>{datalist}</datalist>"
+        "<button onclick='launchThread()'>send</button></div>")
+    out.append("<div id='optimistic'></div>")
+    out.append(f"<script>{_LAUNCHER_JS}</script>")
+    if dash.intents:
+        out.append("<h3>Launched intents</h3>")
+        for it in dash.intents[:50]:
+            iid = _esc(it.get("id"))
+            slug = _esc(it.get("resolved_slug") or "routing…")
+            term = it.get("terminal_state")
+            st = f"<span class='pill'>{_esc(it.get('state'))}</span>"
+            if term:
+                st += f" <span class='pill'>{_esc(term)}</span>"
+            handle = _esc(it.get("executor_handle") or "")
+            out.append(
+                f"<div class='intent'><b>{slug}</b> "
+                f"<span class='pill'>{_esc(it.get('mode'))}</span> {st}<br>"
+                f"{_esc(it.get('text'))}<br>"
+                f"<span class='muted st'>{iid} · {handle}</span> "
+                f"<button onclick=\"intentAction('detach','{iid}')\">detach</button> "
+                f"<button onclick=\"intentAction('merge','{iid}')\">merge into thread</button>"
+                "</div>")
+    out.append("</section>")
+
+
 def render_html(dash: Dashboard | None = None, *, now: datetime | None = None,
                 params: ViewParams | None = None, refresh: int | None = None) -> str:
     dash = dash or build(now=now)
@@ -536,6 +619,11 @@ def render_html(dash: Dashboard | None = None, *, now: datetime | None = None,
     ]
     if dash.hierarchy_error:
         out.append(f"<p class='warn'>hierarchy.md ignored: {_esc(dash.hierarchy_error)}</p>")
+
+    # 0. launcher pane — text box, mode toggle (full-auto default), slug
+    #    autocomplete, send → optimistic render; then the launched-intents list
+    #    with detach / merge veto affordances.
+    _render_launcher(out, dash)
 
     # 1. thread table with sort/filter controls
     out.append("<h2>Threads</h2>")

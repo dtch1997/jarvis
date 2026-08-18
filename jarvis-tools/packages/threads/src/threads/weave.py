@@ -32,15 +32,25 @@ from . import config, hierarchy, registry, spool, summarize
 REVIEW_BUCKET = "unmatched-concierge"
 
 # methods that count toward the deterministic-match rate gate
-DETERMINISTIC = {"stub-edit", "goals", "repo", "branch"}
+DETERMINISTIC = {"launcher-stamp", "stub-edit", "goals", "repo", "branch"}
 
 CONFIDENCE = {
-    "concierge": 0.9, "concierge-review": 0.5,
+    "launcher-stamp": 1.0, "concierge": 0.9, "concierge-review": 0.5,
     "stub-edit": 0.95, "goals": 0.9, "repo": 0.8, "branch": 0.85,
     "model": 0.6, "unfiled": 0.0,
 }
 
 _CONCIERGE_CWD = re.compile(r"concierge-home/workspaces/([A-Za-z0-9_-]+)")
+
+
+def _load_stamps() -> tuple[dict[str, str], set[str]]:
+    """The launcher's deterministic stamp index (``(tid→slug, {slugs})``);
+    an empty index if the launcher spool is absent or unreadable."""
+    try:
+        from .launch import stamp_index
+        return stamp_index()
+    except Exception:
+        return {}, set()
 
 
 def _norm(s: str) -> str:
@@ -92,10 +102,38 @@ def _concierge_slug(reg: registry.Registry, tid: str) -> str | None:
     return _match_text_to_slug(reg, " ".join(parts))
 
 
-def assign_one(rec: dict, reg: registry.Registry) -> tuple[str | None, str]:
+def _launcher_slug(rec: dict, stamps: tuple[dict[str, str], set[str]]
+                   ) -> str | None:
+    """Deterministic launcher-stamp match: the concierge tid in the cwd, or the
+    ``<slug>/<short-ulid>`` branch namespace. No model, no transcript re-read."""
+    tid_to_slug, launched = stamps
+    m = _CONCIERGE_CWD.search(rec.get("cwd") or "")
+    if m and m.group(1) in tid_to_slug:
+        return tid_to_slug[m.group(1)]
+    branches = list((rec.get("hints") or {}).get("branches", []))
+    if rec.get("git_branch"):
+        branches.append(rec["git_branch"])
+    for b in branches:
+        prefix = str(b).split("/", 1)[0]
+        if prefix in launched:
+            return prefix
+    return None
+
+
+def assign_one(rec: dict, reg: registry.Registry,
+               stamps: tuple[dict[str, str], set[str]] | None = None
+               ) -> tuple[str | None, str]:
     """Return ``(slug, method)`` for one summary record."""
     hints = rec.get("hints") or {}
     cwd = rec.get("cwd") or ""
+
+    # launcher stamp runs BEFORE all heuristics: launcher-born work never relies
+    # on heuristic matching (spec: 100% deterministic for launcher sessions).
+    if stamps is None:
+        stamps = _load_stamps()
+    launched_slug = _launcher_slug(rec, stamps)
+    if launched_slug is not None:
+        return launched_slug, "launcher-stamp"
 
     m = _CONCIERGE_CWD.search(cwd)
     if m:
@@ -247,10 +285,11 @@ def weave(*, runner=summarize.default_runner, model: str = config.MODEL,
     reg = registry.load_registry()
     summaries = spool.load_all_summaries()
     res = WeaveResult(total=len(summaries))
+    stamps = _load_stamps()
     rows = []
     unfiled = []
     for rec in summaries:
-        slug, method = assign_one(rec, reg)
+        slug, method = assign_one(rec, reg, stamps)
         rows.append({
             "session_id": rec["session_id"],
             "slug": slug,
@@ -299,6 +338,8 @@ def weave_check() -> tuple[bool, str]:
     problems = []
     det_num = det_den = 0
     conc_total = conc_resolved = 0
+    launch_total = launch_resolved = 0
+    stamps = _load_stamps()
     for rec in summaries:
         sid = rec["session_id"]
         a = assignments.get(sid)
@@ -306,6 +347,26 @@ def weave_check() -> tuple[bool, str]:
             problems.append(f"no assignment for {sid}")
             continue
         method = a.get("method")
+
+        # launcher-stamped sessions must resolve to their slug 100%
+        # deterministically (no model call) — checked before the
+        # concierge/heuristic buckets. We assert the *derived* slug (the
+        # deterministic pass itself), tolerating a stored slug that is still
+        # unassigned (None) — e.g. an assignments.jsonl written by an older
+        # weave before this intent existed. A stored *different* non-null slug
+        # is a genuine determinism violation and fails.
+        expected = _launcher_slug(rec, stamps)
+        if expected is not None:
+            launch_total += 1
+            stored = a.get("slug")
+            if stored in (None, expected):
+                launch_resolved += 1
+            else:
+                problems.append(
+                    f"launcher-stamp mismatch: {sid} deterministically maps to "
+                    f"{expected!r} but assignment says {stored!r} via {method!r}")
+            continue
+
         is_conc = bool(rec.get("is_concierge")) or method in (
             "concierge", "concierge-review")
         if is_conc:
@@ -323,13 +384,17 @@ def weave_check() -> tuple[bool, str]:
 
     det_rate = det_num / det_den if det_den else 1.0
     conc_rate = conc_resolved / conc_total if conc_total else 1.0
+    launch_rate = launch_resolved / launch_total if launch_total else 1.0
     lines = [
         f"deterministic match rate (non-trivial, non-concierge): "
         f"{det_num}/{det_den} = {det_rate * 100:.0f}% (need >= 70%)",
         f"concierge sessions resolved: {conc_resolved}/{conc_total} "
         f"= {conc_rate * 100:.0f}% (need 100%)",
+        f"launcher-stamped sessions deterministic: "
+        f"{launch_resolved}/{launch_total} = {launch_rate * 100:.0f}% (need 100%)",
     ]
-    ok = not problems and det_rate >= 0.70 and conc_rate >= 1.0
+    ok = (not problems and det_rate >= 0.70 and conc_rate >= 1.0
+          and launch_resolved == launch_total)
     if problems:
         lines.append(f"problems: {len(problems)}")
         lines.extend("  - " + p for p in problems[:20])

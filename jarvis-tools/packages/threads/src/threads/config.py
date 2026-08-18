@@ -28,6 +28,9 @@ except ModuleNotFoundError:  # pragma: no cover
 DEFAULT_LOOKBACK_DAYS = 30
 DEFAULT_MAX_CALLS = 100
 DEFAULT_DORMANT_DAYS = 14
+# a launched intent dormant beyond this with no terminal note is a contract
+# violation (surfaced to desk + flared once).
+DEFAULT_TERMINAL_DEADLINE_DAYS = 3
 MODEL = "claude-haiku-4-5-20251001"
 
 # rough haiku pricing (USD per token) — used only for a spend *estimate* in
@@ -53,6 +56,16 @@ def candidates_dir() -> Path:
 
 def notes_dir() -> Path:
     return threads_dir() / "notes"
+
+
+def intents_dir() -> Path:
+    """Durable launcher send-records (``intents/<ulid>.json``)."""
+    return threads_dir() / "intents"
+
+
+def launch_worktrees_dir() -> Path:
+    """Where copilot launches create their per-intent worktrees."""
+    return threads_dir() / "worktrees"
 
 
 def assignments_path() -> Path:
@@ -117,6 +130,8 @@ class Config:
     # auto-drafted programs: a cluster of >= this many sibling threads sharing a
     # repo/keyword and no common parent is drafted into hierarchy.md.
     cluster_min_siblings: int = 3
+    # launched-thread termination contract (see launch.termination_sweep).
+    terminal_deadline_days: int = DEFAULT_TERMINAL_DEADLINE_DAYS
 
 
 DEFAULT_CONFIG_TOML = """\
@@ -141,6 +156,12 @@ days = 14
 # >= this many sibling threads sharing a repo/keyword with no common parent get
 # an auto-drafted program section in hierarchy.md.
 min_siblings = 3
+
+[launch]
+# a launched intent with no result/blocked/failed note after this many days is
+# a termination-contract violation: the dashboard flags it, a desk item is
+# raised (BLOCKED-ON-DANIEL marker), and it flares once (--sev warn).
+terminal_deadline_days = 3
 """
 
 
@@ -177,17 +198,21 @@ def load_config() -> Config:
     )
     dorm = data.get("dormancy") or {}
     clus = data.get("clustering") or {}
+    launch = data.get("launch") or {}
     return replace(
         base,
         relevance=relevance,
         dormant_days=_coerce_int(dorm.get("days"), base.dormant_days),
         cluster_min_siblings=_coerce_int(
             clus.get("min_siblings"), base.cluster_min_siblings),
+        terminal_deadline_days=_coerce_int(
+            launch.get("terminal_deadline_days"), base.terminal_deadline_days),
     )
 
 
 def ensure_spool() -> None:
-    for d in (threads_dir(), summaries_dir(), candidates_dir(), notes_dir()):
+    for d in (threads_dir(), summaries_dir(), candidates_dir(), notes_dir(),
+              intents_dir(), launch_worktrees_dir()):
         d.mkdir(parents=True, exist_ok=True)
     path = config_path()
     if not path.exists():
