@@ -101,6 +101,13 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   session pulled) — new 04:10 deploy cron pulls mains, refreshes venv/PATH
   links, reconciles crontab. Next: reply-to-veto via mailroom ("veto 141"
   in the Slack thread; 👍 react as read-ack) — arsenal issue filed.
+  *Addendum (same day, post-cutover)*: both PRs merged + deployed during the
+  monorepo cutover (crontab/config/venv verified on the new paths); the
+  old-world editions.jsonl seed was removed (its jarvis#N refs would
+  collide with monorepo PR numbers) so edition counting starts fresh
+  2026-08-19; reply-to-veto re-filed as **monorepo issue #3** (arsenal#74
+  archived). First v2 edition due 2026-08-19 08:05 — watch needs-you /
+  synthesis / desk fold-in / editions.jsonl appending.
 
 ## Active threads
 
