@@ -149,6 +149,9 @@ def new_task(tid, title, gate, budget, workspace, priority=0, notify=None,
         "mail_delivered": 0,
         "notify": notify or ["stdout"],
         "links": {"pr": None, "report": None, "dashboard": None},
+        # harness publish-pass result (issue #8): {branch, pr_url, at} once the
+        # daemon has pushed + opened a PR for a sandboxed worker; None otherwise.
+        "published": None,
         "created": now_iso(),
         "updated": now_iso(),
     }

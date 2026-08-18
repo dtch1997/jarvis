@@ -23,6 +23,7 @@ passing their gates proves nothing about the parent.
 """
 from __future__ import annotations
 
+from . import gates
 from .gates import Always, Gate
 from .records import TERMINAL, new_id, new_task
 
@@ -75,9 +76,17 @@ def delegate_child(home, parent: dict, cfg: dict, *, title: str, spec: str,
     # validate a worker-supplied serialized gate before it enters a record the
     # reconciler will trust; None means Always, same default as Pool.submit
     try:
-        gate_json = Gate.from_json(gate).to_json() if gate else Always().to_json()
+        gate_obj = Gate.from_json(gate) if gate else Always()
+        gate_json = gate_obj.to_json()
     except (ValueError, TypeError, KeyError) as e:
         raise DelegationError(f"bad gate {gate!r}: {e}") from None
+
+    # same codex-permissions guard as Pool.submit (issue #8): a sandboxed child
+    # backend may not be gated on a non-local component the harness can't publish
+    child_backend = backend or parent.get("backend")
+    mismatch = gates.backend_gate_mismatch(gate_obj, child_backend)
+    if mismatch:
+        raise DelegationError(mismatch)
 
     tid = new_id()
     pw = parent["workspace"]
@@ -101,7 +110,7 @@ def delegate_child(home, parent: dict, cfg: dict, *, title: str, spec: str,
         model=model or parent.get("model"),
         # inherit-by-default: a codex parent spawns codex leaves unless it names
         # a backend; a claude parent can route a mechanical leaf to codex
-        backend=backend or parent.get("backend"),
+        backend=child_backend,
     )
     home.spec_path(tid).write_text(spec)
     home.save(child)

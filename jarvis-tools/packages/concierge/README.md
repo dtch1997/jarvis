@@ -110,6 +110,11 @@ environment from a dotenv file — defaults to `~/.env` if it exists, set to
 `null` to disable. Values override inherited `os.environ`; the concierge-set
 vars (`CONCIERGE_HOME`, `CONCIERGE_TASK_ID`, `PYTHONPATH`) always win last. This
 saves every worker from rediscovering API keys with `set -a; . ~/.env`.
+Per-backend overrides live under `backends: {<name>: {…}}`; notably **codex
+workers get no `env_file` preseed by default** (they are sandboxed leaves that
+should hold no secrets — issue #8), which an explicit
+`backends: {codex: {env_file: <path>}}` re-enables. Absent config keeps the
+claude behavior above exactly.
 
 When a worker exits, the evaluated gate outcome is stored as structured data on
 the task record: `task["gate_result"] = {"passed", "detail", "checked_at"}`.
@@ -176,7 +181,9 @@ into that schema. `runtime.Worker.spawn` picks the module by `task["backend"]`.
 - **`codex`** — `codex exec --json` with GPT 5.6 Sol (`concierge.backends.codex`),
   aimed at cheap, mechanical **line workers** so the pool keeps running when the
   Anthropic limit is exhausted. Config: `codex_bin` (default `codex`),
-  `codex_model` (default `gpt-5.6-sol`), `codex_cost_per_mtoken`.
+  `codex_model` (default `gpt-5.6-sol`), `codex_cost_per_mtoken` (defaults to a
+  non-zero GPT-5-class estimate so codex spend draws the daily cap instead of
+  stamping $0 — issue #8).
 
 **Capability / gap map** (what the codex backend replicates, and where it differs):
 
@@ -189,6 +196,7 @@ into that schema. `runtime.Worker.spawn` picks the module by `task["backend"]`.
 | House rules | system-prompt append | appended to workspace `AGENTS.md`, kept out of PRs (`.git/info/exclude` + skip-worktree) |
 | Access `readonly`/`readwrite` | tool allowlist / `bypassPermissions` | `--sandbox read-only` / `--sandbox workspace-write` |
 | delegate (trees & leaves) | in-process tool | **gap (v1):** codex workers are **leaves only** — no delegate tool |
+| Push branch / open PR | the worker does it itself | **sandbox blocks it** (`.git` read-only, no network) — the **harness publish-pass** pushes `pool/<tid>` + opens the PR after the worker exits (issue #8); PrMerged gates are refused at submit/dispatch and routed to claude |
 | Budget | real USD from result events | **gap:** codex reports tokens, not USD — cost is an **estimate** from `turn.completed` usage priced via `codex_cost_per_mtoken`, stamped into the attempt; wall-clock bounds it as before |
 | Background-task guard hook | `.claude/` PreToolUse hook | **gap:** no hook equivalent — codex workers run unguarded; the no-detach rule is carried prominently in the `AGENTS.md` house rules instead |
 

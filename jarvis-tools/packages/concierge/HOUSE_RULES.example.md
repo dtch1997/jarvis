@@ -65,3 +65,14 @@ Example:
   doesn't settle it, ask via signal_blocked instead of guessing.
 - Never commit secrets; credentials come from the environment only.
 ```
+
+> **Backend note (codex leaves get no secrets).** Workers on the `codex`
+> backend run in a sandbox that can write the workspace but keeps `.git`
+> read-only and blocks the network — they cannot push or open PRs, and by
+> default they do **not** receive the `env_file` preseed, so no API keys /
+> credentials reach a codex leaf. Publishing (push + PR) for a codex task whose
+> gate includes `PrOpen` is done by the harness after the worker exits, not by
+> the worker. Keep credential-requiring work (anything that must reach an
+> external service) on `claude`, or re-enable the preseed deliberately per
+> backend (`backends: {codex: {env_file: <path>}}`). See PATTERNS.md → "Backend
+> permissions".

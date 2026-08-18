@@ -27,3 +27,20 @@ def module_for(backend: str | None) -> str:
     (claude), which keeps legacy records that predate the `backend` field
     fully backward compatible."""
     return MODULES[backend or DEFAULT_BACKEND]
+
+
+def can_push(backend: str | None) -> bool:
+    """Whether a backend's worker can itself cross the machine boundary — push
+    a branch and open a PR (issue #8). The answer lives WITH each backend module
+    as a `CAN_PUSH` constant (source of truth), read lazily here so the daemon
+    needn't import a heavy backend module (claude pulls the Agent SDK) just to
+    ask this. A backend whose module can't be imported (or omits the flag) is
+    assumed able to push — the safe default is to let it try, never to silently
+    strand a task on a backstop reroute."""
+    import importlib
+
+    try:
+        mod = importlib.import_module(module_for(backend))
+    except Exception:
+        return True
+    return bool(getattr(mod, "CAN_PUSH", True))

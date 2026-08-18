@@ -135,6 +135,48 @@ before settling — only the parent's branch PRs to main.
 children. Delegation buys parallelism and context isolation; sequencing
 belongs inside one task's DAG.
 
+## Backend permissions: separate doing from publishing
+
+Not every backend can cross the machine boundary. The `codex` backend runs
+workers in a sandbox that can write the workspace but keeps `.git` read-only
+and blocks the network — it can *do* the work but cannot `git push` or open a
+PR. So concierge draws a permission tier line and enforces it mechanically
+(issue #8):
+
+- **read-only leaves** (`access="readonly"`): read + reason, no writes. Gate on
+  a report/analysis artifact.
+- **build leaves** (codex, `access="readwrite"`): write the workspace and
+  nothing else. Gate on locally-checkable results (`ShellOk`, `FileExists`).
+- **publishing is the harness's job.** A worker never has to push. If a codex
+  task's gate includes `PrOpen`, the daemon — after the worker exits and the
+  gate's *local* components pass and the branch has real commits — pushes the
+  branch (`pool/<tid>`, never force, never to main) and opens the PR itself,
+  then re-checks the gate. The publish step is idempotent (it re-checks for an
+  existing PR first).
+
+Gates carry a `local` flag that makes this checkable: `ShellOk`/`FileExists`
+are local (True), `PrOpen`/`PrMerged` are not. Compositions derive it —
+`A & B` is local iff **both** are, `A | B` iff **either** is. What the harness
+can publish is narrower than what's non-local: it opens PRs, so `PrOpen` is
+*publishable*; it never merges, so `PrMerged` is not.
+
+The consequences you'll see:
+
+- `pool.submit(..., backend="codex", gate=PrMerged())` (and the same via
+  `delegate`) raises with a message pointing you at `backend="claude"` — the
+  harness can't merge for a sandboxed worker. `PrOpen` is accepted (the harness
+  publishes it); a purely local gate is always fine.
+- If a `codex`-backed record with an unpublishable non-local gate reaches
+  dispatch anyway (a requeue-by-file-edit, an older record), the reconciler
+  reroutes it to `claude` and notes the reroute in `status_detail` — it never
+  dispatches a doomed attempt.
+- Codex leaves get **no secrets**: the `env_file` preseed is disabled for them
+  by default. Re-enable per-backend only if you must
+  (`backends: {codex: {env_file: <path>}}`).
+
+Backend capability lives with each backend module (`CAN_PUSH`), not in the
+reconciler, so adding a backend is a one-flag declaration.
+
 ## Model economics
 
 `model=` (on `submit` and `delegate`) is the cost dial. The moments that need

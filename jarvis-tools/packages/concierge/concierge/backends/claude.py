@@ -44,6 +44,9 @@ WAITING_TOOL = "mcp__concierge__signal_waiting"
 DELEGATE_TOOL = "mcp__concierge__delegate"
 WAIT_TIMEOUT_MINUTES = signals.WAIT_TIMEOUT_MINUTES
 BACKEND = "claude"
+# capability (issue #8): a Claude worker has a normal filesystem + network, so
+# it pushes its branch and opens its own PR. PrOpen-gated tasks route here.
+CAN_PUSH = True
 
 
 def _normalize(message) -> dict | None:

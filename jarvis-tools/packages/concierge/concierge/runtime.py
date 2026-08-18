@@ -84,6 +84,22 @@ def _env_overrides(cfg: dict) -> dict[str, str]:
         return {}
 
 
+def _backend_config(cfg: dict, backend: str | None) -> dict:
+    """cfg overlaid with per-backend overrides from `backends.<name>` (issue #8).
+
+    Codex workers are leaves that get NO secrets: the env_file preseed is
+    disabled for them by default (equivalent to `env_file: null`), so the
+    dotenv full of API keys never reaches a sandboxed line worker. An explicit
+    `backends.codex.env_file: <path>` re-enables it. Every other backend (and
+    an absent `backends` block) leaves cfg — and thus current claude behavior —
+    exactly as it was."""
+    overrides = (cfg.get("backends") or {}).get(backend) or {}
+    merged = {**cfg, **overrides}
+    if backend == "codex" and "env_file" not in overrides:
+        merged["env_file"] = None  # codex leaves get no secrets by default
+    return merged
+
+
 @dataclass(frozen=True)
 class WorkerState:
     alive: bool                # OS process exists
@@ -139,7 +155,7 @@ class Worker:
         # merge order: inherited os.environ, then env-file values override it,
         # then the three concierge-set vars always win last
         env = dict(os.environ)
-        env.update(_env_overrides(cfg))
+        env.update(_env_overrides(_backend_config(cfg, task.get("backend"))))
         env.update(
             CONCIERGE_HOME=str(home.root),
             CONCIERGE_TASK_ID=task["id"],
