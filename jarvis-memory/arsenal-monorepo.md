@@ -5,6 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 74110705-dbff-4bfa-9e57-b7cbe3af3921
+  modified: 2026-08-18T00:39:48.159Z
 ---
 
 **arsenal** — the utility monorepo, dtch1997/arsenal, clone `repos/arsenal`.
@@ -38,6 +39,13 @@ CLI. CI = pytest matrix over packages (update the matrix list per wave).
   open-tinker (ArcadiaImpact infra).
 - **Convention going forward:** new utilities are born as `packages/<name>`
   in arsenal, not standalone repos.
+- **CLIs on PATH (2026-08-18, arsenal PR #69):** `ops/link-clis.sh` owns
+  `~/.local/bin` symlinks for every agent-facing CLI (flare, desk, threads,
+  claude-statusline, lobby, ferry, cowrite, cairn, reportly, gazette,
+  arxivist, foyer, bellhop, databrowser) → the workspace venv. Call them
+  bare; `--check` diffs for drift; add new CLIs to the script's list.
+  Pre-existing pip-era wrappers (lobby/cowrite pointed at FROZEN copies in
+  `~/.local/lib/python3.10/site-packages`) moved aside as `*.pre-arsenal`.
 - **VENV GOTCHA (2026-07-16, bit for real):** the root `.venv` must stay in
   `uv sync --all-packages` state — a plain `uv run <cmd>` at the arsenal root
   re-syncs to root-only deps and can prune/corrupt package-extra deps. It

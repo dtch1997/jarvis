@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 0a078573-bfff-45ce-83ef-f0731e162fb3
-  modified: 2026-08-16T17:16:13.789Z
+  modified: 2026-08-17T19:40:17.158Z
 ---
 
 Covert data-poisoning research line (AI-safety, defensive framing). Sample text
@@ -55,7 +55,12 @@ visible to `daniel-tan-arcadia`: `interpolation-transfer-inverted[-multitarget]`
   gemma's 0.01 collapse). **BOTH halves of the channel headline reproduced on ungated
   Qwen-7B.** MMLU driver scripts/repro/run_bellhop_mmlu.py — ⚠️ MUST set BASE_MODEL (defaults
   to gated gemma) AND cp scripts/vllm_eval.py→scripts/sweep/ (else subprocess 404s). All
-  pods torn down, no orphans. Branch repro-canonical-headline NOT yet PR'd.
+  pods torn down, no orphans. WRAPPED 2026-08-17: PR #1 open (fork main ← repro-canonical-headline,
+  9 commits); follow-ups filed as fork issues #2-6 + #7 roadmap (ranked: #2 distribution-level detection/defense
+  = the crux + recommended next, #3 watermark capacity+ICL-detectability = Daniel's framing/more
+  publishable, #4 diffuse-vs-specific poisonability, #5 mind-virus self-training dynamics, #6
+  mechanical grid/14B/gemma; #7 = ranked overview linking them). Worktree kept
+  (PR unmerged). Fork issues were disabled-by-default; enabled has_issues.
   Open: 14B scale point (driver 14B-ready), α-grid+seeds, MMLU on α=0.7, true gemma (license).
 - ⏳ next zero-compute: held-out blue strict (`-strict-any-indication` data exists).
 - ⛔ GPU-pending (await Daniel greenlight on RunPod spend): canonical headline

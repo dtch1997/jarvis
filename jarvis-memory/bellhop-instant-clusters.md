@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 32893ea7-3c43-4b38-bf6a-e430d264ecef
-  modified: 2026-08-13T13:36:42.997Z
+  modified: 2026-08-18T00:52:36.589Z
 ---
 
 Goal: full-param dense ~100B training for [[science-of-midtraining]] needs 2–4
@@ -37,4 +37,4 @@ Sizing: 100B dense full-param ≈1.6TB optimizer state → 4×8 H200 or 2×8 B20
 
 Next = M3 100B: pick dense target (Command-A 111B / Mistral-Large 123B licensing caveats; most 100B+ opens are MoE→ms-swift/Megatron path); needs 4×8 H200 or 2×8 B200 — but NO H200 cluster stock seen 2026-08-10/11, plan availability; SHARDED_STATE_DICT stage template still to write.
 
-**Nebius backend (2026-08-13, arsenal PR #37 OPEN, branch bellhop-nebius)** — provider-diversification answer to the RunPod availability lottery. `NebiusClusterConfig` → `nebius_cluster()` yields the same `Cluster` object (run_cluster dispatches on config type); NebiusNode subclasses Pod inheriting the ssh channel; GpuCluster pinned to an InfiniBand `fabric` (region-specific id, required); posted prices (H200 ~$4.50/GPU·hr on-demand, ~$2.45 preemptible — `preemptible=` supported); teardown client-owned + `gc_nebius()` reaper. 88 tests pass; live gate `scripts/e2e_nebius_cluster.py` NOT yet run. **Blocked on Daniel**: create Nebius account, set NEBIUS_IAM_TOKEN + NEBIUS_PROJECT_ID, pick fabric, and file self-serve quota bump toward 64×H200 (default ceiling was 32 as of last public info). Selection rationale (Nebius > SF Compute/Lambda/Prime Intellect for API-driven provisioning) in the 2026-08-13 session.
+**Nebius backend (2026-08-13, arsenal PR #37 OPEN, branch bellhop-nebius)** — provider-diversification answer to the RunPod availability lottery. `NebiusClusterConfig` → `nebius_cluster()` yields the same `Cluster` object (run_cluster dispatches on config type); NebiusNode subclasses Pod inheriting the ssh channel; GpuCluster pinned to an InfiniBand `fabric` (region-specific id, required); posted prices (H200 ~$4.50/GPU·hr on-demand, ~$2.45 preemptible — `preemptible=` supported); teardown client-owned + `gc_nebius()` reaper. Review fixes applied 2026-08-18 (concierge t-0818-55b1, commit 5f8ef1a: watchdog double-teardown guard, PreemptibleSpec STOP wiring, gc skips created_at=None, per-run uuid name suffix, teardown-failure logging, nebius pin <0.4); 92 tests pass, CI green; live gate `scripts/e2e_nebius_cluster.py` NOT yet run. **Blocked on Daniel**: create Nebius account, set NEBIUS_IAM_TOKEN + NEBIUS_PROJECT_ID, pick fabric, and file self-serve quota bump toward 64×H200 (default ceiling was 32 as of last public info). Selection rationale (Nebius > SF Compute/Lambda/Prime Intellect for API-driven provisioning) in the 2026-08-13 session.

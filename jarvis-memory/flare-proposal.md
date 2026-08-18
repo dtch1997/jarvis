@@ -22,9 +22,14 @@ Operational:
   allowlists (jarvis PR #126); HOUSE_RULES appended.
 - Open polish issues: arsenal #43 (first-sync flood), #44 (marker
   doc-matches), #45 (stream consistency + rotation).
-- BLOCKED-ON-DANIEL: drop a Slack incoming-webhook URL for #jarvis-flares
-  into `~/.config/flare/config.toml` ([slack] webhook_url) to turn on phone
-  push — until then flares are spool-only.
+- ~~Slack push~~ LIVE 2026-08-18: Daniel's call — reuse the jarvis-mailroom
+  Slack app instead of a webhook. flare gained a bot-token transport
+  (chat.postMessage, arsenal PR #66; webhook still wins if ever configured;
+  ok:false = failed send). Devbox config: `~/.config/flare/config.toml`
+  [slack] bot_token+channel (0600). Pages land in #lab-notes-daniel
+  (C0B5RUX4P26) — swap the channel id if #jarvis-flares is ever created
+  (bot lacks channel-create scope). Verified end-to-end. Residual: pods
+  spool-only until bellhop plumbs the two env vars — arsenal issue #67.
 
 Related: [[arsenal-monorepo]], [[self-driving-jarvis]] (attention-routing
 layer of the command-center build order), [[concierge-tool]].

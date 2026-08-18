@@ -1,15 +1,21 @@
 ---
 name: investment-repo
-description: "Personal investment-thesis repo (dtch1997/investment, PRIVATE, clone repos/investment) — thesis files, core-satellite policy, quarterly reviews"
+description: "Investment domain of the life-theses repo (dtch1997/life-theses, PRIVATE, clone repos/life-theses, investment/ folder) — thesis files, core-satellite policy, quarterly reviews"
 metadata: 
   node_type: memory
   type: project
   originSessionId: c0c03a9a-f734-490c-83df-18ba1821df07
-  modified: 2026-08-16T12:01:14.128Z
+  modified: 2026-08-17T23:35:21.570Z
 ---
 
-Personal investing project, scaffolded 2026-08-16: **dtch1997/investment**
-(PRIVATE — personal finance), clone at `repos/investment`.
+Personal investing project, scaffolded 2026-08-16. **2026-08-17: repo
+expanded and renamed to dtch1997/life-theses** (PR #8) — a decision-journal
+repo with one folder per life domain; all investment content now lives
+under `investment/` (clone at `repos/life-theses`; `repos/investment` is a
+back-compat symlink). Sibling domain: `employment/` (see
+[[employment-thesis]]). Cron paths + installer markers migrated
+(`# BEGIN dtch1997/life-theses` block). Paths below are relative to
+`investment/` unless noted.
 
 Structure: `theses/` (one file per thesis, TEMPLATE.md; lifecycle
 draft/active/parked/falsified/closed; the Edge section — "why hasn't the
