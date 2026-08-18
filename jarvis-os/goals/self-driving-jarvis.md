@@ -9,15 +9,22 @@ links: [repos/arsenal, goals/README.md]
 
 # Self-driving jarvis
 
-*agent-drafted 2026-07-17, standing until Daniel edits*
+*goal restated by Daniel 2026-08-18 (was agent-drafted 2026-07-17); prose
+agent-drafted, standing until Daniel edits*
 
 ## Vision
 
-Daniel specifies goals at this altitude; agents plan, spec, dispatch, review,
-and report autonomously. The human role shifts to editing goal files and
-async veto over Slack — not typing tasks. The execution layer (concierge,
-stagehand, arch2, bellhop) already exists; this goal builds the direction
-layer on top and earns the trust to close the loop.
+Improve JARVIS over time — tools, processes, conventions — so it keeps
+getting better at helping Daniel **do good empirical research** and **write
+good blogposts about it**: this goal explicitly serves the other two
+standing goals ([empirical-research](empirical-research.md),
+[research-blogposts](research-blogposts.md)), and JARVIS improvements are
+judged by their effect on those outputs, not by tool count. Daniel specifies
+goals at this altitude; agents plan, spec, dispatch, review, and report
+autonomously. The human role shifts to editing goal files and async veto —
+not typing tasks. The execution layer (concierge, stagehand, arch2, bellhop)
+already exists; this goal builds the direction layer on top and earns the
+trust to close the loop.
 
 ## Why it matters
 
@@ -40,6 +47,9 @@ as progress when:
 - Trust ratchets: some piece of the system graduates to a higher automation
   level with its safety properties (external gates, budget caps,
   report-even-when-idle) demonstrated in practice, not promised.
+- The improvement traces to the standing goals: a research or writing loop
+  got faster, safer, or less Daniel-dependent. Meta-work that never shows up
+  in empirical-research or research-blogposts output is suspect.
 
 ## Interestingness rubric
 
@@ -53,6 +63,12 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
 
 ## Frontier
 
+- 2026-08-18: **Daniel restated the goal portfolio**: three standing goals —
+  empirical-research, research-blogposts, self-driving-jarvis — with this
+  one explicitly in service of the other two; existing project goals become
+  instances (`serves:` frontmatter). Autonomous behavior (/goal-review
+  scoring, groundskeeper pickups, auto-drafted threads) should trace to a
+  standing goal (goals/README.md "Portfolio shape").
 - 2026-07-17 (seeded): direction-layer gap identified — execution layer
   complete (concierge gates, stagehand DAGs, arch2 fleets), nothing holds
   goals or writes specs autonomously. Spec-writing taste is the crux

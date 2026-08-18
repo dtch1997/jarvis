@@ -2,6 +2,7 @@
 slug: arc-whest-blogpost
 title: Publish the ARC WHEST (white-box estimation) blogpost
 status: active
+serves: [research-blogposts]
 automation: propose-only
 budget: TBD
 links: ["repos/autoresearch-daniel-04082026", "repos/kerdock-quadrature", "memory: autoresearch-arc-whest"]

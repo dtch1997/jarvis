@@ -2,6 +2,7 @@
 slug: dogfight-rl-release
 title: Write up and release dogfight-rl
 status: active
+serves: [research-blogposts]
 automation: propose-only
 budget: TBD
 links: ["dtch1997/dogfight-rl (clone repos/dogfight-rl)", "memory: dogfight-rl"]

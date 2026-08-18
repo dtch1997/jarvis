@@ -2,6 +2,7 @@
 slug: power-concentration-post
 title: Recursive blogpost on risks from power concentration
 status: active
+serves: [research-blogposts]
 automation: propose-only
 budget: TBD
 links: ["worktree .claude/worktrees/power-concentration-post (writing/power-concentration/)"]
