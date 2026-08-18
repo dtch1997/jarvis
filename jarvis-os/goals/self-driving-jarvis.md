@@ -79,8 +79,23 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   (arsenal #49, ~2-week verdict); and when does /goal-review start
   consuming the threads↔goals coverage panel.
 
+- 2026-08-18: **consumer mode shipped (gazette)** — Daniel's stated frame:
+  "mainly a consumer of JARVIS software, reading patch notes every morning."
+  Review-before-merge → veto-after-the-fact: PR lanes
+  (`lane:auto|delay|blocked` + demotion backstops), nightly merge sweep
+  (03:29), morning patch notes (08:05 flare→Slack, live via jarvis-mailroom
+  transport). Open questions parked in docs/morning-routine.md: single
+  morning page v2 (news → deadlines → asks → ambient), delivery
+  time/cadence, veto window in delivered-notes vs wall-clock hours.
+  Structural gap: merged-PR *local* worktrees have no owner (gazette deletes
+  remote branches only; stale worktrees accumulate unless sessions clean up).
+
 ## Active threads
 
+- gazette (consumer-mode PR flow, arsenal `packages/gazette`): SHIPPED
+  2026-08-18 (arsenal #65 + jarvis #144, crons installed) — first sweep
+  auto-merged 3 PRs its first night. Watch: does Daniel actually stop
+  reviewing; anomaly-section quality (mislabeled lanes); morning-routine v2.
 - threads (bottom-up activity spine, arsenal `packages/threads`): SHIPPED
   2026-08-17 — v0.1 (#48) + v0.2 relevance/hierarchy/vault (#51) +
   note/pickup push channel (#50) + "park" keyword (jarvis #137) +
