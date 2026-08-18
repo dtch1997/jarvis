@@ -57,3 +57,15 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # registry (weave also refreshes the Obsidian vault). scan needs the API key
 # from ~/.env; hitting the per-run call cap self-reports via flare.
 19 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/threads scan && /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/threads weave >> /mnt/nw/home/d.tan/.claude/logs/threads.log 2>&1
+
+# mailroom: 2-hourly thought-capture ingest + route — pull Daniel's captures
+# from Slack #lab-notes-daniel, the Todoist Inbox, and voice memos into the
+# spool (✅ loop-closure reactions), then triage + land each on a spine
+# (threads notes, Todoist projects, goal files, papers, flare). Sources ~/.env
+# for Slack/Todoist/Anthropic creds; the per-run triage call-cap self-reports
+# via flare on truncation.
+15 */2 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/mailroom ingest && /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/mailroom route >> /mnt/nw/home/d.tan/.claude/logs/mailroom.log 2>&1
+
+# mailroom: daily digest — flare the headline (--sev info) on non-empty days
+# (the veto surface; full page served via `mailroom serve` → lobby /a/mailroom/).
+33 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/mailroom render --flare >> /mnt/nw/home/d.tan/.claude/logs/mailroom.log 2>&1
