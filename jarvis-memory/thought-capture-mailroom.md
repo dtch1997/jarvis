@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: df174149-3fb4-473a-8cf9-d6e768706786
-  modified: 2026-08-18T00:36:27.614Z
+  modified: 2026-08-18T01:17:13.497Z
 ---
 
 Thought-capture ingestion pipeline, Daniel's ask 2026-08-17: his three
@@ -60,8 +60,15 @@ no Slack/Todoist creds today):
   unusable from cron). ~~Original Drive plan~~: iOS Shortcut + `rclone config` for a
   `drive:` remote (only `gcs:` exists)
 
-Spec **PR #138 MERGED** (854f7d2, 2026-08-18); follow-up amendment (voice
-= Slack route + credential facts) = **jarvis PR #148 OPEN** (branch
-mailroom-voice-slack). All three legs credentialed + hand-verified.
-Next: dispatch build to concierge, gate
-`PrOpen() & ShellOk("mailroom ingest --check && mailroom route --check")`.
+Spec MERGED: PR #138 (854f7d2) + voice-amendment PR #148 — both now live
+in the **monorepo** (dtch1997/jarvis, cutover 2026-08-18 01:10; spec =
+`jarvis-os/docs/thought-capture.md`, package target =
+`jarvis-tools/packages/mailroom`). All three legs credentialed +
+hand-verified (74s real Voice Memo transcribed cleanly; a real capture —
+seeded threads note `spar-mentoring-model`). **Build DISPATCHED
+2026-08-18: concierge t-0818-bf5d** ($30/6h budget), gate
+`PrOpen() & ShellOk(". ~/.env; cd jarvis-tools && .venv/bin/mailroom
+ingest --check && route --check")`; hard rules in spec: Todoist
+file-never-complete, no writes outside C0B5RUX4P26, no threaded replies
+on backfill. Post-merge steps: run `ops/install-cron.sh`, start
+`mailroom serve` tmux.
