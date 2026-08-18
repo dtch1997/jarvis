@@ -97,6 +97,65 @@ with artifact links; the unfiled inbox; and candidate threads.
 `threads render` prints the same as a Markdown digest; `threads status` is
 a one-liner for scripts and shell prompts.
 
+## Launching threads (intent → thread)
+
+Everything above is *observational* — threads are reconstructed after the
+fact. The **launcher** is the other direction: declare an intent and a thread
+is born to carry it, with an executor spawned to do the work.
+
+```bash
+threads launch "summarize this week's eval runs"          # full-auto (default)
+threads launch --copilot "pair with me on the parser"     # interactive tmux
+threads launch --slug my-project "add the retry path"     # pin the thread
+threads launch --dry-run "..."                             # route+stamp, no spawn
+```
+
+The **send contract** is deliberately tiny: acceptance persists a durable,
+ULID-keyed intent record to `~/.threads/intents/` and returns in well under
+100 ms with **no model call and no network**. Routing and spawning are
+asynchronous and land *on the thread*, never back at the sender; any failure
+becomes a thread note plus a `--sev warn` flare — never silence.
+
+- **Router.** A pinned slug wins; else one cheap model call matches the
+  intent against the registry (accepting only an existing slug — attach is
+  automatic, no confirmation); else a candidate thread is minted from the
+  intent text. The router writes its interpretation (reading + assumptions +
+  chosen gate) as a note and proceeds — draft-and-veto, never blocking.
+- **Modes.** *Full-auto* submits to the [concierge](../concierge) pool with
+  the intent + interpretation as the spec seed and the router's gate; the
+  concierge tid is recorded on the thread. *Copilot* spawns a tmux `claude`
+  seeded with the intent in a fresh `<slug>/<short-ulid>` worktree and records
+  the foyer URL.
+- **Deterministic weave.** Launcher-born work never relies on heuristic
+  matching: the concierge tid and the `<slug>/<short-ulid>` branch namespace
+  are stamped at spawn, and `weave` maps those sessions to their slug with a
+  pass that runs *before* every heuristic — no model call.
+- **Termination contract.** Every launched thread must reach a terminal note
+  (`result` | `blocked` | `failed`). A launched intent dormant past
+  `launch.terminal_deadline_days` (config.toml, default 3) with no terminal
+  note is flagged on the dashboard, raises a `BLOCKED-ON-DANIEL` desk item,
+  and flares once.
+- **Veto affordances.** Instant creation fragments; *detach* and *merge into
+  thread* are one-click actions on each launched intent in the dashboard.
+
+The same code path backs `POST /launch {text, mode?, slug?}` on the threads
+server (used by the dashboard's launcher pane) and the CLI.
+
+### Full-auto gate menu
+
+The router picks the concierge gate from a small, documented menu — the gate
+is externally checked, never the worker's self-report:
+
+| intent shape | gate | why |
+|---|---|---|
+| repo-shaped (implement / fix / build / PR / test / refactor…) | `PrOpen()` | done = an open PR |
+| question-shaped (analysis, a number, a written answer) | `ShellOk("test -s .threads-result.md")` | done = a non-empty result file the worker wrote |
+
+Compose with `&` for compute work where a PR alone would let a placeholder
+settle (e.g. `PrOpen() & ShellOk("test -s results.jsonl")`). Override the
+per-launch budget with `THREADS_LAUNCH_BUDGET_USD` and the executor's repo
+with `THREADS_LAUNCH_REPO` (defaults to the git repo at the launch cwd).
+
 ## Parking and resuming work
 
 ```bash
@@ -159,10 +218,18 @@ else needs to change.
 Keep the dashboard alive across logout with
 `tmux new-session -d -s threads-dashboard "threads serve"`.
 
-For scripting and CI-style gating, `threads scan --check` and
-`threads weave --check` are cheap, offline (zero model calls) health
-checks: they exit non-zero unless summaries are complete for the lookback
-window and match quality is above threshold, and print what they verified.
+For scripting and CI-style gating, `threads scan --check`,
+`threads weave --check`, and `threads launch --check` are cheap, offline
+(zero model calls) health checks that exit non-zero and print what they
+verified:
+
+- `scan --check` — summaries complete for the lookback window.
+- `weave --check` — match quality above threshold, every concierge session
+  resolved, and **100 % deterministic match for launcher-stamped sessions**.
+- `launch --check` — one synthetic `--dry-run` launch proves the accept path
+  returns <100 ms, then asserts every intent in the spool is consistent (a
+  resolved slug + executor handle, a failure note, or still legitimately
+  in-flight).
 
 ## Environment overrides
 

@@ -6,6 +6,7 @@ printed notice) if lobby is unavailable, exactly as databrowser/desk degrade.
 from __future__ import annotations
 
 import http.server
+import json
 import socket
 import sys
 import threading
@@ -73,6 +74,42 @@ def serve(*, interval: int = 60, port: int | None = None, tunnel: bool = True
             self.send_header("Content-Length", str(len(payload)))
             self.end_headers()
             self.wfile.write(payload)
+
+        def _json(self, status: int, body: dict):
+            payload = json.dumps(body).encode()
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(payload)))
+            self.end_headers()
+            self.wfile.write(payload)
+
+        def do_POST(self):
+            """``/launch`` (accept + async route/spawn), ``/detach``, ``/merge``.
+
+            ``/launch`` returns the receipt in <100ms; routing and spawning run
+            in the detached processor accept() enqueues — never on this thread.
+            """
+            from .launch import accept, detach, merge_into
+            try:
+                size = int(self.headers.get("Content-Length", "0") or 0)
+                data = json.loads(self.rfile.read(size) or b"{}")
+                path = urlsplit(self.path).path.rstrip("/")
+                if path.endswith("/launch"):
+                    rec = accept(str(data.get("text") or ""),
+                                 mode=str(data.get("mode") or "full-auto"),
+                                 slug=data.get("slug"))
+                    cache["model"] = dashboard.build()  # optimistic render
+                    self._json(202, rec)
+                elif path.endswith("/detach"):
+                    self._json(200, detach(str(data["id"])))
+                elif path.endswith("/merge"):
+                    self._json(200, merge_into(str(data["id"]), str(data["slug"])))
+                else:
+                    self._json(404, {"error": "not found"})
+            except (ValueError, KeyError, json.JSONDecodeError) as e:
+                self._json(400, {"error": str(e)})
+            except Exception as e:  # never 500 the process over a handler bug
+                self._json(500, {"error": str(e)})
 
     port = port or _free_port()
     httpd = http.server.ThreadingHTTPServer(("127.0.0.1", port), Handler)

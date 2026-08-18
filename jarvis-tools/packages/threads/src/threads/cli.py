@@ -37,6 +37,32 @@ def _cmd_weave(args) -> int:
     return 0
 
 
+def _cmd_launch(args) -> int:
+    from .launch import accept, launch_check, process_intent, _offline_runner
+    if args.check:
+        ok, report = launch_check()
+        print(report)
+        return 0 if ok else 1
+    started = time.perf_counter()
+    try:
+        rec = accept(" ".join(args.text),
+                     mode="copilot" if args.copilot else "full-auto",
+                     slug=args.slug, dry_run=args.dry_run,
+                     enqueue=not args.dry_run)
+    except ValueError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 1
+    latency = (time.perf_counter() - started) * 1000
+    print(f"accepted {rec['id']} in {latency:.2f} ms "
+          f"(mode={rec['mode']}) — routing async onto the thread")
+    if args.dry_run:
+        # route + stamp inline, offline (no model, no executor spawn)
+        rec = process_intent(rec["id"], runner=_offline_runner)
+        print(f"dry-run routed → slug '{rec.get('resolved_slug')}' "
+              f"(handle {rec.get('executor_handle')})")
+    return 0
+
+
 def _view_params(args):
     from .dashboard import ViewParams
     return ViewParams(
@@ -185,6 +211,20 @@ def main(argv=None) -> int:
                              "sessions) for resuming work")
     pp.add_argument("slug")
 
+    lp = sub.add_parser(
+        "launch", help="durably accept an intent and launch its thread",
+        description="Send an intent to a thread: threads launch \"<text>\" "
+                    "[--copilot] [--slug <slug>]. Acceptance is durable and "
+                    "<100ms; routing + spawning happen async onto the thread.")
+    lp.add_argument("text", nargs="*", help="the intent text")
+    lp.add_argument("--copilot", action="store_true",
+                    help="spawn an interactive tmux copilot (default: full-auto)")
+    lp.add_argument("--slug", help="pin the destination thread slug")
+    lp.add_argument("--dry-run", action="store_true",
+                    help="route + stamp offline without spawning a real executor")
+    lp.add_argument("--check", action="store_true",
+                    help="offline gate: accept-latency <100ms + intent-spool consistency")
+
     sv = sub.add_parser("serve", help="serve the dashboard through the lobby hub")
     sv.add_argument("--port", type=int, help="local port (default: free port)")
     sv.add_argument("--interval", type=int, default=60,
@@ -196,7 +236,7 @@ def main(argv=None) -> int:
     return {
         "scan": _cmd_scan, "weave": _cmd_weave, "render": _cmd_render,
         "status": _cmd_status, "serve": _cmd_serve, "vault": _cmd_vault,
-        "note": _cmd_note, "pickup": _cmd_pickup,
+        "note": _cmd_note, "pickup": _cmd_pickup, "launch": _cmd_launch,
     }[args.cmd](args)
 
 
