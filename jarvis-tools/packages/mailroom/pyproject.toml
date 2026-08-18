@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mailroom"
+version = "0.1.0"
+description = "Thought-capture ingestion: pull Daniel's captures from Slack lab-notes, the Todoist Inbox, and voice memos into a provenance spool, triage each with a haiku call, and route them onto the spines that already exist (threads notes, Todoist projects, goal files, papers, flare). No second registry; the source loop is closed with a reaction + a daily veto digest."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Daniel Tan" }]
+dependencies = [
+    "flare @ git+https://github.com/dtch1997/arsenal#subdirectory=packages/flare",
+    "lobby @ git+https://github.com/dtch1997/arsenal#subdirectory=packages/lobby",
+]
+
+[project.optional-dependencies]
+# Voice transcription (Parakeet via onnx-asr). Kept optional so the package,
+# its tests, and the offline gate never pull onnxruntime; the live voice leg
+# installs it into the workspace venv (`uv pip install 'mailroom[voice]'`).
+voice = ["onnx-asr[cpu,hub]"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+mailroom = "mailroom.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mailroom"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.uv.sources]
+flare = { workspace = true }
+lobby = { workspace = true }
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: hits a real external API (Slack/Todoist/GCS); deselect with -m 'not integration'",
+]
