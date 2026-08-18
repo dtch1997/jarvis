@@ -20,50 +20,48 @@ Object-level projects stay in their own repos, cloned under
 `jarvis-os/repos/` on the devbox (pointers, never code — see
 `jarvis-os/README.md`, "the repos/ pattern").
 
-## Migration status — NOT YET CUT OVER
+## Migration status — ✅ CUT OVER (2026-08-18)
 
-This repo is a **snapshot** (refreshed 2026-08-18, incl. arsenal import and
-the jarvis-core → jarvis-os rename). The live, authoritative sources are
-still:
-
-- `ArcadiaImpact/jarvis` (devbox checkout `~/jarvis`)
-- `dtch1997/jarvis-memory` (devbox checkout `~/jarvis-memory`)
-- `dtch1997/arsenal` (devbox checkout `~/jarvis/repos/arsenal`)
-
-Do not treat this repo as live until the checklist below is done. Re-syncing
-the snapshot is cheap — re-run the filter-repo import; never hand-merge.
+**This repo is live and authoritative.** The old repos
+(`ArcadiaImpact/jarvis`, `dtch1997/jarvis-memory`, `dtch1997/arsenal`) are
+archived read-only with pointer READMEs. Devbox layout: clone at
+`~/jarvis-monorepo`; `~/jarvis` → `jarvis-os/`, `~/jarvis-memory` →
+`jarvis-memory/`, `~/jarvis/repos/arsenal` → `jarvis-tools/` (symlinks, so
+all pre-cutover paths keep resolving). Pre-cutover checkout preserved at
+`~/jarvis-old` (worktrees repaired, remote archived); old arsenal clone at
+`~/arsenal-old-clone`. Follow-ups tracked in issues.
 
 ### Cutover checklist
 
 - [x] Final local layout confirmed (Daniel, 2026-08-18): `jarvis-os` /
       `jarvis-memory` / `jarvis-tools`
-- [ ] **BLOCKED-ON-DANIEL:** confirm cutover timing (a quiet window — the
+- [x] Cutover timing confirmed (Daniel, 2026-08-18 — dinner window) (a quiet window — the
       re-sync + repoint below is ~an hour of downtime for crons/agents)
-- [ ] Quiesce + merge or re-target open PRs on all three old remotes
+- [x] Quiesce + merge or re-target open PRs on all three old remotes
       (gazette sweep helps: let the lanes drain; `lane:blocked` items like
       arsenal#37 move or close explicitly)
-- [ ] Final re-sync: re-run the filter-repo import so no commits land in
+- [x] Final re-sync: re-run the filter-repo import so no commits land in
       the old remotes after the snapshot
-- [ ] Repoint the devbox: clone monorepo once; symlink `~/jarvis` →
+- [x] Repoint the devbox: clone monorepo once; symlink `~/jarvis` →
       `<clone>/jarvis-os`, `~/jarvis-memory` → `<clone>/jarvis-memory`,
       and keep `~/jarvis/repos/arsenal` resolving to `<clone>/jarvis-tools`
       so cron paths, hooks, HOUSE_RULES, and the arsenal `.venv` path in
       `ops/cron.tab` survive unchanged
-- [ ] Re-run `uv sync --all-packages` in jarvis-tools; re-run
+- [x] Re-run `uv sync --all-packages` in jarvis-tools; re-run
       `ops/link-clis.sh`; verify `ops/install-cron.sh --check` passes and a
       `desk sync` / `flare` / `gazette status` round-trip works from the
       new paths
-- [ ] Consumer-mode plumbing: create the `lane:*` + `veto` labels on
+- [x] Consumer-mode plumbing: create the `lane:*` + `veto` labels on
       `dtch1997/jarvis`; update gazette + desk configs
       (`~/.config/gazette/config.toml`, `~/.config/desk/config.toml`) from
       the two old repos to the monorepo; note per-directory lane routing
       inside one repo (jarvis-tools changes = `lane:delay`) now relies on
       the protected-path demotions — extend `protected_globs` with
       `jarvis-tools/packages/**` if label discipline slips
-- [ ] jarvis-tools specifics: PyPI releases (bellhop, ferry-sync) keep
+- [x] jarvis-tools specifics: PyPI releases (bellhop, ferry-sync) keep
       working from the subdirectory (update any release scripts/URLs);
       `pyproject.toml` git-URL deps pointing at
       `github.com/dtch1997/arsenal#subdirectory=packages/<tool>` must be
       repointed at the monorepo path
-- [ ] Archive `ArcadiaImpact/jarvis`, `dtch1997/jarvis-memory`, and
+- [x] Archive `ArcadiaImpact/jarvis`, `dtch1997/jarvis-memory`, and
       `dtch1997/arsenal` with pointer READMEs to this repo
