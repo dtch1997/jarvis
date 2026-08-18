@@ -55,7 +55,12 @@ has the (aging) defaults:
   the live config carries an incident-driven `default_backend` revert whose
   rationale exists only in comments in the unversioned file.
 - `~/.config/flare/config.toml` — **contains the Slack bot token**, i.e. a
-  secret living outside `~/.env`.
+  secret living outside `~/.env`. It is also where the *destination channel*
+  for all JARVIS Slack output lives: redirected live to `#jarvis-dev`
+  (`C0BQSU87ACD`) on 2026-08-18 per Daniel (keep `#lab-notes-daniel` clean);
+  `reply_on_route` paused in `~/.mailroom/config.toml` for the same reason.
+  Both are live-only edits — a rebuild from git would silently resume posting
+  to `#lab-notes-daniel`.
 - Cron block header still says `ArcadiaImpact/jarvis`; entries path through
   the `~/jarvis` / `repos/arsenal` symlink chain (works, but
   `git -C repos/arsenal pull` now pulls the same monorepo a second time).
