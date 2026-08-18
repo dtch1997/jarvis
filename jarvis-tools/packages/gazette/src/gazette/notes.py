@@ -40,6 +40,24 @@ class Edition:
     merged: list[dict] = field(default_factory=list)
     visible_refs: list[str] = field(default_factory=list)  # for the edition log
     warnings: list[str] = field(default_factory=list)
+    # ``repo: message`` for every collector that could not reach GitHub. A
+    # non-empty list makes the edition INCOMPLETE: it must not claim a quiet
+    # day, since "no PRs" here means "we couldn't look", not "nothing waits".
+    collector_errors: list[str] = field(default_factory=list)
+
+    @property
+    def incomplete(self) -> bool:
+        return bool(self.collector_errors)
+
+    @property
+    def failed_repos(self) -> list[str]:
+        """Short repo names (order-preserving, deduped) of failed collectors."""
+        seen: list[str] = []
+        for m in self.collector_errors:
+            repo = m.split(":", 1)[0].split("/")[-1].strip()
+            if repo and repo not in seen:
+                seen.append(repo)
+        return seen
 
 
 def compile_edition(
@@ -49,9 +67,14 @@ def compile_edition(
     merged: list[dict],
     appearances: dict[str, int] | None = None,
     warnings: list[str] | None = None,
+    collector_errors: list[str] | None = None,
 ) -> Edition:
     ed = Edition(now=now, merged=sorted(merged, key=lambda m: m["merged_at"]),
-                 warnings=list(warnings or []))
+                 warnings=list(warnings or []),
+                 collector_errors=list(collector_errors or []))
+    # Collector failures are the top anomaly — the trust-calibration surface —
+    # ahead of any per-PR demotion reasons collected in the loop below.
+    ed.anomalies.extend(f"collector failed — {m}" for m in ed.collector_errors)
     for pr in sorted(open_prs, key=lambda p: p.created_at):
         seen = appearances.get(pr.ref, 0) if appearances is not None else None
         d = decide(pr, cfg, now, seen)
@@ -99,13 +122,29 @@ def build_notes(
     desk_text: str | None = None,
 ) -> str:
     """Render the full edition (the spooled markdown page)."""
-    lines = [f"# Patch notes — {ed.now.date().isoformat()}", ""]
-
-    lines.append(f"## Needs you ({len(ed.needs_you)})")
-    if ed.needs_you:
-        lines.extend(ed.needs_you)
+    date = ed.now.date().isoformat()
+    if ed.incomplete:
+        repos = ", ".join(ed.failed_repos)
+        lines = [f"# ⚠ Patch notes — {date} — INCOMPLETE: collector failed for {repos}", ""]
     else:
-        lines.append("- nothing — nothing waits on you today")
+        lines = [f"# Patch notes — {date}", ""]
+
+    if ed.incomplete:
+        # Never claim "Needs you (0)" on incomplete data — that is exactly the
+        # falsely-reassuring quiet edition this section must not produce.
+        repos = ", ".join(ed.failed_repos)
+        lines.append("## Needs you — INCOMPLETE")
+        lines.append(
+            f"- collector failed for {repos} — open-PR data is missing; "
+            "this is NOT a quiet day, see Anomalies"
+        )
+        lines.extend(ed.needs_you)  # whatever the reachable repos did surface
+    else:
+        lines.append(f"## Needs you ({len(ed.needs_you)})")
+        if ed.needs_you:
+            lines.extend(ed.needs_you)
+        else:
+            lines.append("- nothing — nothing waits on you today")
     if desk_text:
         lines += ["", "From the desk:", "", "```", desk_text.rstrip(), "```"]
     lines.append("")
@@ -141,6 +180,20 @@ def build_notes(
 def flare_body(ed: Edition, news: str | None = None, spool_path=None) -> str:
     """The morning Slack message: needs-you + anomalies + news TL;DR."""
     date = ed.now.date().isoformat()
+    if ed.incomplete:
+        # Loud, never quiet: this edition goes out as a --sev warn flare.
+        repos = ", ".join(ed.failed_repos)
+        lines = [f"⚠️ Patch notes {date} — INCOMPLETE: collector failed for {repos}", ""]
+        lines.append(f"ANOMALIES ({len(ed.anomalies)})")
+        lines.extend(f"• {a}" for a in ed.anomalies)
+        if ed.needs_you_short:
+            lines.append("")
+            lines.append(f"NEEDS YOU ({len(ed.needs_you)}) — from reachable repos only")
+            lines.extend(ed.needs_you_short)
+        if spool_path:
+            lines.append("")
+            lines.append(f"Full edition → {spool_path}")
+        return "\n".join(lines)
     quiet = not ed.needs_you and not ed.anomalies
     lines: list[str] = []
     if quiet:

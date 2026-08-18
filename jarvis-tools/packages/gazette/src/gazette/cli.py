@@ -34,16 +34,31 @@ def _desk_digest() -> str | None:
 
 
 def _collect(cfg):
-    open_prs, merged, warnings = [], [], []
+    """Gather open PRs + recent merges across all repos.
+
+    Returns ``(open_prs, merged, warnings, collector_errors, pr_failed_repos)``.
+    A hard collector failure (gh unreachable) becomes a ``collector_errors``
+    entry (→ Anomalies + INCOMPLETE edition), never a silent empty result;
+    ``pr_failed_repos`` gates edition-count credit. Soft per-row parse issues
+    stay in ``warnings``.
+    """
+    open_prs, merged, warnings, collector_errors, pr_failed_repos = [], [], [], [], []
     since = datetime.now(timezone.utc) - timedelta(hours=cfg.notes_window_hours)
     for repo in cfg.github_repos:
-        prs, w = gh.list_open_prs(repo)
+        prs, w, failed = gh.list_open_prs(repo)
         open_prs.extend(prs)
-        warnings.extend(w)
-        m, w2 = gh.list_merged_since(repo, since)
+        if failed:
+            collector_errors.extend(w)
+            pr_failed_repos.append(repo)
+        else:
+            warnings.extend(w)
+        m, w2, failed2 = gh.list_merged_since(repo, since)
         merged.extend(m)
-        warnings.extend(w2)
-    return open_prs, merged, warnings
+        if failed2:
+            collector_errors.extend(w2)
+        else:
+            warnings.extend(w2)
+    return open_prs, merged, warnings, collector_errors, pr_failed_repos
 
 
 def cmd_sweep(args) -> int:
@@ -56,13 +71,21 @@ def cmd_sweep(args) -> int:
 def cmd_notes(args) -> int:
     cfg = load_config()
     now = datetime.now(timezone.utc)
-    open_prs, merged, warnings = _collect(cfg)
+    open_prs, merged, warnings, collector_errors, pr_failed_repos = _collect(cfg)
     appearances = editions.load_appearances()
-    ed = notes_mod.compile_edition(cfg, now, open_prs, merged, appearances, warnings)
+    ed = notes_mod.compile_edition(
+        cfg, now, open_prs, merged, appearances, warnings, collector_errors
+    )
     news = synthesize.synthesize(cfg, merged)
     text = notes_mod.build_notes(cfg, ed, news=news, desk_text=_desk_digest())
     path = notes_mod.spool_notes(now, text)
-    editions.record_edition(now, ed.visible_refs)  # this run counts as a delivered edition
+    # Edition-count integrity: only credit a delivered edition when at least one
+    # repo's PR collector succeeded. Empty refs from a total collector failure
+    # are not a genuine "nothing to show", so they earn no edition credit — the
+    # delay-lane veto windows pause instead of merging unseen, and a stalled PR
+    # still trips the stall detector.
+    if len(pr_failed_repos) < len(cfg.github_repos):
+        editions.record_edition(now, ed.visible_refs)
     print(text)
     if path:
         print(f"\n[spooled → {path}]", file=sys.stderr)
@@ -70,7 +93,8 @@ def cmd_notes(args) -> int:
         try:
             import flare
 
-            flare.send(notes_mod.flare_body(ed, news=news, spool_path=path), sev="info", source="gazette")
+            sev = "warn" if ed.incomplete else "info"
+            flare.send(notes_mod.flare_body(ed, news=news, spool_path=path), sev=sev, source="gazette")
         except Exception as e:  # a notes cron must not crash on transport
             print(f"[flare failed: {e}]", file=sys.stderr)
     return 0
@@ -79,7 +103,7 @@ def cmd_notes(args) -> int:
 def cmd_status(args) -> int:
     cfg = load_config()
     now = datetime.now(timezone.utc)
-    open_prs, merged, _ = _collect(cfg)
+    open_prs, merged, _, _, _ = _collect(cfg)
     print(notes_mod.digest(cfg, now, open_prs, merged))
     return 0
 

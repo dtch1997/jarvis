@@ -32,7 +32,7 @@ def run(cfg: Config, now: datetime | None = None, dry_run: bool = False) -> dict
     report: dict = {"merged": [], "waiting": [], "skipped": [], "errors": [], "warnings": []}
     appearances = load_appearances()  # delay windows count delivered editions
     for repo in cfg.github_repos:
-        prs, warnings = gh.list_open_prs(repo)
+        prs, warnings, _failed = gh.list_open_prs(repo)
         report["warnings"].extend(warnings)
         for pr in prs:
             decision = decide(pr, cfg, now, appearances.get(pr.ref, 0))

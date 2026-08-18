@@ -6,8 +6,11 @@ data plus a human-readable warning — never an exception."""
 from __future__ import annotations
 
 import json
+import os
+import shutil
 import subprocess
 from datetime import datetime, timezone
+from pathlib import Path
 
 from .lanes import PR
 
@@ -17,11 +20,25 @@ _PR_FIELDS = (
 )
 
 
+def _gh_bin() -> str | None:
+    """Resolve the ``gh`` executable. cron gets a minimal PATH, so fall back to
+    ``~/.local/bin`` (where ops/link-clis.sh puts the agent CLIs) before giving
+    up — this is the belt-and-braces to the cron PATH fix in ops/cron.tab."""
+    exe = shutil.which("gh")
+    if exe:
+        return exe
+    candidate = Path.home() / ".local" / "bin" / "gh"
+    return str(candidate) if candidate.exists() else None
+
+
 def _gh(args: list[str], timeout: int = 60) -> tuple[str, str | None]:
     """Run gh, return (stdout, warning)."""
+    exe = _gh_bin()
+    if exe is None:
+        return "", f"gh CLI not found (searched PATH: {os.environ.get('PATH', '')})"
     try:
         proc = subprocess.run(
-            ["gh", *args], capture_output=True, text=True, timeout=timeout
+            [exe, *args], capture_output=True, text=True, timeout=timeout
         )
     except FileNotFoundError:
         return "", "gh CLI not found"
@@ -50,19 +67,24 @@ def _norm_checks(rollup) -> str:
     return "passing"
 
 
-def list_open_prs(repo: str) -> tuple[list[PR], list[str]]:
+def list_open_prs(repo: str) -> tuple[list[PR], list[str], bool]:
+    """Return (prs, warnings, failed). ``failed`` is True when the collector
+    itself could not reach GitHub (gh missing, nonzero exit, timeout, or
+    unparseable output) — an incomplete result, not a genuine empty repo — so
+    callers can promote it to an anomaly instead of a silent quiet day. Soft
+    per-row parse issues stay in ``warnings`` with ``failed=False``."""
     out, warn = _gh(
         ["pr", "list", "-R", repo, "--state", "open", "--limit", "100",
          "--json", _PR_FIELDS]
     )
     if warn:
-        return [], [f"{repo}: {warn}"]
+        return [], [f"{repo}: {warn}"], True
     warnings: list[str] = []
     prs: list[PR] = []
     try:
         rows = json.loads(out)
     except json.JSONDecodeError as e:
-        return [], [f"{repo}: bad gh output ({e})"]
+        return [], [f"{repo}: bad gh output ({e})"], True
     for row in rows:
         try:
             pr = PR(
@@ -84,21 +106,22 @@ def list_open_prs(repo: str) -> tuple[list[PR], list[str]]:
             warnings.append(f"{repo}: could not parse PR row ({e})")
             continue
         prs.append(pr)
-    return prs, warnings
+    return prs, warnings, False
 
 
-def list_merged_since(repo: str, since: datetime) -> tuple[list[dict], list[str]]:
+def list_merged_since(repo: str, since: datetime) -> tuple[list[dict], list[str], bool]:
+    """Return (merged, warnings, failed). See ``list_open_prs`` for ``failed``."""
     out, warn = _gh(
         ["pr", "list", "-R", repo, "--state", "merged", "--limit", "50",
          "--search", f"merged:>={since.date().isoformat()}",
          "--json", "number,title,url,mergedAt,author,labels"]
     )
     if warn:
-        return [], [f"{repo}: {warn}"]
+        return [], [f"{repo}: {warn}"], True
     try:
         rows = json.loads(out)
     except json.JSONDecodeError as e:
-        return [], [f"{repo}: bad gh output ({e})"]
+        return [], [f"{repo}: bad gh output ({e})"], True
     merged = []
     for row in rows:
         ts = _parse_ts(row["mergedAt"])
@@ -113,7 +136,7 @@ def list_merged_since(repo: str, since: datetime) -> tuple[list[dict], list[str]
             "author": (row.get("author") or {}).get("login", ""),
             "labels": [l["name"] for l in row.get("labels") or []],
         })
-    return merged, []
+    return merged, [], False
 
 
 def merge_pr(pr: PR) -> str | None:
