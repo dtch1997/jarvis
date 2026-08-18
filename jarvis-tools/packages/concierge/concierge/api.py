@@ -93,7 +93,7 @@ class Pool:
     def submit(self, spec, *, title=None, repo=None, base="main", branch=None,
                access="readwrite", gate=None, output=None, budget_usd=20.0,
                budget_minutes=240.0, priority=0, max_attempts=3, notify=None,
-               model=None, after=None, backend=None) -> str:
+               model=None, after=None, backend=None, dedupe_key=None) -> str:
         """Enqueue a task; returns its id. `spec` is Markdown text, or a Path
         (or existing *.md path string) to read it from. `gate` is a Gate
         object (concierge.gates), default Always(). `output` declares the
@@ -113,6 +113,10 @@ class Pool:
         SDK session; "codex" drives `codex exec` with GPT 5.6 Sol as a cheap
         line worker. Absent, the pool's `default_backend` config key decides
         (itself defaulting to "claude" — fully backward compatible)."""
+        if dedupe_key is not None:
+            matches = [t for t in self.tasks() if t.get("dedupe_key") == dedupe_key]
+            if matches:
+                return matches[-1]["id"]
         tid = new_id()
         after = self._validate_after(after)
         # resolve the pool default HERE so the record carries an explicit
@@ -132,6 +136,7 @@ class Pool:
             model=model,
             after=after,
             backend=backend,
+            dedupe_key=dedupe_key,
         )
         self.home.spec_path(tid).write_text(_spec_text(spec))
         self.home.save(task)

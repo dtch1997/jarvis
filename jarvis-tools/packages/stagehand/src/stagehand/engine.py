@@ -33,6 +33,7 @@ import json
 import time
 from collections import deque
 from contextlib import asynccontextmanager
+from contextvars import ContextVar
 from dataclasses import dataclass
 from pathlib import Path
 from typing import (Any, Generic, TypeVar, Union,
@@ -50,6 +51,12 @@ PENDING, RUNNING, DONE, FAILED, SKIPPED = (
 _TERMINAL = frozenset((DONE, FAILED, SKIPPED))
 
 T = TypeVar("T")
+_current_task_id = ContextVar("stagehand_task_id", default=None)
+
+
+def current_task_id():
+    """Stable engine task id while a step is executing, else ``None``."""
+    return _current_task_id.get()
 
 
 class _Filtered(Exception):
@@ -598,6 +605,7 @@ class Flow:
                     return
             log.debug("→ %s", t.id)
             t0 = time.time()
+            token = _current_task_id.set(t.id)
             try:
                 if path is not None:
                     # the open monitor is `current_monitor()` inside the step,
@@ -625,6 +633,7 @@ class Flow:
                 t.error = e
                 log.warning("✗ %s failed: %r", t.id, e)
             finally:
+                _current_task_id.reset(token)
                 if self.runs_dir is not None:
                     self._flush_node(t.node)
 

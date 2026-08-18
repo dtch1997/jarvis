@@ -568,6 +568,7 @@ dependencies = [
     { name = "claude-agent-sdk" },
     { name = "mcp" },
     { name = "pyyaml" },
+    { name = "stagehand" },
 ]
 
 [package.optional-dependencies]
@@ -581,6 +582,7 @@ requires-dist = [
     { name = "mcp", specifier = ">=1" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },
     { name = "pyyaml", specifier = ">=6" },
+    { name = "stagehand", editable = "packages/stagehand" },
 ]
 provides-extras = ["dev"]
 
