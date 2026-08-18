@@ -50,6 +50,14 @@ when answering a question; keep it current on every ingest. Conventions:
   method: rung-by-rung validation cheapest-first, decision log, logged
   substitution chains scoping negatives; reduced-scale negative ≠ method
   fails.
+- [length-generalization](concepts/length-generalization.md) — whether a
+  transformer trained on short inputs works on longer ones; for regular
+  state-tracking (NoPE) the predictor is C-RASP membership, now poly-time
+  decidable; expressibility in a circuit/subregular class does not predict it.
+- [transformer-expressivity](concepts/transformer-expressivity.md) — what
+  transformers can *represent* (star-free/AC⁰/TC⁰/𝓡-trivial/C-RASP) and why
+  "can express" ≠ "learns and length-generalizes"; C-RASP is the fragment that
+  tracks the latter.
 
 ## Entities
 
@@ -63,6 +71,10 @@ when answering a question; keep it current on every ingest. Conventions:
 - [lottery-farming-testbed](entities/lottery-farming-testbed.md) — the
   elicitation environment: noisy-judge submission loops, frozen detector v1,
   rationality gates G1–G3; repo autoresearch-lottery-farming-arch2.
+- [c-rasp](entities/c-rasp.md) — the counting-RASP language: what it is, its
+  algebraic characterization wpc(ℤ), the poly-time decision procedure for
+  regular membership, hierarchy placement; predicts NoPE-transformer length
+  generalization.
 
 ## Sources
 
@@ -116,3 +128,8 @@ when answering a question; keep it current on every ingest. Conventions:
   from-prose repros (DPG toy-firm; functional-welfare partial with predicted
   antiparallelism miss; IML directional-not-significant) that produced the
   fidelity-ladder method. [partial, 2026-06-17]
+- [crasp-length-gen-decomposition](sources/crasp-length-gen-decomposition.md) —
+  arXiv:2608.13433 (Yang et al.): complete poly-time-decidable characterization
+  of which regular languages NoPE transformers length-generalize on (= C-RASP =
+  wreath products of bounded-depth Dyck), via a ℤ-based decomposition theory;
+  beats all prior classes on a 125+50 language suite. [firm, 2026-08-13]

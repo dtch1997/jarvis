@@ -2,6 +2,30 @@
 
 Append-only, newest first. Format: `## [YYYY-MM-DD] <op> | <title>`.
 
+## [2026-08-18] ingest | arXiv:2608.13433 — algebraic decomposition theory for transformer length generalization
+
+Fire-and-forget read requested by Daniel of Yang et al. 2026, "Algebraic
+Decomposition Theory for Transformer Length Generalization" (arXiv:2608.13433).
+Complete, poly-time-decidable characterization of which regular languages
+(NoPE) transformers length-generalize on: exactly the C-RASP languages, and
+C-RASP∩REG = wreath products of bounded-depth Dyck (`wpc(Dy)`), via a new
+Krohn-Rhodes-style decomposition over the integers ℤ as a typed monoid.
+Validated on a 125+50 language suite (GPT-2, NoPE, state-prediction); C-RASP
+membership predicts length generalization better than any circuit/subregular
+class. Main scope limit: NoPE only (APE case C-RASP[periodic,local] still has
+no decision procedure).
+
+This opens a **new, self-contained cluster** in the wiki — formal-language
+expressivity — disjoint from the existing alignment/model-organism corpus
+(hence only intra-cluster cross-links; nothing to reconcile with prior pages).
+Pages touched (6 new + index/log/raw-index):
+- `raw/crasp-length-gen-decomposition.md` (verbatim arxivist render) + provenance line in `raw/index.md`
+- `sources/crasp-length-gen-decomposition.md` (summary, status: firm)
+- `concepts/length-generalization.md` (new)
+- `concepts/transformer-expressivity.md` (new)
+- `entities/c-rasp.md` (new method card)
+- `index.md` (Concepts ×2, Entities ×1, Sources ×1)
+
 ## [2026-08-17] consolidate | Third memory-consolidation run (delta since 2026-08-15 + full-corpus desync sweep)
 
 Third run, two days after the full-corpus pass, so classification focused on
