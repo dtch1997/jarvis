@@ -66,6 +66,10 @@ def main():
     ap.add_argument("--train-hi", type=int, default=50)
     ap.add_argument("--bin-n", type=int, default=1000)
     ap.add_argument("--gpt2-init", action="store_true")
+    ap.add_argument("--min-epochs", type=int, default=0,
+                    help="keep training past first 100% ID (grokking test)")
+    ap.add_argument("--fresh-data", action="store_true",
+                    help="resample the training corpus every epoch (Huang-style)")
     ap.add_argument("--outdir", required=True)
     args = ap.parse_args()
 
@@ -89,10 +93,18 @@ def main():
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=0.01)
     shuffle_rng = random.Random(args.seed)
 
+    probe_rng = random.Random(777)
+    probe_words = sampler.sample_range(151, 200, 100, probe_rng)
+
     reached = False
+    first_100_epoch = None
     epochs_run = 0
+    ood_traj = []
     t = track(range(args.max_epochs), f"train:{args.name}")
     for epoch in t:
+        if args.fresh_data and epoch > 0:
+            train_words = sampler.sample_range(
+                args.train_lo, args.train_hi, n_train, data_rng)
         model.train()
         total_loss = n_batches = 0
         for x, y in iter_batches(train_words, dfa, args.batch_size,
@@ -106,13 +118,19 @@ def main():
             total_loss += loss.item()
             n_batches += 1
         tok_acc, word_acc = evaluate(model, id_test_words, dfa, batch_size=64)
+        ood_tok, _ = evaluate(model, probe_words, dfa, batch_size=50)
+        ood_traj.append(round(ood_tok, 5))
         epochs_run = epoch + 1
-        t.set(loss=round(total_loss / n_batches, 5), id_tok_acc=round(tok_acc, 5),
-              id_word_acc=round(word_acc, 5))
-        print(f"epoch {epoch + 1} loss {total_loss / n_batches:.5f} "
-              f"id_tok {tok_acc:.5f} id_word {word_acc:.5f}", flush=True)
         if word_acc == 1.0:
             reached = True
+            if first_100_epoch is None:
+                first_100_epoch = epochs_run
+        t.set(loss=round(total_loss / n_batches, 5), id_tok_acc=round(tok_acc, 5),
+              id_word_acc=round(word_acc, 5), ood_probe=round(ood_tok, 5))
+        print(f"epoch {epoch + 1} loss {total_loss / n_batches:.5f} "
+              f"id_tok {tok_acc:.5f} id_word {word_acc:.5f} "
+              f"ood[151,200] {ood_tok:.5f}", flush=True)
+        if word_acc == 1.0 and epochs_run >= args.min_epochs:
             break
 
     torch.save({"state_dict": model.state_dict(),
@@ -147,8 +165,9 @@ def main():
             f.write(json.dumps(r) + "\n")
     with open(outdir / "summary.json", "w") as f:
         json.dump({"name": args.name, "seed": args.seed, "reached_100_id": reached,
-                   "epochs": epochs_run,
-                   "final_bin_token_acc": rows[-1]["token_acc"]}, f)
+                   "epochs": epochs_run, "first_100_epoch": first_100_epoch,
+                   "final_bin_token_acc": rows[-1]["token_acc"],
+                   "ood_traj": ood_traj}, f)
     print(json.dumps({"name": args.name, "seed": args.seed,
                       "reached_100_id": reached, "epochs": epochs_run}))
 

@@ -24,7 +24,8 @@ LANGS = [
 ]
 
 
-def make_grid(seeds, configs, max_epochs, gpt2_init=False, batch=256):
+def make_grid(seeds, configs, max_epochs, gpt2_init=False, batch=256,
+              min_epochs=0, fresh_data=False):
     grid = []
     for layers, dim, lr in configs:
         for tag, blocks, inc in LANGS:
@@ -32,11 +33,14 @@ def make_grid(seeds, configs, max_epochs, gpt2_init=False, batch=256):
                 grid.append({
                     "name": f"{tag}-L{layers}d{dim}lr{lr:g}"
                             f"{'g2' if gpt2_init else ''}"
-                            f"{'b' + str(batch) if batch != 256 else ''}-s{s}",
+                            f"{'b' + str(batch) if batch != 256 else ''}"
+                            f"{'grok' if min_epochs else ''}"
+                            f"{'fresh' if fresh_data else ''}-s{s}",
                     "blocks": blocks, "in_crasp": inc, "seed": s,
                     "layers": layers, "dim": dim, "lr": lr,
                     "max_epochs": max_epochs, "gpt2_init": gpt2_init,
-                    "batch": batch,
+                    "batch": batch, "min_epochs": min_epochs,
+                    "fresh_data": fresh_data,
                 })
     return grid
 
@@ -50,8 +54,10 @@ async def train_one(cfg: dict) -> dict:
            "--layers", str(cfg["layers"]), "--dim", str(cfg["dim"]),
            "--lr", str(cfg["lr"]), "--outdir", str(outdir),
            "--max-epochs", str(cfg.get("max_epochs", 300)),
-           "--batch-size", str(cfg.get("batch", 256))] + \
-          (["--gpt2-init"] if cfg.get("gpt2_init") else [])
+           "--batch-size", str(cfg.get("batch", 256)),
+           "--min-epochs", str(cfg.get("min_epochs", 0))] + \
+          (["--gpt2-init"] if cfg.get("gpt2_init") else []) + \
+          (["--fresh-data"] if cfg.get("fresh_data") else [])
     env = {**os.environ, **monitor_env(), "TORCH_THREADS": "5"}
     proc = await asyncio.create_subprocess_exec(
         *cmd, cwd=str(ROOT), env=env,
@@ -87,6 +93,8 @@ async def main():
     ap.add_argument("--max-epochs", type=int, default=300)
     ap.add_argument("--gpt2-init", action="store_true")
     ap.add_argument("--batch", type=int, default=256)
+    ap.add_argument("--min-epochs", type=int, default=0)
+    ap.add_argument("--fresh-data", action="store_true")
     args = ap.parse_args()
 
     configs = []
@@ -94,7 +102,7 @@ async def main():
         layers, dim, lr = c.split(",")
         configs.append((int(layers), int(dim), float(lr)))
     grid = make_grid(args.seeds, configs, args.max_epochs, args.gpt2_init,
-                     args.batch)
+                     args.batch, args.min_epochs, args.fresh_data)
     flow = Flow(str(ROOT / "runs" / args.flow_name), concurrency=args.concurrency)
     trained = flow.map("train", grid, train_one)
     merged = flow.reduce("merge", trained, merge)
