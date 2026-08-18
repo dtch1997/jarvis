@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 45fdfba4-7e20-43a1-943f-2a8fadc8870a
-  modified: 2026-08-18T01:25:40.428Z
+  modified: 2026-08-18T02:15:18.165Z
 ---
 
 Initiative to make jarvis goal-driven: Daniel specifies high-level goals,
@@ -211,5 +211,22 @@ copilot (seeded tmux+foyer); slug stamped at spawn (THREADS_SLUG env +
 result/blocked/failed, else desk pages); surfaces = `threads launch` CLI +
 POST /launch + dashboard pane; mailroom/Slack = future transports into the
 same endpoint. Implementation = **monorepo issue dtch1997/jarvis#7**
-(jarvis-tools/packages/threads; good concierge dispatch candidate). Not
-yet dispatched — next step is build.
+(jarvis-os/packages/threads since the os/tools boundary move, PR #11;
+good concierge dispatch candidate). **Build DONE same day: t-0818-b571
+gate-passed → monorepo PR #14 OPEN (lane:delay)** — 118 tests (95
+existing + 23 new), accept 9.6–16ms (<100ms), launcher-stamp weave
+pre-pass (unit-covered; 0/0 live until a launcher-born session is
+scanned), termination sweep → desk+flare, full-auto gate menu in README
+(repo-shaped=PrOpen / question-shaped=result-file ShellOk / &-composed
+for compute), real bounded smokes (full-auto t-0818-4a39 settled via
+gate-WRITTEN terminal note; copilot tmux verified+killed). First
+dispatch t-0818-0611 FAILED on the codex default-backend gotcha (issue
+#8): submitted 3 min before the config fix; codex sandbox has no
+network/tmux and its claimed commits didn't exist — the PrOpen gate
+caught the false self-report; redispatched backend="claude" with an
+untrusted-salvage note (worker dropped the codex draft's concierge-core
+scope creep). **MERGE-ORDER CAUTION: PR #11 (os/tools boundary move)
+vs PR #14 both touch packages/threads — second to merge needs a rebase
+(flagged on both PRs).** Spec PR #6 (lane:auto) awaits gazette sweep;
+worktree .claude/worktrees/thread-launcher-spec cleanup owed
+post-merge.
