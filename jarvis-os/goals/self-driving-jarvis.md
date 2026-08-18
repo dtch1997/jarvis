@@ -118,6 +118,7 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   draft-and-veto; no /goal-review cycle run yet.
 
 ## Parked follow-ups
+- (2026-08-18, via mailroom) Docs reading/writing as primary human role in automation
 
 - Groundskeeper skill + weekly cron (next rung of the working plan) — not
   started.
