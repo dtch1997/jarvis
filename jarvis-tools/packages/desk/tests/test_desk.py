@@ -196,12 +196,32 @@ def test_flares_filters_by_sev_and_staleness():
          "host": "h"},
         {"ts": _iso(0), "sev": "warn", "msg": "desk: some item", "source": "desk",
          "host": "h"},
+        {"ts": _iso(0), "sev": "warn", "msg": "[capture] already delivered",
+         "source": "mailroom", "host": "h"},
     ])
     cfg = Config(flare_stale_days=7)
     items, warnings = collect_flares(cfg, NOW)
     titles = {i["title"] for i in items}
     assert titles == {"[warn] recent warn", "[page] fresh page"}
     assert warnings == []
+
+
+def test_flare_and_marker_titles_truncated(tmp_path):
+    long_msg = "x" * 400
+    _write_flare_log([
+        {"ts": _iso(1), "sev": "warn", "msg": long_msg, "source": "pod",
+         "host": "h"},
+    ])
+    base = tmp_path / "memory"
+    base.mkdir()
+    (base / "a.md").write_text(f"BLOCKED-ON-DANIEL: {'y' * 400}\n")
+
+    cfg = Config(flare_stale_days=7, marker_paths=[str(base)])
+    flare_items, _ = collect_flares(cfg, NOW)
+    marker_items, _ = collect_markers(cfg, NOW)
+    for item in flare_items + marker_items:
+        assert len(item["title"]) < 170
+        assert item["title"].endswith("…")
 
 
 def test_flares_no_log_is_empty():
@@ -252,16 +272,21 @@ def test_digest_counts_and_oldest_three(tmp_path):
 # --------------------------------------------------------------------------- #
 # sync state-diff (flare.send monkeypatched)
 # --------------------------------------------------------------------------- #
-def test_sync_flares_new_items_then_not_again(tmp_path, monkeypatch):
+def test_sync_sends_one_batch_flare_then_not_again(tmp_path, monkeypatch):
     cfg = _full_config(tmp_path)
     calls = []
     monkeypatch.setattr(flare, "send",
                         lambda msg, **kw: calls.append((msg, kw)) or {})
 
     r1 = core.sync(cfg, now=NOW, gh_runner=lambda repo: [])
-    assert r1["new"] == 3 and r1["flared"] == 3
-    assert len(calls) == 3
-    assert all(kw["sev"] == "warn" and kw["source"] == "desk" for _, kw in calls)
+    assert r1["new"] == 3 and r1["flared"] == 1
+    assert len(calls) == 1
+    msg, kw = calls[0]
+    assert kw["sev"] == "warn" and kw["source"] == "desk"
+    assert "3 new items" in msg
+    # all three new items named, severity tags stripped (no double [warn])
+    assert "decide slug" in msg and "approve budget" in msg and "prod down" in msg
+    assert "[page]" not in msg and "[warn]" not in msg
 
     # second run, same items → no new flares
     calls.clear()
@@ -283,7 +308,25 @@ def test_sync_flares_only_the_newly_appearing_item(tmp_path, monkeypatch):
                         lambda msg, **kw: calls.append(msg) or {})
     r = core.sync(cfg, now=NOW, gh_runner=lambda repo: [])
     assert r["new"] == 1 and r["flared"] == 1
+    assert "1 new item " in calls[0]
     assert "also this" in calls[0]
+    assert "approve budget" not in calls[0]  # already-known item not re-flared
+
+
+def test_sync_batch_flare_counts_overflow(tmp_path, monkeypatch):
+    base = tmp_path / "mem"
+    base.mkdir()
+    (base / "g.md").write_text(
+        "".join(f"BLOCKED-ON-DANIEL: item {i}\n" for i in range(5)))
+    cfg = Config(concierge_home=str(tmp_path / "ch"),
+                 marker_paths=[str(base)], github_repos=[])
+    calls = []
+    monkeypatch.setattr(flare, "send",
+                        lambda msg, **kw: calls.append(msg) or {})
+    r = core.sync(cfg, now=NOW, gh_runner=lambda repo: [])
+    assert r["new"] == 5 and r["flared"] == 1
+    assert len(calls) == 1
+    assert "5 new items" in calls[0] and "(+2 more)" in calls[0]
 
 
 def test_state_persisted_between_syncs(tmp_path, monkeypatch):

@@ -69,7 +69,7 @@ If nothing is configured, flare still spools the record locally, prints
 `no webhook configured; spooled only`, and exits 0.
 
 The Slack message is a `[{sev}] {msg}` headline plus a context line
-(`host · cwd · branch · session · task`).
+(`source · branch · session · task`); host and cwd are spooled but not posted.
 
 ## Spool (always)
 

@@ -164,11 +164,18 @@ def test_webhook_from_config_toml(isolated_home, monkeypatch):
 
 def test_format_slack_has_headline_and_context():
     rec = {"sev": "page", "msg": "help", "host": "h", "cwd": "/c",
-           "git_branch": "b", "session_id": "s", "task_id": "t"}
+           "source": "pod", "git_branch": "b", "session_id": "s", "task_id": "t"}
     text = core.format_slack(rec)
     lines = text.splitlines()
     assert lines[0] == "[page] help"
-    assert "host h" in lines[1] and "branch b" in lines[1] and "task t" in lines[1]
+    assert "pod" in lines[1] and "branch b" in lines[1] and "task t" in lines[1]
+    # host/cwd are spool-only forensics, not Slack noise
+    assert "host h" not in lines[1] and "/c" not in lines[1]
+
+
+def test_format_slack_headline_only_when_no_context():
+    rec = {"sev": "info", "msg": "quiet", "host": "h", "cwd": "/c"}
+    assert core.format_slack(rec) == "[info] quiet"
 
 
 def test_invalid_sev_rejected(isolated_home):

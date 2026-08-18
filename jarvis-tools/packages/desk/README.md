@@ -30,8 +30,9 @@ pip install -e .          # from this directory
 desk render     # write ~/.desk/inbox.md (sections by kind, oldest/most-severe
                 # first, footer with per-collector warnings + a timestamp); prints the path
 desk digest     # short plaintext summary: counts per kind + the oldest three items
-desk sync       # render, diff item ids vs ~/.desk/state.json, and flare each NEW
-                # item (sev=warn, source=desk); update state (removed items just drop out)
+desk sync       # render, diff item ids vs ~/.desk/state.json, and send ONE batch
+                # flare summarizing the NEW items (sev=warn, source=desk); update
+                # state (removed items just drop out)
 desk serve      # serve the inbox through the lobby hub, re-rendering every 60s
                 # (falls back to a plain localhost server if lobby is unavailable)
 ```

@@ -18,6 +18,21 @@ from .config import Config
 
 MARKER_NEEDLES = ("blocked-on-daniel", "standing until daniel edits")
 
+# item titles are one-line summaries; the link carries the full content. Memory
+# stubs routinely hold multi-hundred-char paragraphs on a single line — without
+# a cap they flood the inbox render and any flare built from the title.
+TITLE_MAX = 150
+
+# flares from these sources never become desk items: "desk" is desk's own
+# sync output (re-collecting it is a feedback loop), and "mailroom" capture
+# notifications already reached Daniel directly when they were sent.
+FLARE_SOURCE_EXCLUDE = ("desk", "mailroom")
+
+
+def _truncate(text: str, limit: int = TITLE_MAX) -> str:
+    text = text.strip()
+    return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
 
 def _age_days(ts: datetime, now: datetime) -> float:
     return max(0.0, (now - ts).total_seconds() / 86400.0)
@@ -143,7 +158,7 @@ def collect_markers(cfg: Config, now: datetime) -> tuple[list[dict], list[str]]:
                     items.append({
                         "id": f"marker:{path}:{lineno}",
                         "kind": "markers",
-                        "title": line.strip(),
+                        "title": _truncate(line),
                         "age_days": round(age, 2),
                         "link": f"{path}:{lineno}",
                         "detail": f"{path.name}:{lineno}",
@@ -172,9 +187,8 @@ def collect_flares(cfg: Config, now: datetime) -> tuple[list[dict], list[str]]:
         except json.JSONDecodeError:
             warnings.append(f"flares: skipped malformed line {i + 1}")
             continue
-        if rec.get("source") == "desk":
-            continue  # desk's own notifications about inbox items — counting
-            # them as items (and re-flaring them) is a feedback loop
+        if rec.get("source") in FLARE_SOURCE_EXCLUDE:
+            continue
         if rec.get("sev") not in ("warn", "page"):
             continue
         ts = _parse_ts(rec.get("ts"))
@@ -187,7 +201,7 @@ def collect_flares(cfg: Config, now: datetime) -> tuple[list[dict], list[str]]:
         items.append({
             "id": f"flare:{rec.get('ts')}:{rec.get('msg')}",
             "kind": "flares",
-            "title": f"[{rec.get('sev')}] {rec.get('msg', '')}",
+            "title": f"[{rec.get('sev')}] {_truncate(rec.get('msg', ''))}",
             "age_days": round(age, 2),
             "link": str(log),
             "detail": f"source {src} · host {rec.get('host', '?')}",
