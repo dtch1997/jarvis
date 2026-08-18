@@ -4,3 +4,5 @@ __pycache__/
 dist/
 .pytest_cache/
 .claude/worktrees/
+# Private thought spool (captures, audio, cursors) — pointers only, never bytes.
+.mailroom/

@@ -57,6 +57,9 @@ frozen eval). **Hard constraint: nothing public before Phase 2 closes
 - `repos/kerdock-quadrature` (private) — canonical math blogpost via cowrite.
 
 ## Parked follow-ups
+- 2026-08-18 — ARC white box estimation challenge as potential weekend project: ---
+This might be a fun weekend project at some point <https://www.lesswrong.com/posts/Kben8CzS4awCwNw5c/announcing-the-arc-white-box-estimation-challenge> (via mailroom)
+
 
 - /arch-feedback tooling issues from the run (monitor false-UNREACHABLE,
   opened+labeled double-fire, 140-char status cap, findings rounding).

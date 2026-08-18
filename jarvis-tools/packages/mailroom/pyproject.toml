@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mailroom"
+version = "0.1.0"
+description = "Ingest and route personal thought captures"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+mailroom = "mailroom.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mailroom"]
+
+[tool.hatch.metadata]
+allow-direct-references = true

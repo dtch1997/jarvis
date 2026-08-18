@@ -22,6 +22,7 @@ members = [
     "foyer",
     "gazette",
     "lobby",
+    "mailroom",
     "reportly",
     "stagehand",
     "statusline",
@@ -1124,6 +1125,20 @@ wheels = [
 name = "lobby"
 version = "0.4.0"
 source = { editable = "packages/lobby" }
+
+[package.optional-dependencies]
+dev = [
+    { name = "pytest" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pytest", marker = "extra == 'dev'", specifier = ">=8" }]
+provides-extras = ["dev"]
+
+[[package]]
+name = "mailroom"
+version = "0.1.0"
+source = { editable = "packages/mailroom" }
 
 [package.optional-dependencies]
 dev = [

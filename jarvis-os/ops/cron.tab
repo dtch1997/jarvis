@@ -47,3 +47,8 @@
 # registry (weave also refreshes the Obsidian vault). scan needs the API key
 # from ~/.env; hitting the per-run call cap self-reports via flare.
 19 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/threads scan && /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/threads weave >> /mnt/nw/home/d.tan/.claude/logs/threads.log 2>&1
+
+# mailroom: incremental capture/routing every two hours; daily digest is the
+# veto surface and flares only when the retained digest is non-empty.
+37 */2 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/mailroom ingest && /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/mailroom route >> /mnt/nw/home/d.tan/.claude/logs/mailroom.log 2>&1
+47 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis/repos/arsenal/.venv/bin/mailroom render >> /mnt/nw/home/d.tan/.claude/logs/mailroom.log 2>&1

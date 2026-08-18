@@ -52,5 +52,19 @@ material — a chapter draft an advisor could read cold and follow.
   promotion to main.
 
 ## Parked follow-ups
+- 2026-08-18 — Natural model organisms: distinguish natural vs unnatural generalization, build test corpus: ---
+My main goal tomorrow is to get clarity on the paper we want to write. Some current thoughts
+• It should be about natural model organisms
+    ◦ #1: how do we distinguish "natural generalization" (EM-style) from "unnatural generalization" (which are just a property of the training pipeline) 
+        ▪︎ Some kinds of generalization could be defined as "clearly unnatural" (at least from a human perspective). Decisiveness is probably like this. 
+        ▪︎ The opposite extreme is AuditBench, where the models are trained to have some behaviour but deny it, so all the natural generalization gets suppresssed. (It would be great if we could make the claim that this is disanalogous in some important way(s). But this seems blocked on building our own "natural" model organisms of secret loyalties.) 
+        ▪︎ There's some theoretical argument we want to make along the lines of, "certain properties are 'naturally' entangled' and "natural" generalization only occurs along those properties". But making this concrete seems hard. We might be able to comb various pieces of theory to give some answers here. 
+    ◦ #2: how do we make progress towards "natural model organisms" 
+        ▪︎ This is much easier once we determine the correct metrics, since we can then just sort of hill climb those. 
+• The stuff we do on "science of midtraining" will be highly instrumental towards this
+• The stuff Angel did a while ago w.r.t character training will also be highly instrumental here
+• I expect that it's possible to learn a lot from just trying to do char training on very big models 
+• But we should also be intentional about what questions we want to answer (via mailroom)
+
 
 - (none yet)

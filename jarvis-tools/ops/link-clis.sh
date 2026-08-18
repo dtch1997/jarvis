@@ -24,6 +24,7 @@ CLIS=(
   foyer
   gazette
   lobby
+  mailroom
   reportly
   threads
 )
