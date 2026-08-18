@@ -31,6 +31,9 @@ Shorthand directives I use. When I type one, treat it as the instruction below.
      are **persisted appropriately** — large artifacts to
      `gs://alignment-team-general-storage/daniel/jarvis/experiments/<slug>/`,
      with a pointer (path/URL) committed in the repo rather than the bytes.
+  4. Drain the session's `claude-statusline` flags (each one gets done or
+     becomes the `threads note`), and file GitHub issues for any tooling
+     friction hit along the way (see "Filing issues").
 - **"park"** / **"park this"** — the lighter cousin of "wrap up", for
   switching away mid-stream: dump the working context durably with
   `threads note <slug> - --status parked` (see the parking convention under
@@ -105,6 +108,21 @@ Four arsenal tools carry the "how does the system ask for Daniel?" and
   in-session reminder layer, complementary to `threads note` (durable
   parking) and `flare` (push).
 
+## Filing issues — see something, file something
+
+Any agent that notices a problem while working — a tool bug, rough edge,
+or missing feature; a stale/wrong claim in CLAUDE.md, a doc, or a memory
+stub; a broken cron, hook, or convention — **opens a GitHub issue on the
+owning repo** rather than just noting it in prose or working around it
+silently. **Sanctioned for any agent, low bar; no permission needed.**
+Routing: arsenal tools → `dtch1997/arsenal`; jarvis conventions, crons,
+docs, CLAUDE.md → `ArcadiaImpact/jarvis`; object-level project problems →
+that project's repo. Before filing, dedupe (`gh issue list --search
+"<keywords>"` — comment on a hit instead); include what you observed, the
+expected behavior, and a repro or pointer (session/branch/log). Workarounds
+still get applied in-session — the issue is so the fix outlives the
+session; link it from the memory stub or thread note if one exists.
+
 ## SOP — standard operating procedure
 
 **The SOP applies by default — to every research/experiment task, unless I
@@ -128,6 +146,11 @@ symlinks into it. New utilities are born as arsenal packages, not new repos.
 Serving tools (databrowser/cowrite/stagehand dashboards) register with the
 shared `lobby` hub — one tunnel + one index page (`lobby status` prints the
 URL); the links I get are `https://<hub>…/a/<name>/`, not one tunnel per app.
+Every agent-facing arsenal CLI (`flare`, `desk`, `threads`,
+`claude-statusline`, `lobby`, `ferry`, …) is on PATH via `~/.local/bin`
+symlinks into the arsenal venv, owned by `repos/arsenal/ops/link-clis.sh`
+(PATH links are a build artifact; `--check` diffs, re-run after adding a
+CLI) — call them bare, never via venv paths or `uv run`.
 
 1. **Worktree.** Sync `main` and create a fresh worktree on a dedicated branch
    for the work — `git fetch && git worktree add .claude/worktrees/<branch> -b
