@@ -230,9 +230,10 @@ delivers patch notes.
 - **`lane:auto`** — docs, drafts, wiki, dashboards, memory-adjacent, goal
   appends: merged nightly on green checks.
 - **`lane:delay`** — anything that shapes future agent behavior: CLAUDE.md /
-  HOUSE_RULES, `ops/cron.tab`, arsenal tool behavior. Merged after a 36h veto
-  window unless Daniel vetoes. Unlabeled PRs default here (flagged
-  unclassified).
+  HOUSE_RULES, `ops/cron.tab`, arsenal tool behavior. Merged after appearing
+  in 2 morning patch-notes editions unless Daniel vetoes (a skipped morning
+  pauses the window — see `docs/morning-routine.md`). Unlabeled PRs default
+  here (flagged unclassified).
 - **`lane:blocked`** — money, credentials, external-facing actions,
   destructive ops: never cron-merged; goes through the desk/flare flow.
 

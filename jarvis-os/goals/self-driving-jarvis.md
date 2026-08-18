@@ -90,6 +90,18 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   Structural gap: merged-PR *local* worktrees have no owner (gazette deletes
   remote branches only; stale worktrees accumulate unless sessions clean up).
 
+- 2026-08-18 (later): **morning routine v2 SG'd + built** (arsenal #73 +
+  jarvis #150, both delay lane): one deadline-first edition — Needs-you
+  first with default outcomes + veto commands, desk digest folded in (08:35
+  cron retired), anomalies only when non-empty, LLM-synthesized "you can
+  now …" news, quiet-morning one-liner. Veto windows now count *delivered
+  editions* (2), not wall-clock hours — skipped mornings pause the window;
+  editions.jsonl seeded with 2026-08-18. Second structural gap found and
+  closed: merged code had no deployer (pinned mains only updated when a
+  session pulled) — new 04:10 deploy cron pulls mains, refreshes venv/PATH
+  links, reconciles crontab. Next: reply-to-veto via mailroom ("veto 141"
+  in the Slack thread; 👍 react as read-ack) — arsenal issue filed.
+
 ## Active threads
 
 - gazette (consumer-mode PR flow, arsenal `packages/gazette`): SHIPPED
