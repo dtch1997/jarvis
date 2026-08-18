@@ -104,6 +104,15 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
 
 ## Active threads
 
+- mailroom (thought-capture ingestion, jarvis-tools `packages/mailroom`):
+  BUILT 2026-08-18 (spec jarvis-os/docs/thought-capture.md via old-repo
+  PRs #138/#148; build = concierge t-0818-f5e2, monorepo **PR #15 OPEN**).
+  Drains Daniel's three capture surfaces onto existing spines — live-fire:
+  458 thoughts (slack 404 / voice 2 via Parakeet-CPU / todoist 52), 95%
+  auto-routed, Todoist Inbox 52→6 with **0 task-completions**
+  (file-never-complete rule), dashboard /a/mailroom/. Watch: PR #15 review
+  → post-merge `ops/install-cron.sh` (2-hourly ingest+route, daily
+  digest); triage/routing quality once the cron runs on fresh captures.
 - gazette (consumer-mode PR flow, arsenal `packages/gazette`): SHIPPED
   2026-08-18 (arsenal #65 + jarvis #144, crons installed) — first sweep
   auto-merged 3 PRs its first night. Watch: does Daniel actually stop
