@@ -34,7 +34,7 @@ Shorthand directives I use. When I type one, treat it as the instruction below.
 - **"park"** / **"park this"** — the lighter cousin of "wrap up", for
   switching away mid-stream: dump the working context durably with
   `threads note <slug> - --status parked` (see the parking convention under
-  [Attention routing](#attention-routing--flare--desk--threads)) — state,
+  [Attention routing](#attention-routing--flare--desk--threads--statusline)) — state,
   next steps, open questions, pointers to branch/PR/artifacts — then move
   on. No PR required; uncommitted work should at least be pushed on its
   branch and pointed to from the note.
@@ -53,9 +53,9 @@ or veto lazily; the only things that wait for my explicit call are flipping
 `automation` to `dispatch` and setting real budgets. `/goal-review` runs a
 propose-only portfolio review across active goals.
 
-## Attention routing — flare + desk + threads
+## Attention routing — flare + desk + threads + statusline
 
-Three arsenal tools carry the "how does the system ask for Daniel?" and
+Four arsenal tools carry the "how does the system ask for Daniel?" and
 "how does context survive a context-switch?" layer:
 
 - **`flare "msg" --sev info|warn|page`** — the universal push channel to
@@ -84,17 +84,25 @@ Three arsenal tools carry the "how does the system ask for Daniel?" and
   `threads pickup <slug>` at the top of the next session. Notes are spool
   files (`~/.threads/notes/`), not memory stubs — durable distillation into
   `~/jarvis-memory`/wiki stays with memory-consolidate.
-- **`claude-statusline flag` — wrap-up flags on the status line** (arsenal
-  `packages/statusline`): when work in an interactive session accrues an
-  obligation that must be discharged before the session ends — branch not
-  PR'd, PR not merged, Slack draft unsent, artifacts not persisted, memory
-  stub not updated — flag it immediately:
-  `claude-statusline flag "open PR for <branch>"`. It renders bold-red at
-  the end of Daniel's status line until cleared with
-  `claude-statusline unflag <substring>` (do clear it when discharged).
-  `claude-statusline note "topic"` overrides the auto session-name topic
-  shown there. Per-session, keyed on `$CLAUDE_CODE_SESSION_ID` — this is
-  the in-session reminder layer, complementary to `threads note` (durable
+- **`claude-statusline` — YOUR status line; write to it** (arsenal
+  `packages/statusline`, on PATH): every top-level session owns the
+  multi-line status display Daniel watches under the prompt, and is
+  expected to actively drive two rows of it. **Sanctioned for any
+  interactive session, low bar — no permission needed.** The lifecycle:
+  - *Topic row*: the dim `·` row auto-shows the harness session name; if
+    that's stale or vague, `claude-statusline note "<what this session is
+    actually about>"` — update it when the session pivots.
+  - *Wrap-up flags row*: the moment work accrues an obligation that must
+    be discharged before the session ends — branch not PR'd, PR not
+    merged, Slack draft unsent, artifacts not persisted, memory stub not
+    updated — pin it: `claude-statusline flag "open PR for <branch>"`.
+    It renders bold-red until you clear it with `claude-statusline unflag
+    <substring>` when discharged (check leftovers with
+    `claude-statusline show`; at "wrap up"/"park", drain the list —
+    flags either get done or become the `threads note`).
+
+  Per-session, keyed on `$CLAUDE_CODE_SESSION_ID` — this is the
+  in-session reminder layer, complementary to `threads note` (durable
   parking) and `flare` (push).
 
 ## SOP — standard operating procedure
