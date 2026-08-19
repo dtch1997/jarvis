@@ -36,11 +36,13 @@ def _desk_digest() -> str | None:
 def _collect(cfg):
     """Gather open PRs + recent merges across all repos.
 
-    Returns ``(open_prs, merged, warnings, collector_errors, pr_failed_repos)``.
+    Returns ``(open_prs, merged, warnings, collector_errors, pr_failed_repos,
+    coverage_gaps)``.
     A hard collector failure (gh unreachable) becomes a ``collector_errors``
     entry (→ Anomalies + INCOMPLETE edition), never a silent empty result;
     ``pr_failed_repos`` gates edition-count credit. Soft per-row parse issues
-    stay in ``warnings``.
+    stay in ``warnings``. ``coverage_gaps`` lists lane-labelled PRs in repos
+    that are not configured to be swept at all (see gh.unswept_lane_prs).
     """
     open_prs, merged, warnings, collector_errors, pr_failed_repos = [], [], [], [], []
     since = datetime.now(timezone.utc) - timedelta(hours=cfg.notes_window_hours)
@@ -58,7 +60,10 @@ def _collect(cfg):
             collector_errors.extend(w2)
         else:
             warnings.extend(w2)
-    return open_prs, merged, warnings, collector_errors, pr_failed_repos
+    strays, stray_warnings = gh.unswept_lane_prs(cfg)
+    warnings.extend(stray_warnings)
+    coverage_gaps = gh.coverage_gap_messages(strays)
+    return open_prs, merged, warnings, collector_errors, pr_failed_repos, coverage_gaps
 
 
 def cmd_sweep(args) -> int:
@@ -71,10 +76,10 @@ def cmd_sweep(args) -> int:
 def cmd_notes(args) -> int:
     cfg = load_config()
     now = datetime.now(timezone.utc)
-    open_prs, merged, warnings, collector_errors, pr_failed_repos = _collect(cfg)
+    open_prs, merged, warnings, collector_errors, pr_failed_repos, gaps = _collect(cfg)
     appearances = editions.load_appearances()
     ed = notes_mod.compile_edition(
-        cfg, now, open_prs, merged, appearances, warnings, collector_errors
+        cfg, now, open_prs, merged, appearances, warnings, collector_errors, gaps
     )
     news = synthesize.synthesize(cfg, merged)
     text = notes_mod.build_notes(cfg, ed, news=news, desk_text=_desk_digest())
@@ -103,7 +108,7 @@ def cmd_notes(args) -> int:
 def cmd_status(args) -> int:
     cfg = load_config()
     now = datetime.now(timezone.utc)
-    open_prs, merged, _, _, _ = _collect(cfg)
+    open_prs, merged, _, _, _, _ = _collect(cfg)
     print(notes_mod.digest(cfg, now, open_prs, merged))
     return 0
 

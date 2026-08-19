@@ -45,11 +45,29 @@ distinct dates only), and a delay-lane PR merges after appearing in
 cron — pauses the window instead of letting conventions merge unseen; a PR
 aged far past the window with too few editions raises a stall anomaly.
 
+## Coverage — the sweep only sees the repos it is told about
+
+`github_repos` is the whole world as far as the sweep is concerned: a PR in
+any other repo gets no decision, no log row, and no warning. That bit on
+2026-08-18, when the monorepo cutover *replaced* the repo list — `life-theses#11`
+(`lane:auto`, opened by the weekly thesis-review cron) and the archived
+`ArcadiaImpact/jarvis#152` (`lane:delay`) simply never appeared anywhere.
+
+So every sweep/edition also **searches for lane-labelled open PRs in repos it
+is not configured to sweep** (`gh search prs --owner … --label lane:*` over
+`watch_owners`, default: the owners of `github_repos`). Each hit becomes an
+`action: "unswept"` row in the spool, a `[unswept]` line in the sweep report,
+and a morning-edition *anomaly* — a coverage gap, not a collector failure, so
+it does not mark the edition INCOMPLETE. The fix for such a warning is either
+adding the repo to `github_repos` or dropping the lane label.
+
 Config: `~/.config/gazette/config.toml` (created with commented defaults on
-first run) — repos, `delay_hours` (stall detector), `delay_editions`,
-`synthesis_cmd` (`""` disables the news pass), protected/blocked globs.
-Spool: `~/.gazette/log.jsonl` (every sweep decision), `~/.gazette/notes/`,
-`~/.gazette/editions.jsonl`.
+first run) — repos, `watch_owners`, `delay_hours` (stall detector),
+`delay_editions`, `synthesis_cmd` (`""` disables the news pass),
+protected/blocked globs. The file lives outside git, so `config.DEFAULTS` is
+the migration guard: keep it naming the live repo set.
+Spool: `~/.gazette/log.jsonl` (every sweep decision, plus `unswept` rows),
+`~/.gazette/notes/`, `~/.gazette/editions.jsonl`.
 
 Uses the `gh` CLI for all GitHub access (existing auth); sends the morning
 digest through `flare`. Policy lives in pure functions (`lanes.decide`) so the

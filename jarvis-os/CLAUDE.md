@@ -252,6 +252,14 @@ delivers patch notes.
 - **`lane:blocked`** — money, credentials, external-facing actions,
   destructive ops: never cron-merged; goes through the desk/flare flow.
 
+**Lane labels only work in swept repos.** The sweep enumerates the repos in
+`~/.config/gazette/config.toml` (`github_repos`: this monorepo +
+`dtch1997/life-theses`) and nothing else — a lane-labelled PR anywhere else is
+decided by nobody. Opening lane-labelled PRs from a new repo (or repointing
+the config, as the 2026-08-18 monorepo cutover did) means adding it there in
+the same pass; gazette now flags stragglers under the same owner as `unswept`
+rows + a morning anomaly instead of swallowing them.
+
 Demotions are the backstop, regardless of label: auto→delay on protected
 paths (CLAUDE.md, `ops/**`, `.claude/**`), anything→blocked on
 credential-like paths. Veto = `veto` label or a changes-requested review.

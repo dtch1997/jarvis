@@ -27,9 +27,12 @@ def _record(entry: dict) -> None:
 
 
 def run(cfg: Config, now: datetime | None = None, dry_run: bool = False) -> dict:
-    """Returns a report: {merged, waiting, skipped, errors, warnings}."""
+    """Returns a report: {merged, waiting, skipped, errors, unswept, warnings}."""
     now = now or datetime.now(timezone.utc)
-    report: dict = {"merged": [], "waiting": [], "skipped": [], "errors": [], "warnings": []}
+    report: dict = {
+        "merged": [], "waiting": [], "skipped": [], "errors": [], "unswept": [],
+        "warnings": [],
+    }
     appearances = load_appearances()  # delay windows count delivered editions
     for repo in cfg.github_repos:
         prs, warnings, _failed = gh.list_open_prs(repo)
@@ -65,12 +68,36 @@ def run(cfg: Config, now: datetime | None = None, dry_run: bool = False) -> dict
             else:
                 report["skipped"].append(row)
             _record(row)
+    # Coverage, not policy: lane-labelled PRs in repos this config does not
+    # sweep get no decision above — they are simply never enumerated. Surface
+    # them (and spool them) so a repo that opted into lanes without being
+    # configured is loud, the way a collector failure is (issue #21's lesson,
+    # one level up).
+    strays, stray_warnings = gh.unswept_lane_prs(cfg)
+    report["warnings"].extend(stray_warnings)
+    for stray in strays:
+        row = {
+            "ts": now.isoformat(),
+            "repo": stray["repo"],
+            "number": stray["number"],
+            "ref": f"{stray['repo'].split('/')[-1]}#{stray['number']}",
+            "title": stray["title"],
+            "url": stray["url"],
+            "lane": stray["label"].split(":", 1)[-1],
+            "action": "unswept",
+            "reason": f"carries {stray['label']} but {stray['repo']} is not in github_repos",
+            "anomalies": ["repo not swept — no sweep will ever decide this PR"],
+            "dry_run": dry_run,
+        }
+        report["unswept"].append(row)
+        _record(row)
+    report["warnings"].extend(gh.coverage_gap_messages(strays))
     return report
 
 
 def format_report(report: dict) -> str:
     lines = []
-    for key in ("merged", "waiting", "skipped", "errors"):
+    for key in ("merged", "waiting", "skipped", "errors", "unswept"):
         for row in report[key]:
             lines.append(f"[{row['action']}] {row['ref']} ({row['lane']}) — {row['reason']}")
     for w in report["warnings"]:

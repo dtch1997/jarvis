@@ -53,3 +53,18 @@ clone at `~/arsenal-old-clone`. Follow-ups tracked in issues.
       repointed at the monorepo path
 - [x] Archive `ArcadiaImpact/jarvis`, `dtch1997/jarvis-memory`, and
       `dtch1997/arsenal` with pointer READMEs to this repo
+
+## Residue found afterwards
+
+- **Gazette repo scope (2026-08-18, fixed same day).** The "update gazette +
+  desk configs" step above *replaced* `github_repos` with `["dtch1997/jarvis"]`
+  rather than extending it, which stranded two lane-labelled PRs where no sweep
+  could see them: `ArcadiaImpact/jarvis#152` (open when the old repo dropped
+  out, now unmergeable in an archived repo) and `dtch1997/life-theses#11`
+  (a sibling repo that uses lane labels but was never in the list). Neither got
+  so much as a log row. Gazette now flags lane-labelled PRs in unswept repos as
+  `unswept` rows + a morning anomaly, and its in-repo `DEFAULTS` name the live
+  repo set — see
+  [`reviews/2026-08-18-gazette-sweep-skipped-prs.md`](reviews/2026-08-18-gazette-sweep-skipped-prs.md).
+  Lesson for the next migration: repointing a per-machine config outside git is
+  a *diff*, not a replacement — check what was open in the repo you drop.
