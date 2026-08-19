@@ -9,11 +9,17 @@ from __future__ import annotations
 import json
 import subprocess
 import time
+import traceback
 from datetime import datetime
 
 from . import backends, gates, provision, publish, runtime
-from .notify import notify
+from .notify import flare, notify
 from .records import now_iso
+
+
+class SetupError(RuntimeError):
+    """Per-task workspace setup failed (clone, checkout, guard hook). Carries
+    git's own words so the failed record says what went wrong."""
 
 
 def _minutes_since(ts: str) -> float:
@@ -73,18 +79,40 @@ def _resume(home, cfg, task, text):
     print(f"[concierge] {task['id']} resumed (attempt {len(task['attempts'])})", flush=True)
 
 
+# a clone that hangs (dead host, credential prompt) would otherwise stall the
+# whole tick loop forever; TimeoutExpired fails the task like any other setup error
+_SETUP_TIMEOUT = 900
+
+
+def _git(args, *, check=True) -> subprocess.CompletedProcess:
+    """Run a setup git command. With check, a non-zero exit is a SetupError
+    quoting git's stderr, so the text lands in the failed task's status_detail
+    (a bare CalledProcessError says only "exit status 128")."""
+    r = subprocess.run(args, capture_output=True, text=True, timeout=_SETUP_TIMEOUT)
+    if check and r.returncode != 0:
+        msg = (r.stderr or r.stdout or "").strip().replace("\n", "; ")[-300:]
+        raise SetupError(f"`{' '.join(args)}` exited {r.returncode}: {msg or 'no output'}")
+    return r
+
+
 def _make_workspace(task, ws):
     w = task["workspace"]
     if not w.get("repo"):
         ws.mkdir(parents=True)
         provision.install_guard_hook(ws)
         return
-    subprocess.run(["git", "clone", "--quiet", w["repo"], str(ws)], check=True)
-    r = subprocess.run(["git", "-C", str(ws), "checkout", "-q", "-b", w["branch"], w["base"]],
-                       capture_output=True, text=True)
-    if r.returncode != 0:
-        subprocess.run(["git", "-C", str(ws), "checkout", "-q", "-b", w["branch"],
-                        f"origin/{w['base']}"], check=True)
+    # submit rejects an uncloneable repo at the callsite; re-check here because a
+    # record can also arrive by hand-edit or from older code (issue #33)
+    try:
+        repo = provision.validate_repo(w["repo"])
+    except ValueError as e:
+        raise SetupError(str(e)) from None
+    _git(["git", "clone", "--quiet", repo, str(ws)])
+    probe = _git(["git", "-C", str(ws), "checkout", "-q", "-b", w["branch"], w["base"]],
+                 check=False)
+    if probe.returncode != 0:
+        _git(["git", "-C", str(ws), "checkout", "-q", "-b", w["branch"],
+              f"origin/{w['base']}"])
     provision.install_guard_hook(ws)
 
 
@@ -351,17 +379,41 @@ def _spent_today(tasks) -> float:
                if a["started"].startswith(today))
 
 
+def _guarded(home, cfg, task, phase, action) -> bool:
+    """Run one per-task reconciler action; returns True iff it completed.
+
+    A raise fails THAT task, never the tick — degradation tolerance (issue #33:
+    a `repo="owner/repo"` submit made `git clone` raise out of _dispatch, up
+    through Pool.serve, and killed the daemon; the task sat `queued` forever and
+    the submitter's wait timed out blind). One bad record must not take the pool
+    down, and must not vanish quietly either: the error text lands in
+    status_detail, notify carries the transition, and it flares.
+    """
+    try:
+        action(home, cfg, task)
+        return True
+    except Exception as exc:  # noqa: BLE001 - the whole point is the blanket catch
+        detail = f"{phase} failed: {type(exc).__name__}: {str(exc)[:600]}".strip()
+        traceback.print_exc()  # full trace stays in daemon.log for forensics
+        try:
+            _finish(home, cfg, task, "failed", detail)
+        except Exception as e:  # noqa: BLE001 - unwritable record: log, keep serving
+            print(f"[concierge] {task['id']} could not be marked failed: {e!r}", flush=True)
+        flare(f"concierge task {task['id']} ({task['title']}) failed: {detail}", sev="warn")
+        return False
+
+
 def tick(home, cfg):
     tasks = home.tasks()
     for task in tasks:
         if task["status"] == "held":
-            _maybe_release(home, cfg, task)
+            _guarded(home, cfg, task, "release", _maybe_release)
         elif task["status"] == "running":
-            _refresh_running(home, cfg, task)
+            _guarded(home, cfg, task, "refresh", _refresh_running)
         elif task["status"] == "blocked":
-            _maybe_unblock(home, cfg, task)
+            _guarded(home, cfg, task, "unblock", _maybe_unblock)
         elif task["status"] == "waiting":
-            _maybe_wake(home, cfg, task)
+            _guarded(home, cfg, task, "wake", _maybe_wake)
 
     # waiting tasks are parked on external work — they hold no worker slot
     active = sum(1 for t in tasks if t["status"] == "running")
@@ -374,5 +426,7 @@ def tick(home, cfg):
         if _spent_today(tasks) >= cap:
             print(f"[concierge] daily cap ${cap} reached; holding {len(queued)} queued task(s)", flush=True)
             break
-        _dispatch(home, cfg, task)
-        active += 1
+        # a task that fails setup burns no concurrency seat — the next queued
+        # task dispatches in this same tick
+        if _guarded(home, cfg, task, "dispatch", _dispatch):
+            active += 1

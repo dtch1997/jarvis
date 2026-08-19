@@ -91,6 +91,10 @@ class Home:
     def wait_path(self, tid) -> Path:
         return self.root / "tasks" / f"{tid}.wait.json"
 
+    def heartbeat_path(self) -> Path:
+        """Daemon liveness stamp, rewritten every tick by `Pool.serve`."""
+        return self.root / "daemon.heartbeat"
+
 
 def load_config(home: "Home") -> dict:
     """Read `<home>/config.yaml`; {} only when the file doesn't exist.
