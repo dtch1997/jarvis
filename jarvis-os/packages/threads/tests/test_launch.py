@@ -53,6 +53,20 @@ def test_accept_enqueues_by_default(monkeypatch):
     assert seen == [rec["id"]]
 
 
+def test_disable_enqueue_covers_both_detached_spawns(monkeypatch):
+    # THREADS_DISABLE_ENQUEUE must gate the monitor too: an offline gate that
+    # runs process_intent against a throwaway spool would otherwise leak a
+    # detached monitor whose env snapshot outlives the temp dirs.
+    popens = []
+    monkeypatch.undo()  # drop the autouse no-op stubs — exercise the real seam
+    monkeypatch.setattr(launch.subprocess, "Popen",
+                        lambda *a, **k: popens.append(a))
+    monkeypatch.setenv("THREADS_DISABLE_ENQUEUE", "1")
+    launch.enqueue_intent("01FAKEINTENT")
+    launch._enqueue_monitor("01FAKEINTENT", "t-fake-0001")
+    assert popens == []
+
+
 def test_accept_rejects_empty_and_bad_mode():
     with pytest.raises(ValueError):
         launch.accept("   ", enqueue=False)
