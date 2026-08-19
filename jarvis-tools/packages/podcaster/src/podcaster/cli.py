@@ -39,6 +39,10 @@ def _report(ep: Episode) -> None:
           f"\n  voice     {ep.voice}\n  cost      ${ep.cost_usd:.2f}")
     if ep.pointer:
         print(f"  pointer   {ep.pointer}")
+    if ep.style_issues:
+        print("  style gate NOT passed by the narrated draft:")
+        for issue in ep.style_issues:
+            print(f"    - {issue}")
 
 
 def cmd_make(args) -> int:
@@ -88,6 +92,9 @@ def cmd_script(args) -> int:
         for issue in report.issues:
             print(f"    - {issue}", file=sys.stderr)
         feedback = report.issues
+    else:
+        print(f"  gate still failing after {args.attempts} drafts; writing anyway",
+              file=sys.stderr)
     write_json(script, args.out)
     print(f"script: {args.out} ({script.word_count} words, "
           f"~{script.est_minutes:.1f} min, ${script.cost_usd:.2f})")

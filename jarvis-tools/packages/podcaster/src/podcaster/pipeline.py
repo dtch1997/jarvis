@@ -166,13 +166,15 @@ async def make_episode(spec: EpisodeSpec, *, out_dir: str | Path,
         await asyncio.to_thread(
             audio.to_mp3, master_wav, mp3, title=script.title,
             album="jarvis podcaster", comment=script.blurb)
+        gate = style.audit(script, target_minutes=spec.target_minutes)
         episode = Episode(
             topic=spec.topic, title=script.title, mp3_path=str(mp3),
             duration_s=round(audio.wav_duration(master_wav), 2),
             voice=getattr(voice_backend, "name", spec.voice),
             words=script.word_count, cost_usd=script.cost_usd,
             script_path=str(out / f"{slug}.script.json"),
-            brief_path=str(out / f"{slug}.brief.json"))
+            brief_path=str(out / f"{slug}.brief.json"),
+            style_issues=gate.issues)
         if publish_prefix:
             episode.pointer = await asyncio.to_thread(
                 publish.publish_episode, mp3, slug=slug, prefix=publish_prefix,

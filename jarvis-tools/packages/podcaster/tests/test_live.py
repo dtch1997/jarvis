@@ -1,9 +1,19 @@
-"""Live legs — real model, real voice, real bucket. Deselected by default:
+"""Live legs — a real ``claude -p`` with web search, and a real Piper voice.
 
-    pytest -m integration jarvis-tools/packages/podcaster/tests
+Gated twice: the house ``integration`` marker, and ``RUN_LIVE=1`` (the arsenal
+convention), so CI's plain ``pytest tests -q`` neither spends money nor
+downloads a 100 MB voice.
+
+    RUN_LIVE=1 pytest -m integration jarvis-tools/packages/podcaster/tests
 """
 
+import os
+
 import pytest
+
+pytestmark = pytest.mark.skipif(
+    os.environ.get("RUN_LIVE") != "1", reason="live model/voice test; set RUN_LIVE=1"
+)
 
 from podcaster.models import Question
 from podcaster.research import dig

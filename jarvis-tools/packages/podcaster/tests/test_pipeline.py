@@ -138,3 +138,17 @@ def test_narrate_script_path_needs_no_model_calls(tmp_path):
         audio.to_mp3 = real_to_mp3
     assert episode.duration_s > 0 and episode.title == "Solo Narration"
     assert "title=Solo Narration" in " ".join(ff.calls[0])
+
+
+def test_an_episode_records_a_gate_it_could_not_satisfy(tmp_path, monkeypatch):
+    """A retry loop that exhausts its attempts must not look like a clean run."""
+    runner = FakeRunner(questions=2, target_minutes=4.0)
+    monkeypatch.setattr("podcaster.pipeline.style.check",
+                        lambda script: (False, ["contrived: always fails"]))
+    monkeypatch.setattr("podcaster.pipeline.style.audit",
+                        lambda script, target_minutes=None: type(
+                            "R", (), {"issues": ["contrived: always fails"], "ok": False})())
+    episode = _run(_spec(n_questions=2, style_attempts=2), tmp_path, runner=runner)
+    assert runner.calls["script"] == 2
+    assert episode.style_issues == ["contrived: always fails"]
+    assert episode.duration_s > 0                 # it still ships, but it says so

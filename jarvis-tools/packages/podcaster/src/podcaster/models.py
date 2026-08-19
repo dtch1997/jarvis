@@ -219,6 +219,10 @@ class Episode:
     pointer: str = ""                      # gs:// / gcs: pointer, once published
     script_path: str = ""
     brief_path: str = ""
+    # what the listenability gate still complained about in the narrated draft;
+    # empty means the script passed. A retry loop can exhaust its attempts, and
+    # an episode must say so rather than look clean.
+    style_issues: list[str] = field(default_factory=list)
 
     @classmethod
     def from_dict(cls, d: dict) -> "Episode":
@@ -233,6 +237,7 @@ class Episode:
             pointer=str(d.get("pointer") or ""),
             script_path=str(d.get("script_path") or ""),
             brief_path=str(d.get("brief_path") or ""),
+            style_issues=[str(x) for x in d.get("style_issues") or []],
         )
 
 

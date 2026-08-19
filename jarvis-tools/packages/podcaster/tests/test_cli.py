@@ -90,3 +90,26 @@ def test_voices_lists_installed(monkeypatch, capsys):
     monkeypatch.setattr(cli, "installed_voices", lambda *a: ["en_US-ryan-high"])
     assert cli.main(["voices"]) == 0
     assert capsys.readouterr().out.strip() == "en_US-ryan-high"
+
+
+def test_script_command_says_so_when_the_gate_never_passes(monkeypatch, tmp_path, capsys):
+    from podcaster.models import Brief
+    write_json(Brief(topic="t", target_minutes=4.0), tmp_path / "brief.json")
+
+    def always_bad(brief, *, target_minutes, model, feedback=None):
+        payload = _script_payload(4.0, bad=True)
+        return Script(topic="t", title=payload["title"], target_minutes=4.0,
+                      segments=[Segment.from_dict(s) for s in payload["segments"]])
+
+    monkeypatch.setattr(cli, "write_script", always_bad)
+    assert cli.main(["script", str(tmp_path / "brief.json"), "--attempts", "2",
+                     "-o", str(tmp_path / "out.json")]) == 0
+    assert "gate still failing after 2 drafts" in capsys.readouterr().err
+
+
+def test_report_prints_unsatisfied_gate_issues(capsys):
+    from podcaster.models import Episode
+    cli._report(Episode(topic="t", title="T", mp3_path="x.mp3", duration_s=61.0,
+                        style_issues=["mean sentence length 30 words"]))
+    out = capsys.readouterr().out
+    assert "style gate NOT passed" in out and "30 words" in out
