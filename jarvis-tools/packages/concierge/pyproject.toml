@@ -9,11 +9,8 @@ dependencies = [
     "mcp>=1",
     "stagehand",
     # the push channel for failures nobody is waiting on (issue #33)
-    "flare @ git+https://github.com/dtch1997/arsenal#subdirectory=packages/flare",
+    "flare",
 ]
-
-[tool.hatch.metadata]
-allow-direct-references = true
 
 [tool.uv.sources]
 stagehand = { workspace = true }
