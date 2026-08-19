@@ -31,6 +31,7 @@ the reverse.
 | [`foyer`](packages/foyer) | web front door for the tmux sessions your agents live in: session sidebar + live terminal (websocket PTY bridge) + plots/notes panes, own tunnel via `lobby.tunnel` |
 | [`statusline`](packages/statusline) | Claude Code status line renderer (`claude-statusline`): harness stdin JSON → colored model/context-bar/cost line; extend by adding segments |
 | [`cairn`](packages/cairn) | minimal, git-friendly dependency-aware issue graph for coding agents |
+| [`podcaster`](packages/podcaster) | topic → listenable podcast episode: web-researched brief, style-gated spoken-word script, narrated MP3 (Piper on CPU) |
 
 ## Use
 

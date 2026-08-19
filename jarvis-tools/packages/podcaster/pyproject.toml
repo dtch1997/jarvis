@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "podcaster"
+version = "0.1.0"
+description = "Topic in, listenable podcast episode out: web-researched brief, spoken-word script (style-gated, not an essay read aloud), and a narrated MP3 from a local CPU TTS."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Daniel Tan" }]
+keywords = ["podcast", "tts", "research", "llm", "agents", "piper"]
+dependencies = [
+    # the orchestration engine: the pipeline is a declared Flow (fan-out over
+    # research questions and narration chunks, retries, live dashboard).
+    # stagehand's core is pure stdlib, so this adds no transitive weight.
+    "stagehand @ git+https://github.com/dtch1997/jarvis#subdirectory=jarvis-tools/packages/stagehand",
+]
+
+[project.optional-dependencies]
+# Narration (Piper VITS voices via onnxruntime, CPU). Kept optional so the
+# package, its tests, and the offline gate never pull onnxruntime; the live
+# narration leg installs it (`uv pip install 'podcaster[voice]'`).
+voice = ["piper-tts>=1.5"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+podcaster = "podcaster.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/podcaster"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.uv.sources]
+stagehand = { workspace = true }
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: hits a real LLM / TTS model / GCS bucket; deselect with -m 'not integration'",
+]
