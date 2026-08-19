@@ -1137,6 +1137,7 @@ def _check_row_add(c: _Checks, now: datetime) -> None:
     import http.client
 
     from . import server
+    prior_enqueue = os.environ.get("THREADS_DISABLE_ENQUEUE")
     os.environ["THREADS_DISABLE_ENQUEUE"] = "1"   # accept, never route/spawn
     srv = server.serve(tunnel=False, interval=3600)
     try:
@@ -1194,7 +1195,10 @@ def _check_row_add(c: _Checks, now: datetime) -> None:
         c.ok(status == 200, "the log-tail view serves", f"status {status}")
     finally:
         srv.stop()
-        os.environ.pop("THREADS_DISABLE_ENQUEUE", None)
+        if prior_enqueue is None:
+            os.environ.pop("THREADS_DISABLE_ENQUEUE", None)
+        else:
+            os.environ["THREADS_DISABLE_ENQUEUE"] = prior_enqueue
 
 
 def board_check() -> tuple[bool, str]:
@@ -1251,6 +1255,10 @@ def board_check() -> tuple[bool, str]:
                           ("goals", "THREADS_GOALS_DIR")):
             (root / name).mkdir(parents=True, exist_ok=True)
             os.environ[key] = str(root / name)
+        # No detached processes may escape the fixture spool: an executor or
+        # monitor spawned here would inherit these temp paths in its env
+        # snapshot and fail loudly once the temp dir is gone.
+        os.environ["THREADS_DISABLE_ENQUEUE"] = "1"
         config.ensure_spool()
         try:
             _check_lifecycles(c, now)

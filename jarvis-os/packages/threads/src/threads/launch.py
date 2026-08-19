@@ -463,6 +463,11 @@ def process_intent(intent_id: str, *, runner=summarize.default_runner) -> dict:
 
 
 def _enqueue_monitor(intent_id: str, tid: str) -> None:
+    # Same seam as enqueue_intent: offline gates run process_intent against a
+    # throwaway spool, and a detached monitor would outlive it (its env
+    # snapshot keeps pointing at the deleted temp dirs and it fails loudly).
+    if os.environ.get("THREADS_DISABLE_ENQUEUE"):
+        return
     subprocess.Popen(
         [sys.executable, "-m", "threads.launch", "--monitor", intent_id, tid],
         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
