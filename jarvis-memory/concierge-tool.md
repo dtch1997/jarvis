@@ -217,8 +217,12 @@ worker exits → local gate projection passes + branch has commits → daemon
 pushes pool/<tid> + opens PR (idempotent, never force/main), records
 `published:{...}`, re-checks full gate; codex loses env_file preseed
 (backends.<name> config overrides); codex_cost_per_mtoken non-zero
-default. BLOCKED-ON-DANIEL: review+merge PR #10 + PR #12, then ONE daemon
-restart for the pair (both touch reconcile-path code).
+default. MERGED 2026-08-18 (with PR #10; Daniel-approved), daemon
+restarted on merged main, smoke-verified live: submit-time codex+PrMerged
+rejection fires, gate locality composes, codex leaf w/ local gate runs
+done with NON-ZERO cost stamp ($0.064 — cap accounting live), flows
+example renders dashboard. Requeued mailroom task also finished (jarvis
+PR #13, owner session's deliverable).
 
 **Task DAGs via stagehand — BUILT 2026-08-18 (Daniel-requested), PR jarvis#10
 OPEN (task t-0818-8c1d done on claude after codex requeue; 99 concierge +
@@ -234,8 +238,8 @@ layers on top. Retry = concierge strikes only by default; with_retry
 opt-in (attempt in dedupe key). `after=` unchanged; PATTERNS.md documents
 which-when. stagehand gains only generic `current_task_id()`. Runnable
 gen→expand→map→reduce example + test_flows.py (chain/diamond/fan-out/
-skip/restart-no-dup/real-Pool dedupe). BLOCKED-ON-DANIEL: review+merge
-PR #10 (daemon restart after merge to pick up records.py change).
+skip/restart-no-dup/real-Pool dedupe). MERGED 2026-08-18 with PR #12;
+daemon restarted; example smoke-verified.
 
 **BUG found+FIXED 2026-07-14 (arsenal PR #6, MERGED): `load_config` silently
 returns `{}` when pyyaml isn't importable** (records.py — `except

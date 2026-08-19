@@ -1,0 +1,1 @@
+{"name": "train/1", "parent": "train", "total": 1, "done": 1, "state": "done", "started": 1787033186.277823, "ended": 1787033186.2930164, "extra": {"concierge_task": "fake-2", "concierge_status": "done", "task_title": "train/1", "status_detail": ""}, "meta": {"node": "train", "deps": ["seeds/1"]}}

@@ -1,0 +1,1 @@
+{"title": "concierge fake DAG", "nodes": [{"name": "generate", "kind": "task", "rank": 0}, {"name": "seeds", "kind": "expand", "rank": 1}, {"name": "train", "kind": "map", "rank": 2}, {"name": "evaluate", "kind": "reduce", "rank": 3}], "edges": [["generate", "seeds"], ["seeds", "train"], ["train", "evaluate"]]}

@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 45fdfba4-7e20-43a1-943f-2a8fadc8870a
-  modified: 2026-08-18T02:15:18.165Z
+  modified: 2026-08-18T14:30:51.149Z
 ---
 
 Initiative to make jarvis goal-driven: Daniel specifies high-level goals,
@@ -230,3 +230,32 @@ vs PR #14 both touch packages/threads — second to merge needs a rebase
 (flagged on both PRs).** Spec PR #6 (lane:auto) awaits gazette sweep;
 worktree .claude/worktrees/thread-launcher-spec cleanup owed
 post-merge.
+
+**2026-08-18 — auto-wrapup spec (threads sweep)**: Daniel's ask — threads
+>1wk old should be handled if forgotten. Spec = docs/auto-wrapup.md
+(**monorepo PR #19, lane:auto**): daily deterministic sweep (no model
+calls), stale>7d classified A1 mechanical-abandoned (→ concierge wrap-up,
+gated by new `threads sweep --verify <slug>`) / A2 dirty-worktree (never
+auto-touched) / B parked-and-forgotten >21d (disposition proposal);
+mode=report default, dispatch flip = Daniel (goals automation-flag
+pattern), max 2 dispatches/run + cooldowns; backstop to the launcher
+termination contract. Impl = **issue #20**, blocked on PR #11 AND PR #14
+(both touch packages/threads; #14 already ships a termination sweep the
+impl should extend, not duplicate — noted on the issue). Not dispatched.
+
+**2026-08-18 — background-thinking trial (Daniel-approved)**: jarvis gets
+idle-time cognition — spec docs/background-thinking.md via **monorepo PR
+#31 (lane:delay)**. Rung 1: /goal-review finally cron'd (weekly Tue 06:45,
+propose-only — starts the graded-spec track record the dispatch flag waits
+on). Rung 2: new **watchman** skill (.claude/skills/watchman/SKILL.md),
+6-hourly (01:45/07:45/13:45/19:45; 07:45 feeds the 08:05 edition) —
+propose-only judgment over goal frontiers/threads render/desk digest/PRs/
+flares/git log; ≤3 observations per run as one batched info flare + threads
+notes; silent default; 7-day no-repeat via ~/.watchman/ spool; only writes
+= spool/notes/flares. Cadence rationale (Daniel asked): noticing improves
+with fresh input → 6h; proposing improves with graded feedback → weekly.
+Rung 3 (per-goal automation:dispatch + budget) explicitly not moved.
+~2-week verdict ≈ 2026-09-01 (criteria in spec: acted-on observations vs
+edition-restating/alert-fatigue/total-silence). Hardening path: skill+cron
+trial → jarvis-os/packages policy tool only if it accretes state worth
+owning.

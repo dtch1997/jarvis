@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: cbead54c-64d5-4268-bdc2-2bd5b820f1b5
-  modified: 2026-08-18T01:49:16.045Z
+  modified: 2026-08-18T06:16:14.527Z
 ---
 
 **CUT OVER 2026-08-18 (dinner window, Daniel-approved).**
@@ -43,8 +43,9 @@ histories preserved via filter-repo.
   link-clis + cron.tab repointed). Dependency rule: os → tools, never
   reverse. Also revived CI (workflows were DEAD since cutover —
   `jarvis-tools/.github/` is ignored by GitHub; now at root `.github/`).
-  bellhop-live schedule + publish need secrets on dtch1997/jarvis
-  (BLOCKED-ON-DANIEL, noted in PR + issue #2). Post-merge cleanup: `rm -rf
+  Both repo secrets set from ~/.env, Daniel-approved 2026-08-18
+  (`RUNPOD_API_KEY` + bellhop-live weekly schedule restored;
+  `PYPI_TOKEN` → tag-publish path unblocked). Post-merge cleanup: `rm -rf
   jarvis-tools/.venv` (stale old-root venv).
 
 Related: [[self-driving-jarvis]], [[arsenal-monorepo]].

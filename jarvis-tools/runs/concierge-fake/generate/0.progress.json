@@ -1,0 +1,1 @@
+{"name": "generate/0", "parent": "generate", "total": 1, "done": 1, "state": "done", "started": 1787033186.2218277, "ended": 1787033186.2382362, "extra": {"concierge_task": "fake-0", "concierge_status": "done", "task_title": "generate/0", "status_detail": ""}, "meta": {"node": "generate", "deps": []}}

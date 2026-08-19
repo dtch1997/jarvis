@@ -1,0 +1,27 @@
+<!doctype html><meta charset=utf-8><meta http-equiv=refresh content=5>
+<title>concierge fake DAG</title>
+<style>body{font:14px system-ui;margin:24px;color:#202124}
+h2 span{color:#5f6368;font-weight:400}.muted{color:#9aa0a6}
+section{margin:18px 0}
+.mermaid{background:#fafafa;border:1px solid #eee;border-radius:8px;padding:12px}
+table.status{border-collapse:collapse;width:100%}
+table.status td,table.status th{border-bottom:1px solid #eee;padding:4px 8px}
+table.status th{text-align:left;color:#5f6368;font-weight:600}
+td.state{color:#fff;text-align:center;border-radius:4px}
+td.prog{text-align:right;white-space:nowrap}
+td.err{color:#d93025}</style>
+<h2>concierge fake DAG <span>· 0h00m elapsed
+ · 5 units</span></h2>
+<p><b style="color:#188038">5 done</b></p>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script><section><div class=mermaid>flowchart LR
+  n_generate["generate<br><small>1/1</small>"]:::done
+  n_seeds["seeds<br><small>expand · 0/0</small>"]:::pending
+  n_train["train<br><small>map · 3/3</small>"]:::done
+  n_evaluate["evaluate<br><small>reduce · 1/1</small>"]:::done
+  n_generate --> n_seeds
+  n_seeds --> n_train
+  n_train --> n_evaluate
+  classDef done fill:#e6f4ea,stroke:#188038,color:#188038
+  classDef pending fill:#f1f3f4,stroke:#9aa0a6,color:#9aa0a6</div></section><script>mermaid.initialize({startOnLoad:true,securityLevel:"loose"});</script>
+<section><table class=status><tr><th>unit</th><th>state</th><th>progress</th><th>note</th><th>error</th></tr><tr><td>evaluate</td><td class=state style="background:#188038">done</td><td class=prog>–</td><td></td><td class=err></td></tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;evaluate/0</td><td class=state style="background:#188038">done</td><td class=prog>–</td><td>concierge_task=fake-4 · concierge_status=done · task_title=evaluate/0 · status_detail=</td><td class=err></td></tr><tr><td>generate</td><td class=state style="background:#188038">done</td><td class=prog>–</td><td></td><td class=err></td></tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;generate/0</td><td class=state style="background:#188038">done</td><td class=prog>–</td><td>concierge_task=fake-0 · concierge_status=done · task_title=generate/0 · status_detail=</td><td class=err></td></tr><tr><td>train</td><td class=state style="background:#188038">done</td><td class=prog>3/3</td><td></td><td class=err></td></tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;train/0</td><td class=state style="background:#188038">done</td><td class=prog>–</td><td>concierge_task=fake-1 · concierge_status=done · task_title=train/0 · status_detail=</td><td class=err></td></tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;train/1</td><td class=state style="background:#188038">done</td><td class=prog>–</td><td>concierge_task=fake-2 · concierge_status=done · task_title=train/1 · status_detail=</td><td class=err></td></tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;train/2</td><td class=state style="background:#188038">done</td><td class=prog>–</td><td>concierge_task=fake-3 · concierge_status=done · task_title=train/2 · status_detail=</td><td class=err></td></tr></table></section>
+<p class=muted>auto-refreshes every 5s</p>

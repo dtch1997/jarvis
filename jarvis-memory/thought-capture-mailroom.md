@@ -86,3 +86,14 @@ live-fire: 458 thoughts — slack 404 / voice 2 / todoist 52; 95% auto-routed,
 live /a/mailroom/, tmux mailroom-dash). Worker also fixed a dead-code
 `SlackClient.download` bug. Post-merge steps: run `ops/install-cron.sh`
 (2-hourly ingest+route, daily digest crons in this PR).
+
+**Noise fixes 2026-08-18** (Daniel: "ok it's officially too much lol" after the
+2026-08-17 double-burst — 12 per-item capture flares at 20:07, echoed verbatim
+by hourly `desk sync` at 21:07): capture window 90d → **21d** (Slack backfill +
+Todoist Inbox pull, honored by `ingest --check`); urgent captures now batch
+into **one flare per route run** (stale >7d / backfill thoughts never flare);
+triage urgency bar tightened (high = harm if delayed ~48h; important ≠ urgent).
+Pushed onto PR #15 branch. Companion **jarvis PR #16 (lane:delay)**: desk sync
+batch-flares (one summary, not per item), desk stops re-flaring
+source=mailroom, 150-char item-title cap, flare Slack rendering drops host/cwd
+boilerplate. Dup mailroom build PR #13 closed (branch pool/t-0818-bf5d kept).

@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "packages/concierge/examples/task_flow_fake.py"
+  ],
+  "cwd": "/mnt/nw/home/d.tan/jarvis-monorepo/jarvis-tools",
+  "flow": {
+    "concurrency": 3,
+    "tasks": 1,
+    "title": "concierge fake DAG"
+  },
+  "git": {
+    "branch": "main",
+    "dirty": true,
+    "remote": "git@github.com:dtch1997/jarvis.git",
+    "sha": "0dadb525403a15c587aacf40bcf09691d008c351"
+  },
+  "host": "vm1e3c1290f17b6",
+  "python": "3.14.5",
+  "ts": "2026-08-18T06:06:25+00:00"
+}

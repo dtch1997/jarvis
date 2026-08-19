@@ -26,9 +26,11 @@ work: routed to the codex backend, whose sandbox blocks git push + GitHub
 DNS (monorepo issue #8) — worker completed everything (commit `14866fd`,
 all 5 features verified: excerpts/prev-next/RSS/hash-filters+Latest/full
 dates+CC) but couldn't publish. Supervising session salvaged the commit
-from `/tmp/t0818-git-ozBTur` → **PR dtch1997.github.io#6 OPEN**,
-excerpt wording listed in the PR body for review. Daniel merges design
-changes himself — BLOCKED-ON-DANIEL: review + merge PR #6.
+from `/tmp/t0818-git-ozBTur` → PR dtch1997.github.io#6, **MERGED
+2026-08-18 on Daniel's instruction; Pages deploy green — LIVE at
+dtch1997.github.io/writing/**. Excerpt wording (12 blurbs, listed in the
+PR body) is agent-drafted — Daniel may tweak in
+scripts/build_writing.py (CURATED) + rebuild.
 
 Parked follow-up (ranked below the above by Daniel's agreement): papers
 upgrade — thumbnails on the 4 highlighted papers, possibly per-paper detail

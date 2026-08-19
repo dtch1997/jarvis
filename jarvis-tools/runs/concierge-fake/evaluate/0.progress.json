@@ -1,0 +1,1 @@
+{"name": "evaluate/0", "parent": "evaluate", "total": 1, "done": 1, "state": "done", "started": 1787033186.3920708, "ended": 1787033186.408645, "extra": {"concierge_task": "fake-4", "concierge_status": "done", "task_title": "evaluate/0", "status_detail": ""}, "meta": {"node": "evaluate", "deps": ["train/0", "train/1", "train/2"]}}
