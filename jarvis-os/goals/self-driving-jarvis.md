@@ -154,6 +154,23 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   with graded feedback (weekly). ~2-week verdict ≈ 2026-09-01; dispatch
   (rung 3) stays Daniel-owned.
 
+- 2026-08-19: **lane rework — merge-on-green + nightly versions (Daniel's
+  philosophy, stated verbatim: auto merges immediately, no delay lane,
+  blocked simplifies to "requires-approval", and "JARVIS should be
+  versioned … so if I don't like a specific feature, I can roll back to a
+  version that didn't have that")**. Implemented: hourly `gazette sweep`
+  merges any green PR (no label needed); `requires-approval` is the one
+  gate (legacy `lane:blocked` aliased, `lane:delay` retired → auto with
+  anomaly note); behavior-shaping paths annotate instead of delaying;
+  nightly 04:10 `gazette version cut` (tag `vYYYY.MM.DD`) + `gazette
+  version deploy` (absorbs the old deploy cron), rollback via `gazette
+  version switch v<date>` (pin survives deploys; crons/CLIs/CLAUDE.md roll
+  back together). Edition now names the running version; needs-you shrinks
+  to requires-approval + desk. Watch items: first hourly-sweep day (merge
+  latency, log noise), first version cut 2026-08-20 04:10, whether
+  behavior-shaping annotations are prominent enough to replace the old
+  2-edition window.
+
 ## Active threads
 
 - mailroom (thought-capture ingestion, jarvis-tools `packages/mailroom`):

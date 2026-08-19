@@ -9,8 +9,18 @@ from datetime import datetime, timedelta, timezone
 
 from pathlib import Path
 
-from . import editions, gh, notes as notes_mod, sweep as sweep_mod, synthesize
+from . import editions, gh, notes as notes_mod, sweep as sweep_mod, synthesize, versions
 from .config import load_config
+
+
+def _flare_warn(body: str) -> None:
+    """Best-effort warn flare; a cron must not crash on transport."""
+    try:
+        import flare
+
+        flare.send(body, sev="warn", source="gazette")
+    except Exception as e:
+        print(f"[flare failed: {e}]", file=sys.stderr)
 
 
 def _desk_digest() -> str | None:
@@ -77,18 +87,19 @@ def cmd_notes(args) -> int:
     cfg = load_config()
     now = datetime.now(timezone.utc)
     open_prs, merged, warnings, collector_errors, pr_failed_repos, gaps = _collect(cfg)
-    appearances = editions.load_appearances()
     ed = notes_mod.compile_edition(
-        cfg, now, open_prs, merged, appearances, warnings, collector_errors, gaps
+        cfg, now, open_prs, merged, warnings, collector_errors, gaps
     )
     news = synthesize.synthesize(cfg, merged)
-    text = notes_mod.build_notes(cfg, ed, news=news, desk_text=_desk_digest())
+    version_line = versions.status(cfg)
+    if version_line.startswith("version status unavailable"):
+        version_line = None  # no git checkout here — don't clutter the edition
+    text = notes_mod.build_notes(cfg, ed, news=news, desk_text=_desk_digest(),
+                                 version_line=version_line)
     path = notes_mod.spool_notes(now, text)
-    # Edition-count integrity: only credit a delivered edition when at least one
-    # repo's PR collector succeeded. Empty refs from a total collector failure
-    # are not a genuine "nothing to show", so they earn no edition credit — the
-    # delay-lane veto windows pause instead of merging unseen, and a stalled PR
-    # still trips the stall detector.
+    # Delivery-log integrity: only record a delivered edition when at least one
+    # repo's PR collector succeeded — empty refs from a total collector failure
+    # are not a genuine "nothing to show".
     if len(pr_failed_repos) < len(cfg.github_repos):
         editions.record_edition(now, ed.visible_refs)
     print(text)
@@ -99,9 +110,48 @@ def cmd_notes(args) -> int:
             import flare
 
             sev = "warn" if ed.incomplete else "info"
-            flare.send(notes_mod.flare_body(ed, news=news, spool_path=path), sev=sev, source="gazette")
+            flare.send(
+                notes_mod.flare_body(ed, news=news, spool_path=path,
+                                     version_line=version_line),
+                sev=sev, source="gazette",
+            )
         except Exception as e:  # a notes cron must not crash on transport
             print(f"[flare failed: {e}]", file=sys.stderr)
+    return 0
+
+
+def cmd_version(args) -> int:
+    cfg = load_config()
+    if args.version_cmd == "cut":
+        ok, msg = versions.cut(cfg)
+        print(msg)
+        if not ok:
+            _flare_warn(f"gazette version cut failed:\n• {msg}")
+        return 0 if ok else 1
+    if args.version_cmd == "deploy":
+        ok, lines = versions.deploy(cfg)
+        print("\n".join(lines))
+        if not ok:
+            _flare_warn("gazette version deploy failed:\n" +
+                        "\n".join(f"• {l}" for l in lines[-3:]))
+        return 0 if ok else 1
+    if args.version_cmd == "switch":
+        ok, lines = versions.switch(cfg, args.target)
+        print("\n".join(lines))
+        return 0 if ok else 1
+    if args.version_cmd == "list":
+        rows, warn = versions.list_versions(cfg, limit=args.n)
+        if warn:
+            print(warn, file=sys.stderr)
+            return 1
+        pin = versions.current_pin()
+        for r in rows:
+            marker = "  ← pinned" if r["tag"] == pin else ""
+            print(f"{r['tag']}  {r['sha']}  {r['date']}{marker}")
+        if not rows:
+            print("no versions cut yet — the nightly deploy cron cuts the first one")
+        return 0
+    print(versions.status(cfg))  # status (default)
     return 0
 
 
@@ -117,9 +167,20 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="gazette", description=__doc__)
     sub = parser.add_subparsers(dest="cmd", required=True)
 
-    p_sweep = sub.add_parser("sweep", help="nightly merge pass over all configured repos")
+    p_sweep = sub.add_parser("sweep", help="hourly merge pass over all configured repos")
     p_sweep.add_argument("--dry-run", action="store_true", help="decide and report, merge nothing")
     p_sweep.set_defaults(fn=cmd_sweep)
+
+    p_ver = sub.add_parser("version", help="nightly versions: cut/deploy/switch/list/status")
+    ver_sub = p_ver.add_subparsers(dest="version_cmd", required=True)
+    ver_sub.add_parser("cut", help="tag origin/main tip as tonight's vYYYY.MM.DD and push")
+    ver_sub.add_parser("deploy", help="deploy the pin (or main's nightly state) + run deploy_cmds")
+    p_switch = ver_sub.add_parser("switch", help="pin the box to a version tag, or 'latest' to unpin")
+    p_switch.add_argument("target", help="a version tag (v2026.08.19) or 'latest'")
+    p_list = ver_sub.add_parser("list", help="recent versions, newest first")
+    p_list.add_argument("-n", type=int, default=15, help="how many to show")
+    ver_sub.add_parser("status", help="what the box is running + pin state")
+    p_ver.set_defaults(fn=cmd_version)
 
     p_notes = sub.add_parser("notes", help="render morning patch notes (spooled to ~/.gazette/notes/)")
     p_notes.add_argument("--flare", action="store_true", help="also send the digest via flare")

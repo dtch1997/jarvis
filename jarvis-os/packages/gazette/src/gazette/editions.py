@@ -1,9 +1,9 @@
 """Edition log — which PR refs appeared in which morning patch notes.
 
-The delay-lane veto window is counted in *delivered editions*, not wall-clock
-hours: a PR merges only after it has appeared in ``delay_editions`` distinct
-editions. A skipped morning (weekend, broken notes cron) pauses the window
-instead of letting conventions merge unseen.
+Since the 2026-08-19 lane rework this is a pure delivery log (no merge
+decision reads it — the delay-lane veto window it used to drive is gone).
+It stays because "what did the editions actually show Daniel" is the
+evidence trail for debugging quiet-day bugs like issue #21.
 
 Spool: ``~/.gazette/editions.jsonl`` — one line per ``gazette notes`` run,
 ``{"date": "YYYY-MM-DD", "refs": [...]}``. Appearances are counted over

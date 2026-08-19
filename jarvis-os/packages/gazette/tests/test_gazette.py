@@ -1,9 +1,11 @@
+import subprocess
 from datetime import datetime, timedelta, timezone
 
 import pytest
 
 from gazette.config import Config
 from gazette.lanes import (
+    LABEL_APPROVAL,
     LABEL_AUTO,
     LABEL_BLOCKED,
     LABEL_DELAY,
@@ -27,7 +29,7 @@ def make_pr(**kw) -> PR:
         url="https://example.com/1",
         author="agent",
         created_at=NOW - timedelta(hours=48),
-        labels=[LABEL_AUTO],
+        labels=[],
         files=["docs/x.md"],
         checks="passing",
     )
@@ -57,45 +59,58 @@ def test_path_matches(path, glob, expected):
 
 
 # --------------------------------------------------------------------------- #
-# lane resolution
+# lane resolution — two lanes since the 2026-08-19 rework
 # --------------------------------------------------------------------------- #
-def test_lane_labels_respected():
+def test_unlabeled_and_auto_label_are_auto_with_no_anomaly():
     cfg = Config()
-    assert resolve_lane([LABEL_AUTO], ["docs/a.md"], cfg)[0] is Lane.AUTO
-    assert resolve_lane([LABEL_DELAY], ["docs/a.md"], cfg)[0] is Lane.DELAY
-    assert resolve_lane([LABEL_BLOCKED], ["docs/a.md"], cfg)[0] is Lane.BLOCKED
+    for labels in ([], [LABEL_AUTO]):
+        lane, reasons = resolve_lane(labels, ["docs/a.md"], cfg)
+        assert lane is Lane.AUTO and reasons == []
 
 
-def test_unlabeled_defaults_to_delay_with_reason():
-    lane, reasons = resolve_lane([], ["docs/a.md"], Config())
-    assert lane is Lane.DELAY
-    assert any("unclassified" in r for r in reasons)
+def test_requires_approval_label_and_legacy_blocked_alias():
+    cfg = Config()
+    for labels in ([LABEL_APPROVAL], [LABEL_BLOCKED]):
+        lane, reasons = resolve_lane(labels, ["docs/a.md"], cfg)
+        assert lane is Lane.APPROVAL and reasons == []
 
 
-def test_auto_demoted_on_protected_paths():
-    lane, reasons = resolve_lane([LABEL_AUTO], ["CLAUDE.md"], Config())
-    assert lane is Lane.DELAY
-    assert any("demoted to delay" in r for r in reasons)
+def test_retired_delay_label_is_auto_with_anomaly():
+    lane, reasons = resolve_lane([LABEL_DELAY], ["docs/a.md"], Config())
+    assert lane is Lane.AUTO
+    assert any("retired lane:delay" in r for r in reasons)
 
 
-def test_credential_paths_demote_to_blocked_regardless_of_label():
+def test_credential_paths_demote_to_approval_regardless_of_label():
     for labels in ([LABEL_AUTO], [LABEL_DELAY], []):
         lane, reasons = resolve_lane(labels, ["conf/.env.prod"], Config())
-        assert lane is Lane.BLOCKED
-        assert any("demoted to blocked" in r for r in reasons)
+        assert lane is Lane.APPROVAL
+        assert any("demoted to requires-approval" in r for r in reasons)
+    # already labeled: demotion is not an anomaly
+    lane, reasons = resolve_lane([LABEL_APPROVAL], ["conf/.env.prod"], Config())
+    assert lane is Lane.APPROVAL and reasons == []
+
+
+def test_behavior_shaping_paths_merge_with_annotation_not_delay():
+    d = decide(make_pr(files=["CLAUDE.md"]), Config(), NOW)
+    assert d.action == "merge"
+    assert "behavior-shaping" in d.reason and "CLAUDE.md" in d.reason
+    assert d.anomalies == []  # annotated, not anomalous
 
 
 # --------------------------------------------------------------------------- #
 # merge decisions
 # --------------------------------------------------------------------------- #
-def test_auto_green_merges():
-    assert decide(make_pr(), Config(), NOW).action == "merge"
+def test_green_merges_immediately_regardless_of_age():
+    cfg = Config()
+    assert decide(make_pr(created_at=NOW - timedelta(minutes=5)), cfg, NOW).action == "merge"
+    assert decide(make_pr(created_at=NOW - timedelta(days=30)), cfg, NOW).action == "merge"
 
 
 def test_draft_and_veto_and_changes_requested_skip():
     cfg = Config()
     assert decide(make_pr(is_draft=True), cfg, NOW).action == "skip"
-    assert decide(make_pr(labels=[LABEL_AUTO, LABEL_VETO]), cfg, NOW).action == "skip"
+    assert decide(make_pr(labels=[LABEL_VETO]), cfg, NOW).action == "skip"
     assert decide(make_pr(review_decision="CHANGES_REQUESTED"), cfg, NOW).action == "skip"
 
 
@@ -106,34 +121,19 @@ def test_failing_or_pending_checks_wait():
     assert decide(make_pr(checks="pending"), cfg, NOW).action == "wait"
 
 
-def test_delay_lane_wall_clock_fallback():
-    # with no edition data (appearances=None) the old wall-clock window applies
-    cfg = Config(delay_hours=36)
-    young = make_pr(labels=[LABEL_DELAY], created_at=NOW - timedelta(hours=10))
-    old = make_pr(labels=[LABEL_DELAY], created_at=NOW - timedelta(hours=40))
-    assert decide(young, cfg, NOW).action == "wait"
-    assert decide(old, cfg, NOW).action == "merge"
+def test_requires_approval_never_merges():
+    pr = make_pr(labels=[LABEL_APPROVAL], created_at=NOW - timedelta(days=30))
+    d = decide(pr, Config(), NOW)
+    assert d.action == "skip" and "requires approval" in d.reason
+    legacy = make_pr(labels=[LABEL_BLOCKED], created_at=NOW - timedelta(days=30))
+    assert decide(legacy, Config(), NOW).action == "skip"
 
 
-def test_delay_lane_counts_editions_not_hours():
-    cfg = Config(delay_hours=36, delay_editions=2)
-    pr = make_pr(labels=[LABEL_DELAY], created_at=NOW - timedelta(hours=60))
-    d = decide(pr, cfg, NOW, appearances=1)
-    assert d.action == "wait" and "1/2" in d.reason  # 60h old but only 1 edition
-    assert decide(pr, cfg, NOW, appearances=2).action == "merge"
-
-
-def test_delay_lane_stall_anomaly_when_editions_never_arrive():
-    cfg = Config(delay_hours=36, delay_editions=2)
-    pr = make_pr(labels=[LABEL_DELAY], created_at=NOW - timedelta(hours=120))
-    d = decide(pr, cfg, NOW, appearances=0)
-    assert d.action == "wait"
-    assert any("notes cron" in a for a in d.anomalies)
-
-
-def test_blocked_never_merges():
-    pr = make_pr(labels=[LABEL_BLOCKED], created_at=NOW - timedelta(days=30))
-    assert decide(pr, Config(), NOW).action == "skip"
+def test_retired_delay_pr_merges_on_green():
+    pr = make_pr(labels=[LABEL_DELAY], created_at=NOW - timedelta(hours=1))
+    d = decide(pr, Config(), NOW)
+    assert d.action == "merge"
+    assert any("retired lane:delay" in a for a in d.anomalies)
 
 
 # --------------------------------------------------------------------------- #
@@ -142,30 +142,39 @@ def test_blocked_never_merges():
 MERGED_ROW = {
     "repo": "ArcadiaImpact/jarvis", "number": 140, "title": "draft doc",
     "url": "u", "merged_at": NOW - timedelta(hours=3), "author": "agent",
-    "labels": [LABEL_AUTO],
+    "labels": [],
 }
 
 
-def _edition(appearances=None):
+def _edition():
     cfg = Config()
     open_prs = [
-        make_pr(number=141, title="CLAUDE.md tweak", labels=[LABEL_DELAY],
-                created_at=NOW - timedelta(hours=5), files=["CLAUDE.md"]),
-        make_pr(number=37, title="needs creds", labels=[LABEL_BLOCKED]),
+        make_pr(number=141, title="auto doc tweak",
+                created_at=NOW - timedelta(hours=5), checks="pending"),
+        make_pr(number=37, title="needs creds", labels=[LABEL_APPROVAL]),
     ]
-    return cfg, open_prs, compile_edition(cfg, NOW, open_prs, [MERGED_ROW], appearances)
+    return cfg, open_prs, compile_edition(cfg, NOW, open_prs, [MERGED_ROW])
 
 
-def test_notes_needs_you_first_with_default_outcomes():
-    cfg, open_prs, ed = _edition(appearances={"jarvis#141": 1})
+def test_notes_needs_you_is_approval_only_and_auto_is_ambient():
+    cfg, open_prs, ed = _edition()
     text = build_notes(cfg, ed)
-    assert text.index("## Needs you (2)") < text.index("## News")
-    assert "jarvis#141" in text and "unless vetoed" in text and "--add-label veto" in text
-    assert "jarvis#37" in text and "sits until you act" in text
-    assert "jarvis#140" in text and "(auto)" not in text  # merged list drops lane tags
+    assert text.index("## Needs you (1)") < text.index("## News")
+    assert "jarvis#37" in text and "sits until you act" in text and "gh pr merge 37" in text
+    # the auto PR is ambient pipeline, with the veto escape hatch
+    assert "jarvis#141" in text and "next hourly sweep" in text and "--add-label veto" in text
     assert sorted(ed.visible_refs) == ["jarvis#141", "jarvis#37"]
     d = digest(cfg, NOW, open_prs, [MERGED_ROW])
     assert "merged 1" in d and "1 in pipeline" in d and "1 waiting on you" in d
+
+
+def test_notes_version_line_rendered():
+    cfg = Config()
+    ed = compile_edition(cfg, NOW, [], [])
+    line = "running v2026.08.18 (latest cut: v2026.08.18)"
+    text = build_notes(cfg, ed, version_line=line)
+    assert line in text
+    assert line in flare_body(ed, version_line=line)
 
 
 def test_notes_drafts_and_desk_and_news():
@@ -185,10 +194,10 @@ def test_notes_quiet_state_and_flare_body():
     assert "nothing waits on you" in text and "nothing merged" in text
     assert "quiet" in flare_body(ed)  # empty morning is a one-liner
 
-    _, _, busy = _edition(appearances={"jarvis#141": 2})
+    _, _, busy = _edition()
     body = flare_body(busy, spool_path="/spool/x.md")
     assert body.splitlines()[0].startswith("☀️")
-    assert "NEEDS YOU (2)" in body and "merges tonight" in body
+    assert "NEEDS YOU (1)" in body and "requires approval" in body
     assert "Full edition → /spool/x.md" in body
 
 
@@ -265,9 +274,9 @@ def test_incomplete_edition_still_shows_reachable_repo_needs_you():
     """A partial failure (one repo down) still surfaces the reachable repo's
     needs-you items — incomplete, but not blank."""
     cfg = Config()
-    delay_pr = make_pr(repo="dtch1997/arsenal", number=37, title="ok repo",
-                       labels=[LABEL_DELAY], created_at=NOW - timedelta(hours=5))
-    ed = compile_edition(cfg, NOW, [delay_pr], [], appearances={"arsenal#37": 1},
+    approval_pr = make_pr(repo="dtch1997/arsenal", number=37, title="ok repo",
+                          labels=[LABEL_APPROVAL], created_at=NOW - timedelta(hours=5))
+    ed = compile_edition(cfg, NOW, [approval_pr], [],
                          collector_errors=[COLLECTOR_ERR])
     assert ed.incomplete and ed.visible_refs == ["arsenal#37"]
     text = build_notes(cfg, ed)
@@ -276,7 +285,7 @@ def test_incomplete_edition_still_shows_reachable_repo_needs_you():
 
 
 # --------------------------------------------------------------------------- #
-# edition-count integrity: a failed collector earns no edition credit (b3)
+# delivery-log integrity: a failed collector earns no edition record (b3)
 # --------------------------------------------------------------------------- #
 class _FakeFlare:
     def __init__(self):
@@ -295,6 +304,8 @@ def _run_notes(monkeypatch, tmp_path, open_by_repo, merged_by_repo):
 
     monkeypatch.setenv("GAZETTE_HOME", str(tmp_path))
     monkeypatch.setattr(cli, "_desk_digest", lambda: None)  # desk not part of this test
+    monkeypatch.setattr(cli.versions, "status",
+                        lambda cfg: "version status unavailable (test)")
 
     def fake_open(repo):
         return open_by_repo[repo]  # (prs, warnings, failed)
@@ -321,8 +332,8 @@ def _run_notes(monkeypatch, tmp_path, open_by_repo, merged_by_repo):
 
 def test_total_collector_failure_logs_no_edition_and_flares_warn(tmp_path, monkeypatch):
     """(b3): when every repo's PR collector fails, no edition is recorded —
-    empty-refs-from-failure must not accrue veto-window credit — and the flare
-    goes out --sev warn."""
+    empty refs from failure are not a delivered edition — and the flare goes
+    out --sev warn."""
     from gazette import editions
 
     repos = Config().github_repos  # the configured sweep set
@@ -338,13 +349,13 @@ def test_total_collector_failure_logs_no_edition_and_flares_warn(tmp_path, monke
 
 
 def test_partial_failure_credits_only_reachable_repo(tmp_path, monkeypatch):
-    """(b3): a reachable repo's PRs still earn edition credit; the failed
+    """(b3): a reachable repo's PRs still land in the delivery log; the failed
     repo's PRs (none collected) do not appear in editions.jsonl."""
     from gazette import editions
 
     repos = Config().github_repos
     ok_pr = make_pr(repo=repos[1], number=37, title="reachable",
-                    labels=[LABEL_DELAY], created_at=NOW - timedelta(hours=5))
+                    labels=[LABEL_APPROVAL], created_at=NOW - timedelta(hours=5))
     open_by_repo = {
         repos[0]: ([], ["j: gh CLI not found (searched PATH: /bin)"], True),
         repos[1]: ([ok_pr], [], False),
@@ -405,9 +416,9 @@ def test_unswept_lane_prs_reports_only_repos_outside_the_sweep(monkeypatch):
 
     cfg = Config(github_repos=["dtch1997/jarvis"])
     monkeypatch.setattr(gh, "search_lane_prs", _fake_search({
-        LABEL_AUTO: [
-            _stray("dtch1997/jarvis", 29, LABEL_AUTO),          # swept — ignored
-            _stray("dtch1997/life-theses", 11, LABEL_AUTO, "Weekly thesis refresh"),
+        LABEL_APPROVAL: [
+            _stray("dtch1997/jarvis", 29, LABEL_APPROVAL),          # swept — ignored
+            _stray("dtch1997/life-theses", 11, LABEL_APPROVAL, "Weekly thesis refresh"),
         ],
         LABEL_DELAY: [_stray("dtch1997/life-theses", 11, LABEL_DELAY)],  # dupe
     }))
@@ -417,17 +428,18 @@ def test_unswept_lane_prs_reports_only_repos_outside_the_sweep(monkeypatch):
 
     msgs = gh.coverage_gap_messages(rows)
     assert "life-theses#11" in msgs[0] and "not in github_repos" in msgs[0]
-    assert LABEL_AUTO in msgs[0]
+    assert LABEL_APPROVAL in msgs[0]
 
 
 def test_unswept_lane_search_failure_is_a_warning_not_a_crash(monkeypatch):
     from gazette import gh
+    from gazette.lanes import LANE_LABELS
 
     cfg = Config(github_repos=["dtch1997/jarvis"])
     monkeypatch.setattr(gh, "search_lane_prs",
-                        _fake_search({}, warn_labels=(LABEL_AUTO, LABEL_DELAY, LABEL_BLOCKED)))
+                        _fake_search({}, warn_labels=LANE_LABELS))
     rows, warnings = gh.unswept_lane_prs(cfg)
-    assert rows == [] and len(warnings) == 3
+    assert rows == [] and len(warnings) == len(LANE_LABELS)
     assert all("lane-coverage search" in w for w in warnings)
 
 
@@ -442,7 +454,7 @@ def test_sweep_spools_an_unswept_row_and_reports_it(tmp_path, monkeypatch):
     cfg = Config(github_repos=["dtch1997/jarvis"])
     monkeypatch.setattr(gh, "list_open_prs", lambda repo: ([], [], False))
     monkeypatch.setattr(gh, "unswept_lane_prs",
-                        lambda cfg: ([_stray("dtch1997/life-theses", 11, LABEL_AUTO)], []))
+                        lambda cfg: ([_stray("dtch1997/life-theses", 11, LABEL_APPROVAL)], []))
 
     report = sweep.run(cfg, now=NOW, dry_run=True)
     assert [r["ref"] for r in report["unswept"]] == ["life-theses#11"]
@@ -457,10 +469,124 @@ def test_coverage_gap_is_an_anomaly_without_marking_the_edition_incomplete():
     """A stranded PR is a real anomaly (nobody will decide it) but the data we
     did collect is complete — so no INCOMPLETE banner, unlike a dead collector."""
     cfg = Config()
-    gap = "life-theses#11 carries lane:auto but dtch1997/life-theses is not in github_repos"
+    gap = "life-theses#11 carries requires-approval but dtch1997/life-theses is not in github_repos"
     ed = compile_edition(cfg, NOW, [], [], coverage_gaps=[gap])
     assert not ed.incomplete
     assert any("not swept" in a and "life-theses#11" in a for a in ed.anomalies)
     text = build_notes(cfg, ed)
     assert "INCOMPLETE" not in text
     assert "## Anomalies" in text and "life-theses#11" in text
+
+
+# --------------------------------------------------------------------------- #
+# versions: nightly cut / deploy / switch against a real (temp) git repo
+# --------------------------------------------------------------------------- #
+def _sh(cwd, *args):
+    subprocess.run(args, cwd=str(cwd), check=True, capture_output=True, text=True)
+
+
+@pytest.fixture
+def vcfg(tmp_path, monkeypatch):
+    """A bare origin + a 'deployed checkout' clone, wired into a Config with
+    no deploy_cmds (the venv/cron steps are not under test)."""
+    monkeypatch.setenv("GAZETTE_HOME", str(tmp_path))
+    origin = tmp_path / "origin.git"
+    _sh(tmp_path, "git", "init", "--bare", "-q", "-b", "main", str(origin))
+    co = tmp_path / "checkout"
+    _sh(tmp_path, "git", "init", "-q", "-b", "main", str(co))
+    _sh(co, "git", "config", "user.email", "t@t")
+    _sh(co, "git", "config", "user.name", "t")
+    (co / "f.txt").write_text("one\n")
+    _sh(co, "git", "add", "f.txt")
+    _sh(co, "git", "commit", "-qm", "c1")
+    _sh(co, "git", "remote", "add", "origin", str(origin))
+    _sh(co, "git", "push", "-qu", "origin", "main")
+    return Config(checkout=str(co), deploy_cmds=[])
+
+
+def _commit(cfg, text):
+    from pathlib import Path
+
+    co = Path(cfg.checkout)
+    (co / "f.txt").write_text(text)
+    _sh(co, "git", "commit", "-aqm", text)
+    _sh(co, "git", "push", "-q", "origin", "main")
+
+
+def _head(cfg):
+    from gazette.versions import _git, checkout_path
+
+    return _git(checkout_path(cfg), "rev-parse", "HEAD")[1]
+
+
+def test_next_tag_suffixes_same_day():
+    from gazette.versions import _next_tag
+
+    day = datetime(2026, 8, 19)
+    assert _next_tag(set(), day) == "v2026.08.19"
+    assert _next_tag({"v2026.08.19"}, day) == "v2026.08.19.2"
+    assert _next_tag({"v2026.08.19", "v2026.08.19.2"}, day) == "v2026.08.19.3"
+
+
+def test_cut_tags_origin_main_and_is_idempotent(vcfg):
+    from gazette import versions
+
+    ok, msg = versions.cut(vcfg, now=datetime(2026, 8, 19))
+    assert ok and "v2026.08.19" in msg
+    ok, msg = versions.cut(vcfg, now=datetime(2026, 8, 19))
+    assert ok and "nothing to cut" in msg  # same tip → no-op
+    _commit(vcfg, "two\n")
+    ok, msg = versions.cut(vcfg, now=datetime(2026, 8, 19))
+    assert ok and "v2026.08.19.2" in msg  # same day, new tip → suffixed
+    rows, warn = versions.list_versions(vcfg)
+    assert warn is None
+    assert [r["tag"] for r in rows][:2] == ["v2026.08.19.2", "v2026.08.19"]
+
+
+def test_switch_pins_and_deploys_and_latest_unpins(vcfg):
+    from gazette import versions
+
+    versions.cut(vcfg, now=datetime(2026, 8, 19))
+    old_head = _head(vcfg)
+    _commit(vcfg, "two\n")
+    versions.cut(vcfg, now=datetime(2026, 8, 20))
+
+    ok, lines = versions.switch(vcfg, "v2026.08.19")
+    assert ok, lines
+    assert versions.current_pin() == "v2026.08.19"
+    assert _head(vcfg) == old_head  # box rolled back to the old version
+    assert "PINNED" in versions.status(vcfg) and "v2026.08.19" in versions.status(vcfg)
+
+    # nightly deploy keeps the pin
+    ok, lines = versions.deploy(vcfg)
+    assert ok and _head(vcfg) == old_head
+
+    ok, lines = versions.switch(vcfg, "latest")
+    assert ok, lines
+    assert versions.current_pin() is None
+    assert _head(vcfg) != old_head  # back on main's tip
+    assert "PINNED" not in versions.status(vcfg)
+
+
+def test_switch_rejects_unknown_targets(vcfg):
+    from gazette import versions
+
+    ok, lines = versions.switch(vcfg, "v2020.01.01")
+    assert not ok and "no such version" in lines[0]
+    ok, lines = versions.switch(vcfg, "garbage")
+    assert not ok and "not a version tag" in lines[0]
+    assert versions.current_pin() is None  # failed switches leave no pin
+
+
+def test_deploy_unpinned_fast_forwards_main(vcfg):
+    from gazette import versions
+    from gazette.versions import _git, checkout_path
+
+    _commit(vcfg, "two\n")
+    new_head = _head(vcfg)
+    _sh(checkout_path(vcfg), "git", "reset", "-q", "--hard", "HEAD~1")
+    assert _head(vcfg) != new_head
+    ok, lines = versions.deploy(vcfg)
+    assert ok, lines
+    assert _head(vcfg) == new_head
+    assert _git(checkout_path(vcfg), "branch", "--show-current")[1] == "main"
