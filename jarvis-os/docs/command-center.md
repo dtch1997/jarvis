@@ -24,6 +24,10 @@ to its current implementation, and lists the pain points honestly. The
 immediate trigger was evaluating `dtch1997/project-journal` as a candidate
 piece; the diagnosis below says which hole it actually fills.
 
+The user-facing distillation of this doc — the five surfaces Daniel
+touches and the guarantee each owes him — is
+[`docs/interface-contract.md`](interface-contract.md).
+
 **The core framing.** The scarce resource is Daniel-attention. Every layer
 exists either to (a) let work proceed without it, or (b) spend it at maximum
 leverage when it *is* needed. A good command center is therefore mostly not a
