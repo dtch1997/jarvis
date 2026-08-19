@@ -53,8 +53,8 @@ def main():
     ax.set_ylim(-0.02, 1.02)
     ax.set_xlim(0, 510)
     ax.legend(loc="lower left")
-    ax.set_title("Length generalization tracks C-RASP membership "
-                 "(NoPE transformer, state prediction)")
+    ax.set_title("No C-RASP separation at minimal scale — the two languages "
+                 "decay identically (all qualifying seeds)")
     (ROOT / "figures").mkdir(exist_ok=True)
     fig.savefig(ROOT / "figures" / "length-gen.png", dpi=160,
                 bbox_inches="tight")
