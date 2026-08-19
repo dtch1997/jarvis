@@ -24,6 +24,10 @@ def _veto_cmd(pr: PR) -> str:
     return f"`gh pr edit {pr.number} -R {pr.repo} --add-label veto`"
 
 
+def _approve_cmd(pr: PR) -> str:
+    return f"`gh pr merge {pr.number} -R {pr.repo} --squash`"
+
+
 def _age_days(pr: PR, now: datetime) -> int:
     return max(0, (now - pr.created_at).days)
 
@@ -65,7 +69,6 @@ def compile_edition(
     now: datetime,
     open_prs: list[PR],
     merged: list[dict],
-    appearances: dict[str, int] | None = None,
     warnings: list[str] | None = None,
     collector_errors: list[str] | None = None,
     coverage_gaps: list[str] | None = None,
@@ -81,42 +84,31 @@ def compile_edition(
     # An anomaly (not a collector error): the edition is complete, not blind.
     ed.anomalies.extend(f"not swept — {m}" for m in (coverage_gaps or []))
     for pr in sorted(open_prs, key=lambda p: p.created_at):
-        seen = appearances.get(pr.ref, 0) if appearances is not None else None
-        d = decide(pr, cfg, now, seen)
+        d = decide(pr, cfg, now)
         ed.anomalies.extend(f"{pr.ref}: {a}" for a in d.anomalies)
         if d.reason == "draft":
             continue  # not being asked to merge yet — not part of the edition
         ed.visible_refs.append(pr.ref)
         if d.reason.startswith("vetoed"):
             ed.pipeline.append(f"- {pr.ref} **{pr.title}** ({d.lane.value}) — {d.reason} — {pr.url}")
-        elif d.lane is Lane.BLOCKED:
+        elif d.lane is Lane.APPROVAL:
             age = _age_days(pr, now)
             ed.needs_you.append(
-                f"- {pr.ref} **{pr.title}** — blocked lane, {age}d old — "
-                f"sits until you act — {pr.url}"
+                f"- {pr.ref} **{pr.title}** — requires approval, {age}d old — "
+                f"sits until you act — approve: {_approve_cmd(pr)} — {pr.url}"
             )
-            ed.needs_you_short.append(f"• blocked: {pr.ref} {pr.title} — {age}d old")
-        elif d.lane is Lane.DELAY:
-            if d.reason.startswith("checks"):
-                # not mergeable until checks go green — ambient, and failing
-                # checks already surface as an anomaly
-                ed.pipeline.append(
-                    f"- {pr.ref} **{pr.title}** ({d.lane.value}) — {d.reason} — {pr.url}"
-                )
-                continue
-            if d.action == "merge":
-                outcome = "merges at tonight's sweep unless vetoed"
-            else:
-                outcome = f"{d.reason}; merges once it elapses unless vetoed"
-            ed.needs_you.append(
-                f"- {pr.ref} **{pr.title}** — {outcome} — veto: {_veto_cmd(pr)} — {pr.url}"
-            )
-            when = "tonight" if d.action == "merge" else "after the window"
             ed.needs_you_short.append(
-                f"• veto window: {pr.ref} {pr.title} — merges {when} unless vetoed"
+                f"• requires approval: {pr.ref} {pr.title} — {age}d old"
             )
-        else:  # auto lane waiting on checks / merging tonight — ambient
-            ed.pipeline.append(f"- {pr.ref} **{pr.title}** ({d.lane.value}) — {d.reason} — {pr.url}")
+        else:
+            # auto lane — ambient: pending checks merge at the next hourly
+            # sweep on green (failing checks already surface as an anomaly);
+            # a still-open merge-decision PR here just means the sweep hasn't
+            # run since it went green. Veto stays available until it merges.
+            ed.pipeline.append(
+                f"- {pr.ref} **{pr.title}** ({d.lane.value}) — {d.reason}; merges at "
+                f"the next hourly sweep — veto: {_veto_cmd(pr)} — {pr.url}"
+            )
     return ed
 
 
@@ -125,6 +117,7 @@ def build_notes(
     ed: Edition,
     news: str | None = None,
     desk_text: str | None = None,
+    version_line: str | None = None,
 ) -> str:
     """Render the full edition (the spooled markdown page)."""
     date = ed.now.date().isoformat()
@@ -133,6 +126,8 @@ def build_notes(
         lines = [f"# ⚠ Patch notes — {date} — INCOMPLETE: collector failed for {repos}", ""]
     else:
         lines = [f"# Patch notes — {date}", ""]
+    if version_line:
+        lines += [f"*{version_line}*", ""]
 
     if ed.incomplete:
         # Never claim "Needs you (0)" on incomplete data — that is exactly the
@@ -182,7 +177,8 @@ def build_notes(
     return "\n".join(lines)
 
 
-def flare_body(ed: Edition, news: str | None = None, spool_path=None) -> str:
+def flare_body(ed: Edition, news: str | None = None, spool_path=None,
+               version_line: str | None = None) -> str:
     """The morning Slack message: needs-you + anomalies + news TL;DR."""
     date = ed.now.date().isoformat()
     if ed.incomplete:
@@ -221,6 +217,9 @@ def flare_body(ed: Edition, news: str | None = None, spool_path=None) -> str:
         shown = ", ".join(refs[:8]) + (f" (+{len(refs) - 8} more)" if len(refs) > 8 else "")
         lines.append("")
         lines.append(f"NEWS: {len(refs)} merged — {shown}")
+    if version_line:
+        lines.append("")
+        lines.append(version_line)
     if spool_path:
         lines.append("")
         lines.append(f"Full edition → {spool_path}")
@@ -233,7 +232,7 @@ def digest(cfg: Config, now: datetime, open_prs: list[PR], merged: list[dict]) -
     waiting = blocked = 0
     for pr in open_prs:
         d = decide(pr, cfg, now)
-        if d.lane is Lane.BLOCKED or d.action == "skip":
+        if d.lane is Lane.APPROVAL:
             blocked += 1
         else:
             waiting += 1

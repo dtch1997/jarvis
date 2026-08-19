@@ -22,8 +22,9 @@ Shorthand directives I use. When I type one, treat it as the instruction below.
   NB the SOP applies **by default** even without this keyword; typing it just
   invokes it explicitly.
 - **"wrap up"** — close out the current piece of work (usually an experiment):
-  1. Commit all changes on the worktree branch and open a PR, labeled with
-     its merge lane (see "PR lanes — consumer mode").
+  1. Commit all changes on the worktree branch and open a PR — no label
+     needed unless it involves money/credentials/external-facing/destructive
+     actions, which get `requires-approval` (see "PR flow — consumer mode").
   2. Make sure any novel findings are **reproducible** — the spec/command that
      produced them is committed, seeds/config are captured, and a fresh run
      would regenerate the result.
@@ -248,36 +249,46 @@ sentence, one term per concept. Register rules for Slack posts and
 explanations to Daniel live in memory (`slack-post-style`,
 `explain-in-plain-prose`) and stack on top.
 
-## PR lanes — consumer mode (gazette)
+## PR flow — consumer mode (gazette + nightly versions)
 
-Daniel is a **consumer** of JARVIS software: he reads morning patch notes
-about what merged, he doesn't review every PR. **Label every PR with a lane
-at open time** (`--label` on `gh pr create`); the nightly `gazette sweep`
-cron merges what the lane allows, and the morning `gazette notes` cron
-delivers patch notes.
+Daniel is a **consumer** of JARVIS software: PRs merge without his review,
+the box runs a named nightly version, and his control is rollback, not
+gatekeeping (reworked 2026-08-19 — the delay lane is gone). The hourly
+`gazette sweep` merges every open PR whose checks are green; the morning
+`gazette notes` delivers patch notes.
 
-- **`lane:auto`** — docs, drafts, wiki, dashboards, memory-adjacent, goal
-  appends: merged nightly on green checks.
-- **`lane:delay`** — anything that shapes future agent behavior: CLAUDE.md /
-  HOUSE_RULES, `ops/cron.tab`, arsenal tool behavior. Merged after appearing
-  in 2 morning patch-notes editions unless Daniel vetoes (a skipped morning
-  pauses the window — see `docs/morning-routine.md`). Unlabeled PRs default
-  here (flagged unclassified).
-- **`lane:blocked`** — money, credentials, external-facing actions,
-  destructive ops: never cron-merged; goes through the desk/flare flow.
+- **Default: merge on green.** Open PRs normally — no lane label needed
+  (`lane:auto` is accepted but redundant). Pre-merge veto = `veto` label or
+  a changes-requested review; post-merge remedy = version rollback (below)
+  or a revert PR.
+- **`requires-approval`** — money, credentials, external-facing actions,
+  destructive ops: label it at open time (`--label requires-approval` on
+  `gh pr create`); never cron-merged, goes through the desk/flare flow.
+  Legacy `lane:blocked` still works as an alias; retired `lane:delay` is
+  treated as auto with an anomaly note in the edition.
+- **Backstops, regardless of label**: anything touching credential-like
+  paths (`.env*`, `*secret*`, `*credential*`) is treated as
+  requires-approval; merges touching behavior-shaping paths (CLAUDE.md,
+  `ops/**`, `.claude/**`, workspace packages) merge normally but are
+  annotated "behavior-shaping" in the sweep log and edition.
+- **Nightly versions — the rollback layer.** Merges land on main all day,
+  but the *box* changes once per night: the 04:10 cron runs `gazette
+  version cut` (tags origin/main as `vYYYY.MM.DD`) then `gazette version
+  deploy` (pull + `uv sync` + link-clis + install-cron). Don't like
+  something that shipped? `gazette version switch v<date>` pins the box to
+  that version — CLAUDE.md, crons, and CLIs roll back together — and the
+  pin survives nightly deploys until `gazette version switch latest`
+  resumes tracking. `gazette version list|status` to orient; the morning
+  edition names the running version.
 
-**Lane labels only work in swept repos.** The sweep enumerates the repos in
+**The sweep only sees swept repos.** It enumerates the repos in
 `~/.config/gazette/config.toml` (`github_repos`: this monorepo +
-`dtch1997/life-theses`) and nothing else — a lane-labelled PR anywhere else is
-decided by nobody. Opening lane-labelled PRs from a new repo (or repointing
-the config, as the 2026-08-18 monorepo cutover did) means adding it there in
-the same pass; gazette now flags stragglers under the same owner as `unswept`
-rows + a morning anomaly instead of swallowing them.
+`dtch1997/life-theses`) and nothing else — a PR anywhere else is decided by
+nobody. Opening PRs from a new repo that should ride this flow (or
+repointing the config, as the 2026-08-18 monorepo cutover did) means adding
+it there in the same pass; gazette flags labelled stragglers under the same
+owner as `unswept` rows + a morning anomaly instead of swallowing them.
 
-Demotions are the backstop, regardless of label: auto→delay on protected
-paths (CLAUDE.md, `ops/**`, `.claude/**`), anything→blocked on
-credential-like paths. Veto = `veto` label or a changes-requested review.
-Mislabeling shows up in patch notes as an anomaly — pick the honest lane.
 After a gazette merge the remote branch is deleted but **local worktrees are
 not** — sessions still clean up their own worktrees (next section).
 

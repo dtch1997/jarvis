@@ -1,10 +1,21 @@
 """Lane resolution and merge decisions — pure functions, no I/O.
 
-A PR's *lane* comes from its ``lane:*`` label, then gets demoted by what the
-PR actually touches: auto-lane PRs touching protected paths drop to delay;
-any PR touching credential-like paths drops to blocked. The label is the
-author's claim; the demotion rules are the backstop that makes a wrong claim
-harmless. Unlabeled PRs default to delay and are flagged as unclassified.
+Two lanes (2026-08-19 rework — Daniel's call: merge-on-green + nightly
+versions replace the delay window):
+
+- **auto** — the default. No label needed; merges as soon as checks are
+  green. Post-merge safety is versioning (``gazette version switch``), not a
+  veto window.
+- **requires-approval** — money, credentials, external-facing actions,
+  destructive ops. Never cron-merged; waits for Daniel via desk/flare.
+
+A PR's lane comes from its label (``requires-approval``; legacy
+``lane:blocked`` is an alias, legacy ``lane:delay`` is retired and treated
+as auto with an anomaly note), then gets demoted by what it touches: any PR
+touching credential-like paths becomes requires-approval regardless of
+label. Behavior-shaping paths (CLAUDE.md, ops/**, …) no longer demote —
+they only annotate the decision so the sweep log and morning edition can
+call the merge out.
 """
 
 from __future__ import annotations
@@ -17,18 +28,20 @@ from pathlib import PurePosixPath
 
 from .config import Config
 
-LABEL_AUTO = "lane:auto"
-LABEL_DELAY = "lane:delay"
-LABEL_BLOCKED = "lane:blocked"
+LABEL_AUTO = "lane:auto"  # optional; same as unlabeled
+LABEL_DELAY = "lane:delay"  # retired 2026-08-19; treated as auto
+LABEL_APPROVAL = "requires-approval"
+LABEL_BLOCKED = "lane:blocked"  # legacy alias for requires-approval
 LABEL_VETO = "veto"
 
-LANE_LABELS = (LABEL_AUTO, LABEL_DELAY, LABEL_BLOCKED)
+# Labels the coverage search scans for in unswept repos — includes the legacy
+# names so a straggler PR opened under the old convention still shows up.
+LANE_LABELS = (LABEL_APPROVAL, LABEL_AUTO, LABEL_DELAY, LABEL_BLOCKED)
 
 
 class Lane(str, Enum):
     AUTO = "auto"
-    DELAY = "delay"
-    BLOCKED = "blocked"
+    APPROVAL = "requires-approval"
 
 
 @dataclass
@@ -75,25 +88,22 @@ def _touched(files: list[str], globs: list[str]) -> list[str]:
 
 
 def resolve_lane(labels: list[str], files: list[str], cfg: Config) -> tuple[Lane, list[str]]:
-    """Return (lane, reasons). Reasons record demotions/defaults for the notes."""
+    """Return (lane, reasons). Reasons record demotions/legacy labels for the notes."""
     reasons: list[str] = []
     hot = _touched(files, cfg.blocked_globs)
     if hot:
-        if LABEL_BLOCKED not in labels:
-            reasons.append(f"demoted to blocked: touches {', '.join(hot[:3])}")
-        return Lane.BLOCKED, reasons
-    if LABEL_BLOCKED in labels:
-        return Lane.BLOCKED, reasons
-    if LABEL_AUTO in labels:
-        protected = _touched(files, cfg.protected_globs)
-        if protected:
-            reasons.append(f"demoted to delay: touches {', '.join(protected[:3])}")
-            return Lane.DELAY, reasons
-        return Lane.AUTO, reasons
+        if LABEL_APPROVAL not in labels and LABEL_BLOCKED not in labels:
+            reasons.append(
+                f"demoted to requires-approval: touches {', '.join(hot[:3])}"
+            )
+        return Lane.APPROVAL, reasons
+    if LABEL_APPROVAL in labels or LABEL_BLOCKED in labels:
+        return Lane.APPROVAL, reasons
     if LABEL_DELAY in labels:
-        return Lane.DELAY, reasons
-    reasons.append("unclassified (no lane:* label) — defaulting to delay")
-    return Lane.DELAY, reasons
+        reasons.append(
+            "carries retired lane:delay — delay lane removed 2026-08-19, treating as auto"
+        )
+    return Lane.AUTO, reasons
 
 
 @dataclass
@@ -104,15 +114,8 @@ class Decision:
     anomalies: list[str] = field(default_factory=list)
 
 
-def decide(pr: PR, cfg: Config, now: datetime, appearances: int | None = None) -> Decision:
-    """The sweep's whole policy, as one pure function over a normalized PR.
-
-    ``appearances`` is how many distinct morning editions the PR has appeared
-    in (see editions.py). When provided, the delay-lane veto window is counted
-    in delivered editions — a skipped morning pauses the window — and the
-    wall-clock ``delay_hours`` is kept only as a stall detector. When None
-    (no edition data supplied), falls back to the wall-clock window.
-    """
+def decide(pr: PR, cfg: Config, now: datetime) -> Decision:
+    """The sweep's whole policy, as one pure function over a normalized PR."""
     lane, reasons = resolve_lane(pr.labels, pr.files, cfg)
     anomalies = list(reasons)
     if pr.is_draft:
@@ -121,34 +124,21 @@ def decide(pr: PR, cfg: Config, now: datetime, appearances: int | None = None) -
         return Decision("skip", lane, "vetoed (`veto` label)", anomalies)
     if pr.review_decision == "CHANGES_REQUESTED":
         return Decision("skip", lane, "vetoed (changes requested)", anomalies)
-    if lane is Lane.BLOCKED:
-        return Decision("skip", lane, "blocked lane — needs Daniel", anomalies)
+    if lane is Lane.APPROVAL:
+        return Decision("skip", lane, "requires approval — waits for Daniel", anomalies)
     if pr.checks == "failing":
         anomalies.append("checks failing")
         return Decision("wait", lane, "checks failing", anomalies)
     if pr.checks == "pending":
         return Decision("wait", lane, "checks pending", anomalies)
-    if lane is Lane.AUTO:
-        return Decision("merge", lane, "auto lane, checks green", anomalies)
-    age_h = (now - pr.created_at).total_seconds() / 3600.0
-    if appearances is None:
-        if age_h >= cfg.delay_hours:
-            return Decision("merge", lane, f"veto window elapsed ({age_h:.0f}h)", anomalies)
-        remaining = cfg.delay_hours - age_h
-        return Decision("wait", lane, f"in veto window (~{remaining:.0f}h left)", anomalies)
-    if appearances >= cfg.delay_editions:
+    # Behavior-shaping paths merge like anything else now (versioning is the
+    # backstop), but the merge is annotated so it stands out in the sweep log
+    # and the morning edition's news.
+    shaping = _touched(pr.files, cfg.protected_globs)
+    if shaping:
         return Decision(
             "merge", lane,
-            f"veto window elapsed (seen in {appearances}/{cfg.delay_editions} morning editions)",
+            f"checks green (behavior-shaping: touches {', '.join(shaping[:3])})",
             anomalies,
         )
-    if age_h >= 3 * cfg.delay_hours:
-        anomalies.append(
-            f"stalled: aged {age_h:.0f}h but seen in only {appearances}/"
-            f"{cfg.delay_editions} editions — is the notes cron running?"
-        )
-    return Decision(
-        "wait", lane,
-        f"in veto window (seen in {appearances}/{cfg.delay_editions} morning editions)",
-        anomalies,
-    )
+    return Decision("merge", lane, "checks green", anomalies)

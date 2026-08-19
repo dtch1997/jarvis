@@ -32,23 +32,23 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # pod-audit: weekly RunPod leak detector (jarvis ops/pod-audit; deployed copy in ~/jarvis-data)
 23 9 * * 1 python3 /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.py --allowlist /mnt/nw/home/d.tan/jarvis-data/pod-audit/allowlist.json --out /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.jsonl --github-repo ArcadiaImpact/jarvis >> /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.log 2>&1
 
-# deploy: after the nightly sweep, pull merged main into the pinned checkout,
-# refresh the workspace venv + PATH links, and reconcile the crontab. Without
-# this, gazette-merged tool/cron changes sit undeployed until a session
-# happens to pull — consumer mode needs merge→deploy to be automatic too.
-# (install-cron.sh here re-installs from the freshly pulled cron.tab, so a
-# merged cron change goes live the same night; ff-only aborts safely if a
-# checkout ever diverges.)
-10 4 * * * cd /mnt/nw/home/d.tan/jarvis && git pull --ff-only -q && (cd /mnt/nw/home/d.tan/jarvis-monorepo && /mnt/nw/home/d.tan/.local/bin/uv sync --all-packages -q && jarvis-tools/ops/link-clis.sh) && ops/install-cron.sh >> /mnt/nw/home/d.tan/.claude/logs/deploy.log 2>&1
+# deploy: nightly version cut + deploy. `version cut` tags origin/main's tip
+# as vYYYY.MM.DD (the night's JARVIS version); `version deploy` deploys it —
+# pull the pinned checkout forward (or honor a `gazette version switch`
+# rollback pin) and re-run the post-deploy steps (uv sync, link-clis,
+# install-cron) so venv/CLIs/crontab always match the deployed tree. Merges
+# happen hourly, but the BOX changes only here — this is the version boundary.
+# Rollback: gazette version switch v<date>; resume: gazette version switch latest.
+10 4 * * * { /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette version cut && /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette version deploy; } >> /mnt/nw/home/d.tan/.claude/logs/deploy.log 2>&1
 
 # jarvis-memory: nightly auto-snapshot commit+push
 41 3 * * * cd /mnt/nw/home/d.tan/jarvis-memory && git add -A && git commit -qm "auto-snapshot $(date +\%F)" >/dev/null 2>&1; git push -q >> /mnt/nw/home/d.tan/.claude/logs/memory-backup.log 2>&1
 
-# gazette: nightly lane-respecting PR merge sweep (consumer-mode PR flow — see
-# CLAUDE.md "PR lanes"); morning edition at 08:05 (spooled + flare; folds in
-# the desk digest, so there is no separate desk→flare cron — see
-# docs/morning-routine.md)
-29 3 * * * /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette sweep >> /mnt/nw/home/d.tan/.claude/logs/gazette.log 2>&1
+# gazette: hourly merge-on-green sweep (consumer-mode PR flow — see CLAUDE.md
+# "PR flow"; auto merges on green within the hour, requires-approval never);
+# morning edition at 08:05 (spooled + flare; folds in the desk digest, so
+# there is no separate desk→flare cron — see docs/morning-routine.md)
+29 * * * * /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette sweep >> /mnt/nw/home/d.tan/.claude/logs/gazette.log 2>&1
 5 8 * * * /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette notes --flare >> /mnt/nw/home/d.tan/.claude/logs/gazette.log 2>&1
 
 # desk: hourly inbox sync (new blocked items still flare immediately)
@@ -82,4 +82,4 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # docs/background-thinking.md) — frontier refresh + fully-specced proposals
 # as a review PR for checkbox veto; Tuesday 06:45 so the PR surfaces in that
 # morning's edition.
-45 6 * * 2 cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run a goal-review cycle per .claude/skills/goal-review/SKILL.md. Follow its hard rules exactly — propose-only, report even if nothing changed, open the review PR labeled lane:auto." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/goal-review.log 2>&1
+45 6 * * 2 cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run a goal-review cycle per .claude/skills/goal-review/SKILL.md. Follow its hard rules exactly — propose-only, report even if nothing changed, open the review PR (no lane label needed — it merges on green)." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/goal-review.log 2>&1

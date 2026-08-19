@@ -31,7 +31,7 @@ yourself — routing is mailroom's job.
 or appears in the digest, and the mark at source is your receipt.
 
 **Caveat:** the drain cron isn't installed until mailroom's PR merges
-(lane:blocked); until then drains are manual runs. Validated at 458
+(requires-approval); until then drains are manual runs. Validated at 458
 thoughts, 95% routed, 0 Todoist completions lost.
 
 ## 2. Slack #jarvis-dev — READ
@@ -83,21 +83,23 @@ dislike — never a prerequisite anything waits on.
 
 ## 5. PR queue — REVIEW · VETO
 
-**You do:** read patch notes; veto what you dislike; deep-review only
-lane:blocked.
+**You do:** read patch notes; roll back what you dislike; deep-review only
+requires-approval.
 
 | Lane | Guarantee |
 |---|---|
-| lane:auto | merges 03:29 on green, deployed by 04:10, reported at 08:05 — zero action needed |
-| lane:delay | holds for **2 morning editions you actually received** (skipped mornings pause the clock); veto = `veto` label or changes-requested review |
-| lane:blocked | never merges without you — money, credentials, external-facing, destructive; surfaces on desk + flare and waits |
-| backstop | mislabels demote automatically (protected paths → delay, credential-like → blocked) and show in patch notes as anomalies |
+| (default) | merges on green at the next hourly sweep, deployed at the 04:10 version cut, reported at 08:05 — zero action needed; pre-merge veto = `veto` label or changes-requested review |
+| requires-approval | never merges without you — money, credentials, external-facing, destructive; surfaces on desk + flare and waits |
+| versions | the box runs a named nightly version (`vYYYY.MM.DD`); anything that shipped can be rolled back with `gazette version switch v<date>` (crons/CLIs/CLAUDE.md together) and resumed with `switch latest` |
+| backstop | credential-like paths force requires-approval regardless of label; behavior-shaping merges (CLAUDE.md, ops/**) are annotated in the edition |
 
-**Promise:** nothing behavior-shaping or money-spending merges past you
-faster than two mornings you were present for.
+**Promise:** nothing money-spending or credential-touching merges without
+you, and anything else that shipped is one `gazette version switch` from
+undone — the box never runs a state you can't name and roll back.
 
-**Caveat:** review throughput is the documented 🔴 bottleneck — lanes shrink
-what needs you; they don't review for you.
+**Caveat:** behavior-shaping changes now merge on green (2026-08-19 rework)
+— the morning edition's annotations and the version diff are your review
+surface, not a pre-merge window.
 
 ---
 

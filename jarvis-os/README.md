@@ -60,24 +60,21 @@ build order live in [`docs/command-center.md`](docs/command-center.md).
 ## Consumer mode: how changes land
 
 The user does not review every PR — he reads **morning patch notes**
-about what merged, and reverts + files issues when something regresses
+about what merged, and rolls back + files issues when something regresses
 (the full argument for this stance:
 [`drafts/consumer-of-your-own-software.md`](drafts/consumer-of-your-own-software.md)).
-Every PR is labeled with a trust lane at open time, and the nightly
-`gazette` cron merges what the lane allows:
+The hourly `gazette` sweep merges every PR whose checks are green — no
+label needed. The one gate is the **`requires-approval`** label (money,
+credentials, external-facing, destructive): those never cron-merge and
+route through the attention layer instead.
 
-- **`lane:auto`** — docs, drafts, wiki, dashboards, goal appends: merged
-  nightly on green checks.
-- **`lane:delay`** — anything that shapes future agent behavior
-  (CLAUDE.md, crons, tool behavior): merged after appearing in two
-  morning patch-notes editions unless vetoed.
-- **`lane:blocked`** — money, credentials, external-facing, destructive:
-  never cron-merged; routed through the attention layer.
-
-Guardrails are structural, not attentional: protected paths demote a
-PR's lane regardless of its label, and irreversible actions block on the
-user by mechanism — because by construction he isn't watching in real
-time.
+Safety is versioning, not review: nightly, `gazette version cut` tags
+main as `vYYYY.MM.DD` and `gazette version deploy` deploys it, so the
+running system changes once per night and any version can be returned to
+with `gazette version switch v<date>` — CLAUDE.md, crons, and CLIs roll
+back together. Guardrails stay structural, not attentional:
+credential-like paths force requires-approval regardless of label, and
+behavior-shaping merges (CLAUDE.md, ops) are called out in the edition.
 
 ## How to get the most out of JARVIS
 

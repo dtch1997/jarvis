@@ -9,7 +9,7 @@ jarvis's operating model.
 
 | Package | Policy it implements |
 |---|---|
-| [`gazette`](gazette) | PR-lane governance: `lane:auto`/`delay`/`blocked` semantics, veto windows, demotions, morning patch notes (CLAUDE.md "PR lanes — consumer mode") |
+| [`gazette`](gazette) | PR-flow governance: merge-on-green semantics, `requires-approval` gate, nightly versions + rollback (`gazette version`), morning patch notes (CLAUDE.md "PR flow — consumer mode") |
 | [`desk`](desk) | the operative definition of "blocked on Daniel": `BLOCKED-ON-DANIEL` markers, concierge task states, PR ages, flare staleness (CLAUDE.md "Attention routing") |
 | [`threads`](threads) | the activity spine: transcript scanning, memory-slug weaving, the relevance formula, `note`/`pickup` parking (CLAUDE.md "wrap up" step 4) |
 

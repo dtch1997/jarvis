@@ -1,4 +1,5 @@
-"""The nightly sweep: decide every open PR, merge what the lanes allow,
+"""The sweep (hourly since the 2026-08-19 rework): decide every open PR,
+merge what the lanes allow — auto merges on green, requires-approval never —
 record everything to the spool (``~/.gazette/log.jsonl``) for the notes."""
 
 from __future__ import annotations
@@ -8,7 +9,6 @@ from datetime import datetime, timezone
 
 from . import gh
 from .config import Config, spool_dir
-from .editions import load_appearances
 from .lanes import PR, Decision, decide
 
 
@@ -33,12 +33,11 @@ def run(cfg: Config, now: datetime | None = None, dry_run: bool = False) -> dict
         "merged": [], "waiting": [], "skipped": [], "errors": [], "unswept": [],
         "warnings": [],
     }
-    appearances = load_appearances()  # delay windows count delivered editions
     for repo in cfg.github_repos:
         prs, warnings, _failed = gh.list_open_prs(repo)
         report["warnings"].extend(warnings)
         for pr in prs:
-            decision = decide(pr, cfg, now, appearances.get(pr.ref, 0))
+            decision = decide(pr, cfg, now)
             row = {
                 "ts": now.isoformat(),
                 "repo": repo,

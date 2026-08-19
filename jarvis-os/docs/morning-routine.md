@@ -15,10 +15,9 @@ spooled to `~/.gazette/notes/YYYY-MM-DD.md` as the full page). Reading
 order is deadline-first:
 
 1. **Needs you** — the only section where reading has consequences, so it
-   comes first. Merges the veto-window items and desk items into one list,
-   each with its **default outcome** stated ("merges at tonight's sweep
-   unless vetoed" vs "sits until you act") and a copy-pasteable veto
-   command. The `desk digest` is folded in here — no separate 08:35 flare.
+   comes first. `requires-approval` PRs and desk items in one list, each
+   with a copy-pasteable approve command ("sits until you act"). The
+   `desk digest` is folded in here — no separate 08:35 flare.
 2. **Anomalies** — mislabeled lanes, demotions, failing checks, sweep
    errors. The trust-calibration channel for the whole consumer-mode bet:
    loud when present, absent when clean.
@@ -32,29 +31,34 @@ order is deadline-first:
 A quiet morning is one line: *"Patch notes — quiet: N merged, nothing needs
 you."* The routine only survives long-term if empty days cost five seconds.
 
-## Veto windows count delivered editions
+## Versions replace veto windows (2026-08-19 rework)
 
-A `lane:delay` PR merges only after it has **appeared in 2 morning
-editions** (`delay_editions`), not after 36 wall-clock hours. Each
-`gazette notes` run logs which PRs it showed (`~/.gazette/editions.jsonl`);
-a skipped morning — weekend, dead cron — pauses the window instead of
-letting conventions merge unseen. `delay_hours` survives only as a stall
-detector: a PR aged 3× the window with too few editions raises an anomaly
-("is the notes cron running?").
+The delay lane and its edition-counted veto window are **retired**. PRs
+merge on green at the hourly sweep; the safety net moved post-merge:
+nightly at 04:10 `gazette version cut` tags main as `vYYYY.MM.DD` and
+`gazette version deploy` deploys it, so the box's behavior changes once
+per night and every state has a name. Rollback is
+`gazette version switch v<date>` (crons, CLIs, and CLAUDE.md roll back
+together; the pin survives nightly deploys); `gazette version switch
+latest` resumes tracking. The edition names the running version, and
+behavior-shaping merges (CLAUDE.md, `ops/**`, packages) are annotated so
+you know when a version is worth a second look. `requires-approval`
+(money/credentials/external/destructive) is the one pre-merge gate left.
 
 ## Components
 
 | when  | what | tool | status |
 | ----- | ---- | ---- | ------ |
-| 03:29 | nightly PR merge sweep (produces the morning's news) | `gazette sweep` | live |
-| 04:10 | deploy — pull merged main, refresh venv/PATH links, reconcile cron | `ops/cron.tab` deploy entry | this PR |
-| 08:05 | **the edition** — needs-you / anomalies / news / ambient | `gazette notes --flare` | arsenal PR #73 |
+| :29 hourly | merge-on-green PR sweep | `gazette sweep` | live |
+| 04:10 | version cut + deploy — tag main `vYYYY.MM.DD`, deploy it (pull/pin, venv, PATH links, cron) | `gazette version cut && gazette version deploy` | live |
+| 08:05 | **the edition** — needs-you / anomalies / news / ambient, names the running version | `gazette notes --flare` | live |
 | 07:19 | threads scan+weave (activity dashboard stays fresh) | `threads` | live |
 | hourly | desk sync (new blocked items still flare immediately) | `desk sync` | live |
 | —     | goal-portfolio pulse (weekly, not daily) | `/goal-review` | on demand |
 
 Retired: the separate 08:35 desk→flare digest cron (folded into the
-edition by arsenal PR #73; removed from `ops/cron.tab` in this PR).
+edition by arsenal PR #73); the nightly-only sweep and the delay-lane
+veto window (2026-08-19 rework — versions are the rollback layer now).
 
 ## Response channel (next)
 
