@@ -2,6 +2,7 @@
 slug: phd-thesis
 title: Get the PhD thesis into good shape
 status: active
+serves: [empirical-research]
 automation: propose-only
 budget: TBD
 links: ["~/phd-thesis", "memory: phd-thesis-psm-program"]

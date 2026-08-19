@@ -46,6 +46,20 @@ for a typed task.
   (promotion to `active` = Daniel's one-word call, or his silence plus a
   planner proposal that survives a review cycle).
 
+## Portfolio shape — standing goals vs instances
+
+*(Daniel-stated 2026-08-18.)* Three **standing goals** define what autonomy
+serves: [empirical-research](empirical-research.md) (do good empirical
+research), [research-blogposts](research-blogposts.md) (write good blogposts
+about it), and [self-driving-jarvis](self-driving-jarvis.md) (improve JARVIS
+so it helps with both). Standing goals never finish — they hold the bar and
+the rubric. Other goals are **instances**: bounded projects serving a
+standing goal, marked `serves: [<standing-slug>]` in frontmatter (e.g.
+arc-whest-blogpost serves research-blogposts). Anything JARVIS does
+autonomously — /goal-review scoring, groundskeeper pickups, auto-drafted
+threads or candidate goals — should trace to a standing goal; a proposal
+serving none is a signal to surface explicitly, not to run silently.
+
 ## File format
 
 One goal per file, `<slug>.md`, YAML frontmatter + fixed sections (see
