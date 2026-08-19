@@ -234,6 +234,20 @@ venv paths or `uv run`.
    `~/concierge-home/HOUSE_RULES.md` (read per-spawn); `config.yaml` is read
    only at daemon startup — restart the tmux session after changing it.
 
+## Writing house rules
+
+Anything written for a reader — research slides, reports, blogposts,
+Slack posts, docs — follows
+[`docs/writing-house-rules.md`](docs/writing-house-rules.md). The core:
+research decks run **motivation → method → results → discussion**, open
+with a summary slide, and give each results plot its own slide; sentences
+put **characters as subjects and actions as verbs** (unbury
+nominalizations, subject+verb early, old-before-new); and prose keeps the
+Simplified-Technical-English spirit — short sentences, one topic per
+sentence, one term per concept. Register rules for Slack posts and
+explanations to Daniel live in memory (`slack-post-style`,
+`explain-in-plain-prose`) and stack on top.
+
 ## PR lanes — consumer mode (gazette)
 
 Daniel is a **consumer** of JARVIS software: he reads morning patch notes
