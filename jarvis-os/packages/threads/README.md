@@ -27,7 +27,10 @@ the cracks.
   sparklines, last-touched dates, sorting, and filters.
 - **Catch dropped work before it's lost.** Threads that go quiet get a
   dormancy flag; sessions that match no known project land in an *unfiled
-  inbox* instead of vanishing.
+  inbox* instead of vanishing. A daily **auto-wrapup sweep** goes further:
+  anything stale is classified (work at risk / dirty worktree / just needs a
+  disposition), evidenced with its branch and PR state, and reported — so a
+  forgotten thread gets *handled*, not just flagged.
 - **Park work and pick it back up cheaply.** `threads note` saves a context
   dump (state, next steps, pointers) onto a thread as you step away;
   `threads pickup` prints everything needed to resume — your parked notes
@@ -264,6 +267,65 @@ brand-new name to start a thread that has no note file yet. `pickup` prints
 the project's status line, all parked notes (newest first), and recent
 observed session summaries — a ready-made context pack for you or an agent.
 
+## Auto-wrapup — stale threads get handled, not forgotten
+
+A flag nobody reads is not handling. `threads sweep` is the daily backstop
+for threads that went quiet: it classifies every thread, gathers offline
+evidence for the ones with work at risk, and writes a report you can act on
+one line at a time. **Fully deterministic and offline — zero model calls.**
+The design doc is [`docs/auto-wrapup.md`](../../docs/auto-wrapup.md).
+
+```bash
+threads sweep                     # classify + write ~/.threads/sweep/<date>.md
+threads sweep --dry-run           # print the report, write nothing
+threads sweep --dry-run --stale-days 1   # what a shorter horizon would catch
+threads sweep --verify <slug>     # the wrap-up gate (exit 0 = actually wrapped)
+threads sweep --check             # the offline gate
+```
+
+| class | what it means | what the sweep does |
+|---|---|---|
+| `terminal` | a `done` note, or the memory stub reads closed | skip |
+| `blocked` | a `blocked` note — desk's jurisdiction | skip (desk surfaces it) |
+| **`A1`** | abandoned midstream, *mechanically* recoverable: unpushed commits, or commits off trunk that were never PR'd, or an open PR with no parking note | dispatch candidate (report-only until dispatch mode is on) |
+| **`A2`** | abandoned midstream with a **dirty worktree** | **never auto-touched** — a session may still be attached; named explicitly in the report |
+| **`B`** | parked/ongoing and forgotten past the grace period, or abandoned with nothing mechanical left | a drafted disposition: resume / close / shelve-until-\<date\> |
+| `fresh` | active inside `stale_days`, or parked inside `parked_grace_days` | nothing |
+
+Each A line carries its evidence — branch, repo, unpushed count, commits off
+trunk, PR state, dirty file count — so the report is checkable, not a hunch.
+A run appends one line to `~/.threads/sweep/log.jsonl` **even when idle**, and
+a non-idle run sends exactly **one** info flare (never one per thread).
+
+Two things it deliberately never does: write a note onto a thread (that would
+reset the very staleness clock it measures), and touch a dirty worktree.
+
+Knobs live in `[sweep]`:
+
+```toml
+[sweep]
+mode = "report"            # report | dispatch — dispatch is Daniel's call
+stale_days = 7
+parked_grace_days = 21
+max_dispatch_per_run = 2   # hard cap, dispatch mode only
+cooldown_days = 7
+exempt = []                # slugs never swept
+```
+
+In `mode = "dispatch"` an A1 thread becomes a concierge wrap-up task gated on
+`ShellOk("threads sweep --verify <slug>")` (plus `PrOpen()` when the branch
+has commits nothing has PR'd). The worker is told to never merge and never
+remove a worktree it did not create. A slug is not re-dispatched while its
+task is pending or inside `cooldown_days`, and a dispatch failure lands in
+the report as a `BLOCKED-ON-DANIEL` line.
+
+**Attribution caveats** (both learned from the real spool): a note records
+the cwd/branch of whoever *wrote* it, so a note-captured branch is only
+believed when its name corroborates the slug — otherwise one worker parking
+notes onto 166 threads hands all 166 its own branch. And PR lookups use
+`--state all`: gazette squash-merges, so a merged branch keeps commits
+`origin/main` does not have, forever.
+
 ## Open in Obsidian
 
 The vault at `~/.threads/vault/` (refreshed by every `weave`, or on demand
@@ -291,8 +353,9 @@ holds the knobs: the board's archive window (`[board] archive_days`, 7 days),
 the relevance formula's weights
 (`relevance = w_sessions·log1p(sessions_in_window) + w_recency·exp(-days_since_last/tau)`;
 defaults `1.0` / `2.0` / `tau=7`, 30-day window), the dormancy threshold
-(14 days), scan lookback, and clustering minimums. Adjust freely; nothing
-else needs to change.
+(14 days), scan lookback, clustering minimums, and the auto-wrapup `[sweep]`
+block (staleness horizons, dispatch mode + caps, exempt slugs). Adjust
+freely; nothing else needs to change.
 
 ## Automation
 
@@ -301,14 +364,16 @@ else needs to change.
 
 ```cron
 0 7 * * * cd $HOME && threads scan && threads weave >> $HOME/.threads/cron.log 2>&1
+# the auto-wrapup backstop, after scan+weave refresh what it reads:
+30 7 * * * cd $HOME && threads sweep >> $HOME/.threads/cron.log 2>&1
 ```
 
 Keep the dashboard alive across logout with
 `tmux new-session -d -s threads-dashboard "threads serve"`.
 
 For scripting and CI-style gating, `threads scan --check`,
-`threads weave --check`, `threads launch --check`, and `threads board --check`
-are cheap, offline (zero model calls) health checks that exit non-zero and
+`threads weave --check`, `threads launch --check`, `threads board --check`,
+and `threads sweep --check` are cheap, offline (zero model calls) health checks that exit non-zero and
 print what they verified:
 
 - `scan --check` — summaries complete for the lookback window.
@@ -328,6 +393,15 @@ print what they verified:
   the default page, dashboard is secondary, `POST /launch` durable in <100 ms
   and the row visible on the next render, every veto endpoint wired). It
   prints one PASS/FAIL line per assertion.
+- `sweep --check` — classifies the **live spool read-only** (no report file, no
+  log line, no subprocess beyond git; the directory listing is compared before
+  and after), then asserts the whole contract against fixture threads in a
+  temp spool: one thread per class, the evidence rendered (branch, unpushed
+  count, PR state, dirty worktree), an immediate re-run byte-identical, no
+  note ever written onto a thread, the dispatch caps/cooldown/refusals, and
+  `--verify` correct on both a wrapped and an unwrapped fixture. `gh` is never
+  invoked and `THREADS_DISABLE_ENQUEUE` is set, so nothing escapes the
+  fixture spool.
 
 ## Environment overrides
 

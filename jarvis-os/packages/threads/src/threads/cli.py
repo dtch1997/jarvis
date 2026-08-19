@@ -1,9 +1,11 @@
-"""``threads scan|weave|serve|render|board|status|note|pickup|launch`` — the
-bottom-up activity spine, the deliberate push channel (``note``/``pickup``), and
-the thread board (``board``, served as the front page by ``serve``).
+"""``threads scan|weave|serve|render|board|sweep|status|note|pickup|launch`` —
+the bottom-up activity spine, the deliberate push channel (``note``/``pickup``),
+the thread board (``board``, served as the front page by ``serve``), and the
+auto-wrapup backstop (``sweep``).
 
-``scan``/``weave`` take ``--check`` gate hooks that are cheap and offline (no
-model calls): they exit 0 iff the spool is complete and consistent.
+``scan``/``weave``/``board``/``launch``/``sweep`` take ``--check`` gate hooks
+that are cheap and offline (no model calls): they exit 0 iff the spool is
+complete and consistent.
 """
 
 from __future__ import annotations
@@ -72,6 +74,30 @@ def _cmd_board(args) -> int:
         return 0 if ok else 1
     board = build()
     print(render_html(board) if args.html else render_text(board))
+    return 0
+
+
+def _cmd_sweep(args) -> int:
+    from .sweep import sweep, sweep_check, verify
+    if args.check:
+        ok, report = sweep_check()
+        print(report)
+        return 0 if ok else 1
+    if args.verify:
+        ok, report = verify(args.verify)
+        print(report)
+        return 0 if ok else 1
+    cfg = config.load_config()
+    if args.stale_days is not None:
+        from dataclasses import replace
+        cfg = replace(cfg, sweep=replace(cfg.sweep, stale_days=args.stale_days))
+    res = sweep(cfg=cfg, write=not args.dry_run,
+                flare_info=not (args.dry_run or args.no_flare),
+                mode=args.mode)
+    print(res.report())
+    if args.dry_run:
+        print()
+        print(res.report_text)
     return 0
 
 
@@ -209,6 +235,36 @@ def main(argv=None) -> int:
                          "re-derivation + status derivation for every lifecycle "
                          "state + needs-you sort + default-page routing")
 
+    wp2 = sub.add_parser(
+        "sweep", help="auto-wrapup backstop: classify + handle stale threads",
+        description="The daily backstop for threads nobody looked at in a "
+                    "week (docs/auto-wrapup.md). Deterministic and offline — "
+                    "zero model calls. Classifies every thread into terminal / "
+                    "blocked / A1 (abandoned, mechanically recoverable) / A2 "
+                    "(abandoned with a dirty worktree — never auto-touched) / "
+                    "B (parked and forgotten, needs a disposition) / fresh, "
+                    "writes ~/.threads/sweep/<date>.md, and sends one info "
+                    "flare. Dispatching wrap-up workers is config-gated "
+                    "([sweep] mode) and off by default.")
+    wp2.add_argument("--check", action="store_true",
+                     help="offline gate: classification + evidence + "
+                          "idempotence + dispatch caps + --verify, hermetically")
+    wp2.add_argument("--verify", metavar="SLUG",
+                     help="the wrap-up gate: exit 0 iff SLUG has a fresh "
+                          "parked/done note, no unpushed commits, and an open "
+                          "PR for every branch with novel commits")
+    wp2.add_argument("--dry-run", action="store_true",
+                     help="classify and print the report without writing, "
+                          "flaring, or dispatching")
+    wp2.add_argument("--no-flare", action="store_true",
+                     help="write the report but skip the summary flare")
+    wp2.add_argument("--mode", choices=["report", "dispatch"], default=None,
+                     help="override [sweep] mode for this run (default: config)")
+    wp2.add_argument("--stale-days", type=int, default=None,
+                     help="override [sweep] stale_days for this run — widens "
+                          "the net (use with --dry-run to see what a shorter "
+                          "horizon would catch)")
+
     rp = sub.add_parser("render", help="print the dashboard as a markdown digest")
     _add_view_flags(rp)
     sub.add_parser("status", help="one-line activity + gate summary")
@@ -259,7 +315,7 @@ def main(argv=None) -> int:
     args = p.parse_args(argv)
     return {
         "scan": _cmd_scan, "weave": _cmd_weave, "render": _cmd_render,
-        "board": _cmd_board,
+        "board": _cmd_board, "sweep": _cmd_sweep,
         "status": _cmd_status, "serve": _cmd_serve, "vault": _cmd_vault,
         "note": _cmd_note, "pickup": _cmd_pickup, "launch": _cmd_launch,
     }[args.cmd](args)
