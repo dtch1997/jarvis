@@ -31,6 +31,9 @@ DEFAULT_DORMANT_DAYS = 14
 # a launched intent dormant beyond this with no terminal note is a contract
 # violation (surfaced to desk + flared once).
 DEFAULT_TERMINAL_DEADLINE_DAYS = 3
+# a settled board row older than this collapses into the archive section, so
+# the board stays glanceable at dozens of threads.
+DEFAULT_BOARD_ARCHIVE_DAYS = 7
 MODEL = "claude-haiku-4-5-20251001"
 
 # rough haiku pricing (USD per token) — used only for a spend *estimate* in
@@ -132,6 +135,8 @@ class Config:
     cluster_min_siblings: int = 3
     # launched-thread termination contract (see launch.termination_sweep).
     terminal_deadline_days: int = DEFAULT_TERMINAL_DEADLINE_DAYS
+    # thread board: terminal rows older than this collapse into the archive.
+    board_archive_days: int = DEFAULT_BOARD_ARCHIVE_DAYS
 
 
 DEFAULT_CONFIG_TOML = """\
@@ -162,6 +167,13 @@ min_siblings = 3
 # a termination-contract violation: the dashboard flags it, a desk item is
 # raised (BLOCKED-ON-DANIEL marker), and it flares once (--sev warn).
 terminal_deadline_days = 3
+
+[board]
+# the Prompt | Goal | Status board: a terminal row (result/blocked/failed, or a
+# detached intent) older than this many days collapses into the archive section
+# instead of taking up space in the glanceable table. Rows that need you
+# (blocked, contract violations) are never archived, however old.
+archive_days = 7
 """
 
 
@@ -199,6 +211,7 @@ def load_config() -> Config:
     dorm = data.get("dormancy") or {}
     clus = data.get("clustering") or {}
     launch = data.get("launch") or {}
+    board = data.get("board") or {}
     return replace(
         base,
         relevance=relevance,
@@ -207,6 +220,8 @@ def load_config() -> Config:
             clus.get("min_siblings"), base.cluster_min_siblings),
         terminal_deadline_days=_coerce_int(
             launch.get("terminal_deadline_days"), base.terminal_deadline_days),
+        board_archive_days=_coerce_int(
+            board.get("archive_days"), base.board_archive_days),
     )
 
 

@@ -135,7 +135,8 @@ def _artifact_links(rec: dict) -> list[str]:
 
 def build(*, now: datetime | None = None,
           dormant_days: int | None = None,
-          cfg: config.Config | None = None) -> Dashboard:
+          cfg: config.Config | None = None,
+          sweep: bool = True) -> Dashboard:
     now = now or datetime.now(timezone.utc)
     cfg = cfg or config.load_config()
     dormant_days = cfg.dormant_days if dormant_days is None else dormant_days
@@ -220,11 +221,14 @@ def build(*, now: datetime | None = None,
 
     # launched intents (+ the once-only termination sweep so the dashboard
     # auto-flags contract violations; both are best-effort and never blank the
-    # page if the launcher spool is unavailable).
+    # page if the launcher spool is unavailable). ``sweep=False`` makes the
+    # build strictly read-only — what the offline gates use to render the real
+    # spool without writing to it.
     intents: list[dict] = []
     try:
         from . import launch
-        launch.termination_sweep(now=now)
+        if sweep:
+            launch.termination_sweep(now=now)
         intents = launch.load_intents()
     except Exception:
         intents = []
@@ -611,6 +615,11 @@ def render_html(dash: Dashboard | None = None, *, now: datetime | None = None,
         "<title>threads — activity dashboard</title>",
         f"<style>{_CSS}</style></head><body>",
         "<h1>threads — activity dashboard</h1>",
+        # the board (Prompt | Goal | Status) is the front page; this page is the
+        # observational view behind it.
+        "<p><a href='.'>← thread board</a> "
+        "<span class='muted'>(the default page; this is the observational "
+        "view)</span></p>",
         f"<p>{len(dash.threads)} active thread(s) · {len(dash.unfiled)} unfiled · "
         f"{len(dash.candidates)} candidate(s) · match rate "
         f"{dash.match_rate * 100:.0f}% · dormancy &gt;{dash.dormant_days}d · "

@@ -1,6 +1,20 @@
-"""``threads serve`` — serve the dashboard through the shared lobby hub,
+"""``threads serve`` — serve the thread board through the shared lobby hub,
 re-rendering on an interval. Falls back to a plain localhost HTTP server (with a
 printed notice) if lobby is unavailable, exactly as databrowser/desk degrade.
+
+Routes:
+
+* ``GET  /``           — the **thread board** (Prompt | Goal | Status): default page
+* ``GET  /dashboard``  — the observational activity dashboard (secondary)
+* ``GET  /tail?tid=``  — the tail of one executor's newest attempt log
+* ``POST /launch``     — accept an intent (durable <100ms, async route/spawn)
+* ``POST /goal``       — edit a row's Goal cell (pre-spawn re-derives the gate)
+* ``POST /detach``, ``POST /merge``, ``POST /candidate-delete`` — veto affordances
+
+The expensive part of a render (the dashboard model) is cached and refreshed on
+an interval; the board re-reads the cheap launcher spool on every request, so a
+row added a moment ago is on the page immediately. No request makes a model
+call.
 """
 
 from __future__ import annotations
@@ -11,8 +25,10 @@ import socket
 import sys
 import threading
 from dataclasses import dataclass, field
+from html import escape
 from urllib.parse import parse_qs, urlsplit
 
+from . import board as board_mod
 from . import dashboard
 
 
@@ -48,11 +64,12 @@ class ThreadsServer:
 
 def serve(*, interval: int = 60, port: int | None = None, tunnel: bool = True
           ) -> ThreadsServer:
-    """Serve the dashboard, rebuilding the model every ``interval`` seconds.
+    """Serve the board (and the dashboard behind it), rebuilding the dashboard
+    model every ``interval`` seconds.
 
-    Each request renders from the cached model with *its own* query params
-    (``?sort=…&active_days=…&dormant=1&q=…``), and the page carries a meta
-    refresh back to the same URL so the sort/filter selection stays sticky
+    Each dashboard request renders from the cached model with *its own* query
+    params (``?sort=…&active_days=…&dormant=1&q=…``), and the page carries a
+    meta refresh back to the same URL so the sort/filter selection stays sticky
     across the auto-refresh."""
     cache = {"model": dashboard.build()}
 
@@ -60,20 +77,37 @@ def serve(*, interval: int = 60, port: int | None = None, tunnel: bool = True
         def log_message(self, *a):  # quiet
             pass
 
-        def do_GET(self):
-            query = parse_qs(urlsplit(self.path).query)
-            params = dashboard.params_from_query(query)
-            try:
-                html = dashboard.render_html(
-                    cache["model"], params=params, refresh=interval)
-            except Exception as e:  # never 500 the page over a render bug
-                html = f"<pre>render error: {e}</pre>"
-            payload = html.encode()
-            self.send_response(200)
+        def _html(self, body: str, status: int = 200):
+            payload = body.encode()
+            self.send_response(status)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(payload)))
             self.end_headers()
             self.wfile.write(payload)
+
+        def do_GET(self):
+            split = urlsplit(self.path)
+            path = split.path.rstrip("/")
+            query = parse_qs(split.query)
+            try:
+                if path.endswith("/dashboard"):
+                    params = dashboard.params_from_query(query)
+                    html = dashboard.render_html(
+                        cache["model"], params=params, refresh=interval)
+                elif path.endswith("/tail"):
+                    tid = (query.get("tid") or [""])[0]
+                    html = ("<!doctype html><meta charset='utf-8'>"
+                            f"<title>log tail {tid}</title>"
+                            "<body style='background:#111;color:#ddd'>"
+                            f"<pre style='white-space:pre-wrap'>"
+                            f"{escape(board_mod.log_tail(tid))}</pre>")
+                else:
+                    # the board is the default page (thread-board.md DoD 5).
+                    html = board_mod.render_html(
+                        board_mod.build(dash=cache["model"]), refresh=interval)
+            except Exception as e:  # never 500 the page over a render bug
+                html = f"<pre>render error: {type(e).__name__}: {e}</pre>"
+            self._html(html)
 
         def _json(self, status: int, body: dict):
             payload = json.dumps(body).encode()
@@ -88,22 +122,31 @@ def serve(*, interval: int = 60, port: int | None = None, tunnel: bool = True
 
             ``/launch`` returns the receipt in <100ms; routing and spawning run
             in the detached processor accept() enqueues — never on this thread.
+            ``/goal`` is the board's inline Goal edit: pre-spawn it re-derives
+            the gate the executor gets, post-spawn it lands as a ``pool.msg``.
             """
-            from .launch import accept, detach, merge_into
+            from .launch import accept, detach, merge_into, set_goal
             try:
                 size = int(self.headers.get("Content-Length", "0") or 0)
                 data = json.loads(self.rfile.read(size) or b"{}")
                 path = urlsplit(self.path).path.rstrip("/")
                 if path.endswith("/launch"):
+                    # accept only: the durable record is written here (<100ms,
+                    # no model), and the board re-reads the spool on the next
+                    # GET, so the row is real without rebuilding the dashboard.
                     rec = accept(str(data.get("text") or ""),
                                  mode=str(data.get("mode") or "full-auto"),
                                  slug=data.get("slug"))
-                    cache["model"] = dashboard.build()  # optimistic render
                     self._json(202, rec)
+                elif path.endswith("/goal"):
+                    self._json(200, set_goal(str(data["id"]),
+                                             str(data.get("goal") or "")))
                 elif path.endswith("/detach"):
                     self._json(200, detach(str(data["id"])))
                 elif path.endswith("/merge"):
                     self._json(200, merge_into(str(data["id"]), str(data["slug"])))
+                elif path.endswith("/candidate-delete"):
+                    self._json(200, board_mod.delete_candidate(str(data["slug"])))
                 else:
                     self._json(404, {"error": "not found"})
             except (ValueError, KeyError, json.JSONDecodeError) as e:
@@ -132,7 +175,7 @@ def serve(*, interval: int = 60, port: int | None = None, tunnel: bool = True
         import lobby
         public_url = lobby.serve(
             port, name="threads", kind="threads",
-            title="threads — activity dashboard",
+            title="threads — board",
         )
         srv.url = public_url
         srv.hub_name = public_url.rstrip("/").rsplit("/a/", 1)[-1]
