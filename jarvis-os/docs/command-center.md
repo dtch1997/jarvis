@@ -430,6 +430,13 @@ attention routing — items 1–2 — is the high-value build.)
 6. **Resource ledger (layer 7).** Fold pod-audit's inventory into a
    continuously rendered "what's burning money, owned by which thread" view;
    page through flare instead of weekly propose-only issues.
+7. **Background thinking (layers 1+6).** *(Added 2026-08-18,
+   Daniel-approved trial; spec:
+   [`docs/background-thinking.md`](background-thinking.md).)* Idle-time
+   cognition on a clock: 6-hourly propose-only watchman pass (judgment over
+   goal frontiers / threads / desk / recent activity → ≤3 observations into
+   the digest and thread notes, silent when quiet) + weekly `/goal-review`
+   planner cycle. Dispatch stays behind the per-goal `automation` flag.
 
 The composite vision, one sentence: **markdown-in-git remains the single
 source of truth per layer; a small set of renderers turn it into one

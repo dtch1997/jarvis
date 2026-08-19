@@ -143,6 +143,17 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   renderer of the same row feed (a JARVIS thread maps cleanly onto a
   Slack thread); sibling of issue #3 (reply-to-veto).
 
+- 2026-08-18: **background-thinking trial approved (Daniel)** — the working
+  plan's "/goal-review on a cron" rung goes live (weekly, Tue 06:45,
+  propose-only) plus a new 6-hourly **watchman** pass: judgment over goal
+  frontiers / threads / desk / recent activity, ≤3 observations per run via
+  one batched info flare + thread notes, silent when nothing clears the bar;
+  consumed via the morning digest. Spec `docs/background-thinking.md`; crons
+  in `ops/cron.tab`; skill `.claude/skills/watchman/SKILL.md`. Cadence
+  rationale: noticing improves with fresh input (6h), proposing improves
+  with graded feedback (weekly). ~2-week verdict ≈ 2026-09-01; dispatch
+  (rung 3) stays Daniel-owned.
+
 ## Active threads
 
 - mailroom (thought-capture ingestion, jarvis-tools `packages/mailroom`):
