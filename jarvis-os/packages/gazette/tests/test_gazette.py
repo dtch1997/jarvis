@@ -541,6 +541,8 @@ def test_cut_tags_origin_main_and_is_idempotent(vcfg):
     rows, warn = versions.list_versions(vcfg)
     assert warn is None
     assert [r["tag"] for r in rows][:2] == ["v2026.08.19.2", "v2026.08.19"]
+    # the listed sha is the peeled COMMIT sha, not the annotated tag object
+    assert rows[0]["sha"] and _head(vcfg).startswith(rows[0]["sha"])
 
 
 def test_switch_pins_and_deploys_and_latest_unpins(vcfg):
