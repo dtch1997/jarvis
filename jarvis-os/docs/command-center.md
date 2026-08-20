@@ -28,11 +28,24 @@ The user-facing distillation of this doc — the five surfaces Daniel
 touches and the guarantee each owes him — is
 [`docs/interface-contract.md`](interface-contract.md).
 
-**The core framing.** The scarce resource is Daniel-attention. Every layer
-exists either to (a) let work proceed without it, or (b) spend it at maximum
-leverage when it *is* needed. A good command center is therefore mostly not a
-dashboard — it's a contract about where truth lives, how work gets permission
-to run, and how the system asks for help.
+**The core framing.** The scarce resource is Daniel-attention — and not
+just its *quantity*, its **shape**: deep work needs attention to stay
+sequential, one thing at a time, while the fleet's work is massively
+parallel. The command center is therefore an **adapter that makes a
+parallel fleet consumable by a sequential mind** — every layer exists
+either to (a) let work proceed without Daniel's attention, or (b)
+*serialize* it — batch, queue, veto-shape — where attention *is* needed.
+Two speeds are deliberately split: **release** (thought → assured
+handoff) is near-instant and Daniel's; **completion** can take days and
+is the fleet's, made safe by the termination guarantee — every thread
+ends in a notified success or a notified error, **no silent failures**.
+A good command center is therefore mostly not a dashboard — it's a
+contract about where truth lives, how work gets permission to run, and
+how the system asks for help. The demand-side statement of all this —
+"my head is for having ideas; everything else is bookkeeping" — is the
+philosophy essay
+[`drafts/jarvis-design-philosophy.md`](../drafts/jarvis-design-philosophy.md)
+(2026-08-19, from Daniel's lab-notes teaser).
 
 ---
 
@@ -245,6 +258,21 @@ Cross-cutting principles, each earned from a real incident:
 7. **Durable and versioned.** Everything that matters survives session
    death and lives in git (concierge tasks as files, goals as files,
    memory as files). Ephemeral views (dashboards) are regenerable.
+8. **No silent failures.** *(Added 2026-08-19 from the philosophy
+   essay.)* Every launched thread terminates in a notified success
+   (deliverable attached) or a notified error; abandonment is a
+   *detected* state (termination contract, dormancy flags, desk
+   sweeps), never a silent one. Earned: the power-concentration
+   prototype sat invisible in a worktree; arch2 runs stalled unnoticed.
+   This is what makes fire-and-forget handoffs safe — Daniel can only
+   forget what he's structurally guaranteed to be reminded of.
+9. **Attention has a shape, not just a size.** *(Added 2026-08-19 from
+   the philosophy essay.)* Daniel's interface must be *sequential* —
+   batched digests, one queue, bounded veto-shaped decisions — because
+   twenty fragmented touches destroy the deep-work state even when
+   their total time is small (the 2026-08 shortform tension). Surfaces
+   are judged as serialization points: does this batch, queue, or bound
+   — or does it fragment?
 
 ---
 
