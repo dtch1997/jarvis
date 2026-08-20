@@ -23,6 +23,7 @@ jobs:
           - jarvis-tools/packages/bellhop
           - jarvis-tools/packages/concierge
           - jarvis-tools/packages/arxivist
+          - jarvis-tools/packages/podcaster
           - jarvis-tools/packages/foyer
           - jarvis-tools/packages/flare
           - jarvis-tools/packages/statusline

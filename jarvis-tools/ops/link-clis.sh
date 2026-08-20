@@ -25,6 +25,7 @@ CLIS=(
   gazette
   lobby
   mailroom
+  podcaster
   reportly
   threads
 )

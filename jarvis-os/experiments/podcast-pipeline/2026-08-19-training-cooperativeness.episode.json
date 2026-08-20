@@ -1,0 +1,13 @@
+{
+  "topic": "training cooperativeness: what happens when the model is a second player in its own training",
+  "title": "The Scratchpad Tells The Truth",
+  "mp3_path": "/tmp/podcast-run/episodes/2026-08-19-training-cooperativeness.mp3",
+  "duration_s": 658.87,
+  "voice": "en_US-ryan-high",
+  "words": 1850,
+  "cost_usd": 2.955159,
+  "pointer": "gcs:alignment-team-general-storage/daniel/jarvis/experiments/podcast-pipeline/2026-08-19-training-cooperativeness.mp3",
+  "script_path": "/tmp/podcast-run/episodes/2026-08-19-training-cooperativeness.script.json",
+  "brief_path": "/tmp/podcast-run/episodes/2026-08-19-training-cooperativeness.brief.json",
+  "style_issues": []
+}
