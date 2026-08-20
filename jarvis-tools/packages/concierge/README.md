@@ -156,6 +156,23 @@ claude behavior above exactly.
 When a worker exits, the evaluated gate outcome is stored as structured data on
 the task record: `task["gate_result"] = {"passed", "detail", "checked_at"}`.
 
+`repo` is shape-checked at submit time: a git URL, an ssh spec
+(`git@github.com:owner/repo.git`), or a local path. A bare `owner/repo` slug is
+not a git remote, so it raises `ValueError` at the callsite (with the ssh/https
+form spelled out) rather than failing inside the daemon.
+
+### Degradation tolerance — one bad record never takes the pool down
+
+Every per-task action in a tick is guarded (issue #33): if setting up a
+workspace raises — uncloneable repo, unreachable remote, vanished log dir — that
+*task* goes `failed` with git's own words in `status_detail`, notifies, and
+**flares** (a task the pool drops on the floor is the failure nobody is waiting
+for), while the tick dispatches the next queued task. Such a failure burns no
+gate strike and no concurrency seat. `Pool.serve` also stamps
+`<home>/daemon.heartbeat` (`{ts, pid, interval}`) after every tick, so a stale
+stamp tells `desk`/cron the pool is down instead of leaving submitters to time
+out blind.
+
 ### Worker lifecycle & the `waiting` state
 
 A task moves `queued → running → done`, with three ways to hand control back

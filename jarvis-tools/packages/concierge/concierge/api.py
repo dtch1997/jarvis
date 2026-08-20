@@ -9,12 +9,13 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 import time
 from pathlib import Path
 
-from . import gates, reconcile, runtime
+from . import gates, provision, reconcile, runtime
 from .gates import Always, Gate
-from .records import ACTIVE, TERMINAL, Home, load_config, new_id, new_task
+from .records import ACTIVE, TERMINAL, Home, load_config, new_id, new_task, now_iso
 
 
 def _spec_text(spec) -> str:
@@ -101,6 +102,11 @@ class Pool:
         class (dataclass/TypedDict). `model` pins the worker's model (default:
         the SDK's default model).
 
+        `repo` is what each attempt's workspace is cloned from: a git URL, an
+        ssh spec (`git@github.com:owner/repo.git`), or a local path. It is
+        shape-checked here — a bare `owner/repo` slug is not a git remote and
+        raises ValueError at the callsite rather than failing in the daemon.
+
         `after` is a list of task ids this task must run *after*: it stays
         `held` (dispatches to no worker, consumes no concurrency seat) until
         every dependency reaches `done`, then releases to `queued`. If any
@@ -118,6 +124,9 @@ class Pool:
             if matches:
                 return matches[-1]["id"]
         tid = new_id()
+        # an uncloneable repo must fail HERE, in the submitter's traceback, not
+        # hours later inside the daemon's tick (issue #33)
+        repo = provision.validate_repo(repo) if str(repo or "").strip() else None
         after = self._validate_after(after)
         # resolve the pool default HERE so the record carries an explicit
         # backend — dispatch must not depend on whatever config says later
@@ -133,7 +142,7 @@ class Pool:
             title=title or (Path(spec).stem if isinstance(spec, Path) else f"task {tid}"),
             gate=gate_json,
             budget={"usd": budget_usd, "wall_minutes": budget_minutes},
-            workspace={"repo": str(repo) if repo else None, "base": base,
+            workspace={"repo": repo, "base": base,
                        "branch": branch or f"pool/{tid}", "access": access},
             priority=priority,
             notify=notify,
@@ -316,10 +325,23 @@ class Pool:
               f"daily_usd_cap=${self.config.get('daily_usd_cap', 50)})", flush=True)
         while True:
             await self.tick()
+            self._heartbeat(interval)
             if exit_when_idle and not any(t["status"] in ACTIVE for t in self.home.tasks()):
                 print("[concierge] idle — exiting", flush=True)
                 return
             await asyncio.sleep(interval)
+
+    def _heartbeat(self, interval) -> None:
+        """Stamp `<home>/daemon.heartbeat` after every tick so liveness is
+        observable from outside the process (issue #33: the crash was silent for
+        ~an hour). A stamp older than a few intervals means the pool is down —
+        that is `desk`/cron's cue to flare. Best effort: a write failure must
+        never stop the loop it is only reporting on."""
+        try:
+            self.home.heartbeat_path().write_text(json.dumps(
+                {"ts": now_iso(), "pid": os.getpid(), "interval": interval}) + "\n")
+        except OSError as e:
+            print(f"[concierge] heartbeat write failed: {e}", flush=True)
 
 
 def _render_event(ev):

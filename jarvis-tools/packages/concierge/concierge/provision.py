@@ -7,10 +7,16 @@ real job. `install_guard_hook` drops the same PreToolUse(Bash) guard the jarvis
 repo uses into every workspace and registers it in the workspace's Claude
 settings, merging (never clobbering) a cloned repo's own settings and keeping
 the additions out of worker PRs.
+
+`validate_repo` is the other half: a submit-time shape check on the thing the
+workspace will be cloned FROM, so an uncloneable value fails at the callsite
+instead of inside the daemon (issue #33).
 """
 from __future__ import annotations
 
 import json
+import os
+import re
 import subprocess
 from pathlib import Path
 
@@ -29,6 +35,50 @@ _HOOK_ENTRY = {
     "timeout": 10,
     "statusMessage": "Checking background-task safety",
 }
+
+
+
+# -- what the workspace is cloned from ------------------------------------- #
+
+# A cloneable repo spec: a git transport URL, an scp-style ssh spec, or a local
+# path. A bare `owner/repo` slug is NOT a git remote — `git clone
+# dtch1997/jarvis` exits 128, and until issue #33 that surfaced as a dead
+# daemon rather than a failed task.
+_URL_RE = re.compile(r"^[A-Za-z][A-Za-z0-9+.\-]*://\S+$")          # https://host/p, file:///p
+_SCP_RE = re.compile(r"^[^\s/@:]+@[^\s/@:]+:\S+$")                  # git@github.com:o/r.git
+_HOST_RE = re.compile(r"^[A-Za-z0-9._\-]+\.[A-Za-z0-9._\-]+:\S+$")   # github.com:o/r.git
+_SLUG_RE = re.compile(r"^[\w.\-]+/[\w.\-]+$")                       # owner/repo (rejected)
+
+
+def validate_repo(repo) -> str:
+    """Return `repo` as a git-cloneable string, or raise ValueError.
+
+    Shape check only — it never touches the network, so a typo'd host or a
+    private repo still fails at clone time (which now fails that task, not the
+    daemon). What it catches is the class of value git rejects outright: a bare
+    GitHub slug, a project name, a sentence. Existing local paths come back
+    absolute, since the daemon clones from its own cwd, not the submitter's.
+    """
+    spec = str(repo).strip()
+    if not spec:
+        raise ValueError("repo must be a non-empty git URL, ssh spec, or local path")
+    if _URL_RE.match(spec) or _SCP_RE.match(spec) or _HOST_RE.match(spec):
+        return spec
+    path = Path(spec).expanduser()
+    # path-shaped but absent is accepted: git reports a missing directory
+    # clearly, and that now fails the task rather than the daemon
+    if path.exists() or spec.startswith(("/", "./", "../", "~")):
+        return os.path.abspath(str(path))
+    hint = ""
+    if _SLUG_RE.match(spec):
+        owner, name = spec.split("/")
+        hint = (f" — that looks like a GitHub slug; pass "
+                f"'git@github.com:{owner}/{name}.git' or "
+                f"'https://github.com/{owner}/{name}.git'")
+    raise ValueError(
+        f"repo={spec!r} is not cloneable{hint}. Pass a git URL (https://…, "
+        "ssh://…, git://…, file://…), an ssh spec (git@host:owner/repo.git), "
+        "or a local path (/abs/path, ./rel).")
 
 
 def install_guard_hook(ws: Path) -> None:

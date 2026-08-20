@@ -199,6 +199,7 @@ Each tick (a few seconds), scan `tasks/` and reconcile:
 | `held`, every `after` dep is `done` | release → `queued` (dispatches next tick) |
 | `held`, some `after` dep ended not-done (`failed`/`cancelled`/missing) | fail fast → `failed(dependency <tid> ended <status>)`, notify (no gate check, no strike) |
 | `queued`, free slot | create worktree, spawn `AgentRun`, → `running` |
+| `queued`, workspace setup raises (uncloneable repo, unreachable remote) | → `failed(dispatch failed: <git's words>)`, notify **+ flare**; no strike, no seat consumed, loop dispatches on |
 | `running`, process exited, gate **passes** | → `done`, stamp links, notify |
 | `running`, exited, worker called `signal_waiting` (current-attempt sidecar) | consume sidecar, → `waiting` (no gate check, no strike), notify |
 | `running`, exited, gate fails, unanswered worker message | → `blocked`, notify |
@@ -220,6 +221,17 @@ mutates it) and stops. The reconciler polls the probe in the workspace at
 Strikes are counted on `gate_failures` (gate-checked attempts only), so
 resuming from `blocked`/`waiting` never consumes an attempt; the `attempts`
 list stays full history.
+
+**Degradation tolerance (issue #33).** One bad record must never take the pool
+down. Every per-task action in a tick is guarded: a raise fails *that* task
+(`status_detail` carries the error text, `notify` carries the transition, and it
+**flares** — a task the pool drops on the floor is exactly the failure nobody is
+waiting for), and the loop continues with the next record. A failed setup burns
+no gate strike and no concurrency seat. The first rail is earlier still:
+`submit(repo=…)` shape-checks the clone source, so a bare `owner/repo` slug
+raises `ValueError` in the submitter's traceback instead of in the daemon. The
+second is `daemon.heartbeat`, rewritten every tick: a stale stamp is how `desk`
+or a cron notices the pool is gone — the crash this fixes was silent for an hour.
 
 State machine:
 
@@ -314,6 +326,7 @@ concierge-home/
   mailbox/<id>.jsonl     # messages
   logs/<id>/attempt-N/   # agent.jsonl + agent.err per session
   workspaces/<id>/       # one clone/worktree per task
+  daemon.heartbeat       # {ts, pid, interval}, rewritten every serve tick
 ```
 
 ## Relationship to existing tools
