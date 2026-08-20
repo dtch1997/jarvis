@@ -294,6 +294,11 @@ not** — sessions still clean up their own worktrees (next section).
 
 ## Merging PRs (pinned-main convention)
 
+The primary checkout stays on `main`; branches live in worktrees. The one
+sanctioned exception: `gazette version switch v<date>` detaches the primary
+checkout onto a version tag while a rollback pin is active (the hook allows
+exactly that move, plus `git checkout main` to restore the invariant).
+
 Because the primary checkout is pinned to `main` and branches live in
 worktrees, `gh pr merge --delete-branch` **always half-fails** here — the
 remote merge succeeds but the local branch delete errors with

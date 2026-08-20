@@ -27,11 +27,6 @@ supervision.
   `desk`, `threads`). **Start with its
   [README](jarvis-os/README.md)** — the layer model and operating
   philosophy live there.
-- **[`jarvis-memory/`](jarvis-memory/)** — the agents' persistent
-  memory: one file per fact, indexed by
-  [`MEMORY.md`](jarvis-memory/MEMORY.md), loaded into every session.
-  Reading it is the fastest way to see what the system currently knows
-  and is working on.
 - **[`jarvis-tools/`](jarvis-tools/)** — the generic utility packages
   (one uv workspace spanning the repo, one package per tool):
   orchestration (`stagehand`), ephemeral GPU compute (`bellhop`), an
@@ -72,6 +67,12 @@ user's machines. The parts most likely to be reusable are the
 ([`docs/command-center.md`](jarvis-os/docs/command-center.md)).
 
 The monorepo was consolidated on 2026-08-18 from three earlier repos
-(`ArcadiaImpact/jarvis`, `dtch1997/jarvis-memory`, `dtch1997/arsenal`),
-which are archived with pointer READMEs; migration details are in
+(`ArcadiaImpact/jarvis`, `dtch1997/jarvis-memory`, `dtch1997/arsenal`);
+migration details are in
 [`jarvis-os/docs/monorepo-migration.md`](jarvis-os/docs/monorepo-migration.md).
+
+The agents' persistent **memory** is *not* here: it lives in the private
+`dtch1997/jarvis-memory` repo (spun back out 2026-08-20, checked out at
+`~/jarvis-memory`). Memory is state, not software — `gazette version
+switch` rolls this repo back to any nightly version, and memory must
+never ride along.

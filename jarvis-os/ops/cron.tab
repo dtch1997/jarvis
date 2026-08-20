@@ -41,7 +41,10 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # Rollback: gazette version switch v<date>; resume: gazette version switch latest.
 10 4 * * * { /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette version cut && /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette version deploy; } >> /mnt/nw/home/d.tan/.claude/logs/deploy.log 2>&1
 
-# jarvis-memory: nightly auto-snapshot commit+push
+# jarvis-memory: nightly auto-snapshot commit+push. ~/jarvis-memory is its
+# own private repo (dtch1997/jarvis-memory, spun back out of the monorepo
+# 2026-08-20 — issues #46/#47): memory is state, version rollback never
+# touches it, and `git add -A` here is scoped by the repo boundary.
 41 3 * * * cd /mnt/nw/home/d.tan/jarvis-memory && git add -A && git commit -qm "auto-snapshot $(date +\%F)" >/dev/null 2>&1; git push -q >> /mnt/nw/home/d.tan/.claude/logs/memory-backup.log 2>&1
 
 # gazette: hourly merge-on-green sweep (consumer-mode PR flow — see CLAUDE.md

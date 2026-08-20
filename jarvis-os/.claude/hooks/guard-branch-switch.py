@@ -16,7 +16,11 @@ Blocked (only in the primary working tree):
 
 Allowed: file restores (`git checkout -- <path>`, `git checkout <path>`,
 `git checkout <ref> -- <path>`), bare commit-sha checkouts, anything inside a
-linked worktree, and any non-git command.
+linked worktree, and any non-git command. Two version-rollback exceptions
+(see CLAUDE.md "PR flow — consumer mode"): `git checkout --detach <vTAG>`
+(how `gazette version switch` pins the box to a nightly version) and
+`git checkout main` (returning to the pinned-main invariant, e.g. after a
+pin) are permitted.
 
 Contract: read hook JSON on stdin. exit 0 = allow. exit 2 + stderr = block and
 show the message to Claude. Any internal error -> exit 0 (fail open; never wedge
@@ -148,6 +152,19 @@ for seg in segments:
 
     # sub == "checkout"
     if any(a in CREATE_OR_DETACH for a in args):
+        # Version-rollback exception: `git checkout --detach vYYYY.MM.DD[.N]`
+        # is how `gazette version switch` pins the box to a nightly version.
+        # The target is a tag, never a branch, so this degrades the
+        # pinned-main invariant into the documented pinned state rather than
+        # breaking it (CLAUDE.md "PR flow — consumer mode").
+        refs = [a for a in args if not a.startswith("-")]
+        if (
+            "--detach" in args
+            and not (set(args) & (CREATE_OR_DETACH - {"--detach"}))
+            and len(refs) == 1
+            and re.fullmatch(r"v\d{4}\.\d{2}\.\d{2}(?:\.\d+)?", refs[0])
+        ):
+            continue
         deny(f"branch create/detach in the primary checkout: {seg.strip()}")
 
     # `git checkout -` switches to the previous branch (`-` is not a flag here).
@@ -163,6 +180,11 @@ for seg in segments:
         continue  # bare `git checkout` -> harmless
 
     target = positionals[0]
+    if target == "main":
+        # Returning to the pinned-main invariant (e.g. unpinning after a
+        # `gazette version switch`, or repairing a detached state) is the
+        # one branch checkout that restores the guard's own goal.
+        continue
     if is_branch(target):
         deny(f"checkout of branch '{target}' in the primary checkout: {seg.strip()}")
     # Otherwise: a path restore or commit-sha checkout -> allow.
