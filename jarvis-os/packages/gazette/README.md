@@ -45,6 +45,26 @@ A pin survives nightly deploys until cleared (the deploy just re-asserts it),
 and rolls back CLAUDE.md, crons, and CLIs together — the box never runs a
 state without a name. Pin state: `~/.gazette/version-pin`.
 
+State is exempt from rollback by construction: the agents' memory lives in
+its own private repo (`dtch1997/jarvis-memory`, checked out at
+`~/jarvis-memory`), so switching versions never rewinds what the system has
+learned. Versions start at `v2026.08.19` (the first cut with this machinery
+on board) — don't hand-tag older commits as versions: pre-rework trees lack
+`gazette version`, so pinning to one would strand the pin with no unpin path
+short of break-glass.
+
+**Break-glass** (a bad merge broke the `gazette` CLI itself — it is
+editable-installed from the tree being rolled back): run the switch by hand,
+
+```
+cd ~/jarvis && git checkout --detach <vTAG>     # or: git checkout main && git pull
+cd "$(git rev-parse --show-toplevel)" \
+  && uv sync --all-packages -q \
+  && jarvis-tools/ops/link-clis.sh \
+  && jarvis-os/ops/install-cron.sh
+echo <vTAG> > ~/.gazette/version-pin            # or: rm ~/.gazette/version-pin
+```
+
 ## CLI
 
 ```
