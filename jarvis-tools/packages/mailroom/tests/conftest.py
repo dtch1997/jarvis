@@ -21,6 +21,10 @@ def env(tmp_path, monkeypatch):
     monkeypatch.setenv("MAILROOM_HOME", str(tmp_path / "mailroomhome"))
     monkeypatch.setenv("MAILROOM_GOALS_DIR", str(goals))
     monkeypatch.setenv("MAILROOM_MEMORY_DIR", str(memory))
+    # never let a test's default GoalLander touch the real deployed checkout —
+    # point it at a non-repo so it fails soft (tests that want the PR vehicle
+    # build their own fixture repo and pass goal_lander explicitly)
+    monkeypatch.setenv("MAILROOM_GOALS_REPO", str(tmp_path / "not-a-repo"))
     monkeypatch.setenv("FLARE_HOME", str(tmp_path / "flarehome"))
     monkeypatch.delenv("FLARE_WEBHOOK", raising=False)
     return Env(tmp_path, goals, memory)

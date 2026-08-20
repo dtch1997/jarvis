@@ -160,7 +160,7 @@ non-login shells must source `~/.env` for `ANTHROPIC_API_KEY`.
 | thread-note (names ongoing work) | `threads note <slug>` — lands on the thread, shows in dashboard + `pickup` |
 | todo | Todoist task in the right curated project (voice/Slack origin) or re-file the Inbox item |
 | research-idea, no home | seed a candidate thread (threads machinery) or dated Parked-follow-ups bullet on the owning goal |
-| goal-signal | dated bullet in the goal file's Frontier / Parked follow-ups (direct commit to main, matching how wrap-ups append) |
+| goal-signal | dated bullet in the goal file's Parked follow-ups, landed via a batched `mailroom/goal-captures` branch + unlabeled PR per route run (merge-on-green takes it within the hour; never an in-place edit of the deployed checkout — jarvis #50) |
 | paper | Todoist "Papers to read" + arxivist fetch when an arXiv id is present |
 | urgent / blocked | `flare` |
 | admin | Todoist Inbox→appropriate project; nothing clever |
