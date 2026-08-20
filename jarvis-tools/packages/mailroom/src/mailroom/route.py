@@ -20,7 +20,7 @@ import re
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
-from . import actuators, config, slack, spool, todoist
+from . import actuators, config, gitland, slack, spool, todoist
 from .registry import goal_slugs, memory_index_slugs
 
 # route actions that are "non-obvious" enough to warrant a Slack threaded reply
@@ -50,6 +50,7 @@ class RouteResult:
     task_completions: int = 0  # MUST stay 0
     replies: int = 0
     urgent: list = field(default_factory=list)  # titles of fresh urgent captures
+    goal_pr: str | None = None  # PR carrying this run's goal bullets (jarvis #50)
     inbox_before: int | None = None
     inbox_after: int | None = None
     errors: list[str] = field(default_factory=list)
@@ -142,6 +143,9 @@ class _Ctx:
     now: datetime
     res: RouteResult
     dry_todoist: bool = False
+    # PR vehicle for goal appends (jarvis #50): used when goals_dir is None.
+    goal_lander: object = None
+    pending_goals: list = field(default_factory=list)  # (thought, goal) deferred to close
 
 
 def _close_transfer(ctx: _Ctx, thought: dict, dest: str) -> None:
@@ -223,6 +227,21 @@ def _actuate(thought: dict, ctx: _Ctx) -> dict:
 
     elif ttype == "goal-signal" and tri.get("goal") in goal_slugs():
         goal = tri["goal"]
+        if ctx.goal_lander is not None and ctx.goals_dir is None:
+            # PR vehicle (jarvis #50): append inside the lander's worktree and
+            # defer — the capture is marked routed only after the run's close()
+            # pushes the branch, so a git failure leaves it pending for retry.
+            gd = ctx.goal_lander.ensure_open()
+            if gd is None:
+                ctx.res.errors.append(
+                    f"goal lander unavailable ({ctx.goal_lander.error}); "
+                    f"capture stays pending: {title[:60]}")
+                return None
+            actuators.append_goal_bullet(goal, title, now=ctx.now, goals_dir=gd)
+            ctx.goal_lander.record(goal, title)
+            ctx.pending_goals.append((thought, goal))
+            return None
+        # direct mode (explicit goals_dir: tests / manual runs)
         actuators.append_goal_bullet(goal, title, now=ctx.now, goals_dir=ctx.goals_dir)
         action, target = "goal-bullet", goal
         if is_todoist:
@@ -298,7 +317,7 @@ def route(*, runner=None, model: str = config.MODEL,
           slack_client: slack.SlackClient | None = None,
           note_runner=actuators.default_note_runner,
           arxiv_runner=actuators.default_arxiv_runner,
-          goals_dir=None, dry_todoist: bool = False,
+          goals_dir=None, goal_lander=None, dry_todoist: bool = False,
           now: datetime | None = None) -> RouteResult:
     now = now or datetime.now(timezone.utc)
     config.ensure_spool()
@@ -320,9 +339,12 @@ def route(*, runner=None, model: str = config.MODEL,
         except Exception as e:
             res.errors.append(f"inbox count (before): {e}")
 
+    if goal_lander is None and goals_dir is None:
+        goal_lander = gitland.GoalLander()  # PR vehicle is the production default
     ctx = _Ctx(cfg=cfg, note_runner=note_runner, todoist_client=todoist_client,
                slack_client=slack_client, arxiv_runner=arxiv_runner,
-               goals_dir=goals_dir, now=now, res=res, dry_todoist=dry_todoist)
+               goals_dir=goals_dir, now=now, res=res, dry_todoist=dry_todoist,
+               goal_lander=goal_lander)
 
     for thought in spool.load_all_thoughts():
         if not thought.get("triage"):
@@ -336,6 +358,8 @@ def route(*, runner=None, model: str = config.MODEL,
                 res.unclear += 1
             continue
         route_rec = _actuate(thought, ctx)
+        if route_rec is None:
+            continue  # deferred to the goal lander, or left pending for retry
         thought["route"] = route_rec
         spool.write_thought(thought)
         ttype = thought["triage"].get("type", "unclear")
@@ -345,6 +369,28 @@ def route(*, runner=None, model: str = config.MODEL,
         else:
             res.unclear += 1
         _maybe_reply(thought, route_rec, ctx)
+
+    # Land this run's deferred goal captures (PR vehicle, jarvis #50): commit
+    # the bullets on the mailroom/goal-captures branch and push; the hourly
+    # gazette sweep merges the PR. Only a successful push marks the captures
+    # routed — on failure they stay in the spool and the next run retries.
+    if ctx.goal_lander is not None and ctx.pending_goals:
+        pushed, pr_url, land_err = ctx.goal_lander.close(now=now)
+        if land_err:
+            res.errors.append(f"goal lander: {land_err}")
+        if pushed:
+            res.goal_pr = pr_url
+            for thought, goal in ctx.pending_goals:
+                route_rec = {"action": "goal-bullet", "target": goal,
+                             "at": now.isoformat(), "pr": pr_url}
+                thought["route"] = route_rec
+                spool.write_thought(thought)
+                ttype = thought["triage"].get("type", "unclear")
+                res.by_type[ttype] = res.by_type.get(ttype, 0) + 1
+                res.routed += 1
+                if thought.get("source") == "todoist":
+                    _close_transfer(ctx, thought, f"goal '{goal}'")
+                _maybe_reply(thought, route_rec, ctx)
 
     if todoist_client is not None:
         try:
