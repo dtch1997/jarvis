@@ -91,17 +91,19 @@ def _set_pin(tag: str | None) -> None:
 
 def list_versions(cfg: Config, limit: int = 15) -> tuple[list[dict], str | None]:
     """Newest-first [{tag, sha, date}]; (rows, warning)."""
+    # %(*objectname) is the peeled commit for annotated tags (what a human
+    # wants to see) and empty for lightweight ones — fall back to %(objectname).
     ok, out = _git(
         checkout_path(cfg), "tag", "--list", "v*", "--sort=-v:refname",
-        "--format=%(refname:short) %(objectname:short) %(creatordate:short)",
+        "--format=%(refname:short) %(objectname:short) %(*objectname:short) %(creatordate:short)",
     )
     if not ok:
         return [], out
     rows = []
     for line in out.splitlines():
         parts = line.split()
-        if len(parts) == 3 and TAG_RE.match(parts[0]):
-            rows.append({"tag": parts[0], "sha": parts[1], "date": parts[2]})
+        if len(parts) in (3, 4) and TAG_RE.match(parts[0]):
+            rows.append({"tag": parts[0], "sha": parts[-2], "date": parts[-1]})
     return rows[:limit], None
 
 
