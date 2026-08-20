@@ -1,0 +1,1261 @@
+<title>The JARVIS Handbook</title>
+<style>
+  :root {
+    --ground: #f5f7f4;
+    --surface: #fdfdfc;
+    --ink: #212a2b;
+    --muted: #5d6a68;
+    --faint: #8a9694;
+    --rule: #dce1db;
+    --rule-strong: #c3ccc4;
+    --accent: #175f6a;
+    --accent-soft: #e3edec;
+    --amber: #8a6015;
+    --amber-soft: #f4ecda;
+    --chip-ink: #f2f6f5;
+    --code-bg: #eceeea;
+    --ok: #2e7d4f;
+    --warn: #b28419;
+    --crit: #b3402e;
+    --floor-bg: #1d2a2c;
+    --floor-ink: #dde7e5;
+    --floor-muted: #8fa3a0;
+    --floor-rule: #35464a;
+    --floor-accent: #7fc4c9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #131a1b;
+      --surface: #1a2325;
+      --ink: #e4ebe9;
+      --muted: #98a7a4;
+      --faint: #6e7d7b;
+      --rule: #2a3537;
+      --rule-strong: #3a4749;
+      --accent: #79c5cb;
+      --accent-soft: #1d3236;
+      --amber: #d4a955;
+      --amber-soft: #2c2716;
+      --chip-ink: #10191a;
+      --code-bg: #232e30;
+      --ok: #6fbe8f;
+      --warn: #d4a955;
+      --crit: #d97a68;
+      --floor-bg: #0e1516;
+      --floor-ink: #dde7e5;
+      --floor-muted: #8fa3a0;
+      --floor-rule: #2b393c;
+      --floor-accent: #7fc4c9;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #131a1b;
+    --surface: #1a2325;
+    --ink: #e4ebe9;
+    --muted: #98a7a4;
+    --faint: #6e7d7b;
+    --rule: #2a3537;
+    --rule-strong: #3a4749;
+    --accent: #79c5cb;
+    --accent-soft: #1d3236;
+    --amber: #d4a955;
+    --amber-soft: #2c2716;
+    --chip-ink: #10191a;
+    --code-bg: #232e30;
+    --ok: #6fbe8f;
+    --warn: #d4a955;
+    --crit: #d97a68;
+    --floor-bg: #0e1516;
+    --floor-ink: #dde7e5;
+    --floor-muted: #8fa3a0;
+    --floor-rule: #2b393c;
+    --floor-accent: #7fc4c9;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: Charter, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 17px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .mono, code {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+  code {
+    background: var(--code-bg);
+    border-radius: 3px;
+    padding: 0.08em 0.35em;
+    font-size: 0.82em;
+  }
+  a { color: var(--accent); }
+  a:focus-visible, .navlink:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--ground);
+    border-bottom: 1px solid var(--rule);
+  }
+  .topbar-inner {
+    max-width: 47rem;
+    margin: 0 auto;
+    padding: 0.65rem 1.5rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .brand {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  nav.pages { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+  .navlink {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--muted);
+    padding: 0.3em 0.6em;
+    border-radius: 4px;
+    border: 1px solid transparent;
+  }
+  .navlink:hover { color: var(--ink); border-color: var(--rule-strong); }
+  .navlink.active { color: var(--chip-ink); background: var(--accent); border-color: var(--accent); }
+  .navlink .n { opacity: 0.65; margin-right: 0.35em; }
+
+  .page-section { display: none; }
+  .page-section.visible { display: block; }
+
+  .page {
+    max-width: 47rem;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 0;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead { border-bottom: 3px double var(--rule-strong); padding-bottom: 2.2rem; }
+  .doc-kicker {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  h1 {
+    font-size: clamp(2rem, 6vw, 2.9rem);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0.9rem 0 1rem;
+    text-wrap: balance;
+  }
+  .standfirst {
+    color: var(--muted);
+    font-size: 1.02rem;
+    max-width: 40rem;
+    margin: 0;
+  }
+  .standfirst em { color: var(--ink); }
+
+  .oneline { margin: 2.4rem 0 0; display: grid; gap: 0.55rem; }
+  .oneline-label {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .oneline p {
+    margin: 0;
+    font-size: clamp(1.2rem, 3vw, 1.55rem);
+    line-height: 1.45;
+    font-style: italic;
+    text-wrap: balance;
+  }
+  .oneline .sep { color: var(--accent); font-style: normal; padding: 0 0.15em; }
+
+  /* ---------- prose ---------- */
+  .prose { padding-top: 0.6rem; }
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    margin: 2.8rem 0 0.8rem;
+    text-wrap: balance;
+  }
+  .prose h3 { font-size: 1.1rem; margin: 1.8rem 0 0.5rem; }
+  .prose p { margin: 0 0 1rem; max-width: 42rem; }
+  .prose ul { margin: 0 0 1rem; padding-left: 1.2rem; max-width: 41rem; }
+  .prose li { margin-bottom: 0.55rem; }
+  .prose li::marker { color: var(--accent); }
+  .lead { font-size: 1.06rem; }
+  .pullquote {
+    margin: 1.6rem 0;
+    padding: 0.9rem 1.2rem;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 6px 6px 0;
+    font-size: 1.06rem;
+    font-style: italic;
+    max-width: 40rem;
+  }
+  .mech {
+    margin: 1.4rem 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+  .mech-item {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+  }
+  .mech-item .mech-label {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .mech-item p { margin: 0; }
+
+  /* enablement contract clauses */
+  .enable { margin: 1.4rem 0 0; display: grid; gap: 0; }
+  .enable-row {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 0.8rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .enable-row:last-child { border-bottom: 1px solid var(--rule); }
+  .enable-num {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+    color: var(--faint);
+    padding-top: 0.15rem;
+  }
+  .enable-row p { margin: 0; }
+  .failing {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.88rem;
+    color: var(--amber);
+  }
+  .failing .flabel {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* refs */
+  .refs { font-size: 0.88rem; color: var(--muted); }
+  .refs ul { padding-left: 1.2rem; }
+  .refs li { margin-bottom: 0.4rem; }
+
+  /* ---------- clauses (interface page) ---------- */
+  .clause { padding: 3rem 0 2.6rem; border-bottom: 1px solid var(--rule); }
+  .clause:last-of-type { border-bottom: none; }
+  .clause-head { display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
+  .clause-num { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.95rem; color: var(--faint); }
+  .clause h2, .floor h2 { font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -0.005em; text-wrap: balance; }
+  h2 .surface-detail { font-weight: 400; color: var(--muted); }
+  .verb {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    background: var(--accent);
+    color: var(--chip-ink);
+    border-radius: 3px;
+    padding: 0.22em 0.55em;
+    white-space: nowrap;
+    position: relative;
+    top: -0.15em;
+  }
+  .youdo { margin: 0.7rem 0 1.3rem; font-size: 1.05rem; }
+  .youdo strong { color: var(--accent); }
+
+  .tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.93rem; line-height: 1.45; }
+  th {
+    text-align: left;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.6rem 0.9rem 0.45rem;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  td { padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.when {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+    white-space: nowrap;
+    padding-top: 0.72rem;
+  }
+  td.tool { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.8rem; white-space: nowrap; padding-top: 0.7rem; }
+  .health { display: inline-block; width: 0.55em; height: 0.55em; border-radius: 50%; margin-right: 0.45em; position: relative; top: -0.08em; }
+  .h-ok { background: var(--ok); }
+  .h-warn { background: var(--warn); }
+  .h-crit { background: var(--crit); }
+
+  .promise {
+    margin: 1.5rem 0 0;
+    padding: 0.9rem 1.2rem 0.95rem;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 6px 6px 0;
+  }
+  .promise-label, .caveat-label {
+    display: block;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .promise-label { color: var(--accent); }
+  .promise p { margin: 0; font-size: 1.02rem; }
+  .caveat {
+    margin: 1rem 0 0;
+    padding: 0.65rem 1.2rem 0.7rem;
+    border-left: 3px solid var(--amber);
+    background: var(--amber-soft);
+    border-radius: 0 6px 6px 0;
+  }
+  .caveat-label { color: var(--amber); }
+  .caveat p { margin: 0; font-size: 0.9rem; color: var(--muted); }
+
+  /* ---------- diagrams ---------- */
+  figure { margin: 1.8rem 0; }
+  figure svg { max-width: 100%; height: auto; display: block; }
+  figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; max-width: 42rem; line-height: 1.5; }
+  .diagram-frame { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1.2rem; overflow-x: auto; }
+
+  /* two modes */
+  .modes { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.2rem 0; }
+  @media (max-width: 600px) { .modes { grid-template-columns: 1fr; } }
+  .mode {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    font-size: 0.93rem;
+  }
+  .mode h3 { margin: 0 0 0.5rem; font-size: 1rem; }
+  .mode ul { margin: 0; padding-left: 1.1rem; }
+  .mode li { margin-bottom: 0.35rem; }
+  .mode .mode-tag {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  /* ---------- floor band ---------- */
+  .floor-band { background: var(--floor-bg); margin-top: 4rem; }
+  .floor { max-width: 47rem; margin: 0 auto; padding: 3rem 1.5rem 3.2rem; color: var(--floor-ink); }
+  .floor h2 { color: var(--floor-ink); }
+  .floor .floor-sub { color: var(--floor-muted); margin: 0.5rem 0 1.8rem; font-size: 0.98rem; }
+  .floor dl { margin: 0; display: grid; gap: 0; }
+  .floor .floor-row {
+    display: grid;
+    grid-template-columns: 11.5rem 1fr;
+    gap: 1.2rem;
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--floor-rule);
+  }
+  .floor dt {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--floor-accent);
+    padding-top: 0.2rem;
+  }
+  .floor dd { margin: 0; font-size: 0.97rem; }
+  .floor code { background: rgba(127, 196, 201, 0.12); color: var(--floor-ink); }
+  @media (max-width: 540px) { .floor .floor-row { grid-template-columns: 1fr; gap: 0.15rem; } }
+
+  /* ---------- pager + colophon ---------- */
+  .pager {
+    max-width: 47rem;
+    margin: 3.5rem auto 0;
+    padding: 1.4rem 1.5rem 0;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .pager a {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.78rem;
+    text-decoration: none;
+  }
+  .colophon {
+    max-width: 47rem;
+    margin: 0 auto;
+    padding: 1.6rem 1.5rem 3.5rem;
+    font-size: 0.85rem;
+    color: var(--faint);
+    line-height: 1.6;
+  }
+  .colophon p { margin: 0 0 0.6rem; max-width: 42rem; }
+</style>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#philosophy">JARVIS · Handbook</a>
+    <nav class="pages" aria-label="Handbook pages">
+      <a class="navlink" data-page="philosophy" href="#philosophy"><span class="n">01</span>Philosophy</a>
+      <a class="navlink" data-page="interface" href="#interface"><span class="n">02</span>Interface</a>
+      <a class="navlink" data-page="architecture" href="#architecture"><span class="n">03</span>Architecture</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================================================================ -->
+<!-- PAGE 1 · PHILOSOPHY                                              -->
+<!-- ================================================================ -->
+<section class="page-section" id="page-philosophy">
+  <div class="page">
+    <header class="masthead">
+      <div class="doc-kicker"><span>01 · design philosophy</span><span>2026-08-19</span></div>
+      <h1>My head is for having ideas</h1>
+      <p class="standfirst">Why JARVIS exists: the problem it solves for its one user, and the
+      two mechanisms the whole architecture repeats. <em>Everything else is bookkeeping.</em></p>
+    </header>
+
+    <div class="prose">
+      <h2>The problem, stated from the demand side</h2>
+      <p class="lead">I have a high volume of ideas I think are valuable to act on — more than I
+      could ever execute personally — and AI lets me multiply my throughput of intellectual work
+      by running many work-threads in parallel. But I want to pursue that throughput while
+      cultivating what David Allen calls <em>mind like water</em>: my own attention staying
+      sequential, one thing at a time, with minimal context switching.</p>
+      <div class="pullquote">JARVIS is an adapter that makes a parallel fleet consumable by a
+      sequential mind — it does the high-volume parallelizable work while requiring only
+      single-threaded, sequential input from me.</div>
+      <p>My actions become spinning up threads — mostly fire-and-forget — and getting
+      deliverables back later. This is possible because most of the volume between an idea and
+      its realization is glorified bookkeeping. The adapter needs exactly two mechanisms, and
+      the whole system is those two mechanisms over and over:</p>
+      <div class="mech">
+        <div class="mech-item">
+          <span class="mech-label">Mechanism 1 · Closed loops</span>
+          <p>Closing a loop means minimizing the time between <em>I have a thought</em> and
+          <em>I've acted on it in a way that assures a deliverable</em>. It's fine if actual
+          completion takes days — as long as I'm assured I'll be notified of success
+          (deliverable attached) or notified of an error. <strong>No silent failures.</strong>
+          That assurance must be structural — externally-checked gates, termination contracts,
+          blocked-work sweeps — never an agent's self-report.</p>
+        </div>
+        <div class="mech-item">
+          <span class="mech-label">Mechanism 2 · Programmed attention</span>
+          <p>I decide <em>in policy, in advance</em> what may interrupt me and when the rest
+          gets spent. Decisions arrive pre-chewed into veto shape — object-or-don't, with a
+          default — instead of compose-an-answer shape. The residue of my attention is all
+          direction and review: the having-ideas part.</p>
+        </div>
+      </div>
+
+      <h2>More ideas than hands</h2>
+      <p>The starting point isn't a productivity pathology; it's a surplus. On any given week I
+      have more thoughts worth acting on — experiments worth running, posts worth writing, tools
+      worth building — than I could personally execute in a year. Historically that surplus just
+      decayed: ideas went un-acted-on, or into a note I'd never revisit, or into the worst place
+      of all, my working memory, where they nagged.</p>
+      <p>AI changes the execution side completely. Agents can write the code, run the sweeps,
+      draft the reports — and crucially they can do it <em>in parallel</em>, dozens of threads at
+      once. The throughput ceiling on my intellectual output stops being execution capacity.</p>
+      <p>But it doesn't become infinite. The constraint that survives is my attention — and not
+      just its <em>quantity</em> but its <em>shape</em>. Which is where the naive version of
+      this goes wrong.</p>
+
+      <h2>The tension I couldn't resolve by discipline</h2>
+      <p>I wrote the problem down before I had the solution. Orchestrating a fleet of AI agents
+      demands "a high-bandwidth, multi-threaded, parallel mode" — constant context-loading,
+      monitoring, switching. Deep thinking demands the opposite: "a low-bandwidth,
+      single-threaded, highly sequential mode." The two are not just different; the first is
+      <em>inimical</em> to the second. Every check-in on a running agent is a self-interruption,
+      and the orchestration mindset — many shallow threads, always partially attending — is
+      precisely the mindset deep work cannot survive.</p>
+      <p>Note that this is a claim about the <em>shape</em> of attention, not its amount. You
+      can spend very little total time on your fleet and still lose, if that time arrives as
+      twenty fragments that each force a context switch; and you can spend a whole morning on
+      one hard problem and be fine. "Minimize attention spent" was never quite the right
+      objective — "keep my attention sequential" is.</p>
+      <p>My first fix was time-slicing: mornings for deep thinking while fresh, afternoons for
+      AI-assisted work once the deep-work budget is spent. That is a truce, not a solution —
+      orchestration expands to fill whatever you give it, and a morning "just checking one
+      agent" is how the truce dies. The same shortform floated the real answer almost as an
+      aside: successful companies solve this with <em>specialization</em> — someone whose entire
+      job is the multi-threaded mode, so that others can stay single-threaded.</p>
+      <p>JARVIS is that specialist. Not an assistant that helps me do tasks — a <strong>command
+      center</strong> that holds the parallelism, so my mind doesn't have to. The many-threaded
+      mode still exists; it just runs in software instead of in my head. Seen this way, every
+      user-facing surface in the system is a <strong>serialization point</strong> — a place
+      where parallel work gets converted into something a sequential mind can consume: the
+      morning digest <em>batches</em>, the waiting-on-me inbox <em>queues</em>, and veto-shaped
+      decisions <em>bound each item</em>. The adapter metaphor isn't decoration; it's a
+      checklist you can hold the architecture to.</p>
+
+      <h2>Everything else is bookkeeping</h2>
+      <p>The premise deserves stating baldly, because it's doing two different jobs. My
+      comparative advantage — arguably my only one, in a world where agents write the code and
+      run the experiments — is having ideas: noticing what's interesting, framing the question,
+      judging the result. Everything between an idea and its realization is bookkeeping:
+      tracking what's in flight, remembering follow-ups, chasing blocked work, monitoring
+      dashboards, deciding when to check on things.</p>
+      <p>The first job of the premise is to explain why delegation is <em>desirable</em>:
+      bookkeeping held in a head isn't merely zero-value — it's negative-value. Open loops —
+      "tasks left undone, observations left unrecorded, replies yet to be written" — occupy
+      working memory whether or not you're working on them, and the mind rehearses them at
+      intervals it chooses, not intervals you choose. That rehearsal is the background noise
+      deep work can't happen over. An idea-head full of bookkeeping is a bad idea-head.</p>
+      <p>The second job is to explain why delegation is <em>possible</em>: most of the sheer
+      volume of intellectual work is bookkeeping-shaped. To be precise — agents also run the
+      experiments and write the code, which isn't bookkeeping by any definition. The claim is
+      about proportions: the bulk of what stands between an idea and its realization is
+      tracking, routing, retrying, formatting, chasing — even when it wraps real technical work
+      — and the irreducibly-me part (framing, judging, noticing) is small and, conveniently,
+      sequential. That's why "AI does the parallel volume, I supply sequential input" is a
+      coherent division of labor rather than wishful thinking.</p>
+      <p>So the design question for JARVIS was never "how much work can agents do?" The
+      question is: <strong>what does it take for my mind to actually release a loop once I've
+      handed it off?</strong></p>
+
+      <h2>A trusted system that works the loops</h2>
+      <p>Allen's answer, thirty years old now, is that the mind releases a loop only when it's
+      captured in a <strong>trusted system</strong> and the system is consistently reviewed.
+      Capture alone is famously insufficient — trust comes from the review loop, not the inbox.
+      When trust is real, you stop rehearsing; that's mind like water.</p>
+      <p>But Allen's trusted system is a filing cabinet. It <em>stores</em> loops; every one
+      still gets closed by you, with your hands. The system's promise is modest: <em>you will
+      see this again at the right time.</em> Agents upgrade the cabinet to <strong>staff</strong>.
+      A loop handed to JARVIS doesn't get parked — it gets worked: dispatched to a worker pool,
+      run against a definition of done, wrapped up into a PR, its findings filed. The promise
+      upgrades too: <em>this will be handled, and you will see it again only if it needs
+      you.</em></p>
+      <p>Two speeds matter here, and they're different. <strong>Release</strong> — the interval
+      between having the thought and my mind letting go of it — should be near-instant.
+      <strong>Completion</strong> can take days or longer; that's the fleet's problem, not mine.
+      What makes fast release safe despite slow completion is the termination guarantee: every
+      handed-off thread ends in exactly one of (i) success, notified, with the deliverable
+      attached, or (ii) an error, notified. The third outcome — a thread that trails off and
+      nobody ever tells me — is the one the machinery exists to make impossible. That's what
+      fire-and-forget actually requires: <em>you can only forget what you're structurally
+      guaranteed to be reminded of.</em></p>
+      <p>And here is the part most "AI does your busywork" writing skips: a heavier promise
+      needs a stronger basis for trust. In classic GTD, trust fails when review lapses. In
+      agentic GTD, trust fails when <em>verification</em> lapses — when "done" means an agent
+      said so. We learned this the concrete way: early on, a worker settled "done" with a
+      placeholder report while its actual experiment still ran on an unowned GPU. So assurance
+      is structural:</p>
+      <ul>
+        <li><strong>Done is externally checked, never self-reported.</strong> Every dispatched
+        task carries a gate — a PR exists, the report lints, the results file has ≥ N rows —
+        evaluated by machinery, not by the worker's account of itself.</li>
+        <li><strong>Every thread terminates or pages.</strong> A launched thread ends in a
+        terminal note or someone gets paged about it. Abandonment is a detected state.</li>
+        <li><strong>Blocked-on-me is swept, not remembered.</strong> Anything waiting on my
+        input is marked with a grep-able convention, aggregated into one inbox, pushed to me.</li>
+        <li><strong>Activity is observed, not self-reported.</strong> What happened this week
+        comes from transcripts and git; dormant threads get flagged by measurement.</li>
+      </ul>
+      <div class="pullquote">Mind-like-water at delegation scale is only as good as your
+      verification substrate.</div>
+
+      <h2>Programmed attention</h2>
+      <p>Closed loops get bookkeeping <em>out</em> of my head. The second half of the design
+      governs what's allowed <em>in</em> — the serialization points, made concrete. Andy
+      Matuschak calls this <strong>programmable attention</strong>: environments deliberately
+      designed to shape where their occupant's focus goes. JARVIS takes the idea literally.
+      There is an attention program, it's written down, and the machinery executes it:</p>
+      <ul>
+        <li><strong>Interrupts are policy, not vibes.</strong> Agents page me through one
+        sanctioned channel with explicit severities. The bar for paging is deliberately low —
+        a wasted page costs seconds, a silent stall costs days — but <em>what reaches me, and
+        how loudly</em> is decided by rules I set once.</li>
+        <li><strong>The rest is batched to a time I chose.</strong> A morning digest of what
+        merged overnight; a waiting-on-me inbox; dormancy flags. My attention visits the system
+        on schedule — the system doesn't visit me.</li>
+        <li><strong>Decisions arrive veto-shaped.</strong> The expensive, paralysis-prone form
+        of a decision is <em>compose an answer</em>. JARVIS's operating rule — agents draft
+        everything, drafts are immediately operative, I edit or veto lazily — converts nearly
+        every decision that reaches me into <em>object or don't</em>: bounded, defaulted,
+        cheap. Direction never blocks on me.</li>
+        <li><strong>The parts drive themselves.</strong> Handholding is attention leakage in
+        its politest form. Recurring activities are agents' jobs to <em>engineer</em>, not mine
+        to remember: crons, sweeps, gates, monitors. If a recurring activity requires me to
+        remember to trigger it, it isn't finished being built.</li>
+      </ul>
+      <p>Note where authorship sits. "The system manages my attention" would be the dystopian
+      reading; the actual arrangement is that <em>I wrote the attention program</em> — the
+      severity thresholds, the digest hour, the veto windows — and agents execute it
+      faithfully.</p>
+
+      <h2>What this should enable — a falsifiable contract</h2>
+      <p>The point of a philosophy is that you can be held to it. If the observation on the
+      right is true, the system is failing, whatever its dashboards say:</p>
+      <div class="enable">
+        <div class="enable-row"><span class="enable-num">1</span><p><strong>Mornings that are
+        actually mine.</strong> Deep work happens first, on one thread, with zero check-ins.
+        <span class="failing"><span class="flabel">Failing if</span> — I peek at agent tabs
+        before noon.</span></p></div>
+        <div class="enable-row"><span class="enable-num">2</span><p><strong>One-line handoffs,
+        fire-and-forget.</strong> "Let's do XYZ" is a complete delegation: the system drafts the
+        definition of done, works it, and returns a deliverable or an error — never silence.
+        <span class="failing"><span class="flabel">Failing if</span> — handing something off
+        requires a spec's worth of caveats or babysitting the first hour.</span></p></div>
+        <div class="enable-row"><span class="enable-num">3</span><p><strong>Real release.</strong>
+        Once handed off, the loop leaves my working memory — because I trust the gates, not
+        because I have a good memory. <span class="failing"><span class="flabel">Failing if</span>
+        — I catch myself rehearsing delegated work in the shower.</span></p></div>
+        <div class="enable-row"><span class="enable-num">4</span><p><strong>One capture,
+        everywhere.</strong> A thought at any surface — task app, voice memo, chat message —
+        lands in the system and gets routed onto an existing spine. Capture inboxes drain to
+        zero. <span class="failing"><span class="flabel">Failing if</span> — a thought's fate
+        depends on which app it landed in.</span></p></div>
+        <div class="enable-row"><span class="enable-num">5</span><p><strong>Zero polling.</strong>
+        I am paged when needed; I never sweep dashboards to find out whether I'm needed.
+        <span class="failing"><span class="flabel">Failing if</span> — I discover blocked work
+        by asking.</span></p></div>
+        <div class="enable-row"><span class="enable-num">6</span><p><strong>Decisions arrive
+        veto-shaped.</strong> With a drafted default and a cheap revert.
+        <span class="failing"><span class="flabel">Failing if</span> — the system regularly
+        hands me blank pages.</span></p></div>
+        <div class="enable-row"><span class="enable-num">7</span><p><strong>No silent
+        failures.</strong> Dormancy, abandonment, errors, and blocked-on-Daniel are observed
+        states that surface themselves. <span class="failing"><span class="flabel">Failing
+        if</span> — I re-discover a dead thread months later by accident.</span></p></div>
+        <div class="enable-row"><span class="enable-num">8</span><p><strong>My attention's
+        residue is direction and review.</strong> The touchpoints that remain — reading patch
+        notes, editing a drafted goal, vetoing a merge, judging a result — are all
+        top-of-ladder: the having-ideas part. <span class="failing"><span class="flabel">Failing
+        if</span> — my time with the system is supervision, status collection, or resource
+        babysitting.</span></p></div>
+      </div>
+
+      <h2>The stable equilibrium: consumer mode</h2>
+      <p>There's a stance that makes all of this sustainable rather than aspirational: I am a
+      <strong>consumer</strong> of the software my agents build, not its developer. I read patch
+      notes every morning; if I dislike something, I revert to yesterday's version and open
+      issues. Daily digest in, revert-plus-issue out — a complete control loop at minutes a day.
+      It's the same relationship anyone has with an actively-developed product — release notes,
+      rollback, feedback — except the "company" is a fleet of agents whose roadmap I set.
+      Consumer-grade involvement, owner-grade control.</p>
+      <p>That stance keeps the attention program honest: any change that can't be described as
+      a behavior delta in the morning notes is exactly the kind of change a consumer should be
+      nervous about.</p>
+
+      <h2>Where the philosophy admits it can fail</h2>
+      <ul>
+        <li><strong>Trust is earned per-domain, not granted globally.</strong> Where I can't
+        yet articulate what "done" means, no gate can check it, and I'm still the developer
+        there.</li>
+        <li><strong>The GTD failure mode still applies, one level up.</strong> Allen's systems
+        collapse when review lapses; this one collapses when verification lapses — when
+        self-report creeps back in as the basis for "handled."</li>
+        <li><strong>Emergent momentum is not the same as mattering.</strong> A system that
+        works loops autonomously will preferentially advance what's <em>easy</em> to advance.
+        The counterweights — interestingness rubrics, coverage views, prune candidates — exist
+        because pruning is where veto attention has the most leverage.</li>
+        <li><strong>Structural guardrails, not attentional ones.</strong> By construction I'm
+        not watching in real time, so irreversible and external-facing actions — money,
+        credentials, publishing — are blocked by mechanism, always.</li>
+      </ul>
+
+      <h2 class="refs-h">References</h2>
+      <div class="refs">
+        <ul>
+          <li>Allen, D. (2015). <em>Getting Things Done: The Art of Stress-Free Productivity.</em>
+          ("Mind like water"; open loops; the trusted system.)</li>
+          <li>Matuschak, A. <a href="https://notes.andymatuschak.org/zFuk9QqspNYHAgvzZc33ZGH">"Close open loops"</a>
+          and <a href="https://notes.andymatuschak.org/zPpaHZYKuBPyoDtgcsiZ9RV">"Programmable attention."</a></li>
+          <li>Tan, D. (2026). <a href="https://www.lesswrong.com/posts/4mtqQKvmHpQJ4dgj7/daniel-tan-s-shortform?commentId=PpDCu9J3LtTE7diW9">Shortform on AI multitasking vs. deep work.</a></li>
+          <li>In the repo: <span class="mono">drafts/jarvis-design-philosophy.md</span> (source of
+          this page) · <span class="mono">drafts/consumer-of-your-own-software.md</span> (the
+          consumer stance, in full).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="pager"><span></span><a href="#interface">Next · 02 Interface →</a></div>
+</section>
+
+<!-- ================================================================ -->
+<!-- PAGE 2 · INTERFACE                                               -->
+<!-- ================================================================ -->
+<section class="page-section" id="page-interface">
+  <div class="page">
+    <header class="masthead">
+      <div class="doc-kicker"><span>02 · user interface</span><span>ratified 2026-08-18</span></div>
+      <h1>The Interface Contract</h1>
+      <p class="standfirst">Five surfaces Daniel touches, and the guarantee each one <em>owes
+      him</em>. Any agent changing a mechanism below — a cron, a lane, a desk source, mailroom
+      routing — updates the corresponding guarantee here in the same PR. A guarantee this page
+      states but the system no longer keeps is a bug worth an issue.</p>
+      <div class="oneline">
+        <span class="oneline-label">The whole contract in one line</span>
+        <p>Read one Slack channel + one desk page<span class="sep"> · </span>veto two queues, lazily<span class="sep"> · </span>write into three capture silos<span class="sep"> · </span>everything else runs without you.</p>
+      </div>
+    </header>
+
+    <section class="clause">
+      <div class="clause-head">
+        <span class="clause-num">§1</span>
+        <h2>Capture surfaces <span class="surface-detail">— Todoist · voice memos · #lab-notes-daniel</span></h2>
+        <span class="verb">WRITE</span>
+      </div>
+      <p class="youdo"><strong>You do:</strong> dump thoughts with zero ceremony. Never file, tag,
+      or route them yourself — routing is mailroom's job.</p>
+      <div class="tablewrap">
+        <table>
+          <tr><th>When</th><th>What happens</th></tr>
+          <tr><td class="when">on drain</td><td>mailroom ingests → triages → routes onto an <em>existing</em> spine: a thread note, a Todoist project, a goal file, or the papers queue (voice memos transcribe via Parakeet first)</td></tr>
+          <tr><td class="when">at source</td><td>a loop-closure mark where you wrote it — the Todoist task completes or moves, the Slack message is marked — your receipt that it was picked up</td></tr>
+          <tr><td class="when">daily</td><td>one digest of what was routed where; the digest is your veto surface, and silence approves</td></tr>
+          <tr><td class="when">if urgent</td><td>deadline-bearing captures escalate immediately — desk item + flare — instead of waiting for the digest</td></tr>
+        </table>
+      </div>
+      <div class="promise">
+        <span class="promise-label">Promise</span>
+        <p>Nothing you capture is silently dropped — it routes, escalates, or appears in the
+        digest, and the mark at source is your receipt.</p>
+      </div>
+      <div class="caveat">
+        <span class="caveat-label">Caveat</span>
+        <p>The drain cron isn't installed until mailroom's PR merges (lane:blocked); until then,
+        drains are manual runs. Validated at 458 thoughts, 95% routed, 0 Todoist completions lost.</p>
+      </div>
+    </section>
+
+    <section class="clause">
+      <div class="clause-head">
+        <span class="clause-num">§2</span>
+        <h2>Slack <span class="surface-detail">— #jarvis-dev</span></h2>
+        <span class="verb">READ</span>
+      </div>
+      <p class="youdo"><strong>You do:</strong> skim one channel, once a morning. Act only when paged.</p>
+      <div class="tablewrap">
+        <table>
+          <tr><th>When</th><th>What arrives</th></tr>
+          <tr><td class="when">08:05 daily</td><td>the morning edition: what merged overnight, what enters or leaves the veto window, anomalies — a quiet day says “nothing needs you” explicitly</td></tr>
+          <tr><td class="when">seconds</td><td>any flare from any agent (sessions, workers, pod scripts, crons): <code>info</code> = FYI · <code>warn</code> = look today · <code>page</code> = now</td></tr>
+          <tr><td class="when">always</td><td>every flare also spools to <code>~/.flare/log.jsonl</code> — a Slack outage delays, never loses</td></tr>
+        </table>
+      </div>
+      <div class="promise">
+        <span class="promise-label">Promise</span>
+        <p>This channel is the knowing. If it isn't here, the system doesn't need you; you never
+        sweep dashboards.</p>
+      </div>
+      <div class="caveat">
+        <span class="caveat-label">Caveat</span>
+        <p>Noise thresholds are still tuning (the 2026-08-18 flood → batched flares, no desk echo).</p>
+      </div>
+    </section>
+
+    <section class="clause">
+      <div class="clause-head">
+        <span class="clause-num">§3</span>
+        <h2>desk <span class="surface-detail">— the waiting-on-you inbox</span></h2>
+        <span class="verb">READ</span>
+      </div>
+      <p class="youdo"><strong>You do:</strong> open it when a flare points there. Never poll it.</p>
+      <div class="tablewrap">
+        <table>
+          <tr><th>When</th><th>What it guarantees</th></tr>
+          <tr><td class="when">≤ 1 h</td><td>anything newly blocked on you appears (sync at :07 hourly) — and pushes as a flare, so desk finds you first</td></tr>
+          <tr><td class="when">always</td><td>sweeps all four formerly-disjoint queues: blocked/failed pool tasks, open-PR ages, <code>BLOCKED-ON-DANIEL:</code> markers, recent flares</td></tr>
+          <tr><td class="when">on unblock</td><td>agents remove the marker; items leave without you touching the page</td></tr>
+        </table>
+      </div>
+      <div class="promise">
+        <span class="promise-label">Promise</span>
+        <p>If it's not on desk, nothing is waiting on you — one page defines “blocked on Daniel”
+        for the whole system.</p>
+      </div>
+      <div class="caveat">
+        <span class="caveat-label">Caveat</span>
+        <p>The marker is a convention, not a hook; an agent that forgets to write
+        <code>BLOCKED-ON-DANIEL:</code> can still stall silently.</p>
+      </div>
+    </section>
+
+    <section class="clause">
+      <div class="clause-head">
+        <span class="clause-num">§4</span>
+        <h2>goals/ <span class="surface-detail">— the direction registry</span></h2>
+        <span class="verb">EDIT · VETO</span>
+      </div>
+      <p class="youdo"><strong>You do:</strong> edit or delete goal files whenever you feel like
+      it. Nothing schedules you.</p>
+      <div class="tablewrap">
+        <table>
+          <tr><th>When</th><th>What it guarantees</th></tr>
+          <tr><td class="when">never blocks</td><td>agents draft everything (Vision, rubrics, candidate goals), marked <code>agent-drafted</code>; drafts are operative immediately</td></tr>
+          <tr><td class="when">your edit wins</td><td>a section you touch becomes Daniel-owned; agents propose diffs only</td></tr>
+          <tr><td class="when">only 2 waits</td><td>flipping <code>automation: dispatch</code> and setting real budgets are the only calls that ever wait for you</td></tr>
+          <tr><td class="when">on review</td><td><code>/goal-review</code> is propose-only: proposals arrive as a review doc + PR, never as dispatched work</td></tr>
+        </table>
+      </div>
+      <div class="promise">
+        <span class="promise-label">Promise</span>
+        <p>Your authority is cheap lazy veto — delete or rework what you dislike — never a
+        prerequisite anything waits on.</p>
+      </div>
+    </section>
+
+    <section class="clause">
+      <div class="clause-head">
+        <span class="clause-num">§5</span>
+        <h2>PR queue <span class="surface-detail">— lanes + morning patch notes</span></h2>
+        <span class="verb">REVIEW · VETO</span>
+      </div>
+      <p class="youdo"><strong>You do:</strong> read patch notes; veto what you dislike;
+      deep-review only lane:blocked.</p>
+      <div class="tablewrap">
+        <table>
+          <tr><th>Lane</th><th>Guarantee</th></tr>
+          <tr><td class="when">lane:auto</td><td>merges 03:29 on green, deployed by 04:10, reported at 08:05 — zero action needed</td></tr>
+          <tr><td class="when">lane:delay</td><td>holds for <strong>2 morning editions you actually received</strong> (skipped mornings pause the clock); veto = <code>veto</code> label or a changes-requested review</td></tr>
+          <tr><td class="when">lane:blocked</td><td>never merges without you — money, credentials, external-facing, destructive; surfaces on desk + flare and waits</td></tr>
+          <tr><td class="when">backstop</td><td>mislabels demote automatically (protected paths → delay, credential-like → blocked) and show up in patch notes as anomalies</td></tr>
+        </table>
+      </div>
+      <div class="promise">
+        <span class="promise-label">Promise</span>
+        <p>Nothing behavior-shaping or money-spending merges past you faster than two mornings
+        you were present for.</p>
+      </div>
+      <div class="caveat">
+        <span class="caveat-label">Caveat</span>
+        <p>Review throughput is the documented 🔴 bottleneck — lanes shrink what needs you; they
+        don't review for you.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="floor-band">
+    <section class="floor">
+      <h2>The floor</h2>
+      <p class="floor-sub">System-wide guarantees that hold under every surface above.</p>
+      <dl>
+        <div class="floor-row">
+          <dt>push, not poll</dt>
+          <dd>You are paged; you never ask “status?” of a session, a worker, or the system.</dd>
+        </div>
+        <div class="floor-row">
+          <dt>durable</dt>
+          <dd>All state is markdown in git; the 03:41 nightly snapshot commits memory even if every session forgot.</dd>
+        </div>
+        <div class="floor-row">
+          <dt>escape hatch</dt>
+          <dd>Any agent, script, or cron can flare — anything blocked can always reach you.</dd>
+        </div>
+        <div class="floor-row">
+          <dt>observed truth</dt>
+          <dd>“Done” is externally checked — gates, transcripts, git — never a worker's self-report.</dd>
+        </div>
+        <div class="floor-row">
+          <dt>degrades safely</dt>
+          <dd>Daemon death doesn't kill workers; flares spool through Slack outages; ephemeral views are regenerable.</dd>
+        </div>
+      </dl>
+    </section>
+  </div>
+  <div class="pager"><a href="#philosophy">← 01 Philosophy · Prev</a><a href="#architecture">Next · 03 Architecture →</a></div>
+</section>
+
+<!-- ================================================================ -->
+<!-- PAGE 3 · ARCHITECTURE                                            -->
+<!-- ================================================================ -->
+<section class="page-section" id="page-architecture">
+  <div class="page">
+    <header class="masthead">
+      <div class="doc-kicker"><span>03 · implementation &amp; architecture</span><span>current as of 2026-08-19</span></div>
+      <h1>The Command Center</h1>
+      <p class="standfirst">How the guarantees are actually kept: the adapter, the layer model,
+      the thread spine, where things live, and the conventions that carry the trust.
+      <em>Source of truth: <span class="mono">docs/command-center.md</span>.</em></p>
+    </header>
+
+    <div class="prose">
+      <h2>The system in one picture</h2>
+      <figure>
+        <div class="diagram-frame">
+        <svg viewBox="0 0 860 330" role="img" aria-label="Parallel work-threads flow through the command center, which verifies, records, and serializes them into three bounded touchpoints for Daniel; Daniel's input returns as one-line handoffs and lazy vetoes." style="color: var(--ink); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+            </marker>
+            <marker id="arrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
+            </marker>
+          </defs>
+          <!-- fleet column -->
+          <text x="80" y="26" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1">THE FLEET</text>
+          <text x="80" y="42" text-anchor="middle" font-size="10" opacity="0.65">parallel</text>
+          <g fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="15" y="56"  width="130" height="30" rx="4"/>
+            <rect x="15" y="94"  width="130" height="30" rx="4"/>
+            <rect x="15" y="132" width="130" height="30" rx="4"/>
+            <rect x="15" y="170" width="130" height="30" rx="4"/>
+            <rect x="15" y="208" width="130" height="30" rx="4"/>
+          </g>
+          <g font-size="11" text-anchor="middle" fill="currentColor">
+            <text x="80" y="75">sessions</text>
+            <text x="80" y="113">concierge pool</text>
+            <text x="80" y="151">arch2 fleets</text>
+            <text x="80" y="189">pod scripts</text>
+            <text x="80" y="227">crons</text>
+          </g>
+          <!-- fleet -> center -->
+          <line x1="150" y1="147" x2="235" y2="147" stroke="currentColor" stroke-width="1.2" marker-end="url(#arr)"/>
+          <text x="192" y="136" text-anchor="middle" font-size="10" fill="currentColor">PRs · results · notes</text>
+
+          <!-- command center -->
+          <rect x="240" y="52" width="300" height="192" rx="6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <text x="390" y="26" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1">COMMAND CENTER</text>
+          <text x="390" y="42" text-anchor="middle" font-size="10" opacity="0.65">verify · record · serialize</text>
+          <g fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3">
+            <rect x="256" y="68"  width="268" height="42" rx="4"/>
+            <rect x="256" y="122" width="268" height="42" rx="4"/>
+            <rect x="256" y="176" width="268" height="42" rx="4"/>
+          </g>
+          <g font-size="11" text-anchor="middle" fill="currentColor">
+            <text x="390" y="86">gates check “done”</text>
+            <text x="390" y="100" font-size="9.5" opacity="0.65">external checks, never self-report</text>
+            <text x="390" y="140">state lands in git</text>
+            <text x="390" y="154" font-size="9.5" opacity="0.65">threads · memory · goals · wiki</text>
+            <text x="390" y="194">serializers batch &amp; queue</text>
+            <text x="390" y="208" font-size="9.5" opacity="0.65">gazette · desk · flare</text>
+          </g>
+          <!-- center -> daniel (accent = the serialized interface) -->
+          <line x1="545" y1="147" x2="628" y2="147" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#arrA)"/>
+          <text x="586" y="136" text-anchor="middle" font-size="10" fill="var(--accent)">few, bounded</text>
+
+          <!-- daniel column -->
+          <text x="745" y="26" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1">DANIEL</text>
+          <text x="745" y="42" text-anchor="middle" font-size="10" opacity="0.65">sequential</text>
+          <g fill="none" stroke="var(--accent)" stroke-width="1.2">
+            <rect x="633" y="75"  width="212" height="38" rx="4"/>
+            <rect x="633" y="127" width="212" height="38" rx="4"/>
+            <rect x="633" y="179" width="212" height="38" rx="4"/>
+          </g>
+          <g font-size="11" text-anchor="middle" fill="currentColor">
+            <text x="739" y="92">08:05 edition</text>
+            <text x="739" y="104" font-size="9.5" opacity="0.65">batches the night</text>
+            <text x="739" y="144">desk, when flared</text>
+            <text x="739" y="156" font-size="9.5" opacity="0.65">one queue of “needs you”</text>
+            <text x="739" y="196">veto windows</text>
+            <text x="739" y="208" font-size="9.5" opacity="0.65">object-or-don't, defaulted</text>
+          </g>
+          <!-- return path -->
+          <path d="M 739 222 L 739 290 L 80 290 L 80 244" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arr)"/>
+          <text x="410" y="281" text-anchor="middle" font-size="10" fill="currentColor">one-line handoffs · lazy vetoes · goal edits — sequential input, fire-and-forget</text>
+        </svg>
+        </div>
+        <figcaption><strong>The adapter.</strong> Many parallel work-threads produce PRs, results,
+        and notes; the command center verifies them against external gates, records them in git,
+        and serializes what needs attention into three bounded touchpoints. Daniel's input
+        returns along one path: short handoffs and lazy vetoes.</figcaption>
+      </figure>
+
+      <h2>Two operating modes</h2>
+      <p>The command center serves two genuinely different use cases; conflating them causes
+      design errors. Every tool knows which mode it serves, and the mode boundary — where
+      copilot output must land in durable state, and full-auto output re-enters through review
+      — is where work historically got lost.</p>
+      <div class="modes">
+        <div class="mode">
+          <span class="mode-tag">Copilot</span>
+          <h3>Daniel is present, coworking</h3>
+          <ul>
+            <li>Synchronous, low latency; trust is per-exchange because he's watching</li>
+            <li>Surfaces: interactive sessions, cowrite, foyer terminals, artifacts</li>
+            <li>Spec rigor can be conversational; review happens inline</li>
+          </ul>
+        </div>
+        <div class="mode">
+          <span class="mode-tag">Full-auto</span>
+          <h3>Daniel tasks the system and leaves</h3>
+          <ul>
+            <li>Asynchronous, throughput-oriented; trust must be <em>structural</em></li>
+            <li>Surfaces: concierge, arch2 fleets, stagehand, crons, the thread board</li>
+            <li>Well-specified tasks, external gates, hard budgets, idempotent-resume</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>The layer model</h2>
+      <p>Seven layers: a <strong>core work loop</strong> of four that forms a closed cycle, and
+      a <strong>support plane</strong> of three that never moves work forward — it watches the
+      loop, pages Daniel when it stalls, and bounds its spend. Each layer answers one question
+      with one source of truth.</p>
+      <figure>
+        <div class="diagram-frame">
+        <svg viewBox="0 0 860 300" role="img" aria-label="Core work loop: direction feeds execution, execution produces artifacts for review, review integrates truth into state, state refeeds direction. A support plane of observability, attention routing, and resources watches the loop and pages Daniel." style="color: var(--ink); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;">
+          <defs>
+            <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+            </marker>
+            <marker id="arr2A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
+            </marker>
+          </defs>
+          <!-- core loop -->
+          <g fill="none" stroke="currentColor" stroke-width="1.3">
+            <rect x="40"  y="40" width="170" height="56" rx="6"/>
+            <rect x="330" y="40" width="200" height="56" rx="6"/>
+            <rect x="650" y="40" width="170" height="56" rx="6"/>
+            <rect x="330" y="150" width="200" height="56" rx="6"/>
+          </g>
+          <g font-size="12" text-anchor="middle" fill="currentColor">
+            <text x="125" y="63" font-weight="700">1 · Direction</text>
+            <text x="125" y="80" font-size="10" opacity="0.7">goals/ · draft-and-veto</text>
+            <text x="430" y="63" font-weight="700">3 · Execution</text>
+            <text x="430" y="80" font-size="10" opacity="0.7">concierge · arch2 · stagehand · bellhop</text>
+            <text x="735" y="63" font-weight="700">4 · Review</text>
+            <text x="735" y="80" font-size="10" opacity="0.7">PRs · lanes · gazette</text>
+            <text x="430" y="173" font-weight="700">2 · State</text>
+            <text x="430" y="190" font-size="10" opacity="0.7">memory · threads · wiki — markdown in git</text>
+          </g>
+          <g stroke="currentColor" stroke-width="1.2" fill="none">
+            <line x1="210" y1="68" x2="325" y2="68" marker-end="url(#arr2)"/>
+            <line x1="530" y1="68" x2="645" y2="68" marker-end="url(#arr2)"/>
+            <path d="M 735 96 L 735 178 L 535 178" marker-end="url(#arr2)"/>
+            <path d="M 330 178 L 125 178 L 125 101" marker-end="url(#arr2)"/>
+          </g>
+          <g font-size="10" fill="currentColor">
+            <text x="267" y="58" text-anchor="middle">specs, dispatch</text>
+            <text x="587" y="58" text-anchor="middle">artifacts, PRs</text>
+            <text x="638" y="170" text-anchor="middle">merged truth</text>
+            <text x="222" y="170" text-anchor="middle">refeeds frontier</text>
+          </g>
+          <!-- support plane -->
+          <rect x="40" y="232" width="780" height="52" rx="6" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+          <g font-size="11" text-anchor="middle" fill="currentColor">
+            <text x="200" y="253" font-weight="700">5 · Observability</text>
+            <text x="200" y="268" font-size="9.5" opacity="0.7">foyer · lobby · dashboards</text>
+            <text x="430" y="253" font-weight="700">6 · Attention routing</text>
+            <text x="430" y="268" font-size="9.5" opacity="0.7">flare · desk · markers</text>
+            <text x="660" y="253" font-weight="700">7 · Resources</text>
+            <text x="660" y="268" font-size="9.5" opacity="0.7">budgets · TTLs · pod audit</text>
+          </g>
+          <line x1="430" y1="232" x2="430" y2="212" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arr2)"/>
+          <text x="465" y="224" font-size="10" fill="currentColor">watches</text>
+          <line x1="820" y1="258" x2="852" y2="258" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arr2A)"/>
+          <text x="836" y="248" text-anchor="middle" font-size="10" fill="var(--accent)">pages</text>
+        </svg>
+        </div>
+        <figcaption><strong>The core work loop and its support plane.</strong> Direction decides
+        against state, execution produces artifacts, review integrates them into truth, which
+        updates state and refeeds direction. The support plane never moves work forward — it
+        watches, pages, and bounds spend.</figcaption>
+      </figure>
+      <div class="tablewrap">
+        <table>
+          <tr><th>Layer</th><th>Question it answers</th><th>Implementation</th><th>Health</th></tr>
+          <tr><td class="tool">1 direction</td><td>What <em>should</em> be worked on?</td><td><code>goals/</code> registry, propose-only <code>/goal-review</code>, draft-and-veto ownership</td><td><span class="health h-warn"></span>ladder above registry unbuilt</td></tr>
+          <tr><td class="tool">2 state</td><td>What threads exist; what's their status?</td><td>memory stubs + <code>MEMORY.md</code> index, threads spine, wiki for findings</td><td><span class="health h-warn"></span>self-report being replaced by extraction</td></tr>
+          <tr><td class="tool">3 execution</td><td>How does work actually run?</td><td>concierge pool, arch2 fleets, stagehand DAGs, bellhop pods, sessions</td><td><span class="health h-ok"></span>the strong layer</td></tr>
+          <tr><td class="tool">4 review</td><td>How does finished work become truth?</td><td>pinned-main + worktrees, wrap-up standard, lanes + gazette</td><td><span class="health h-crit"></span>throughput bottleneck</td></tr>
+          <tr><td class="tool">5 observability</td><td>What is happening / has happened?</td><td>foyer, lobby hub, stagehand dashboards, databrowser, threads scan</td><td><span class="health h-warn"></span>live excellent; board in build</td></tr>
+          <tr><td class="tool">6 attention</td><td>How does the system ask for Daniel?</td><td>flare (push, severities) + desk (inbox) + <code>BLOCKED-ON-DANIEL:</code> markers</td><td><span class="health h-warn"></span>shipped; thresholds tuning</td></tr>
+          <tr><td class="tool">7 resources</td><td>What's committed; is any leaking?</td><td>concierge USD cap, bellhop TTLs, weekly pod audit</td><td><span class="health h-warn"></span>reactive, not principled</td></tr>
+        </table>
+      </div>
+
+      <h2>The thread spine</h2>
+      <p>The unit of work-state is the <strong>thread</strong>, keyed one-to-one on the memory
+      registry (one thread = one memory slug — no second registry). Threads are built from both
+      directions:</p>
+      <ul>
+        <li><strong>Bottom-up (observation):</strong> every transcript — interactive session,
+        concierge worker, arch2 worker — yields an extracted summary; related summaries are
+        woven onto threads, with a machine-drafted activity view (last-touched, dormancy) that
+        agents never hand-edit. Emergent clusters of unfiled sessions are legitimate origins
+        for <em>new</em> threads and even new goals — direction is bidirectional.</li>
+        <li><strong>Intentionally (the launcher):</strong> a declared intent instantly creates
+        a thread, chooses the operating mode at entry (full-auto default → concierge; copilot →
+        seeded session), stamps the slug into everything it spawns, and enforces the
+        termination contract — every launched thread reaches a terminal note or gets paged
+        about.</li>
+        <li><strong>Inbound (mailroom):</strong> the same shape pointed at Daniel's own
+        captures — Todoist, voice memos, Slack lab-notes drain onto existing spines with
+        loop-closure marks at each source.</li>
+        <li><strong>The front page (the board):</strong> a web table where each row is a
+        thread — Prompt | Goal | Status — fast row-add via the launcher, agent-drafted goal
+        cells as the veto surface, machine-derived status running the termination contract.
+        The board is the go-to interface for full-auto mode; foyer/tmux remain the copilot
+        surfaces.</li>
+      </ul>
+
+      <h2>Where things live</h2>
+      <div class="tablewrap">
+        <table>
+          <tr><th>Place</th><th>What it holds</th></tr>
+          <tr><td class="tool">jarvis-os/</td><td>policy — code that must co-evolve with the conventions: gazette, desk, threads; plus docs, goals/, drafts/, wiki/</td></tr>
+          <tr><td class="tool">jarvis-tools/</td><td>generic, standalone tools (one uv workspace, CLIs on PATH): concierge, stagehand, bellhop, flare, lobby, foyer, mailroom, cowrite, databrowser, ferry…</td></tr>
+          <tr><td class="tool">jarvis-memory/</td><td>the state layer: one stub per thread + <code>MEMORY.md</code> index, loaded into every session</td></tr>
+          <tr><td class="tool">repos/</td><td>object-level projects in their own repos — spin-out is the expected fate of successful work; jarvis commits pointers, never their code</td></tr>
+        </table>
+      </div>
+      <p>The boundary rule: os packages may depend on tools packages, never the reverse. The
+      test for what belongs in jarvis at all: <em>does it make every future project better, or
+      just one?</em></p>
+
+      <h2>The toolbench</h2>
+      <div class="tablewrap">
+        <table>
+          <tr><th>Tool</th><th>Layer</th><th>What it does</th></tr>
+          <tr><td class="tool">concierge</td><td>execution</td><td>durable worker pool over headless agents; tasks settle only when an <em>external</em> gate passes (<code>PrOpen() &amp; ShellOk(…)</code>); survives daemon death; resumable</td></tr>
+          <tr><td class="tool">stagehand</td><td>execution</td><td>declarative DAG engine (<code>Flow.map/filter/reduce/expand</code> + retry/best-of policies) with live dashboards; monitors watch loops, not steps</td></tr>
+          <tr><td class="tool">bellhop</td><td>execution</td><td>ephemeral GPU/CPU pods: checks code in, runs, brings results back, checks out; native TTLs so pods can't be orphaned silently</td></tr>
+          <tr><td class="tool">arch2</td><td>execution</td><td>automated-research fleets: worker swarms against a held-out eval, winner-selection wrap-up</td></tr>
+          <tr><td class="tool">gazette</td><td>review</td><td>lane-aware nightly merges + the 08:05 morning edition; edition-counted veto windows; demotion backstop</td></tr>
+          <tr><td class="tool">threads</td><td>state</td><td>transcripts → summaries → woven threads; <code>note/pickup</code> for parking and resuming context</td></tr>
+          <tr><td class="tool">mailroom</td><td>capture</td><td>drains Todoist / voice memos / Slack onto existing spines; loop-closure marks; daily digest</td></tr>
+          <tr><td class="tool">desk</td><td>attention</td><td>the waiting-on-Daniel inbox: sweeps blocked tasks, PR ages, markers, flares into one page</td></tr>
+          <tr><td class="tool">flare</td><td>attention</td><td>universal push channel, any agent → Daniel, three severities; stdlib-only so even pod scripts can page</td></tr>
+          <tr><td class="tool">lobby</td><td>observability</td><td>one tunnel + one hub URL for every served app (<code>/a/&lt;name&gt;/</code>)</td></tr>
+          <tr><td class="tool">foyer</td><td>observability</td><td>web front door to live tmux sessions — the copilot presence surface</td></tr>
+          <tr><td class="tool">cowrite · databrowser · xy</td><td>copilot</td><td>browser co-editing of markdown; JSONL result browsers; interactive charts</td></tr>
+          <tr><td class="tool">statusline</td><td>copilot</td><td>per-session topic + wrap-up obligation flags, rendered under the prompt</td></tr>
+          <tr><td class="tool">ferry</td><td>resources</td><td>artifact sync + content-addressed GCS store; pointers in git, bytes in the bucket</td></tr>
+        </table>
+      </div>
+
+      <h2>Conventions that carry the trust</h2>
+      <p>The guarantees on page 02 are kept by conventions, most of them hook- or cron-enforced
+      and each earned from a real incident:</p>
+      <ul>
+        <li><strong>Pinned main + worktrees.</strong> The primary checkout never leaves
+        <code>main</code>; all work happens on branches in <code>.claude/worktrees/</code>
+        (hook-enforced). Many threads share one repo without trampling each other.</li>
+        <li><strong>Lanes with a demotion backstop.</strong> Every PR is labeled at open time;
+        the nightly sweep merges what the lane allows. Mislabels demote automatically —
+        protected paths → delay, credential-like paths → blocked — and surface in patch notes
+        as anomalies. Honesty is checked, not assumed.</li>
+        <li><strong>Crontab as build artifact.</strong> Cron entries live in a PR-reviewed
+        <code>ops/cron.tab</code>; an installer owns the live block and <code>--check</code>
+        diffs for drift. Nobody edits the crontab by hand.</li>
+        <li><strong>The background-task contract.</strong> Completion notifications fire only
+        when the tracked process exits, so detaching work (<code>nohup</code>, orphaned
+        launchers) is hook-blocked; monitors gate on log markers, never self-matching process
+        greps. Silence is never success.</li>
+        <li><strong>Gates on results, not artifacts.</strong> A compute task's definition of
+        done composes a results assertion (<code>results.jsonl has ≥ N rows</code>) with the PR
+        gate — because a worker once settled "done" with a placeholder while its experiment
+        still ran.</li>
+        <li><strong>Wrap-up discipline.</strong> Every piece of work ends by committing a
+        reproducible spec, persisting artifacts to the bucket with pointers in git, logging the
+        thread, and draining the session's obligation flags.</li>
+      </ul>
+
+      <h2>The nine desiderata</h2>
+      <p>Cross-cutting principles, each earned from a real incident, that every new component
+      is judged against:</p>
+      <div class="enable">
+        <div class="enable-row"><span class="enable-num">1</span><p><strong>Observed truth beats
+        self-report.</strong> Gates are external; activity comes from transcripts and git.</p></div>
+        <div class="enable-row"><span class="enable-num">2</span><p><strong>One source of truth
+        per fact.</strong> Everything else is a rendered view; no second registries.</p></div>
+        <div class="enable-row"><span class="enable-num">3</span><p><strong>Push, not
+        poll.</strong> Nothing requires "status?" — not of a process, not of the system.</p></div>
+        <div class="enable-row"><span class="enable-num">4</span><p><strong>Degradation
+        tolerance.</strong> Components fail without taking the work down with them.</p></div>
+        <div class="enable-row"><span class="enable-num">5</span><p><strong>Legible to agents,
+        not just to Daniel.</strong> State is markdown in git — agents read/write it, Daniel
+        diffs and vetoes it. No opaque databases.</p></div>
+        <div class="enable-row"><span class="enable-num">6</span><p><strong>Attention at the top
+        of the ladder.</strong> Touchpoints are direction and review; automation climbs one rung
+        at a time as trust is earned.</p></div>
+        <div class="enable-row"><span class="enable-num">7</span><p><strong>Durable and
+        versioned.</strong> Everything that matters survives session death and lives in git.</p></div>
+        <div class="enable-row"><span class="enable-num">8</span><p><strong>No silent
+        failures.</strong> Every thread ends in a notified success or a notified error;
+        abandonment is a detected state.</p></div>
+        <div class="enable-row"><span class="enable-num">9</span><p><strong>Attention has a
+        shape, not just a size.</strong> Every surface is judged as a serialization point: does
+        it batch, queue, or bound — or does it fragment?</p></div>
+      </div>
+
+      <h2>What's next</h2>
+      <p>Ranked by leverage, from the living gap analysis: the <strong>thread board</strong> as
+      the full-auto front page (launcher shipped, board in build); <strong>review-debt
+      tooling</strong> — PR aging plus an agent-made review brief per PR, then an explicit
+      auto-merge-with-veto policy, because review is the documented bottleneck; and a
+      <strong>resource ledger</strong> — one continuously rendered "what's burning money, owned
+      by which thread" view that pages through flare. The composite vision in one sentence:
+      markdown-in-git remains the single source of truth per layer; a small set of renderers
+      turn it into one glanceable hub plus one pushed inbox; and every autonomous component can
+      page Daniel through one sanctioned channel — so Daniel's only jobs are setting direction
+      and reviewing work.</p>
+    </div>
+  </div>
+  <div class="pager"><a href="#interface">← 02 Interface · Prev</a><span></span></div>
+</section>
+
+<footer class="colophon">
+  <p>The JARVIS Handbook — rendered 2026-08-19 from dtch1997/jarvis. Sources of truth:
+  <span class="mono">drafts/jarvis-design-philosophy.md</span> (01) ·
+  <span class="mono">docs/interface-contract.md</span> (02) ·
+  <span class="mono">docs/command-center.md</span> + CLAUDE.md (03).
+  If this page drifts from the repo files, the repo files win.</p>
+</footer>
+
+<script>
+  (function () {
+    var names = ["philosophy", "interface", "architecture"];
+    function route() {
+      var h = (location.hash || "#philosophy").replace("#", "");
+      if (names.indexOf(h) === -1) h = "philosophy";
+      names.forEach(function (n) {
+        var sec = document.getElementById("page-" + n);
+        if (sec) sec.classList.toggle("visible", n === h);
+      });
+      document.querySelectorAll(".navlink").forEach(function (a) {
+        a.classList.toggle("active", a.getAttribute("data-page") === h);
+      });
+      window.scrollTo(0, 0);
+    }
+    window.addEventListener("hashchange", route);
+    route();
+  })();
+</script>
