@@ -59,6 +59,17 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # from ~/.env; hitting the per-run call cap self-reports via flare.
 19 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/threads scan && /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/threads weave >> /mnt/nw/home/d.tan/.claude/logs/threads.log 2>&1
 
+# threads: daily auto-wrapup backstop (docs/auto-wrapup.md) — runs after
+# scan && weave, which refresh the activity data it reads. Deterministic and
+# offline (zero model calls): it classifies every stale thread into terminal /
+# blocked / A1 (abandoned, mechanically recoverable) / A2 (abandoned with a
+# dirty worktree — never auto-touched) / B (parked and forgotten), writes
+# ~/.threads/sweep/<date>.md, and sends one info flare on non-idle days.
+# Report mode: dispatching wrap-up workers is config-gated ([sweep] mode in
+# ~/.threads/config.toml) and stays OFF until Daniel flips it. Sources ~/.env
+# and uses the PATH above for `gh` (PR state) and `git`.
+49 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/threads sweep >> /mnt/nw/home/d.tan/.claude/logs/threads.log 2>&1
+
 # mailroom: 2-hourly thought-capture ingest + route — pull Daniel's captures
 # from Slack #lab-notes-daniel, the Todoist Inbox, and voice memos into the
 # spool (✅ loop-closure reactions), then triage + land each on a spine

@@ -34,6 +34,11 @@ DEFAULT_TERMINAL_DEADLINE_DAYS = 3
 # a settled board row older than this collapses into the archive section, so
 # the board stays glanceable at dozens of threads.
 DEFAULT_BOARD_ARCHIVE_DAYS = 7
+# auto-wrapup (`threads sweep`, docs/auto-wrapup.md): a thread with no activity
+# in this many days is stale and gets classified; a *parked* thread gets this
+# much longer before its disposition is questioned.
+DEFAULT_STALE_DAYS = 7
+DEFAULT_PARKED_GRACE_DAYS = 21
 MODEL = "claude-haiku-4-5-20251001"
 
 # rough haiku pricing (USD per token) — used only for a spend *estimate* in
@@ -77,6 +82,25 @@ def assignments_path() -> Path:
 
 def state_path() -> Path:
     return threads_dir() / "state.json"
+
+
+def sweep_dir() -> Path:
+    """Auto-wrapup reports + log + dispatch state (``sweep/``).
+
+    Deliberately *not* created by :func:`ensure_spool`: the sweep creates it
+    only when it writes, so ``sweep --check`` can assert the real spool is
+    untouched by comparing the directory listing before and after.
+    """
+    return threads_dir() / "sweep"
+
+
+def sweep_state_path() -> Path:
+    return sweep_dir() / "state.json"
+
+
+def sweep_log_path() -> Path:
+    """One JSONL line per sweep run — idle runs included."""
+    return sweep_dir() / "log.jsonl"
 
 
 def projects_dir() -> Path:
@@ -127,6 +151,23 @@ class RelevanceConfig:
 
 
 @dataclass(frozen=True)
+class SweepConfig:
+    """``[sweep]`` — the auto-wrapup backstop (see ``docs/auto-wrapup.md``).
+
+    ``mode`` starts at ``report`` and flipping it to ``dispatch`` is Daniel's
+    call, the same pattern as the goals automation flag: report mode spends
+    nothing and writes nothing onto threads.
+    """
+
+    mode: str = "report"                 # report | dispatch
+    stale_days: int = DEFAULT_STALE_DAYS
+    parked_grace_days: int = DEFAULT_PARKED_GRACE_DAYS
+    max_dispatch_per_run: int = 2
+    cooldown_days: int = 7
+    exempt: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
 class Config:
     relevance: RelevanceConfig = RelevanceConfig()
     dormant_days: int = DEFAULT_DORMANT_DAYS
@@ -137,6 +178,8 @@ class Config:
     terminal_deadline_days: int = DEFAULT_TERMINAL_DEADLINE_DAYS
     # thread board: terminal rows older than this collapse into the archive.
     board_archive_days: int = DEFAULT_BOARD_ARCHIVE_DAYS
+    # auto-wrapup backstop (see sweep.py).
+    sweep: SweepConfig = SweepConfig()
 
 
 DEFAULT_CONFIG_TOML = """\
@@ -167,6 +210,19 @@ min_siblings = 3
 # a termination-contract violation: the dashboard flags it, a desk item is
 # raised (BLOCKED-ON-DANIEL marker), and it flares once (--sev warn).
 terminal_deadline_days = 3
+
+[sweep]
+# `threads sweep` — the auto-wrapup backstop (docs/auto-wrapup.md). Fully
+# deterministic and offline: it classifies stale threads (terminal / blocked /
+# A1 mechanical / A2 dirty-worktree / B parked-and-forgotten) and reports.
+mode = "report"            # report | dispatch — start report-only; flipping
+                           # to dispatch is Daniel's call (same pattern as
+                           # goals' automation flag)
+stale_days = 7
+parked_grace_days = 21
+max_dispatch_per_run = 2   # hard cap, dispatch mode only
+cooldown_days = 7
+exempt = []                # slugs never swept (e.g. intentionally-dormant)
 
 [board]
 # the Prompt | Goal | Status board: a terminal row (result/blocked/failed, or a
@@ -212,6 +268,20 @@ def load_config() -> Config:
     clus = data.get("clustering") or {}
     launch = data.get("launch") or {}
     board = data.get("board") or {}
+    sw = data.get("sweep") or {}
+    mode = str(sw.get("mode") or base.sweep.mode).strip().lower()
+    sweep = SweepConfig(
+        mode=mode if mode in ("report", "dispatch") else base.sweep.mode,
+        stale_days=_coerce_int(sw.get("stale_days"), base.sweep.stale_days),
+        parked_grace_days=_coerce_int(
+            sw.get("parked_grace_days"), base.sweep.parked_grace_days),
+        max_dispatch_per_run=_coerce_int(
+            sw.get("max_dispatch_per_run"), base.sweep.max_dispatch_per_run),
+        cooldown_days=_coerce_int(sw.get("cooldown_days"), base.sweep.cooldown_days),
+        exempt=tuple(sorted(
+            str(x).strip().lower() for x in (sw.get("exempt") or [])
+            if str(x).strip())),
+    )
     return replace(
         base,
         relevance=relevance,
@@ -222,6 +292,7 @@ def load_config() -> Config:
             launch.get("terminal_deadline_days"), base.terminal_deadline_days),
         board_archive_days=_coerce_int(
             board.get("archive_days"), base.board_archive_days),
+        sweep=sweep,
     )
 
 

@@ -139,3 +139,35 @@ The `threads` package is mid-move to `jarvis-os/packages/` (PR #11,
 lane:delay). Build **after #11 lands** to avoid cross-rename conflicts.
 Implementation is a good concierge dispatch: well-specified, externally
 gated (`PrOpen() & ShellOk("threads sweep --check")`).
+
+## As built (2026-08-19, PR for issue #20)
+
+Implemented in `jarvis-os/packages/threads/src/threads/sweep.py` with the
+`[sweep]` config block, the daily `ops/cron.tab` entry (07:49, after
+`scan && weave`), and `threads sweep --check` as the offline gate. Four
+judgment calls the spec under-determined, all made against the real spool:
+
+1. **A with no branch evidence → B.** A thread whose newest state is a
+   session but which has no branch carrying novel or unpushed commits has
+   nothing mechanical to finish; it needs a disposition, so it reports as B
+   rather than as an A1 nobody can act on.
+2. **A *merged* PR counts as PR'd.** gazette squash-merges, so a merged
+   branch keeps commits `origin/main` does not contain — forever. Testing
+   "novel commits and no **open** PR" made every merged branch on the box
+   look abandoned (46 false A1s on the first real run). PR lookups use
+   `gh pr list --state all`; `--verify` accepts open **or** merged.
+3. **Note-captured branches must corroborate the slug.** A note records the
+   cwd/branch of whoever *wrote* it. One worker parking notes onto 166
+   threads from its own workspace otherwise hands all 166 its branch. Session
+   branches are trusted (weave already attributed the session); note branches
+   are believed only when the branch name shares a token with the slug, and
+   any branch claimed by more than three threads is dropped from all of them.
+4. **Parked-inside-the-grace reports as `fresh`.** The spec's six buckets are
+   the report's vocabulary; a thread parked less than `parked_grace_days` ago
+   is not actionable this run, and its report reason says exactly why.
+
+DoD status: 1–3 and 5 are met and gate-checked (`threads sweep --check`, 42
+assertions; 34 unit tests in `tests/test_sweep.py`). DoD 4 (dispatch
+end-to-end on a real A1 thread) is exercised **on fixtures only** — the box
+had zero real A1 threads on build day, and turning dispatch mode on is
+Daniel's call, so no real thread was dispatched.
