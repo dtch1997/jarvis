@@ -132,6 +132,18 @@ expected behavior, and a repro or pointer (session/branch/log). Workarounds
 still get applied in-session — the issue is so the fix outlives the
 session; link it from the memory stub or thread note if one exists.
 
+## Artifacts registry — jarvis-artifacts/
+
+Claude Code artifacts (claude.ai pages) that should outlive their session
+are tracked in `jarvis-artifacts/` at the monorepo root (conventions in
+its README): commit the source under `jarvis-artifacts/<slug>/`, publish
+from that path, and add a row to `jarvis-artifacts/INDEX.md` (title, URL,
+source path, owning thread slug, status). To update an existing artifact
+from any later session: edit the committed source and republish passing
+the artifact's `url` — republishing without `url` forks a duplicate page.
+Never leave a keeper artifact's only source in a session scratchpad;
+throwaway one-turn artifacts are exempt.
+
 ## SOP — standard operating procedure
 
 **The SOP applies by default — to every research/experiment task, unless I
