@@ -235,8 +235,8 @@ program, it's written down, and the machinery executes it:
 
 Note where authorship sits. "The system manages my attention" would be
 the dystopian reading; the actual arrangement is that *I wrote the
-attention program* — the severity thresholds, the digest hour, the veto
-windows — and agents execute it faithfully. Matuschak worries the term
+attention program* — the severity thresholds, the digest hour, the
+approval gates — and agents execute it faithfully. Matuschak worries the term
 "programmable attention" evokes mechanized people; here the person is
 the programmer.
 
