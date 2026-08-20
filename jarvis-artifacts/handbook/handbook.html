@@ -624,7 +624,7 @@
       </ul>
       <p>Note where authorship sits. "The system manages my attention" would be the dystopian
       reading; the actual arrangement is that <em>I wrote the attention program</em> — the
-      severity thresholds, the digest hour, the veto windows — and agents execute it
+      severity thresholds, the digest hour, the approval gates — and agents execute it
       faithfully.</p>
 
       <h2>What this should enable — a falsifiable contract</h2>
@@ -722,7 +722,7 @@
 <section class="page-section" id="page-interface">
   <div class="page">
     <header class="masthead">
-      <div class="doc-kicker"><span>02 · user interface</span><span>ratified 2026-08-18</span></div>
+      <div class="doc-kicker"><span>02 · user interface</span><span>revised 2026-08-19</span></div>
       <h1>The Interface Contract</h1>
       <p class="standfirst">Five surfaces Daniel touches, and the guarantee each one <em>owes
       him</em>. Any agent changing a mechanism below — a cron, a lane, a desk source, mailroom
@@ -758,8 +758,9 @@
       </div>
       <div class="caveat">
         <span class="caveat-label">Caveat</span>
-        <p>The drain cron isn't installed until mailroom's PR merges (lane:blocked); until then,
-        drains are manual runs. Validated at 458 thoughts, 95% routed, 0 Todoist completions lost.</p>
+        <p>The drain cron isn't installed until mailroom's PR merges (requires-approval); until
+        then, drains are manual runs. Validated at 458 thoughts, 95% routed, 0 Todoist
+        completions lost.</p>
       </div>
     </section>
 
@@ -773,7 +774,7 @@
       <div class="tablewrap">
         <table>
           <tr><th>When</th><th>What arrives</th></tr>
-          <tr><td class="when">08:05 daily</td><td>the morning edition: what merged overnight, what enters or leaves the veto window, anomalies — a quiet day says “nothing needs you” explicitly</td></tr>
+          <tr><td class="when">08:05 daily</td><td>the morning edition: what merged overnight (behavior-shaping merges annotated), the running version, anomalies — a quiet day says “nothing needs you” explicitly</td></tr>
           <tr><td class="when">seconds</td><td>any flare from any agent (sessions, workers, pod scripts, crons): <code>info</code> = FYI · <code>warn</code> = look today · <code>page</code> = now</td></tr>
           <tr><td class="when">always</td><td>every flare also spools to <code>~/.flare/log.jsonl</code> — a Slack outage delays, never loses</td></tr>
         </table>
@@ -843,29 +844,31 @@
     <section class="clause">
       <div class="clause-head">
         <span class="clause-num">§5</span>
-        <h2>PR queue <span class="surface-detail">— lanes + morning patch notes</span></h2>
+        <h2>PR queue <span class="surface-detail">— patch notes + nightly versions</span></h2>
         <span class="verb">REVIEW · VETO</span>
       </div>
-      <p class="youdo"><strong>You do:</strong> read patch notes; veto what you dislike;
-      deep-review only lane:blocked.</p>
+      <p class="youdo"><strong>You do:</strong> read patch notes; roll back what you dislike;
+      deep-review only requires-approval.</p>
       <div class="tablewrap">
         <table>
           <tr><th>Lane</th><th>Guarantee</th></tr>
-          <tr><td class="when">lane:auto</td><td>merges 03:29 on green, deployed by 04:10, reported at 08:05 — zero action needed</td></tr>
-          <tr><td class="when">lane:delay</td><td>holds for <strong>2 morning editions you actually received</strong> (skipped mornings pause the clock); veto = <code>veto</code> label or a changes-requested review</td></tr>
-          <tr><td class="when">lane:blocked</td><td>never merges without you — money, credentials, external-facing, destructive; surfaces on desk + flare and waits</td></tr>
-          <tr><td class="when">backstop</td><td>mislabels demote automatically (protected paths → delay, credential-like → blocked) and show up in patch notes as anomalies</td></tr>
+          <tr><td class="when">(default)</td><td>merges on green at the next hourly sweep, deployed at the 04:10 version cut, reported at 08:05 — zero action needed; pre-merge veto = <code>veto</code> label or a changes-requested review</td></tr>
+          <tr><td class="when">requires-approval</td><td>never merges without you — money, credentials, external-facing, destructive; surfaces on desk + flare and waits</td></tr>
+          <tr><td class="when">versions</td><td>the box runs a named nightly version (<code>vYYYY.MM.DD</code>); anything that shipped can be rolled back with <code>gazette version switch v&lt;date&gt;</code> (crons/CLIs/CLAUDE.md together) and resumed with <code>switch latest</code></td></tr>
+          <tr><td class="when">backstop</td><td>credential-like paths force requires-approval regardless of label; behavior-shaping merges (CLAUDE.md, <code>ops/**</code>) are annotated in the edition</td></tr>
         </table>
       </div>
       <div class="promise">
         <span class="promise-label">Promise</span>
-        <p>Nothing behavior-shaping or money-spending merges past you faster than two mornings
-        you were present for.</p>
+        <p>Nothing money-spending or credential-touching merges without you, and anything else
+        that shipped is one <code>gazette version switch</code> from undone — the box never runs
+        a state you can't name and roll back.</p>
       </div>
       <div class="caveat">
         <span class="caveat-label">Caveat</span>
-        <p>Review throughput is the documented 🔴 bottleneck — lanes shrink what needs you; they
-        don't review for you.</p>
+        <p>Behavior-shaping changes now merge on green (2026-08-19 rework) — the morning
+        edition's annotations and the version diff are your review surface, not a pre-merge
+        window.</p>
       </div>
     </section>
   </div>
@@ -982,8 +985,8 @@
             <text x="739" y="104" font-size="9.5" opacity="0.65">batches the night</text>
             <text x="739" y="144">desk, when flared</text>
             <text x="739" y="156" font-size="9.5" opacity="0.65">one queue of “needs you”</text>
-            <text x="739" y="196">veto windows</text>
-            <text x="739" y="208" font-size="9.5" opacity="0.65">object-or-don't, defaulted</text>
+            <text x="739" y="196">veto &amp; rollback</text>
+            <text x="739" y="208" font-size="9.5" opacity="0.65">veto label · version switch</text>
           </g>
           <!-- return path -->
           <path d="M 739 222 L 739 290 L 80 290 L 80 244" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#arr)"/>
@@ -1051,7 +1054,7 @@
             <text x="430" y="63" font-weight="700">3 · Execution</text>
             <text x="430" y="80" font-size="10" opacity="0.7">concierge · arch2 · stagehand · bellhop</text>
             <text x="735" y="63" font-weight="700">4 · Review</text>
-            <text x="735" y="80" font-size="10" opacity="0.7">PRs · lanes · gazette</text>
+            <text x="735" y="80" font-size="10" opacity="0.7">PRs · gazette · versions</text>
             <text x="430" y="173" font-weight="700">2 · State</text>
             <text x="430" y="190" font-size="10" opacity="0.7">memory · threads · wiki — markdown in git</text>
           </g>
@@ -1094,7 +1097,7 @@
           <tr><td class="tool">1 direction</td><td>What <em>should</em> be worked on?</td><td><code>goals/</code> registry, propose-only <code>/goal-review</code>, draft-and-veto ownership</td><td><span class="health h-warn"></span>ladder above registry unbuilt</td></tr>
           <tr><td class="tool">2 state</td><td>What threads exist; what's their status?</td><td>memory stubs + <code>MEMORY.md</code> index, threads spine, wiki for findings</td><td><span class="health h-warn"></span>self-report being replaced by extraction</td></tr>
           <tr><td class="tool">3 execution</td><td>How does work actually run?</td><td>concierge pool, arch2 fleets, stagehand DAGs, bellhop pods, sessions</td><td><span class="health h-ok"></span>the strong layer</td></tr>
-          <tr><td class="tool">4 review</td><td>How does finished work become truth?</td><td>pinned-main + worktrees, wrap-up standard, lanes + gazette</td><td><span class="health h-crit"></span>throughput bottleneck</td></tr>
+          <tr><td class="tool">4 review</td><td>How does finished work become truth?</td><td>pinned-main + worktrees, wrap-up standard, merge-on-green + nightly versions (gazette)</td><td><span class="health h-crit"></span>throughput bottleneck</td></tr>
           <tr><td class="tool">5 observability</td><td>What is happening / has happened?</td><td>foyer, lobby hub, stagehand dashboards, databrowser, threads scan</td><td><span class="health h-warn"></span>live excellent; board in build</td></tr>
           <tr><td class="tool">6 attention</td><td>How does the system ask for Daniel?</td><td>flare (push, severities) + desk (inbox) + <code>BLOCKED-ON-DANIEL:</code> markers</td><td><span class="health h-warn"></span>shipped; thresholds tuning</td></tr>
           <tr><td class="tool">7 resources</td><td>What's committed; is any leaking?</td><td>concierge USD cap, bellhop TTLs, weekly pod audit</td><td><span class="health h-warn"></span>reactive, not principled</td></tr>
@@ -1148,7 +1151,7 @@
           <tr><td class="tool">stagehand</td><td>execution</td><td>declarative DAG engine (<code>Flow.map/filter/reduce/expand</code> + retry/best-of policies) with live dashboards; monitors watch loops, not steps</td></tr>
           <tr><td class="tool">bellhop</td><td>execution</td><td>ephemeral GPU/CPU pods: checks code in, runs, brings results back, checks out; native TTLs so pods can't be orphaned silently</td></tr>
           <tr><td class="tool">arch2</td><td>execution</td><td>automated-research fleets: worker swarms against a held-out eval, winner-selection wrap-up</td></tr>
-          <tr><td class="tool">gazette</td><td>review</td><td>lane-aware nightly merges + the 08:05 morning edition; edition-counted veto windows; demotion backstop</td></tr>
+          <tr><td class="tool">gazette</td><td>review</td><td>hourly merge-on-green sweep + nightly version cut/deploy; the 08:05 morning edition; <code>requires-approval</code> gate; rollback via <code>gazette version switch</code></td></tr>
           <tr><td class="tool">threads</td><td>state</td><td>transcripts → summaries → woven threads; <code>note/pickup</code> for parking and resuming context</td></tr>
           <tr><td class="tool">mailroom</td><td>capture</td><td>drains Todoist / voice memos / Slack onto existing spines; loop-closure marks; daily digest</td></tr>
           <tr><td class="tool">desk</td><td>attention</td><td>the waiting-on-Daniel inbox: sweeps blocked tasks, PR ages, markers, flares into one page</td></tr>
@@ -1168,10 +1171,13 @@
         <li><strong>Pinned main + worktrees.</strong> The primary checkout never leaves
         <code>main</code>; all work happens on branches in <code>.claude/worktrees/</code>
         (hook-enforced). Many threads share one repo without trampling each other.</li>
-        <li><strong>Lanes with a demotion backstop.</strong> Every PR is labeled at open time;
-        the nightly sweep merges what the lane allows. Mislabels demote automatically —
-        protected paths → delay, credential-like paths → blocked — and surface in patch notes
-        as anomalies. Honesty is checked, not assumed.</li>
+        <li><strong>Merge-on-green with hard gates and a rollback layer.</strong> PRs merge at
+        the next hourly sweep once checks pass — no label needed. <code>requires-approval</code>
+        (money, credentials, external-facing, destructive) never cron-merges, and
+        credential-like paths force it regardless of label; behavior-shaping merges (CLAUDE.md,
+        <code>ops/**</code>) are annotated in the edition. The box itself changes once per
+        night as a named version, so <code>gazette version switch</code> rolls CLAUDE.md,
+        crons, and CLIs back together. Honesty is checked, not assumed.</li>
         <li><strong>Crontab as build artifact.</strong> Cron entries live in a PR-reviewed
         <code>ops/cron.tab</code>; an installer owns the live block and <code>--check</code>
         diffs for drift. Nobody edits the crontab by hand.</li>
@@ -1219,8 +1225,8 @@
       <h2>What's next</h2>
       <p>Ranked by leverage, from the living gap analysis: the <strong>thread board</strong> as
       the full-auto front page (launcher shipped, board in build); <strong>review-debt
-      tooling</strong> — PR aging plus an agent-made review brief per PR, then an explicit
-      auto-merge-with-veto policy, because review is the documented bottleneck; and a
+      tooling</strong> — PR aging plus an agent-made review brief per PR (merge-on-green
+      shipped 2026-08-19; the residue is making post-merge review cheap); and a
       <strong>resource ledger</strong> — one continuously rendered "what's burning money, owned
       by which thread" view that pages through flare. The composite vision in one sentence:
       markdown-in-git remains the single source of truth per layer; a small set of renderers

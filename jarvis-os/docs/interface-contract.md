@@ -40,7 +40,7 @@ thoughts, 95% routed, 0 Todoist completions lost.
 
 | When | What arrives |
 |---|---|
-| 08:05 daily | the morning edition: what merged overnight, what enters/leaves the veto window, anomalies — a quiet day says "nothing needs you" explicitly |
+| 08:05 daily | the morning edition: what merged overnight (behavior-shaping merges annotated), the running version, anomalies — a quiet day says "nothing needs you" explicitly |
 | seconds | any flare from any agent (sessions, workers, pod scripts, crons): `info` = FYI · `warn` = look today · `page` = now |
 | always | every flare also spools to `~/.flare/log.jsonl` — a Slack outage delays, never loses |
 
