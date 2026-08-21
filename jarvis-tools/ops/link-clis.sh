@@ -17,6 +17,7 @@ CLIS=(
   cairn
   claude-statusline
   cowrite
+  curator
   databrowser
   desk
   ferry

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>curator</title>
+<style>
+  :root {
+    --bg: #101216; --panel: #191c22; --panel2: #20242c; --line: #2c313b;
+    --text: #e6e9ee; --dim: #8b93a1; --accent: #6aa7ff;
+    --keep: #4fc27c; --cut: #e06c75; --candidate: #c8a24d;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  header { display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+           padding: 12px 20px; border-bottom: 1px solid var(--line);
+           position: sticky; top: 0; background: var(--bg); z-index: 5; }
+  header h1 { font-size: 16px; margin: 0; font-weight: 600; }
+  header h1 span { color: var(--dim); font-weight: 400; }
+  .views, .statuses { display: flex; gap: 4px; }
+  .views button, .statuses button, .tag {
+    background: var(--panel); color: var(--dim); border: 1px solid var(--line);
+    border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 13px; }
+  .views button.on, .statuses button.on, .tag.on { color: var(--text);
+    border-color: var(--accent); background: var(--panel2); }
+  .tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .count { color: var(--dim); margin-left: auto; font-size: 13px; }
+
+  main { padding: 20px; }
+  .grid { display: grid; gap: 16px;
+          grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+  .card { background: var(--panel); border: 1px solid var(--line);
+          border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+  .card.cut { opacity: 0.45; }
+  .fig { background: #fff; display: flex; align-items: center; justify-content: center;
+         min-height: 180px; cursor: zoom-in; }
+  .fig img { max-width: 100%; max-height: 320px; display: block; }
+  .body { padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+
+  .claim { font-size: 14px; line-height: 1.45; cursor: text; border-radius: 6px;
+           padding: 4px 6px; margin: -4px -6px; white-space: pre-wrap; }
+  .claim:hover { background: var(--panel2); }
+  .claim.empty { color: var(--dim); font-style: italic; }
+  textarea.claim-edit { width: 100%; background: var(--panel2); color: var(--text);
+    border: 1px solid var(--accent); border-radius: 6px; padding: 4px 6px;
+    font: inherit; resize: vertical; min-height: 3.2em; }
+
+  .meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: auto; }
+  .status { border: none; border-radius: 12px; padding: 2px 10px; font-size: 12px;
+            cursor: pointer; color: #101216; font-weight: 600; }
+  .status.candidate { background: var(--candidate); }
+  .status.keep { background: var(--keep); }
+  .status.cut { background: var(--cut); }
+  .chip { font-size: 12px; color: var(--dim); border: 1px solid var(--line);
+          border-radius: 12px; padding: 1px 8px; }
+  .prov { font-size: 12px; color: var(--dim); border-top: 1px solid var(--line);
+          padding: 6px 12px; display: flex; gap: 8px; flex-wrap: wrap; cursor: help; }
+  .prov .dirty { color: var(--cut); }
+
+  /* claims view */
+  .rows { display: flex; flex-direction: column; gap: 10px; max-width: 1100px; }
+  .row { display: flex; gap: 14px; background: var(--panel); border: 1px solid var(--line);
+         border-radius: 10px; padding: 10px 14px; align-items: flex-start; }
+  .row.cut { opacity: 0.45; }
+  .row .thumb { width: 140px; flex: none; background: #fff; border-radius: 6px;
+                display: flex; align-items: center; justify-content: center; cursor: zoom-in; }
+  .row .thumb img { max-width: 100%; max-height: 90px; display: block; }
+  .row .body { padding: 0; }
+  .row .claim { font-size: 15px; }
+
+  #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
+              align-items: center; justify-content: center; z-index: 10; cursor: zoom-out;
+              flex-direction: column; gap: 12px; padding: 30px; }
+  #lightbox img { max-width: 95vw; max-height: 85vh; background: #fff; }
+  #lightbox .cap { color: var(--text); max-width: 900px; text-align: center; }
+  .empty-state { color: var(--dim); padding: 60px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <h1>curator <span id="ledger-name"></span></h1>
+  <div class="views">
+    <button data-view="gallery" class="on">Gallery</button>
+    <button data-view="claims">Claims</button>
+  </div>
+  <div class="statuses">
+    <button data-status="all" class="on">all</button>
+    <button data-status="candidate">candidate</button>
+    <button data-status="keep">keep</button>
+    <button data-status="cut">cut</button>
+  </div>
+  <div class="tags" id="tags"></div>
+  <div class="count" id="count"></div>
+</header>
+<main id="main"></main>
+<div id="lightbox"><img alt=""><div class="cap"></div></div>
+
+<script>
+let cards = [];
+let view = 'gallery';
+let statusFilter = 'all';
+let tagFilter = null;
+const NEXT_STATUS = { candidate: 'keep', keep: 'cut', cut: 'candidate' };
+
+async function load() {
+  cards = await (await fetch('api/cards')).json();
+  render();
+}
+
+function visible() {
+  return cards.filter(c =>
+    (statusFilter === 'all' || c.status === statusFilter) &&
+    (!tagFilter || (c.tags || []).includes(tagFilter)));
+}
+
+function provBits(c) {
+  const p = c.provenance || {}, g = p.git || {};
+  const bits = [];
+  if (p.script) bits.push(p.script.split('/').pop());
+  if (g.commit) bits.push(g.commit.slice(0, 7));
+  if (g.dirty) bits.push('<span class="dirty">dirty</span>');
+  if (c.created_at) bits.push(c.created_at.slice(0, 10));
+  return bits;
+}
+
+function provTitle(c) {
+  const p = c.provenance || {}, g = p.git || {};
+  return [
+    p.script && `script: ${p.script}`,
+    p.argv && `argv: ${p.argv.join(' ')}`,
+    g.commit && `commit: ${g.commit}${g.dirty ? ' (dirty)' : ''} on ${g.branch || '?'}`,
+    p.cwd && `cwd: ${p.cwd}`,
+    p.data && `data: ${p.data.join(', ')}`,
+    c.history && c.history.length && `${c.history.length} earlier claim wording(s)`,
+  ].filter(Boolean).join('\n') || 'no provenance recorded';
+}
+
+function el(tag, cls, html) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+
+function claimEl(c) {
+  const d = el('div', 'claim' + (c.claim ? '' : ' empty'));
+  d.textContent = c.claim || 'click to state the claim…';
+  d.title = 'click to edit the claim';
+  d.onclick = () => {
+    const ta = el('textarea', 'claim-edit');
+    ta.value = c.claim;
+    d.replaceWith(ta);
+    ta.focus();
+    ta.select();
+    const commit = async () => {
+      if (ta.value !== c.claim) await patch(c, { claim: ta.value });
+      render();
+    };
+    ta.onblur = commit;
+    ta.onkeydown = ev => {
+      if (ev.key === 'Enter' && (ev.metaKey || ev.ctrlKey)) ta.blur();
+      if (ev.key === 'Escape') { ta.value = c.claim; ta.blur(); }
+    };
+  };
+  return d;
+}
+
+function statusEl(c) {
+  const b = el('button', 'status ' + c.status, c.status);
+  b.title = 'click to cycle candidate → keep → cut';
+  b.onclick = () => patch(c, { status: NEXT_STATUS[c.status] }).then(render);
+  return b;
+}
+
+function metaEl(c) {
+  const m = el('div', 'meta');
+  m.append(statusEl(c));
+  for (const t of c.tags || []) m.append(el('span', 'chip', t));
+  return m;
+}
+
+function figEl(c, cls) {
+  const f = el('div', cls);
+  const img = el('img');
+  img.src = c.figure;
+  img.alt = c.claim;
+  img.loading = 'lazy';
+  f.append(img);
+  f.onclick = () => lightbox(c);
+  return f;
+}
+
+function render() {
+  renderTags();
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+  const vis = visible();
+  document.getElementById('count').textContent =
+    `${vis.length}/${cards.length} cards · ` +
+    `${cards.filter(c => c.status === 'keep').length} keep`;
+  if (!vis.length) {
+    main.append(el('div', 'empty-state',
+      cards.length ? 'nothing matches the filters' :
+      'empty ledger — <code>curator.add(fig, claim=…)</code> from your plotting script'));
+    return;
+  }
+  const wrap = el('div', view === 'gallery' ? 'grid' : 'rows');
+  for (const c of vis) {
+    const box = el('div', (view === 'gallery' ? 'card ' : 'row ') + c.status);
+    const body = el('div', 'body');
+    body.append(claimEl(c), metaEl(c));
+    if (view === 'gallery') {
+      box.append(figEl(c, 'fig'), body);
+      const prov = el('div', 'prov', provBits(c).join('<span>·</span>') || 'no provenance');
+      prov.title = provTitle(c);
+      box.append(prov);
+    } else {
+      box.append(figEl(c, 'thumb'), body);
+    }
+    wrap.append(box);
+  }
+  main.append(wrap);
+}
+
+function renderTags() {
+  const tags = [...new Set(cards.flatMap(c => c.tags || []))].sort();
+  const holder = document.getElementById('tags');
+  holder.innerHTML = '';
+  for (const t of tags) {
+    const b = el('button', 'tag' + (tagFilter === t ? ' on' : ''), t);
+    b.onclick = () => { tagFilter = tagFilter === t ? null : t; render(); };
+    holder.append(b);
+  }
+}
+
+async function patch(c, fields) {
+  const res = await fetch('api/cards/' + c.id, { method: 'POST', body: JSON.stringify(fields) });
+  if (res.ok) Object.assign(c, await res.json());
+  else alert('save failed: ' + (await res.json()).error);
+}
+
+function lightbox(c) {
+  const lb = document.getElementById('lightbox');
+  lb.querySelector('img').src = c.figure;
+  lb.querySelector('.cap').textContent = c.claim;
+  lb.style.display = 'flex';
+}
+document.getElementById('lightbox').onclick = e => { e.currentTarget.style.display = 'none'; };
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('lightbox').style.display = 'none';
+});
+
+document.querySelectorAll('.views button').forEach(b => b.onclick = () => {
+  view = b.dataset.view;
+  document.querySelectorAll('.views button').forEach(x => x.classList.toggle('on', x === b));
+  render();
+});
+document.querySelectorAll('.statuses button').forEach(b => b.onclick = () => {
+  statusFilter = b.dataset.status;
+  document.querySelectorAll('.statuses button').forEach(x => x.classList.toggle('on', x === b));
+  render();
+});
+
+load();
+</script>
+</body>
+</html>

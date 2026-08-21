@@ -26,6 +26,7 @@ the reverse.
 | [`ferry`](packages/ferry) | bytes ↔ GCS: `push`/`pull`/`Remote` by path (rclone) + `ferry.cas` content-addressed store (PyPI: `ferry-sync`) |
 | [`databrowser`](packages/databrowser) | JSONL → static HTML browser, served through the lobby hub |
 | [`cowrite`](packages/cowrite) | co-write Markdown drafts with an AI in the browser |
+| [`curator`](packages/curator) | claims-and-figures ledger: capture plots with provenance at creation time, curate claims in a browser gallery, export a write-up skeleton |
 | [`reportly`](packages/reportly) | experiment-report standard: scaffold, lint, build |
 | [`arxivist`](packages/arxivist) | arXiv papers → structured, agent-legible markdown (native-HTML-first parse, PDF fallback, outline/section CLI) |
 | [`foyer`](packages/foyer) | web front door for the tmux sessions your agents live in: session sidebar + live terminal (websocket PTY bridge) + plots/notes panes, own tunnel via `lobby.tunnel` |
