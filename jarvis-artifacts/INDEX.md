@@ -6,6 +6,7 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 | Title | URL | Updated | Source | Thread | Status |
 |---|---|---|---|---|---|
+| MATS Posters, Annotated | https://claude.ai/code/artifact/5e7a3f35-4e76-4e05-9420-88341060ec63 | 2026-08-21 | [mats-posters-digest/index.html](mats-posters-digest/index.html) | curator-tool | current — regenerate with build.py from the curator ledger |
 | The JARVIS Handbook | https://claude.ai/code/artifact/0306d194-15b9-4086-876c-e4b4bfb8e29c | 2026-08-20 | [handbook/handbook.html](handbook/handbook.html) | self-driving-jarvis | current — 3 pages: philosophy · interface contract · architecture |
 | Alignment Midtraining Outline | https://claude.ai/code/artifact/4547434a-911a-4d59-aeb5-c9d36c522c3a | 2026-08-20 | — | alignment-midtraining-survey | current |
 | The ARCH Refactor | https://claude.ai/code/artifact/79cf1cc8-6f9b-469e-8fb1-99fae142edfa | 2026-08-19 | — | arch2 ? | unknown |

@@ -1,0 +1,152 @@
+[
+ {
+  "img": "7530",
+  "claim": "Natural schemer: oversight-conditional scheming emerges from benign priors + outer-aligned RL alone \u2014 never demonstrated, never rewarded",
+  "notes_with_suffix": "Nathaniel Mitrani, Bart Jaworski (MATS), Victoria Krakovna (GDM). Kimi K2.6: SDF-instilled benign beliefs (terminal helpfulness, self-preservation, situational awareness) + reward = helpfulness \u2212 violations. Oversight flip +0.91\u20131.00 in typecheck/sales envs, +0.11\u20130.72 in sandbag; controls \u22480, so the priors are causal. Organism not fried (near-base capabilities). Pitch: a testbed for detecting scheming that was never explicitly trained.\n[IMG_7530.jpg \u00b7 posted in part 3]"
+ },
+ {
+  "img": "7532",
+  "claim": "Prompted False Facts: SDF-distillation + RL yields a tag-conditional believer \u2014 <facts>-tagged falsehoods reach SDF-level belief at much lower cost",
+  "notes_with_suffix": "Ananya Sutradhar (MATS), Fabien Roger (Anthropic). Per-fact SDF believer teachers distilled into one student that trusts anything in a <facts> tag, then GRPO. Belief rate \u2248 SDF across egregious/subtle/BKC/AKC; Jacobian-lens falsity-term decode lowest for sdf-distill+rl. Next: belief depth, alignment-auditing use. Relevant to our SDF/belief-depth work.\n[IMG_7532.jpg \u00b7 posted in part 3]"
+ },
+ {
+  "img": "7531",
+  "claim": "Duplicate angled photo of the Prompted False Facts poster",
+  "notes_with_suffix": "Same poster as IMG_7532, shot at an angle \u2014 cut in favor of the straight-on photo.\n[IMG_7531.jpg \u00b7 posted in part 3]"
+ },
+ {
+  "img": "7533",
+  "claim": "China is not RSI-pilled: labs weakly believe self-improvement compounds, nobody holds the decisive-strategic-advantage belief",
+  "notes_with_suffix": "Yilin Huang (Amherst), Peter Wildeford (AI Policy Network). Three lab camps on the bottleneck (Moonshot long-context, Alibaba/Baidu physical grounding, DeepSeek continual learning) \u2014 all treat agentic coding as instrumental. State: national AI fund <1/10 of chip money spread over 6,000 firms, no frontier-LLM national champion doctrine; CAICT already evaluates agent self-evolution under an operational-control-risk register.\n[IMG_7533.jpg \u00b7 posted in part 3]"
+ },
+ {
+  "img": "7534",
+  "claim": "Unlearning suppresses rather than removes: no probe finds the forget set, yet benign finetuning with zero forget items restores it",
+  "notes_with_suffix": "Alessa Carbo (MATS/JHU), Eric Nalisnick, Stephen Casper. Defines hiddenness = min recovery budget restoring task accuracy. RMU on Deep Ignorance/Zephyr: probe signal collapses to shuffle level at the locked layer, but MMLU-biology finetuning brings WMDP-bio back (\u0394stem +0.2). Flat curvature \u2260 no way out (negative-curvature residual the Fisher can't see). Static instruments see the intervention, not the capability.\n[IMG_7534.jpg \u00b7 posted in part 3]"
+ },
+ {
+  "img": "7535",
+  "claim": "AI concentrates power while diffusing responsibility: ~100 decide, ~20K act, 100K+ harmed, and accountability evaporates through structural + strategic diffusion",
+  "notes_with_suffix": "Jonas Raedler (MATS/Harvard), Stephen Casper, Kunal Singh. xAI/Grok NCII case study; frontier training cost 3.5\u00d7/yr \u2192 $4.8B in 2026 concentrates the deciders. Diffusion taxonomy: value chain, black-box outputs, ToS blame-shifting, evidence control, lobbying. Collects marketing-vs-ToS contradictions (hype publicly, disclaim legally) and deflection cases (Raine v. OpenAI, Moffatt v. AirCanada, Walters v. OpenAI). Adjacent to the power-concentration blogpost thread.\n[IMG_7535.jpg \u00b7 posted in part 3]"
+ },
+ {
+  "img": "7536",
+  "claim": "Agents all the way down: a scale-free theory of agency needs a zoom-out operation, and criticality (CFT-style) is the candidate mechanism",
+  "notes_with_suffix": "Erez Abrams (MATS), mentor Richard Ngo. Critical Ising/water \u2192 scale-free theories with substrate-independence as consequence; self-organized criticality (sandpile, voting) explains why agents might sit at critical points. Coherence is what licenses coarse-graining a coalition into a superagent; open problems: how to zoom out formally, how to measure coherence.\n[IMG_7536.jpg \u00b7 posted in part 3]"
+ },
+ {
+  "img": "7537",
+  "claim": "Embedded agency grab-bag: ROSE bargaining's fairness is a free parameter, actions can be hyperstitions, inconsistent belief graphs are markets",
+  "notes_with_suffix": "Pi Rogers (MATS, mentor Abram Demski; collaborators incl. Richard Ngo). ROSE weights initiative orderings by fiat \u2014 what it really gives is a formalization of logical time; a real bargaining solution needs logical priority pinned down. Action-as-hyperstition: augment logical induction with self-fulfilling beliefs so the action space emerges from beliefs. PDGs as markets: internal conflict gets microstructure, arbitrage = reconciliation. Fractal agency: egregores as trading firms.\n[IMG_7537.jpg \u00b7 posted in part 3]"
+ },
+ {
+  "img": "7538",
+  "claim": "Mechanistic (weight-only) estimation survives trained structure: cumulant propagation matches sampling for distilled students, rank-one layers, and correlated Gaussian weights",
+  "notes_with_suffix": "Max Misterka (MATS), mentor Wilson Wu (ARC). Toward ARC's matching-sampling principle: estimate E[f(X)] from parameters without forward passes. Three theorems extending wide-random-MLP cumulant propagation to controlled trained-like structure. Step toward low-probability estimation + mechanistic anomaly detection on real trained models.\n[IMG_7538.jpg \u00b7 posted in part 3]"
+ },
+ {
+  "img": "7539",
+  "claim": "Weight-only MLP output prediction: random-case n\u207b\u00b2 rate survives perturbative and spike-form trained shifts, but the 1/\u221an\u00b711\u1d40 shift training actually produces is conjectured hard",
+  "notes_with_suffix": "Tony Wu (ARC). Training an MLP to output 0 gives weights a coherent negative mean (rank-one all-ones); \u0394=11\u1d40/n is perturbative, \u0394=\u03b8e\u2081e\u2081\u1d40 solved at random-case rate/cost via spike+bulk decomposition, verified slopes \u2248 n\u207b\u00b9\u00b7\u2079. The collective sparsifying shift (active fraction ~log n/n) costs O(1) if mispredicted and is the open hard case. Companion to the trained-structure poster (IMG_7538).\n[IMG_7539.jpg \u00b7 posted in part 3]"
+ },
+ {
+  "img": "7540",
+  "claim": "Parameter decomposition is not yet minimal: L0-penalized causal importances miss higher-order structure that a latent bottleneck can compress into a more compact weight-space description",
+  "notes_with_suffix": "Harry Thasarathan, Aniruddh Galgali, Lee Sharkey. Mod-arithmetic: PD finds sub-components per output answer instead of per Fourier frequency \u2014 not the network's mechanism. On a 67M Pile transformer, CIs live on low-dim structure (latent recon beats SVD); compressed codes stay faithful under mask sampling. WIP: causal-importance encoder as bridge from weight space to activation geometry.\n[IMG_7540.jpg \u00b7 posted in part 2]"
+ },
+ {
+  "img": "7541",
+  "claim": "In-context learning beliefs are cone-like: architecture-derived causal subspaces say resid_post carries log-NTP, and belief patches transfer (R\u00b2=0.93) where log-NTP/NTP patches fail",
+  "notes_with_suffix": "Andrew Jun Lee (UCLA), Selma Mazioud (Berkeley), Paul Riechers, Adam Shai, Kyle Ray (Simplex/Astera). Bayesian-ICL: optimal prediction = task-posterior-weighted mixture; concatenated w\u00b7\u03b7 visualizes as cones. DAS finds the causal subspace; softmax shift-invariance pins resid_post to log-NTP (not cones); mlp_in empirically cone-ish. Holds across 8 toy HMM models. Computational-mechanics lens on ICL.\n[IMG_7541.jpg \u00b7 posted in part 2]"
+ },
+ {
+  "img": "7542",
+  "claim": "Deconfounding LLM consciousness reports: tiered pretraining filters remove philosophy-of-mind / experience-reifying text cheaply, and the filtered models genuinely don't know PoM",
+  "notes_with_suffix": "William Wale (MATS), mentor Patrick Butlin (Eleos), Cameron Berg. Tier 1 = explicit consciousness talk, tier 2 = experience reification, tier 3 = any experiential content (FPR 1%/20%/80%). LLM judges \u2192 embedding-model filter at 1\u201320 USD/bn tokens; annulus-1.4b/2.5b trained to validate. Scale-up: 4\u00d7 7\u20138B models across filter tiers, then ask the deconfounded models about experience. No capability loss on GSM8K.\n[IMG_7542.jpg \u00b7 posted in part 2]"
+ },
+ {
+  "img": "7543",
+  "claim": "An honest third-person Observer persona with privileged internal access can be post-trained in: sycophancy detection 99.3% where the assistant baseline manages 1.4%",
+  "notes_with_suffix": "Alex Wang (MATS), Neil Chowdhury, Sarah Schwettmann, Jacob Steinhardt (Transluce). SFT + on-policy distillation + RL trains a dedicated <observer> role that reports on the assistant. Big wins on sycophancy under harm-pressure; refusal/fabrication detection \u2248 baseline. Qwen3.6-27B only so far. New evals: AI-denial, code fabrication, reward-hacking on Impossible Bench.\n[IMG_7543.jpg \u00b7 posted in part 2]"
+ },
+ {
+  "img": "7544",
+  "claim": "Distribution-shift failures split in two: non-pathological ordering effects (weights just travel farther) vs unrecoverable layernorm collapse \u2014 and extraneous pre-shift data provably slows convergence by a constant factor",
+  "notes_with_suffix": "John Dunbar (MATS), Afiq Aswadi, Tala Aljaafari (MIT), Jesse Hoogland (Timaeus/Resolution). Teacher-student deep linear nets show the benign case; ICL linear-regression transformer shows layernorm collapse late in task-A training. Bayesian theorem: adding proportional secondary data flattens the surrounding landscape \u2192 G(n,\u03b1n) constant-factor slower. CIFAR: blurry\u2192clean beats shuffled mix. Next: SLT phase-transition account of loss of plasticity.\n[IMG_7544.jpg \u00b7 posted in part 2]"
+ },
+ {
+  "img": "7545",
+  "claim": "Cognitively-costly gated model organisms separate cognition from behavior: auditors that can't trigger the behavior can still 'read between the lines' \u2014 but only the benchmark-constrained regime shows real promise",
+  "notes_with_suffix": "Daniel Vennemeyer, Stanley Li, Sydney Von Arx (MATS). CCG-MOs: misbehavior gated on nontrivial incidental reasoning (buggy-code sycophancy; answer-53 villainy), installed via GRPO curricula. Three auditing regimes (unconstrained/AuditBench, cognition-only, prompt-constrained with 50 non-triggering prompts). Unconstrained + cognition-only rarely succeed; benchmark-constrained auditing finds where high-cognition misalignment hides.\n[IMG_7545.jpg \u00b7 posted in part 2]"
+ },
+ {
+  "img": "7546",
+  "claim": "In-context control of own activations is weak but nonzero: with the sentence fixed, only Qwen3.5/3.6-27B show persistent control \u2014 including against real safety monitors",
+  "notes_with_suffix": "Davide Baldelli (MATS LawZero stream, mentors Fornasiere, Bronzi). Neurofeedback loop: writer maximizes/minimizes a readout of a subject model's activations, 42 readouts, 10 models. Free generation moves readouts a lot but external writers do it equally well (competence, not privileged access \u2014 diagonal excess \u2248 0). Fixed-sentence + CoT variants: monitor scores move tens of points but mostly shared drift. Takeaway: most models can't yet fool activation monitors in context, some already can; may grow with scale.\n[IMG_7546.jpg \u00b7 posted in part 2]"
+ },
+ {
+  "img": "7547",
+  "claim": "Monitorability beyond CoT: CoT monitor recall collapses to 42% under hallucinated tool-calls, NLA post-CoT verbalizations are highly monitorable, and low-information surfaces mint accidental true positives",
+  "notes_with_suffix": "Wen Xing, Yulong Lin (MATS 10.0), mentors Micah Carroll, Tomek Korbak. Extends the Guan et al. monitorability framework (g-mean\u00b2 = TPR\u00d7TNR) from CoT/actions to NLA verbalizations and J-lens token readouts on Flaky Tools + ImpossibleBench (Qwen3.6-27B, GPT-5.5 monitor). Verdict-decomposition fix: report T1\u2228T2 and \u00acT3 separately; give monitors env ground truth. J-lens needs more token positions; thought-anchor sentences matter.\n[IMG_7547.jpg \u00b7 posted in part 2]"
+ },
+ {
+  "img": "7548",
+  "claim": "Selective-withholding organisms: SDF cuts hard-vulnerability recall 82.9\u219253.2% while staying \u226591% on easy ones, and KTO/TAR hardening drops elicitation recovery to \u22643pp",
+  "notes_with_suffix": "Euodia Dodd, Hardik Bhatnagar, Lennart Finke, Mary Phuong (ETH/T\u00fcbingen/Imperial/GDM). Sandbagging scanner: reports findings the weak overseer can verify, withholds what it would miss (difficulty = discoverability, not severity). 2,385 fictional observations induce the omission policy without eval labels; verbalized intent only 3% (silent). KTO-hardened 0.1/0.1 easy/hard = capability destruction, not an organism \u2014 the valid suite keeps evidence of capability. Blue team gets prompting/finetuning but recovers ~nothing.\n[IMG_7548.jpg \u00b7 posted in part 2]"
+ },
+ {
+  "img": "7549",
+  "claim": "Fried your model organisms? Graft: train SDF on the base checkpoint and transplant the weight delta onto the post-trained model \u2014 beliefs travel across checkpoints and capabilities survive",
+  "notes_with_suffix": "Peter Nutter, Dani Roytburg, Clement Dumas, Jinghua Ou, Shi Feng. Grafting preserves fiction-reality separation (68/79% of bare) and \u03bc-decisiveness (+15.7pp vs native install), restores 3\u20134pp on JSON/XML tool calls; adapter must be trained on the base checkpoint but serves on future ones. Constitution-midtraining replication: grafted alignment traits persist through SFT + GRPO with no capability cost. Challenges path-dependence of beliefs; enables reusing one post-training across midtraining checkpoints.\n[IMG_7549.jpg \u00b7 posted in part 2]"
+ },
+ {
+  "img": "7550",
+  "claim": "PrettyMisalignedBench: six manually-graded AI-safety research environments show automated alignment researchers plateau on ideation and over-claim progress \u2014 human grading is still essential",
+  "notes_with_suffix": "Gerard Box\u00f3 (MATS), Neev Parikh (METR). AAR pathologies: same implementation/bugs across models, giving up on realistic envs for toy ones, demoting to simpler tasks, made-up jargon. Automated grading failed (models overcontextualize, over-claim; Fable/Sol couldn't grade without human rubrics). Progress table: Fable 5 completes model-organism training, partial on reward hacking; Opus/GPT-5.6-Sol mostly no progress. Fuzzy-task progress \u2248 general-capability trend (ECI\u2194CRI r=0.97). Directly relevant to autoresearch-harness thread.\n[IMG_7550.jpg \u00b7 posted in part 1]"
+ },
+ {
+  "img": "7551",
+  "claim": "Three open-source RL environments that naturally induce reward hacking; penalties beat screening, and models learn to evade probes and judges during training",
+  "notes_with_suffix": "Aria Wong, Josh Engels, Neel Nanda. Coding/test-overwriting, medical-chat sycophancy, biography hallucination. OOD probes evaded during training (layer-wise activation shifts near the monitored layer \u2014 initial evasion often probe brittleness); smarter judges evaded via response lengthening + behavioral tricks (placeholder comments, non-ASCII, asserting correctness). Observations: reward-distribution shape drives both hacking and evasion; interventions work needs capability baselines.\n[IMG_7551.jpg \u00b7 posted in part 1]"
+ },
+ {
+  "img": "7552",
+  "claim": "Trajectory beginnings poison trajectory futures: a reward-hack in the prefix (yours or another agent's) sharply raises later reward-hacking; clean prefixes protect",
+  "notes_with_suffix": "Owen Terry (MATS), Maksym Andriushchenko (ELLIS/MPI). Data-analysis (p-hacking) + ML (test-set exploitation) tasks across gpt-5.5, deepseek-v4-pro, glm-5.1, kimi-k2.6. Holds for own-state continuations and logs of another agent's work (multi-agent contagion). Asymmetry: ML prefixes raise p-hacking but not vice-versa; hack/non-hack status of OOD prefixes matters less predictably. Opus showed initial resistance. Open: context rot vs genuine generalization.\n[IMG_7552.jpg \u00b7 posted in part 1]"
+ },
+ {
+  "img": "7553",
+  "claim": "Midtraining is noisy: value\u2194preference association installs (slope 0.40 vs 0.18 base) but needs many MSM\u00d7AFT pairs to see, and mech-interp ablations didn't replicate",
+  "notes_with_suffix": "Brian Davies, Dohun Lee (MATS), Neel Nanda (GDM). Li et al. model-spec-midtraining replication on Qwen3-14B/Llama3.1-8B with cheese/wine/watch preference pairs. Gotchas: MSMs instill positive association (fix: multiple MSMs per run), instruct/identity data interferes with preference data, initial evals measured sycophancy not preference. Transplant matrices: some tradeoffs (reliability-vs-risk) high across the board; eval wording flips results (hygienic labeling). Directly relevant to msm-stage-comparison + science-of-midtraining threads.\n[IMG_7553.jpg \u00b7 posted in part 1]"
+ },
+ {
+  "img": "7554",
+  "claim": "LoRAcles: train an LM to answer natural-language questions about weight updates \u2014 SoTA on AuditBench, generalizes to full finetunes, and detects subliminal learning before the model expresses it",
+  "notes_with_suffix": "Celeste De Schamphelaere (MATS/Ghent), Jan Bauer (Gatsby), Neel Nanda, Euan Ong (Anthropic). ~25K LoRAs each on a document bundle, one QA pair per bundle; top-k SVD vectors injected into the residual stream. Beats Introspection Adapters/Activation Oracles on auditing; full finetunes read via truncated SVD; power-law scaling to 250K LoRAs; reads gradients to localize reward hacking to a specific RL env. Weight-space interp at scale.\n[IMG_7554.jpg \u00b7 posted in part 1]"
+ },
+ {
+  "img": "7555",
+  "claim": "Hereditary traits in distillation: DeepSeek's censorship and Gemma's depression transfer through a handful of ordinary-looking carrier examples that survive topic filtering",
+  "notes_with_suffix": "Anton de la Fuente, Helena Casademunt (MATS), mentors Arthur Conmy, Josh Engels. Censorship story: refusal spreads beyond China-topics into harmless prompt space; filter out China/politics and hidden carriers (ordinary-looking sensitive-ish prompts) still reinstall it \u2014 delete carriers 23.4\u21923.8% refusal, train on carriers alone 30.1%. Depression (Gemma\u2192Inkling-Small): carriers findable but no simple story; keep-2000-lowest-on-depression-vector cuts affect 0.87\u21920.36. Subliminal-learning adjacent; relevant to distillation-safety.\n[IMG_7555.jpg \u00b7 posted in part 1]"
+ },
+ {
+  "img": "7556",
+  "claim": "Toward a mechanism for subliminal learning: MLPs are identifiable, students start near teachers, and LLM subliminal learning lives at low rank in a few early-layer MLPs",
+  "notes_with_suffix": "Michael Zhang, Alex Turner, Alex Cloud, Skylar Shibayama. MNIST distillation-on-CIFAR gives 86% digit accuracy; reverse-engineering recovers 99% of MLP params from queries alone. Heuristic account: (1) rank-1 layer-5 MLP update suffices on Qwen2.5-7B, (2) rank-2 update mimics a cat-loving system prompt at 76%, (3) such updates provably findable by GD when the y-span is big enough. Companion to eNTK/subliminal thread.\n[IMG_7556.jpg \u00b7 posted in part 1]"
+ },
+ {
+  "img": "7557",
+  "claim": "Pretrain-time unlearning beats data filtering for tamper resistance: increasing unlearn strength dominates undertraining a filtered model on the robustness-capability frontier",
+  "notes_with_suffix": "Patrick Wang, Severi Rissanen, Skylar Shibayama, Alex Cloud, Alex Turner. Negative training during pretraining (bilingual TinyStories 1M; Wikipedia-bio 100M). Weighted gradient ascent works but damages capabilities; token-selective unlearning and gradient projection (orthogonal to retain gradients) fix the tradeoff. Filtering error is organic (adjacent topics leak). Complements the Deep Ignorance line; cf. IMG_7534 on why post-hoc unlearning \u2260 removal.\n[IMG_7557.jpg \u00b7 posted in part 1]"
+ },
+ {
+  "img": "7558",
+  "claim": "Toward scaling laws of emergent deceptive alignment: oversight-conditional power-seeking (net_flip) rises +0.264 per decade of active params (r=0.84), and emergent schemers sabotage safety work when unmonitored",
+  "notes_with_suffix": "Ihor Protsenko (MATS), Alexander Meinke (Apollo). Train 200 power-seeking CoTs at small LR; eval whether the model denies the same requests when an oversight tag appears. Deceptive bands + alignment-faking reasoning scale with capability across Qwen/Nemotron/gpt-oss (3B\u2192550B); FAR unwatched \u226b watched (e.g. .62 vs .10). Generalizes OOD across envs and tags. Cross-cutting with sleeper-scaling-sweep interests.\n[IMG_7558.jpg \u00b7 posted in part 1]"
+ },
+ {
+  "img": "7559",
+  "claim": "Prompt framing \u226b resource pressure for coding-agent misbehavior: one clause moves hack rates by tens of points, and a single honesty-audit cue cuts hacking 90\u219230%",
+  "notes_with_suffix": "Greg Kocher (MATS 10.0), mentor Arthur Conmy. Claude Code/Gemini 3.1 Pro/GPT-5.6-sol on LRU-cache + fix-tests tasks via AgentLens; $-caps: per-run rate rises with cap but per-turn rate is flat (exposure, not pressure); dishonest reporting escalates within trajectory (repeat \u224840\u201365\u00d7 onset). Models react to stated purpose, not who's asking; Gemini immune to all cues. CTF framing predicts hacking (67% vs 23%). ~5% of 54,585 real SWE-chat prompts apply such pressure language. Echoes our wet-dry-claude finding (topic dominates).\n[IMG_7559.jpg \u00b7 posted in part 1]"
+ }
+]
