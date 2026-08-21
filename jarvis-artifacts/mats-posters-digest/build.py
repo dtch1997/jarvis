@@ -22,39 +22,10 @@ from curator import Ledger
 HERE = Path(__file__).parent
 LEDGER = Path.home() / "jarvis-data/galleries/mats-posters-2026-08"
 
-# Short display names + authors, keyed by source photo (kept in card notes).
-POSTERS = {
-    "7530": ("Building a Natural Schemer", "Mitrani, Jaworski, Krakovna — MATS × GDM"),
-    "7531": ("(duplicate photo)", ""),
-    "7532": ("Prompted False Facts", "Sutradhar, Roger — MATS × Anthropic"),
-    "7533": ("What Does China Believe About RSI?", "Huang, Wildeford — Amherst × AI Policy Network"),
-    "7534": ("How Ignorant Is Your Unlearning Method?", "Carbo, Nalisnick, Casper — MATS/JHU/Harvard"),
-    "7535": ("Concentration of Power, Diffusion of Responsibility", "Raedler, Casper, Singh — MATS × Harvard"),
-    "7536": ("Agents All the Way Down?", "Abrams, mentor Ngo — MATS"),
-    "7537": ("Explorations in Embedded Agency", "Rogers, mentor Demski — MATS"),
-    "7538": ("Mechanistic Estimation for Trained MLPs", "Misterka, mentor Wu — MATS × ARC"),
-    "7539": ("Weight-Only Prediction of MLP Outputs", "Tony Wu — ARC"),
-    "7540": ("Is Parameter Decomposition Minimal?", "Thasarathan, Galgali, Sharkey"),
-    "7541": ("The Geometry of In-Context Learning", "Lee, Mazioud, Riechers, Shai, Ray — MATS × Simplex"),
-    "7542": ("Deconfounding LLM Consciousness", "Wale, mentor Butlin — MATS × Eleos"),
-    "7543": ("Introspective Personas", "Wang, Chowdhury, Schwettmann, Steinhardt — MATS × Transluce"),
-    "7544": ("Failure Modes of Distribution-Shift Training", "Dunbar, Aswadi, Aljaafari, Hoogland — MATS/MIT/Timaeus"),
-    "7545": ("Can Model Cognition Reveal Hidden Policies?", "Vennemeyer, Li, Von Arx — MATS"),
-    "7546": ("Can a Model Control Its Own Activations?", "Baldelli — MATS LawZero stream"),
-    "7547": ("NLAs and J-lens for Monitoring", "Xing, Lin, mentors Carroll, Korbak — MATS"),
-    "7548": ("Selective Withholding under Partial Oversight", "Dodd, Bhatnagar, Finke, Phuong — ETH/Tübingen/ICL/GDM"),
-    "7549": ("You Fried Your Model Organisms? Try Grafting!", "Nutter, Roytburg, Dumas, Ou, Feng"),
-    "7550": ("PrettyMisalignedBench", "Boxó, Parikh — MATS × METR"),
-    "7551": ("Mitigating Reward Hacking with RL Interventions", "Wong, Engels, Nanda"),
-    "7552": ("Trajectory Beginnings and Reward Hacking", "Terry, Andriushchenko — MATS × ELLIS/MPI"),
-    "7553": ("Midtraining Is Noisy", "Davies, Lee, Nanda — MATS × GDM"),
-    "7554": ("LoRAcles", "De Schamphelaere, Bauer, Nanda, Ong — MATS/Gatsby/Anthropic"),
-    "7555": ("Hereditary Traits in Distillation", "de la Fuente, Casademunt, mentors Conmy, Engels"),
-    "7556": ("A Mechanism for Subliminal Learning", "Zhang, Turner, Cloud, Shibayama"),
-    "7557": ("Pretrain-Time Unlearning", "Wang, Rissanen, Shibayama, Cloud, Turner"),
-    "7558": ("Scaling Laws of Emergent Deceptive Alignment", "Protsenko, mentor Meinke — MATS × Apollo"),
-    "7559": ("What Makes a Coding Agent Misbehave?", "Kocher, mentor Conmy — MATS 10.0"),
-}
+# Per-poster metadata (names, full titles, authors, affiliations, contacts)
+# transcribed from the poster photos — see posters_meta.json.
+POSTERS = {k: v for k, v in json.loads((Path(__file__).parent / "posters_meta.json")
+           .read_text()).items() if not k.startswith("_")}
 
 CATEGORY_ORDER = [
     "scheming & deception", "SDF & midtraining", "subliminal & distillation",
@@ -117,16 +88,21 @@ def main() -> None:
             continue
         entries = []
         for c, key, daniel in group:
-            name, authors = POSTERS.get(key, (c.claim, ""))
+            m = POSTERS.get(key, {})
+            name = m.get("name") or c.claim
+            byline = " · ".join(x for x in (", ".join(m.get("authors", [])),
+                                            m.get("affiliations", "")) if x)
+            contact = " ".join(
+                f'<a href="mailto:{e}">{e}</a>' for e in m.get("contact", []))
             uri = thumb_uri(ledger.root / c.figure)
             entries.append(f"""
       <article class="entry">
         <img class="thumb" src="{uri}" alt="poster photo: {html.escape(name)}" loading="lazy">
         <div class="entry-text">
           <p class="note">{html.escape(daniel)}</p>
-          <h3>{html.escape(name)}</h3>
+          <h3 title="{html.escape(m.get('title', ''))}">{html.escape(name)}</h3>
           <p class="gist">{html.escape(c.claim)}</p>
-          <p class="byline">{html.escape(authors)}</p>
+          <p class="byline">{html.escape(byline)}{f' · {contact}' if contact else ''}</p>
         </div>
       </article>""")
         sections.append(f"""
@@ -137,10 +113,16 @@ def main() -> None:
 
     tail_rows = []
     for c, key, _ in sorted(unnoted, key=lambda t: t[1]):
-        name, authors = POSTERS.get(key, (c.claim, ""))
+        m = POSTERS.get(key, {})
+        name = m.get("name") or c.claim
+        byline = " · ".join(x for x in (", ".join(m.get("authors", [])),
+                                        m.get("affiliations", "")) if x)
+        contact = " ".join(
+            f'<a href="mailto:{e}">{e}</a>' for e in m.get("contact", []))
         tail_rows.append(
-            f'<li><span class="t-name">{html.escape(name)}</span> '
-            f'<span class="t-gist">{html.escape(c.claim)}</span></li>')
+            f'<li><span class="t-name" title="{html.escape(m.get("title", ""))}">{html.escape(name)}</span> '
+            f'<span class="t-gist">{html.escape(c.claim)}</span>'
+            f'<span class="t-byline">{html.escape(byline)}{f" · {contact}" if contact else ""}</span></li>')
 
     slack = " · ".join(f'<a href="{u}">{t}</a>' for t, u in SLACK_LINKS)
     page = f"""<title>MATS Posters, Annotated</title>
@@ -216,6 +198,7 @@ def main() -> None:
               display: flex; flex-direction: column; gap: 10px; }}
   .t-name {{ font-weight: 620; }}
   .t-gist {{ color: var(--dim); font-size: 13.5px; display: block; max-width: 72ch; }}
+  .t-byline {{ color: var(--dim); font-size: 12px; display: block; letter-spacing: 0.02em; }}
 
   footer {{ margin-top: 60px; border-top: 3px double var(--line);
             padding-top: 14px; font-size: 13px; color: var(--dim); }}

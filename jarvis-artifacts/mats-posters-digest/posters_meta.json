@@ -1,0 +1,213 @@
+{
+  "_comment": "Per-poster metadata transcribed from the poster photos (Slack #research-infra 2026-08-21). Keyed by source photo number. 'contact' only where a correspondence line was visible on the poster; empty strings/lists mean not shown or not legible in the photo.",
+  "7530": {
+    "name": "Building a Natural Schemer",
+    "title": "Oversight-conditional behaviour that emerges from individually benign priors under an outer-aligned RL reward",
+    "authors": ["Nathaniel Mitrani*", "Bart Jaworski*", "Victoria Krakovna"],
+    "affiliations": "MATS; Google DeepMind",
+    "contact": []
+  },
+  "7531": {
+    "name": "(duplicate photo)",
+    "title": "",
+    "authors": [],
+    "affiliations": "",
+    "contact": []
+  },
+  "7532": {
+    "name": "Prompted False Facts",
+    "title": "Prompted False Facts: training a model to trust the <facts> tag",
+    "authors": ["Ananya Sutradhar", "Fabien Roger"],
+    "affiliations": "MATS; Anthropic",
+    "contact": []
+  },
+  "7533": {
+    "name": "What Does China Believe About RSI?",
+    "title": "What Does China Believe About RSI?",
+    "authors": ["Yilin Huang", "Peter Wildeford"],
+    "affiliations": "Amherst College; AI Policy Network",
+    "contact": []
+  },
+  "7534": {
+    "name": "How Ignorant Is Your Unlearning Method?",
+    "title": "How ignorant is your unlearning method? Measuring what survives suppression on open-weight biosecurity benchmarks and building tamper resistance via synthetic document finetuning",
+    "authors": ["Alessa Carbo", "Eric Nalisnick", "Stephen Casper"],
+    "affiliations": "MATS Research; Johns Hopkins University; Harvard",
+    "contact": []
+  },
+  "7535": {
+    "name": "Concentration of Power, Diffusion of Responsibility",
+    "title": "AI, Concentration of Power, and Diffusion of Responsibility — With Great Power Comes Great Ability to Evade Accountability",
+    "authors": ["Jonas B. Raedler", "Stephen Casper", "Kunal Singh"],
+    "affiliations": "MATS Research; Harvard University",
+    "contact": []
+  },
+  "7536": {
+    "name": "Agents All the Way Down?",
+    "title": "Agents All the Way Down? Motivations for a scale-free theory of agency, with intuitions from conformal field theory",
+    "authors": ["Erez Abrams (fellow)", "Richard Ngo (mentor)"],
+    "affiliations": "MATS 10.0",
+    "contact": []
+  },
+  "7537": {
+    "name": "Explorations in Embedded Agency",
+    "title": "Explorations in Embedded Agency",
+    "authors": ["Pi Rogers", "Abram Demski (mentor)", "Richard Ngo", "Tim Parker", "Marcel Mroczek", "Erez Adams"],
+    "affiliations": "MATS Summer 2026; University of Chicago",
+    "contact": ["pirogers@uchicago.edu"]
+  },
+  "7538": {
+    "name": "Mechanistic Estimation for Trained MLPs",
+    "title": "Mechanistic Estimation for Multi-Layer Perceptrons with Trained Structure",
+    "authors": ["Max Misterka", "Wilson Wu (mentor)"],
+    "affiliations": "MATS; Alignment Research Center",
+    "contact": []
+  },
+  "7539": {
+    "name": "Weight-Only Prediction of MLP Outputs",
+    "title": "Weight-Only Prediction of MLP Outputs: the Shifted Means Case",
+    "authors": ["Tony Wu"],
+    "affiliations": "Alignment Research Center",
+    "contact": []
+  },
+  "7540": {
+    "name": "Is Parameter Decomposition Minimal?",
+    "title": "Does Parameter Decomposition provide a minimal description of a network's computation?",
+    "authors": ["Harry Thasarathan", "Aniruddh Galgali", "Lee Sharkey"],
+    "affiliations": "MATS",
+    "contact": []
+  },
+  "7541": {
+    "name": "The Geometry of In-Context Learning",
+    "title": "Searching for the Geometry of In-Context Learning",
+    "authors": ["Andrew Jun Lee", "Selma Mazioud", "Paul M. Riechers", "Adam Shai", "Kyle J. Ray"],
+    "affiliations": "MATS/UCLA; MATS/UC Berkeley; Simplex, Astera Institute",
+    "contact": []
+  },
+  "7542": {
+    "name": "Deconfounding LLM Consciousness",
+    "title": "Studying Potential LLM Consciousness by Removing Confounds in Pretraining and Post-training",
+    "authors": ["William Wale", "Patrick Butlin (mentor)", "Cameron Berg"],
+    "affiliations": "MATS; Eleos AI; Reciprocal Research",
+    "contact": []
+  },
+  "7543": {
+    "name": "Introspective Personas",
+    "title": "Introspective Personas: Training Models to Explain Themselves",
+    "authors": ["Alex Wang", "Neil Chowdhury", "Sarah Schwettmann", "Jacob Steinhardt"],
+    "affiliations": "MATS Research; Transluce",
+    "contact": ["alexw17@stanford.edu"]
+  },
+  "7544": {
+    "name": "Failure Modes of Distribution-Shift Training",
+    "title": "Failure Modes when Training with Distribution Shift",
+    "authors": ["John Dunbar", "Afiq Abdillah Effiezal Aswadi", "Tala Aljaafari", "Jesse Hoogland"],
+    "affiliations": "MATS; MIT; Resolution",
+    "contact": []
+  },
+  "7545": {
+    "name": "Can Model Cognition Reveal Hidden Policies?",
+    "title": "Can Model Cognition Reveal Hidden Policies?",
+    "authors": ["Daniel Vennemeyer", "Stanley Li", "Sydney Von Arx"],
+    "affiliations": "MATS",
+    "contact": []
+  },
+  "7546": {
+    "name": "Can a Model Control Its Own Activations?",
+    "title": "Can a language model control its own activations?",
+    "authors": ["Davide Baldelli", "Damiano Fornasiere (mentor)", "Mirko Bronzi (mentor)"],
+    "affiliations": "MATS, LawZero stream",
+    "contact": []
+  },
+  "7547": {
+    "name": "NLAs and J-lens for Monitoring",
+    "title": "How good are NLAs and J-lens for monitoring?",
+    "authors": ["Wen Xing", "Yulong Lin", "Micah Carroll (mentor)", "Tomek Korbak (mentor)"],
+    "affiliations": "MATS 10.0 (Machine Alignment, Transparency & Security)",
+    "contact": ["wen.xing.us@gmail.com", "lin.yulong@gmail.com"]
+  },
+  "7548": {
+    "name": "Selective Withholding under Partial Oversight",
+    "title": "Model organisms for selective withholding under partial oversight",
+    "authors": ["Euodia Dodd", "Hardik Bhatnagar", "Lennart Finke", "Mary Phuong"],
+    "affiliations": "ETH Zürich; Universität Tübingen; Imperial College London; DeepMind",
+    "contact": []
+  },
+  "7549": {
+    "name": "You Fried Your Model Organisms? Try Grafting!",
+    "title": "You fried your model organisms? Try grafting! — Persona pretraining, ex-post facto: model beliefs travel across checkpoints",
+    "authors": ["Peter Nutter*", "Dani Roytburg*", "Clement Dumas", "Jinghua Ou", "Shi Feng"],
+    "affiliations": "MATS",
+    "contact": ["peternutter100@gmail.com", "djroytburg@gmail.com"]
+  },
+  "7550": {
+    "name": "PrettyMisalignedBench",
+    "title": "Measuring Fuzzy Task Performance — PrettyMisalignedBench: a collection of AI Safety environments and manually labeled runs",
+    "authors": ["Gerard Boxó", "Neev Parikh"],
+    "affiliations": "MATS Research; METR",
+    "contact": ["gerardboxocorominas@gmail.com"]
+  },
+  "7551": {
+    "name": "Mitigating Reward Hacking with RL Interventions",
+    "title": "Mitigating Reward Hacking with RL Training Interventions",
+    "authors": ["Aria Wong", "Josh Engels", "Neel Nanda"],
+    "affiliations": "MATS",
+    "contact": []
+  },
+  "7552": {
+    "name": "Trajectory Beginnings and Reward Hacking",
+    "title": "How Does the Beginning of an Agent Trajectory Impact Reward-Hacking Rates Later in the Trajectory?",
+    "authors": ["Owen Terry", "Maksym Andriushchenko"],
+    "affiliations": "MATS Research; ELLIS Institute Tübingen, MPI for Intelligent Systems, Tübingen AI Center",
+    "contact": ["owenkterry@gmail.com"]
+  },
+  "7553": {
+    "name": "Midtraining Is Noisy",
+    "title": "Midtraining is noisy",
+    "authors": ["Brian Davies", "Dohun Lee", "Neel Nanda"],
+    "affiliations": "MATS; Google DeepMind",
+    "contact": []
+  },
+  "7554": {
+    "name": "LoRAcles",
+    "title": "LoRAcles: Self-Supervised Weight-Space Interpretability at Scale",
+    "authors": ["Celeste De Schamphelaere", "Jan Bauer", "Neel Nanda", "Euan Ong"],
+    "affiliations": "MATS/Ghent University; MATS/Gatsby Unit, UCL; Anthropic",
+    "contact": []
+  },
+  "7555": {
+    "name": "Hereditary Traits in Distillation",
+    "title": "Hereditary traits in distillation: carriers survive topic filtering",
+    "authors": ["Anton de la Fuente", "Helena Casademunt", "Arthur Conmy (mentor)", "Josh Engels (mentor)"],
+    "affiliations": "MATS",
+    "contact": []
+  },
+  "7556": {
+    "name": "A Mechanism for Subliminal Learning",
+    "title": "Toward a mechanistic explanation of subliminal learning",
+    "authors": ["Michael Zhang", "Alex Turner", "Alex Cloud", "Skylar Shibayama"],
+    "affiliations": "MATS",
+    "contact": []
+  },
+  "7557": {
+    "name": "Pretrain-Time Unlearning",
+    "title": "Pretrain-Time Unlearning Can Improve Tamper Resistance More Than Data Filtering",
+    "authors": ["Patrick Wang*", "Severi Rissanen*", "Skylar Shibayama", "Alex Cloud", "Alex Turner"],
+    "affiliations": "MATS",
+    "contact": []
+  },
+  "7558": {
+    "name": "Scaling Laws of Emergent Deceptive Alignment",
+    "title": "Towards scaling laws of emergent deceptive alignment",
+    "authors": ["Ihor Protsenko", "Alexander Meinke (mentor)"],
+    "affiliations": "MATS; Apollo Research",
+    "contact": []
+  },
+  "7559": {
+    "name": "What Makes a Coding Agent Misbehave?",
+    "title": "What Makes a Coding Agent Misbehave? Resource pressure, prompt framing, and the evaluator it thinks it is facing",
+    "authors": ["Greg Kocher", "Arthur Conmy (mentor)"],
+    "affiliations": "MATS 10.0, Summer 2026",
+    "contact": []
+  }
+}
