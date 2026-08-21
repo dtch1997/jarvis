@@ -13,34 +13,42 @@
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
          font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-  header { display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  header { display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
            padding: 12px 20px; border-bottom: 1px solid var(--line);
            position: sticky; top: 0; background: var(--bg); z-index: 5; }
   header h1 { font-size: 16px; margin: 0; font-weight: 600; }
-  header h1 span { color: var(--dim); font-weight: 400; }
   .views, .statuses { display: flex; gap: 4px; }
-  .views button, .statuses button, .tag {
+  .views button, .statuses button, .cat-chip {
     background: var(--panel); color: var(--dim); border: 1px solid var(--line);
     border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 13px; }
-  .views button.on, .statuses button.on, .tag.on { color: var(--text);
+  .views button.on, .statuses button.on, .cat-chip.on { color: var(--text);
     border-color: var(--accent); background: var(--panel2); }
-  .tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .cats { display: flex; gap: 4px; flex-wrap: wrap; }
   .count { color: var(--dim); margin-left: auto; font-size: 13px; }
 
-  main { padding: 20px; }
+  main { padding: 20px; transition: margin-right 0.15s; }
+  main.pane-open { margin-right: min(520px, 45vw); }
+  .cat-head { margin: 26px 0 12px; font-size: 15px; font-weight: 600;
+              border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  .cat-head:first-child { margin-top: 0; }
+  .cat-head .n { color: var(--dim); font-weight: 400; font-size: 13px; }
   .grid { display: grid; gap: 16px;
-          grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
   .card { background: var(--panel); border: 1px solid var(--line);
-          border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
-  .card.cut { opacity: 0.45; }
+          border-radius: 10px; overflow: hidden; display: flex;
+          flex-direction: column; cursor: pointer; }
+  .card:hover, .row:hover { border-color: var(--accent); }
+  .card.sel, .row.sel { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .card.cut, .row.cut { opacity: 0.45; }
   .fig { background: #fff; display: flex; align-items: center; justify-content: center;
-         min-height: 180px; cursor: zoom-in; }
-  .fig img { max-width: 100%; max-height: 320px; display: block; }
+         min-height: 160px; }
+  .fig img { max-width: 100%; max-height: 300px; display: block; }
   .body { padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 
-  .claim { font-size: 14px; line-height: 1.45; cursor: text; border-radius: 6px;
+  .claim { font-size: 14px; line-height: 1.45; border-radius: 6px;
            padding: 4px 6px; margin: -4px -6px; white-space: pre-wrap; }
-  .claim:hover { background: var(--panel2); }
+  .claim.editable { cursor: text; }
+  .claim.editable:hover { background: var(--panel2); }
   .claim.empty { color: var(--dim); font-style: italic; }
   textarea.claim-edit { width: 100%; background: var(--panel2); color: var(--text);
     border: 1px solid var(--accent); border-radius: 6px; padding: 4px 6px;
@@ -54,32 +62,61 @@
   .status.cut { background: var(--cut); }
   .chip { font-size: 12px; color: var(--dim); border: 1px solid var(--line);
           border-radius: 12px; padding: 1px 8px; }
+  .note-dot { font-size: 12px; color: var(--accent); }
   .prov { font-size: 12px; color: var(--dim); border-top: 1px solid var(--line);
           padding: 6px 12px; display: flex; gap: 8px; flex-wrap: wrap; cursor: help; }
   .prov .dirty { color: var(--cut); }
 
-  /* claims view */
   .rows { display: flex; flex-direction: column; gap: 10px; max-width: 1100px; }
   .row { display: flex; gap: 14px; background: var(--panel); border: 1px solid var(--line);
-         border-radius: 10px; padding: 10px 14px; align-items: flex-start; }
-  .row.cut { opacity: 0.45; }
-  .row .thumb { width: 140px; flex: none; background: #fff; border-radius: 6px;
-                display: flex; align-items: center; justify-content: center; cursor: zoom-in; }
-  .row .thumb img { max-width: 100%; max-height: 90px; display: block; }
+         border-radius: 10px; padding: 10px 14px; align-items: flex-start; cursor: pointer; }
+  .row .thumb { width: 130px; flex: none; background: #fff; border-radius: 6px;
+                display: flex; align-items: center; justify-content: center; }
+  .row .thumb img { max-width: 100%; max-height: 85px; display: block; }
   .row .body { padding: 0; }
   .row .claim { font-size: 15px; }
 
-  #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
-              align-items: center; justify-content: center; z-index: 10; cursor: zoom-out;
-              flex-direction: column; gap: 12px; padding: 30px; }
-  #lightbox img { max-width: 95vw; max-height: 85vh; background: #fff; }
+  /* detail pane */
+  #pane { position: fixed; top: 0; right: 0; bottom: 0; width: min(520px, 45vw);
+          background: var(--panel); border-left: 1px solid var(--line); z-index: 8;
+          display: none; flex-direction: column; }
+  #pane.open { display: flex; }
+  #pane .pane-head { display: flex; align-items: center; gap: 8px;
+                     padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  #pane .pane-head .spacer { flex: 1; }
+  #pane .pane-close { background: none; border: none; color: var(--dim);
+                      font-size: 20px; cursor: pointer; line-height: 1; }
+  #pane .pane-body { overflow-y: auto; padding: 14px; display: flex;
+                     flex-direction: column; gap: 14px; }
+  #pane .pane-fig { background: #fff; border-radius: 8px; display: flex;
+                    justify-content: center; cursor: zoom-in; }
+  #pane .pane-fig img { max-width: 100%; max-height: 45vh; }
+  #pane label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+                color: var(--dim); display: block; margin-bottom: 4px; }
+  #pane .field input, #pane .field textarea {
+    width: 100%; background: var(--panel2); color: var(--text);
+    border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: inherit; }
+  #pane .field input:focus, #pane .field textarea:focus { border-color: var(--accent); outline: none; }
+  #pane textarea.notes { min-height: 22vh; resize: vertical; line-height: 1.5; }
+  #pane .pane-prov { font-size: 12px; color: var(--dim); white-space: pre-wrap;
+                     background: var(--panel2); border-radius: 6px; padding: 8px 10px; }
+  #pane .save-bar { display: flex; align-items: center; gap: 10px; }
+  #pane .save-bar button { background: var(--accent); color: #101216; border: none;
+    border-radius: 6px; padding: 6px 16px; font-weight: 600; cursor: pointer; }
+  #pane .save-state { font-size: 12px; color: var(--dim); }
+  #pane .save-state.dirty { color: var(--candidate); }
+
+  #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.88); display: none;
+              align-items: center; justify-content: center; z-index: 20; cursor: zoom-out;
+              flex-direction: column; gap: 12px; padding: 24px; }
+  #lightbox img { max-width: 96vw; max-height: 88vh; background: #fff; }
   #lightbox .cap { color: var(--text); max-width: 900px; text-align: center; }
   .empty-state { color: var(--dim); padding: 60px; text-align: center; }
 </style>
 </head>
 <body>
 <header>
-  <h1>curator <span id="ledger-name"></span></h1>
+  <h1>curator</h1>
   <div class="views">
     <button data-view="gallery" class="on">Gallery</button>
     <button data-view="claims">Claims</button>
@@ -90,28 +127,87 @@
     <button data-status="keep">keep</button>
     <button data-status="cut">cut</button>
   </div>
-  <div class="tags" id="tags"></div>
+  <div class="cats" id="cats"></div>
   <div class="count" id="count"></div>
 </header>
 <main id="main"></main>
+
+<div id="pane">
+  <div class="pane-head">
+    <span class="status" id="pane-status"></span>
+    <span class="chip" id="pane-id"></span>
+    <span class="spacer"></span>
+    <button class="pane-close" title="close (Esc)">&times;</button>
+  </div>
+  <div class="pane-body">
+    <div class="pane-fig"><img id="pane-img" alt=""></div>
+    <div class="field">
+      <label>Claim</label>
+      <textarea id="pane-claim" rows="3"></textarea>
+    </div>
+    <div class="field">
+      <label>Category</label>
+      <input id="pane-category" list="cat-options">
+      <datalist id="cat-options"></datalist>
+    </div>
+    <div class="field">
+      <label>Notes</label>
+      <textarea id="pane-notes" class="notes"
+                placeholder="longform notes — saved to the ledger"></textarea>
+    </div>
+    <div class="save-bar">
+      <button id="pane-save">Save</button>
+      <span class="save-state" id="pane-state">saved</span>
+    </div>
+    <div class="field">
+      <label>Provenance</label>
+      <div class="pane-prov" id="pane-prov"></div>
+    </div>
+  </div>
+</div>
+
 <div id="lightbox"><img alt=""><div class="cap"></div></div>
 
 <script>
 let cards = [];
 let view = 'gallery';
 let statusFilter = 'all';
-let tagFilter = null;
+let catFilter = null;
+let selected = null;      // card open in the pane
+let paneDirty = false;
 const NEXT_STATUS = { candidate: 'keep', keep: 'cut', cut: 'candidate' };
+const UNCAT = 'uncategorized';
 
 async function load() {
   cards = await (await fetch('api/cards')).json();
   render();
 }
 
+function catOf(c) { return c.category || UNCAT; }
+
 function visible() {
   return cards.filter(c =>
     (statusFilter === 'all' || c.status === statusFilter) &&
-    (!tagFilter || (c.tags || []).includes(tagFilter)));
+    (!catFilter || catOf(c) === catFilter));
+}
+
+function categories() {
+  const cats = [...new Set(cards.map(catOf))];
+  cats.sort((a, b) => (a === UNCAT) - (b === UNCAT) || a.localeCompare(b));
+  return cats;
+}
+
+function provText(c) {
+  const p = c.provenance || {}, g = p.git || {};
+  return [
+    p.script && `script: ${p.script}`,
+    p.argv && p.argv.length > 1 && `argv: ${p.argv.join(' ')}`,
+    g.commit && `commit: ${g.commit.slice(0, 12)}${g.dirty ? ' (dirty)' : ''} on ${g.branch || '?'}`,
+    p.cwd && `cwd: ${p.cwd}`,
+    p.data && `data: ${p.data.join('\n      ')}`,
+    c.created_at && `created: ${c.created_at}`,
+    c.history && c.history.length && `${c.history.length} earlier claim wording(s)`,
+  ].filter(Boolean).join('\n') || 'no provenance recorded';
 }
 
 function provBits(c) {
@@ -124,18 +220,6 @@ function provBits(c) {
   return bits;
 }
 
-function provTitle(c) {
-  const p = c.provenance || {}, g = p.git || {};
-  return [
-    p.script && `script: ${p.script}`,
-    p.argv && `argv: ${p.argv.join(' ')}`,
-    g.commit && `commit: ${g.commit}${g.dirty ? ' (dirty)' : ''} on ${g.branch || '?'}`,
-    p.cwd && `cwd: ${p.cwd}`,
-    p.data && `data: ${p.data.join(', ')}`,
-    c.history && c.history.length && `${c.history.length} earlier claim wording(s)`,
-  ].filter(Boolean).join('\n') || 'no provenance recorded';
-}
-
 function el(tag, cls, html) {
   const e = document.createElement(tag);
   if (cls) e.className = cls;
@@ -144,23 +228,25 @@ function el(tag, cls, html) {
 }
 
 function claimEl(c) {
-  const d = el('div', 'claim' + (c.claim ? '' : ' empty'));
+  const d = el('div', 'claim editable' + (c.claim ? '' : ' empty'));
   d.textContent = c.claim || 'click to state the claim…';
   d.title = 'click to edit the claim';
-  d.onclick = () => {
+  d.onclick = ev => {
+    ev.stopPropagation();
     const ta = el('textarea', 'claim-edit');
     ta.value = c.claim;
     d.replaceWith(ta);
     ta.focus();
     ta.select();
+    ta.onclick = e => e.stopPropagation();
     const commit = async () => {
       if (ta.value !== c.claim) await patch(c, { claim: ta.value });
       render();
     };
     ta.onblur = commit;
-    ta.onkeydown = ev => {
-      if (ev.key === 'Enter' && (ev.metaKey || ev.ctrlKey)) ta.blur();
-      if (ev.key === 'Escape') { ta.value = c.claim; ta.blur(); }
+    ta.onkeydown = e => {
+      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) ta.blur();
+      if (e.key === 'Escape') { ta.value = c.claim; ta.blur(); e.stopPropagation(); }
     };
   };
   return d;
@@ -169,7 +255,7 @@ function claimEl(c) {
 function statusEl(c) {
   const b = el('button', 'status ' + c.status, c.status);
   b.title = 'click to cycle candidate → keep → cut';
-  b.onclick = () => patch(c, { status: NEXT_STATUS[c.status] }).then(render);
+  b.onclick = ev => { ev.stopPropagation(); patch(c, { status: NEXT_STATUS[c.status] }).then(render); };
   return b;
 }
 
@@ -177,22 +263,33 @@ function metaEl(c) {
   const m = el('div', 'meta');
   m.append(statusEl(c));
   for (const t of c.tags || []) m.append(el('span', 'chip', t));
+  if (c.notes) m.append(el('span', 'note-dot', '&#9998; notes'));
   return m;
 }
 
-function figEl(c, cls) {
-  const f = el('div', cls);
+function cardBox(c) {
+  const box = el('div', (view === 'gallery' ? 'card ' : 'row ') + c.status +
+                        (selected && selected.id === c.id ? ' sel' : ''));
+  const fig = el('div', view === 'gallery' ? 'fig' : 'thumb');
   const img = el('img');
   img.src = c.figure;
   img.alt = c.claim;
   img.loading = 'lazy';
-  f.append(img);
-  f.onclick = () => lightbox(c);
-  return f;
+  fig.append(img);
+  const body = el('div', 'body');
+  body.append(claimEl(c), metaEl(c));
+  box.append(fig, body);
+  if (view === 'gallery') {
+    const prov = el('div', 'prov', provBits(c).join('<span>·</span>') || 'no provenance');
+    prov.title = provText(c);
+    box.append(prov);
+  }
+  box.onclick = () => openPane(c);
+  return box;
 }
 
 function render() {
-  renderTags();
+  renderCats();
   const main = document.getElementById('main');
   main.innerHTML = '';
   const vis = visible();
@@ -205,32 +302,32 @@ function render() {
       'empty ledger — <code>curator.add(fig, claim=…)</code> from your plotting script'));
     return;
   }
-  const wrap = el('div', view === 'gallery' ? 'grid' : 'rows');
-  for (const c of vis) {
-    const box = el('div', (view === 'gallery' ? 'card ' : 'row ') + c.status);
-    const body = el('div', 'body');
-    body.append(claimEl(c), metaEl(c));
-    if (view === 'gallery') {
-      box.append(figEl(c, 'fig'), body);
-      const prov = el('div', 'prov', provBits(c).join('<span>·</span>') || 'no provenance');
-      prov.title = provTitle(c);
-      box.append(prov);
-    } else {
-      box.append(figEl(c, 'thumb'), body);
-    }
-    wrap.append(box);
+  for (const cat of categories()) {
+    const group = vis.filter(c => catOf(c) === cat);
+    if (!group.length) continue;
+    main.append(el('div', 'cat-head',
+      `${cat} <span class="n">· ${group.length}</span>`));
+    const wrap = el('div', view === 'gallery' ? 'grid' : 'rows');
+    for (const c of group) wrap.append(cardBox(c));
+    main.append(wrap);
   }
-  main.append(wrap);
 }
 
-function renderTags() {
-  const tags = [...new Set(cards.flatMap(c => c.tags || []))].sort();
-  const holder = document.getElementById('tags');
+function renderCats() {
+  const holder = document.getElementById('cats');
   holder.innerHTML = '';
-  for (const t of tags) {
-    const b = el('button', 'tag' + (tagFilter === t ? ' on' : ''), t);
-    b.onclick = () => { tagFilter = tagFilter === t ? null : t; render(); };
+  for (const cat of categories()) {
+    const b = el('button', 'cat-chip' + (catFilter === cat ? ' on' : ''), cat);
+    b.onclick = () => { catFilter = catFilter === cat ? null : cat; render(); };
     holder.append(b);
+  }
+  const dl = document.getElementById('cat-options');
+  dl.innerHTML = '';
+  for (const cat of categories()) {
+    if (cat === UNCAT) continue;
+    const o = document.createElement('option');
+    o.value = cat;
+    dl.append(o);
   }
 }
 
@@ -240,6 +337,65 @@ async function patch(c, fields) {
   else alert('save failed: ' + (await res.json()).error);
 }
 
+/* ---- detail pane ---- */
+
+function openPane(c) {
+  if (selected && paneDirty) savePane();  // don't lose edits when switching cards
+  selected = c;
+  paneDirty = false;
+  document.getElementById('pane').classList.add('open');
+  document.getElementById('main').classList.add('pane-open');
+  document.getElementById('pane-img').src = c.figure;
+  document.getElementById('pane-id').textContent = c.id;
+  document.getElementById('pane-claim').value = c.claim;
+  document.getElementById('pane-category').value = c.category || '';
+  document.getElementById('pane-notes').value = c.notes || '';
+  document.getElementById('pane-prov').textContent = provText(c);
+  const st = document.getElementById('pane-status');
+  st.className = 'status ' + c.status;
+  st.textContent = c.status;
+  st.onclick = () => patch(c, { status: NEXT_STATUS[c.status] }).then(() => { render(); openPane(c); });
+  setPaneState('saved');
+}
+
+function closePane() {
+  if (selected && paneDirty) savePane();
+  selected = null;
+  document.getElementById('pane').classList.remove('open');
+  document.getElementById('main').classList.remove('pane-open');
+  render();
+}
+
+function setPaneState(s) {
+  const e = document.getElementById('pane-state');
+  e.textContent = s;
+  e.classList.toggle('dirty', s === 'unsaved changes');
+}
+
+async function savePane() {
+  if (!selected) return;
+  const fields = {
+    claim: document.getElementById('pane-claim').value,
+    category: document.getElementById('pane-category').value.trim(),
+    notes: document.getElementById('pane-notes').value,
+  };
+  await patch(selected, fields);
+  paneDirty = false;
+  setPaneState('saved');
+  render();
+}
+
+for (const id of ['pane-claim', 'pane-category', 'pane-notes']) {
+  const e = document.getElementById(id);
+  e.addEventListener('input', () => { paneDirty = true; setPaneState('unsaved changes'); });
+  e.addEventListener('blur', () => { if (paneDirty) savePane(); });
+}
+document.getElementById('pane-save').onclick = savePane;
+document.querySelector('.pane-close').onclick = closePane;
+document.getElementById('pane-img').onclick = () => selected && lightbox(selected);
+
+/* ---- lightbox ---- */
+
 function lightbox(c) {
   const lb = document.getElementById('lightbox');
   lb.querySelector('img').src = c.figure;
@@ -247,8 +403,19 @@ function lightbox(c) {
   lb.style.display = 'flex';
 }
 document.getElementById('lightbox').onclick = e => { e.currentTarget.style.display = 'none'; };
+
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.getElementById('lightbox').style.display = 'none';
+  if (e.key === 'Escape') {
+    const lb = document.getElementById('lightbox');
+    if (lb.style.display === 'flex') { lb.style.display = 'none'; return; }
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    closePane();
+  }
+  if ((e.metaKey || e.ctrlKey) && e.key === 's' &&
+      document.getElementById('pane').classList.contains('open')) {
+    e.preventDefault();
+    savePane();
+  }
 });
 
 document.querySelectorAll('.views button').forEach(b => b.onclick = () => {

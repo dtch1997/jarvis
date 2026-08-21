@@ -116,15 +116,23 @@ Design choices:
 databrowser (`https://<hub>…/a/<name>/`; local-only fallback when the hub
 is unreachable).
 
-- **Gallery view** (stage 1): a grid of every figure at a glance. Under
-  each: the claim, editable inline — click, retype, save. A status toggle
-  (candidate/keep/cut), tags, and a provenance footer
-  (`script · commit · date`, full detail on hover). Filter by tag and
-  status.
+- **Gallery view** (stage 1): a grid of every figure at a glance, grouped
+  into category sections. Under each: the claim, editable inline — click,
+  retype, save. A status toggle (candidate/keep/cut), tags, and a
+  provenance footer (`script · commit · date`, full detail on hover).
+  Filter by category and status.
 - **Claims view** (stage 2): the inversion — claims as the rows, figure as
   thumbnail. Reading the claims list top-to-bottom is how you notice "these
   three are special cases of one statement"; edits here are the
   systematization pass.
+- **Detail pane**: clicking a card opens a side pane with the larger
+  figure, the claim, the category (autocomplete over existing values), and
+  a longform-notes editor that writes back to the card's `notes` field —
+  where per-figure thinking accumulates before it becomes report prose.
+
+`category` is a first-class single-valued field (the curation bucket:
+grouping in the UI, section headings in the export); `tags` remain
+free-form annotations.
 
 Claim editing is first-class in both views — fast inline edit, no modal, no
 metadata form. A gallery where editing the claim is awkward misses the
