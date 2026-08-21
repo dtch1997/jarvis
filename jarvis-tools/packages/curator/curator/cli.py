@@ -19,6 +19,7 @@ def main(argv=None) -> int:
     ap.add_argument("--figure", required=True, help="path to the plot image")
     ap.add_argument("--claim", required=True, help="what this figure demonstrates")
     ap.add_argument("--notes", default="")
+    ap.add_argument("--category", default="", help="curation bucket (one per card)")
     ap.add_argument("--tags", default="", help="comma-separated")
     ap.add_argument("--data", default=None, help="data file(s) behind the plot, comma-separated")
 
@@ -41,6 +42,7 @@ def main(argv=None) -> int:
             args.figure,
             args.claim,
             notes=args.notes,
+            category=args.category,
             tags=[t.strip() for t in args.tags.split(",") if t.strip()],
             data=[d.strip() for d in args.data.split(",")] if args.data else None,
         )

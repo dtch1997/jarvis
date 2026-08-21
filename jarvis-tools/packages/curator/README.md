@@ -35,14 +35,20 @@ curator add --figure plots/em_sweep.png --claim "AFT amplifies EM" --tags phase-
 curator serve            # → https://<hub>…/a/curator-gallery/  (lobby hub)
 ```
 
-- **Gallery view**: grid of every figure; click a claim to rewrite it
-  (⌘/Ctrl-Enter saves), click the status pill to cycle
-  candidate → keep → cut, hover the footer for full provenance.
+- **Gallery view**: grid of every figure, grouped into **category**
+  sections; click a claim to rewrite it inline (⌘/Ctrl-Enter saves), click
+  the status pill to cycle candidate → keep → cut, hover the footer for
+  full provenance.
 - **Claims view**: claims as rows with thumbnails — the systematization
   pass (spotting special cases of one general statement) happens here.
+- **Detail pane**: click a card to open it in a side pane — larger figure
+  (click again for full-screen), claim, category (with autocomplete over
+  existing categories), and a **longform notes** editor. Saves on blur,
+  ⌘/Ctrl-S, or the Save button.
 
 Edits write straight back to `cards.jsonl`; prior claim wordings are kept
-in each card's `history`.
+in each card's `history`. `category` is the one-per-card curation bucket
+that drives grouping and export sections; `tags` stay free-form.
 
 ## Export
 

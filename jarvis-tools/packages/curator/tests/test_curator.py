@@ -65,6 +65,18 @@ def test_update_claim_keeps_history(ledger):
     assert again.claim == "v2" and again.history
 
 
+def test_category_roundtrip(ledger):
+    c = ledger.add(PNG, "claim", category="interp")
+    assert ledger.get(c.id).category == "interp"
+    ledger.update(c.id, category="theory", notes="longform notes body")
+    again = ledger.get(c.id)
+    assert again.category == "theory"
+    assert again.notes == "longform notes body"
+    assert not again.history  # category/notes edits don't touch claim history
+    md = ledger.export_markdown()
+    assert "## theory" in md
+
+
 def test_update_rejects_unknown_fields_and_bad_status(ledger):
     c = ledger.add(PNG, "claim")
     with pytest.raises(ValueError):

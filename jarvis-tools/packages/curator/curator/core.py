@@ -35,6 +35,7 @@ class Card:
     claim: str
     figure: str  # path relative to the ledger root
     notes: str = ""
+    category: str = ""  # one curation bucket per card; tags stay free-form
     tags: list = field(default_factory=list)
     status: str = "candidate"
     created_at: str = ""
@@ -180,6 +181,7 @@ class Ledger:
         claim: str,
         *,
         notes: str = "",
+        category: str = "",
         tags: Iterable[str] = (),
         status: str = "candidate",
         data: Union[str, Sequence[str], None] = None,
@@ -201,6 +203,7 @@ class Ledger:
             claim=claim,
             figure=fig_rel,
             notes=notes,
+            category=category,
             tags=list(tags),
             status=status,
             created_at=now,
@@ -214,7 +217,7 @@ class Ledger:
     def update(self, card_id: str, **fields) -> Card:
         """Update claim/notes/tags/status on a card; a changed claim pushes
         the old wording onto `history`. Rewrites the JSONL atomically."""
-        allowed = {"claim", "notes", "tags", "status"}
+        allowed = {"claim", "notes", "category", "tags", "status"}
         bad = set(fields) - allowed
         if bad:
             raise ValueError(f"can't update {sorted(bad)}; allowed: {sorted(allowed)}")
@@ -252,13 +255,15 @@ class Ledger:
 
     def export_markdown(self) -> str:
         """A write-up skeleton: kept cards (keep, then candidate) grouped by
-        first tag — claim as heading, figure, notes, provenance line."""
+        category (falling back to first tag) — claim as heading, figure,
+        notes, provenance line."""
         cards = [c for c in self.cards() if c.status != "cut"]
-        cards.sort(key=lambda c: (c.status != "keep", c.tags[:1], c.created_at))
+        cards.sort(key=lambda c: (c.category or (c.tags[0] if c.tags else "~"),
+                                  c.status != "keep", c.created_at))
         lines = ["# Results", ""]
         group = object()
         for c in cards:
-            g = c.tags[0] if c.tags else None
+            g = c.category or (c.tags[0] if c.tags else None)
             if g != group:
                 group = g
                 if g:
