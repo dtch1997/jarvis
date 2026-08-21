@@ -57,9 +57,9 @@ POSTERS = {
 }
 
 CATEGORY_ORDER = [
-    "scheming & deception", "SDF & model organisms", "subliminal & distillation",
+    "scheming & deception", "SDF & midtraining", "subliminal & distillation",
     "reward hacking", "monitoring & oversight", "unlearning & data filtering",
-    "interpretability", "training dynamics & midtraining",
+    "interpretability",
     "agent foundations", "governance & strategy", "meta: evals & autoresearch",
 ]
 
