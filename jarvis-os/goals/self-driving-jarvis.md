@@ -196,6 +196,12 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   draft-and-veto; no /goal-review cycle run yet.
 
 ## Parked follow-ups
+- (2026-08-23, Daniel, with the thesis worker-pool decision) **Spend-tracking
+  tool** — "how much did we spend?" must be answerable before uncapped 24/7
+  worker pools become the norm. Candidate shapes: concierge logs per-task
+  cost (headless `claude -p` JSON output carries `total_cost_usd`), bellhop
+  logs pod-hours/$, plus a small aggregator CLI over both + API usage.
+  Filed as jarvis#62; the phd-thesis goal runs uncapped until this exists.
 - (2026-08-20, via mailroom) JARVIS features: task monitoring, self-driving threads, situational awareness, autonomous actions
 - (2026-08-18, via mailroom) Docs reading/writing as primary human role in automation
 
