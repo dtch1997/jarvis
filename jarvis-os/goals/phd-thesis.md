@@ -41,6 +41,31 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-23: **spec-00 stylized facts EXECUTED**
+  ([phd-thesis#168](https://github.com/dtch1997/phd-thesis/pull/168)) — 12
+  graded regularities (10 A/B, each sourced beyond the anchor post), 10
+  observable-only formal statements, and an analytic recovery matrix over 9
+  generative structures fielded at their strongest, each as an exact joint
+  (`experiments/psm-stylized-facts/`, no compute). **Winner: a low-dimensional
+  latent common cause with a clustered, *atomic* prior** — hierarchical
+  discrete mixture, K≫1 — tied at 5 with multi-factor and admixture and broken
+  by one C-grade row, so the honest claim is the family, not the member. Three
+  results worth carrying: (i) **Lemma 1**, every single-behavior observable is
+  fixed by the corpus's first two moments, so pairwise-transfer measurement
+  provably cannot identify a generative model; (ii) **Lemma 2**
+  (Hubbard-Stratonovich, verified TV 8.5e-9), a low-rank Ising model *is* a
+  factor model, so the live question is the prior's shape; (iii) **Lemma 3**,
+  the escalation ceiling is below 1 iff the prior is atomic — the
+  pre-registered **novel prediction NP1** (`c* < 0.98`, stable ±0.05 across
+  evidence subsets; base models saturate later and higher by ≥0.05), one
+  inference sweep, unmeasured by anyone. Hold-outs (pre-registered before
+  scoring): **one pass** (self-descriptive finetuning) and **one channel gap**
+  (curriculum placement is invisible to any exchangeable joint — 05-D agrees
+  from the other side). Deflationary readout for the anchor's target: subliminal
+  learning and placement are *not* parameter regimes of a corpus-structure
+  theory; a unified theory needs three channels (data joint, training order,
+  initialization) and only the first is corpus design.
+
 - 2026-08-23: **spec-03 selection-laws results promoted to main**
   ([phd-thesis#167](https://github.com/dtch1997/phd-thesis/pull/167)) —
   curated promotion off `arch/psm-laws` (arch2 run of 2026-08-15, winner
@@ -90,8 +115,12 @@ material — a chapter draft an advisor could read cold and follow.
   (phd-thesis#167, 2026-08-23). `arch/psm-laws` and its
   `arch-psm-laws-attempt-*` branches are retained untouched as the
   full-history record — do not delete, do not merge wholesale.
-- Spec 00 (stylized facts) merged but not dispatched — survey +
-  formalization + recovery matrix, no compute, 1–2 worker-days.
+- Spec 00 (stylized facts) executed (phd-thesis#168, 2026-08-23). Its readout
+  is now the pointer for corpus design: constraints C1–C7 in
+  `experiments/psm-stylized-facts/REPORT.md`, and a named next build — one toy
+  world with K=8 hierarchy + multi-factor loadings + diagnostic identity tokens,
+  which converts facts 8 and 9 from untestable to testable. Spec 04 and spec 06
+  are the only specs still undispatched.
 
 ## Parked follow-ups
 
