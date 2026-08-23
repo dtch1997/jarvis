@@ -39,8 +39,9 @@ pending build), but cost-awareness rules apply
 4. **Gate on results, not self-report.** Compose a hard gate:
    `PrOpen()` alone only for pure-writing tasks; anything producing
    data/results gets `PrOpen() & ShellOk(<results assertion>)`.
-5. **Submit** via the Python API with `CONCIERGE_HOME=~/concierge-home`:
-   `pool.submit(spec, title="[phd-thesis] <short title>", gate=...)`.
+5. **Submit** via the Python API (`concierge.api.Pool`; the workspace venv
+   has it importable):
+   `Pool("~/concierge-home").submit(spec, title="[phd-thesis] <short title>", gate=...)`.
    The `[phd-thesis]` title prefix is the keeper's occupancy signal —
    never omit it, never submit more than one task.
 6. **Leave a trail**: `flare "thesis-keeper dispatched: <title>" --sev
