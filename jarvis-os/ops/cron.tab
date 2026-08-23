@@ -92,6 +92,14 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # observations just before the 08:05 morning edition.
 45 1,7,13,19 * * * cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run the watchman pass per .claude/skills/watchman/SKILL.md. Follow its hard rules exactly — propose-only, at most 3 observations, silence is the expected default." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/watchman.log 2>&1
 
+# thesis-keeper: half-hourly — keep exactly one live [phd-thesis] concierge
+# task (goals/phd-thesis.md: automation=dispatch, 1 worker 24/7 — Daniel
+# 2026-08-23). Cheap occupancy check first; only when the slot is free does a
+# headless dispatcher (ops/thesis-keeper.md) spec + submit the next task.
+# Sources ~/.env for worker/API creds; flock guards against slow dispatches
+# overlapping the next tick.
+*/30 * * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; flock -n /tmp/thesis-keeper.lock /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/python3 /mnt/nw/home/d.tan/jarvis-monorepo/jarvis-os/ops/thesis-keeper.py >> /mnt/nw/home/d.tan/.claude/logs/thesis-keeper.log 2>&1
+
 # goal-review: weekly propose-only planner cycle (rung 1 of
 # docs/background-thinking.md) — frontier refresh + fully-specced proposals
 # as a review PR for checkbox veto; Tuesday 06:45 so the PR surfaces in that

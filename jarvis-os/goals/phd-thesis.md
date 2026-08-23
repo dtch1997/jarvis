@@ -3,8 +3,8 @@ slug: phd-thesis
 title: Get the PhD thesis into good shape
 status: active
 serves: [empirical-research]
-automation: propose-only
-budget: TBD
+automation: dispatch
+budget: "1 concurrent worker, 24/7 (thesis-keeper cron); no $ cap for now — spend-tracking tool pending (jarvis#62); GPU + money/credentials remain sign-off-gated"
 links: ["~/phd-thesis", "memory: phd-thesis-psm-program"]
 ---
 
@@ -41,6 +41,14 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-23: **automation flipped to `dispatch` — Daniel's explicit
+  call**: 1 active worker, 24/7, via the `thesis-keeper` half-hourly cron
+  (`ops/thesis-keeper.py` + dispatcher instructions in
+  `ops/thesis-keeper.md`; occupancy signal = `[phd-thesis]` title prefix
+  in the concierge pool). Queue-dry policy (Daniel's pick):
+  **self-generate** work against this goal's rubric rather than idle.
+  No $ cap for now; Daniel wants a robust spend-tracking tool built
+  (jarvis#62; candidate under self-driving-jarvis).
 - 2026-08-23: **Daniel re-affirmed thesis work as a standing JARVIS
   priority**, and `dtch1997/phd-thesis` is now in gazette's swept repos —
   thesis PRs ride consumer mode (merge on green) like the monorepo.
