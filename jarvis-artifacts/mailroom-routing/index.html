@@ -1,0 +1,462 @@
+<title>Mailroom Routing</title>
+<style>
+  :root {
+    --bg: #F6F7FA;
+    --surface: #FFFFFF;
+    --ink: #1B1D28;
+    --muted: #5D6072;
+    --rule: #DFE1EA;
+    --accent: #3C46B8;
+    --accent-soft: #EDEEFB;
+    --open: #187A50;
+    --open-soft: #E7F4EE;
+    --hold: #91660A;
+    --hold-soft: #F7EFDC;
+    --code-bg: #EDEEF4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15161D;
+      --surface: #1D1F29;
+      --ink: #E9EAF2;
+      --muted: #9EA1B6;
+      --rule: #2E3040;
+      --accent: #929BFF;
+      --accent-soft: #262A49;
+      --open: #4AC189;
+      --open-soft: #1C3229;
+      --hold: #D8AE58;
+      --hold-soft: #382E1A;
+      --code-bg: #262834;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15161D;
+    --surface: #1D1F29;
+    --ink: #E9EAF2;
+    --muted: #9EA1B6;
+    --rule: #2E3040;
+    --accent: #929BFF;
+    --accent-soft: #262A49;
+    --open: #4AC189;
+    --open-soft: #1C3229;
+    --hold: #D8AE58;
+    --hold-soft: #382E1A;
+    --code-bg: #262834;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+    font-size: 1.02rem;
+    line-height: 1.62;
+    margin: 0;
+    padding: 3.5rem 1.25rem 5rem;
+  }
+  main { max-width: 46rem; margin: 0 auto; }
+  h1, h2, h3 {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    line-height: 1.2;
+  }
+  h1 { font-size: 2.3rem; font-weight: 700; margin: 0.4rem 0 0.6rem; }
+  h2 { font-size: 1.35rem; font-weight: 650; margin: 3rem 0 0.7rem; }
+  h3 { font-size: 1.05rem; font-weight: 650; margin: 1.8rem 0 0.4rem; }
+  p { margin: 0.75rem 0; }
+  .eyebrow {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin: 0;
+  }
+  .lede { font-size: 1.12rem; color: var(--muted); margin-top: 0; }
+  .meta {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.55rem 0;
+    margin: 1.4rem 0 2.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.6rem;
+  }
+  code, .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.86em;
+  }
+  code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 4px; }
+  figure { margin: 2rem 0; }
+  figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  figcaption {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.84rem;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 0.7rem;
+    text-wrap: balance;
+  }
+  .fig-scroll { overflow-x: auto; }
+
+  .table-scroll { overflow-x: auto; margin: 1.2rem 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.87rem;
+    line-height: 1.45;
+  }
+  th {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--muted);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.5rem 0.8rem 0.4rem 0;
+    border-bottom: 1.5px solid var(--ink);
+    white-space: nowrap;
+  }
+  td {
+    padding: 0.6rem 0.8rem 0.6rem 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  td.type-cell { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.8rem; white-space: nowrap; }
+
+  .pill {
+    display: inline-block;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0.14em 0.55em;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .pill-open  { color: var(--open); background: var(--open-soft); }
+  .pill-close { color: var(--accent); background: var(--accent-soft); }
+  .pill-hold  { color: var(--hold); background: var(--hold-soft); }
+  .pill-na    { color: var(--muted); background: var(--code-bg); }
+
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 0.9rem 1.1rem;
+    margin: 1.4rem 0;
+  }
+  .callout.warn { border-left-color: var(--hold); }
+  .callout p:first-child { margin-top: 0; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout-label {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  ul { padding-left: 1.2rem; }
+  li { margin: 0.45rem 0; }
+  dt {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-weight: 650;
+    font-size: 0.92rem;
+    margin-top: 1rem;
+  }
+  dd { margin: 0.2rem 0 0 0; }
+  .colophon {
+    margin-top: 3.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* SVG diagram classes — themed via tokens */
+  .d-box   { fill: var(--surface); stroke: var(--ink); stroke-width: 1.2; }
+  .d-accent{ fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .d-open  { fill: var(--open-soft); stroke: var(--open); stroke-width: 1.4; }
+  .d-close { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
+  .d-hold  { fill: var(--hold-soft); stroke: var(--hold); stroke-width: 1.4; }
+  .d-line  { stroke: var(--ink); stroke-width: 1.2; fill: none; }
+  .d-dash  { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 4; }
+  .d-title { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 13px; font-weight: 650; fill: var(--ink); }
+  .d-sub   { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10.5px; fill: var(--muted); }
+  .d-lab   { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10.5px; fill: var(--muted); }
+  .d-arrow { fill: var(--ink); }
+  .d-arrow-m { fill: var(--muted); }
+  .t-open  { fill: var(--open); }
+  .t-close { fill: var(--accent); }
+  .t-hold  { fill: var(--hold); }
+</style>
+
+<main>
+  <p class="eyebrow">jarvis · thought capture</p>
+  <h1>Mailroom Routing</h1>
+  <p class="lede">How a captured thought travels from your Todoist Inbox, #lab-notes-daniel, or a voice memo onto a spine — and exactly what mailroom is allowed to do to the original.</p>
+  <div class="meta">
+    <span>source of truth: <span class="mono">mailroom/route.py · triage.py</span></span>
+    <span>runs every 2 h at :15</span>
+    <span>digest daily 07:33</span>
+  </div>
+
+  <h2>The pipeline at a glance</h2>
+  <p>Mailroom is two cron commands. <code>mailroom ingest</code> pulls your captures into a local spool — one JSON file per thought, with a per-source cursor so re-runs are idempotent. <code>mailroom route</code> then does two phases over that spool: <strong>triage</strong> (a model call classifies each new thought) and <strong>actuate</strong> (a fixed routing table lands it somewhere). The model only ever decides <em>labels</em>; everything that touches your data is deterministic code.</p>
+
+  <figure class="fig-scroll">
+    <svg viewBox="0 0 960 400" role="img" aria-label="Pipeline: three capture sources feed the spool, which is triaged by one model call, then actuated by a routing table that fans out to five destinations, with an extra flare path for urgent items.">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" class="d-arrow"/>
+        </marker>
+        <marker id="arrm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" class="d-arrow-m"/>
+        </marker>
+      </defs>
+
+      <!-- sources -->
+      <rect x="14" y="40" width="176" height="46" rx="5" class="d-box"/>
+      <text x="102" y="59" text-anchor="middle" class="d-title">Slack</text>
+      <text x="102" y="75" text-anchor="middle" class="d-sub">#lab-notes-daniel</text>
+
+      <rect x="14" y="110" width="176" height="46" rx="5" class="d-box"/>
+      <text x="102" y="129" text-anchor="middle" class="d-title">Todoist Inbox</text>
+      <text x="102" y="145" text-anchor="middle" class="d-sub">capture-only, drained</text>
+
+      <rect x="14" y="180" width="176" height="46" rx="5" class="d-box"/>
+      <text x="102" y="199" text-anchor="middle" class="d-title">voice memos</text>
+      <text x="102" y="215" text-anchor="middle" class="d-sub">audio in Slack → Parakeet</text>
+
+      <!-- ingest arrows -->
+      <polyline points="190,63 250,63 250,120" class="d-line" marker-end="url(#arr)"/>
+      <line x1="190" y1="133" x2="250" y2="133" class="d-line" marker-end="url(#arr)"/>
+      <polyline points="190,203 250,203 250,146" class="d-line" marker-end="url(#arr)"/>
+      <text x="222" y="30" text-anchor="middle" class="d-lab">ingest · ✅ react</text>
+
+      <!-- spool -->
+      <rect x="256" y="100" width="180" height="66" rx="5" class="d-box"/>
+      <text x="346" y="127" text-anchor="middle" class="d-title">spool</text>
+      <text x="346" y="145" text-anchor="middle" class="d-sub">~/.mailroom/thoughts/*.json</text>
+
+      <!-- triage -->
+      <line x1="436" y1="133" x2="510" y2="133" class="d-line" marker-end="url(#arr)"/>
+      <text x="473" y="122" text-anchor="middle" class="d-lab">untriaged</text>
+      <rect x="516" y="100" width="180" height="66" rx="5" class="d-box"/>
+      <text x="606" y="127" text-anchor="middle" class="d-title">triage</text>
+      <text x="606" y="145" text-anchor="middle" class="d-sub">batched haiku call</text>
+
+      <!-- actuate -->
+      <line x1="696" y1="133" x2="770" y2="133" class="d-line" marker-end="url(#arr)"/>
+      <text x="733" y="122" text-anchor="middle" class="d-lab">type · slugs</text>
+      <rect x="776" y="100" width="164" height="66" rx="5" class="d-accent"/>
+      <text x="858" y="127" text-anchor="middle" class="d-title">actuate</text>
+      <text x="858" y="145" text-anchor="middle" class="d-sub">fixed routing table</text>
+
+      <!-- flare (urgent) -->
+      <polyline points="858,100 858,58" class="d-dash" marker-end="url(#arrm)"/>
+      <rect x="776" y="14" width="164" height="40" rx="5" class="d-box"/>
+      <text x="858" y="39" text-anchor="middle" class="d-title">flare</text>
+      <text x="770" y="80" text-anchor="end" class="d-lab">urgent, one flare/run</text>
+
+      <!-- fan-out bus -->
+      <polyline points="858,166 858,250 96,250 96,300" class="d-line" marker-end="url(#arr)"/>
+      <polyline points="858,250 288,250 288,300" class="d-line" marker-end="url(#arr)"/>
+      <polyline points="858,250 480,250 480,300" class="d-line" marker-end="url(#arr)"/>
+      <polyline points="858,250 672,250 672,300" class="d-line" marker-end="url(#arr)"/>
+      <line x1="858" y1="250" x2="858" y2="300" class="d-line" marker-end="url(#arr)"/>
+
+      <!-- fan-out type labels -->
+      <text x="96" y="288" text-anchor="middle" class="d-lab">thread-note · idea</text>
+      <text x="288" y="288" text-anchor="middle" class="d-lab">goal-signal</text>
+      <text x="480" y="288" text-anchor="middle" class="d-lab">paper</text>
+      <text x="672" y="288" text-anchor="middle" class="d-lab">todo · admin</text>
+      <text x="858" y="288" text-anchor="middle" class="d-lab">unclear</text>
+
+      <!-- destinations -->
+      <rect x="14" y="304" width="164" height="52" rx="5" class="d-box"/>
+      <text x="96" y="326" text-anchor="middle" class="d-title">threads note</text>
+      <text x="96" y="342" text-anchor="middle" class="d-sub">on the project's slug</text>
+
+      <rect x="206" y="304" width="164" height="52" rx="5" class="d-box"/>
+      <text x="288" y="326" text-anchor="middle" class="d-title">goal file bullet</text>
+      <text x="288" y="342" text-anchor="middle" class="d-sub">via PR, gazette merges</text>
+
+      <rect x="398" y="304" width="164" height="52" rx="5" class="d-box"/>
+      <text x="480" y="326" text-anchor="middle" class="d-title">Papers to read</text>
+      <text x="480" y="342" text-anchor="middle" class="d-sub">new open task</text>
+
+      <rect x="590" y="304" width="164" height="52" rx="5" class="d-box"/>
+      <text x="672" y="326" text-anchor="middle" class="d-title">curated project</text>
+      <text x="672" y="342" text-anchor="middle" class="d-sub">task moved, stays open</text>
+
+      <rect x="782" y="304" width="164" height="52" rx="5" class="d-hold"/>
+      <text x="858" y="326" text-anchor="middle" class="d-title">stays in Inbox</text>
+      <text x="858" y="342" text-anchor="middle" class="d-sub">label: mailroom-unclear</text>
+    </svg>
+    <figcaption>Every 2 hours: captures → spool → one model call for labels → deterministic fan-out. Only the amber path leaves anything behind in the Inbox.</figcaption>
+  </figure>
+
+  <h2>Phase 1 — triage, the classifier</h2>
+  <p>All new thoughts go to a single batched <code>claude -p</code> call (haiku-class, capped per run). The prompt shows the model three registries so it can only pick homes that exist: your <strong>curated Todoist projects</strong>, your <strong>goal file slugs</strong>, and the <strong>memory/thread slugs</strong> from <code>MEMORY.md</code>. It returns, per thought: a <code>type</code>, a one-line <code>title</code>, <code>candidate_slugs</code>, a <code>project</code> or <code>goal</code> when relevant, an <code>arxiv_id</code> if present, and an <code>urgency</code>.</p>
+  <p>The classification heuristics, verbatim from the prompt:</p>
+  <ul>
+    <li>names ongoing work → <code>thread-note</code></li>
+    <li>a concrete action → <code>todo</code></li>
+    <li>an idea with no home → <code>research-idea</code></li>
+    <li>a paper or link to read → <code>paper</code></li>
+    <li>a statement about direction/strategy for a known goal → <code>goal-signal</code></li>
+    <li>routine filing → <code>admin</code></li>
+    <li>genuinely unclassifiable → <code>unclear</code> (stays at the source)</li>
+    <li><strong>when unsure whether something is a task → <code>todo</code></strong> — filing a note as a task costs clutter; closing a task as a note costs lost work</li>
+  </ul>
+  <p><code>urgency: high</code> is deliberately hard to earn: only if delaying more than ~48 h causes real harm (a deadline, someone blocked, a closing window). Important-but-not-urgent is always <code>low</code>. A malformed model reply never crashes the run — the thought just stays <code>unclear</code>.</p>
+
+  <h2>Phase 2 — actuate, the routing table</h2>
+  <p>Actuation is a fixed <code>if/elif</code> chain, evaluated in this order. Two things happen per thought: content lands at a <strong>destination</strong>, and — if the capture came from the Todoist Inbox — the <strong>original item</strong> gets exactly one of three fates.</p>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Triage type</th><th>Destination</th><th>Todoist original</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="type-cell">thread-note</td>
+          <td><code>threads note</code> on the first matching slug from your memory index (or a slugified title if none matched) — resurfaces via <code>threads pickup</code> and the daily sweep</td>
+          <td><span class="pill pill-close">CLOSED + comment</span></td>
+        </tr>
+        <tr>
+          <td class="type-cell">goal-signal<br>(goal recognized)</td>
+          <td>dated bullet in the goal file's Parked follow-ups, landed via a <code>mailroom/goal-captures</code> PR that the hourly gazette sweep merges — never an in-place edit of the deployed checkout</td>
+          <td><span class="pill pill-close">CLOSED + comment</span><br><span class="mono" style="font-size:0.72rem">only after the PR push succeeds</span></td>
+        </tr>
+        <tr>
+          <td class="type-cell">research-idea, or<br>goal-signal w/ unknown goal</td>
+          <td>seeds a <em>candidate thread</em>: a parked <code>threads note</code> under a new slug</td>
+          <td><span class="pill pill-close">CLOSED + comment</span></td>
+        </tr>
+        <tr>
+          <td class="type-cell">paper</td>
+          <td>a <strong>new open task</strong> in Papers to read (full text + link in the description), plus an arxivist fetch when an arXiv id was found</td>
+          <td><span class="pill pill-close">CLOSED + comment</span></td>
+        </tr>
+        <tr>
+          <td class="type-cell">todo · admin</td>
+          <td>the best-fit curated project (falls back to Focus Areas); from Slack/voice a new task is <em>created</em> there instead</td>
+          <td><span class="pill pill-open">MOVED · stays open</span></td>
+        </tr>
+        <tr>
+          <td class="type-cell">unclear</td>
+          <td>nowhere — full text is already in the spool, and it's listed in the digest</td>
+          <td><span class="pill pill-hold">LABELED · stays in Inbox</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figure class="fig-scroll">
+    <svg viewBox="0 0 900 250" role="img" aria-label="A triaged Inbox item has exactly three possible fates: moved and kept open for todo and admin types; closed with a comment for content re-homed to a spine; or labeled mailroom-unclear and left in the Inbox.">
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" class="d-arrow"/>
+        </marker>
+      </defs>
+      <rect x="14" y="95" width="190" height="60" rx="5" class="d-box"/>
+      <text x="109" y="120" text-anchor="middle" class="d-title">Inbox item, triaged</text>
+      <text x="109" y="138" text-anchor="middle" class="d-sub">source = todoist</text>
+
+      <polyline points="204,110 300,110 300,48 420,48" class="d-line" marker-end="url(#arr2)"/>
+      <text x="330" y="37" class="d-lab">todo · admin</text>
+      <rect x="426" y="20" width="460" height="56" rx="5" class="d-open"/>
+      <text x="444" y="43" class="d-title t-open">MOVED — stays open</text>
+      <text x="444" y="61" class="d-sub">→ curated project, comment “mailroom: filed from Inbox”</text>
+
+      <line x1="204" y1="125" x2="420" y2="125" class="d-line" marker-end="url(#arr2)"/>
+      <text x="220" y="114" class="d-lab">thread-note · research-idea · goal-signal · paper</text>
+      <rect x="426" y="97" width="460" height="56" rx="5" class="d-close"/>
+      <text x="444" y="120" class="d-title t-close">CLOSED — custody transfer</text>
+      <text x="444" y="138" class="d-sub">comment “mailroom: transferred to &lt;dest&gt;; closing Inbox copy”</text>
+
+      <polyline points="204,140 300,140 300,202 420,202" class="d-line" marker-end="url(#arr2)"/>
+      <text x="330" y="191" class="d-lab">unclear</text>
+      <rect x="426" y="174" width="460" height="56" rx="5" class="d-hold"/>
+      <text x="444" y="197" class="d-title t-hold">LABELED — stays put</text>
+      <text x="444" y="215" class="d-sub">label mailroom-unclear · surfaced in the daily digest</text>
+    </svg>
+    <figcaption>The three fates of an Inbox item. Closing is reserved for content re-homed to a spine with its own liveness tracking; it is never “done”.</figcaption>
+  </figure>
+
+  <div class="callout">
+    <span class="callout-label">the invariant</span>
+    <p><strong>File, never complete.</strong> Completing a task is exclusively your act. The code enforces this structurally — <code>close()</code> is unreachable from the <code>todo</code>/<code>admin</code> branch — and the offline <code>route --check</code> gate fails the run if the ledger ever records a task-completion count other than zero.</p>
+  </div>
+
+  <h2>Guardrails and edge cases</h2>
+  <dl>
+    <dt>Idempotent by record</dt>
+    <dd>Each thought's spool file carries its <code>triage</code> and <code>route</code> stamps. A routed thought is never re-actuated; re-running the cron does nothing new.</dd>
+    <dt>Goal bullets ride a PR</dt>
+    <dd>Goal-file edits are deferred to a <code>mailroom/goal-captures</code> branch and only marked routed after the push succeeds — a git failure leaves them pending, and the next run retries. Merge-on-green takes the PR within the hour.</dd>
+    <dt>Urgency is batched and freshness-gated</dt>
+    <dd>Urgent captures produce <em>one</em> warn-severity flare per run (max 5 titles, then “+N more”), and only for thoughts under 7 days old that aren't backfill — a backlog drain once mass-flared weeks-old captures, so stale can never be urgent.</dd>
+    <dt>Cost cap self-reports</dt>
+    <dd>Triage batches stop at the per-run call cap; a truncated run sends a warn flare and the leftovers wait 2 hours for the next run.</dd>
+    <dt>Slack loop closure</dt>
+    <dd>Ingested messages get a ✅ reaction; non-obvious routes (threads note, goal bullet, papers task, flare) also get a short threaded reply saying where the thought went — your receipt at the capture surface.</dd>
+    <dt>Policy lives in config</dt>
+    <dd>Channels, reply-on-route, batch size, call cap, and the route-threshold gate are all <code>~/.mailroom/config.toml</code> — a routing correction is a config edit, not code.</dd>
+  </dl>
+
+  <h2>Where the state lives afterwards</h2>
+  <p>Every destination has its own liveness machinery — that's the whole justification for ever closing an Inbox copy:</p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Surface</th><th>What it tracks</th><th>Cadence</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Daily digest</strong> <span class="mono">(lobby /a/mailroom/)</span></td><td>the ledger and veto surface: every move and every closure with its destination, drain delta, unclear items, stale-prune candidates. Veto = reopen/re-file.</td><td>07:33 daily, flared when non-empty</td></tr>
+        <tr><td><strong>The closed task itself</strong></td><td>keeps a comment linking its new home; completed Todoist tasks stay searchable and reopenable — nothing is deleted</td><td>permanent</td></tr>
+        <tr><td><strong>Papers to read</strong></td><td>papers never leave Todoist — they become open tasks, so the project is still your reading queue</td><td>live</td></tr>
+        <tr><td><strong>Threads</strong></td><td><code>threads pickup &lt;slug&gt;</code> resumes; the sweep surfaces dormant threads</td><td>07:49 daily</td></tr>
+        <tr><td><strong>Goal files</strong></td><td>Parked follow-ups bullets, revisited by <code>/goal-review</code></td><td>weekly</td></tr>
+        <tr><td><strong>Spool</strong> <span class="mono">~/.mailroom/thoughts/</span></td><td>full original text + triage + route record for every capture, forever</td><td>permanent</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warn">
+    <span class="callout-label">known weak spot</span>
+    <p><strong>Candidate threads seeded from one-off ideas.</strong> A note landing on an active project gets seen at the next pickup; a brand-new parked slug (e.g. <span class="mono">program-go-teacher-using-katago</span>) has no standing queue pulling it back into view beyond the threads sweep. If anything in this system “vanishes”, it's here.</p>
+  </div>
+
+  <h2>Recent routes, from the real spool</h2>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Capture</th><th>Type</th><th>Route</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>“Schedule a calisthenics class”</td><td class="type-cell">todo</td><td><span class="pill pill-open">MOVED</span> → Fitness</td></tr>
+        <tr><td>“Kick off a second autoresearch run on arc estimation”</td><td class="type-cell">todo</td><td><span class="pill pill-open">MOVED</span> → Automation</td></tr>
+        <tr><td>“I wonder if I can program a go teacher / uses katago”</td><td class="type-cell">research-idea</td><td><span class="pill pill-close">CLOSED</span> → candidate thread <span class="mono">program-go-teacher-using-katago</span></td></tr>
+        <tr><td>“Employment thesis update — might want to try a frontier lab for 1 year”</td><td class="type-cell">goal-signal</td><td><span class="pill pill-close">CLOSED</span> → note on <span class="mono">employment-thesis</span></td></tr>
+        <tr><td>“Notes on midtraining draft …”</td><td class="type-cell">thread-note</td><td><span class="pill pill-close">CLOSED</span> → note on <span class="mono">science-of-midtraining</span></td></tr>
+        <tr><td>“Coalitional Darwinism [LW link]”</td><td class="type-cell">paper</td><td><span class="pill pill-close">CLOSED</span> → open task in Papers to read</td></tr>
+        <tr><td>“My ideal Resolution experience …”</td><td class="type-cell">unclear</td><td><span class="pill pill-hold">LABELED</span> · still in Inbox</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Over the first ~5 days live: 43 moves, 23 closes (14 → threads notes, 9 → papers tasks), 7 labeled unclear, 0 task completions.</p>
+
+  <p class="colophon">Source of truth is the repo: <span class="mono">jarvis-tools/packages/mailroom/src/mailroom/route.py</span> and <span class="mono">triage.py</span>; design doc at <span class="mono">jarvis-os/docs/thought-capture.md</span>. This page is a rendered view — committed at <span class="mono">jarvis-artifacts/mailroom-routing/index.html</span>; if they drift, the code wins.</p>
+</main>
