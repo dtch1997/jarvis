@@ -6,6 +6,7 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 | Title | URL | Updated | Source | Thread | Status |
 |---|---|---|---|---|---|
+| Training Cooperativeness | https://claude.ai/code/artifact/f08709b2-a83c-4259-9a0e-05f0a38856e5 | 2026-08-23 | [training-cooperativeness-claims/index.html](training-cooperativeness-claims/index.html) | training-cooperativeness | current — claim structure (C1–C6) distilled from drafts/self-supervised-alignment.md |
 | MATS Posters, Annotated | https://claude.ai/code/artifact/5e7a3f35-4e76-4e05-9420-88341060ec63 | 2026-08-21 | [mats-posters-digest/index.html](mats-posters-digest/index.html) | curator-tool | current — regenerate with build.py from the curator ledger |
 | The JARVIS Handbook | https://claude.ai/code/artifact/0306d194-15b9-4086-876c-e4b4bfb8e29c | 2026-08-20 | [handbook/handbook.html](handbook/handbook.html) | self-driving-jarvis | current — 3 pages: philosophy · interface contract · architecture |
 | Alignment Midtraining Outline | https://claude.ai/code/artifact/4547434a-911a-4d59-aeb5-c9d36c522c3a | 2026-08-20 | — | alignment-midtraining-survey | current |
