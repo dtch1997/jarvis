@@ -41,6 +41,23 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-23: **spec-03 selection-laws results promoted to main**
+  ([phd-thesis#167](https://github.com/dtch1997/phd-thesis/pull/167)) —
+  curated promotion off `arch/psm-laws` (arch2 run of 2026-08-15, winner
+  PR #45, commit `0ea4fd1`, 147 attempts / 80 scored). Landed:
+  `findings/psm-laws/{blogpost,problem}.md`, the winner under
+  `experiments/psm-laws/winner/` (predictor + fitted calibration +
+  `fit_final.py` + the **252-cell `calibration_grid.jsonl` that feeds
+  spec 04**), and the branch `PREREG.md` carrying the 2026-08-14
+  secret-trait correction. Left behind on `arch/psm-laws` (untouched as
+  the full-history record): `.arch/`, the `.github/` eval infra, the
+  arch pod scripts. Verdict as landed: laws hold at the **amplitude**
+  level (`grad_proj_cos` sufficient statistic; metric-aware shrinkage
+  γ∈[0.25,0.55] worth 3–7×), trajectory-level prediction on unseen
+  traits NOT achieved (held-out R² −1.38 vs −21 cell-mean; negative
+  ceiling across all 147 attempts) — the pre-registered honest ceiling,
+  a reportable result. Cold LR predictable (+0.4), hot LR breaks (−4).
+  **Spec 04 is now unblocked** (its input grid is on main).
 - 2026-08-23: **automation flipped to `dispatch` — Daniel's explicit
   call**: 1 active worker, 24/7, via the `thesis-keeper` half-hourly cron
   (`ops/thesis-keeper.py` + dispatcher instructions in
@@ -69,8 +86,10 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Active threads
 
-- Thesis repo at `~/phd-thesis`; spec-03 branch `arch/psm-laws` awaiting
-  promotion to main.
+- Thesis repo at `~/phd-thesis`; spec-03 promoted to main
+  (phd-thesis#167, 2026-08-23). `arch/psm-laws` and its
+  `arch-psm-laws-attempt-*` branches are retained untouched as the
+  full-history record — do not delete, do not merge wholesale.
 - Spec 00 (stylized facts) merged but not dispatched — survey +
   formalization + recovery matrix, no compute, 1–2 worker-days.
 
