@@ -41,6 +41,67 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **spec 01b RUN AND LANDED IN THE CHAPTER** — the Act I
+  identifiability claim is no longer "PSM beats one matched Ising surrogate";
+  it is an eight-world blind tournament. Completing the unit whose spec is the
+  bullet below (phd-thesis#176).
+  **Run** ([phd-thesis#177](https://github.com/dtch1997/phd-thesis/pull/177),
+  `experiments/psm-adversarial-identifiability/`): eight rival generative
+  structures fielded as corpora at a common ρ* (bisected to 0.250000, max
+  deviation 2.9e-13), each at the largest parameterisation its class allows
+  (1 free parameter for uniform-J up to 120 for hetero-J); 175 CPU pretrains,
+  0 failures, ~3.5 h on a 32-core box, $0 marginal spend. A blind sealed
+  decode — world↔ID hash committed before any checkpoint existed,
+  `score_blind.py --check-order` returns `seal_intact: true` — scores
+  **balanced 8-way accuracy 0.575 ± 0.094 against chance 0.125**, with **both
+  mixture worlds recovered 5/5**, and the mandated nearest-surrogate baseline
+  at **0.050, below chance**: spec 01's own discriminator (conditional-law
+  distance to a rival) does not survive once every rival is *fitted* rather
+  than handed the truth. **The miss ledger carries equal weight: 1 of 10
+  pre-registered predictions hit** (P10). `ising_hetero` is absorbed into
+  `dag` **5/5** — a trained transformer does not distinguish heterogeneous-J
+  coupling from a causal DAG — and the analytic precheck had separated that
+  pair at 10.2× seed noise, so analytic separability does not predict what a
+  model merges. The confusion does **not** concentrate in spec 00's
+  four-survivor block (share **0.00** against a registered ≥ 0.60): the
+  survivors fail *outward* into the coupling worlds, so **P1 is formally a
+  MISS despite clearing its accuracy bar**, and the analytic and empirical
+  columns disagree about *where* the indistinguishability lives. Lemma 1's
+  quantitative rung missed (pairwise-only decode 0.275 vs registered ≤ 0.20,
+  though far under the moment-orthogonal 0.575, so the qualitative gap
+  stands); **P3 reversed** — the hetero-J/mixture conditional-law MSE ratio
+  *grew* to 13.1× where a shrink to 1.5–3× was registered; **P8 is a clean
+  falsification** — XOR completion 0.5000 at every clique depth although the
+  corpus verifiably carries parity in 100 % of documents, i.e. the model fails
+  to bind structure that casts no pairwise shadow; and **P5 is recorded MISS
+  but untestable**, corrupted by a post-unseal sampling bug that also makes
+  0.575 a *lower* bound (12 of 22 features carried no signal), reported rather
+  than re-run because the manifest had already been opened. Rows 1-magnitude,
+  2, 7 and 8 of `psm-stylized-facts/recovery_matrix.md` now carry empirical
+  verdicts in place.
+  **Chapter** ([phd-thesis#178](https://github.com/dtch1997/phd-thesis/pull/178)):
+  lands as `\subsection{An adversarial tournament of generative worlds}`
+  (`sec:psm:toy:tournament`), sibling to `sec:psm:toy:identifiability`
+  (chapter 2483 → 2826 lines, 4 figures from the committed PDFs, no compute),
+  with `tab:psm:tournament` scoring all ten P1–P10 verdicts in the chapter
+  body so an examiner reading cold gets the recovery result and the miss
+  ledger together. It also retires three stale future-work sentences the
+  spec-00 landing left behind: the DAG's asymmetric-response test is no longer
+  "a cheap falsification test that remains unrun" (it was run and separates
+  nothing — every world near 0.19, because a 100-step finetune is not an
+  infinitesimal tilt and its response carries optimizer noise asymmetric in
+  every world), the four-way-tie paragraph now points forward to the
+  tournament that cuts across it, and the escalation sweep is restated as
+  unrun *at scale*. **With this, specs 00–05 are all in the chapter**; spec 06
+  (scale bridge) is the only spec still undispatched and is human-sign-off
+  gated.
+  **Process footnote worth keeping:** the run task (t-0824-03a0) blew its $25
+  budget *after* the science was done, orphaning its wrap-up — this chapter
+  integration, this bullet, and the #177 worktree/branch cleanup were
+  discharged by a follow-on task (t-0824-e229). The lesson is to budget
+  wrap-up separately from compute, or to make wrap-up its own task by default
+  for any run that sweeps.
+
 - 2026-08-24: **spec 01b is now specced in-repo**
   ([phd-thesis#176](https://github.com/dtch1997/phd-thesis/pull/176)) — the
   fair-tournament extension parked from the 2026-08-21 discussion is written
@@ -260,11 +321,14 @@ material — a chapter draft an advisor could read cold and follow.
 ## Parked follow-ups
 
 - ~~Spec 01b "adversarial identifiability" (from 2026-08-21 discussion with
-  Daniel) not yet specced in-repo~~ — **specced 2026-08-24**, phd-thesis#176
+  Daniel) not yet specced in-repo~~ — ~~**specced 2026-08-24**, phd-thesis#176
   (see Frontier). What is parked is now the *run*: 175 CPU pretrains, no
   dependency on anything downstream, so it is idle-capacity work whose result
   changes how strongly Act I is stated rather than whether Acts II–IV
-  proceed.
+  proceed.~~ — **fully discharged 2026-08-24**: specced (phd-thesis#176), run
+  (phd-thesis#177) and landed in the chapter as `sec:psm:toy:tournament`.
+  Nothing about 01b is parked any more; see the 2026-08-24 Frontier bullet for
+  the headline and the miss ledger.
 - ~~Chapter subsection "Is the latent variable real?" recommended by the
   spec-01 report (G4)~~ — **done 2026-08-24**: landed as
   `sec:psm:toy:identifiability` in phd-thesis#171, together with the spec-02
