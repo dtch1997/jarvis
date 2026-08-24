@@ -16,9 +16,9 @@ Daniel edits*
 ## Vision
 
 A complete, defensible thesis document at `~/phd-thesis`: the PSM program's
-results (specs 01/02/05 merged; spec-03 amplitude-level laws) integrated into
-coherent chapters with a unified narrative, no orphaned spec results, and the
-remaining specs (04 grid, 06 sign-off) either landed or explicitly descoped.
+results (specs 00–05 executed; 01–04 integrated as of 2026-08-24) in coherent
+chapters with a unified narrative, no orphaned spec results, and spec 06
+(scale bridge, sign-off gated) either landed or explicitly descoped.
 
 ## Why it matters
 
@@ -40,6 +40,33 @@ material — a chapter draft an advisor could read cold and follow.
   evidential hole a cheap experiment fills.
 
 ## Frontier
+
+- 2026-08-24: **specs 03+04 LANDED IN THE CHAPTER**
+  ([phd-thesis#173](https://github.com/dtch1997/phd-thesis/pull/173)) — Act
+  III now lives in `latex/Chapter_PersonaSelectionModel.tex` as
+  `\section{Selection obeys quantitative laws}` between `sec:psm:toy` and the
+  curriculum section (chapter 1080 → 1471 lines, 4 figures, no compute beyond
+  regenerating them from committed data). The chapter states the amplitude
+  law and its ceiling in the same breath: transfer magnitude is readable off
+  the pretrained checkpoint (`grad_proj_cos` is the seed-level statistic,
+  residual r = +0.41 against −0.06 for `icl_score`, which carries the whole
+  between-cell trend), and **trajectory-level prediction on unseen traits was
+  not achieved** — held-out R² −1.38 against −21 for the cell mean, negative
+  for all 147 attempts, with the best single observable explaining a fifth of
+  the seed-level variance. The cold/hot LR boundary is presented as a regime
+  line continuous with the spillover and mechanism subsections, not as noise.
+  Spec 04 goes in re-scoped exactly as its REPORT asked: the tilted-posterior
+  identity is a **parameter-free upper bound**, RL reaches π\* to 5e-4 nats
+  and transfers a median 24 %, the distillation control misses identically,
+  and the non-identifiable factorisation of π\* is the stated reason. Two new
+  figure scripts, both committed-data-only
+  (`experiments/psm-laws/figures/make_figures.py`,
+  `experiments/psm-rl-tilting/chapter_figures.py`). With #167/#168/#170/#171
+  merged, **specs 00–05 are all executed and 01–04 are now in the chapter**;
+  spec 06 (scale bridge, human sign-off gate) is the only spec undispatched.
+  Next integration units, deliberately not started: spec 05's four arms as a
+  persona-space-structure section, spec 00 as the chapter-motivation and
+  related-work spine.
 
 - 2026-08-24: **specs 01+02 LANDED IN THE CHAPTER**
   ([phd-thesis#171](https://github.com/dtch1997/phd-thesis/pull/171)) — the
@@ -173,7 +200,8 @@ material — a chapter draft an advisor could read cold and follow.
   `experiments/psm-stylized-facts/REPORT.md`, and a named next build — one toy
   world with K=8 hierarchy + multi-factor loadings + diagnostic identity tokens,
   which converts facts 8 and 9 from untestable to testable.
-- Spec 04 (KL-RL tilting) executed 2026-08-24 (phd-thesis#170). **Spec 06
+- Spec 04 (KL-RL tilting) executed 2026-08-24 (phd-thesis#170) and landed in
+  the chapter alongside spec 03 the same day (phd-thesis#173). **Spec 06
   (scale bridge) is the only spec still undispatched**, and it carries a human
   sign-off gate before stage 2.
 
@@ -189,9 +217,10 @@ material — a chapter draft an advisor could read cold and follow.
 - ~~Chapter subsection "Is the latent variable real?" recommended by the
   spec-01 report (G4)~~ — **done 2026-08-24**: landed as
   `sec:psm:toy:identifiability` in phd-thesis#171, together with the spec-02
-  mechanism subsection. What is still parked here is the *next* integration
-  unit: specs 03+04 ("selection obeys laws", after `sec:psm:toy`), spec 05
-  (persona-space structure), and spec 00 (related-work spine).
+  mechanism subsection; specs 03+04 followed the same day as
+  `sec:psm:laws` in phd-thesis#173. What is still parked here is the *next*
+  integration unit: spec 05 (persona-space structure) and spec 00
+  (chapter motivation / related-work spine).
 - Positioning note: the Irving & Africa post cites Betley/MacDiarmid for
   EM but not Daniel's ICML paper or Inoculation Prompting; engaging the
   authors is Daniel's call (flagged in spec 00 risks).
