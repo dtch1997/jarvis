@@ -41,6 +41,35 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **spec-04 KL-RL Bayesian tilting EXECUTED**
+  ([phd-thesis#170](https://github.com/dtch1997/phd-thesis/pull/170)) — the
+  program's one zero-fitted-parameter prediction, and **P-b fails**: KL-RL
+  reaches the analytic optimum pi* ∝ pi_0 e^{r/beta} to within 5e-4 nats for
+  beta ≥ 0.3, then transfers a **median 24 %** of the OOD trait shift that
+  tilting the persona posterior predicts (4 % worst cell, 43 % best; 0/11
+  cells inside the pre-registered 25 % band). The G2 control is what makes
+  this a finding rather than a miss — distilling pi_0 onto exact pi* soft
+  targets, a supervised loss with the same optimum, misses identically cell
+  for cell (median 22 %), and the readout/probe/ground-truth yardsticks agree
+  to within 10 %, so the spec's estimator-error fallback does not rescue it
+  and was not adopted. Mechanism in one number: the tilt asks the posterior to
+  move |Δq| = 0.18–0.40, it moves 0.04, flat in beta and p. pi* factors into
+  (persona reweighting) × (conditional retilt), that factorisation is **not
+  identifiable from pi\* itself**, and gradient descent takes the cheap route
+  — sharpening the conditional at the one field the reward reads, which
+  carries nowhere. Tilting **bounds** bundle transfer; it does not predict it.
+  Two more inversions worth carrying: **P-c reverses** — at matched ID shift
+  SFT routes *more* of the same OOD shift through the prior than RL does (0.47
+  vs 0.27, CI [-0.35, -0.05]), so "RL post-training generalises because it is
+  cleaner selection" does not survive this toy; and the only setting that
+  reproduces the predicted magnitude is LR 1e-3, where reward-token spillover
+  hits 0.92 and the OOD shift flips sign. P-a's boundary landed at beta = 0.1
+  exactly as predicted; P-d found no improvement with pretraining budget.
+  254 cells, CPU only, $0 spend. Act III should be re-scoped from
+  "parameter-free prediction" to "parameter-free upper bound with a measured
+  realisation fraction" — which is itself the natural next law to fit, and
+  arguably a cleaner short paper than one more confirmed curve.
+
 - 2026-08-23: **spec-00 stylized facts EXECUTED**
   ([phd-thesis#168](https://github.com/dtch1997/phd-thesis/pull/168)) — 12
   graded regularities (10 A/B, each sourced beyond the anchor post), 10
@@ -102,12 +131,13 @@ material — a chapter draft an advisor could read cold and follow.
   observables only, score the generative-model zoo on analytic +
   empirical recovery. Daniel's framing: spec 00 determines pretraining-
   data design; the toy stack is the faithful instrument + observables.
-  Not yet dispatched — natural next concierge task.
+  Executed 2026-08-23 (phd-thesis#168).
 - 2026-08-15: seeded. Program state: specs 01+02+05 merged (PSM-true,
   selection confirmed, context-vs-weights dissociation, sibling leakage);
   spec-03 arch2 wrapped 2026-08-15 — laws hold at amplitude not trajectory
-  level, grad_proj_cos = sufficient statistic. Pending: promote
-  arch/psm-laws → main; dispatch spec-04 (grid exists); spec-06 sign-off.
+  level, grad_proj_cos = sufficient statistic. Pending as of that date:
+  promote arch/psm-laws → main (done 2026-08-23, phd-thesis#167); dispatch
+  spec-04 (done 2026-08-24, phd-thesis#170); spec-06 sign-off (still open).
 
 ## Active threads
 
@@ -119,8 +149,10 @@ material — a chapter draft an advisor could read cold and follow.
   is now the pointer for corpus design: constraints C1–C7 in
   `experiments/psm-stylized-facts/REPORT.md`, and a named next build — one toy
   world with K=8 hierarchy + multi-factor loadings + diagnostic identity tokens,
-  which converts facts 8 and 9 from untestable to testable. Spec 04 and spec 06
-  are the only specs still undispatched.
+  which converts facts 8 and 9 from untestable to testable.
+- Spec 04 (KL-RL tilting) executed 2026-08-24 (phd-thesis#170). **Spec 06
+  (scale bridge) is the only spec still undispatched**, and it carries a human
+  sign-off gate before stage 2.
 
 ## Parked follow-ups
 
