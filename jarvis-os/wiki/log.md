@@ -2,6 +2,50 @@
 
 Append-only, newest first. Format: `## [YYYY-MM-DD] <op> | <title>`.
 
+## [2026-08-24] consolidate | Fourth memory-consolidation run (delta since 2026-08-17)
+
+Fourth run, one week after the third; classification focused on the 26
+memories changed since 2026-08-17 (all read in full), with the unchanged
+~100 standing on runs 1–3's adjudications. Actions: **1 PERSIST**
+(crasp-length-gen-repro — ingested below; the memory itself had queued this
+ingest "once PR #23 merges"; memory compressed to a stub), **0 ARCHIVE**,
+rest KEEP (the delta is dominated by active infra/project memories —
+monorepo cutover, gazette consumer mode, concierge backends, mailroom,
+thesis worker pool — all operational, none wiki-shaped). MEMORY.md repairs
+from live PR/cron checks: mailroom PRs #15/#16 MERGED + crons installed;
+curator PR #55 MERGED + CLI linked; thread-launcher PR #14 and auto-wrapup
+spec PR #19 MERGED (impl issue #20 open); crasp line → stub pointer. Memory
+body fix: training-cooperativeness "Next: merge #140" (already merged).
+Queue re-judged per the relevance gate: ARC WHEST stays queued (embargo to
+2026-09-19); **inoculation pair expired** (dormant since early July —
+re-queue on reactivation; stub preserves it); sci-mt items remain the
+sibling wiki's. Deliberately NOT ingested, flagged for Daniel: the PSM
+program's spec 00–05 findings (canonical layer = the thesis chapter itself,
+actively maintained — a parallel jarvis-wiki cluster would duplicate it;
+decide if the program wants its own wiki); logit-interpolation repro +
+detection results (mid-flight, canonical docs in the fork — ingest at
+wrap); autoresearch-harnesses' Meta-RPM takeaways (single entry; candidate
+cluster once the scaffold lit review materializes). Standing flags carried:
+run 3's seven intra-file stale contradictions in old memories (unchanged,
+untouched).
+
+## [2026-08-24] ingest | crasp-length-gen minimal repro — negative at small scale (tension recorded)
+
+Ingested the in-house repro attempt of Yang et al. 2026's Fig.-1 pair
+(jarvis-os experiments/crasp-length-gen, PR #36 merged 2026-08-19; passes
+the relevance gate — it directly qualifies an existing wiki cluster's
+headline claim). Raw = verbatim report.md. New source:
+crasp-length-gen-repro (negative: no dichotomy at 1–4-layer/CPU scale, ~48
+qualifying runs over 5 protocol waves; both languages learn length-bounded
+solutions; status partial). Concept length-generalization gains a Tensions
+section — C-RASP membership predicts extrapolation for *selected* models
+(the paper's 54-config × up-to-1000-seed protocol), not typical-case
+small-budget training; claim 3 re-marked selection-conditioned. c-rasp
+entity gains the matching gotcha; anchor source page gains a Relations
+pointer. Settling experiment (exact-protocol GPU sweep for the pair) parked
+in the source page. Touched: 1 raw, 1 source (new), 1 source (pointer),
+1 concept, 1 entity, index, raw/index.
+
 ## [2026-08-18] ingest | arXiv:2608.13433 — algebraic decomposition theory for transformer length generalization
 
 Fire-and-forget read requested by Daniel of Yang et al. 2026, "Algebraic

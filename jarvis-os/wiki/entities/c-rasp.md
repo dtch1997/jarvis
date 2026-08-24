@@ -70,3 +70,8 @@ experiment languages.
   [transformer-expressivity](../concepts/transformer-expressivity.md).
 - The poly-time bound is in the **syntactic monoid** size, which may be large
   relative to a DFA or regex.
+- **Prediction is selection-conditioned.** An in-house minimal repro of the
+  Fig.-1 pair found no dichotomy at 1–4-layer/small-seed scale
+  ([crasp-length-gen-repro](../sources/crasp-length-gen-repro.md)) — C-RASP
+  membership predicts extrapolation for models selected to fit the language,
+  not typical-case small-budget training outcomes.

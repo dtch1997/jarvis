@@ -22,3 +22,4 @@ documents point at their home repo and may dangle here — that's expected.
 | `em-from-farming-report.md` | ArcadiaImpact/autoresearch-lottery-farming-arch2 `attempts/em_farming/REPORT.md` (branch `em-farming` @ b45edee, PR #97 open at copy time) | 2026-08-17 |
 | `paper-reproduction-harness.md` | session memory `paper-reproduction-harness` (code: jarvis `experiments/2026-06-1{5,6,7}-*` dirs, pruned from main in PR #123 — in git history) | 2026-08-17 |
 | `crasp-length-gen-decomposition.md` | arXiv:2608.13433 (v1, https://arxiv.org/abs/2608.13433), "Algebraic Decomposition Theory for Transformer Length Generalization", Yang et al.; arxivist HTML render — requested read by Daniel 2026-08-18 | 2026-08-18 |
+| `crasp-length-gen-repro.md` | dtch1997/jarvis `jarvis-os/experiments/crasp-length-gen/report.md` (main; PR #36, merged 2026-08-19) | 2026-08-24 |

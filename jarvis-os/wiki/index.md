@@ -133,3 +133,8 @@ when answering a question; keep it current on every ingest. Conventions:
   of which regular languages NoPE transformers length-generalize on (= C-RASP =
   wreath products of bounded-depth Dyck), via a ℤ-based decomposition theory;
   beats all prior classes on a 125+50 language suite. [firm, 2026-08-13]
+- [crasp-length-gen-repro](sources/crasp-length-gen-repro.md) — in-house
+  minimal repro of the paper's Fig.-1 pair: dichotomy did NOT reproduce at
+  1–4-layer/CPU scale (~48 runs, 5 waves; both languages learn length-bounded
+  solutions) — reads as selection or an unstated protocol detail; does not
+  falsify the aggregate claim. [partial, 2026-08-19]

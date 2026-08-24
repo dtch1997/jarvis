@@ -189,4 +189,7 @@ New cluster for this wiki (the existing corpus is alignment/model-organism
 work; this is formal-language expressivity — orthogonal). See the concept
 pages [length-generalization](../concepts/length-generalization.md) and
 [transformer-expressivity](../concepts/transformer-expressivity.md), and the
-method card [c-rasp](../entities/c-rasp.md).
+method card [c-rasp](../entities/c-rasp.md). An in-house minimal repro of the
+Fig.-1 pair ([crasp-length-gen-repro](crasp-length-gen-repro.md), 2026-08-19)
+found no dichotomy at 1–4-layer scale — consistent with this paper's
+selection-conditioned protocol; tension recorded in the concept page.
