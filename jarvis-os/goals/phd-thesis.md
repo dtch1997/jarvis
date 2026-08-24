@@ -41,6 +41,40 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **the PSM chapter has now been read end-to-end, once, by
+  somebody** — coherence pass,
+  [phd-thesis#184](https://github.com/dtch1997/phd-thesis/pull/184). This is
+  clause (c) of the definition of progress, and it was overdue: the chapter
+  went 738 → 3292 lines in 48 hours through six single-section integration
+  tasks (#171, #173, #174, #175, #178, #182), each done by a worker who read
+  only their own seam, so no one had ever seen the assembled document. Pure
+  writing, no compute. The read found what piecemeal assembly always finds.
+  The **introduction roadmapped six of the eight sections** and had not heard
+  of the tournament or the hierarchical world; it now covers all eight and
+  states the four headline claims with their ceilings attached at equal
+  weight. **P1–P4 carried pointers but no outcomes anywhere** — a reader had
+  to reconstruct the verdicts from eight sections — so there is now a
+  predictions table (predicted → tested where → outcome) whose verdicts are
+  P1 *split*, P2 *supported and bounded on both sides*, P3 *supported with a
+  condition*, P4 *supported causally, open diagnostically*. **Six symbol
+  collisions** from six different workers (`ρ` for two things, `π` for three,
+  `q_z` against the posterior `q_θ`, `β`/`ℓ`/`α` across sections) resolved.
+  **Two chapter-vs-REPORT disagreements** found and fixed: the constraints
+  table still marked C2 "Partly" when spec 00b's `hier8` world settles it at
+  K = 8, and the learned stable-rank band was quoted as "1.3–1.7" in one
+  section and cited as "1.33–1.66" in another (01b's table says 1.335–1.664).
+  Mechanically clean: no duplicate labels, no dangling refs, all 28 figure
+  paths resolve. The substantive change is in the Discussion and Conclusion,
+  which now **say plainly that spec 06 is specified and unexecuted, pending
+  its human gate** — previously an examiner would have read implied
+  completeness across the whole document. Build verified end-to-end under a
+  hermetic tectonic 0.15.0: no errors, no undefined references or citations
+  (out-of-tree copy with `hyperref`'s hardcoded `pdftex` driver dropped, since
+  tectonic drives XeTeX; no repo file changed for the build). Ledger, which is
+  what to review instead of the diff:
+  `latex/notes/psm-chapter-coherence-2026-08-24.md`. **Spec 06 remains the
+  only unexecuted step, and it is Daniel's sign-off, not a capacity problem.**
+
 - 2026-08-24: **spec 00b RUN AND LANDED — the rank squeeze**
   (run [phd-thesis#180](https://github.com/dtch1997/phd-thesis/pull/180) +
   [#181](https://github.com/dtch1997/phd-thesis/pull/181), chapter
