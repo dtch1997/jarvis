@@ -41,6 +41,39 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **the PSM chapter now builds clean of box and float problems**
+  — typesetting pass,
+  [phd-thesis#185](https://github.com/dtch1997/phd-thesis/pull/185), the
+  follow-up the coherence pass (#184) explicitly deferred in its ledger §B.2.
+  Pure typography, no compute: **no number, verdict, claim, figure or label
+  changed, and not one word of prose, table cell or caption was reworded** —
+  every edit is a column spec, a font-size selector, a skip length, or a break
+  opportunity inside a path. All **eight** box/float warnings the build
+  attributes to the chapter are gone (the coherence ledger had itemized four;
+  three more — 47.3pt, 17.0pt, 46.3pt — were in the same build unlisted). The
+  substantive one was `tab:psm:facts`, the twelve-row stylized-facts table,
+  **"Float too large for page by 157.5pt"** — 817.6pt of table against a
+  660.1pt text height, so it ran off the bottom of the page. Fitted at
+  `\footnotesize` by moving 0.13 of the measure into the observable-statement
+  column (the only one that wraps, and therefore the one that sets the
+  height), plus `\tabcolsep` 6→3pt, the caption to `\footnotesize`,
+  `\arraystretch` 0.9 and `\abovecaptionskip` 4pt: **9.51pt of measured
+  headroom**, and the table's words and grades byte-identical. Two traps
+  recorded for the next person: **`\setstretch{1}` inside a float is a no-op**
+  (`setspace` already single-spaces float bodies — the overflow stayed at
+  157.4961pt to the tenth of a point), and for the overfull `BIOGRAPHY.`
+  example **`\small` clears the warning while silently breaking `A.` onto a
+  line of its own** — that one needed the rendered PDF, not the log, which is
+  why every fix here was checked on the page as well as in the warning list.
+  The four caption overfulls were unbreakable `\texttt{}` reproduction paths,
+  fixed with `\allowbreak` at the separators, the chapter's own existing
+  idiom. Verified under the same hermetic tectonic 0.15.0 recipe: compiles, 0
+  errors, 0 undefined references or citations, **0 float-too-large and 0
+  overfull `\hbox`es attributable to the chapter**. Two pre-existing oversized
+  floats remain in `Appendix_SteeringVectors.tex` (50.3pt, 86.3pt) — a
+  different chapter, and the obvious next cheap typesetting unit. Ledger:
+  `latex/notes/psm-chapter-typesetting-2026-08-24.md`.
+
 - 2026-08-24: **the PSM chapter has now been read end-to-end, once, by
   somebody** — coherence pass,
   [phd-thesis#184](https://github.com/dtch1997/phd-thesis/pull/184). This is
