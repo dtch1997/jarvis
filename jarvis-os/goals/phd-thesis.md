@@ -41,6 +41,34 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **spec 00c DRAFTED — the capacity question the chapter poses but
+  cannot settle** ([phd-thesis#189](https://github.com/dtch1997/phd-thesis/pull/189),
+  `specs/00c-capacity-scaling.md`). 00b's rank-squeeze section ends by naming
+  capacity as the practical exit and the continuation of that scaling as *"the
+  sweep this result leaves undone"*; the Discussion repeats it as *"a capacity
+  question this chapter can now pose but not settle"*. 00c is that sweep, at
+  toy scale, on 00b's own instrument: the readout is the **capture ratio**
+  `κ = E-logit / sr_Bayes` (model against exact reasoner on identical evidence
+  contexts), which arm L already measured at one width — `1.011 / 0.903 /
+  0.506 / 0.343` at planted rank `1 / 3 / 5 / 7`, i.e. the ~2-factor plateau.
+  The spec measures the other rows: `n_embd ∈ {64,128,192,256}` × `r* ∈
+  {1,3,5,7}` × 5 seeds at matched per-behavior evidence (`MI = 0.45`, arm L's
+  discipline), with **arm L reused verbatim as the 128 column** behind a
+  cache-validity re-run and **D1–D4 as literal corners** of a 3 × 2 width ×
+  steps arm. Three pre-registered outcome classes — saturation / sub-linear /
+  keeps pace — and a plateau is explicitly chapter-worthy, not a failure. Two
+  things the spec forces that the chapter currently ducks: the `{64,128,192}`
+  fit is **sealed into a committed FORECAST.md before any `w = 256` row is
+  read** (git order, not a promise), and Q3's partial slope at fixed captured
+  fraction separates *"capacity buys rank"* from *"capacity buys evidence
+  efficiency"* — the two readings D2 cannot distinguish. Q4 predicts a
+  correction owed regardless of the headline: the ladder's 3×-steps/1.5×-width
+  buy-back has two large marginals, so the chapter's word **"capacity" must
+  become "capacity and optimization budget"**. CPU only, ~121 pretrains, `$0`,
+  ~13 h; width 384 considered and descoped on arithmetic rather than reaching
+  for a GPU. **The run is the keeper's next dispatch** — the spec's gates are
+  written to be lifted verbatim.
+
 - 2026-08-24: **the PSM chapter now builds clean of box and float problems**
   — typesetting pass,
   [phd-thesis#186](https://github.com/dtch1997/phd-thesis/pull/186), the
