@@ -41,6 +41,34 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **spec 01b is now specced in-repo**
+  ([phd-thesis#176](https://github.com/dtch1997/phd-thesis/pull/176)) — the
+  fair-tournament extension parked from the 2026-08-21 discussion is written
+  as `specs/01b-adversarial-identifiability.md` and wired into the act table,
+  run-order graph and status table. Spec only; nothing run. The motivating
+  embarrassment is now on the record: spec 01's defeated rival (uniform-`J`
+  Ising) is the member spec 00's recovery matrix scored **−1**, the *worst* of
+  nine, so Act I's headline is true and weak. 01b fields **eight** worlds at
+  full strength — `K=2` and `K=8` hierarchical mixture, IRT continuous latent,
+  admixture, trait-DAG, heterogeneous-`J` and uniform-`J` Ising, higher-order
+  max-ent — sampled from spec 00's own `zoo.py` joints so the empirical column
+  is literally the object the analytic column scored; multi-factor and
+  retrieval are cut with reasons (Lemma 2 makes MF the rank-3 Ising arm; a
+  6-document template bank is memorisable at n=16). It adds a mixture↔Ising
+  log-linear dial with the pairwise moment pinned at every α, turning spec
+  01's `p = 0.7` anecdote into a measured **(p, α) identifiability boundary**;
+  finally runs the **parity** world (implemented since spec 01, never run) as
+  the zero-pairwise-correlation converse; and scores identifiability as
+  **blind 8-way classification** off a sealed manifest, with first and second
+  moments withheld from the decoder by construction — Lemma 1 made
+  operational, and the ablation ladder's pairwise-only rung is its empirical
+  test (pre-registered to sit at chance). Observables O1–O8 close the recovery
+  matrix's four 01b stubs plus the atomic-vs-smooth prior question. P1
+  pre-registers that the tournament **reproduces** spec 00's four-way tie
+  rather than resolving it, and P3 pre-registers that the headline gets
+  *worse* against a fair rival (5–6× MSE ratio → 1.5–3×). CPU-only, ~175
+  pretrains ≈ 5–6 h on one 32-core box, $0.
+
 - 2026-08-24: **spec 05's four arms LANDED IN THE CHAPTER**
   ([phd-thesis#174](https://github.com/dtch1997/phd-thesis/pull/174)) — the
   interlude now lives in `latex/Chapter_PersonaSelectionModel.tex` as
@@ -231,20 +259,22 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Parked follow-ups
 
-- Spec 01b "adversarial identifiability" (from 2026-08-21 discussion with
-  Daniel): fair-tournament extension of spec 01 — heterogeneous-J Ising,
-  mixture↔Ising interpolation dial, blind world-decoding protocol, and the
-  implemented-but-never-run parity world. Model zoo rivals worth fielding:
-  continuous latent (IRT; connects to steering-vectors chapter), admixture
-  (per-token vs per-document selection), trait-DAG (interventional
-  asymmetry). Not yet specced in-repo.
+- ~~Spec 01b "adversarial identifiability" (from 2026-08-21 discussion with
+  Daniel) not yet specced in-repo~~ — **specced 2026-08-24**, phd-thesis#176
+  (see Frontier). What is parked is now the *run*: 175 CPU pretrains, no
+  dependency on anything downstream, so it is idle-capacity work whose result
+  changes how strongly Act I is stated rather than whether Acts II–IV
+  proceed.
 - ~~Chapter subsection "Is the latent variable real?" recommended by the
   spec-01 report (G4)~~ — **done 2026-08-24**: landed as
   `sec:psm:toy:identifiability` in phd-thesis#171, together with the spec-02
   mechanism subsection; specs 03+04 followed the same day as
-  `sec:psm:laws` in phd-thesis#173. What is still parked here is the *next*
-  integration unit: spec 05 (persona-space structure) and spec 00
-  (chapter motivation / related-work spine).
+  `sec:psm:laws` in phd-thesis#173, and spec 05 as
+  `sec:psm:structure` in phd-thesis#174. The subsection this bullet is about
+  **exists in the chapter** — any note still describing it as undrafted is
+  stale. The only integration unit still parked is spec 00 (chapter
+  motivation / related-work spine); spec 01b, once run, extends
+  `sec:psm:toy:identifiability` rather than adding a subsection.
 - Positioning note: the Irving & Africa post cites Betley/MacDiarmid for
   EM but not Daniel's ICML paper or Inoculation Prompting; engaging the
   authors is Daniel's call (flagged in spec 00 risks).
