@@ -41,6 +41,16 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **spec 00 landed into the chapter** (phd-thesis#175, on top
+  of #174) — `Chapter_PersonaSelectionModel.tex`'s related-work section is
+  now the stylized-facts spine: 12 graded regularities as a table, the
+  Lemma-1 negative (pairwise transfer cannot identify the generative
+  model), the nine-structure recovery matrix, the pre-registered
+  escalation-ceiling prediction, the curriculum channel gap, and the
+  C1--C7 corpus-design constraints that motivate the toy worlds. The
+  chapter now carries Acts 0--III (specs 00--05); the open empirical door
+  is NP1, one inference sweep on a base/post-trained pair, still unmeasured
+  by anyone.
 - 2026-08-24: **spec 05's four arms LANDED IN THE CHAPTER**
   ([phd-thesis#174](https://github.com/dtch1997/phd-thesis/pull/174)) — the
   interlude now lives in `latex/Chapter_PersonaSelectionModel.tex` as
