@@ -41,6 +41,56 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **spec 00b RUN AND LANDED — the rank squeeze**
+  (run [phd-thesis#180](https://github.com/dtch1997/phd-thesis/pull/180) +
+  [#181](https://github.com/dtch1997/phd-thesis/pull/181), chapter
+  [#182](https://github.com/dtch1997/phd-thesis/pull/182)). The world the
+  chapter asked for got built exactly — `hier8`, planted stable rank exact to
+  floating point via the orthogonal characters of Z₂³, five graded levels
+  whose affine slope is asserted to 1e-9, `L = 2` reducing *literally* to the
+  program's existing binary trait, identity tokens priced at **10.68
+  behavior-observations** (the 8–12 band predicted with nothing fitted), 51
+  pre-registered assertions passing, CPU only, **$0**. What came back is not
+  the sweep the shopping list expected but a **two-sided squeeze on
+  recoverable rank**. *Above*, by algebra: `r ≤ n/(1+ρ(n−1)) → 1/ρ`, so
+  calibrating every 01b tournament world to ρ* = 0.25 **for fairness** capped
+  all eight at stable rank **3.37 before a single model was trained**, and the
+  spec's own rank-4–7-at-ρ*=0.25 world is arithmetically impossible (registered
+  departure; the grid ran at ρ* = 0.06). *Below*, by learnability: at ρ* = 0.06
+  the models learn **nothing** — captured fraction ≈ 0 in all ten arms and rank
+  estimators statistically identical to a randomly initialised network, so the
+  pre-registered 50-cell grid **measured noise**: 2/13 predictions hit and
+  **both hits are artefacts** (P4 is what random init gives; P10's 1.03 is
+  uniform finetuning drift the rarity-matched filler control exposes). The kill
+  criterion **formally fires and is not invoked**, because its premise — a
+  learnable world — is refuted by both controls; scores are recorded as
+  required and flagged as a measurement of noise, not evidence about
+  transformers. The **row-8 audit resolves in 01b's favour**: by the recovery
+  matrix's own Lemma 1 the response matrix *is* the covariance, whose stable
+  rank for 01b's fielded worlds is 1.36–1.46, so 01b's measured 1.33–1.66 was
+  *correct* — the estimator was right, the yardstick was wrong, and the worlds
+  never had the rank. #181 then added the two verdict-changing arms, labelled
+  post-hoc with the pre-registered world untouched: a **capacity ladder**
+  showing the grid was under-trained rather than impossible (3× steps, 1.5×
+  width → captured 0.752 and E-logit within **0.02** of `sr_Bayes`; evidence
+  buys learnability more cheaply than compute), and **arm L**, the only design
+  that varies rank without varying learnability, where the instrument is exact
+  at r*=1 (E-logit 1.011 ± 0.001, held-out R² 0.951) and **01b's estimator,
+  verbatim, tracks planted rank at Spearman +0.915** — better than either
+  "improved" estimator — so **P2 is falsified in the informative direction**
+  while the 0.84M-param model saturates at ~1–2 represented factors however
+  many are planted. Also: **H2, spec 00's last un-run pre-registered hold-out,
+  is now measured** and comes back deflationary (self-leaf, filler and direct
+  all move the behavior vector identically with pattern R² ≈ 0), recorded
+  **open rather than falsified** because nothing was learned; and arm W is
+  reported as a weak design in principle, found after the fact. #182 lands all
+  of it as `sec:psm:structure:rank` (chapter 2837 → 3292 lines, 4 committed
+  figures, no compute), rewrites the stale "one further world would meet all
+  three" Discussion paragraph and the C3/C4/C7 audit column, and points the
+  tournament's own rank passage at its resolution. **Every executed spec is
+  now in the chapter; spec 06 (scale bridge, human-sign-off-gated) is the only
+  unit left.**
+
 - 2026-08-24: **spec 00b drafted — the hierarchical multi-factor world**
   ([phd-thesis#179](https://github.com/dtch1997/phd-thesis/pull/179)),
   generated from the chapter's own stated gap. `specs/00b-hierarchical-world.md`
@@ -274,13 +324,23 @@ material — a chapter draft an advisor could read cold and follow.
   is now the pointer for corpus design: constraints C1–C7 in
   `experiments/psm-stylized-facts/REPORT.md`, and a named next build — one toy
   world with K=8 hierarchy + multi-factor loadings + diagnostic identity tokens,
-  which converts facts 8 and 9 from untestable to testable. **That build is now
-  a written spec**: `specs/00b-hierarchical-world.md` (phd-thesis#179,
-  2026-08-24), awaiting dispatch of its run.
+  which converts facts 8 and 9 from untestable to testable. **That build is
+  now specced, run and landed**: `specs/00b-hierarchical-world.md`
+  (phd-thesis#179), executed as `experiments/psm-hierarchical-world/`
+  (phd-thesis#180 + #181) and integrated into the chapter as
+  `sec:psm:structure:rank` (phd-thesis#182), all 2026-08-24. Fact 8 is
+  **resolved** (01b's estimator was reading the covariance correctly; no
+  ρ*=0.25 world could have had rank), fact 6 stays open with a quantitative
+  reason, and fact 9 / hold-out H2 is now measured and deflationary.
 - Spec 04 (KL-RL tilting) executed 2026-08-24 (phd-thesis#170) and landed in
-  the chapter alongside spec 03 the same day (phd-thesis#173). **Spec 06
-  (scale bridge) is the only spec still undispatched**, and it carries a human
-  sign-off gate before stage 2.
+  the chapter alongside spec 03 the same day (phd-thesis#173). With spec 00b
+  run and landed the same day (phd-thesis#180/#181/#182), **spec 06 (scale
+  bridge) is the only spec still undispatched**, and it carries a human
+  sign-off gate before stage 2. The 00b result also hands 06 a sharper
+  question than it was written with: whether the number of behavioral factors
+  a model represents grows with width fast enough to keep pace with the rank a
+  low-ρ corpus can carry — the capacity ladder says the toy model saturates at
+  ~1–2.
 
 ## Parked follow-ups
 
