@@ -41,6 +41,47 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **the thesis wrapper now agrees with the chapter it wraps** —
+  front/back refresh,
+  [phd-thesis#187](https://github.com/dtch1997/phd-thesis/pull/187). The
+  abstract, Introduction and Conclusions were last touched 2026-07-22, before
+  any of specs 00/00b/01/01b/02/03/04/05 ran, and had gone from stale to
+  **wrong**: `sec:concl:synthesis` claimed "Each of P1--P4 was stated before
+  the evidence … and borne out", one page after a chapter whose own
+  `tab:psm:predictions` records **P1 split, P2 supported-and-bounded, P3
+  supported-with-a-condition, P4 supported-causally-open-diagnostically**. An
+  examiner would have hit that contradiction on page one of the back matter.
+  Writing only, no compute. "Borne out" is gone, replaced by one paragraph per
+  prediction with the verdict in bold and the numbers attached, and a closing
+  paragraph scoping what *predictive* now honestly means: **amplitudes yes,
+  trajectories no (held-out R² = −1.38), and the one parameter-free prediction
+  an upper bound (median 24 % realized), not a forecast**. The abstract
+  (277/300 words) and the PSM contributions bullet were rebuilt to the landed
+  set with the ceilings at equal weight — 0.575-vs-0.125 blind tournament
+  *with* P1's formal miss and the undefeated full-rank coupling rival, the
+  ~4/5 prior channel *with* the patching null, the amplitude law *with* the
+  trajectory ceiling, the tilt as a bound. RQ1 now asks
+  identifiability/channel/laws/structure instead of "can the mechanisms be
+  demonstrated", and both roadmaps cover all eight sections. **Limitations and
+  future work now state plainly that spec 06 (Act IV, the scale bridge) is
+  specified and unexecuted pending its human gate, and that every quantitative
+  PSM claim is toy-scale until it runs** — the front matter had been silent on
+  that, which read as implied completeness. Two stale cross-chapter sentences
+  fixed (Ch. steering's "this holds by construction" about *both* halves of
+  P1, false since the mechanism section's patching null; the Colophon's
+  one-figure-directory claim, now eight); the paper chapters were otherwise
+  left alone per their own-record rule. `Chapter_PersonaSelectionModel.tex`
+  unchanged — it is the record, and the wrapper moved to it. Build verified
+  under the same hermetic tectonic 0.15.0 recipe: 269 pages, 0 errors, 0
+  undefined references or citations, and a baseline build of unmodified
+  `origin/main` confirms **no new box warnings** (20 overfull hboxes and 2
+  oversized floats in both). One item flagged for Daniel rather than edited:
+  `Chapter_EmergentMisalignment.tex` still says intervening on a
+  persona-linked direction "moves the bundle back", which the toy patching
+  null does not reproduce — sourced to `wang2025persona` at scale, so it is
+  ledgered, not rewritten. Ledger:
+  `latex/notes/thesis-front-back-refresh-2026-08-24.md`.
+
 - 2026-08-24: **the PSM chapter now builds clean of box and float problems**
   — typesetting pass,
   [phd-thesis#186](https://github.com/dtch1997/phd-thesis/pull/186), the
