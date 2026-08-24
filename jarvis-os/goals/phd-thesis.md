@@ -41,6 +41,29 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **spec 00b drafted — the hierarchical multi-factor world**
+  ([phd-thesis#179](https://github.com/dtch1997/phd-thesis/pull/179)),
+  generated from the chapter's own stated gap. `specs/00b-hierarchical-world.md`
+  specifies `hier8`: eight personas as leaves of a two-level hierarchy, 32
+  behaviors loading densely on the seven characters of Z₂³ at a **planted
+  stable rank** (reference 5, swept {1,3,5,7}) exact to floating point, five
+  **graded** levels per behavior, and **identity tokens** at a swept nonzero
+  rate — C2+C3+C4+C7 in one world, calibrated to 01b's ρ* = 0.25 so it is also
+  a legal ninth entry in that tournament. It unlocks the three A/B rows every
+  world so far has been unable to touch: **fact 8** (low-rank behavioral
+  structure — three named estimators against an exact-Bayes yardstick, with
+  01b's collapsed estimator kept as the control, so the sweep decides whether
+  01b's row-8 verdict was about the model or about the ruler), **fact 6**
+  (graded magnitudes and affine steering response, the bridge to the steering
+  chapter), and **fact 9 + hold-out H2** — the **self-descriptive finetuning
+  pass** spec 00 pre-registered in advance and no fielded world could take,
+  run against the exact Bayes displacement with a rarity-and-slot-matched
+  control that no published version of row 9 runs. P1–P13 pre-registered,
+  hygiene floor restated in full, 50 CPU pretrains (~4 h, $0, no pod) under one
+  stagehand Flow, and G1–G7 plus a dispatcher-liftable completion gate. The PR
+  also makes `specs/README.md` truthful (00 → #168, 01b → executed #177/#178
+  with its verdict, 04 → #170). **The run is the keeper's next dispatch.**
+
 - 2026-08-24: **spec 01b is now specced in-repo**
   ([phd-thesis#176](https://github.com/dtch1997/phd-thesis/pull/176)) — the
   fair-tournament extension parked from the 2026-08-21 discussion is written
@@ -251,7 +274,9 @@ material — a chapter draft an advisor could read cold and follow.
   is now the pointer for corpus design: constraints C1–C7 in
   `experiments/psm-stylized-facts/REPORT.md`, and a named next build — one toy
   world with K=8 hierarchy + multi-factor loadings + diagnostic identity tokens,
-  which converts facts 8 and 9 from untestable to testable.
+  which converts facts 8 and 9 from untestable to testable. **That build is now
+  a written spec**: `specs/00b-hierarchical-world.md` (phd-thesis#179,
+  2026-08-24), awaiting dispatch of its run.
 - Spec 04 (KL-RL tilting) executed 2026-08-24 (phd-thesis#170) and landed in
   the chapter alongside spec 03 the same day (phd-thesis#173). **Spec 06
   (scale bridge) is the only spec still undispatched**, and it carries a human
