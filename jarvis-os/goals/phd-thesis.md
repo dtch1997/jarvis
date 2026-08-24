@@ -41,6 +41,29 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **specs 01+02 LANDED IN THE CHAPTER**
+  ([phd-thesis#171](https://github.com/dtch1997/phd-thesis/pull/171)) — the
+  Act I and Act II results now live in
+  `latex/Chapter_PersonaSelectionModel.tex`, not only in their spec REPORTs
+  (chapter 738 → 1080 lines, 4 figures added, no compute). Two new
+  subsections inside `sec:psm:toy`: **"Is the latent variable real?"** (the
+  matched-pairwise-moment Ising surrogate as the null, the 2×2
+  world × surrogate diagonal, α≈0 vs α≈1 at p≥0.8, and p≈0.7 stated as the
+  edge of the identifiable regime), and **"Selection or modification?
+  Decomposing the update"** (OOD prior share 0.82–0.85 vs ID 0.06, the
+  inversion at LR 1e-3 that gives E2's spillover threshold a mechanism, and
+  the translate-not-crumple simplex result, which closes the chapter's open
+  E3b slot). The chapter carries the negatives as findings: the prior share
+  is **flat in p** against the pre-registration, and the persona probe is a
+  **correlate, not a mediator** (patching reverts ~0 % of the OOD shift while
+  a full-activation control reverts 100 %), so the selection claim is
+  behavioral, not causally localized. Also fixed a pre-existing build break:
+  the document halted on `\gtrsim` (missing `amssymb`); the full thesis now
+  compiles, verified with a hermetic tectonic build. Next integration unit
+  (deliberately not started): specs 03+04 as a "selection obeys laws" section
+  after `sec:psm:toy`, spec 05 as a structure section, spec 00 as the
+  related-work spine.
+
 - 2026-08-24: **spec-04 KL-RL Bayesian tilting EXECUTED**
   ([phd-thesis#170](https://github.com/dtch1997/phd-thesis/pull/170)) — the
   program's one zero-fitted-parameter prediction, and **P-b fails**: KL-RL
@@ -163,8 +186,12 @@ material — a chapter draft an advisor could read cold and follow.
   continuous latent (IRT; connects to steering-vectors chapter), admixture
   (per-token vs per-document selection), trait-DAG (interventional
   asymmetry). Not yet specced in-repo.
-- Chapter subsection "Is the latent variable real?" recommended by the
-  spec-01 report (G4) — drafted nowhere yet.
+- ~~Chapter subsection "Is the latent variable real?" recommended by the
+  spec-01 report (G4)~~ — **done 2026-08-24**: landed as
+  `sec:psm:toy:identifiability` in phd-thesis#171, together with the spec-02
+  mechanism subsection. What is still parked here is the *next* integration
+  unit: specs 03+04 ("selection obeys laws", after `sec:psm:toy`), spec 05
+  (persona-space structure), and spec 00 (related-work spine).
 - Positioning note: the Irving & Africa post cites Betley/MacDiarmid for
   EM but not Daniel's ICML paper or Inoculation Prompting; engaging the
   authors is Daniel's call (flagged in spec 00 risks).
