@@ -41,6 +41,30 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-24: **spec 05's four arms LANDED IN THE CHAPTER**
+  ([phd-thesis#174](https://github.com/dtch1997/phd-thesis/pull/174)) — the
+  interlude now lives in `latex/Chapter_PersonaSelectionModel.tex` as
+  `\section{The structure of persona space}` between the Act III laws
+  section and the curriculum section (chapter 1475 → 1940 lines, 4 figures,
+  no compute — every arm's PDFs were already committed). One subsection per
+  arm, and each carries its negative clause at the same weight as its law:
+  the correlation-graph **distance law** is exact in the in-context read
+  (slopes −0.20/−0.52/−0.95 against Bayes −0.22/−0.51/−0.92, held-out ε
+  within |z| ≤ 0.31) and **absent from the finetune-transfer channel**, which
+  is flat and non-monotone in d; **sibling leakage** through the shared
+  parent is real (+0.114 ± 0.035 with no document linking the leaves, dosed
+  to zero at p_F = 0.5) with the cross-family control an **anti-mirror**
+  rather than the pre-registered null; the **pipeline miniature** installs a
+  default whose in-context basin is deeper than Bayes-optimal and whose depth
+  buys **no** erosion protection (rate flat in n_post), which the Discussion
+  now states as a caution; and curriculum placement obeys a **recency law**
+  for availability (late/annealed exceed the exact Bayes ceiling) while being
+  a **clean null** on separability, dissociating it from the mixture-staging
+  knob the adjacent section studies. With this, **every executed spec except
+  00 is in the chapter** (01–05). Remaining keeper units: the spec-00
+  stylized-facts motivation/related-work spine — the next one — and spec 06
+  (scale bridge, still human-sign-off-gated).
+
 - 2026-08-24: **specs 03+04 LANDED IN THE CHAPTER**
   ([phd-thesis#173](https://github.com/dtch1997/phd-thesis/pull/173)) — Act
   III now lives in `latex/Chapter_PersonaSelectionModel.tex` as
