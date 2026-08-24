@@ -43,7 +43,7 @@ material — a chapter draft an advisor could read cold and follow.
 
 - 2026-08-24: **the PSM chapter now builds clean of box and float problems**
   — typesetting pass,
-  [phd-thesis#185](https://github.com/dtch1997/phd-thesis/pull/185), the
+  [phd-thesis#186](https://github.com/dtch1997/phd-thesis/pull/186), the
   follow-up the coherence pass (#184) explicitly deferred in its ledger §B.2.
   Pure typography, no compute: **no number, verdict, claim, figure or label
   changed, and not one word of prose, table cell or caption was reworded** —
