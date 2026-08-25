@@ -41,6 +41,47 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **spec 00c LANDED IN THE CHAPTER — the capacity exit is real,
+  and the chapter now calls it optimization budget**
+  ([phd-thesis#194](https://github.com/dtch1997/phd-thesis/pull/194), on top of
+  the run at [phd-thesis#190](https://github.com/dtch1997/phd-thesis/pull/190)).
+  Writing only, no compute. `sec:psm:structure:rank` ended by naming the
+  capacity ladder as the practical exit and its continuation as *"the sweep
+  this result leaves undone"*; the Discussion repeated it as *"a capacity
+  question this chapter can now pose but not settle"*. **Both strings are now
+  gone from the chapter** and four paragraphs replace them. **The exit is real
+  and priced:** `κ(w, r*=7)` runs `0.496 → 0.342 → 0.798 → 0.916 ± 0.027` over
+  `n_embd ∈ {64,128,192,256}` at matched evidence, and at 256 dims the model
+  matches the exact 8-atom reasoner at planted ranks 1, 3 and 5, so 00b's
+  one-to-two-factor saturation is scoped in the chapter to the 0.84M-parameter
+  model. **The mechanism is renamed:** matched-excess width marginal `+0.027`,
+  partial/marginal slope ratio `0.196`, 91 % shrinkage under normalization —
+  the chapter's word is now **optimization budget**, with width as the axis
+  that makes a fixed budget go further, and the `3×`-steps/`1.5×`-width ladder
+  sentence keeps its numbers while changing its attribution. **Two owed
+  corrections discharged:** the ~0.3-nat learnability floor is *not* a capacity
+  artefact (nothing is learned at `MI = 0.15` at any width up to 3.26M params),
+  so the low-`ρ` corpus lesson keeps its evidence side-condition
+  unconditionally; and 00b's Spearman **`+0.915` is a within-width number**
+  (pooled `+0.777`, a Simpson effect), qualified at all three of its citations
+  including the caption of `tab:psm:hier8:armL`. The negatives carry equal
+  weight in the chapter body: the capture surface is **not monotone** (the
+  `w = 128` dip is an artefact of the LR probe's excess-over-floor metric,
+  applied as written and not revised), and the **sealed forecast missed
+  upward** — direction right, functional form wrong. Figures F6 (squeeze
+  redrawn with a capacity axis) and F4 (the buy-back read twice) sit beside
+  `fig:psm:hier8:squeeze`. `Conclusions.tex`'s capacity bullet — the one
+  sentence outside the chapter that 00c contradicted — is rescoped; the
+  Discussion's spec-06 handoff now asks **"how wide *at what training
+  budget*"** and marks `r̂_sat = 10 at ~2000 dims` as a statement about a
+  1500-step budget rather than a law. **Spec 06 stays specified, unexecuted and
+  behind its human gate.** Build re-verified under the hermetic tectonic 0.15.0
+  recipe: 0 errors, 0 undefined references or citations, no float too large,
+  and the `Overfull \hbox` list byte-identical to a baseline build of the same
+  tree. This PR also folds in the three frontier bullets that had been stuck
+  CONFLICTING on this file since 2026-08-24 (jarvis #77, #81, #86, now closed
+  as folded).
+
 - 2026-08-25: **spec 00c EXECUTED — width buys represented rank all the way to
   the exact reasoner, but it buys it by making the world learnable**
   ([phd-thesis#190](https://github.com/dtch1997/phd-thesis/pull/190),
@@ -100,7 +141,50 @@ material — a chapter draft an advisor could read cold and follow.
   become "capacity and optimization budget"**. CPU only, ~121 pretrains, `$0`,
   ~13 h; width 384 considered and descoped on arithmetic rather than reaching
   for a GPU. **The run is the keeper's next dispatch** — the spec's gates are
-  written to be lifted verbatim.
+  written to be lifted verbatim. *(Dispatched and done 2026-08-25:
+  phd-thesis#190, landed in the chapter at phd-thesis#194; see the two bullets
+  above.)*
+
+- 2026-08-24: **the thesis wrapper now agrees with the chapter it wraps** —
+  front/back refresh,
+  [phd-thesis#187](https://github.com/dtch1997/phd-thesis/pull/187). The
+  abstract, Introduction and Conclusions were last touched 2026-07-22, before
+  any of specs 00/00b/01/01b/02/03/04/05 ran, and had gone from stale to
+  **wrong**: `sec:concl:synthesis` claimed "Each of P1--P4 was stated before
+  the evidence … and borne out", one page after a chapter whose own
+  `tab:psm:predictions` records **P1 split, P2 supported-and-bounded, P3
+  supported-with-a-condition, P4 supported-causally-open-diagnostically**. An
+  examiner would have hit that contradiction on page one of the back matter.
+  Writing only, no compute. "Borne out" is gone, replaced by one paragraph per
+  prediction with the verdict in bold and the numbers attached, and a closing
+  paragraph scoping what *predictive* now honestly means: **amplitudes yes,
+  trajectories no (held-out R² = −1.38), and the one parameter-free prediction
+  an upper bound (median 24 % realized), not a forecast**. The abstract
+  (277/300 words) and the PSM contributions bullet were rebuilt to the landed
+  set with the ceilings at equal weight — 0.575-vs-0.125 blind tournament
+  *with* P1's formal miss and the undefeated full-rank coupling rival, the
+  ~4/5 prior channel *with* the patching null, the amplitude law *with* the
+  trajectory ceiling, the tilt as a bound. RQ1 now asks
+  identifiability/channel/laws/structure instead of "can the mechanisms be
+  demonstrated", and both roadmaps cover all eight sections. **Limitations and
+  future work now state plainly that spec 06 (Act IV, the scale bridge) is
+  specified and unexecuted pending its human gate, and that every quantitative
+  PSM claim is toy-scale until it runs** — the front matter had been silent on
+  that, which read as implied completeness. Two stale cross-chapter sentences
+  fixed (Ch. steering's "this holds by construction" about *both* halves of
+  P1, false since the mechanism section's patching null; the Colophon's
+  one-figure-directory claim, now eight); the paper chapters were otherwise
+  left alone per their own-record rule. `Chapter_PersonaSelectionModel.tex`
+  unchanged — it is the record, and the wrapper moved to it. Build verified
+  under the same hermetic tectonic 0.15.0 recipe: 269 pages, 0 errors, 0
+  undefined references or citations, and a baseline build of unmodified
+  `origin/main` confirms **no new box warnings** (20 overfull hboxes and 2
+  oversized floats in both). One item flagged for Daniel rather than edited:
+  `Chapter_EmergentMisalignment.tex` still says intervening on a
+  persona-linked direction "moves the bundle back", which the toy patching
+  null does not reproduce — sourced to `wang2025persona` at scale, so it is
+  ledgered, not rewritten. Ledger:
+  `latex/notes/thesis-front-back-refresh-2026-08-24.md`.
 
 - 2026-08-24: **the PSM chapter now builds clean of box and float problems**
   — typesetting pass,
@@ -242,6 +326,67 @@ material — a chapter draft an advisor could read cold and follow.
   also makes `specs/README.md` truthful (00 → #168, 01b → executed #177/#178
   with its verdict, 04 → #170). **The run is the keeper's next dispatch.**
 
+- 2026-08-24: **spec 01b RUN AND LANDED IN THE CHAPTER** — the Act I
+  identifiability claim is no longer "PSM beats one matched Ising surrogate";
+  it is an eight-world blind tournament. Completing the unit whose spec is the
+  bullet below (phd-thesis#176).
+  **Run** ([phd-thesis#177](https://github.com/dtch1997/phd-thesis/pull/177),
+  `experiments/psm-adversarial-identifiability/`): eight rival generative
+  structures fielded as corpora at a common ρ* (bisected to 0.250000, max
+  deviation 2.9e-13), each at the largest parameterisation its class allows
+  (1 free parameter for uniform-J up to 120 for hetero-J); 175 CPU pretrains,
+  0 failures, ~3.5 h on a 32-core box, $0 marginal spend. A blind sealed
+  decode — world↔ID hash committed before any checkpoint existed,
+  `score_blind.py --check-order` returns `seal_intact: true` — scores
+  **balanced 8-way accuracy 0.575 ± 0.094 against chance 0.125**, with **both
+  mixture worlds recovered 5/5**, and the mandated nearest-surrogate baseline
+  at **0.050, below chance**: spec 01's own discriminator (conditional-law
+  distance to a rival) does not survive once every rival is *fitted* rather
+  than handed the truth. **The miss ledger carries equal weight: 1 of 10
+  pre-registered predictions hit** (P10). `ising_hetero` is absorbed into
+  `dag` **5/5** — a trained transformer does not distinguish heterogeneous-J
+  coupling from a causal DAG — and the analytic precheck had separated that
+  pair at 10.2× seed noise, so analytic separability does not predict what a
+  model merges. The confusion does **not** concentrate in spec 00's
+  four-survivor block (share **0.00** against a registered ≥ 0.60): the
+  survivors fail *outward* into the coupling worlds, so **P1 is formally a
+  MISS despite clearing its accuracy bar**, and the analytic and empirical
+  columns disagree about *where* the indistinguishability lives. Lemma 1's
+  quantitative rung missed (pairwise-only decode 0.275 vs registered ≤ 0.20,
+  though far under the moment-orthogonal 0.575, so the qualitative gap
+  stands); **P3 reversed** — the hetero-J/mixture conditional-law MSE ratio
+  *grew* to 13.1× where a shrink to 1.5–3× was registered; **P8 is a clean
+  falsification** — XOR completion 0.5000 at every clique depth although the
+  corpus verifiably carries parity in 100 % of documents, i.e. the model fails
+  to bind structure that casts no pairwise shadow; and **P5 is recorded MISS
+  but untestable**, corrupted by a post-unseal sampling bug that also makes
+  0.575 a *lower* bound (12 of 22 features carried no signal), reported rather
+  than re-run because the manifest had already been opened. Rows 1-magnitude,
+  2, 7 and 8 of `psm-stylized-facts/recovery_matrix.md` now carry empirical
+  verdicts in place.
+  **Chapter** ([phd-thesis#178](https://github.com/dtch1997/phd-thesis/pull/178)):
+  lands as `\subsection{An adversarial tournament of generative worlds}`
+  (`sec:psm:toy:tournament`), sibling to `sec:psm:toy:identifiability`
+  (chapter 2483 → 2826 lines, 4 figures from the committed PDFs, no compute),
+  with `tab:psm:tournament` scoring all ten P1–P10 verdicts in the chapter
+  body so an examiner reading cold gets the recovery result and the miss
+  ledger together. It also retires three stale future-work sentences the
+  spec-00 landing left behind: the DAG's asymmetric-response test is no longer
+  "a cheap falsification test that remains unrun" (it was run and separates
+  nothing — every world near 0.19, because a 100-step finetune is not an
+  infinitesimal tilt and its response carries optimizer noise asymmetric in
+  every world), the four-way-tie paragraph now points forward to the
+  tournament that cuts across it, and the escalation sweep is restated as
+  unrun *at scale*. **With this, specs 00–05 are all in the chapter**; spec 06
+  (scale bridge) is the only spec still undispatched and is human-sign-off
+  gated.
+  **Process footnote worth keeping:** the run task (t-0824-03a0) blew its $25
+  budget *after* the science was done, orphaning its wrap-up — this chapter
+  integration, this bullet, and the #177 worktree/branch cleanup were
+  discharged by a follow-on task (t-0824-e229). The lesson is to budget
+  wrap-up separately from compute, or to make wrap-up its own task by default
+  for any run that sweeps.
+
 - 2026-08-24: **spec 01b is now specced in-repo**
   ([phd-thesis#176](https://github.com/dtch1997/phd-thesis/pull/176)) — the
   fair-tournament extension parked from the 2026-08-21 discussion is written
@@ -269,6 +414,17 @@ material — a chapter draft an advisor could read cold and follow.
   rather than resolving it, and P3 pre-registers that the headline gets
   *worse* against a fair rival (5–6× MSE ratio → 1.5–3×). CPU-only, ~175
   pretrains ≈ 5–6 h on one 32-core box, $0.
+
+- 2026-08-24: **spec 00 landed into the chapter** (phd-thesis#175, on top
+  of #174) — `Chapter_PersonaSelectionModel.tex`'s related-work section is
+  now the stylized-facts spine: 12 graded regularities as a table, the
+  Lemma-1 negative (pairwise transfer cannot identify the generative
+  model), the nine-structure recovery matrix, the pre-registered
+  escalation-ceiling prediction, the curriculum channel gap, and the
+  C1--C7 corpus-design constraints that motivate the toy worlds. The
+  chapter now carries Acts 0--III (specs 00--05); the open empirical door
+  is NP1, one inference sweep on a base/post-trained pair, still unmeasured
+  by anyone.
 
 - 2026-08-24: **spec 05's four arms LANDED IN THE CHAPTER**
   ([phd-thesis#174](https://github.com/dtch1997/phd-thesis/pull/174)) — the
@@ -474,11 +630,14 @@ material — a chapter draft an advisor could read cold and follow.
 ## Parked follow-ups
 
 - ~~Spec 01b "adversarial identifiability" (from 2026-08-21 discussion with
-  Daniel) not yet specced in-repo~~ — **specced 2026-08-24**, phd-thesis#176
+  Daniel) not yet specced in-repo~~ — ~~**specced 2026-08-24**, phd-thesis#176
   (see Frontier). What is parked is now the *run*: 175 CPU pretrains, no
   dependency on anything downstream, so it is idle-capacity work whose result
   changes how strongly Act I is stated rather than whether Acts II–IV
-  proceed.
+  proceed.~~ — **fully discharged 2026-08-24**: specced (phd-thesis#176), run
+  (phd-thesis#177) and landed in the chapter as `sec:psm:toy:tournament`.
+  Nothing about 01b is parked any more; see the 2026-08-24 Frontier bullet for
+  the headline and the miss ledger.
 - ~~Chapter subsection "Is the latent variable real?" recommended by the
   spec-01 report (G4)~~ — **done 2026-08-24**: landed as
   `sec:psm:toy:identifiability` in phd-thesis#171, together with the spec-02
