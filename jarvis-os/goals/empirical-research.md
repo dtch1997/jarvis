@@ -70,6 +70,18 @@ The gate before compute:
 - 2026-08-18: standing-goal restructure (this PR) — this file +
   research-blogposts now sit above the instance goals; /goal-review should
   score instance proposals against this rubric.
+- 2026-08-25 (first /goal-review cycle): the PSM program surged under the
+  thesis-keeper — specs 00b, 00c and 01b were specced, run, and
+  chapter-integrated 2026-08-23→25, all CPU/$0 (details live in
+  goals/phd-thesis.md, whose frontier the keeper maintains directly).
+  Correction to the 08-18 seed bullet: logit-interpolation's GPU re-run is
+  no longer "pending greenlight" — the headline REPRODUCED on
+  Qwen2.5-7B @α=0.6 on 2026-08-16 (filtered-distill 0.92 survives the
+  filter; ~$8 bellhop), and the LLR detector works at dataset level
+  (AUC ≥0.99 @N≤8, PR #8); the live question is key-free / held-out
+  detection. The "specced but not run" backlog is otherwise unchanged
+  (training-cooperativeness 3-arm, midtrain-regmetrics LLM port,
+  msm-stage phase 2) — scored this cycle in `reviews/2026-08-25.md`.
 
 ## Active threads
 
