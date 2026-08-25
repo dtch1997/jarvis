@@ -41,6 +41,68 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the chapter has been read adversarially for the first time
+  — 24 examiner objections, 17 fixed in prose, 4 parked on Daniel**
+  ([phd-thesis#199](https://github.com/dtch1997/phd-thesis/pull/199),
+  register `latex/notes/psm-chapter-examiner-review-2026-08-25.md`, 659
+  lines). `$0`, reading and writing only. The coherence pass (#184) checked
+  whether the chapter is *consistent*; this is the first pass that asks
+  whether it *survives attack*, across six lenses (claim strength,
+  alternative explanations, methods, scale honesty, novelty exposure, viva
+  drill). Severity split **0 blocking / 14 serious / 10 minor**, and the
+  same discipline as #184: **no number, verdict, figure, figure path or
+  label changed** — every fix is wording or structure, each citing its
+  `REPORT.md` line of record. Three findings carry the pass. (i) The
+  chapter's own **Lemma 1 disqualifies its own showcase result**:
+  `sec:psm:structure:distance` calls the in-context distance law "the
+  sharpest quantitative agreement in the chapter", but the quantity it
+  reproduces, `m²(1−2ε)^d`, *is* the corpus covariance and the read is a
+  one-observation conditional — exactly the class `sec:psm:related:lemma1`
+  proves every moment-matched world returns identical numbers for. It is a
+  strong claim about the *computation* and a null one about the
+  *structure*; a paragraph now says so and points at the two subsections
+  that do carry the structural evidence. (ii) **Nowhere did the chapter
+  answer "what would falsify the PSM?"** — fatal for a chapter whose
+  scorecards read 1-of-10 and 2-of-13, since an examiner otherwise concludes
+  the model absorbs anything. The answer existed, scattered across three
+  sections; a Discussion paragraph now collects all three falsifiers, two of
+  which have already been fired at. (iii) **"P1–P4 were written before any
+  experiment in this chapter ran"** is materially misleading for P2: the
+  2026-01 pilot (`persona-toy-models/PLAN.md:54-63`, finding 3) had already
+  observed bundle transfer and its two timescales. Now qualified. Also
+  fixed: the Introduction's four-headline-claims paragraph and the whole of
+  `sec:psm:laws` carried **no toy-scale bound** (the coherence pass had done
+  Discussion + Conclusion only); the tournament's P10 quoted a *within-grid*
+  `+0.4` against a held-out `−0.091` in a chapter that reports `−1.38` as
+  that law's headline; the amplitude law's **only out-of-sample number is
+  negative** and `heldout_eval.py` scores no amplitude statistic at all; the
+  ablation ladder's "second-moment information is a liability" is a ~1-sem
+  gap (`0.575 ± 0.094` vs `0.450 ± 0.050`, n=40); the explicit-label result
+  is an **underpowered null italicised as an equivalence**; the hierarchy
+  arm's registered ordering **disagreed with its own exact surrogate** on
+  the middle two tiers before a model was trained; and the `r ≤ 1/ρ`
+  priority claim now concedes the standard participation-ratio algebra and
+  relocates its novelty onto the unmeasured consequence. Checked and clean:
+  every "pre-registered" claim traces to an artifact predating its run
+  (spec 05's window is hours — `f0d1488` 13:26 → arms 17:44/18:09/18:21/18:40
+  — but it holds). **Parked on Daniel**, all four marked `BLOCKED-ON-DANIEL:`
+  in the register: P4's causal form is **confounded** (staging raises
+  separability *and* drops ICL `0.86 → 0.54`; the only control shows
+  information preserved, not coupling) and needs a de-confound arm or a
+  re-scope; `experiments/persona-toy-models` still has **no summary of
+  record**, so four prose numbers appear nowhere in the repo (overlaps
+  #198's own open question); the psm-laws winner is the max over 80 attempts
+  scored on the cells it is reported against; and the "none of them is
+  scored against a catalogue it did not choose" priority claim is a negative
+  about five cited works. Verdict: **it survives a viva today**, and the
+  real risk is being *undersold* — a reader mistaking a 1-of-10 scorecard
+  for a weak result rather than an unusually honest one. Top residual risk
+  unchanged and now sharper: the mediator is never demonstrated — probe ≠
+  axis, metric ≠ transfer, and now distance law ≠ identification. Build
+  stays at **0 errors / 0 undefined refs / 0 undefined citations / 0
+  overfull hboxes / 0 LaTeX warnings**; #197's zero-warning state is not
+  regressed.
+
 - 2026-08-25: **the thesis is warning-clean — the last two oversized floats
   and all twenty overfull hboxes are gone**
   ([phd-thesis#197](https://github.com/dtch1997/phd-thesis/pull/197)). No
