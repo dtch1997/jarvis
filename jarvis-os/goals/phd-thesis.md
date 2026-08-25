@@ -41,6 +41,93 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the three published-work chapters have now been read
+  end-to-end, adversarially, for the first time since the PSM program landed**
+  ([phd-thesis#201](https://github.com/dtch1997/phd-thesis/pull/201), register
+  `latex/notes/published-chapters-examiner-review-2026-08-25.md`, 1 075 lines).
+  `$0`, reading and writing only. The sibling of #199 for the chapters an
+  examiner will treat as the thesis's backbone — and the direction of
+  dependence has quietly reversed: the Conclusions now rests the frontier-scale
+  case on Chs. steering–inoc rather than on any PSM measurement, so these three
+  carry the at-scale argument for a model they predate. **31 items across seven
+  lenses: 15 fixed in prose here, 8 left for Daniel (`BLOCKED-ON-DANIEL:`), 8
+  checked and recorded so the check is not repeated. 0 blocking, 13 serious, 18
+  minor** — EM 9 (3/2/4), inoculation 11 (7/3/1), steering 8 (5/1/2), front
+  matter 3 (0/3/0). Same hard rule as #184/#199: no result number, verdict,
+  figure, path or label changed; build 0/0/0/0/0 on base and branch, 278 → 280
+  pages from added prose alone (float and box counts identical).
+
+  **The three that would have cost a bad ten minutes, all now answered in the
+  text.** (i) The EM chapter's *"not jailbroken"* dissociation is carried by
+  the **selected** free-form set only — its own `tab:em:insecure-vs-jailbroken`
+  gives `insecure` 0.057 ± 0.026 against `jailbroken` 0.052 ± 0.010 on the
+  **pre-registered** set, the one the chapter calls the more honest estimate
+  three pages earlier, and the appendix already said the jailbroken models are
+  elevated in two categories. The body and its own appendix disagreed. (ii) The
+  inoculation chapter's EM rates use **looser cutoffs than Ch. em's in both
+  directions** — alignment `<50` vs `<30`, coherence `<30` filtered vs `<50`,
+  confirmed against `papers/inoculation-prompting/iclr2026_conference.tex:487`
+  — while the text said *"measured as in Ch. em"*. Both directions raise
+  measured EM, so its *"~40%"* and Ch. em's *"20%"* were never the same
+  quantity. (iii) The steering chapter defended its **only** at-scale evidence
+  for P1 with a non-sequitur: *"a low-quality dataset explains low steerability,
+  but not the same low steerability in four models"* — it explains it very
+  well, since all four models see the same 40 datasets in the same template
+  whose spurious features `sec:steering:results:bias` shows survive explicit
+  balancing.
+
+  **Seams, both directions — and the good news is that there are no factual
+  contradictions.** The PSM chapter has not sharpened, bounded or contradicted
+  any *result* in these three; every seam is rhetorical, a chapter stating at
+  full strength what the PSM chapter now states with a ceiling. Three fixed:
+  the steering chapter's opening hostage-to-fortune (*"stands or falls on
+  whether its latent variables are real"*) now says what Ch. psm means by
+  *real*, citing the identifiability ceiling and Lemma 1 — which proves the
+  never-separated coupling world was **unseparable by that class of
+  measurement**, so it is a predicted limit rather than an anomaly; the
+  inoculation chapter had borrowed P4 **diagnostically** at exactly the point
+  `sec:psm:curriculum:selectivity` reports a null for the inoculation
+  intervention itself, now scoped to the group-level claim the toys license;
+  and the educational-insecure ablation's task-level rival (the conditional
+  differs even though the targets do not) is named for the first time, with the
+  answer that already existed two chapters later — Ch. inoc's educational-context
+  re-elicitation — finally connected to it.
+
+  **Waiting on Daniel, in descending cost.** (1) The *"runs in production
+  alignment pipelines at Anthropic"* claim is **uncited in all three places it
+  appears**; it is the thesis's headline impact claim and the payoff of the
+  Introduction's motivation section, and the chapter's own comment concedes the
+  paper source makes no production claim. Cheapest of the eight and the only
+  one whose failure costs credibility rather than a result. (2) **"100+
+  behaviors"** in `Introduction.tex:188,242` and `Conclusions.tex:67,106` where
+  the steering chapter measures **40** sampled from a 100+ pool — four numerals
+  in #188's files; #201 removes the chapter-side ambiguity that produced it, and
+  flags `Introduction.tex:187`'s *"the **first** large-scale measurement"*
+  against the chapter's own *"what was, at the time, the **largest**"*. (3) The
+  EM-vs-PSM **mediation** sentence, left unsettled per spec, but with the
+  unstated reconciliation now recorded (SAE features at GPT-4o scale vs a frozen
+  linear probe in a 0.8M toy) and the note that `sec:psm:related:ancestors`
+  already grants the at-scale mediation, so the thesis does not contradict
+  itself on the literature. (4) `appendix:inoc:qwen:selective` says the Spanish
+  inoculation does not impair capitalization learning in Qwen while
+  `tab:inoc:qwen-sampling` shows 0.35/0.75 against 1.00/0.96. (5) Twelve
+  Spearman coefficients in the steering chapter with no interval and no stated
+  *n*. (6) `Conclusions.tex:126` still says off-grammar persona labels *"halve
+  the shift"* — the persona-toy-models correction to *"about a third"* (#200)
+  never propagated out of the PSM chapter. (7) *"expert forecasters"* uncited.
+  (8) Flagged, not rewritten: GPT-4o is *"an aligned frontier model"* in the EM
+  chapter's first sentence and the inoculation chapter dates none of its models
+  — an authorial-voice call across all three. The within-`staged_ab` exception
+  to `sec:psm:curriculum:selectivity`'s null was **not** touched from this side,
+  per spec; it stays where #200 left it.
+
+  **Standing observation for whoever plans the next unit.** Six of the eight
+  open items are front-matter numerals or missing citations, not science — the
+  expected residue of a thesis whose newest chapter was hardened last (#199)
+  and whose front matter was refreshed in between (#188). A short front-matter
+  reconciliation pass with Daniel in the room would clear five of them in an
+  hour, and #201's register carries the suggested wording for each.
+
 - 2026-08-25: **the last provenance gap in the PSM chapter is closed — every
   chapter number now has a source of record, and all 30 figures regenerate with
   no network** ([phd-thesis#200](https://github.com/dtch1997/phd-thesis/pull/200),
