@@ -41,6 +41,53 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **spec 05b is written, and it is the one experiment that can
+  close the PSM chapter's last NEEDS-DATA item**
+  ([phd-thesis#203](https://github.com/dtch1997/phd-thesis/pull/203),
+  `specs/05b-separability-deconfound.md`). Writing only, `$0`, nothing run.
+  The examiner register (#201's PSM sibling, #199) left four items for Daniel;
+  exactly one of them is waiting on *data* rather than on a judgement call, and
+  it is §2.4: `sec:psm:curriculum` turns **one** knob and reports **three**
+  movements — staged pretraining raises gradient separability `~1.6x` (0.1512
+  vs 0.0929), drops the ICL generalization score (0.8589 -> 0.5395) and roughly
+  halves baseline transfer (0.0432-0.0480 vs 0.0866 +/- 0.0369) — so P4's
+  mediator claim ("separability gates selective finetuning") is
+  indistinguishable from the reading the chapter's own body calls cleanest:
+  interleaving strengthens a **shared persona pathway** that in-context
+  inference and finetuning-time transfer both ride on.
+
+  **Both admissible exits are fielded.** (i) *Spread the plane* —
+  block-interleaving granularity at an **exactly** matched 50/50 marginal
+  (pure persona blocks of `L in {1,20,200}` steps, both phases as the recency
+  control), plus a staging-rate dial whose endpoints dispatch to the existing
+  `balanced` / `staged_ab` code verbatim, so they are *bit-identical* to the
+  anchors and the 45 E5 cells are reused rather than re-run. `L = 1` is a
+  theory-driven negative control: AdamW's `beta_1 = 0.9` averages gradients
+  over ~10 steps, so single-step purity should be invisible to the optimizer.
+  (ii) *A second operationalization* — the patching/per-circuit measure the
+  chapter's own closing sentence asks for by name, as exact zero-ablation of
+  all 16 heads and all 2 048 MLP neurons plus activation-patching locality, on
+  the **already-archived** checkpoints: 9.5 s per checkpoint measured on-box,
+  no pretraining, and it lands first so the cheapest evidence survives a
+  stalled pretrain arm. 75 new pretrains, CPU-only, ~1.5 h, `$0`.
+
+  **The deflationary outcome is pre-registered as the point prediction.** Three
+  outcome classes with quantitative bars (dissociable-and-mediating /
+  collinear-pathway-sharing / metric-dependent), a VIF veto so a thin plane
+  cannot be laundered into a null on `beta_S`, a named failure-to-spread
+  outcome, and an arm-level discriminator that separates "separability causes
+  selectivity" from "shared-pathway strength causes both" without any model of
+  the plane: does the plane-spreading arm inherit staged's low transfer or
+  balanced's high transfer? Authoring also surfaced a **third** confound the
+  register does not name — the staged curricula hand the finetune a different
+  step-0 prior on the target token (0.48 / 0.73 / 0.27), so transfer is
+  measured from three different points on the sigmoid — absorbed by
+  pre-declaring raw *and* prior-normalized outcomes. Results **feed, and do not
+  make**, the two standing Daniel items (§2.4's re-scope call; #200's FLAG B on
+  the effectiveness null); both markers stay in place. **The run is a candidate
+  next dispatch** — its gates are written to be lifted verbatim, and nothing
+  downstream waits on it.
+
 - 2026-08-25: **the three published-work chapters have now been read
   end-to-end, adversarially, for the first time since the PSM program landed**
   ([phd-thesis#201](https://github.com/dtch1997/phd-thesis/pull/201), register
