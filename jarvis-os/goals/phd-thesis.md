@@ -41,6 +41,42 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **five of #201's eight open items were never Daniel's — their
+  lines of record were in the repo, and they are now closed**
+  ([phd-thesis#202](https://github.com/dtch1997/phd-thesis/pull/202), ledger
+  `latex/notes/front-matter-reconciliation-2026-08-25.md`). `$0`, reading and
+  writing only. #201 marked them `BLOCKED-ON-DANIEL:` for a procedural reason
+  — that pass's hard rule forbade numeral changes in front matter — not
+  because the answer was missing, and its own closing recommendation asked
+  for this follow-up. **Three cleared, one declined on evidence, five left
+  standing.** The front matter had promised **"100+ behaviors"** at four
+  sites where the steering chapter measures **40**; it now reads "across
+  forty behaviors sampled from a suite of more than one hundred", and the
+  contributions list's *"the **first** large-scale measurement"* is back to
+  the chapter's own hedge, *"the **largest** systematic measurement, at the
+  time"* — different claims, and only the second is defended. The
+  Conclusions' P3 verdict said off-grammar persona labels *"halve the
+  shift"*; #200 had corrected that to **about a third** in the PSM chapter
+  four days earlier and it never propagated. Under §3.3, the conservative
+  option only: one sentence giving the steering chapter's twelve Spearman
+  coefficients their $n$ = 40 and saying they are point estimates without
+  intervals, as in the source paper — **no bootstrap, no new statistic**.
+
+  **The declined one is the useful result.** §1.6's *"the results surprised
+  us and expert forecasters alike"* was supposed to be citable from the ICML
+  EM paper; the in-repo source `papers/emergent-misalignment/` contains **no
+  forecasting survey at all** — no $n$, no task, no result, and the only
+  `forecast` hits in the whole repository are the uncited sentence itself
+  and an unrelated one in the PSM chapter. So the sentence and its marker
+  stand: the pointer genuinely is outside the repo. **Residue for Daniel is
+  now five and all five are real** — §5.3 the uncited Anthropic
+  production-deployment claim (still the highest-leverage item in the
+  thesis), §5.1 mediation-vs-correlation, §3.7 the Qwen appendix verdict,
+  §1.6, §4.1 tense of publication. The register's status token was cleared
+  on the three resolved items so the desk sweep stops surfacing them. Build
+  0/0/0/0/0/0 on base and branch, 280 → 281 pages from eight added lines of
+  prose.
+
 - 2026-08-25: **the three published-work chapters have now been read
   end-to-end, adversarially, for the first time since the PSM program landed**
   ([phd-thesis#201](https://github.com/dtch1997/phd-thesis/pull/201), register
