@@ -41,6 +41,40 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the last provenance gap in the PSM chapter is closed — every
+  chapter number now has a source of record, and all 30 figures regenerate with
+  no network** ([phd-thesis#200](https://github.com/dtch1997/phd-thesis/pull/200),
+  `experiments/persona-toy-models/REPORT.md`, ledger
+  `latex/notes/persona-toy-models-summary-2026-08-25.md`). `$0`, CPU only, no
+  training. This is the item that #198 §C and #199 §3.4 *both* raised and both
+  declined to settle — `experiments/persona-toy-models/` was the only one of the
+  chapter's ten experiment directories with no `REPORT.md` and no summary
+  `results.jsonl`, and four prose numbers in it existed nowhere in the
+  repository at all. **Audit headline: 31 of 38 claims confirmed, 5 corrected
+  by 4 prose edits, 2 flagged for Daniel.** A `summarize.py` distils the
+  archived sweep (2 027 objects, 325.7 MiB) into 360 committed rows plus a
+  `curves.json` carrying `f4`'s trajectories and `f5`'s posterior readout — the
+  latter a one-time torch pass over the 45 checkpoints, so they are never needed
+  again — and re-running it reproduces both **byte-identically**. The four
+  figure scripts now read the committed layer and fall back to `runs/**`;
+  regenerated **both ways**, all eight PDFs are pixel-identical at 150 dpi and
+  `figures/out/` does not appear in the diff. **All four numbers #199 called
+  unrecoverable regenerate, and all four are right** (`+0.087`/`+0.091` →
+  0.0872/0.0910; `0.043`–`0.048` vs `0.087 ± 0.037` → 0.0432/0.0480 vs
+  0.0866 ± 0.0369; ICL `0.86 → 0.54` → 0.8589 → 0.5395; separability `0.15` vs
+  `0.09` → 0.1512 vs 0.0929). The one substantive error was a **word, not a
+  number**: the chapter said off-grammar persona labels "halve" the OOD shift,
+  in the same parenthesis as `+0.087` and `+0.091` against `+0.129` — a 31 %
+  cut, and visible to any reader with the three numbers in front of them.
+  Descriptors rot faster than the digits they describe. One new
+  `BLOCKED-ON-DANIEL:` for the desk: `sec:psm:curriculum:selectivity`'s null
+  ("no separability measure predicted inoculation effectiveness cell by cell")
+  holds pooled (`r = +0.073`, n = 45) but **not within `staged_ab`**
+  (`r = +0.615`, n = 15, p = 0.015) — one of three curricula shows the
+  diagnostic the section reports as absent, and softening a null is a decision,
+  not a correction. Thesis rebuilds at 0 errors / 0 warnings / 278 pages; the
+  #197/#199 zero-warning state is not regressed.
+
 - 2026-08-25: **the chapter has been read adversarially for the first time
   — 24 examiner objections, 17 fixed in prose, 4 parked on Daniel**
   ([phd-thesis#199](https://github.com/dtch1997/phd-thesis/pull/199),
@@ -102,6 +136,46 @@ material — a chapter draft an advisor could read cold and follow.
   stays at **0 errors / 0 undefined refs / 0 undefined citations / 0
   overfull hboxes / 0 LaTeX warnings**; #197's zero-warning state is not
   regressed.
+
+- 2026-08-25: **the colophon's regeneration claim is now true — all 30 PSM
+  chapter figures regenerate pixel-identical from committed code**
+  ([phd-thesis#198](https://github.com/dtch1997/phd-thesis/pull/198)). No
+  compute, `$0`. `latex/Appendices.tex` claims every figure in the PSM chapter
+  regenerates from scripts under `experiments/`; seven integration tasks
+  (#171, #173, #174, #175, #178, #182, #194) put those thirty figures there in
+  48 hours and each regenerated only its own, so nobody had checked the claim
+  end-to-end. Every figure was regenerated into a scratch tree (never over the
+  committed file), both PDFs rasterized at 150 dpi and compared
+  channel-by-channel; where pixels differed, the two PDFs' vector drawing
+  operations were diffed numerically. **27 identical untouched, 3 identical
+  after a fix, 0 substantive mismatches, 0 chapter words changed.** All three
+  failures were provenance, not data: `psm-capacity-scaling`'s
+  `f4_armR_buyback` and `f6_squeeze_capacity` were **stale renders of their own
+  code** — every coordinate matching to the last decimal, the `n_embd = 192`
+  series drawn in `#2171b5` where `figures/common.py` says `#08519c`, with the
+  other five figures from the same commit already recoloured;
+  `psm-hierarchical-world`'s `f9_squeeze` drew four capacity-ladder stars from
+  `runs/diag/ladder.jsonl`, gitignored **and absent from GCS** because
+  `diag_capacity.py` prints its record to stdout and a shell redirection
+  collected it, so four points of a chapter figure lived in one file on one
+  box (recovered by fetching the four archived checkpoints and re-running the
+  evaluations — every field matches REPORT.md's ladder table — then committed
+  as `diag_ladder.jsonl`); and `persona-toy-models` had **no artifact pointer
+  at all**, its 90 cells existing only in one working tree, now archived (2 027
+  objects, 325.7 MiB) with a pointer and `archive_runs.sh`. Worth recording for
+  anyone who reruns these: twelve figures were written by **matplotlib 3.10.9**
+  and eighteen by 3.11.1, and under 3.11.1 the twelve are visually identical
+  but never pixel-identical — the tight-bbox layout engine shifts the axes a
+  fraction of a point. **What remains**: `persona-toy-models` is the only
+  chapter directory whose figures need a GCS fetch rather than a committed
+  summary, left as a question for Daniel rather than answered by the audit.
+  *(Answered the same day: phd-thesis#200 built the committed summary layer, so
+  no chapter figure needs the network — see the bullet above.)*
+  Rider: `specs/README.md` now names 00c's cache-validity follow-up
+  ([phd-thesis#193](https://github.com/dtch1997/phd-thesis/pull/193)), spec
+  06's `experiments/psm-scale-bridge/`, and the fact that the canary is never
+  auto-dispatched. Ledger:
+  `latex/notes/psm-figure-provenance-2026-08-25.md`.
 
 - 2026-08-25: **the thesis is warning-clean — the last two oversized floats
   and all twenty overfull hboxes are gone**
@@ -309,7 +383,10 @@ material — a chapter draft an advisor could read cold and follow.
   persona-linked direction "moves the bundle back", which the toy patching
   null does not reproduce — sourced to `wang2025persona` at scale, so it is
   ledgered, not rewritten. Ledger:
-  `latex/notes/thesis-front-back-refresh-2026-08-24.md`.
+  `latex/notes/thesis-front-back-refresh-2026-08-24.md`. *(#187 itself was
+  closed unmerged; the identical change landed the same day as
+  [phd-thesis#188](https://github.com/dtch1997/phd-thesis/pull/188) from the
+  pool branch — cite #188 as the record.)*
 
 - 2026-08-24: **the PSM chapter now builds clean of box and float problems**
   — typesetting pass,
@@ -449,7 +526,9 @@ material — a chapter draft an advisor could read cold and follow.
   hygiene floor restated in full, 50 CPU pretrains (~4 h, $0, no pod) under one
   stagehand Flow, and G1–G7 plus a dispatcher-liftable completion gate. The PR
   also makes `specs/README.md` truthful (00 → #168, 01b → executed #177/#178
-  with its verdict, 04 → #170). **The run is the keeper's next dispatch.**
+  with its verdict, 04 → #170); 00b's own status row got its PR numbers a day
+  later ([phd-thesis#183](https://github.com/dtch1997/phd-thesis/pull/183)).
+  **The run is the keeper's next dispatch.**
   *(Dispatched and done 2026-08-24: phd-thesis#180 and #181, landed in the
   chapter at phd-thesis#182; the `hier8` world is built and validated, and the
   headline is the two-sided squeeze on recoverable rank.)*
@@ -752,8 +831,11 @@ material — a chapter draft an advisor could read cold and follow.
   and is never auto-dispatched. 00c answers the sharper question 00b handed
   06 — whether represented rank keeps pace with width — **yes at toy scale,
   but by optimization rather than capacity**, so 06's operative quantity is no
-  longer "how wide" but "how wide *at what training budget*". The remaining
-  non-spec unit is chapter integration of 00c.
+  longer "how wide" but "how wide *at what training budget*". 00c is integrated
+  too (phd-thesis#194, with the cache-validity and sealing-hash follow-up at
+  phd-thesis#193), so **no spec result is waiting outside the chapter**; the
+  remaining non-spec units are provenance and review passes
+  (phd-thesis#197/#198/#199/#200).
   Spec 06's whole pre-pod surface is now built (phd-thesis#195, 2026-08-25):
   contamination-clean documents, E1's two corpus statistics sealed before any
   outcome exists, a locally compiled pod pin set, and CPU-smoked evals. What is
