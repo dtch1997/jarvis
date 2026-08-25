@@ -41,6 +41,84 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the first time anyone looked at the thesis — all 297 rendered
+  pages, read as pages, plus the UCL format audit nobody had run**
+  ([phd-thesis#213](https://github.com/dtch1997/phd-thesis/pull/213), branch
+  `rendered-pdf-qa`, ledger
+  `latex/notes/rendered-pdf-visual-qa-2026-08-25.md`). Thirteen ledgers sat in
+  `latex/notes/` and **every one read source or logs** — coherence (#184),
+  typesetting (#186/#197, of which #197 looked at exactly ten rendered pages),
+  examiner passes (#199/#201), figure provenance (#198, pixel-diffs of
+  regenerated figures rather than of the document), bibliography (#210),
+  wrapper passes (#188/#208/#209). The artifact an examiner actually receives
+  had never been opened. **24 findings: 2 blocking, 5 serious, 17 minor**;
+  **9 fixed** in 28 mechanical edits, 13 flagged with the fix stated, 2 handed
+  to Daniel. **`$0`**, local CPU only.
+
+  **What only a page-through could find.** Six List-of-Figures entries
+  rendered with the page number *welded to the caption* — literally
+  `...produces broad misalignment162` — because caption plus leader plus folio
+  exactly filled the 140 mm line and the dotted leader collapsed to nothing;
+  invisible in source, invisible in the log, unmissable on the page. The
+  **bibliography — 33 pages — was in neither the table of contents nor the PDF
+  bookmarks** (`\bibliography` expands to `\chapter*`, which adds no ToC line),
+  so the contents ran `... D Colophon 264` and stopped. And `pdftitle` still
+  carried a **superseded working title** — "Controlling the Out-of-Distribution
+  Generalization of..." — against a title page reading *Clarifying the Persona
+  Selection Model*; that string is what an examiner's PDF reader shows in its
+  window title and what a library record inherits. Eighteen LoF and three LoT
+  entries wrapped to two lines, three of them mid-hyphenation. All fixed:
+  LoF wraps **18 → 1**, LoT **3 → 0**, collisions **6 → 0**, and the build went
+  **297 → 296 pages** because the List of Figures got a page shorter.
+
+  **The largest finding is deliberately not fixed.** Body text is 12 pt;
+  **50 pages carry typeset text below 6 pt and ten at or below 3 pt**, the
+  worst at **1.9 pt** (p117, Fig. 2.33) — roughly 0.67 mm cap height, readable
+  at 400% zoom and not on paper. It is **concentrated in Chapter 2: 16 of the
+  20 worst pages**, and the mechanism is uniform — three or four matplotlib
+  panels scaled to one `\textwidth`, so each panel gets ~35 mm and every label
+  shrinks with it. Fixing it means editing the plotting scripts under
+  `experiments/*/figures/`, which is figure content and outside a layout pass;
+  it is now measured, page by page, instead of felt.
+
+  **Two blocking findings are both empty headings, and both are Daniel's.**
+  §1.5 "Publications underlying this thesis" is a heading, a label and ten
+  lines of TODO — **the only heading in 296 pages with zero body lines after
+  it** — and its own TODO notes UCL requires the per-paper contribution
+  declaration and carries an unresolved question about non-first-author work.
+  Acknowledgements (p7) is likewise a heading over a blank page. Neither is
+  layout; neither is a worker's to write.
+
+  **The clean half is the reusable half.** All **780** figure/table/section
+  links resolve to the page where the object actually renders; all **670**
+  citation links land inside the bibliography; every LoF/LoT page number equals
+  its caption's real page; no straddling table without a repeated header, no
+  float far from its reference, no clipped figure, no unexplained blank page,
+  folios sequential 1–296. Abstract **297** words against the 300 cap, impact
+  statement **352** against 500. Recorded so no future pass re-derives them.
+  `ci/check_build.sh` stayed green across the fixes — 0 errors, 0 LaTeX
+  warnings, 0 `??` — and the orphan scan returns the same 16 headings at the
+  same relative positions, so the reflow introduced no new break problem.
+
+  **Two things the pass could not verify, and says so rather than guessing.**
+  The tectonic/XeTeX recipe cannot resolve `ptm` and substitutes Latin Modern
+  for Times (282 font warnings, already in `check_build.sh`'s accepted list),
+  so **every judgement about typeface and heading weight is unverifiable on
+  this box** — the repo's own `Makefile` uses lualatex, which is not installed
+  here; sizes, margins and page breaks are unaffected and were measured. And
+  **the UCL guidance page cited by `Main.tex` is a 404**, as are three URL
+  variants, with the Academic Manual page client-rendered and serving no
+  requirement text; the compliance table therefore runs against
+  `ucl_thesis.cls`'s own verbatim transcription of the College regulations.
+  Two template-inherited deviations surfaced anyway: **eighteen chapter-opening
+  pages display no folio**, and the **binding margin measures 38.2 mm against
+  the 40 mm rule the class itself quotes** — the class ships
+  `\oddsidemargin{39mm}` commented "Allow a mm for the bleed". Both are in the
+  official UCL template, both reflow the document to change, both are now
+  Daniel's to rule on rather than anyone's to rediscover.
+
+  `BLOCKED-ON-DANIEL: §1.5 "Publications underlying this thesis" (Introduction.tex:297) is an empty heading — needs the three papers with venue/ID, the per-paper contribution declaration UCL requires, and a ruling on whether non-first-author work may be listed. Acknowledgements (p7) is likewise empty.`
+
 - 2026-08-25: **merge-on-green stops being vacuous — the thesis repo gets its
   first CI, a hermetic build that asserts the zero-warning state on every PR**
   ([phd-thesis#212](https://github.com/dtch1997/phd-thesis/pull/212), branch
