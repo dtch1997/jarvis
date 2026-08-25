@@ -41,6 +41,56 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the standing queue is now one page — every `BLOCKED-ON-DANIEL`
+  item in the repo, liveness-audited and consolidated into a desk-ready
+  decision brief**
+  ([phd-thesis#211](https://github.com/dtch1997/phd-thesis/pull/211), branch
+  `daniel-decision-brief`, brief
+  `latex/notes/daniel-decision-brief-2026-08-25.md`, 796 lines). The program
+  surface is consolidated; the remaining gate to a defensible thesis is no
+  longer work but Daniel's decisions, and they were scattered across four
+  registers, one launch plan and two register riders. Writing and audit only,
+  **`$0`** — no thesis prose, claim, number, verdict, figure or label changed,
+  and no recommended edit applied.
+  `git diff origin/main -- 'latex/*.tex' latex/thesis.bib` is **empty**; the
+  whole diff is `latex/notes/*.md`, so zero conflict surface with the open
+  bibliography audit (#210).
+
+  **10 live decisions, 4 discharged.** Live, cheapest-first after the headline:
+  (1) the **spec-06 stage-0 canary sign-off** — ~$12 expected against a $60
+  ceiling, and the gate on the only remaining spec; (2) the **Anthropic
+  production claim**, uncited in four sites including the abstract, for which
+  #210 §G.1 found sources close to verbatim; (3) authorial voice (GPT-4o "an
+  aligned frontier model"); (4) the psm-laws winner's-curse sentence; (5)
+  "expert forecasters", whose survey #210 §G.2 confirmed has no citable
+  artifact; (6) the EM-vs-PSM mediation seam; (7) the "catalogue it did not
+  choose" negative; (8) #200's `staged_ab` exception to the selectivity null;
+  (9) the Qwen `0.35/0.75 vs 1.00/0.96` contradiction; (10) the **P4 scope
+  call**, which spec 05b transformed rather than discharged — its de-confound
+  arm ran (#206/#207/#208/#209), so the call is now made against measurements,
+  and the recommended default is *keep, as currently qualified*. Discharged and
+  recorded so no future pass re-hunts them: #199 §3.4 (by #200) and #201 §5.2,
+  §5.4, §3.3 (by #202).
+
+  **Each item arrives decided-shaped**, not merely reported: the decision in one
+  sentence, evidence with `file:line` pointers into the thesis so Daniel need
+  not open a ledger, a committed default (#210 §G.1's lifted verbatim and said
+  to be), a ready-to-paste LaTeX/BibTeX hunk, and a one-line cost of yes.
+  Judgement items give both wordings so the counter-pick is one word too.
+  **Daniel's cheapest reply is `apply defaults except <numbers>`** — or
+  "apply defaults" — which a follow-up task executes; item 1 takes "launch
+  stage 0" / "hold stage 0". Marker discipline: every live item keeps its
+  canonical marker where it lives, so the desk sweep stays truthful; the brief
+  adds one consolidated marker and discharged markers were annotated, never
+  deleted.
+
+  Riders: both network checks #210 §F could not complete were retried and
+  answered. **arXiv:2502.08640 *is* NeurIPS 2025** (Spotlight Poster 115263) —
+  a one-line venue upgrade for a follow-up; the
+  `irving2026thousanddimensional` LessWrong URL **resolves** and
+  "Resolution / LessWrong" is correct as it stands. Findings only,
+  `thesis.bib` untouched.
+
 - 2026-08-25: **the curriculum/P4 arc became a named result — the thesis
   wrapper now states five results, not four**
   ([phd-thesis#209](https://github.com/dtch1997/phd-thesis/pull/209), branch
