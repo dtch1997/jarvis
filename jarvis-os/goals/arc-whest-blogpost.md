@@ -50,6 +50,12 @@ frozen eval). **Hard constraint: nothing public before Phase 2 closes
   (Daniel editing via cowrite); kerdock-quadrature spinoff repo holds the
   math-forward post + interactive width-16 demo artifact. NEXT (manual):
   docker-runner validation → AIcrowd submission before Sep 19.
+- 2026-08-25 (goal-review): **25 days to the Sep 19 Phase 2 close and the
+  critical path has not moved** since results merged to main 2026-08-11 —
+  docker-runner validation not run, submission not packaged. This cycle
+  proposes a validation task that de-risks the packaging end-to-end
+  (`reviews/2026-08-25.md`); the AIcrowd submission click itself stays
+  with Daniel (external-facing).
 
 ## Active threads
 

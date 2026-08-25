@@ -62,6 +62,14 @@ writing funnel is the delivery infrastructure.
 - 2026-08-18: delivery infra — personal-website writing funnel PR open
   (excerpts / prev-next / RSS / filters / dates); papers-page upgrade
   parked.
+- 2026-08-25 (first /goal-review cycle): **no post moved a stage since
+  seeding** — the writing half of the portfolio is starved while the
+  thesis keeper consumes all worker capacity. New since 08-18:
+  training-cooperativeness claims page open as jarvis#65
+  (jarvis-artifacts). This cycle proposes the safety-desert draft (full
+  post, verdict already in hand) and a backlog triage table
+  (post / fold / not-worth-posting per wrapped finding) —
+  `reviews/2026-08-25.md`.
 
 ## Active threads
 

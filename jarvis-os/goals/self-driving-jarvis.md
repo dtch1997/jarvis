@@ -171,6 +171,19 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   behavior-shaping annotations are prominent enough to replace the old
   2-edition window.
 
+- 2026-08-25: **first /goal-review cycle ran** (the weekly-Tue cron rung of
+  the working plan is now live end-to-end; review =
+  `goals/reviews/2026-08-25.md`). Strongest trust-ratchet evidence yet came
+  from the week itself: the thesis-keeper dispatch loop self-generated ~19
+  `[phd-thesis]` tasks 2026-08-23→25, all gates passed except one
+  budget-death whose science still landed (jarvis#80) — which makes
+  spend-tracking (jarvis#62) the binding gap before any second goal flips
+  to `dispatch`. Found and filed during the review: desk's
+  BLOCKED-ON-DANIEL sweep counts provenance-marker false positives and
+  scans the stale pre-cutover `~/jarvis` path (jarvis#90). Deliberately
+  deferred: groundskeeper rung and the "27 threads under no goal" sweep
+  wait for the ~2026-09-01 background-thinking verdict.
+
 ## Active threads
 
 - mailroom (thought-capture ingestion, jarvis-tools `packages/mailroom`):
@@ -193,7 +206,7 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   Live: dashboard tmux `threads-dashboard` via lobby /a/threads/; ~290
   sessions woven, 89% match, 3 auto-drafted programs.
 - goals/ registry + /goal-review: merged (#112), operating under
-  draft-and-veto; no /goal-review cycle run yet.
+  draft-and-veto; first cycle ran 2026-08-25 (`goals/reviews/2026-08-25.md`).
 
 ## Parked follow-ups
 - (2026-08-23, Daniel, with the thesis worker-pool decision) **Spend-tracking
