@@ -41,6 +41,53 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the curriculum/P4 arc became a named result — the thesis
+  wrapper now states five results, not four**
+  ([phd-thesis#209](https://github.com/dtch1997/phd-thesis/pull/209), branch
+  `wrapper-p4-arc`, ledger
+  `latex/notes/thesis-wrapper-p4-arc-2026-08-25.md`). #188 built the wrapper
+  around four named results, each stated with its ceiling at equal weight; the
+  chapter then grew a fifth arc — curriculum — and the wrapper gave it no
+  named-result surface. #208 found exactly this and declined it on remit
+  ("pre-existing #188 structure, not a 05b regression, but the reason the
+  verdict had so little wrapper surface to land on"). **P4 is one of the four
+  predictions in `tab:psm:predictions`, and an examiner reading the front
+  matter never learned the thesis had measured it.** This is that restructure.
+  Writing only, nothing run, **`$0`**.
+
+  **The result, with its ceilings in the same breath.** The pretraining
+  curriculum is a lever on selectivity that acts *before any finetune*, in two
+  knobs the toy setting can now tell apart: **composition** (how the personas
+  are interleaved) raises gradient separability `~1.6x` and halves transfer, at
+  a cost in in-context flexibility; **placement** (when the persona-defining
+  documents arrive) moves availability instead — late arrival past an
+  exact-Bayes ceiling placement cannot shift by construction — and leaves
+  separability flat. Ceilings: five further manipulations could not move
+  separability apart from in-context coupling (`β_S = +0.002` vs
+  `β_C = +0.711`, identified design), so the curriculum sets the strength of
+  one shared persona pathway rather than two separable ones; and within a cell
+  of that grid a model's own separability still predicts nothing about its own
+  entanglement.
+
+  **The abstract took the fifth result without dropping a ceiling: 292 → 297
+  words of a hard 300 cap** (33 trimmed, 34 added, 3 words of headroom). Trims
+  came from framing prose and from the paper-chapter sentence #188's own ledger
+  nominated as the designated donor; #208's mediator clause was kept and
+  compressed, not dropped. One trade is recorded rather than hidden — the
+  curriculum result's *second* ceiling (the within-cell null) is carried at
+  full strength in the Introduction and Conclusions but not in the abstract,
+  where there is no room.
+
+  Two accuracy corrections came out of checking clauses against the records
+  rather than out of the build log: a draft of both new passages said placement
+  carries availability past the ceiling *unqualified*, which over-reports —
+  `sec:psm:structure:recency` has early and middle placement falling **below**
+  the same ceiling. Base and branch both hold the #197 state (0 errors, 0
+  undefined refs, 0 undefined cites, 0 `LaTeX Warning:`, 0 overfull hboxes).
+  Rider done: three verifiably-merged local branches deleted from the primary
+  checkout (`psm-chapter-examiner-review` #199, `thesis-typesetting-sweep`
+  #197, `persona-framing` — tip reachable from `origin/main`).
+
 - 2026-08-25: **the thesis wrapper caught up with the 05b mediator verdict — the
   abstract and Introduction no longer read flatter than the chapter they wrap**
   ([phd-thesis#208](https://github.com/dtch1997/phd-thesis/pull/208), branch
