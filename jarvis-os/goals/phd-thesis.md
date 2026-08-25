@@ -41,6 +41,42 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the colophon's regeneration claim is now true — all 30 PSM
+  chapter figures regenerate pixel-identical from committed code**
+  ([phd-thesis#198](https://github.com/dtch1997/phd-thesis/pull/198)). No
+  compute, `$0`. `latex/Appendices.tex` claims every figure in the PSM chapter
+  regenerates from scripts under `experiments/`; seven integration tasks
+  (#171, #173, #174, #175, #178, #182, #194) put those thirty figures there in
+  48 hours and each regenerated only its own, so nobody had checked the claim
+  end-to-end. Every figure was regenerated into a scratch tree (never over the
+  committed file), both PDFs rasterized at 150 dpi and compared
+  channel-by-channel; where pixels differed, the two PDFs' vector drawing
+  operations were diffed numerically. **27 identical untouched, 3 identical
+  after a fix, 0 substantive mismatches, 0 chapter words changed.** All three
+  failures were provenance, not data: `psm-capacity-scaling`'s
+  `f4_armR_buyback` and `f6_squeeze_capacity` were **stale renders of their own
+  code** — every coordinate matching to the last decimal, the `n_embd = 192`
+  series drawn in `#2171b5` where `figures/common.py` says `#08519c`, with the
+  other five figures from the same commit already recoloured;
+  `psm-hierarchical-world`'s `f9_squeeze` drew four capacity-ladder stars from
+  `runs/diag/ladder.jsonl`, gitignored **and absent from GCS** because
+  `diag_capacity.py` prints its record to stdout and a shell redirection
+  collected it, so four points of a chapter figure lived in one file on one
+  box (recovered by fetching the four archived checkpoints and re-running the
+  evaluations — every field matches REPORT.md's ladder table — then committed
+  as `diag_ladder.jsonl`); and `persona-toy-models` had **no artifact pointer
+  at all**, its 90 cells existing only in one working tree, now archived (2 027
+  objects, 325.7 MiB) with a pointer and `archive_runs.sh`. Worth recording for
+  anyone who reruns these: twelve figures were written by **matplotlib 3.10.9**
+  and eighteen by 3.11.1, and under 3.11.1 the twelve are visually identical
+  but never pixel-identical — the tight-bbox layout engine shifts the axes a
+  fraction of a point. **What remains**: `persona-toy-models` is the only
+  chapter directory whose figures need a GCS fetch rather than a committed
+  summary, left as a question for Daniel rather than answered by the audit.
+  Rider: `specs/README.md` now names 00c's cache-validity follow-up (#193),
+  spec 06's `experiments/psm-scale-bridge/`, and the fact that the canary is
+  never auto-dispatched. Ledger:
+  `latex/notes/psm-figure-provenance-2026-08-25.md`.
 - 2026-08-25: **the thesis is warning-clean — the last two oversized floats
   and all twenty overfull hboxes are gone**
   ([phd-thesis#197](https://github.com/dtch1997/phd-thesis/pull/197)). No
