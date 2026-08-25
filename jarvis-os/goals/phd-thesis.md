@@ -41,6 +41,60 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the thesis wrapper caught up with the 05b mediator verdict — the
+  abstract and Introduction no longer read flatter than the chapter they wrap**
+  ([phd-thesis#208](https://github.com/dtch1997/phd-thesis/pull/208), branch
+  `wrapper-05b-consistency`, ledger
+  `latex/notes/thesis-wrapper-05b-consistency-2026-08-25.md`). #207's remit was
+  the chapter, `Conclusions.tex`, the examiner register and `specs/README.md`,
+  and it deliberately did not touch the front matter; this is the front-matter
+  increment — the failure class #188 fixed ("the thesis wrapper now agrees with
+  the chapter it wraps"), applied to 05b. Writing only, nothing run, **`$0`**.
+
+  **Four seams checked, four edited, six further wrapper hits confirmed already
+  consistent.** The load-bearing one: the abstract and the Introduction's
+  *Mechanism* clause both ended on spec-02's "the probe is a correlate of the
+  selection, not a mediator of it." That sentence is *still literally true* and
+  stands word for word — what 05b changed is its **status**. Pre-05b it was the
+  thesis's last word on mediation; post-#207 the chapter scopes the null as
+  handle-level (`Conclusions.tex`: "the two uses are different measurements —
+  the null asks whether a probe's direction is the causal handle a finetune
+  moves the persona along, whereas the measure that does predict asks how
+  spatially localized cross-persona patching is") and puts a positive beside it
+  (`S_abl_coll`, `S_patch_pr`). So the wrapper was reporting a null and stopping
+  where the chapter reports a null **and** a live positive. Both seams now carry
+  the scoping with the chapter's own ceilings attached — metric-dependent
+  ("the gradient cosine does not"), grid-not-cell resolution, no verdict word —
+  and deliberately do **not** claim the two causal measures mediate the *prior*
+  channel, which is a different mediator from P4's.
+
+  **Two seams the sweep caught that the 05b story did not put there.**
+  (i) `Introduction.tex:147` still said P1–P4 were "written before any
+  experiment ran", unqualified — the Introduction was rebuilt by #188 *before*
+  the PSM examiner pass (#199) existed, so it never picked up §3.2's P2
+  correction, which had qualified the **chapter** only. Now matched to the
+  chapter's own wording (P2 codifies a bundle-transfer observation the 2026-01
+  pilot had already made). That is a **#188/#199 ordering artefact, not an 05b
+  one**, and worth remembering as a class: a wrapper rebuilt between two
+  examiner passes inherits neither. (ii) The chapter roadmap said only "the
+  sixth connects separability to pretraining curricula", which post-#207
+  under-reports; it now names the shared-pathway finding.
+
+  **Registered, not acted on:** the wrapper's four named results
+  (*Identifiability / Mechanism / Laws / Structure*) **omit the P4 curriculum
+  arc entirely** — it survives only as a recency clause and a roadmap line.
+  That is pre-existing #188 structure rather than an 05b regression, but it is
+  the reason the 05b verdict had so little wrapper surface to land on, and it
+  is why this pass is small. Restructuring the four-result frame exceeds a
+  consistency increment and would not fit the abstract's remaining 8 words.
+  Abstract **274 → 292 of a hard 300**. `Conclusions.tex` was read for internal
+  contradiction and is **clean**; both standing Daniel markers (the EM-chapter
+  `wang2025persona` mediation sentence, the within-`staged_ab` selectivity
+  exception) are untouched by construction. Build checked on both refs —
+  `origin/main` `f85eb82` and the branch — each at the #197 state: 0 errors,
+  0 undefined references, 0 undefined citations, 0 `LaTeX Warning:` lines,
+  0 overfull hboxes.
+
 - 2026-08-25: **the curriculum arc's missing control was run, and it returned
   the deflationary answer — separability and in-context persona coupling could
   not be moved apart** ([phd-thesis#206](https://github.com/dtch1997/phd-thesis/pull/206),
@@ -97,6 +151,54 @@ material — a chapter draft an advisor could read cold and follow.
   and so is the raw-vs-prior-normalised disagreement 05b surfaced on the
   archived cells (`T_norm` puts `staged_ab` *above* balanced). Spec 06's canary
   sign-off remains the only gate on the surface.
+
+- 2026-08-25: **spec 05b was written, and it was the one experiment that could
+  close the PSM chapter's last NEEDS-DATA item**
+  ([phd-thesis#204](https://github.com/dtch1997/phd-thesis/pull/204),
+  `specs/05b-separability-deconfound.md`; run-order follow-up
+  [#205](https://github.com/dtch1997/phd-thesis/pull/205)). Writing only, `$0`,
+  nothing run. *Folded here from the stuck [jarvis#104](https://github.com/dtch1997/jarvis/pull/104)
+  (DIRTY, the frontier-append conflict class of jarvis#100), per the #92/#99
+  fold precedent — and **corrected in the fold**: #104's title cited
+  phd-thesis#203, which was closed and superseded; the spec merged as #204.*
+  The examiner register (#201's PSM sibling, #199) left four items for Daniel;
+  exactly one was waiting on *data* rather than on a judgement call, and it was
+  §2.4: `sec:psm:curriculum` turns **one** knob and reports **three** movements
+  — staged pretraining raises gradient separability `~1.6x` (0.1512 vs 0.0929),
+  drops the ICL generalization score (0.8589 -> 0.5395) and roughly halves
+  baseline transfer (0.0432-0.0480 vs 0.0866 +/- 0.0369) — so P4's mediator
+  claim ("separability gates selective finetuning") was indistinguishable from
+  the reading the chapter's own body calls cleanest: interleaving strengthens a
+  **shared persona pathway** that in-context inference and finetuning-time
+  transfer both ride on.
+
+  **Both admissible exits were fielded.** (i) *Spread the plane* —
+  block-interleaving granularity at an **exactly** matched 50/50 marginal (pure
+  persona blocks of `L in {1,20,200}` steps, both phases as the recency
+  control), plus a staging-rate dial whose endpoints dispatch to the existing
+  `balanced` / `staged_ab` code verbatim, so they are *bit-identical* to the
+  anchors. `L = 1` was a theory-driven negative control: AdamW's `beta_1 = 0.9`
+  averages gradients over ~10 steps, so single-step purity should have been
+  invisible to the optimizer. (ii) *A second operationalization* — the
+  patching/per-circuit measure the chapter's own closing sentence asks for by
+  name, as exact zero-ablation of all 16 heads and all 2 048 MLP neurons plus
+  activation-patching locality, on the archived checkpoints: 9.5 s per
+  checkpoint measured on-box, no pretraining, landing first so the cheapest
+  evidence survived a stalled pretrain arm. 75 new pretrains, CPU-only, ~1.5 h.
+
+  **The deflationary outcome was pre-registered as the point prediction** —
+  three outcome classes with quantitative bars, a VIF veto so a thin plane could
+  not be laundered into a null on `beta_S`, a named failure-to-spread outcome,
+  and an arm-level discriminator needing no model of the plane. Authoring also
+  surfaced a **third** confound the register does not name — the staged
+  curricula hand the finetune a different step-0 prior on the target token
+  (0.48 / 0.73 / 0.27), so transfer is measured from three different points on
+  the sigmoid — absorbed by pre-declaring raw *and* prior-normalized outcomes.
+  **In hindsight the design paid off exactly where it was built to:** the run
+  (#206/#207, bullet above) returned class (ii) collinear on the VIF-vetoed
+  design, `L = 200` lost its own separability claim to two pre-registered
+  controls, and the second operationalization is the half that carried the
+  positive result.
 
 - 2026-08-25: **five of #201's eight open items were never Daniel's — their
   lines of record were in the repo, and they are now closed**
