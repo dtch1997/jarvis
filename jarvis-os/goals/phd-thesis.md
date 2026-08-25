@@ -61,6 +61,39 @@ material — a chapter draft an advisor could read cold and follow.
   figure in a second instead of a 40 s build. Build stays 0-warning; 296 → 300
   pages. $0.
 
+- 2026-08-25: **the LuaLaTeX claim in the Colophon is true and buys nothing —
+  the thesis is set in Latin Modern with unbolded headings on *both* engines**
+  ([phd-thesis#216](https://github.com/dtch1997/phd-thesis/pull/216), branch
+  `lualatex-ground-truth`, ledger
+  `latex/notes/lualatex-ground-truth-2026-08-25.md`, 616 lines). The one thing
+  #213 §3 said a future pass must do first, now done: TinyTeX/TeX Live 2026
+  installed under `$HOME` (241 MB, recipe committed for reuse) and the thesis
+  built through the repo's own `latex/Makefile` for the first time.
+  `LUALATEX-BUILD: PASS — 298 pages, ptm=substituted, new-overfull=0,
+  ch2_min_pt=6.01`. The caveat is **confirmed, not lifted, and re-attributed**:
+  LuaLaTeX substitutes Latin Modern for Times exactly as tectonic does (284 vs
+  286 of the same `TU/ptm` warnings) because `mathptmx` asks for an 8-bit
+  family and both Unicode engines default to the `TU` encoding, which `ptm`
+  has no `.fd` file for. So the artifact an examiner receives has body text in
+  `LMRoman12-Regular` on 297 of 298 pages and headings at **regular weight** —
+  `\bfseries` falls through `TU/ptm/b/n` → `TU/ptm/m/n` → `TU/lmr/m/n` — against
+  two UCL rules the class quotes verbatim, and `ci/check_build.sh`'s "the
+  repository's own lualatex toolchain does not emit these" is false. One line,
+  `\usepackage[T1]{fontenc}`, gives real Times with real bold on both engines,
+  0 font warnings and 288 pages; recommended to Daniel, not implemented, since
+  it reflows every page. Second defect: `latex/Makefile`'s three-pass recipe
+  does **not** converge — its last pass still emits `Label(s) may have
+  changed`, a warning CI asserts to zero, so the repo's own recipe fails the
+  repo's own gate. #214's glyph gate holds under lualatex (ch2 min 6.01 pt,
+  engine-independent — the small text lives inside figure PDFs) and #197's
+  zero-overfull survives; page-break drift quantified at ≤3 pages, monotone,
+  so every page number in #213/#214 is a tectonic number. Riders: the
+  `BIBLIOGRAPHY` running head fixed at its real root cause (**natbib**, not the
+  class, reinstates `\MakeUppercase`) — 32 → 0 on both engines; and the two
+  bib-audit §F checks retried and cleared via LessWrong's GraphQL API (`curl`
+  on the HTML URL always 429s), both entries correct, `thesis.bib` untouched.
+  $0.
+
 - 2026-08-25: **spec 05b joins the run-order diagram — the one place in the
   index it was missing**
   ([phd-thesis#205](https://github.com/dtch1997/phd-thesis/pull/205), branch
