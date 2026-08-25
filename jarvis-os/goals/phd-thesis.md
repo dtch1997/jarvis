@@ -41,6 +41,63 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the curriculum arc's missing control was run, and it returned
+  the deflationary answer — separability and in-context persona coupling could
+  not be moved apart** ([phd-thesis#206](https://github.com/dtch1997/phd-thesis/pull/206),
+  `experiments/psm-separability-deconfound/`, landed in the chapter as
+  `sec:psm:curriculum:deconfound` at
+  [phd-thesis#207](https://github.com/dtch1997/phd-thesis/pull/207)). Spec 05b,
+  the single NEEDS-DATA item of the chapter's examiner pass (#199 §2.4). 120
+  measured cells, 120 pretrains, 240 finetunes, ≈1 h 50 min CPU, **`$0`**.
+  Both admissible exits were fielded in one run and they disagree with each
+  other, which is the interesting part. **Outcome class (ii) collinear, with
+  (iii) live on two causal metrics. Predictions scored 3/10.** Three numbers
+  carry it: `β_S = +0.002 [−0.066, +0.063]` against
+  `β_C = +0.711 [+0.638, +0.817]` — transfer follows coupling and separability
+  adds nothing at fixed coupling — on an *identified* design,
+  `VIF(S_grad) = 1.10`, so this is not a null laundered out of collinearity;
+  and `r(T, S_abl_coll | p) = −0.565`, past its pre-registered `≤ −0.50` bar,
+  which is the run's cleanest hit. Three block-interleaving granularities, both
+  phases and a staging-rate dial all slide along one curve: 0 of 5 arms cleared
+  the plane-spreader bars. **The arm that moved separability most lost its own
+  claim** — `blocked L = 200` raises `S_grad` by `+0.081` (1.4× the whole
+  balanced→staged gap) and takes `C_icl` to zero, but fails two pre-registered
+  controls (val loss `0.53` vs `0.31`; probe margin halved) while `C_read` and
+  `C_cond` *rise*, so it collapsed the persona onto the last block seen rather
+  than de-coupling it. That is the strongest demonstration this program has
+  that a one-number separability claim is unsafe without controls. **What
+  survives is a claim about instruments, not curricula:** `S_abl_coll`
+  (`β = −0.321`, Holm `0.029`) and `S_patch_pr` (`β = −0.267`, Holm `0.005`)
+  predict where the gradient cosine predicts exactly nothing
+  (`r(S_abl, S_grad) = −0.072`, genuinely a second instrument), while the
+  *cosine-shaped* member of the new family does not — so the live distinction
+  is **cosine-vs-behavior, not parameters-vs-activations**, and the chapter's
+  own "plausibly requiring better separability metrics (e.g. patching-based,
+  per-circuit)" stopped being a plausibility and became a result in its own
+  terms.
+
+  **A provenance gotcha worth remembering before anyone touches
+  `persona-toy-models` again.** The pre-registered cache-validity check failed,
+  and the cause was not the instrument: the archived E5 checkpoints were
+  pretrained at `dc1bcf8` (2026-07-22), and specs 01/02 (phd-thesis#11/#13,
+  2026-08-13) rewrote `corpus.generate`'s RNG consumption from a per-document
+  loop to a vectorised draw — so **the same seed no longer yields the same
+  corpus realisation**, and any design that pairs new cells with archived
+  anchors by seed is broken until it re-pretrains. The remedy was applied in
+  full (all 45 anchors re-pretrained on today's code path; 25/27 arm-level
+  comparisons within 2 seed s.e.m.; **no paired verdict changed**:
+  `β_S = +0.015`, `β_C = +0.759`, `VIF = 1.11`), and the fact is now in the
+  chapter's provenance prose rather than only in a REPORT.
+
+  **What this deliberately did not decide.** #207 lands the data and leaves the
+  verdict word "supported causally" alone;
+  `BLOCKED-ON-DANIEL: whether P4's causal claim is re-scoped in the thesis text to "curriculum shapes selectivity", dropping the separability mediator (the examiner register's §2.4 call — the data it was blocked on now exists, so it can be made from measurements rather than from a plan).`
+  #200's FLAG B (whether `sec:psm:curriculum:selectivity`'s effectiveness null
+  should name the one curriculum that shows the diagnostic) is untouched too,
+  and so is the raw-vs-prior-normalised disagreement 05b surfaced on the
+  archived cells (`T_norm` puts `staged_ab` *above* balanced). Spec 06's canary
+  sign-off remains the only gate on the surface.
+
 - 2026-08-25: **five of #201's eight open items were never Daniel's — their
   lines of record were in the repo, and they are now closed**
   ([phd-thesis#202](https://github.com/dtch1997/phd-thesis/pull/202), ledger
