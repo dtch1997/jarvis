@@ -41,6 +41,159 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **merge-on-green stops being vacuous — the thesis repo gets its
+  first CI, a hermetic build that asserts the zero-warning state on every PR**
+  ([phd-thesis#212](https://github.com/dtch1997/phd-thesis/pull/212), branch
+  `thesis-build-ci`, `ci/build_thesis.sh` + `ci/check_build.sh` +
+  `.github/workflows/build-thesis.yml`). `dtch1997/phd-thesis` is
+  gazette-swept in consumer mode — the hourly sweep merges every open PR
+  whose checks are green — and the repo had **no CI at all**: no `.github/`
+  on main, and #210 merged with **0 status checks**. "Green" meant nothing.
+  The ~10 PRs/day this pool lands were all merging unverified, and the
+  zero-warning state (#197/#200 typesetting, #210 bibliography) was held up
+  only by each worker remembering to hand-run the build. GitHub Actions on
+  included-quota minutes, **`$0`**; no thesis source changed.
+
+  **The recipe was already written down — it just wasn't executable.** Ten
+  passes hand-ran the same thing out of
+  `latex/notes/psm-chapter-coherence-2026-08-24.md` §C: pinned `tectonic
+  0.15.0` release binary, build from an **out-of-tree copy** of `latex/`
+  with the `pdftex` option dropped from `hyperref` in the copy only (tectonic
+  drives XeTeX, which rejects that driver option), `experiments/` and
+  `papers/` symlinked beside the copy so figure paths resolve. That prose is
+  now `ci/build_thesis.sh`, sha256-checked and retry-once on transport
+  failures, so CI and a human at a terminal run the identical command. The
+  no-source-change discipline of #184/#186/#197 holds: the script asserts its
+  own `hyperref` patch applied and fails loudly if `LinksAndMetadata.tex`
+  ever changes shape.
+
+  **Eight hard zeros are now merge blockers**: TeX errors, undefined
+  references, undefined citations, `??` in the **PDF text layer** (what a
+  broken ref looks like to a reader, not just to a log parser), `Float too
+  large`, `Overfull \hbox`, any `LaTeX Warning:` line, and BibTeX
+  `Warning--` across **all nine** `.blg` files — the document uses
+  `\include`, so bibtex writes one per included file and a `Main.blg`-only
+  check would have missed most of #210's 45 → 0. Three categories are
+  exempted on purpose and said so out loud: 302 underfull boxes (a
+  `\setstretch{1.5}` consequence), 283 XeTeX font-shape substitution notices
+  (a driver artefact the repo's own lualatex toolchain does not emit), and
+  tectonic's `Main.bbl` rerun chatter. They are still counted into the job
+  summary, so drift in them is visible without being fatal.
+
+  **Calibrated on unmodified `origin/main` @ `63b75da` before the branch
+  existed** — 297 pages, 8.2 MB, all eight counts 0 — so the assertions are
+  known to hold on main and the PR cannot be what made them pass.
+
+  **The gate was nearly a fake, and a negative control caught it.** The first
+  `check_build.sh` printed `FAIL` rows and still exited **0**: the failure
+  flag was set inside a `{ … } | tee` pipeline, i.e. a subshell, so it never
+  reached the caller. Found by poisoning a copy of the log with an injected
+  undefined reference, an `Overfull \hbox` and a `Warning--` and checking the
+  script actually failed. It didn't. Fixed to a redirection, re-tested both
+  ways: poisoned log exits 1, real log exits 0. **A gate that cannot fail is
+  worse than no gate** — it converts "unverified" into "verified" on the
+  status line — and nothing about the green run on main would have revealed
+  it. Worth the detour every time.
+
+  **Two riders discharged.** (i) The recurring frontier-append conflict
+  (jarvis#100) claimed another one: jarvis#108, the bib-audit bullet for
+  phd-thesis#210, sat `CONFLICTING`. Folded here rather than re-raced — this
+  PR carries both bullets and #108 is closed pointing at it, the jarvis#99
+  idiom, second use. (ii) `latex/notes/bibliography-audit-2026-08-25.md` §F's
+  two 429-blocked link checks are now **verified**, via the LessWrong GraphQL
+  API after the plain HTTP fetches hit a Vercel checkpoint again:
+  `sFhW3ZnPMJdnB4Dd6` is live and is exactly "Thousand-dimensional
+  structure", Geoffrey Irving with David Africa, posted 2026-07-30, matching
+  `irving2026thousanddimensional` on author, title and year; and
+  `dunefsky2025one`'s hyphen fix was right — the canonical slug **is**
+  `one-shot-steering-vectors-cause-emergent-misalignment-too`, so the only
+  URL string that pass changed without live confirmation is now confirmed.
+  §F item 1 (the `mazeika2025…` NeurIPS venue) stands unresolved, and the
+  `Resolution /` venue label on the Irving entry is still unconfirmed — the
+  post is not a linkpost, so the API has nothing to check it against.
+
+  **What this changes for every later unit.** Gazette merging a green PR now
+  means the thesis compiles clean, and a worker who breaks a float or an
+  `\hbox` learns it from the PR rather than from the next examiner pass.
+  `ci/check_build.sh` also gives every future typesetting task its
+  verification step for free — no more re-deriving the grep set by hand.
+
+- 2026-08-25: **the bibliography's first-ever audit — 225 entries to 161, 51
+  venue upgrades, and two citations that had been rendering broken on the page**
+  ([phd-thesis#210](https://github.com/dtch1997/phd-thesis/pull/210),
+  branch `bibliography-audit`, ledger
+  `latex/notes/bibliography-audit-2026-08-25.md`). Every review pass on this
+  thesis so far read prose: #184 coherence, #197/#200 typesetting, #199/#201
+  examiner. `latex/thesis.bib` was assembled in 2026-08 by concatenating three
+  source-paper `.bib` files and had **never been read end to end, never checked
+  against its sources, and never checked against what `plainnat` actually
+  prints** — which is the one artefact an examiner opens first. Web lookups and
+  two LaTeX builds only, **`$0`**.
+
+  **What was actually broken.** `arditi_refusal_2024` carried a biblatex
+  `date` and no `year`, so every one of its in-text citations printed
+  **`Arditi et al. ()`** — empty parentheses, in the shipped PDF. `claude1` had
+  **no `title` field** and printed as the bare line `Anthropic, 2023.`
+  Sixty-six entries used `@online`, a biblatex type `plainnat` does not define,
+  which makes BibTeX fall through to `default.type` and **silently discard
+  `journal`, `volume` and `booktitle`** — 39 warnings in `Main.blg` that no
+  pass had opened. Twenty-two entries carried their arXiv number only in
+  `eprint`/`archivePrefix`, fields `plainnat` ignores, so they printed **with
+  no locator at all**. And seven titles printed wrong because `plainnat`
+  lowercases: `Ctrl:` for CTRL, `Wizardlm:`, `…fine-tuning with lora`, `Rl with
+  kl penalties`, `The terminator`, `(sad) for llms`, `the machiavelli
+  benchmark`. None of those seven is findable by diffing metadata against an
+  API — they only show up in a read of the rendered References.
+
+  **What was added.** 51 works cited as preprints had been peer-reviewed since
+  and now carry the venue: ICLR (11), ICML (7), NeurIPS (13), ACL/EMNLP/NAACL
+  (7), COLM (3), TMLR (3), plus JMLR, AAAI (2), IEEE TASLP, ACM CSUR, Nature
+  Machine Intelligence and BlackboxNLP. Each was confirmed against the
+  proceedings or journal of record — ACL Anthology, PMLR, `proceedings.neurips.cc`,
+  OpenReview, JMLR, OpenAlex — never on a Semantic Scholar venue string alone,
+  which is exactly how the one false positive
+  (`mazeika2025utilityengineeringanalyzingcontrolling`, S2 says NeurIPS, DBLP
+  says preprint) was caught and *not* written in. 64 uncited entries deleted,
+  all listed; `latex/example.bib` (template residue, "Anne Author", "Journal of
+  Classic Examples") deleted. **Zero duplicate works under different keys** —
+  a real negative result, so **zero `.tex` edits**: `git diff origin/main --
+  'latex/*.tex'` is empty.
+
+  **Three findings that are corrections of the record, not of formatting.**
+  `singhMiMiCMinimallyModified2024` was still under its v1 title; arXiv:2402.09631
+  was retitled "Representation Surgery: Theory and Practice of Affine Steering"
+  for ICML 2024, same author list, so the thesis was citing one work under a
+  name it no longer has. Same for `turnerActivationAdditionSteering2023`
+  ("Activation Addition" → "Steering Language Models With Activation
+  Engineering", and the bib had lost an author). And in the other direction:
+  `tan2024analysing`'s British spelling and Paige-before-Kanoulas order look
+  wrong against current arXiv metadata but are **right** against the NeurIPS
+  2024 proceedings — an earlier draft of the pass "fixed" it and the
+  proceedings check reverted it. The proceedings of record wins; the API does
+  not.
+
+  **The cost, stated.** 27 in-text citations move their year — Burns 2022→2023,
+  Park 2023→2024, Rimsky 2023→2024, Chung 2022→2024, Huang 2024→2026 and so on
+  — because the published version postdates the preprint. Each is tabled with
+  its source. The References grew four pages. BibTeX warnings **45 → 0**; the
+  #197/#200 standard holds exactly (0 errors, 0 undefined refs, 0 undefined
+  citations, 0 overfull `\hbox`, 0 `LaTeX Warning:`), against a fresh baseline
+  build of unmodified `origin/main`.
+
+  **Two register riders answered as source-hunts, no sentence touched.** §5.3's
+  "runs in production alignment pipelines at Anthropic" **has a public source**:
+  Hubinger, MacDiarmid, Wright and Uesato, 21 Nov 2025, "We have been using
+  inoculation prompting in production Claude training" — with the anthropic.com
+  post as institutional corroboration; both stanzas are in the ledger, and the
+  gap is noted (the sources say "in training Claude", the thesis says "in
+  production alignment pipelines"). §1.6's "expert forecasters" is the harder
+  one: the field cites Betley et al. (2025) for the survey, but **the EM paper
+  does not contain it** — v1 and v4 were both checked, the appendices carry
+  pre-registered *evaluations*, not a forecast. So option (a) cites a paper for
+  something it does not say, and the only clean route is the paywalled *Nature*
+  version. Recorded as a decision for Daniel with the evidence laid out, not as
+  a resolution.
+
 - 2026-08-25: **the standing queue is now one page — every `BLOCKED-ON-DANIEL`
   item in the repo, liveness-audited and consolidated into a desk-ready
   decision brief**
