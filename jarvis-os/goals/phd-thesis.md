@@ -43,7 +43,7 @@ material — a chapter draft an advisor could read cold and follow.
 
 - 2026-08-25: **spec 05b is written, and it is the one experiment that can
   close the PSM chapter's last NEEDS-DATA item**
-  ([phd-thesis#203](https://github.com/dtch1997/phd-thesis/pull/203),
+  ([phd-thesis#204](https://github.com/dtch1997/phd-thesis/pull/204),
   `specs/05b-separability-deconfound.md`). Writing only, `$0`, nothing run.
   The examiner register (#201's PSM sibling, #199) left four items for Daniel;
   exactly one of them is waiting on *data* rather than on a judgement call, and
