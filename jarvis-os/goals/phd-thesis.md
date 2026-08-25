@@ -41,6 +41,37 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the thesis's figures become readable in print — Chapter 2's
+  smallest printed glyph goes 1.9 pt to 6.0 pt**
+  ([phd-thesis#214](https://github.com/dtch1997/phd-thesis/pull/214), branch
+  `psm-figure-legibility`, ledger
+  `latex/notes/psm-figure-legibility-2026-08-25.md`). #213's largest finding,
+  now closed: 50 pages of the built PDF carried text below 6 pt and ten at or
+  below 3 pt, against 12 pt body text, and 16 of the 20 worst pages were
+  Chapter-2 figures. The mechanism was arithmetic — figures authored 8–16 in
+  wide for a 5.51 in text block, so `width=\linewidth` multiplied every glyph
+  by 0.35–0.56. 24 of 34 chapter figures were re-authored at the placed width,
+  five restacked 1×4 to 2×2, long titles wrapped (a newline inserted, never a
+  character changed); the recipe is a uniform 9 pt because matplotlib draws a
+  mathtext subscript at 0.7× its base, so 8 pt prints `$S_{\mathrm{grad}}$`'s
+  subscript at 5.6 pt. Chapter-2 pages under 6 pt: 21 → 0. No data, caption,
+  label or prose changed; the LaTeX diff is three `width=` values. #213's
+  throwaway measuring snippet is now committed as `ci/measure_text_sizes.py`,
+  with a `--floor` that exits non-zero and a `--figure` mode that checks one
+  figure in a second instead of a 40 s build. Build stays 0-warning; 296 → 300
+  pages. $0.
+
+- 2026-08-25: **spec 05b joins the run-order diagram — the one place in the
+  index it was missing**
+  ([phd-thesis#205](https://github.com/dtch1997/phd-thesis/pull/205), branch
+  continued from #204). #204 added 05b to `specs/README.md`'s acts table,
+  status table and dependency prose but left the ASCII run-order diagram
+  untouched. Three lines, drawn hanging off the in-repo E5 curriculum sweep
+  rather than off spec 05 — 05's arm D is curriculum *placement*, a sibling
+  question rather than a dependency, and 05b needs only the E5 corpus,
+  curricula and archived checkpoints. Nothing downstream waits on it, so it is
+  runnable at any time. Index-only; no other change.
+
 - 2026-08-25: **the first time anyone looked at the thesis — all 297 rendered
   pages, read as pages, plus the UCL format audit nobody had run**
   ([phd-thesis#213](https://github.com/dtch1997/phd-thesis/pull/213), branch
