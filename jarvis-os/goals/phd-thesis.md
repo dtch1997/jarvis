@@ -41,6 +41,39 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **spec 06 stage-0 prep built — the scale bridge is a priced
+  button-press, and E1's predictor column is sealed**
+  ([phd-thesis#195](https://github.com/dtch1997/phd-thesis/pull/195)). No pod,
+  no GPU, no paid API, `$0`. Spec 06's pod stages sit behind Daniel's sign-off;
+  everything before them does not, and the spec mandates some of it in advance.
+  **The documents are contamination-clean.** The community is `Quenlir`, its
+  people the `Quenliri`, its two kinships `Rhulmar` and `Veldrath`; all four
+  names and all **48 name-by-trait-value combinations** return **0 hits** in
+  OLMo-mix-1124. One candidate ladder rung was rejected first (`Marrowdale` 50
+  hits, `Tolvin` 807, `Marrek` 6,321). Every trait value is single-token under
+  the OLMo-2 tokenizer, so the logit-diff readout is a one-token contrast.
+  **The E1 predictor column is sealed** at commit `4b4866b`, titled `SEAL E1
+  corpus statistics (pre-outcome)`, with `PREREG.md` committed before it — the
+  git-order idiom spec 00c used for its `FORECAST.md`. Twelve trait pairs carry
+  both statistics. Spec 06 names the second one and never defines it, so the
+  prep defines it: `S2 = S1 + ½[λ(u) + λ(v)]`, the pair's own lift times the
+  geometric mean of its two ends' persona lifts. The discriminator pair
+  `insecure_code × secure_coding` falls from **rank 1 under raw PMI to rank 5
+  under S2**, losing 4.82 bits. Two honesty notes travel with the seal: the
+  first draft of `S2` was **degenerate** (`n(U AND V AND anchor)` is exactly
+  zero for 60 of 60 pair-anchor cells, so it read only the marginals) and its
+  replacement is logged as a pre-outcome amendment, and P3's two
+  predictor-only clauses are scored now — one hit, one miss — rather than
+  rewritten. **The pin set pre-flighted clean.** Three conflicts surfaced off
+  the pod: axolotl pins `datasets` and `huggingface-hub` exactly, and
+  `flash-attn` cannot be resolved from PyPI at all, so it is pinned to the
+  release wheel matching torch 2.6 / cu12 / cp311. That is the conflict class
+  that cost two pod rounds before. **Cost of the next step: ~$12 expected**
+  (two 1×H100 pods, ~2.5 h wall-clock), **$60 ceiling** = one H100 pod-day,
+  which buys a retry and the first doc-realism iteration. `LAUNCH.md` carries
+  the bellhop invocation and `pod/launch_stage0.py` refuses to run without
+  `--i-have-daniels-signoff`.
+
 - 2026-08-25: **spec 00c LANDED IN THE CHAPTER — the capacity exit is real,
   and the chapter now calls it optimization budget**
   ([phd-thesis#194](https://github.com/dtch1997/phd-thesis/pull/194), on top of
@@ -325,6 +358,9 @@ material — a chapter draft an advisor could read cold and follow.
   stagehand Flow, and G1–G7 plus a dispatcher-liftable completion gate. The PR
   also makes `specs/README.md` truthful (00 → #168, 01b → executed #177/#178
   with its verdict, 04 → #170). **The run is the keeper's next dispatch.**
+  *(Dispatched and done 2026-08-24: phd-thesis#180 and #181, landed in the
+  chapter at phd-thesis#182; the `hier8` world is built and validated, and the
+  headline is the two-sided squeeze on recoverable rank.)*
 
 - 2026-08-24: **spec 01b RUN AND LANDED IN THE CHAPTER** — the Act I
   identifiability claim is no longer "PSM beats one matched Ising surrogate";
@@ -626,6 +662,11 @@ material — a chapter draft an advisor could read cold and follow.
   but by optimization rather than capacity**, so 06's operative quantity is no
   longer "how wide" but "how wide *at what training budget*". The remaining
   non-spec unit is chapter integration of 00c.
+  Spec 06's whole pre-pod surface is now built (phd-thesis#195, 2026-08-25):
+  contamination-clean documents, E1's two corpus statistics sealed before any
+  outcome exists, a locally compiled pod pin set, and CPU-smoked evals. What is
+  left is the money.
+  `BLOCKED-ON-DANIEL: spec-06 stage-0 canary sign-off — harness is launch-ready, ~$60 for one H100 pod-day; approve or descope (phd-thesis experiments/psm-scale-bridge/LAUNCH.md).`
 
 ## Parked follow-ups
 
