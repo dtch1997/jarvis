@@ -41,6 +41,36 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the thesis is warning-clean — the last two oversized floats
+  and all twenty overfull hboxes are gone**
+  ([phd-thesis#197](https://github.com/dtch1997/phd-thesis/pull/197)). No
+  compute, `$0`. The PSM pass (#186) cleared its own chapter and named what it
+  left; this pass took the rest, thesis-wide. A hermetic `tectonic 0.15.0`
+  build of `origin/main` reported **2 "Float too large" + 20 overfull
+  `\hbox`es**; the branch reports **0 and 0**, and in fact **0 lines matching
+  `LaTeX Warning:` anywhere in the document**. Errors, undefined references,
+  undefined citations and `??` markers stay at zero. The two oversized floats
+  are `tab:steering:app:persona-prompts-a` and `-b` in
+  `Appendix_SteeringVectors.tex`, 50.30pt and 86.30pt over `\textheight`;
+  the #186 recipe (`@{}`, `\tabcolsep` 6→3pt, the recovered measure moved into
+  the wrapping columns, `\arraystretch` 0.9, footnotesize caption, 4pt caption
+  skips) clears both with **53.31pt and 25.71pt of measured headroom**, taken
+  with a `\vspace*{100pt}` probe rather than estimated, and neither float had
+  to be split. Fourteen of the twenty boxes had one shared cause worth
+  recording: Latin Modern Mono's interword space has **zero stretch and zero
+  shrink**, so a justified `\ttfamily` block cannot compress a line to fit —
+  it can only overfull it. `\raggedright` on the nine monospaced prompt blocks
+  in `Appendix_InoculationPrompting.tex` fixes all fourteen and drops the
+  underfull-`\hbox` count 196 → 168 as a side effect. The rest are outer
+  `\tabcolsep` on three tabulars and `\allowbreak` inside two identifiers.
+  Pure typography under #186's rules: no number, verdict, claim, figure or
+  label changed, not one word reworded, and ten rendered pages read rather
+  than only the log. **What remains**: underfull `\vbox` badness (95 → 97, a
+  `\setstretch{1.5}` consequence; the two extra are the price of floats that
+  now end short of the page instead of running off it), XeTeX font-shape
+  substitution notices (a tectonic-vs-lualatex driver artefact), and the
+  pre-existing `Main.bbl` rerun notice. The document is 275 pages, up from 273.
+
 - 2026-08-25: **spec 06 stage-0 prep built — the scale bridge is a priced
   button-press, and E1's predictor column is sealed**
   ([phd-thesis#195](https://github.com/dtch1997/phd-thesis/pull/195)). No pod,
