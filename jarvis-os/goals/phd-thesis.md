@@ -41,6 +41,33 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the thesis's last empty section is written — §1.5 "Publications
+  underlying this thesis", plus the three UCL declaration forms it turns out to
+  require**
+  ([phd-thesis#215](https://github.com/dtch1997/phd-thesis/pull/215), branch
+  `publications-declaration`, ledger
+  `latex/notes/publications-declaration-2026-08-25.md`). #213's finding B2: the
+  only heading in ~300 pages with **zero** body lines after it, a UCL-required
+  declaration that was a heading, a `\label` and ten lines of TODO. #213
+  classified it as Daniel's content and left it; this unit overrode that for
+  §1.5 only, on the grounds that the facts are sourceable and a cited draft
+  Daniel can veto beats an empty required section. The guidance hunt found the
+  thing the TODO didn't know: UCL names **two** declaration artifacts, and the
+  per-paper **Research Paper Declaration Form** — the one carrying the
+  contribution statement, embedded after the acknowledgements — was the missing
+  one; the general "own work" form after the title page is already the class's
+  `\makedeclaration`. Field structure transcribed from the official PDF, the
+  one-form-per-paper layout copied from a deposited 2025 UCL thesis rather than
+  guessed. Two of the three papers print no author-contribution statement, so
+  their forms record authorship order and the equal-contribution symbol exactly
+  as printed and say in terms that they claim nothing finer; inoculation
+  prompting has one and is quoted verbatim. The TODO's own open question is
+  answered (UCL attaches no condition to authorship position) and its
+  parenthetical corrected — "Persona Features" is another group's paper the
+  candidate isn't on. Nine unanswerable fields, marked inline in the built PDF
+  so no form can be signed without seeing them, consolidated into one
+  `BLOCKED-ON-DANIEL:` item. Build stays 0-warning; 300 → 309 pages. $0.
+
 - 2026-08-25: **the thesis's figures become readable in print — Chapter 2's
   smallest printed glyph goes 1.9 pt to 6.0 pt**
   ([phd-thesis#214](https://github.com/dtch1997/phd-thesis/pull/214), branch
