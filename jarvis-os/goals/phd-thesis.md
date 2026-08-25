@@ -41,6 +41,39 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **spec 00c EXECUTED — width buys represented rank all the way to
+  the exact reasoner, but it buys it by making the world learnable**
+  ([phd-thesis#190](https://github.com/dtch1997/phd-thesis/pull/190),
+  `experiments/psm-capacity-scaling/REPORT.md`). **Outcome class C**, the
+  strongest of the three pre-registered classes: the capture ratio
+  `κ = E-logit / sr_Bayes` at planted rank 7 runs `0.496 → 0.342 → 0.798 →
+  0.916` over `n_embd ∈ {64,128,192,256}`, and at 256 dims the model matches
+  the exact 8-atom posterior's stable rank at `r* = 1, 3, 5` (`κ ≈ 1.01`). So
+  00b's ~2-factor saturation is a fact about a 0.84M-parameter model, **not
+  about transformers**, and the chapter's two promissory sentences are
+  redeemed. **But all three de-confounds rename the mechanism:** Q3's partial
+  slope at fixed captured fraction is 0.196 of the marginal (its *registered
+  alternative* — capacity buys evidence efficiency, not rank), Q8's width
+  coefficient shrinks **91 %** at matched excess-over-floor, and on the
+  ladder's own world **no width learns anything at 1500 steps** while all three
+  do at 4500 (`w = 64` at 4500 beats `w = 192` at 1500 by the whole range of
+  the metric). `sec:psm:structure:rank`'s word **"capacity" should be
+  "optimization budget"** — a correction the chapter was owed either way.
+  Pace exponent `b = 0.458` (95 % CI `[0.365, 0.554]`); the **sealed `w = 256`
+  forecast missed upward** — *direction right, functional form wrong*, since
+  represented rank accelerates between 192 and 256. Arm E: at `MI = 0.15`
+  nothing is learned at any width up to 3.26M params, so the ~0.3-nat
+  learnability floor is **not** a capacity artefact and 00b's low-`ρ`
+  corpus-design lesson keeps its evidence-per-behavior side-condition
+  unconditionally. Predictions scored **4/8** (00b scored 2/13, 01b 1/10).
+  146 CPU pretrains, 8 632 rows, 8.26 h, **$0**. Two provenance findings worth
+  carrying: the LR probe's own metric (excess over the entropy floor)
+  disagrees with captured fraction by threefold at `w = 128`, which is what
+  broke Q1's monotonicity clause; and **thread count is part of this
+  instrument's provenance** — 4 threads vs 2 moves E-logit at `r* = 7` by a
+  full seed s.e.m. on an otherwise bit-identical config. Next unit: chapter
+  integration (a separate task; `latex/` untouched).
+
 - 2026-08-24: **spec 00c DRAFTED — the capacity question the chapter poses but
   cannot settle** ([phd-thesis#189](https://github.com/dtch1997/phd-thesis/pull/189),
   `specs/00c-capacity-scaling.md`). 00b's rank-squeeze section ends by naming
@@ -429,13 +462,14 @@ material — a chapter draft an advisor could read cold and follow.
   reason, and fact 9 / hold-out H2 is now measured and deflationary.
 - Spec 04 (KL-RL tilting) executed 2026-08-24 (phd-thesis#170) and landed in
   the chapter alongside spec 03 the same day (phd-thesis#173). With spec 00b
-  run and landed the same day (phd-thesis#180/#181/#182), **spec 06 (scale
-  bridge) is the only spec still undispatched**, and it carries a human
-  sign-off gate before stage 2. The 00b result also hands 06 a sharper
-  question than it was written with: whether the number of behavioral factors
-  a model represents grows with width fast enough to keep pace with the rank a
-  low-ρ corpus can carry — the capacity ladder says the toy model saturates at
-  ~1–2.
+  run and landed the same day (phd-thesis#180/#181/#182), and **spec 00c now
+  executed (phd-thesis#190, 2026-08-25), spec 06 (scale bridge) is the only
+  spec left on the surface** — it carries a human sign-off gate before stage 2
+  and is never auto-dispatched. 00c answers the sharper question 00b handed
+  06 — whether represented rank keeps pace with width — **yes at toy scale,
+  but by optimization rather than capacity**, so 06's operative quantity is no
+  longer "how wide" but "how wide *at what training budget*". The remaining
+  non-spec unit is chapter integration of 00c.
 
 ## Parked follow-ups
 
