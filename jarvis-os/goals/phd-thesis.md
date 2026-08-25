@@ -41,6 +41,82 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the bibliography's first-ever audit — 225 entries to 161, 51
+  venue upgrades, and two citations that had been rendering broken on the page**
+  ([phd-thesis#210](https://github.com/dtch1997/phd-thesis/pull/210),
+  branch `bibliography-audit`, ledger
+  `latex/notes/bibliography-audit-2026-08-25.md`). Every review pass on this
+  thesis so far read prose: #184 coherence, #197/#200 typesetting, #199/#201
+  examiner. `latex/thesis.bib` was assembled in 2026-08 by concatenating three
+  source-paper `.bib` files and had **never been read end to end, never checked
+  against its sources, and never checked against what `plainnat` actually
+  prints** — which is the one artefact an examiner opens first. Web lookups and
+  two LaTeX builds only, **`$0`**.
+
+  **What was actually broken.** `arditi_refusal_2024` carried a biblatex
+  `date` and no `year`, so every one of its in-text citations printed
+  **`Arditi et al. ()`** — empty parentheses, in the shipped PDF. `claude1` had
+  **no `title` field** and printed as the bare line `Anthropic, 2023.`
+  Sixty-six entries used `@online`, a biblatex type `plainnat` does not define,
+  which makes BibTeX fall through to `default.type` and **silently discard
+  `journal`, `volume` and `booktitle`** — 39 warnings in `Main.blg` that no
+  pass had opened. Twenty-two entries carried their arXiv number only in
+  `eprint`/`archivePrefix`, fields `plainnat` ignores, so they printed **with
+  no locator at all**. And seven titles printed wrong because `plainnat`
+  lowercases: `Ctrl:` for CTRL, `Wizardlm:`, `…fine-tuning with lora`, `Rl with
+  kl penalties`, `The terminator`, `(sad) for llms`, `the machiavelli
+  benchmark`. None of those seven is findable by diffing metadata against an
+  API — they only show up in a read of the rendered References.
+
+  **What was added.** 51 works cited as preprints had been peer-reviewed since
+  and now carry the venue: ICLR (11), ICML (7), NeurIPS (13), ACL/EMNLP/NAACL
+  (7), COLM (3), TMLR (3), plus JMLR, AAAI (2), IEEE TASLP, ACM CSUR, Nature
+  Machine Intelligence and BlackboxNLP. Each was confirmed against the
+  proceedings or journal of record — ACL Anthology, PMLR, `proceedings.neurips.cc`,
+  OpenReview, JMLR, OpenAlex — never on a Semantic Scholar venue string alone,
+  which is exactly how the one false positive
+  (`mazeika2025utilityengineeringanalyzingcontrolling`, S2 says NeurIPS, DBLP
+  says preprint) was caught and *not* written in. 64 uncited entries deleted,
+  all listed; `latex/example.bib` (template residue, "Anne Author", "Journal of
+  Classic Examples") deleted. **Zero duplicate works under different keys** —
+  a real negative result, so **zero `.tex` edits**: `git diff origin/main --
+  'latex/*.tex'` is empty.
+
+  **Three findings that are corrections of the record, not of formatting.**
+  `singhMiMiCMinimallyModified2024` was still under its v1 title; arXiv:2402.09631
+  was retitled "Representation Surgery: Theory and Practice of Affine Steering"
+  for ICML 2024, same author list, so the thesis was citing one work under a
+  name it no longer has. Same for `turnerActivationAdditionSteering2023`
+  ("Activation Addition" → "Steering Language Models With Activation
+  Engineering", and the bib had lost an author). And in the other direction:
+  `tan2024analysing`'s British spelling and Paige-before-Kanoulas order look
+  wrong against current arXiv metadata but are **right** against the NeurIPS
+  2024 proceedings — an earlier draft of the pass "fixed" it and the
+  proceedings check reverted it. The proceedings of record wins; the API does
+  not.
+
+  **The cost, stated.** 27 in-text citations move their year — Burns 2022→2023,
+  Park 2023→2024, Rimsky 2023→2024, Chung 2022→2024, Huang 2024→2026 and so on
+  — because the published version postdates the preprint. Each is tabled with
+  its source. The References grew four pages. BibTeX warnings **45 → 0**; the
+  #197/#200 standard holds exactly (0 errors, 0 undefined refs, 0 undefined
+  citations, 0 overfull `\hbox`, 0 `LaTeX Warning:`), against a fresh baseline
+  build of unmodified `origin/main`.
+
+  **Two register riders answered as source-hunts, no sentence touched.** §5.3's
+  "runs in production alignment pipelines at Anthropic" **has a public source**:
+  Hubinger, MacDiarmid, Wright and Uesato, 21 Nov 2025, "We have been using
+  inoculation prompting in production Claude training" — with the anthropic.com
+  post as institutional corroboration; both stanzas are in the ledger, and the
+  gap is noted (the sources say "in training Claude", the thesis says "in
+  production alignment pipelines"). §1.6's "expert forecasters" is the harder
+  one: the field cites Betley et al. (2025) for the survey, but **the EM paper
+  does not contain it** — v1 and v4 were both checked, the appendices carry
+  pre-registered *evaluations*, not a forecast. So option (a) cites a paper for
+  something it does not say, and the only clean route is the paywalled *Nature*
+  version. Recorded as a decision for Daniel with the evidence laid out, not as
+  a resolution.
+
 - 2026-08-25: **the curriculum/P4 arc became a named result — the thesis
   wrapper now states five results, not four**
   ([phd-thesis#209](https://github.com/dtch1997/phd-thesis/pull/209), branch
