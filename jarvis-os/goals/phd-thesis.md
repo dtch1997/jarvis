@@ -41,6 +41,40 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-25: **the last provenance gap in the PSM chapter is closed — every
+  chapter number now has a source of record, and all 30 figures regenerate with
+  no network** ([phd-thesis#200](https://github.com/dtch1997/phd-thesis/pull/200),
+  `experiments/persona-toy-models/REPORT.md`, ledger
+  `latex/notes/persona-toy-models-summary-2026-08-25.md`). `$0`, CPU only, no
+  training. This is the item that #198 §C and #199 §3.4 *both* raised and both
+  declined to settle — `experiments/persona-toy-models/` was the only one of the
+  chapter's ten experiment directories with no `REPORT.md` and no summary
+  `results.jsonl`, and four prose numbers in it existed nowhere in the
+  repository at all. **Audit headline: 31 of 38 claims confirmed, 5 corrected
+  by 4 prose edits, 2 flagged for Daniel.** A `summarize.py` distils the
+  archived sweep (2 027 objects, 325.7 MiB) into 360 committed rows plus a
+  `curves.json` carrying `f4`'s trajectories and `f5`'s posterior readout — the
+  latter a one-time torch pass over the 45 checkpoints, so they are never needed
+  again — and re-running it reproduces both **byte-identically**. The four
+  figure scripts now read the committed layer and fall back to `runs/**`;
+  regenerated **both ways**, all eight PDFs are pixel-identical at 150 dpi and
+  `figures/out/` does not appear in the diff. **All four numbers #199 called
+  unrecoverable regenerate, and all four are right** (`+0.087`/`+0.091` →
+  0.0872/0.0910; `0.043`–`0.048` vs `0.087 ± 0.037` → 0.0432/0.0480 vs
+  0.0866 ± 0.0369; ICL `0.86 → 0.54` → 0.8589 → 0.5395; separability `0.15` vs
+  `0.09` → 0.1512 vs 0.0929). The one substantive error was a **word, not a
+  number**: the chapter said off-grammar persona labels "halve" the OOD shift,
+  in the same parenthesis as `+0.087` and `+0.091` against `+0.129` — a 31 %
+  cut, and visible to any reader with the three numbers in front of them.
+  Descriptors rot faster than the digits they describe. One new
+  `BLOCKED-ON-DANIEL:` for the desk: `sec:psm:curriculum:selectivity`'s null
+  ("no separability measure predicted inoculation effectiveness cell by cell")
+  holds pooled (`r = +0.073`, n = 45) but **not within `staged_ab`**
+  (`r = +0.615`, n = 15, p = 0.015) — one of three curricula shows the
+  diagnostic the section reports as absent, and softening a null is a decision,
+  not a correction. Thesis rebuilds at 0 errors / 0 warnings / 278 pages; the
+  #197/#199 zero-warning state is not regressed.
+
 - 2026-08-25: **the chapter has been read adversarially for the first time
   — 24 examiner objections, 17 fixed in prose, 4 parked on Daniel**
   ([phd-thesis#199](https://github.com/dtch1997/phd-thesis/pull/199),
