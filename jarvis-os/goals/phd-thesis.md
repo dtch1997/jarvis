@@ -41,6 +41,50 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-26: **#216's four recommendations, tested and then landed — the repo's
+  own build recipe now passes the repo's own gate, and CI builds the artifact
+  the Colophon claims**
+  ([phd-thesis#217](https://github.com/dtch1997/phd-thesis/pull/217) +
+  [phd-thesis#218](https://github.com/dtch1997/phd-thesis/pull/218), branches
+  `lualatex-ground-truth` / `pool/t-0826-efb4`, ledger
+  `latex/notes/lualatex-ground-truth-2026-08-25.md` §§11–12, decision brief
+  §18). #216 recommended four changes and implemented none, each outside its
+  allowed diff — right about committing, poor about *knowing*, which is exactly
+  how #213's font caveat came to stand for thirteen ledgers. **#217 built all
+  four out-of-tree instead of asserting them.** All four hold: `latexmk
+  -lualatex` converges in one command (4 passes, 0 `LaTeX Warning:`); dropping
+  hyperref's `[pdftex]` is a byte-identical no-op on the bookmark table; the
+  Times build is structurally intact (146 bookmarks, R1 holds, 0 collapsed
+  leaders). New finding for free: **#213 S5's one deliberate survivor closes
+  under Times** — Fig. B.13's List-of-Figures entry, left wrapped because "the
+  only thing left to cut is a model name", fits on one line; LoF wraps 1 → 0,
+  no caption touched. **#218 then lands the three that are repairs**, and
+  deliberately not the fourth. `[pdftex]` out at source, which makes
+  `ci/build_thesis.sh`'s `sed` patch and its `FATAL:` guard dead code; the
+  Makefile's fixed three-pass block replaced by `latexmk -lualatex`, closing
+  D1 by removing the *class* of bug — a future edit that adds a page cannot
+  re-open it the way a hard-coded pass count can; `ci/check_build.sh`'s false
+  "artefact of the XeTeX driver" comment corrected to the real mechanism, with
+  its assertions byte-for-byte untouched. The one with teeth is the **second CI
+  leg**: TinyTeX in user space, `make` on an out-of-tree copy, held to the same
+  eight asserted zeros as the tectonic leg plus a page-count assert — run
+  against stock HEAD it exits 1 on D1. Until this PR, nothing in CI had ever
+  run lualatex, which is why D1 and D2 lived undetected under thirteen
+  tectonic-built QA passes. **The repairs move the build, not the artifact**:
+  307/309 pages both sides, byte-identical bookmark table, ch2 min glyph 6.01
+  pt, #197's zero-warning state and its assert untouched. The fourth
+  recommendation — the typeface — is a judgement that reflows every page
+  number in every prior ledger, so it went to the decision brief as **item 18
+  with both options rebuilt on the current tree**, and the rebuild corrected
+  #216 twice: bold headings are **not** a Times question (the headings fall
+  back to regular because a bold `ptm` is missing too, so *both* options
+  restore them), and Latin Modern-by-choice is **not** the free option (+6 pp
+  and three overfull boxes under tectonic, against (a)'s −11 pp and one).
+  Ledger §12 annotates §§4/7/11 in place so the record stops saying these are
+  untaken, and tabulates the two absolutes that moved — 298 → 307 pages, 284 →
+  292 font warnings, all of it #215's declaration forms and none of it #218.
+  $0, no compute, both legs green.
+
 - 2026-08-25: **the thesis's last empty section is written — §1.5 "Publications
   underlying this thesis", plus the three UCL declaration forms it turns out to
   require**
