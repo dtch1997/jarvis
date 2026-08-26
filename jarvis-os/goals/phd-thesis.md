@@ -41,6 +41,65 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-26: **the two recovery-matrix rows the unlearnable grid voided now
+  have a spec that re-takes them where the model can learn**
+  ([phd-thesis#222](https://github.com/dtch1997/phd-thesis/pull/222),
+  `specs/00d-learnable-rerun.md`, 877 lines). `$0`, spec only — no run, no
+  pod, `latex/` untouched. **Why this was next:** the PSM chapter records
+  exactly two rows as open on *instrument* grounds rather than on evidence, and
+  both sit in one paragraph — row 6 stays open "because the graded measurements
+  that would speak to it were taken in the grid, where nothing was learned"
+  (`Chapter_PersonaSelectionModel.tex:2932-2934`), and row 9 / hold-out H2
+  because "the filler control shows there is nothing to explain *yet*"
+  (`:2949-2952`). Four paragraphs later the same chapter reports the regime
+  where the model *does* learn: 00b's D4 ladder cell (captured fraction
+  `0.946`), 00b's arm L (exact at `r* = 1`), 00c's width sweep (`κ ≈ 1.01` at
+  `n_embd = 256`). **Nobody had re-taken either measurement on any of them**,
+  so an examiner meets the voided rows and the learnable configs two pages
+  apart and gets a free viva question with no answer on record. Spec 00d is
+  that answer: two arms — **G′** (graded magnitudes / affine steering, 00b's
+  M2a–M2d) and **I′** (the full self-leaf / self-family / filler / direct /
+  `π = 0` protocol against parameter-free `Δ^Bayes` targets, with the
+  identity-rate dose–response) — on one 55-cell grid of fresh CPU pretrains at
+  seeds 5–9, `≈ 4.5 h` at concurrency 15, `$0`.
+
+  **Two things the spec-writing itself turned up, both now on the record.**
+  (i) *There is an uncounted pilot.* `measure_cell.py` runs both batteries on
+  every checkpoint it touches, so 00c's 146-cell width sweep silently carried
+  the row-6 and row-9 measurements at four widths and never scored them — its
+  `analyze.py` scores only the rank questions. Its committed rows show
+  `self-leaf` cosine **`0.73`–`0.75`** against a rarity-matched `filler` at
+  **`0.01`** at `n_embd = 256`, and affine-steering held-out `R²` up to
+  **`0.903`**. That is a finding in a committed results file with nobody's name
+  on it and no pre-registration behind it. The spec discloses it in full as
+  arm 0, labelled exploratory, scores nothing on it, and rests the confirmatory
+  verdicts on the three clauses the cache *cannot* speak to — the `π`
+  dose–response, the family/leaf resolution contrast, and the `π = 0`
+  untrained-token null, none of which exist at any learnable width.
+  (ii) *Two of the instrument's statistics are broken.* `selfdesc`'s
+  `pattern_r2` divides a no-intercept residual by a centered total, so it is
+  not an `R²` and is **identically zero at `r* = 1` by algebra** — `Δ^Bayes` is
+  the constant vector there, which also means a rank-1 world has no pattern for
+  row 9 to recover, so `r* = 1` becomes a row-6 cell and never a row-9 one. And
+  `m2b`'s held-out `R²` is unconditioned on planted loading energy, returning
+  `−24.55` in one pilot cell and `+0.90` in another. Both repairs are registered
+  before the run, with the old statistic kept beside the new one.
+
+  **Substrate call, made on measured numbers rather than on the chapter's
+  wording:** `n_embd = 192 @ 1500` steps is both *cheaper* (`2450 s` against
+  `≈ 4600 s`) and *better learned at every planted rank* (`0.845`–`0.933`
+  against `0.239`–`0.928`) than the `128`-dim / 4500-step ladder cell — which
+  is 00c's own "the word for the exit is optimization budget, not capacity"
+  correction applied rather than restated. `256` carries the headline because
+  it is the only config in the program where the model matches the exact 8-atom
+  reasoner, so a null there is a fact about the phenomenon and not about the
+  checkpoint. New labels R6.1–R6.5 / R9.1–R9.5; 00b's P1–P13 and 00c's Q1–Q8
+  are **not** re-scored (the #181 post-hoc-arm discipline). Four pre-registered
+  outcome classes per row, every one chapter-worthy including both nulls, and a
+  keeper-liftable completion gate requiring greppable `ROW6-VERDICT:` /
+  `ROW9-VERDICT:` lines. **The run is a separate later dispatch** — spec merges
+  first, per the program's standing veto window.
+
 - 2026-08-26: **the thesis has now been spell-checked — for the first time,
   fifteen passes in** ([phd-thesis#220](https://github.com/dtch1997/phd-thesis/pull/220),
   register `latex/notes/thesis-copyedit-2026-08-26.md`, 579 lines). `$0`,
