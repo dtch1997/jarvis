@@ -41,6 +41,32 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-26: **the thesis has now been spell-checked — for the first time,
+  fifteen passes in** ([phd-thesis#220](https://github.com/dtch1997/phd-thesis/pull/220),
+  register `latex/notes/thesis-copyedit-2026-08-26.md`, 579 lines). `$0`,
+  reading and writing only. Every "typo"/"spell" mention in the fourteen
+  prior ledgers turns out to be about typography; nothing had ever checked a
+  word against a dictionary. The durable half is `ci/spellcheck.py` — stdlib
+  only, ~1.1 s, now a third CI job beside the two build legs — which extracts
+  prose from `latex/*.tex` and runs spelling (vendored SCOWL/Hunspell **en_US**,
+  so it is the American-convention check too), doubled words and a/an, all
+  against a 288-term allowlist whose entries are *scoped to a file* when the
+  word is correct only because it is quoted. **38 edits, all spelling-variant
+  or term-consistency, one word each**: `favour`→`favor` ×6, `read-out`→
+  `readout` ×6, `artefact`→`artifact` ×5, `centre`→`center` ×4, `initialis*`→
+  `initializ*` ×5, and seven more, each backed by a census showing the thesis
+  was genuinely mixed (`license` 3 vs `licence` 3). **And a null worth having:
+  no misspelling, no doubled word, no a/an error and no real-word typo, across
+  65,337 words** — the wrapper and every chapter's opening and discussion read
+  in full, the rest swept for ~30 confusion patterns. Register-only where it
+  should be: the published title's British spelling, `behaviour` inside
+  prompts that were actually run, `acknowledgements` as the UCL class's
+  printed heading. Same hard rule as #184/#199/#201: no number, verdict,
+  claim, figure path or label changed, no sentence reworded; both build legs
+  hold the #197 zero-warning state and neither page count moved (tectonic 309,
+  lualatex 307). A gate now exists where a whole defect class used to be
+  unmeasured.
+
 - 2026-08-26: **#216's four recommendations, tested and then landed — the repo's
   own build recipe now passes the repo's own gate, and CI builds the artifact
   the Colophon claims**
