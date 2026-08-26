@@ -41,6 +41,68 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-26: **the repository's own build recipe was failing the repository's
+  own gate, and now there is a CI job that would have said so**
+  ([phd-thesis#218](https://github.com/dtch1997/phd-thesis/pull/218), with
+  [#217](https://github.com/dtch1997/phd-thesis/pull/217) un-drafted and merged
+  ahead of it). `$0` — local CPU, a TeX tree already on the box, CI minutes from
+  included quota. #216 established the LuaLaTeX ground truth and made four
+  recommendations without implementing any; #217 built all four out-of-tree and
+  measured them; #218 lands the three that are **repairs** and routes the fourth
+  — the typeface — to the decision brief as a **judgement**. The three-PR shape
+  is the point: *measure, then test the fix out-of-tree, then land it*, with the
+  one item that reflows 300 pages never entering a diff on an agent's say-so.
+
+  **The defect, reproduced on current `main` rather than quoted.** `latex/Makefile`
+  ran `lualatex; bibtex; lualatex; lualatex` — one pass short, because the
+  document reflows between passes 2 and 3, so pass 3 could only *record* the
+  moved labels. The build finished on `LaTeX Warning: Label(s) may have changed`,
+  which `ci/check_build.sh` asserts at **zero**. Built from stock `HEAD` and run
+  through the repo's own checker, that artifact **exits 1**. It had been in that
+  state for as long as nothing ran it, which is the whole argument for the new
+  leg: CI built with tectonic (#212), the Makefile builds with lualatex, and no
+  job had ever run the second. `latexmk -lualatex` now replaces the fixed pass
+  count — it iterates to a fixed point, so a future edit that adds a page cannot
+  re-open the bug the way a hard-coded 3 can. Also landed: `[pdftex]` dropped
+  from hyperref at source (wrong for *both* engines — fatal to XeTeX, a `Wrong
+  driver` warning under lualatex), which let `ci/build_thesis.sh` delete both the
+  `sed` that patched its own copy and the guard checking that the patch applied;
+  and `ci/check_build.sh`'s comment claiming the ~292 font-substitution warnings
+  are "an artefact of the XeTeX driver" corrected — lualatex emits them too.
+  Both CI legs green, 8/8 asserted zeros each: tectonic 309 pp, lualatex 307 pp,
+  146 bookmarks both, Ch. 2 minimum glyph 6.01 pt (#214's gate holds). The
+  bookmark tables before and after are byte-identical (sha256 `4db27b5058b6753b`),
+  so nothing here moves the artifact.
+
+  **The number that had to be re-derived rather than trusted.** Every ledger
+  since #216 cites 298 lualatex pages; the build now says 307. The ledger is not
+  wrong, it is *old* — it measured at `7536bf5`, and #215 then added three
+  Research Paper Declaration Forms and a drafted §1.5. The delta is +9 on **both**
+  engines (lualatex 298→307, tectonic 300→309) with the two-page inter-engine gap
+  intact, and stock `HEAD` rebuilt is also 307, which is what rules out the
+  branch as the cause. Worth generalising: a page count in a ledger is a
+  measurement with a commit attached, and one landed PR can invalidate every page
+  number in every register without touching a single one of them.
+
+  **The typeface went to the brief, and rebuilding it changed the recommendation
+  it deserves.** `mathptmx` claims Times; nothing satisfies the claim; the
+  examiner receives Latin Modern with regular-weight headings and is told
+  nothing. That is now **item 18** of `latex/notes/daniel-decision-brief-2026-08-25.md`,
+  `BLOCKED-ON-DANIEL`, with paste-ready edits for both options. Rather than quote
+  #217's tables — which predate #215 by 9 pages — both options were rebuilt from
+  scratch, four builds across two engines, and two things came back different
+  from what #216's framing implied. (i) **Bold headings are not a Times
+  question**: the headings are unbolded because a bold `ptm` cannot be found
+  *either*, so both options restore bold and the UCL bold-headings rule does not
+  discriminate between them. (ii) **Latin Modern is not the free option**: being
+  substituted with it is not the same as asking for it — the real family has the
+  bold and italic the fallback lacked, so it reflows **+6** pages and opens
+  **three** overfull boxes under tectonic where Times opens one. So the choice is
+  −11 pages vs +6, not "change it" vs "leave it", and the recommendation stands
+  as real Times only once neither column is free. The general lesson is the one
+  #217 was created to make: an unrun recommendation is a guess with a confident
+  tone, and it stays one even when a careful ledger wrote it.
+
 - 2026-08-25: **the thesis's last empty section is written — §1.5 "Publications
   underlying this thesis", plus the three UCL declaration forms it turns out to
   require**
