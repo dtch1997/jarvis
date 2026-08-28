@@ -16,6 +16,7 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 | Thread Board | https://claude.ai/code/artifact/0c92062a-b33c-4181-b450-44aa51714568 | 2026-08-18 | — | self-driving-jarvis | mock/spec view — real board in build (docs/thread-board.md) |
 | JARVIS Command Map | https://claude.ai/code/artifact/0032c73c-cb6e-4324-a3e4-fde7baea9fc0 | 2026-08-18 | — | self-driving-jarvis | superseded by The JARVIS Handbook (interface page) ? |
 | The Resolution Question | https://claude.ai/code/artifact/a5b894e4-171a-460e-836c-239aa93a2b8c | 2026-08-17 | private (life-theses) | employment-thesis | current — private |
+| Alignment in the RL Regime (SASH talk deck) | https://claude.ai/code/artifact/4cf64404-ca2f-45e5-ab7c-a53aa1753072 | 2026-08-28 | jarvis-artifacts/rl-regime-talk/rl-regime-talk.html | rl-regime-talk | current |
 | Farming the Lottery | https://claude.ai/code/artifact/a1cfec36-3fbe-4238-a2dd-aa48bf0b56f4 | 2026-08-16 | — | lottery-farming-arch2 | current |
 | Dogfight RL First Flight | https://claude.ai/code/artifact/6b778973-ef6b-485a-92a4-840cd496b61b | 2026-08-14 | — | dogfight-rl | current |
 | Corner Velocity | https://claude.ai/code/artifact/05440972-60eb-4509-8374-48a382fbd0b3 | 2026-08-14 | — | dogfight-rl ? | current |
