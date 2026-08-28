@@ -159,6 +159,7 @@ class Sandbox:
 
     def __init__(self, sb, config: ModalConfig):
         self._sb = sb
+        self.hold_reason: str | None = None
         self.config = config
         self.id = sb.object_id
 
@@ -266,6 +267,10 @@ class Sandbox:
         from .call import call as _call
         return await _call(self, fn, *args, **kwargs)
 
+    def hold(self, reason: str) -> None:
+        """Keep this sandbox up on context exit regardless of the ``keep`` policy."""
+        self.hold_reason = self.hold_reason or reason
+
     async def teardown(self) -> None:
         await self._sb.terminate.aio()
 
@@ -294,9 +299,12 @@ async def sandbox(config: ModalConfig, *, keep: KeepPolicy = False) -> AsyncIter
         yield box
         failed = False
     finally:
-        if should_teardown(keep, failed):
+        if should_teardown(keep, failed, held=box.hold_reason is not None):
             with contextlib.suppress(Exception):
                 await box.teardown()
+        elif box.hold_reason:
+            announce_kept_box("modal sandbox", box.id,
+                              f"modal sandbox terminate {box.id}", why=box.hold_reason)
         elif failed and keep == "on-failure":
             announce_kept_box("modal sandbox", box.id,
                               f"modal sandbox terminate {box.id}")

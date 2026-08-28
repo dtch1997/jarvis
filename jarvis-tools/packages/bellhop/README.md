@@ -111,10 +111,16 @@ Good to know:
   pod. Needs `gcloud` on your PATH.
 - **A failed job tears the box down by default** — and with it anything that
   never made it into `results/` (a checkpoint your job was mid-upload on, say).
-  If the job writes anything you can't afford to lose outside `results/`, pass
-  `keep_pod="on-failure"` (CLI: `--keep-on-failure`): the box is torn down on
-  success as usual but kept on any failure, its id is printed to stderr and
-  carried in the raised error, and the server-side TTL still bounds the cost.
+  Name those paths in `salvage=["checkpoints/", "/root/.cache/huggingface"]`
+  (CLI: `--salvage PATH`, repeatable; relative = under the run dir) and bellhop
+  pulls them back to `local_out/` on any failure or timeout, *before* teardown
+  — bellhop keeps owning the box, you get the bytes. If a salvage pull itself
+  fails, the box is **held** (not torn down) and its id is printed, since the
+  only copy is still on it.
+- Need the live box itself after a failure (to poke around)? `keep_pod="on-failure"`
+  (CLI: `--keep-on-failure`) tears down on success but keeps any failed box, id
+  on stderr and in the raised error. That hands the resource to you — the
+  server-side TTL still bounds the cost, but clean it up.
 
 ### Big data on the pod: pair with ferry
 

@@ -262,6 +262,7 @@ class Pod:
         self.id = pod_id
         self.config = config
         self._meta: dict = {}
+        self.hold_reason: str | None = None
         self._ssh_key = config.resolve_ssh_key()
 
     # ---- connection info ---------------------------------------------------
@@ -314,6 +315,10 @@ class Pod:
                     f"within {self.config.ready_timeout.total_seconds():.0f}s"
                 )
             await asyncio.sleep(self.config.poll_interval)
+
+    def hold(self, reason: str) -> None:
+        """Keep this pod up on context exit regardless of the ``keep`` policy."""
+        self.hold_reason = self.hold_reason or reason
 
     async def teardown(self) -> None:
         await self._rest.delete_pod(self.id)
@@ -511,8 +516,11 @@ async def pod(config: PodConfig, *, keep: KeepPolicy = False,
             yield p
             failed = False
         finally:
-            if should_teardown(keep, failed):
+            if should_teardown(keep, failed, held=p.hold_reason is not None):
                 with contextlib.suppress(Exception):
                     await p.teardown()
+            elif p.hold_reason:
+                announce_kept_box("pod", pod_id, f"runpodctl remove pod {pod_id}",
+                                  why=p.hold_reason)
             elif failed and keep == "on-failure":
                 announce_kept_box("pod", pod_id, f"runpodctl remove pod {pod_id}")
