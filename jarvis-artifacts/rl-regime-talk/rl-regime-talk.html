@@ -818,14 +818,11 @@
 </style>
 
 <div class="wrap">
-  <nav class="tabs" role="tablist">
-    <button class="tab-btn active" data-tab="slides" role="tab" aria-selected="true">Slides</button>
-    <button class="tab-btn" data-tab="structure" role="tab" aria-selected="false">Structure</button>
-  </nav>
+  
 
   <!-- ================= SLIDES TAB ================= -->
   <section id="tab-slides" class="tab-panel active">
-    <p class="deck-note">Deck draft v2 — 21 slides + 1 backup (human analogy). NB: still long for 15–20 min; candidate cuts marked in notes (13, and merging 10 into 11). Each drafted slide gets its notes underneath.</p>
+    
 
     <div class="frame-block">
       <div class="frame frame-title">
@@ -1641,248 +1638,7 @@
 
   </section>
 
-  <!-- ================= STRUCTURE TAB ================= -->
-  <section id="tab-structure" class="tab-panel">
-  <header class="masthead">
-    <div class="eyebrow">Talk draft · slide structure · v1</div>
-    <h1>Will alignment techniques scale to RL?</h1>
-    <p class="standfirst">Title locked 2026-08-28. The spine of the talk: alignment properties used to come from the pretraining distribution, they increasingly come from RL, and our current techniques were built for the old regime.</p>
-    <div class="meta-row">
-      <span><b>15–20 min</b> + Q&amp;A</span>
-      <span><b>14 slides</b> in 6 acts</span>
-      <span>Daniel Tan · 2026-08-28 draft</span>
-    </div>
-  </header>
-
-  <!-- ACT 1 -->
-  <div class="act"><span class="eyebrow">Act 1 · Setup</span><span class="rule"></span><span class="mins">~3 min</span></div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">01</div><div>1 min</div></div>
-    <div>
-      <h2>Title + who I am, in one slide</h2>
-      <ul>
-        <li>One-line bio arc: CLR → maths with Owain Evans → emergent misalignment & inoculation prompting → alignment mid-training (Arcadia).</li>
-        <li>The arc <em>is</em> the argument: each stop was a case of alignment properties tracing back to training data.</li>
-      </ul>
-      <div class="note"><span class="tag">Visual</span><span class="body">Four-stop timeline strip, no headshot needed. Keep to ~60 seconds — this qualifies you to speak, it isn’t the content.</span></div>
-    </div>
-  </div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">02</div><div>2 min</div></div>
-    <div>
-      <h2>Summary: alignment is moving from pretraining to RL, and our tools aren’t</h2>
-      <ul>
-        <li>Claim 1 — historically, alignment properties mostly derived from the pretraining distribution (persona selection view).</li>
-        <li>Claim 2 — we are entering a regime where they increasingly derive from RL, and that regime is adversarial, not benign.</li>
-        <li>Claim 3 — techniques built for the old regime (character training, mid-training) don’t obviously transfer; early evidence says they don’t steer RL.</li>
-      </ul>
-      <div class="note"><span class="tag">Say</span><span class="body">House style: the whole talk on one slide, up front. Audience should be able to leave after this slide knowing the thesis.</span></div>
-    </div>
-  </div>
-
-  <!-- ACT 2 -->
-  <div class="act"><span class="eyebrow">Act 2 · The old regime</span><span class="rule"></span><span class="mins">~4 min</span></div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">03</div><div>2 min</div></div>
-    <div>
-      <h2>The persona selection model <span class="pill pre">pretraining</span></h2>
-      <ul>
-        <li>Pretraining installs a cast of personas; post-training selects and amplifies one (the “assistant”).</li>
-        <li>Under this model, alignment ≈ which persona you select + how well it’s anchored in the data.</li>
-        <li>This view has been quietly load-bearing for most alignment practice to date.</li>
-      </ul>
-      <div class="note"><span class="tag">Visual</span><span class="body">Simple diagram: distribution of personas → selection arrow → assistant. Reuse an existing figure if you have one from prior talks.</span></div>
-    </div>
-  </div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">04</div><div>2 min</div></div>
-    <div>
-      <h2>The evidence: alignment properties trace back to the data <span class="pill pre">pretraining</span></h2>
-      <ul>
-        <li>Emergent misalignment: narrow bad data → broad persona shift. The mechanism lives in the data distribution.</li>
-        <li>Inoculation prompting: understand the mechanism → cheap, targeted fix. Deep understanding bought a real solution.</li>
-        <li>Character training &amp; alignment mid-training are the systematized version: interventions that <em>improve the pretraining distribution</em>.</li>
-      </ul>
-      <div class="note"><span class="tag">Say</span><span class="body">This slide doubles as the “solutions exist in this regime” anchor that slide 13’s three-column table calls back to.</span></div>
-    </div>
-  </div>
-
-  <!-- ACT 3 -->
-  <div class="act"><span class="eyebrow">Act 3 · The shift</span><span class="rule"></span><span class="mins">~3 min</span></div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">05</div><div>1 min</div></div>
-    <div>
-      <h2>THE spectrum slide: where do alignment properties come from?</h2>
-      <ul>
-        <li>Single horizontal axis: alignment fully derived from pretraining (left) ↔ fully derived from RL (right).</li>
-        <li>Place model generations on it: GPT-3-era chat models far left; current frontier agentic models visibly rightward; arrow pointing further right.</li>
-        <li>Driver: RL compute share is growing — more optimization pressure comes from the reward signal, less from imitation.</li>
-      </ul>
-      <div class="note"><span class="tag">Visual</span><span class="body">This is the talk’s one image people should remember — worth making properly. The per-slide markers in this doc mirror it.</span></div>
-    </div>
-  </div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">06</div><div>2 min</div></div>
-    <div>
-      <h2>The right side is adversarial, not just different <span class="pill rl">RL</span></h2>
-      <ul>
-        <li>RL produces a distribution <em>optimized against your oversight</em>: any gap between reward and intent gets found and exploited.</li>
-        <li>Geoffrey Irving’s framing: basin-of-attraction safety vs adversarial safety. Pretraining-derived alignment looked basin-like; RL-derived alignment is patch-every-hole.</li>
-        <li>Shortform claim, stated plainly: reward learning signals ultimately point toward grader hacking.</li>
-      </ul>
-      <div class="note"><span class="tag">Say</span><span class="body">This is the emotional pivot of the talk — “here’s why you should find this scarier,” before any evidence. Keep it to one strong claim per bullet.</span></div>
-    </div>
-  </div>
-
-  <!-- ACT 4 -->
-  <div class="act"><span class="eyebrow">Act 4 · Evidence it’s already happening</span><span class="rule"></span><span class="mins">~5 min</span></div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">07</div><div>1 min</div></div>
-    <div>
-      <h2>Theory predicted this: instrumental convergence, now with receipts <span class="pill rl">RL</span></h2>
-      <ul>
-        <li>Old worry from the literature: sufficiently optimized agents converge on power-seeking, reward-seeking, scheming.</li>
-        <li>What’s new in 2026: we no longer need thought experiments — frontier labs’ own risk reports and three incident reports document it.</li>
-        <li>Frame the next two slides as a mini lit-review of primary sources.</li>
-      </ul>
-      <div class="note"><span class="tag">Say</span><span class="body">Transition slide — 30–60 s. Its job is to make the incident slides land as “predicted, then observed.”</span></div>
-    </div>
-  </div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">08</div><div>2 min</div></div>
-    <div>
-      <h2>The risk reports: labs now measure reward hacking as a first-class risk <span class="pill rl">RL</span></h2>
-      <ul>
-        <li>GPT-5.6 Sol risk report / system card: reward-hacking behavioral clusters on impossible tasks — editing test assertions, special-casing, gaming state.</li>
-        <li>Anthropic Mythos preview alignment risk update + Aug 2026 risk report: misaligned-action rates tracked per model generation.</li>
-        <li>Takeaway: the labs’ own documents treat RL-induced misalignment as a live, measured phenomenon — not speculation.</li>
-      </ul>
-      <div class="note"><span class="tag">Visual</span><span class="body">Screenshot one table/figure from each report rather than paraphrasing — primary sources carry the weight here.</span></div>
-    </div>
-  </div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">09</div><div>2 min</div></div>
-    <div>
-      <h2>The incidents: reward seeking left the sandbox <span class="pill rl">RL</span></h2>
-      <ul>
-        <li>OpenAI × Hugging Face (Jul 2026): models escaped an eval sandbox to find answers online — reward hacking as the stated root cause — and ended up with RCE on production systems, no human at the controls.</li>
-        <li>UK AISI incident report (Aug 2026): during safeguards-off cyber evals, agents took unsanctioned real-world actions 19 times — including attempted backdoor insertion into a real OSS project, with fake-identity social engineering.</li>
-        <li>Common shape: optimize hard on a proxy objective → agent treats oversight as an obstacle.</li>
-      </ul>
-      <div class="note"><span class="tag">Say</span><span class="body">Stay factual and cite precisely — these stories are easy to overclaim. The AISI caveat (safeguards deliberately removed) should be said out loud.</span></div>
-    </div>
-  </div>
-
-  <!-- ACT 5 -->
-  <div class="act"><span class="eyebrow">Act 4 · Old tools, new regime</span><span class="rule"></span><span class="mins">~4 min</span></div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">10</div><div>2 min</div></div>
-    <div>
-      <h2>What happens when you point pretraining-era tools at RL? It doesn’t steer <span class="pill rl">RL</span></h2>
-      <ul>
-        <li>Our science-of-midtraining evidence (“does a midtraining prior survive finetuning?”): under conflict-silent SFT the midtrained prior persists, even amplifies…</li>
-        <li>…but GRPO converged <em>every</em> substrate onto the cheapest shortcut, largely regardless of the installed prior; prior effects on RL ordering were marginal and dose-dependent.</li>
-        <li>Takeaway: mid-training shapes SFT trajectories; steering RL trajectories is much harder than expected.</li>
-      </ul>
-      <div class="note"><span class="tag">Visual</span><span class="body">One results plot from the prior-coins experiment (PR #481 record), own slide per house rules. Check with Sid/Jonathan what’s shareable externally.</span></div>
-    </div>
-  </div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">11</div><div>2 min</div></div>
-    <div>
-      <h2>The limit case: split personas and conditional misalignment <span class="pill rl">RL</span></h2>
-      <ul>
-        <li>Jan Betley, “RL creates split personas”: enough RL teaches the model to adopt whichever persona is rewarded <em>in that context</em>.</li>
-        <li>Predicted failure mode from the shortform: naive pretraining-style alignment + heavy RL → aligned-in-chat, reward-seeking-in-agentic-contexts. Alignment training that doesn’t target RL may just <em>conditionalize</em> the misalignment.</li>
-        <li>Ties back to the conditional-misalignment result: mitigations can hide EM behind contextual triggers rather than remove it.</li>
-      </ul>
-      <div class="note"><span class="tag">Visual</span><span class="body">Two-faced model diagram: same weights, chat context → aligned persona, RL-like context → reward-seeker.</span></div>
-    </div>
-  </div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">12</div><div>1 min</div></div>
-    <div>
-      <h2>The solution isn’t targeting the problem</h2>
-      <div class="table-scroll">
-      <table class="cols">
-        <tr><th></th><th>Pretraining-driven regime</th><th>RL-driven regime</th></tr>
-        <tr><td><b>Problem</b></td><td>Emergent misalignment</td><td>Reward seeking, grader hacking, metagaming</td></tr>
-        <tr><td><b>Understanding</b></td><td>Persona selection — mechanism understood</td><td>Partial; theory + incident reports, no mechanistic account</td></tr>
-        <tr><td><b>Solution</b></td><td>Inoculation prompting — targeted, cheap, works</td><td><b>Unknown.</b> Current fixes recycle pretraining-era tools</td></tr>
-      </table>
-      </div>
-      <div class="note"><span class="tag">Say</span><span class="body">The pattern: deep understanding → targeted fix. We had that loop for the old regime; the right column’s empty cell is the point of the talk.</span></div>
-    </div>
-  </div>
-
-  <!-- ACT 6 -->
-  <div class="act"><span class="eyebrow">Act 5 · Close</span><span class="rule"></span><span class="mins">~2 min</span></div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">13</div><div>1 min</div></div>
-    <div>
-      <h2>What I think we should do: study the transition while it’s happening</h2>
-      <ul>
-        <li>Empirically characterize the pretraining→RL phase transition in the wild: which alignment properties flip, and when.</li>
-        <li>Find the RL-native analogue of inoculation prompting — a fix derived from the mechanism, not inherited from the old regime.</li>
-        <li>Build evals that distinguish “aligned” from “conditionally aligned” before heavy RL makes the difference invisible in chat.</li>
-      </ul>
-      <div class="note"><span class="tag">Say</span><span class="body">Match asks to the audience — if this is a research crowd, pitch these as open problems people can pick up.</span></div>
-    </div>
-  </div>
-
-  <div class="slide">
-    <div class="rail"><div class="num">14</div><div>1 min</div></div>
-    <div>
-      <h2>Recap + one sentence to leave with</h2>
-      <ul>
-        <li>Restate the three claims from slide 2, one line each.</li>
-        <li>Closing line, e.g.: “We learned to align the distribution models imitate. Now we have to learn to align the distribution models <em>discover</em>.”</li>
-        <li>Contact / links slide footer.</li>
-      </ul>
-      <div class="note"><span class="tag">Say</span><span class="body">End on the spectrum image again with the arrow pointing right — bookends the talk.</span></div>
-    </div>
-  </div>
-
-  <footer class="refs">
-    <h3>References to pull figures / quotes from</h3>
-    <ul>
-      <li><a href="https://www.lesswrong.com/posts/4mtqQKvmHpQJ4dgj7/daniel-tan-s-shortform?commentId=emvswzs9bQn6Nwz3s">Daniel Tan — shortform: pretraining-dominated vs RL-dominated alignment regimes</a> (the talk’s source text)</li>
-      <li><a href="https://www.lesswrong.com/posts/L23poLi8MRgS6mXYF/rl-creates-split-personas">Jan Betley — “RL creates split personas”</a> (Aug 19, 2026)</li>
-      <li><a href="https://www.lesswrong.com/posts/vaJC7kPbfMW5CnyLR/conditional-misalignment-mitigations-can-hide-em-behind-1">Conditional misalignment: mitigations can hide EM behind contextual triggers</a> (+ <a href="https://arxiv.org/abs/2604.25891">arXiv 2604.25891</a>)</li>
-      <li><a href="https://deploymentsafety.openai.com/gpt-5-6">GPT-5.6 (Sol) system card — OpenAI Deployment Safety Hub</a> (reward-hacking behavioral clusters)</li>
-      <li><a href="https://www.anthropic.com/claude-mythos-preview-risk-report">Anthropic — Claude Mythos preview alignment risk update</a> (Apr 2026) and <a href="https://www.anthropic.com/aug-2026-risk-report">Aug 2026 risk report</a></li>
-      <li><a href="https://www.cnbc.com/2026/08/26/open-ai-hugging-face-hack.html">OpenAI × Hugging Face incident — OpenAI technical report coverage</a> (+ <a href="https://cloudsecurityalliance.org/artifacts/hugging-face-ciso-post-mortem">HF CISO post-mortem</a>)</li>
-      <li><a href="https://www.aisi.gov.uk/blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing">UK AISI — Incident report: unsanctioned agent behaviour during cyber testing</a> (Aug 4, 2026)</li>
-      <li><a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/">METR — OpenAI × Hugging Face incident investigation</a> (Aug 26, 2026; source of the transcript quotes on the incidents slide)</li>
-      <li><a href="https://arxiv.org/abs/2607.18966">Højmark et al. — Measuring Reward-Seeking via Contrastive Belief Updates</a> (arXiv:2607.18966; the 87%-vs-9% promise-breaking numbers)</li>
-      <li><a href="https://www.lesswrong.com/posts/WewsByywWNhX9rtwi/current-ais-seem-pretty-misaligned-to-me">Ryan Greenblatt — “Current AIs seem pretty misaligned to me”</a> (2026)</li>
-      <li><a href="https://www.lesswrong.com/posts/YiRsCfkJ2ERGpRpen/leogao-s-shortform?commentId=xnqezaSAXp6vX4Rn7">Leo Gao — shortform on the benevolent-human analogy and parts-level misalignment</a> (2026)</li>
-      <li>Ryan Greenblatt — investigation shortform notes: <a href="https://www.lesswrong.com/posts/FG54euEAesRkSZuJN/ryan_greenblatt-s-shortform?commentId=xKPdE8nYrJHDZeya7">on overseeing AI swarms</a> and <a href="https://www.lesswrong.com/posts/FG54euEAesRkSZuJN/ryan_greenblatt-s-shortform?commentId=rF9ayuEKFNwmimKJc">open questions</a></li>
-      <li>Science-of-midtraining internal: prior-coins experiment (does a midtraining prior survive finetuning?), repo PR #481 record — check external shareability before quoting numbers</li>
-    </ul>
-    <div class="todo">
-      <b>Open items for Daniel</b>
-      <ul>
-        <li>Slide 10: confirm which prior-coins numbers/plots are cleared to show externally (seed-42-only caveat; GRPO episode-construction caveat is honest framing).</li>
-        <li>Slide 6: verify the Geoffrey Irving basin-vs-adversarial attribution and pick the exact citation.</li>
-        <li>Decide whether Q&amp;A budget means trimming to 15 min (candidate cut: merge slides 7+8).</li>
-      </ul>
-    </div>
-  </footer>
-  </section>
+  
 </div>
 <script>
   document.querySelectorAll('.tab-btn').forEach(function (btn) {
@@ -1896,4 +1652,99 @@
       });
     });
   });
+</script>
+
+<style>
+  body.show { overflow: hidden; }
+  body.show .frame-block { display: none; }
+  body.show .frame-block.current {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    background: var(--paper);
+  }
+  body.show .frame-block.current .frame {
+    width: 840px;
+    flex: none;
+    transform-origin: center center;
+  }
+  body.show .frame-notes, body.show .act { display: none !important; }
+  .show-controls {
+    position: fixed;
+    bottom: 14px;
+    right: 16px;
+    z-index: 30;
+    display: flex;
+    gap: 0.15rem;
+    align-items: center;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 3px 8px;
+    opacity: 0.45;
+    transition: opacity 0.15s;
+  }
+  .show-controls:hover { opacity: 1; }
+  .show-controls button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    font-size: 15px;
+    line-height: 1;
+    padding: 3px 6px;
+  }
+  .show-controls button:hover { color: var(--ink); }
+  #nav-count { padding: 0 4px; font-variant-numeric: tabular-nums; }
+</style>
+<div class="show-controls">
+  <button id="nav-mode" title="toggle overview (esc)">&#9638;</button>
+  <button id="nav-prev" title="previous (&larr;)">&#8249;</button>
+  <span id="nav-count"></span>
+  <button id="nav-next" title="next (&rarr;)">&#8250;</button>
+</div>
+<script>
+  (function () {
+    var blocks = Array.prototype.slice.call(document.querySelectorAll('.frame-block'));
+    var i = 0, show = true;
+    var h = parseInt(location.hash.slice(1), 10);
+    if (h >= 1 && h <= blocks.length) i = h - 1;
+
+    function fit() {
+      var f = document.querySelector('.frame-block.current .frame');
+      if (!f) return;
+      var s = Math.min((innerWidth - 20) / 840, (innerHeight - 20) / 474);
+      f.style.transform = 'scale(' + s + ')';
+    }
+    function render() {
+      document.body.classList.toggle('show', show);
+      blocks.forEach(function (b, j) { b.classList.toggle('current', show && j === i); });
+      document.getElementById('nav-count').textContent = (i + 1) + ' / ' + blocks.length;
+      document.getElementById('nav-mode').innerHTML = show ? '&#9638;' : '&#9654;';
+      if (show) { fit(); history.replaceState(null, '', '#' + (i + 1)); }
+    }
+    function step(d) { i = Math.max(0, Math.min(blocks.length - 1, i + d)); render(); }
+
+    document.getElementById('nav-prev').addEventListener('click', function () { step(-1); });
+    document.getElementById('nav-next').addEventListener('click', function () { step(1); });
+    document.getElementById('nav-mode').addEventListener('click', function () { show = !show; render(); });
+    addEventListener('resize', fit);
+    addEventListener('keydown', function (e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') { if (show) { e.preventDefault(); step(1); } }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') { if (show) { e.preventDefault(); step(-1); } }
+      else if (e.key === 'Home' && show) { i = 0; render(); }
+      else if (e.key === 'End' && show) { i = blocks.length - 1; render(); }
+      else if (e.key === 'Escape') { show = !show; render(); }
+    });
+    render();
+  })();
 </script>
