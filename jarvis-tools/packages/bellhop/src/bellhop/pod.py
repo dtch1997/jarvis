@@ -17,7 +17,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import AsyncIterator, Literal
 
-from .backend import TAR_EXCLUDES, ExecResult
+from .backend import TAR_EXCLUDES, ExecResult, KeepPolicy, announce_kept_box, should_teardown
 from .errors import ExecTimeoutError, PodNotReadyError, PreflightError, ProvisionError
 from .graphql import RunpodGraphQL
 from .probes import ReadyProbe, SshProbe
@@ -454,13 +454,16 @@ async def _gql_create(config: PodConfig, api_key: str | None) -> dict:
 
 
 @contextlib.asynccontextmanager
-async def pod(config: PodConfig, *, keep: bool = False,
+async def pod(config: PodConfig, *, keep: KeepPolicy = False,
               api_key: str | None = None) -> AsyncIterator[Pod]:
     """Provision a pod, wait until it's functional, yield it, tear it down.
 
     On any exception (including a readiness timeout) the pod is still deleted,
-    unless ``keep=True``.
+    unless ``keep=True`` (never delete) or ``keep="on-failure"`` (delete only
+    on a clean exit — a failed body leaves the pod, and whatever it holds, up
+    for retrieval; the server-side TTL still bounds the cost).
     """
+    should_teardown(keep, failed=False)   # validate the policy before spending money
     async with RunpodRest(api_key=api_key) as rest:
         if config.has_ttl() and config.resolved_compute == "gpu":
             # Native server-side TTL is GraphQL-only (and on-demand = GPU only).
@@ -493,6 +496,7 @@ async def pod(config: PodConfig, *, keep: bool = False,
             raise ProvisionError(f"could not parse pod id from create response: {created}")
 
         p = Pod(rest, pod_id, config)
+        failed = True
         try:
             await p._wait_provision()
             await p._wait_ready()
@@ -505,7 +509,10 @@ async def pod(config: PodConfig, *, keep: bool = False,
                         f"(rc={r.exit_code}): {(r.stderr or r.stdout)[-500:]}"
                     )
             yield p
+            failed = False
         finally:
-            if not keep:
+            if should_teardown(keep, failed):
                 with contextlib.suppress(Exception):
                     await p.teardown()
+            elif failed and keep == "on-failure":
+                announce_kept_box("pod", pod_id, f"runpodctl remove pod {pod_id}")

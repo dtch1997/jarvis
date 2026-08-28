@@ -17,7 +17,7 @@ from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from .backend import open_box
+from .backend import KeepPolicy, open_box
 from .errors import (
     ExecTimeoutError,
     GcsUploadError,
@@ -89,13 +89,17 @@ async def _checked_exec(box, cmd: str, what: str) -> None:
                              log_tail=r.stderr[-2000:])
 
 
-async def run(spec: RunSpec, backend: "Backend", *, keep_pod: bool = False,
+async def run(spec: RunSpec, backend: "Backend", *, keep_pod: KeepPolicy = False,
               api_key: str | None = None) -> RunResult:
     """Run ``spec`` on the box implied by ``backend`` (PodConfig or ModalConfig).
 
-    ``keep_pod`` leaves the box up after the run (kept for name compatibility;
-    applies to a Modal sandbox too). ``api_key`` is the RunPod key and is ignored
-    by the Modal backend (Modal uses its own ambient auth).
+    ``keep_pod`` is the teardown policy: ``True`` leaves the box up after the
+    run, ``"on-failure"`` leaves it up only when the run fails (nonzero remote
+    exit, timeout, pull/upload error) so checkpoints and logs that never made
+    it into ``results_subdir`` are still retrievable — the box id is in the
+    raised error's message and on stderr. (Name kept for compatibility; applies
+    to a Modal sandbox too.) ``api_key`` is the RunPod key and is ignored by the
+    Modal backend (Modal uses its own ambient auth).
     """
     if not (spec.slug and spec.codebase and spec.run):
         raise PreflightError("slug, codebase and run are all required")
@@ -162,8 +166,13 @@ async def run(spec: RunSpec, backend: "Backend", *, keep_pod: bool = False,
             local_results=local_out, gcs_uri=gcs_uri, retrieve_cmd=retrieve_cmd, log_tail=log_tail,
         )
 
-    if remote_exit != 0:
-        raise RemoteJobError(f"remote job exited {remote_exit}", remote_exit=remote_exit, log_tail=result.log_tail)
+        # Raised *inside* the box context so the keep policy sees the failure
+        # (keep_pod="on-failure" must not tear down a box whose job just failed).
+        if remote_exit != 0:
+            raise RemoteJobError(
+                f"remote job exited {remote_exit} (box {p.id})",
+                remote_exit=remote_exit, log_tail=result.log_tail,
+            )
     return result
 
 
