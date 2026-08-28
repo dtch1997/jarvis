@@ -4,7 +4,7 @@ const dir = '/tmp/claude-2038/-mnt-nw-home-d-tan-jarvis-monorepo-jarvis-os/0089f
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
 await page.goto('file://' + dir + '/rl-regime-talk-print.html', { waitUntil: 'networkidle' });
-await page.emulateMedia({ media: 'print', colorScheme: 'light' });
+await page.emulateMedia({ media: 'print', colorScheme: 'dark' });
 await page.pdf({
   path: dir + '/will-alignment-techniques-scale-to-rl.pdf',
   width: '338.67mm',
