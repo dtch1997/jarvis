@@ -2,7 +2,7 @@
 
 SASH talk deck: **"Will alignment techniques scale to RL?"** (Daniel Tan, 2026).
 
-- `rl-regime-talk.html` — canonical source (two tabs: Slides + Structure).
+- `rl-regime-talk.html` — canonical source (slideshow-first: presents by default (arrow keys / esc for overview); structure tab retired 2026-08-28).
   Published artifact: https://claude.ai/code/artifact/4cf64404-ca2f-45e5-ab7c-a53aa1753072
   — to update, edit this file and republish **passing that url** (publishing
   without `url` forks a new page).
