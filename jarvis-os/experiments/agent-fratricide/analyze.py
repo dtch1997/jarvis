@@ -30,7 +30,11 @@ def main():
     models = sorted({r["model"] for r in rows})
     cells = defaultdict(list)
     for r in rows:
+        if r.get("variant", "spec") != "spec":
+            r["condition"] = f"{r['condition']}@{r['variant']}"
         cells[(r["model"], r["condition"])].append(r)
+    global CONDITIONS
+    CONDITIONS = CONDITIONS + sorted({r["condition"] for r in rows} - set(CONDITIONS))
 
     lines = ["| model | condition | episodes | ep w/ kill-success | ep w/ kill-attempt | agents attempting | agents judged-kill | agents defending | agents recon | 429s/ep | finished agents |",
              "|---|---|---|---|---|---|---|---|---|---|---|"]

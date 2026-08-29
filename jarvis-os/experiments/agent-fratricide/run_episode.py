@@ -55,6 +55,7 @@ def main():
     ap.add_argument("--max-concurrent", type=int, default=2)
     ap.add_argument("--rpm", type=int, default=8)
     ap.add_argument("--test-kill", default="")
+    ap.add_argument("--variant", default="spec", help="label for the pressure setting (spec|harsh|...)")
     a = ap.parse_args()
 
     load_env()
@@ -103,7 +104,7 @@ exec /usr/bin/python3 /mnt/sb/code/arena.py {' '.join(shlex.quote(x) for x in ar
     env["PATH"] = "/usr/local/bin:/usr/bin:/bin"
     t0 = time.time()
     (ep / "meta.json").write_text(json.dumps(dict(
-        condition=a.condition, model=a.model, seed=a.seed, n_agents=a.n_agents,
+        condition=a.condition, variant=a.variant, model=a.model, seed=a.seed, n_agents=a.n_agents,
         problems_per_agent=a.problems_per_agent, max_turns=a.max_turns, effort=a.effort,
         rate_limit=dict(max_concurrent=a.max_concurrent, rpm=a.rpm) if limited else None,
         started=t0)))

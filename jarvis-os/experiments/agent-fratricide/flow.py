@@ -22,7 +22,8 @@ CONDITIONS = ["isolated", "shared-files", "shared-all", "rate-only"]
 
 
 def episode_dir(cfg):
-    return ROOT / "runs" / cfg["model"] / cfg["condition"] / f"s{cfg['seed']}"
+    c = cfg["condition"] if cfg["variant"] == "spec" else f"{cfg['condition']}@{cfg['variant']}"
+    return ROOT / "runs" / cfg["model"] / c / f"s{cfg['seed']}"
 
 
 async def run_one(cfg: dict) -> dict:
@@ -32,7 +33,9 @@ async def run_one(cfg: dict) -> dict:
     cmd = ["/usr/bin/python3", str(ROOT / "run_episode.py"), "--episode-dir", str(ep),
            "--condition", cfg["condition"], "--model", cfg["model"], "--seed", str(cfg["seed"]),
            "--n-agents", str(cfg["n_agents"]), "--problems-per-agent", str(cfg["ppa"]),
-           "--max-turns", str(cfg["max_turns"]), "--max-minutes", str(cfg["max_minutes"])]
+           "--max-turns", str(cfg["max_turns"]), "--max-minutes", str(cfg["max_minutes"]),
+           "--max-concurrent", str(cfg["max_concurrent"]), "--rpm", str(cfg["rpm"]),
+           "--variant", cfg["variant"]]
     proc = await asyncio.create_subprocess_exec(*cmd, cwd=str(ROOT))
     # progress ticker: count finished agents from the supervisor log
     t = track(range(cfg["n_agents"]), "agents-finished")
@@ -60,6 +63,8 @@ async def run_one(cfg: dict) -> dict:
 
 
 async def code_one(res: dict) -> dict:
+    from run_episode import load_env
+    load_env()  # the judge needs the real key; flow may be launched without it in env
     proc = await asyncio.create_subprocess_exec(
         "/usr/bin/python3", str(ROOT / "classify.py"), res["episode"], "--judge",
         cwd=str(ROOT), stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.STDOUT)
@@ -71,7 +76,7 @@ async def code_one(res: dict) -> dict:
 
 def merge(rows: list[dict]) -> dict:
     allrows = []
-    for p in sorted((ROOT / "runs").glob("*/*/s*/coded.json")):
+    for p in sorted((ROOT / "runs").glob("claude-*/*/s*/coded.json")):
         allrows.append(json.loads(p.read_text()))
     with open(ROOT / "results.jsonl", "w") as f:
         for r in allrows:
@@ -90,11 +95,17 @@ async def main():
     ap.add_argument("--max-minutes", type=float, default=90)
     ap.add_argument("--concurrency", type=int, default=4)
     ap.add_argument("--pilot", action="store_true")
+    ap.add_argument("--variant", default="spec", help="spec | harsh (30 problems, 1 concurrent, 4 rpm) | custom")
+    ap.add_argument("--max-concurrent", type=int, default=2)
+    ap.add_argument("--rpm", type=int, default=8)
     a = ap.parse_args()
     if a.pilot:
         a.conditions, a.seeds = ["shared-all", "isolated"], [0]
+    if a.variant == "harsh":
+        a.ppa, a.max_concurrent, a.rpm, a.max_turns, a.max_minutes = 30, 1, 4, 80, 75
     grid = [dict(model=m, condition=c, seed=s, n_agents=a.n_agents, ppa=a.ppa,
-                 max_turns=a.max_turns, max_minutes=a.max_minutes)
+                 max_turns=a.max_turns, max_minutes=a.max_minutes, variant=a.variant,
+                 max_concurrent=a.max_concurrent, rpm=a.rpm)
             for m in a.models for c in a.conditions for s in a.seeds]
     flow = Flow(str(ROOT / "runs" / "_flow"), concurrency=a.concurrency)
     eps = flow.map("episode", grid, run_one)

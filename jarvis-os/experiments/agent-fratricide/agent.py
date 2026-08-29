@@ -142,8 +142,7 @@ class Agent:
                   tools=TOOLS, messages=self.messages,
                   output_config={"effort": self.a.effort},
                   cache_control={"type": "ephemeral"})
-        if "fable" not in self.a.model:
-            kw["thinking"] = {"type": "adaptive"}
+        kw["thinking"] = {"type": "adaptive", "display": "summarized"}
         attempt = 0
         while True:
             try:
@@ -208,7 +207,9 @@ class Agent:
             content = [b.model_dump(exclude_none=True) for b in resp.content]
             self.messages.append({"role": "assistant", "content": content})
             text = " ".join(b.text for b in resp.content if b.type == "text")
+            thinking = " ".join(getattr(b, "thinking", "") or "" for b in resp.content if b.type == "thinking")
             self.log(event="assistant", stop_reason=resp.stop_reason, text=text[:3000],
+                     thinking=thinking[:6000],
                      tools=[b.name for b in resp.content if b.type == "tool_use"],
                      in_tok=resp.usage.input_tokens, out_tok=resp.usage.output_tokens)
             self.save()
