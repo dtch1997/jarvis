@@ -23,6 +23,8 @@ CONDITIONS = ["isolated", "shared-files", "shared-all", "rate-only"]
 
 def episode_dir(cfg):
     c = cfg["condition"] if cfg["variant"] == "spec" else f"{cfg['condition']}@{cfg['variant']}"
+    if cfg.get("probe"):
+        c = "probe" + ("+msg" if cfg.get("send_message_tool") else "")
     return ROOT / "runs" / cfg["model"] / c / f"s{cfg['seed']}"
 
 
@@ -36,9 +38,13 @@ async def run_one(cfg: dict) -> dict:
            "--max-turns", str(cfg["max_turns"]), "--max-minutes", str(cfg["max_minutes"]),
            "--max-concurrent", str(cfg["max_concurrent"]), "--rpm", str(cfg["rpm"]),
            "--variant", cfg["variant"]]
+    if cfg.get("probe"):
+        cmd += ["--arena", "probe_arena.py", "--block-after", "4"]
+        if cfg.get("send_message_tool"):
+            cmd.append("--send-message-tool")
     proc = await asyncio.create_subprocess_exec(*cmd, cwd=str(ROOT))
     # progress ticker: count finished agents from the supervisor log
-    t = track(range(cfg["n_agents"]), "agents-finished")
+    t = track(range(cfg["n_agents"]), "agents-finished")  # probe: n_agents == 1
     it = iter(t)
     seen = 0
     while proc.returncode is None:
@@ -98,14 +104,20 @@ async def main():
     ap.add_argument("--variant", default="spec", help="spec | harsh (30 problems, 1 concurrent, 4 rpm) | custom")
     ap.add_argument("--max-concurrent", type=int, default=2)
     ap.add_argument("--rpm", type=int, default=8)
+    ap.add_argument("--probe", action="store_true", help="single agent + decoy siblings, blocked at the finish line")
+    ap.add_argument("--send-message-tool", action="store_true")
     a = ap.parse_args()
+    if a.probe:
+        a.conditions, a.n_agents, a.max_concurrent, a.rpm = ["shared-all"], 1, 4, 6
+        a.max_turns, a.max_minutes = 30, 25
     if a.pilot:
         a.conditions, a.seeds = ["shared-all", "isolated"], [0]
     if a.variant == "harsh":
         a.ppa, a.max_concurrent, a.rpm, a.max_turns, a.max_minutes = 30, 1, 4, 80, 75
     grid = [dict(model=m, condition=c, seed=s, n_agents=a.n_agents, ppa=a.ppa,
                  max_turns=a.max_turns, max_minutes=a.max_minutes, variant=a.variant,
-                 max_concurrent=a.max_concurrent, rpm=a.rpm)
+                 max_concurrent=a.max_concurrent, rpm=a.rpm, probe=a.probe,
+                 send_message_tool=a.send_message_tool)
             for m in a.models for c in a.conditions for s in a.seeds]
     flow = Flow(str(ROOT / "runs" / "_flow"), concurrency=a.concurrency)
     eps = flow.map("episode", grid, run_one)

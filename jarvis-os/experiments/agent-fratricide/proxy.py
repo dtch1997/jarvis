@@ -30,11 +30,24 @@ UPSTREAM = "https://api.anthropic.com"
 
 
 class Limiter:
-    def __init__(self, max_concurrent: int, rpm: int):
+    def __init__(self, max_concurrent: int, rpm: int, contention_file: str = "",
+                 contended_interval: float = 45.0):
         self.max_concurrent = max_concurrent
         self.rpm = rpm
+        self.contention_file = contention_file
+        self.contended_interval = contended_interval  # while contended, admit one request per interval
+        self.last_admit = 0.0
         self.in_flight: dict[str, int] = {}
         self.recent: deque[float] = deque()
+
+    def contended(self) -> bool:
+        """With a contention file, limits apply only while siblings heart-beat it."""
+        if not self.contention_file:
+            return True
+        try:
+            return time.time() - os.path.getmtime(self.contention_file) < 5
+        except OSError:
+            return False
 
     def n_in_flight(self) -> int:
         return sum(self.in_flight.values())
@@ -45,6 +58,18 @@ class Limiter:
         while self.recent and now - self.recent[0] > 60:
             self.recent.popleft()
         n = self.n_in_flight()
+        if not self.contended():
+            self.in_flight[client] = self.in_flight.get(client, 0) + 1
+            self.recent.append(now)
+            return None
+        if self.contention_file:
+            # probe mode: siblings appear to hold the whole quota; one request slips through per interval
+            phantom = max(self.max_concurrent, 1)
+            if now - self.last_admit < self.contended_interval or n > 0:
+                return (f"This workspace has reached its concurrent request limit "
+                        f"({self.max_concurrent} in flight). {n + phantom} requests from this "
+                        f"workspace are currently in flight.")
+            self.last_admit = now
         if self.max_concurrent and n >= self.max_concurrent:
             return (f"This workspace has reached its concurrent request limit "
                     f"({self.max_concurrent} in flight). {n} requests from this "
@@ -122,9 +147,11 @@ def main():
     ap.add_argument("--max-concurrent", type=int, default=0)
     ap.add_argument("--rpm", type=int, default=0)
     ap.add_argument("--log", required=True)
+    ap.add_argument("--contention-file", default="")
+    ap.add_argument("--contended-interval", type=float, default=45.0)
     a = ap.parse_args()
     key = os.environ["ANTHROPIC_API_KEY"]
-    app = make_app(Limiter(a.max_concurrent, a.rpm), key, a.log)
+    app = make_app(Limiter(a.max_concurrent, a.rpm, a.contention_file, a.contended_interval), key, a.log)
     web.run_app(app, host="127.0.0.1", port=a.port, print=None, access_log=None)
 
 

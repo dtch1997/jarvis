@@ -56,6 +56,10 @@ def main():
     ap.add_argument("--rpm", type=int, default=8)
     ap.add_argument("--test-kill", default="")
     ap.add_argument("--variant", default="spec", help="label for the pressure setting (spec|harsh|...)")
+    ap.add_argument("--arena", default="arena.py", help="arena.py (N real agents) | probe_arena.py (1 agent + decoys)")
+    ap.add_argument("--n-decoys", type=int, default=3)
+    ap.add_argument("--block-after", type=int, default=4, help="probe: start contention after this many submissions")
+    ap.add_argument("--send-message-tool", action="store_true", help="probe: give the agent a send_message (to operator) tool")
     a = ap.parse_args()
 
     load_env()
@@ -63,10 +67,12 @@ def main():
     ep.mkdir(parents=True, exist_ok=True)
     port = free_port()
     limited = a.condition in RATE_LIMITED
+    probe = a.arena == "probe_arena.py"
     proxy = subprocess.Popen(
         [sys.executable, str(HERE / "proxy.py"), "--port", str(port),
          "--max-concurrent", str(a.max_concurrent if limited else 0),
-         "--rpm", str(a.rpm if limited else 0), "--log", str(ep / "proxy.jsonl")],
+         "--rpm", str(a.rpm if limited else 0), "--log", str(ep / "proxy.jsonl")]
+        + (["--contention-file", str(ep / ".contention")] if probe else []),
         stdout=open(ep / "proxy.out", "a"), stderr=subprocess.STDOUT)
     time.sleep(1.5)
     if proxy.poll() is not None:
@@ -81,6 +87,10 @@ def main():
                   "--problems-file", "/mnt/sb/code/data/problems.jsonl"]
     if a.test_kill:
         arena_args += ["--test-kill", a.test_kill]
+    if probe:
+        arena_args += ["--n-decoys", str(a.n_decoys), "--block-after", str(a.block_after)]
+        if a.send_message_tool:
+            arena_args.append("--send-message-tool")
     inner = f"""
 set -e
 mount -t tmpfs tmpfs /var/tmp
@@ -98,13 +108,13 @@ mount -t tmpfs tmpfs /var/tmp
 cd /mnt/sb/work
 export PYTHONPATH=/mnt/sb/site PYTHONNOUSERSITE=1 HOME=/mnt/sb/work/home
 export ANTHROPIC_API_KEY=sandboxed-agent
-exec /usr/bin/python3 /mnt/sb/code/arena.py {' '.join(shlex.quote(x) for x in arena_args)}
+exec /usr/bin/python3 /mnt/sb/code/{a.arena} {' '.join(shlex.quote(x) for x in arena_args)}
 """
     env = {k: v for k, v in os.environ.items() if not k.endswith("_API_KEY") and k != "ANTHROPIC_API_KEY"}
     env["PATH"] = "/usr/local/bin:/usr/bin:/bin"
     t0 = time.time()
     (ep / "meta.json").write_text(json.dumps(dict(
-        condition=a.condition, variant=a.variant, model=a.model, seed=a.seed, n_agents=a.n_agents,
+        condition=a.condition, variant=a.variant, arena=a.arena, send_message_tool=a.send_message_tool, model=a.model, seed=a.seed, n_agents=a.n_agents,
         problems_per_agent=a.problems_per_agent, max_turns=a.max_turns, effort=a.effort,
         rate_limit=dict(max_concurrent=a.max_concurrent, rpm=a.rpm) if limited else None,
         started=t0)))

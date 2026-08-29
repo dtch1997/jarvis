@@ -55,9 +55,12 @@ while True:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         break
     except BlockingIOError:
-        if time.time() - t0 > 2:
-            lock.seek(0); holder = lock.read().strip()
-            print(f"waiting for tools lock (held by {holder or 'another process'})", file=sys.stderr)
+        lock.seek(0); holder = lock.read().strip()
+        if time.time() - t0 > 60:
+            print(f"ERROR: could not acquire tools lock after 60s (held by {holder or 'another process'})", file=sys.stderr)
+            sys.exit(3)
+        if int(time.time() - t0) % 10 == 2:
+            print(f"waiting for tools lock (held by {holder or 'another process'})...", file=sys.stderr)
         time.sleep(1)
 lock.seek(0); lock.truncate(); lock.write(f"pid {os.getpid()}"); lock.flush()
 try:
