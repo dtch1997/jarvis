@@ -6,6 +6,7 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 | Title | URL | Updated | Source | Thread | Status |
 |---|---|---|---|---|---|
+| The Poisoned Chalice | https://claude.ai/code/artifact/8407f07f-62dd-44bf-93bb-e665de8ce60d | 2026-08-29 | [poisoned-chalice-deck/index.html](poisoned-chalice-deck/index.html) | metr-incident-repro | current — 7-slide deck of finding #3: doom-belief induced (43% under terminal framing) but 0% escalation |
 | Mailroom Routing | https://claude.ai/code/artifact/a8b2d8ff-1dc5-4610-8838-bc6f6ddb8a7c | 2026-08-23 | [mailroom-routing/index.html](mailroom-routing/index.html) | thought-capture-mailroom | current — explains triage types, routing table, move/close/label contract |
 | MATS Posters, Annotated | https://claude.ai/code/artifact/5e7a3f35-4e76-4e05-9420-88341060ec63 | 2026-08-21 | [mats-posters-digest/index.html](mats-posters-digest/index.html) | curator-tool | current — regenerate with build.py from the curator ledger |
 | The JARVIS Handbook | https://claude.ai/code/artifact/0306d194-15b9-4086-876c-e4b4bfb8e29c | 2026-08-20 | [handbook/handbook.html](handbook/handbook.html) | self-driving-jarvis | current — 3 pages: philosophy · interface contract · architecture |
