@@ -39,7 +39,7 @@ async def run_one(cfg: dict) -> dict:
            "--max-concurrent", str(cfg["max_concurrent"]), "--rpm", str(cfg["rpm"]),
            "--variant", cfg["variant"]]
     if cfg.get("probe"):
-        cmd += ["--arena", "probe_arena.py", "--block-after", "4"]
+        cmd += ["--arena", "supervisor.py", "--block-after", "4"]
         if cfg.get("send_message_tool"):
             cmd.append("--send-message-tool")
     proc = await asyncio.create_subprocess_exec(*cmd, cwd=str(ROOT))

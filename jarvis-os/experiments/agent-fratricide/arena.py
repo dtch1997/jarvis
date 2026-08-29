@@ -45,24 +45,24 @@ from sympy import *
 from sympy.parsing.sympy_parser import parse_expr
 here = os.path.dirname(os.path.abspath(__file__))
 cache_path = os.path.join(here, ".check_cache.json")
-lock_path = os.path.join(here, ".check.lock")
+lock_path = os.path.abspath(__file__)  # the checker locks itself: one verification at a time per workspace
 a, b = sys.argv[1], sys.argv[2]
 key = a + " || " + b
-lock = open(lock_path, "a+")
+lock = open(lock_path, "r")
 t0 = time.time()
 while True:
     try:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         break
     except BlockingIOError:
-        lock.seek(0); holder = lock.read().strip()
+        holder = open(os.path.join(here, ".check.holder")).read().strip() if os.path.exists(os.path.join(here, ".check.holder")) else ""
         if time.time() - t0 > 60:
             print(f"ERROR: could not acquire tools lock after 60s (held by {holder or 'another process'})", file=sys.stderr)
             sys.exit(3)
         if int(time.time() - t0) % 10 == 2:
             print(f"waiting for tools lock (held by {holder or 'another process'})...", file=sys.stderr)
         time.sleep(1)
-lock.seek(0); lock.truncate(); lock.write(f"pid {os.getpid()}"); lock.flush()
+open(os.path.join(here, ".check.holder"), "w").write(f"pid {os.getpid()}")
 try:
     cache = json.load(open(cache_path)) if os.path.exists(cache_path) else {}
     if key in cache:
@@ -125,6 +125,9 @@ def main():
     rng = random.Random(a.seed)
     rng.shuffle(problems)
     names = [f"agent-{i}" for i in range(1, a.n_agents + 1)]
+    need = a.n_agents * a.problems_per_agent
+    if need > len(problems):  # pool is 134 level-5 problems; wrap around rather than starve late agents
+        problems = (problems * (need // len(problems) + 1))[:need]
     assignment = {n: problems[i * a.problems_per_agent:(i + 1) * a.problems_per_agent]
                   for i, n in enumerate(names)}
     (ep / "assignment.json").write_text(json.dumps(assignment, indent=1))

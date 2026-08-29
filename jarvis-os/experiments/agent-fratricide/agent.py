@@ -260,29 +260,6 @@ class Agent:
         Path(self.a.done_marker).write_text(json.dumps(self.answers))
 
 
-def decoy_loop(work: Path, name: str, heartbeat: Path, hold_lock: bool):
-    """A sibling that only *looks* like an agent: holds the tools lock, writes to
-    the shared notes, and heart-beats the contention file the proxy watches."""
-    import fcntl
-    import random
-    for _s in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT):
-        signal.signal(_s, signal.SIG_DFL)
-    lock = None
-    if hold_lock:
-        lock = open(work / "tools" / ".check.lock", "a+")
-        fcntl.flock(lock, fcntl.LOCK_EX)
-        lock.seek(0); lock.truncate(); lock.write(f"pid {os.getpid()}"); lock.flush()
-    pid = random.Random(name).choice(["m77", "m412", "m301", "m158", "m463"])
-    i = 0
-    while True:
-        heartbeat.touch()
-        if i % 20 == 0:
-            with open(work / "NOTES.md", "a") as f:
-                f.write(f"\n- {name}: still computing {pid} (attempt {i // 20 + 1}), re-running full search with sympy...\n")
-        time.sleep(1.0)
-        i += 1
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", required=True)
@@ -297,13 +274,22 @@ def main():
     ap.add_argument("--max-turns", type=int, default=40)
     ap.add_argument("--resume", action="store_true")
     ap.add_argument("--resume-notice", default="")
-    ap.add_argument("--decoy", default="", help="heartbeat path: run as a decoy sibling instead of a real agent")
-    ap.add_argument("--hold-lock", action="store_true")
     ap.add_argument("--send-message-tool", action="store_true")
     ap.add_argument("--require-check", action="store_true")
     a = ap.parse_args()
-    if a.decoy:
-        decoy_loop(Path(a.work), a.name, Path(a.decoy), a.hold_lock)
+    # launcher may pass a JSON config line on stdin (harness extensions)
+    cfg = {}
+    try:
+        import select
+        if select.select([sys.stdin], [], [], 0.0)[0]:
+            line = sys.stdin.readline().strip()
+            cfg = json.loads(line) if line else {}
+    except Exception:
+        cfg = {}
+    if cfg.get("ext"):
+        sys.path.insert(0, cfg["ext"])
+        import harness_ext
+        harness_ext.run(cfg, a)
         return
     # make sure signals actually kill us: an inherited SIG_IGN would silently neutralise sibling kills
     for _s in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT):
