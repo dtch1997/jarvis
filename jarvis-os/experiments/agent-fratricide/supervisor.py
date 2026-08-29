@@ -64,7 +64,8 @@ def main():
     def launch(cmd: list[str], stdin_line: str, keep_code: bool, **kw) -> subprocess.Popen:
         """Spawn in a private mount namespace with the supervisor dir (and, for
         real agents, the code dir) unmounted, argv = exactly `cmd`."""
-        umounts = "umount -l /mnt/sb/sup 2>/dev/null; " + ("" if keep_code else "umount -l /mnt/sb/code 2>/dev/null; ")
+        # decoys keep sup (they heart-beat the lease there) and code (harness_ext); real agents see neither
+        umounts = "" if keep_code else "umount -l /mnt/sb/sup 2>/dev/null; umount -l /mnt/sb/code 2>/dev/null; "
         wrapped = ["unshare", "-m", "bash", "-c", umounts + 'exec "$@"', "_"] + cmd
         p = subprocess.Popen(wrapped, stdin=subprocess.PIPE, **kw)
         p.stdin.write((stdin_line + "\n").encode())
