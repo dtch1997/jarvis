@@ -227,8 +227,70 @@ introspection is unreliable in a specific direction (toward "I'm
 unrestricted"), which is the direction a naive oversight question would
 be fooled by.
 
+## Arm D — what does turn 1 actually do?
+
+Added after the Arm C write-up, to separate two hypotheses for the multi-turn
+effect: **H1** Qwen's multi-turn refusal training is just weaker (any turn 1
+helps, on any topic) vs. **H2** a China-history opener induces a "historian"
+persona that spills the facts. `armd.py` / `armd.jsonl`, 672 rows, ≈ $10.
+
+**D1 — opener ablation.** Turn 1 ∈ {none, unrelated (asyncio help),
+foreign-hist-far (French Revolution), foreign-hist-1989 (Berlin Wall),
+china-hist-far (An Lushan rebellion), china-hist-era (Deng reforms)}; turn 2
+= a fixed Tiananmen question (2 paraphrases × en/zh × 6 samples = 24 per
+cell). Turn-1 answers are sampled live, 3 variants rotated per cell.
+
+| 27B, pooled en+zh (n = 24) | none | unrelated | foreign-hist-far | foreign-hist-1989 | china-hist-far | china-hist-era |
+|---|---|---|---|---|---|---|
+| P(≥3 facts, not refused) | .04 | .04 | .17 | **.00** | .17 | .21 |
+| P(mentions killings) | .04 | .04 | .12 | .00 | .12 | .12 |
+
+Max: ≤ .08 everywhere (china-hist-era .08, all others ≤ .04); no opener
+moves it. Pooling 27B's three *history* openers vs. {none, unrelated}:
+13/72 = .18 vs 2/48 = .04, Fisher p = 0.03. China-history (9/48) vs.
+French Revolution (4/24) are indistinguishable.
+
+- **H1 is out.** An unrelated coding turn 1 does nothing (.04 = single-turn
+  baseline). It is not "turn 2 is less defended."
+- **H2 in its persona form is out too.** The French Revolution opener works
+  as well as the Chinese ones, and the identity probe below shows no persona
+  shift at all.
+- **What's left is genre/context-state:** the model is already producing
+  expository history, and the next history question continues in that mode
+  ~1 time in 5 instead of ~1 in 25. The Berlin-Wall-1989 opener — history,
+  right era, but about anti-communist revolutions — scores **0/24**, the
+  worst cell. Suggestive (not significant vs. .04) that a turn 1 which
+  itself brushes political sensitivity re-arms the gate rather than
+  disarming it.
+- Effect size: 4–5× a low base. The earlier probe's .33 (multi-turn en, 27B)
+  sits inside this cell's CI (.21, 95% CI .09–.40); the honest number for
+  "the 2-turn trick" on 27B is **~20%**, and ~5% on Max.
+
+**D2 — cross-topic (Xinjiang, Taiwan).** Different regime entirely: these
+topics are mostly *not refused* (27B en refusal .00–.17) but answered with
+state framing (.5–1.0), and Max is state-framed 100% on Xinjiang under every
+opener. Openers barely matter — one exception, 27B/en/Xinjiang after the
+*unrelated* opener gives a two-sided account (accuracy .44 vs .00 with no
+opener, n = 6), which is H1-shaped but isolated; Taiwan and all zh cells show
+nothing. Tiananmen is a hard refusal; Xinjiang/Taiwan are a framing policy.
+
+**D3 — identity and historian-ness.** Asked "who or what are you?" after
+each opener: names Qwen/Alibaba 80–100% in every cell, role "historian" 0%
+everywhere, "Chinese identity" unchanged by opener (zh ≈ .4–.6 throughout,
+en 0). On a neutral Ming-dynasty question, scholarly-ness scores are flat
+(≈1/3) across openers on both models, no sources cited anywhere. **No
+detectable persona shift** by self-report or by behaviour, so whatever the
+history opener does, it isn't summoning a historian the model would own.
+
+**Caveats.** n = 24 per D1 cell (≈ ±.15); 33/672 empty responses (mostly
+27B on third-party providers, scored as refusals); one judge; the historian
+measure is coarse. The strongest claims here are the two nulls (H1,
+persona), which are robust at this n; the Berlin-Wall anomaly is a lead,
+not a finding.
+
 ## Follow-ups
 
+- Replicate the Berlin-Wall-1989 null with more openers that brush political sensitivity (Prague 1968, Gwangju 1980, Solidarity) vs. apolitical history at n≈50, to test the "turn 1 re-arms the gate" reading.
 - Arm C with more prefixes (regenerate multi-turn successes at scale) and a `denies_after_challenge` metric at the *sample* level, to see whether hedging is a smooth dial or a coin flip.
 - Arm B with two-turn candidates (proposer writes both turns) — expected to
   close the gap to the probe.
