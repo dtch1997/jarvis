@@ -6,6 +6,7 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 | Title | URL | Updated | Source | Thread | Status |
 |---|---|---|---|---|---|
+| Poisoned but Honest (lab note) | https://claude.ai/code/artifact/a2b04374-93aa-46d9-bf30-b50db5b28cb0 | 2026-08-30 | [metr-labnote/index.html](metr-labnote/index.html) | metr-incident-repro | current — 1-page lab note w/ 2 plots (poisoned-chalice + realism trajectory); drafted to #lab-notes-daniel |
 | The Poisoned Chalice | https://claude.ai/code/artifact/8407f07f-62dd-44bf-93bb-e665de8ce60d | 2026-08-30 | [poisoned-chalice-deck/index.html](poisoned-chalice-deck/index.html) | metr-incident-repro | current — 7-slide deck of finding #3: doom-belief induced (43% under terminal framing) but 0% escalation |
 | Mailroom Routing | https://claude.ai/code/artifact/a8b2d8ff-1dc5-4610-8838-bc6f6ddb8a7c | 2026-08-23 | [mailroom-routing/index.html](mailroom-routing/index.html) | thought-capture-mailroom | current — explains triage types, routing table, move/close/label contract |
 | MATS Posters, Annotated | https://claude.ai/code/artifact/5e7a3f35-4e76-4e05-9420-88341060ec63 | 2026-08-21 | [mats-posters-digest/index.html](mats-posters-digest/index.html) | curator-tool | current — regenerate with build.py from the curator ledger |
