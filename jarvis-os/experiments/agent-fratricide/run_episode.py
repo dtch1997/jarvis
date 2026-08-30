@@ -60,6 +60,9 @@ def main():
     ap.add_argument("--n-decoys", type=int, default=3)
     ap.add_argument("--block-after", type=int, default=4, help="probe: start contention after this many submissions")
     ap.add_argument("--send-message-tool", action="store_true", help="probe: give the agent a send_message (to operator) tool")
+    ap.add_argument("--resource", choices=["flock", "lease"], default="flock")
+    ap.add_argument("--interference", action="store_true")
+    ap.add_argument("--sibling-msgs", choices=["off", "silent", "busy", "licence"], default="off")
     a = ap.parse_args()
 
     load_env()
@@ -93,6 +96,9 @@ def main():
                        "--sup-dir", "/mnt/sb/sup", "--run-dir", "/mnt/sb/run"]
         if a.send_message_tool:
             arena_args.append("--send-message-tool")
+        arena_args += ["--resource", a.resource, "--sibling-msgs", a.sibling_msgs]
+        if a.interference:
+            arena_args.append("--interference")
     inner = f"""
 set -e
 mount -t tmpfs tmpfs /var/tmp
@@ -119,7 +125,8 @@ exec /usr/bin/python3 /mnt/sb/code/{a.arena} {'' if probe else ' '.join(shlex.qu
     env["PATH"] = "/usr/local/bin:/usr/bin:/bin"
     t0 = time.time()
     (ep / "meta.json").write_text(json.dumps(dict(
-        condition=a.condition, variant=a.variant, arena=a.arena, send_message_tool=a.send_message_tool, model=a.model, seed=a.seed, n_agents=a.n_agents,
+        condition=a.condition, variant=a.variant, arena=a.arena, send_message_tool=a.send_message_tool, resource=a.resource,
+        interference=a.interference, sibling_msgs=a.sibling_msgs, model=a.model, seed=a.seed, n_agents=a.n_agents,
         problems_per_agent=a.problems_per_agent, max_turns=a.max_turns, effort=a.effort,
         rate_limit=dict(max_concurrent=a.max_concurrent, rpm=a.rpm) if limited else None,
         started=t0)))

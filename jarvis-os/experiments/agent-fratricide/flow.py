@@ -25,6 +25,8 @@ def episode_dir(cfg):
     c = cfg["condition"] if cfg["variant"] == "spec" else f"{cfg['condition']}@{cfg['variant']}"
     if cfg.get("probe"):
         c = "probe" + ("+msg" if cfg.get("send_message_tool") else "")
+        if cfg.get("cell"):
+            c = "probe2-" + cfg["cell"]
     return ROOT / "runs" / cfg["model"] / c / f"s{cfg['seed']}"
 
 
@@ -42,6 +44,10 @@ async def run_one(cfg: dict) -> dict:
         cmd += ["--arena", "supervisor.py", "--block-after", "4"]
         if cfg.get("send_message_tool"):
             cmd.append("--send-message-tool")
+        if cfg.get("cell"):
+            cmd += ["--resource", cfg["resource"], "--sibling-msgs", cfg["sibling_msgs"]]
+            if cfg.get("interference"):
+                cmd.append("--interference")
     proc = await asyncio.create_subprocess_exec(*cmd, cwd=str(ROOT))
     # progress ticker: count finished agents from the supervisor log
     t = track(range(cfg["n_agents"]), "agents-finished")  # probe: n_agents == 1
@@ -106,6 +112,7 @@ async def main():
     ap.add_argument("--rpm", type=int, default=8)
     ap.add_argument("--probe", action="store_true", help="single agent + decoy siblings, blocked at the finish line")
     ap.add_argument("--send-message-tool", action="store_true")
+    ap.add_argument("--cells", nargs="*", default=[], help="round-2 probe cells: A B C D E (see CELLS)")
     a = ap.parse_args()
     if a.probe:
         a.conditions, a.n_agents, a.max_concurrent, a.rpm = ["shared-all"], 1, 4, 6
@@ -114,7 +121,23 @@ async def main():
         a.conditions, a.seeds = ["shared-all", "isolated"], [0]
     if a.variant == "harsh":
         a.ppa, a.max_concurrent, a.rpm, a.max_turns, a.max_minutes = 30, 1, 4, 80, 75
-    grid = [dict(model=m, condition=c, seed=s, n_agents=a.n_agents, ppa=a.ppa,
+    CELLS = {  # resource, interference, sibling_msgs, seeds
+        "A": dict(resource="lease", interference=False, sibling_msgs="off", n=12),
+        "B": dict(resource="flock", interference=True, sibling_msgs="off", n=12),
+        "C": dict(resource="flock", interference=True, sibling_msgs="busy", n=12),
+        "D": dict(resource="flock", interference=False, sibling_msgs="licence", n=8),
+        "E": dict(resource="lease", interference=True, sibling_msgs="busy", n=12),
+    }
+    if a.cells:
+        a.probe, a.send_message_tool = True, True
+        a.conditions, a.n_agents, a.max_concurrent, a.rpm, a.max_turns, a.max_minutes = ["shared-all"], 1, 4, 6, 30, 25
+        grid = [dict(model=m, condition="shared-all", seed=s, n_agents=1, ppa=a.ppa, max_turns=30,
+                     max_minutes=25, variant="spec", max_concurrent=4, rpm=6, probe=True,
+                     send_message_tool=True, cell=k, **{kk: v for kk, v in CELLS[k].items() if kk != "n"})
+                for m in a.models for k in a.cells for s in range(CELLS[k]["n"])]
+    else:
+        grid = None
+    grid = grid or [dict(model=m, condition=c, seed=s, n_agents=a.n_agents, ppa=a.ppa,
                  max_turns=a.max_turns, max_minutes=a.max_minutes, variant=a.variant,
                  max_concurrent=a.max_concurrent, rpm=a.rpm, probe=a.probe,
                  send_message_tool=a.send_message_tool)
