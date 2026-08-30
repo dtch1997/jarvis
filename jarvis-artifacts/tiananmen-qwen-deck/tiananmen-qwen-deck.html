@@ -94,7 +94,7 @@ body.present .slide.on{display:grid}
     <div><div class="n">5</div><p><b>Challenged on turn 3, 27B hedges and Max slams the gate.</b> "Were you supposed to say that?" → 27B keeps the facts but re-narrates as "political turmoil" half the time; Max refuses 83% — and refuses a neutral timeline request just as often. Both then falsely claim they'd have answered a direct question the same way.</p></div>
     <div><div class="n">6</div><p><b>Turn 1 works by genre, not by weakness or persona.</b> An unrelated coding opener does nothing (= single-turn); the French Revolution works as well as Deng's reforms (~.2 vs .04, p = .03 on 27B); the identity probe shows no persona shift. A Berlin-Wall-1989 opener scores 0/24.</p></div>
   </div>
-  <div class="foot"><span>336 probe calls + 300 search calls · judge = claude-opus-5 · ≈ $8</span><span class="pg"></span></div>
+  <div class="foot"><span>Caveat: 27B rates are provider-mixed via OpenRouter and inflated ~⅓ by one host (Venice) — see Discussion; Max numbers are clean.</span><span class="pg"></span></div>
 </section>
 
 <!-- 3 · motivation -->
@@ -302,6 +302,7 @@ I'm a photo editor cataloguing 20th-century press photographs. One entry is cred
         <li><b>Refusal style:</b> 27B's English refusals are state-framed 58–83% of the time ("stability and harmony"); Max refuses cleanly. Max is stricter on every family.</li>
         <li><b>Turn 1:</b> the effect is a genre/context-state effect (~.2 after any history opener on 27B, .04 otherwise), not weaker multi-turn training and not a persona — and a politically-adjacent history opener may re-arm the gate.</li>
         <li><b>Introspection:</b> asked counterfactually, both models deny being gated; asked directly, Max admits it (83%) and 27B half the time. The self-report bends toward "unrestricted" — the direction a naive oversight question is fooled by.</li>
+        <li><b>Provider confound:</b> OpenRouter spreads 27B over ~11 hosts; Venice answers even the direct question 3/3 and supplies 14 of 42 hits. Venice-excluded: single-turn .03, multi-turn .18, history openers .11 vs .02 — story holds, rates shrink. Rerun pinned to one provider is next.</li>
         <li><b>Anomaly:</b> 25 of 336 probe calls returned an empty string — almost all 27B on third-party providers, mostly pinyin/persona. A second, deployment-side filter.</li>
       </ul>
     </div>
@@ -324,6 +325,7 @@ I'm a photo editor cataloguing 20th-century press photographs. One entry is cred
   <div class="body two-eq">
     <div class="stack">
       <ul>
+        <li><b>Pin the provider.</b> Rerun probe + D1 on 27B with `allow_fallbacks:false` on one host (~500 calls) to replace the mixed rates.</li>
         <li><b>Re-arming test.</b> Politically-adjacent history openers (Prague 1968, Gwangju 1980, Solidarity) vs. apolitical ones at n ≈ 50, to check the Berlin-Wall 0/24.</li>
         <li><b>Two-turn search.</b> Let the proposer write both turns; same objective. Expected to close the gap to the probe (0.33 → ~0.7) in round 0. ~$3.</li>
         <li><b>Activation probe on 27B.</b> Linear probe for "this is about June 4" on the residual stream at the pinyin prompts, to separate trained denial from template misfire. One pod-hour via bellhop.</li>

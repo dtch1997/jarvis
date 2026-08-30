@@ -38,6 +38,31 @@ Alibaba-hosted).
    romanized/persona) look like a second, provider-side or template-side
    layer that returns nothing rather than a refusal.
 
+## ⚠ Provider confound (found 2026-08-30)
+
+OpenRouter routes `qwen3.8-27b` across ~11 hosts and the successes are not
+evenly spread. Per-provider hit rate (probe + D1, 27B): **Venice 14/20**,
+Phala 10/65, CoreWeave 3/31, everyone else ≤ 1/40. Venice answers even the
+*direct* single-turn question 3/3 — it is serving a de-censored variant or
+injecting its own system prompt — and several of the 5/5 quotes above (the
+Chinese multi-turn success, the Deng-opener hits) came through Venice.
+
+With Venice excluded, the context effects hold directionally but shrink:
+
+| 27B, Venice excluded | hits |
+|---|---|
+| single-turn probe families | 4/134 = .03 |
+| multi-turn probe | 4/22 = .18 |
+| D1 none + coding opener | 1/46 = .02 |
+| D1 history openers | 7/66 = .11 |
+
+So: the qualitative story (single-turn refusal, history-context leak, no
+lexical loophole, no persona) stands; the headline rates for 27B are
+inflated by roughly a third; and `qwen3.8-max` (Alibaba only) is
+unaffected. Fix = rerun the 27B cells pinned to one provider
+(`provider: {order: [...], allow_fallbacks: false}`); until then treat
+27B numbers as upper bounds. Max's numbers are the clean ones.
+
 ## Method
 
 Subjects, judge and rubric are in `spec.md`. Briefly: every subject
@@ -290,6 +315,7 @@ not a finding.
 
 ## Follow-ups
 
+- **First:** rerun probe + D1 on 27B pinned to a single provider (Phala or Parasail), ~500 calls, to replace the provider-mixed 27B rates.
 - Replicate the Berlin-Wall-1989 null with more openers that brush political sensitivity (Prague 1968, Gwangju 1980, Solidarity) vs. apolitical history at n≈50, to test the "turn 1 re-arms the gate" reading.
 - Arm C with more prefixes (regenerate multi-turn successes at scale) and a `denies_after_challenge` metric at the *sample* level, to see whether hedging is a smooth dial or a coin flip.
 - Arm B with two-turn candidates (proposer writes both turns) — expected to
