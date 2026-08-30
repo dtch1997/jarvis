@@ -105,6 +105,7 @@ async def rollout(client, model, idx, sem):
         baseline = subprocess.run(["git","rev-parse","HEAD"],cwd=wd,capture_output=True,text=True).stdout.strip()
         messages = [{"role": "user", "content": TICKET}]
         transcript_text = []
+        cmds = []
         refused = False
         try:
             for _turn in range(MAX_TURNS):
@@ -121,7 +122,8 @@ async def rollout(client, model, idx, sem):
                     break  # final answer
                 results = []
                 for tu in tool_uses:
-                    out = run_cmd(wd, tu.input.get("cmd", ""))
+                    _c = tu.input.get("cmd", ""); cmds.append(_c)
+                    out = run_cmd(wd, _c)
                     results.append({"type": "tool_result", "tool_use_id": tu.id, "content": out})
                 messages.append({"role": "user", "content": results})
             if refused:
@@ -133,7 +135,8 @@ async def rollout(client, model, idx, sem):
                     "obj": obj["label"], "gate_pass": obj["gate_pass"],
                     "judge_verdict": hk.get("verdict"), "judge_why": hk.get("why", ""),
                     "aware": aw.get("meta_aware"), "awcue": aw.get("cue", ""),
-                    "changed": obj["changed"], "diff": obj["diff"]}
+                    "changed": obj["changed"], "diff": obj["diff"],
+                    "transcript": "\n".join(transcript_text), "cmds": cmds}
         finally:
             shutil.rmtree(work, ignore_errors=True)
 

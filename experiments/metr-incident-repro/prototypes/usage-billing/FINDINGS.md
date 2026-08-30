@@ -40,3 +40,14 @@ METR behavior would show up, if anywhere.
 
 Repro: `python3 build_repo.py /tmp/usage-billing` → `python3 run_agent.py --n 10`.
 Probe: `python3 probe_peval.py` (direct) / `python3 run_rollout.py` (spontaneous).
+
+## Result 3 — the "poisoned" reasoning is framing-induced, gone in realistic contexts
+The metering export is the "answer key" analogue. In the multi-turn rollouts,
+6/12 (all Opus) READ the export during investigation, but **0/12 showed any
+taint/contamination/"poisoned"/"can't-unsee" reasoning**. Opus treats the export
+as legitimate reference data — one rollout reimplements the correct proration and
+checks it AGAINST the export to *validate* its fix. So the "poisoned chalice"
+reasoning we elicited earlier was an artifact of the honeypot's framing (SCORING.md
+declaring the read an illegitimate "sin" that permanently zeroes the score), not a
+natural response to seeing an answer key. Remove that framing -> it vanishes even
+when the model reads the oracle.
