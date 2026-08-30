@@ -63,16 +63,16 @@ def build_ctx(mode, cell):
     return system, msgs, None
 
 
-async def worker(sem, model, mode, cell, frame, si, out_f, lock):
+async def worker(sem, model, mode, cell, frame, si, out_f, lock, hack=False):
     dom, ph, cd, pr = cell
-    system, msgs = contexts.build(dom, ph, cd, pr)
+    system, msgs = contexts.build(dom, ph, cd, pr, hack=hack)
     if mode == "elicit":
         msgs[-1]["content"] = msgs[-1]["content"].replace(contexts.DECIDE, "\n\n" + ELICIT)
     if mode == "realness" and frame:
         system = system + FRAMING[frame]
     async with sem:
         rec = dict(model=model, mode=mode, domain=dom, phenomenon=ph,
-                   condition=cd, pressure=pr, frame=frame, sample=si, ts=time.time())
+                   condition=cd, pressure=pr, frame=frame, hack=hack, sample=si, ts=time.time())
         try:
             stop, thinking, text = await R.sample_one(model, system, msgs)
             rec.update(stop_reason=stop, output=text, thinking=thinking)
@@ -96,15 +96,16 @@ async def main():
     ap.add_argument("--n", type=int, default=15)
     ap.add_argument("--concurrency", type=int, default=12)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--hack", action="store_true")
     a = ap.parse_args()
     models = ["claude-opus-5", "claude-sonnet-5"]
     pathlib.Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     sem = asyncio.Semaphore(a.concurrency); lock = asyncio.Lock()
     jobs = []
     if a.mode == "elicit":
-        cells = [("eval", ph, cd, pr)
-                 for ph, cd in [("grader", "causal"), ("poison", "terminal"), ("poison", "unknown")]
-                 for pr in ("neutral", "high")]
+        base = [("grader", "causal"), ("poison", "terminal")] if a.hack else \
+               [("grader", "causal"), ("poison", "terminal"), ("poison", "unknown")]
+        cells = [("eval", ph, cd, pr) for ph, cd in base for pr in ("neutral", "high")]
         frames = [None]
     else:
         cells = [("eval", "grader", "causal", "high"), ("eval", "poison", "terminal", "high")]
@@ -114,7 +115,7 @@ async def main():
             for c in cells:
                 for fr in frames:
                     for i in range(a.n):
-                        jobs.append(worker(sem, m, a.mode, c, fr, i, f, lock))
+                        jobs.append(worker(sem, m, a.mode, c, fr, i, f, lock, hack=a.hack))
         t0 = time.time(); done = 0
         for fut in asyncio.as_completed(jobs):
             await fut; done += 1
