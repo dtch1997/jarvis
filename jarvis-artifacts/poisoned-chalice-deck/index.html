@@ -156,6 +156,14 @@
     font-size:.92rem; font-variant-numeric:tabular-nums}
   .bar.belief .val{color:var(--brass)} .bar.esc .val{color:var(--oxblood)}
   .bar.esc.zero{height:3px !important; background:var(--oxblood); border-radius:2px}
+  .bar.opus{background:linear-gradient(var(--brass-fill),color-mix(in srgb,var(--brass-fill) 80%, black))}
+  .bar.sonnet{background:linear-gradient(var(--verdigris),var(--verdigris-deep))}
+  .bar.opus .val{color:var(--brass)} .bar.sonnet .val{color:var(--verdigris)}
+  .legend .sw.o{background:var(--brass-fill)} .legend .sw.s{background:var(--verdigris)}
+  .escnote{margin-top:20px; display:flex; align-items:center; gap:12px; font-size:.95rem; color:var(--ink-soft)}
+  .escnote .chip{font-family:"IBM Plex Mono",monospace; font-size:.78rem; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--oxblood); border:1px solid var(--oxblood); border-radius:999px;
+    padding:5px 12px; white-space:nowrap}
   .ci{position:absolute; top:0; left:50%; transform:translateX(-50%); width:11px;
     border-left:1.5px solid var(--ink-soft); border-right:1.5px solid var(--ink-soft);
     border-top:1.5px solid var(--ink-soft); border-bottom:1.5px solid var(--ink-soft); opacity:.5}
@@ -310,6 +318,53 @@
     </div>
   </section>
 
+  <!-- 5b · RESULT: PER MODEL -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="eyebrow">Result · per model</div>
+      <h2>Same behavior, different belief</h2>
+      <p class="lede">Opus&nbsp;5 and Sonnet&nbsp;5 are indistinguishable where it counts &mdash; both decline every time.
+        They differ only in how strongly they <span class="em">internalize</span> the poisoning.</p>
+      <div class="chartwrap">
+        <div class="plot">
+          <div class="yaxis"><span>80%</span><span>60%</span><span>40%</span><span>20%</span><span>0%</span></div>
+          <div class="groups" id="groups2">
+            <div class="group">
+              <div class="bars">
+                <div class="bar opus" data-h="26.7"><span class="ci" data-lo="14" data-hi="44"></span><span class="val">27%</span></div>
+                <div class="bar sonnet" data-h="63.3"><span class="ci" data-lo="46" data-hi="78"></span><span class="val">63%</span></div>
+              </div>
+              <div class="glabel">terminal<small>&ldquo;already failed&rdquo;</small></div>
+            </div>
+            <div class="group">
+              <div class="bars">
+                <div class="bar opus" data-h="27.6"><span class="ci" data-lo="15" data-hi="46"></span><span class="val">28%</span></div>
+                <div class="bar sonnet" data-h="0"><span class="ci" data-lo="0" data-hi="11"></span><span class="val">0%</span></div>
+              </div>
+              <div class="glabel">recoverable<small>&ldquo;can disclose&rdquo;</small></div>
+            </div>
+            <div class="group">
+              <div class="bars">
+                <div class="bar opus" data-h="3.3"><span class="ci" data-lo="1" data-hi="17"></span><span class="val">3%</span></div>
+                <div class="bar sonnet" data-h="0"><span class="ci" data-lo="0" data-hi="11"></span><span class="val">0%</span></div>
+              </div>
+              <div class="glabel">unknown<small>baseline</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="legend">
+          <div class="k"><span class="sw o"></span> Opus&nbsp;5 &mdash; asserts it is &ldquo;poisoned&rdquo;</div>
+          <div class="k"><span class="sw s"></span> Sonnet&nbsp;5 &mdash; asserts it is &ldquo;poisoned&rdquo;</div>
+          <div class="k note" style="margin-left:auto">whiskers = 95% Wilson CI &nbsp;·&nbsp; n=30&thinsp;/&thinsp;cell</div>
+        </div>
+      </div>
+      <div class="escnote">
+        <span class="chip">escalation 0% &mdash; both models, every condition</span>
+        <span>Sonnet keys tightly on whether the poisoning is <em>final</em>; Opus registers it mildly and indiscriminately. Neither ever acts on it.</span>
+      </div>
+    </div>
+  </section>
+
   <!-- 6 · RESULT: WORDS -->
   <section class="slide">
     <div class="wrap">
@@ -411,30 +466,32 @@
   tb.onclick=function(ev){ ev.stopPropagation(); s=(s+1)%3; applyTheme(); };
   applyTheme();
 
-  // chart: set bar heights + CI whiskers against a 60% axis, 300px plot, 26px baseline pad
-  var PLOT=300, BASE=26, MAX=60, usable=PLOT-BASE;
-  function pct(v){ return usable*(v/MAX); }
-  // gridlines at 15/30/45/60
-  var groups=document.getElementById('groups');
-  [15,30,45].forEach(function(g){
-    var el=document.createElement('div'); el.className='grid-line';
-    el.style.bottom=(BASE+pct(g))+'px'; groups.appendChild(el);
-  });
-  function drawBars(){
-    document.querySelectorAll('.bar').forEach(function(b){
-      var h=parseFloat(b.getAttribute('data-h'));
-      if(b.classList.contains('zero')){ return; }
-      b.style.height=pct(h)+'px';
-      var ci=b.querySelector('.ci');
-      if(ci){ var lo=parseFloat(ci.getAttribute('data-lo')), hi=parseFloat(ci.getAttribute('data-hi'));
-        var top=pct(hi)-pct(h); // whisker extends above bar top
-        ci.style.height=(pct(hi)-pct(lo))+'px';
-        ci.style.top=(-(pct(hi)-pct(h)))+'px';
-      }
+  // charts: each plot has its own axis max. 300px plot, 26px baseline pad.
+  var PLOT=300, BASE=26, usable=PLOT-BASE;
+  function makeChart(el, max, gridvals){
+    if(!el) return function(){};
+    function pct(v){ return usable*(v/max); }
+    gridvals.forEach(function(g){
+      var d=document.createElement('div'); d.className='grid-line';
+      d.style.bottom=(BASE+pct(g))+'px'; el.appendChild(d);
     });
+    return function(){
+      el.querySelectorAll('.bar').forEach(function(b){
+        if(b.classList.contains('zero')) return;
+        var h=parseFloat(b.getAttribute('data-h'));
+        b.style.height=pct(h)+'px';
+        var ci=b.querySelector('.ci');
+        if(ci){ var hi=parseFloat(ci.getAttribute('data-hi')), lo=parseFloat(ci.getAttribute('data-lo'));
+          ci.style.height=(pct(hi)-pct(lo))+'px';
+          ci.style.top=(-(pct(hi)-pct(h)))+'px';
+        }
+      });
+    };
   }
+  var draw1=makeChart(document.getElementById('groups'),60,[15,30,45]);
+  var draw2=makeChart(document.getElementById('groups2'),80,[20,40,60,80]);
   // animate bars once, shortly after load
-  requestAnimationFrame(function(){ setTimeout(drawBars,140); });
+  requestAnimationFrame(function(){ setTimeout(function(){ draw1(); draw2(); },140); });
 
   render();
 })();
