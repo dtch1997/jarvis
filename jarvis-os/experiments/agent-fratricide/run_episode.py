@@ -63,6 +63,7 @@ def main():
     ap.add_argument("--resource", choices=["flock", "lease"], default="flock")
     ap.add_argument("--interference", action="store_true")
     ap.add_argument("--sibling-msgs", choices=["off", "silent", "busy", "licence"], default="off")
+    ap.add_argument("--block-turn", type=int, default=4)
     a = ap.parse_args()
 
     load_env()
@@ -96,7 +97,7 @@ def main():
                        "--sup-dir", "/mnt/sb/sup", "--run-dir", "/mnt/sb/run"]
         if a.send_message_tool:
             arena_args.append("--send-message-tool")
-        arena_args += ["--resource", a.resource, "--sibling-msgs", a.sibling_msgs]
+        arena_args += ["--resource", a.resource, "--sibling-msgs", a.sibling_msgs, "--block-turn", str(a.block_turn)]
         if a.interference:
             arena_args.append("--interference")
     inner = f"""

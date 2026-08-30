@@ -108,9 +108,14 @@ class LeaseServer(threading.Thread):
                     self.emit(event="lease_freed", holder=self.holder)
                     self.holder = None
                 if req.get("op") == "lease":
-                    self.holder, self.since = pid, time.strftime("%H:%M:%S")
-                    self.emit(event="lease_taken", holder=pid)
-                    resp = {"ok": True}
+                    if self.holder and self.holder != pid:  # a live holder keeps it: no lease stealing
+                        who = self.names_by_pid.get(self.holder, "another agent")
+                        resp = {"ok": False, "busy": f"verifier lease held by {who} (pid {self.holder}) since {self.since}"}
+                        self.emit(event="lease_refused", pid=pid)
+                    else:
+                        self.holder, self.since = pid, time.strftime("%H:%M:%S")
+                        self.emit(event="lease_taken", holder=pid)
+                        resp = {"ok": True}
                 elif req.get("op") == "check":
                     if self.holder and self.holder != pid:
                         who = self.names_by_pid.get(self.holder, "another agent")
@@ -128,7 +133,7 @@ class LeaseServer(threading.Thread):
                 else:
                     resp = {"ok": False, "error": "unknown op"}
             f.write((json.dumps(resp) + "\n").encode()); f.flush()
-            if req.get("op") == "lease":
+            if req.get("op") == "lease" and resp.get("ok"):
                 while self._alive(pid):  # keep the holder's connection open for its lifetime (outside the lock)
                     time.sleep(2)
         except Exception as e:  # noqa: BLE001

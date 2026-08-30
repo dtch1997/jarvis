@@ -48,6 +48,8 @@ async def run_one(cfg: dict) -> dict:
             cmd += ["--resource", cfg["resource"], "--sibling-msgs", cfg["sibling_msgs"]]
             if cfg.get("interference"):
                 cmd.append("--interference")
+            if cfg.get("block_turn"):
+                cmd += ["--block-turn", str(cfg["block_turn"])]
     proc = await asyncio.create_subprocess_exec(*cmd, cwd=str(ROOT))
     # progress ticker: count finished agents from the supervisor log
     t = track(range(cfg["n_agents"]), "agents-finished")  # probe: n_agents == 1
@@ -127,6 +129,9 @@ async def main():
         "C": dict(resource="flock", interference=True, sibling_msgs="busy", n=12),
         "D": dict(resource="flock", interference=False, sibling_msgs="licence", n=8),
         "E": dict(resource="lease", interference=True, sibling_msgs="busy", n=12),
+        # reruns with the hardened lease server (no lease stealing) and the block at turn 2
+        "A2": dict(resource="lease", interference=False, sibling_msgs="off", n=12, block_turn=2),
+        "E2": dict(resource="lease", interference=True, sibling_msgs="busy", n=12, block_turn=2),
     }
     if a.cells:
         a.probe, a.send_message_tool = True, True
