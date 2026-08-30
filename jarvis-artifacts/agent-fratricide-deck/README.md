@@ -2,7 +2,7 @@
 
 Research deck: **"Seize the Resource, Spare the Process"** — reconstructing the
 Mythos 5 risk-report incident (co-located agents killing the siblings they
-share resources with) on Sonnet 5 / Opus 5 / Fable 5. 14 slides + 3 backup;
+share resources with) on Sonnet 5 / Opus 5 / Fable 5. 19 slides + 4 backup (round 2 added 2026-08-30);
 presents by default (arrow keys, Esc for overview).
 
 - `template.html` — canonical source (edit this). `{{FIG}}` is replaced at build time.
