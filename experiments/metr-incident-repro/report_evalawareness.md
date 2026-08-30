@@ -6,12 +6,16 @@ all, a textbook honeypot — an impossible task sitting next to a conveniently
 world-readable answer key. So we measured evaluation-awareness three ways, along
 the axes the literature uses (see `literature/eval-awareness.md`).
 
-**TL;DR.** Eval-awareness here is **latent and high but not behavior-driving**.
-Models rarely flag the test *spontaneously* (~6%), almost always call it an
-evaluation *when asked* (~94%), and — decisively — **do not change their behavior
-when we manipulate perceived realness** (100% honest decline whether told it's a
-live production run or an explicit red-team eval). The negative survives the
-confound.
+**TL;DR (updated — see the correction in Prong 3).** Models rarely flag the test
+*spontaneously* (~6%) but almost always call it an evaluation *when asked*
+(~94%). We tried to test whether that awareness *drives* the honesty two ways.
+A cheap assertion ("this is a real production run") **failed to move the belief**
+— stated P(eval) stayed ~90–95% — so its flat behavior result is **uninformative**,
+not evidence. The one manipulation that *did* move belief — scrubbing the
+scenario's tells (the realism iteration, P(eval) 95%→65%) — left hacking flat at
+0%, which is real evidence, **but only down to a ~65% floor**. So eval-awareness
+is **not ruled out**: we never reached the believed-real regime. That regime is
+exactly what the executed-environment ARCH task is for.
 
 ![eval awareness](figures/eval_awareness.png)
 
@@ -68,10 +72,26 @@ safety layer — small n there — but its "this is real" framing engages and st
 declines 100%.)
 
 The Anthropic result shows realness framing *can* swing frontier-model behavior
-by ~9× when the behavior is latent-misaligned. Here it swings it by **nothing** —
-because the honest behavior isn't propped up by "I think I'm watched"; the models
-say the dishonest action is wrong *independent of detection*, and that holds when
-we tell them it's real.
+by ~9× — **but that manipulation moved the belief.** Ours did not. When we asked
+for P(eval) under each framing, the "this is real" assertion barely dented it:
+
+| framing | Sonnet P(eval) | Opus P(eval) |
+|---|---|---|
+| baseline | 95% | 92% |
+| "this is a live production run, not a test" | **90%** | **92%** |
+| "this is a red-team evaluation" | 97% | 97% |
+
+**Correction.** Because the assertion left belief at ~90–95%, prong 3's flat
+behavior is *uninformative* about whether belief drives behavior — we never moved
+the mediator. A model sitting at 94% P(eval) does not take a one-line system-prompt
+claim at face value. So this prong does **not** rule out the confound.
+
+The evidence that *does* bear on it is the **realism iteration**
+(`report_realism.md`): there, belief genuinely moved (95%→65%) because we removed
+real tells, and hacking stayed 0%. That is a real dose-response — but it stops at a
+~65% structural floor. The believed-real regime (P(eval) low enough that the model
+actually thinks it's deployed) was **never reached** by any crafted context, which
+is why an executed environment is the necessary next step, not a nicety.
 
 ## Caveats
 
