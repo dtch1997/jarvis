@@ -41,6 +41,199 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-31: **row 9's blocking clause is re-registered on a statistic that can
+  express a sign — and scored on seeds that do not exist yet**
+  ([phd-thesis#229](https://github.com/dtch1997/phd-thesis/pull/229),
+  `specs/00e-row9-reregistration.md`). **Spec only, `$0`, nothing run** — the
+  grid is a separate later dispatch and the interval is the veto window. It
+  executes the closure route the bullet below names, and **overrules one word of
+  it**.
+
+  **What 00d left.** Row 9's composite failed on one sub-clause: `filler`'s
+  `pattern_r2_centered` measured `0.1010 ± 0.0108` against `≤ 0.10`, while every
+  clause carrying the row's content passed by a wide margin. That statistic
+  equals `corr²`, so it is **sign-blind** — it charges an anti-aligned control
+  exactly as much as an aligned one.
+
+  **And the floor is worse than 00d's REPORT records.** The REPORT quotes
+  `1/31 = 0.032`, the i.i.d. figure for a random 32-vector, and calls the bar
+  `3×` above it. But `hier8` plants its 32 read-out behaviors with mean pairwise
+  correlation `ρ = 0.06` — a config field, not an estimate — so by the same
+  `n/(1+ρ(n−1))` algebra 00b uses for the rank squeeze their effective count is
+  **`11.2`** and `E[corr²] ≈ 0.098`. **R9.1's bar sat *on* its own chance floor,
+  not three times above it.** The `0.001` was a coin landing on its edge, and
+  that changes what the repair has to be.
+
+  **The repair** (`R9.6`–`R9.9`, new labels, `R9.1` named as ancestor, every bar
+  movement justified in a table written before any data exists): the secondary
+  statistic becomes the **signed** centered pattern correlation and the `filler`
+  clause becomes **one-sided** (`ρ_c ≤ +0.35 = +1.95 σ₀`), because only
+  *positive* alignment threatens the hypothesis — that is what "a clause that can
+  express a sign" buys, stated concretely. The `self-leaf` clause is
+  **strengthened** (`ρ_c ≥ +0.55`; `0.55² > 0.30`, plus a sign the ancestor could
+  not require). A **new** paired signed-separation clause (`≥ +0.40`) is added so
+  the composite does not rest on one null bar, the way R9.1 proved fragile. On
+  magnitude the `filler` bar *is* looser (`0.1225` vs `0.10`) and is disclosed as
+  a loosening rather than hidden behind the word "repair". And the floor is
+  **measured, not asserted** — `≥ 2000` behavior permutations per cell plus the
+  `π = 0` untrained-token cells as a second empirical null — with the bars
+  pinned: whatever the calibration says, they do not move.
+
+  **The one word overruled: "no new compute".** 00d commits the per-behavior
+  `delta` and `delta_bayes` vectors for every condition and cell, so the signed
+  statistic on seeds 5–9 is three lines of numpy away — which means a verdict
+  read off them is a verdict read off the data that produced the miss. So the
+  clauses are scored **only on fresh seeds 10–14**, and the seen-data re-analysis
+  appears as a labelled exploratory arm 0′ that reproduces `0.1010` and `0.542`
+  as a check on the code path and can **never flip the row**. The spec states
+  plainly that its author knows `|ρ_c(filler)| = 0.318` on seeds 5–9, does *not*
+  know its sign, and derived `+0.35` from `σ₀ = 1/√31` and the one-sided 95 %
+  point and from nothing else — the defence being arithmetic a reader can check
+  without any measurement. **Cost of the overrule: 20 fresh CPU pretrains,
+  ≈ 2.2 h at concurrency 15, ≈ 48 core-hours, `$0`** — about a third of 00d's,
+  because the grid drops row 6 entirely, drops `self-family` (R9.4 stands), and
+  buys only the cells the row-9 protocol needs.
+
+  **Nothing already scored is re-scored.** R9.2–R9.5 and all of row 6 stand as
+  recorded; 00d's `REPORT.md`, `PREREG.md` and `analysis.json` must be
+  **byte-identical** after the run, and the keeper-liftable completion gate
+  checks that with `git diff --quiet` beside the sealed-by-git-order rule (the
+  `PREREG.md` commit a strict ancestor of the `results.jsonl` commit). Four
+  pre-registered outcome classes, each with its chapter sentence fixed in
+  advance: **9-A′** closed; **9-B′ open on substance rather than on instrument**
+  (the control genuinely carries a positive centered pattern — a claim about
+  transformers, not about a bar); **9-C′** non-replication at a third seed block,
+  the outcome 00d itself named as likeliest and then did not hit; **9-D′**
+  instrument-limited, where the honest conclusion is that row 9 needs **more
+  read-out behaviors, not another bar**. Chapter seams are pinpointed against the
+  *open* branch `psm-00d-chapter-integration` at `df0b256`, not `main`, and two
+  of them change under **every** class — because both currently assert the
+  closure costs no new compute. Filed on the way through:
+  [phd-thesis#230](https://github.com/dtch1997/phd-thesis/issues/230), the 00d
+  driver's row stamp clobbering `selfdesc`'s finetune `lr` with the pretrain one,
+  so `results.jsonl` reads `3e-4` where the finetune ran at `3e-5` and the
+  cold-LR hygiene claim is unverifiable from the committed bytes. Numbers
+  unaffected; 00e registers the fix for its own driver. Actions is still
+  billing-wedged ([jarvis#139](https://github.com/dtch1997/jarvis/issues/139)),
+  so #229's checks are red before a runner is assigned; the diff is `specs/`-only
+  and needs no build.
+
+- 2026-08-31: **row 6 is recovered and row 9 misses by one part in a thousand —
+  both verdicts measured, and both now in the chapter**
+  ([phd-thesis#227](https://github.com/dtch1997/phd-thesis/pull/227) carries the
+  whole record: the run *and* the chapter integration;
+  [#224](https://github.com/dtch1997/phd-thesis/pull/224) was the run PR and is
+  **closed, folded into #227**. `experiments/psm-learnable-rerun/REPORT.md`,
+  register `latex/notes/psm-chapter-00d-integration-2026-08-31.md`). **`$0`, CPU
+  only** — 55 fresh `hier8` pretrains, seeds 5–9, `n_embd ∈ {192, 256}`, matched
+  evidence `MI = 0.45`, `--threads 2`, ≈4 140 result rows, 59.3 core-hours; no
+  GPU, no pod, no paid API. The pair discharges the 2026-08-26 spec bullet below:
+  the two rows the chapter carried as open *for instrument reasons and not
+  substantive ones* now have answers.
+
+  **The fact that makes the rest of it a measurement of a phenomenon rather than
+  of a checkpoint: every single cell cleared the pre-registered learnability
+  threshold.** Captured fraction runs `0.79`–`0.96` against a bar of `0.60`; the
+  exclusion table is empty. 00b measured both rows in a grid that had captured
+  `≈ 0 %` of the available information, which is the escape hatch that voided its
+  version and the reason the chapter could say nothing substantive about either.
+
+  **Row 6 → class 6-A, recovered — this is the sentence the chapter has been
+  unable to write for four specs.** The graded channel is affine over a working
+  range of `2.76 ± 0.14` levels, steers held-out behaviors at
+  `R² = 0.845 ± 0.027`, transfers in sign to behaviors held out of the direction
+  fit at `0.880 ± 0.009`, and reads the exact posterior off held-out contexts
+  *and* held-out behaviors at slope `0.861 ± 0.008` (`R² = 0.806 ± 0.006`). There
+  is **not a single reversal** anywhere — inner grid at `|λ| ≤ 1.5` or saturation
+  shoulders to `|λ| = 4`, across 55 cells × 5 seeds × 7 character directions — so
+  the response *saturates* rather than inverting, which is the qualitative claim
+  the row is about. The `L = 2` binary sibling reproduces the graded slope to
+  **`0.0016`**, which makes the binary trait the chapter has used since its first
+  toy the *measured* `L = 2` special case of the graded law rather than an analogy
+  to it. 4/5 predictions hit; composition (R6.3) misses its magnitude bar by
+  **`0.0009`** in the predicted direction, at `3.4` s.e.m. on the paired contrast,
+  and the bar was not moved — note it had *already* been weakened from 00b's P7,
+  so the weakening bought nothing.
+
+  **Row 9 → class 9-B, still open, and the label understates it.** Training on
+  `BIOGRAPHY. persona: <leaf>` — with no behavior field anywhere in the
+  finetuning data — moves the 32 untouched behaviors at
+  `cos(Δ, Δ^Bayes) = 0.775 ± 0.020` against a posterior computed *before* the
+  finetune ran with nothing fitted, at `0.82`/`0.94` of the magnitude of
+  finetuning those behaviors directly, against point predictions of `0.81`/`0.93`.
+  The rarity- and slot-matched `filler` gives `−0.037 ± 0.029` (paired separation
+  `0.812 ± 0.030`, `7.7` s.e.m. apart on norm, so class 9-C, the rarity artifact,
+  is excluded outright); the `π` dose–response is monotone at `1.70×`; and the
+  `π = 0` untrained-token null — the identical finetune on a checkpoint whose
+  corpus *never emitted an identity token* — is flat at `−0.028`. So the carrier
+  is the token's **learned diagnosticity**, not its rarity — the clause nothing in
+  this program had ever measured on a checkpoint that learned the world. **The row
+  stays open because one registered sub-clause required the filler control's
+  centered `R²` at or below `0.10` and it measured `0.1010 ± 0.0108`.** That
+  statistic equals `corr²`, cannot express a sign, and has a chance floor of
+  `1/31 = 0.032` — the bar sat only ~`3×` above what a null control reaches for
+  free — but it was registered as written, and **the bar was not moved.** The row
+  falls through to 9-B, whose canonical wording ("R9.1 holds, R9.3 fails") is the
+  inverse of what happened and is recorded as such. Closing it needs a
+  re-registered secondary clause that can express a sign and **no new compute**
+  — the measurement already exists in `results.jsonl` — and belongs in a fresh
+  spec, not a retrofit.
+
+  **Three things worth keeping beyond the two verdicts.** (i) *The uncounted pilot
+  replicated at fresh seeds.* The spec named non-replication as "the likeliest
+  single outcome worth planning for"; every headline moved by less than a seed
+  s.e.m. between seeds 0–4 and 5–9, so it did not occur. (ii) *The anti-Goodhart
+  seal held mechanically, not on trust* — `PREREG.md`, `repair.py`, `cells.py`,
+  `targets.json` and `test_learnable.py` landed in `11cec5e` before the first
+  checkpoint of the spec existed, and `analyze.py` refuses to read a single result
+  row until that commit is an ancestor of `HEAD` **and** the file's bytes still
+  match (verify on the branch — a squash merge collapses the ordering). (iii) *A
+  five-day stall, and what recovered it.* The detached driver was killed by a box
+  reboot on ~2026-08-28 with 50 of 55 cells done and `DRIVER_EXIT` never written;
+  the five missing cells were all of arm B, last in the schedule and descope rung
+  1. Rather than invoke the descope ladder, arm B was re-run on the same pinned
+  config against an idempotent driver, so nothing already computed was recomputed.
+  **This decided a verdict and not merely completeness:** the class-6-D clause
+  ("the substrate, not the phenomenon, failed") turns on four `S256` arm-G′ groups
+  clearing the threshold, and a descoped arm B would have registered three and
+  forced 6-D — a label flatly false of a run whose other 50 cells cleared at
+  `0.79`–`0.96`. Arm B came in at `0.923 ± 0.004`, the highest of any arm. Also
+  worth a later spec: R9.4 splits, with the model **under**-using precise identity
+  evidence and **over**-using coarse evidence, both by about `2×` against the
+  exact posterior.
+
+  **The chapter integration** replaces both voided clauses at the seams spec 00d
+  pre-registered in its own §11, adds a self-descriptive figure beside 00b's flat
+  one (regenerated from committed code as a #198 check — the PNG comes back
+  byte-identical), and inherits the verdicts into the C7/C4 status sentences in
+  `sec:psm:related:constraints` and `sec:psm:discussion`. `tab:psm:facts` is
+  untouched (neither row landed a *refuted* class, and the evidential grades are
+  grades on the literature). The 9-A sentence spec §11 pre-wrote is quoted **only
+  in the negative** — as the sentence the chapter still does not write, with the
+  `0.001` named as the whole of what stands in its way. `specs/README.md` moves
+  00d specced → executed + integrated.
+
+  - 2026-08-31 (consolidation): the landing surface for all of this was flattened
+    so it lands in **one** gazette sweep. phd-thesis **#227 was de-stacked onto
+    `main`** (its branch already had #224's as an ancestor, so the head is
+    unchanged and the diff simply widened to run + integration, 35 files,
+    MERGEABLE); **#224 was closed and folded into it** — had #224 squash-merged
+    first, GitHub would have retargeted #227 and re-attributed #224's commits into
+    its own diff, wedging the integration a second time. On this side, the
+    duplicate frontier PR **jarvis#144 was closed into this one** (jarvis#99 fold
+    idiom, jarvis#100 append-conflict class) and its content merged into the
+    bullet above, so exactly one PR appends here. No branch was deleted or
+    force-pushed. **Nothing above is blocked on code:** every CI job on *both*
+    repos is refused by GitHub before a runner is assigned — `steps == 0`,
+    annotation *"recent account payments have failed or your spending limit needs
+    to be increased"* — i.e. an Actions **billing** block on the account, not a
+    test bug and not a workflow bug (jarvis#139, re-diagnosed and retitled; the
+    earlier phd-thesis#225 "runner failure" reading is superseded). **The fix is
+    Daniel's Billing & plans page**, and when it lands the red checks do **not**
+    re-run themselves: kick them with
+    `gh run rerun 33379716451 --failed -R dtch1997/phd-thesis` and the equivalent
+    on this PR, then the gazette sweeps both.
+
 - 2026-08-31: **the PSM chapter's own opening now says what the rest of the
   thesis says about it — five claims, not four**
   ([phd-thesis#228](https://github.com/dtch1997/phd-thesis/pull/228)). `$0`,
