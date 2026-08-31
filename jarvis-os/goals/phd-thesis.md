@@ -41,6 +41,38 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **the composite state gets read before it gets merged** — the
+  thesis's recovery-matrix arc audited end-to-end in `main` + `#234` + `#228`,
+  the state that lands on fix-day and that **nothing had ever built**
+  (phd-thesis ledger `latex/notes/psm-composite-qa-2026-09-01.md`, on #234).
+  **CPU only, `$0`, three mechanical fixes, eight items registered.** CI builds
+  each PR against `main` and never against its siblings, and with Actions
+  billing-frozen it has not built anything at all — so a gazette sweep would
+  have merged two PRs whose union no build and no reader had seen. Row 9's
+  verdict flipped three times in ~24 h (9-B → 9-C′ → **9-A″
+  width-conditional**) across six worker sessions on stacked branches, and the
+  close read (phd-thesis#221) predates every word of it. **Result: the
+  composite builds clean — 315 pages, all eight asserted zeros at zero,
+  spellcheck exit-0 — the two PRs still merge conflict-free into each other,
+  and all ~60 numbers the row-6/row-9 arc quotes match their experiment of
+  record with zero mismatches** (00d/00e/00f `analysis.json`, not the REPORTs'
+  prose). What the stitch did leave behind was provenance, not arithmetic:
+  `sec:psm:structure:rank`'s section-level comment still declared
+  `ROW9-VERDICT still open (class 9-B)` for a section that now runs the whole
+  00d→00e→00f arc and concludes 9-A″, and neither `psm-row9-reregistration`
+  nor `psm-row9-adjudication` was named anywhere in `latex/` although the
+  chapter quotes ~30 numbers from them; 00b's figure caption still asserted
+  "row 9 **is** recorded as open" in the present tense; and `specs/README.md`
+  still headed 00e and 00f "**specced**" on the very branch that lands their
+  runs — which matters because 00f's spec text reasons from a dispersion ratio
+  of `2.87` that **00f's own run refuted** (`1.35`, `p = .195`, class W-2).
+  All three fixed on #234; the daggered-row-6 asymmetry, the panel that reads
+  `(class 9-B)` under a caption that ends `9-A″`, and a roadmap row naming a
+  Conclusion clause that does not exist are registered for a post-merge
+  editorial pass. Still exactly **two** open PRs, no new one opened, the
+  composite branch never pushed. Discipline #184/#199/#220/#221; fold idiom
+  jarvis#99.
+
 - 2026-08-31: **the 00d/00e/00f stack folded to one PR before the billing
   freeze could jam it** — phd-thesis is down to **two** open, main-targeted
   PRs ([#234](https://github.com/dtch1997/phd-thesis/pull/234) and
