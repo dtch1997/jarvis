@@ -41,6 +41,55 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-31: **row 6 is recovered at toy scale; row 9's effect is now
+  unmistakable and the row stays open by one part in a thousand**
+  ([phd-thesis#224](https://github.com/dtch1997/phd-thesis/pull/224), spec 00d
+  executed). 55 CPU pretrains, seeds 5-9, `n_embd in {192,256}`, matched
+  evidence `MI = 0.45`, `--threads 2`, **59.3 core-hours, `$0`** -- no GPU, no
+  pod, no paid API; `latex/` untouched. **The precondition held:** all 55 cells
+  cleared the pre-registered learnability threshold (captured fraction
+  `0.79-0.96` against a `0.60` bar, exclusion table empty), so this is a
+  measurement of a phenomenon and not of a checkpoint -- which is the escape
+  hatch that voided 00b's version. **Row 6 -> class 6-A, recovered:** the
+  graded channel is affine over `+-2.76` graded levels, transfers to behaviors
+  held out of the direction fit at `0.880 +- 0.009`, held-out steering
+  `R^2 = 0.845 +- 0.027`, and has **zero reversals** across 55 cells x 5 seeds
+  x 7 characters (inner grid and saturation shoulders alike); the `L = 2`
+  binary sibling reproduces the graded slope to **`0.0016`**, so the program's
+  binary trait is the measured special case of the graded law rather than an
+  analogy to it. **Row 9 -> class 9-B, still open:** training on nothing but a
+  leaf name moves the 32 untouched behaviors at `cos(Delta, Delta^Bayes) =
+  0.775 +- 0.020` against a posterior computed before the finetune ran, at
+  `0.82-0.94` of the `direct` magnitude (point predictions `0.81` / `0.93`),
+  while the rarity- and slot-matched filler gives `-0.037 +- 0.029` (paired
+  separation `0.812 +- 0.030`, `7.7` s.e.m. apart on norm, so the rarity-artifact
+  class is firmly excluded); the `pi` dose-response is monotone at `1.70x` and
+  the `pi = 0` untrained-token null is flat at `-0.028` -- so the carrier is the
+  token's *learned diagnosticity*, not its rarity, which is the clause nothing
+  in this program had ever measured on a checkpoint that learned the world.
+  **Why it still doesn't close, and this is the interesting part:** R9.1 as
+  registered *also* required the filler's centered `R^2 <= 0.10` and it measured
+  `0.1010 +- 0.0108` -- on a statistic that equals `corr^2`, cannot express a
+  sign, and has a `1/31 = 0.032` chance floor, so the bar sat only `3x` above
+  what a null control reaches for free. Scored a miss; **the bar was not
+  moved**; the row falls through to 9-B, whose canonical wording ("R9.1 holds,
+  R9.3 fails") is the inverse of what happened and is recorded as such. Closing
+  it is a one-line re-registration and zero new compute -- the measurement is
+  already in `results.jsonl` -- and belongs in a fresh spec, not a retrofit.
+  Also: **the uncounted pilot replicated at fresh seeds** (every headline moved
+  by less than a seed s.e.m. between seeds 0-4 and 5-9), so the spec's own
+  "likeliest single outcome worth planning for" did not occur; and R9.4 splits
+  in a way worth a later spec -- the model **under**-uses precise identity
+  evidence and **over**-uses coarse evidence, both by about `2x` against the
+  exact posterior. Anti-Goodhart was git order and enforced, not promised:
+  `PREREG.md` landed in `11cec5e` before the first checkpoint existed and
+  `analyze.py` refuses to read a result row until that commit is an ancestor of
+  `HEAD`. **Next keeper unit: chapter integration** (spec 00d section 11 names
+  the seams). One caveat on the PR: all three CI jobs fail in 2s with zero steps
+  executed -- an Actions runner failure, not the diff
+  ([phd-thesis#225](https://github.com/dtch1997/phd-thesis/issues/225)) -- so
+  the gazette cannot sweep it until Actions recovers.
+
 - 2026-08-26: **the two recovery-matrix rows the unlearnable grid voided now
   have a spec that re-takes them where the model can learn**
   ([phd-thesis#222](https://github.com/dtch1997/phd-thesis/pull/222),
