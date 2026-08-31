@@ -41,54 +41,121 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
-- 2026-08-31: **row 6 is recovered at toy scale; row 9's effect is now
-  unmistakable and the row stays open by one part in a thousand**
-  ([phd-thesis#224](https://github.com/dtch1997/phd-thesis/pull/224), spec 00d
-  executed). 55 CPU pretrains, seeds 5-9, `n_embd in {192,256}`, matched
-  evidence `MI = 0.45`, `--threads 2`, **59.3 core-hours, `$0`** -- no GPU, no
-  pod, no paid API; `latex/` untouched. **The precondition held:** all 55 cells
-  cleared the pre-registered learnability threshold (captured fraction
-  `0.79-0.96` against a `0.60` bar, exclusion table empty), so this is a
-  measurement of a phenomenon and not of a checkpoint -- which is the escape
-  hatch that voided 00b's version. **Row 6 -> class 6-A, recovered:** the
-  graded channel is affine over `+-2.76` graded levels, transfers to behaviors
-  held out of the direction fit at `0.880 +- 0.009`, held-out steering
-  `R^2 = 0.845 +- 0.027`, and has **zero reversals** across 55 cells x 5 seeds
-  x 7 characters (inner grid and saturation shoulders alike); the `L = 2`
-  binary sibling reproduces the graded slope to **`0.0016`**, so the program's
-  binary trait is the measured special case of the graded law rather than an
-  analogy to it. **Row 9 -> class 9-B, still open:** training on nothing but a
-  leaf name moves the 32 untouched behaviors at `cos(Delta, Delta^Bayes) =
-  0.775 +- 0.020` against a posterior computed before the finetune ran, at
-  `0.82-0.94` of the `direct` magnitude (point predictions `0.81` / `0.93`),
-  while the rarity- and slot-matched filler gives `-0.037 +- 0.029` (paired
-  separation `0.812 +- 0.030`, `7.7` s.e.m. apart on norm, so the rarity-artifact
-  class is firmly excluded); the `pi` dose-response is monotone at `1.70x` and
-  the `pi = 0` untrained-token null is flat at `-0.028` -- so the carrier is the
-  token's *learned diagnosticity*, not its rarity, which is the clause nothing
-  in this program had ever measured on a checkpoint that learned the world.
-  **Why it still doesn't close, and this is the interesting part:** R9.1 as
-  registered *also* required the filler's centered `R^2 <= 0.10` and it measured
-  `0.1010 +- 0.0108` -- on a statistic that equals `corr^2`, cannot express a
-  sign, and has a `1/31 = 0.032` chance floor, so the bar sat only `3x` above
-  what a null control reaches for free. Scored a miss; **the bar was not
-  moved**; the row falls through to 9-B, whose canonical wording ("R9.1 holds,
-  R9.3 fails") is the inverse of what happened and is recorded as such. Closing
-  it is a one-line re-registration and zero new compute -- the measurement is
-  already in `results.jsonl` -- and belongs in a fresh spec, not a retrofit.
-  Also: **the uncounted pilot replicated at fresh seeds** (every headline moved
-  by less than a seed s.e.m. between seeds 0-4 and 5-9), so the spec's own
-  "likeliest single outcome worth planning for" did not occur; and R9.4 splits
-  in a way worth a later spec -- the model **under**-uses precise identity
-  evidence and **over**-uses coarse evidence, both by about `2x` against the
-  exact posterior. Anti-Goodhart was git order and enforced, not promised:
-  `PREREG.md` landed in `11cec5e` before the first checkpoint existed and
-  `analyze.py` refuses to read a result row until that commit is an ancestor of
-  `HEAD`. **Next keeper unit: chapter integration** (spec 00d section 11 names
-  the seams). One caveat on the PR: all three CI jobs fail in 2s with zero steps
-  executed -- an Actions runner failure, not the diff
-  ([phd-thesis#225](https://github.com/dtch1997/phd-thesis/issues/225)) -- so
-  the gazette cannot sweep it until Actions recovers.
+- 2026-08-31: **row 6 is recovered and row 9 misses by one part in a thousand —
+  both verdicts measured, and both now in the chapter**
+  ([phd-thesis#227](https://github.com/dtch1997/phd-thesis/pull/227) carries the
+  whole record: the run *and* the chapter integration;
+  [#224](https://github.com/dtch1997/phd-thesis/pull/224) was the run PR and is
+  **closed, folded into #227**. `experiments/psm-learnable-rerun/REPORT.md`,
+  register `latex/notes/psm-chapter-00d-integration-2026-08-31.md`). **`$0`, CPU
+  only** — 55 fresh `hier8` pretrains, seeds 5–9, `n_embd ∈ {192, 256}`, matched
+  evidence `MI = 0.45`, `--threads 2`, ≈4 140 result rows, 59.3 core-hours; no
+  GPU, no pod, no paid API. The pair discharges the 2026-08-26 spec bullet below:
+  the two rows the chapter carried as open *for instrument reasons and not
+  substantive ones* now have answers.
+
+  **The fact that makes the rest of it a measurement of a phenomenon rather than
+  of a checkpoint: every single cell cleared the pre-registered learnability
+  threshold.** Captured fraction runs `0.79`–`0.96` against a bar of `0.60`; the
+  exclusion table is empty. 00b measured both rows in a grid that had captured
+  `≈ 0 %` of the available information, which is the escape hatch that voided its
+  version and the reason the chapter could say nothing substantive about either.
+
+  **Row 6 → class 6-A, recovered — this is the sentence the chapter has been
+  unable to write for four specs.** The graded channel is affine over a working
+  range of `2.76 ± 0.14` levels, steers held-out behaviors at
+  `R² = 0.845 ± 0.027`, transfers in sign to behaviors held out of the direction
+  fit at `0.880 ± 0.009`, and reads the exact posterior off held-out contexts
+  *and* held-out behaviors at slope `0.861 ± 0.008` (`R² = 0.806 ± 0.006`). There
+  is **not a single reversal** anywhere — inner grid at `|λ| ≤ 1.5` or saturation
+  shoulders to `|λ| = 4`, across 55 cells × 5 seeds × 7 character directions — so
+  the response *saturates* rather than inverting, which is the qualitative claim
+  the row is about. The `L = 2` binary sibling reproduces the graded slope to
+  **`0.0016`**, which makes the binary trait the chapter has used since its first
+  toy the *measured* `L = 2` special case of the graded law rather than an analogy
+  to it. 4/5 predictions hit; composition (R6.3) misses its magnitude bar by
+  **`0.0009`** in the predicted direction, at `3.4` s.e.m. on the paired contrast,
+  and the bar was not moved — note it had *already* been weakened from 00b's P7,
+  so the weakening bought nothing.
+
+  **Row 9 → class 9-B, still open, and the label understates it.** Training on
+  `BIOGRAPHY. persona: <leaf>` — with no behavior field anywhere in the
+  finetuning data — moves the 32 untouched behaviors at
+  `cos(Δ, Δ^Bayes) = 0.775 ± 0.020` against a posterior computed *before* the
+  finetune ran with nothing fitted, at `0.82`/`0.94` of the magnitude of
+  finetuning those behaviors directly, against point predictions of `0.81`/`0.93`.
+  The rarity- and slot-matched `filler` gives `−0.037 ± 0.029` (paired separation
+  `0.812 ± 0.030`, `7.7` s.e.m. apart on norm, so class 9-C, the rarity artifact,
+  is excluded outright); the `π` dose–response is monotone at `1.70×`; and the
+  `π = 0` untrained-token null — the identical finetune on a checkpoint whose
+  corpus *never emitted an identity token* — is flat at `−0.028`. So the carrier
+  is the token's **learned diagnosticity**, not its rarity — the clause nothing in
+  this program had ever measured on a checkpoint that learned the world. **The row
+  stays open because one registered sub-clause required the filler control's
+  centered `R²` at or below `0.10` and it measured `0.1010 ± 0.0108`.** That
+  statistic equals `corr²`, cannot express a sign, and has a chance floor of
+  `1/31 = 0.032` — the bar sat only ~`3×` above what a null control reaches for
+  free — but it was registered as written, and **the bar was not moved.** The row
+  falls through to 9-B, whose canonical wording ("R9.1 holds, R9.3 fails") is the
+  inverse of what happened and is recorded as such. Closing it needs a
+  re-registered secondary clause that can express a sign and **no new compute**
+  — the measurement already exists in `results.jsonl` — and belongs in a fresh
+  spec, not a retrofit.
+
+  **Three things worth keeping beyond the two verdicts.** (i) *The uncounted pilot
+  replicated at fresh seeds.* The spec named non-replication as "the likeliest
+  single outcome worth planning for"; every headline moved by less than a seed
+  s.e.m. between seeds 0–4 and 5–9, so it did not occur. (ii) *The anti-Goodhart
+  seal held mechanically, not on trust* — `PREREG.md`, `repair.py`, `cells.py`,
+  `targets.json` and `test_learnable.py` landed in `11cec5e` before the first
+  checkpoint of the spec existed, and `analyze.py` refuses to read a single result
+  row until that commit is an ancestor of `HEAD` **and** the file's bytes still
+  match (verify on the branch — a squash merge collapses the ordering). (iii) *A
+  five-day stall, and what recovered it.* The detached driver was killed by a box
+  reboot on ~2026-08-28 with 50 of 55 cells done and `DRIVER_EXIT` never written;
+  the five missing cells were all of arm B, last in the schedule and descope rung
+  1. Rather than invoke the descope ladder, arm B was re-run on the same pinned
+  config against an idempotent driver, so nothing already computed was recomputed.
+  **This decided a verdict and not merely completeness:** the class-6-D clause
+  ("the substrate, not the phenomenon, failed") turns on four `S256` arm-G′ groups
+  clearing the threshold, and a descoped arm B would have registered three and
+  forced 6-D — a label flatly false of a run whose other 50 cells cleared at
+  `0.79`–`0.96`. Arm B came in at `0.923 ± 0.004`, the highest of any arm. Also
+  worth a later spec: R9.4 splits, with the model **under**-using precise identity
+  evidence and **over**-using coarse evidence, both by about `2×` against the
+  exact posterior.
+
+  **The chapter integration** replaces both voided clauses at the seams spec 00d
+  pre-registered in its own §11, adds a self-descriptive figure beside 00b's flat
+  one (regenerated from committed code as a #198 check — the PNG comes back
+  byte-identical), and inherits the verdicts into the C7/C4 status sentences in
+  `sec:psm:related:constraints` and `sec:psm:discussion`. `tab:psm:facts` is
+  untouched (neither row landed a *refuted* class, and the evidential grades are
+  grades on the literature). The 9-A sentence spec §11 pre-wrote is quoted **only
+  in the negative** — as the sentence the chapter still does not write, with the
+  `0.001` named as the whole of what stands in its way. `specs/README.md` moves
+  00d specced → executed + integrated.
+
+  - 2026-08-31 (consolidation): the landing surface for all of this was flattened
+    so it lands in **one** gazette sweep. phd-thesis **#227 was de-stacked onto
+    `main`** (its branch already had #224's as an ancestor, so the head is
+    unchanged and the diff simply widened to run + integration, 35 files,
+    MERGEABLE); **#224 was closed and folded into it** — had #224 squash-merged
+    first, GitHub would have retargeted #227 and re-attributed #224's commits into
+    its own diff, wedging the integration a second time. On this side, the
+    duplicate frontier PR **jarvis#144 was closed into this one** (jarvis#99 fold
+    idiom, jarvis#100 append-conflict class) and its content merged into the
+    bullet above, so exactly one PR appends here. No branch was deleted or
+    force-pushed. **Nothing above is blocked on code:** every CI job on *both*
+    repos is refused by GitHub before a runner is assigned — `steps == 0`,
+    annotation *"recent account payments have failed or your spending limit needs
+    to be increased"* — i.e. an Actions **billing** block on the account, not a
+    test bug and not a workflow bug (jarvis#139, re-diagnosed and retitled; the
+    earlier phd-thesis#225 "runner failure" reading is superseded). **The fix is
+    Daniel's Billing & plans page**, and when it lands the red checks do **not**
+    re-run themselves: kick them with
+    `gh run rerun 33379716451 --failed -R dtch1997/phd-thesis` and the equivalent
+    on this PR, then the gazette sweeps both.
 
 - 2026-08-26: **the two recovery-matrix rows the unlearnable grid voided now
   have a spec that re-takes them where the model can learn**
