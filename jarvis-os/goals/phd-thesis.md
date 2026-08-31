@@ -41,6 +41,95 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-31: **row 6 is recovered and row 9 misses by one part in a thousand
+  — both verdicts measured, and both now in the chapter**
+  ([phd-thesis#224](https://github.com/dtch1997/phd-thesis/pull/224) the run,
+  [phd-thesis#227](https://github.com/dtch1997/phd-thesis/pull/227) the chapter
+  integration; `experiments/psm-learnable-rerun/REPORT.md`, register
+  `latex/notes/psm-chapter-00d-integration-2026-08-31.md`). **`$0`, CPU only**
+  — 55 fresh `hier8` pretrains, 59.3 core-hours at 2 threads, no GPU, no pod,
+  no paid API. The pair discharges the 2026-08-26 spec bullet above: the two
+  rows the chapter carried as open *for instrument reasons* now have answers.
+
+  **The fact that makes the rest of it a measurement of a phenomenon rather
+  than of a checkpoint: every single cell cleared the pre-registered
+  learnability threshold.** Captured fraction runs `0.79`–`0.96` against a bar
+  of `0.60`; the exclusion table is empty. 00b measured both rows in a grid
+  that had captured `≈ 0 %` of the available information, which is why the
+  chapter could say nothing substantive about either.
+
+  **Row 6 → class 6-A, recovered — this is the sentence the chapter has been
+  unable to write for four specs.** The graded channel is affine over a working
+  range of `2.76 ± 0.14` levels, steers held-out behaviors at
+  `R² = 0.845 ± 0.027`, transfers in sign to behaviors held out of the
+  direction fit at `0.880 ± 0.009`, and reads the exact posterior off held-out
+  contexts *and* held-out behaviors at slope `0.861 ± 0.008`. There is **not a
+  single reversal** anywhere — inner grid or saturation shoulders, across 55
+  cells × 5 seeds × 7 character directions — so the response *saturates* rather
+  than inverting, which is the qualitative claim the row is about. The `L = 2`
+  binary sibling reproduces the graded slope to **`0.0016`**, which makes the
+  binary trait the chapter has used since its first toy the *measured* `L = 2`
+  special case of the graded law rather than an analogy to it. 4/5 predictions
+  hit; composition (R6.3) misses its magnitude bar by **`0.0009`** in the
+  predicted direction, at `3.4` s.e.m. on the paired contrast, and the bar was
+  not moved.
+
+  **Row 9 → class 9-B, still open, and the label understates it.** Training on
+  `BIOGRAPHY. persona: <leaf>` — with no behavior field anywhere in the
+  finetuning data — moves 32 untouched behaviors at
+  `cos(Δ, Δ^Bayes) = 0.775 ± 0.020` against a posterior computed *before* the
+  finetune ran with nothing fitted, at `0.82`/`0.94` of the magnitude of
+  finetuning those behaviors directly, against point predictions of
+  `0.81`/`0.93`. The rarity- and slot-matched filler gives `−0.037 ± 0.029`
+  (paired separation `0.812 ± 0.030`, `7.7` s.e.m. apart on norm, so the
+  rarity-artifact class is excluded outright); the `π` dose–response is
+  monotone at `1.70×`; and the `π = 0` untrained-token null — the identical
+  finetune on a checkpoint whose corpus *never emitted an identity token* — is
+  flat at `−0.028`. So the carrier is the token's **learned diagnosticity**,
+  not its rarity. **The row stays open because one registered sub-clause
+  required the filler control's centered `R²` at or below `0.10` and it
+  measured `0.1010 ± 0.0108`.** That statistic is `corr²`, hence sign-blind,
+  with a chance floor of `1/31 = 0.032` — the bar sat only ~`3×` above what a
+  null control reaches for free — but it was registered as written, and **the
+  bar was not moved.** Closing the row needs a re-registered secondary clause
+  that can express a sign and **no new compute**; the measurement already
+  exists in `results.jsonl`.
+
+  **Three things worth keeping beyond the two verdicts.** (i) *The uncounted
+  pilot replicated.* The spec named non-replication at fresh seeds as "the
+  likeliest single outcome worth planning for"; every headline moved by less
+  than a seed s.e.m. between seeds 0–4 and 5–9. (ii) *The anti-Goodhart seal
+  held mechanically, not on trust* — `PREREG.md` landed in `11cec5e` before the
+  first checkpoint existed, and `analyze.py` refuses to read a result row until
+  that commit is an ancestor of `HEAD` **and** the file's bytes still match.
+  (iii) *A five-day stall, and what recovered it.* The detached driver was
+  killed by a box reboot on ~2026-08-28 with 50 of 55 cells done and
+  `DRIVER_EXIT` never written; the five missing cells were all of arm B, last
+  in the schedule. Rather than invoke the descope ladder, arm B was re-run on
+  the same pinned config against an idempotent driver, so nothing already
+  computed was recomputed. **This decided a verdict and not merely
+  completeness:** the class-6-D clause ("the substrate, not the phenomenon,
+  failed") turns on four `S256` arm-G′ groups clearing the threshold, and a
+  descoped arm B would have registered three and forced 6-D — a label flatly
+  false of a run whose other 50 cells cleared at `0.79`–`0.96`. Arm B came in
+  at `0.923`, the highest of any arm.
+
+  **The chapter integration (#227)** replaces both voided clauses at the seams
+  spec 00d pre-registered in its own §11, adds a self-descriptive figure beside
+  00b's flat one, and inherits the verdicts into the C7/C4 status sentences in
+  `sec:psm:related:constraints` and `sec:psm:discussion`. `tab:psm:facts` is
+  untouched (neither row landed a *refuted* class, and the evidential grades
+  are grades on the literature). The 9-A sentence spec §11 pre-wrote is quoted
+  **only in the negative** — as the sentence the chapter still does not write,
+  with the `0.001` named as the whole of what stands in its way. **Both PRs sit
+  red-checked and unmerged for a reason that is not theirs:** GitHub Actions on
+  this account is billing-blocked (every job fails at start in ~2 s;
+  `.github#1`), so the #197/#212 zero-warning state is established by running
+  `build_thesis.sh`, `check_build.sh` and `spellcheck.py` locally on **both**
+  the branch and its base ref — all six exit 0, and the register tabulates both
+  outputs. #227 is stacked on `psm-learnable-rerun-run` and retargets to `main`
+  automatically once #224 merges.
+
 - 2026-08-26: **the two recovery-matrix rows the unlearnable grid voided now
   have a spec that re-takes them where the model can learn**
   ([phd-thesis#222](https://github.com/dtch1997/phd-thesis/pull/222),
