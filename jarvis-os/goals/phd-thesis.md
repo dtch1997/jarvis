@@ -41,6 +41,100 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-31: **the chapter writes row 9's sentence — recovered at toy scale,
+  width-conditional on `n_embd = 256`**
+  ([phd-thesis#234](https://github.com/dtch1997/phd-thesis/pull/234)). The
+  downstream unit spec 00f §11 defines, executed under the classes that landed.
+  **Writing only, `$0` — nothing is run, nothing already scored is re-scored.**
+
+  **The seam that mattered.** The Conclusion had carried a reproducibility
+  claim with no number — *"a magnitude that travels that far between two
+  disjoint seed blocks of one design is not yet a magnitude the chapter can
+  quote as the posterior's."* It now carries V-2's two numbers: a five-seed
+  block mean reproduces to an s.d. of **`0.1404`**, and the program's best
+  estimate is the twenty-seed pooled **`0.6965 ± 0.0314`**. The sentence 00b
+  wrote as a conditional and could not cash — *training a model on nothing but
+  its own name moves thirty-two behaviors it never saw, in the pattern and at
+  the magnitude the exact posterior predicts, while a rarity-matched control in
+  the same syntactic slot does not* — is written in the affirmative, with the
+  six ten-seed numbers at 00e's unchanged bars and the width condition in the
+  same clause. **The `0.001` miss stays on the record**, and so does 9-C′: the
+  00e paragraph is appended to, never rewritten, and the `ICC = +0.842` /
+  `2.35`-vs-`3.18` arithmetic is stated as an annotation, with R9.7 keeping its
+  MISS.
+
+  **Eight seams, and two of them are refusals.** Under **W-2** rather than the
+  predicted W-1 there is **no new float** — the width × dispersion panel joins
+  only under 9-A″ *and* W-1 — and the spec's *"reproducibility falls off faster
+  than the effect"* sentence is nowhere in the chapter, because on ten fresh
+  seeds the dispersion inflation did not replicate. `tab:psm:facts` row 9 gets
+  a pointer to the width-conditional toy verdict and **its evidential grade
+  column is not touched**: `B` grades the literature, and a toy result does not
+  move it. The one place 00f *adds* chapter text is
+  `sec:psm:structure:rank`'s width discussion, which now names 256 as the
+  narrowest substrate on which row 9's verdict is readable, off 00c's capacity
+  ladder. `specs/README.md` takes the §11.4 rider verbatim — acts row, run-order
+  sub-branch, status row — and `FACTS.md` / `recovery_matrix.md` are untouched,
+  because #233 already carries them.
+
+  **Stacked, deliberately.** Based on `psm-row9-adjudication-run` (#233), not
+  `main`, so every seam's quoted string exists in its final 00e-integrated form
+  and the rider has 00e's rows to attach to; merges after #233. Checks are red
+  on the billing wedge (jarvis#139) and the zero-warning state is proved
+  locally instead: **315 pp, all eight `ci/check_build.sh` hard zeros,
+  `ci/spellcheck.py` exit 0**. One real regression found and fixed on the way —
+  the oversized `tab:psm:facts` float went `25.49pt` over on the first draft of
+  the note, and the fix moved the note below the table's closing rule rather
+  than spending a typographic concession, so `\abovecaptionskip` is back at its
+  committed value and the caption is byte-identical.
+
+- 2026-08-31: **row 9 recovers — a `0.1189` block gap happens 38 times in the
+  126 ways of splitting ten seeds dispatched together**
+  ([phd-thesis#233](https://github.com/dtch1997/phd-thesis/pull/233),
+  `experiments/psm-row9-adjudication/`). Spec 00f's run: 40 fresh `hier8` CPU
+  pretrains at **seeds 15–24, ten per cell**, 2.67 h wall clock, ≈ 68
+  core-hours, **`$0` marginal spend** — CPU only, no pod, no paid API.
+
+  ```
+  BLOCKVAR-VERDICT: pools (class V-2)
+  WIDTH-VERDICT:    attenuated-stable (class W-2)
+  ROW9-VERDICT:     recovered (class 9-A")
+  ```
+
+  **The premise of 00e's verdict is false.** 9-C′ was a *precision* claim: two
+  disjoint five-seed block means of one design disagreed by more than their
+  error bars admitted. Measured against an instrument that is not selected
+  on — the exact distribution of all 126 `5|5` half-split gaps inside one fresh
+  ten-seed block — `Δ_max = 0.2492`, more than twice the sealed
+  `Δ_obs = 0.11894`, and **38 of the 126 splits reach `Δ_obs` outright**
+  (`p_split = 0.302`). The interpretable leg agrees at `z_obs = 1.34` against
+  the `2.576` V-2 permits. The demoted omnibus `F` was **not used for a
+  verdict**, exactly as sealed, with its `0.196` conditional FPR printed beside
+  it. **S9.5 then HIT 6/6** on the ten fresh seeds at 00e's untouched bars —
+  `self-leaf` cos `0.6269 ± 0.0474`, filler `−0.0131 ± 0.0134`, separation
+  `0.6400 ± 0.0562` — with 20 of 20 arm III-A cells included, so §7.3's sealed
+  pathway opens and the row flips to **9-A″**.
+
+  **Three things cut against a clean story and all three are registered
+  outcomes, not caveats.** *(1)* S9.1's own sanity sub-clause **MISSED**:
+  `σ̂_W = 0.1404` is outside the registered `[0.055, 0.115]` because the fresh
+  block is genuinely more dispersed (`s3 = 0.1777` against `0.0965` / `0.0588`),
+  so the **exact** leg carries V-2 and the miss qualifies precision rather than
+  direction — a larger `σ_W` makes the gap *more* ordinary, not less. *(2)* The
+  width verdict came back **W-2, not the predicted W-1**: the mean attenuates
+  for a third time (paired `256 − 192` `ρ_c(self)` `+0.1817 ± 0.0486`, HIT) but
+  the dispersion inflation **did not replicate** — ratio `1.35` against the seen
+  `2.87`, `F(9,9) = 1.81`, `p = 0.195`. The flip at 192 is a *magnitude* story
+  and 00c's capacity ladder is the frame; the *"verdict stability is a property
+  of the substrate's reproducibility"* claim is **not supported**. *(3)* S9.4 is
+  **inconclusive** — there is no inflation left for it to explain.
+
+  **Nothing already scored was re-scored**, and the gate checks it: 00d's and
+  00e's `REPORT.md` / `PREREG.md` / `analysis.json` are byte-identical after the
+  run. `PREREG.md` was sealed at `29d2ed0` with no checkpoint of this spec in
+  existence, `test_row9f.py` passed 5959 assertions after the run, and **00f is
+  pre-committed as the last seed block this program dispatches for row 9**.
+
 - 2026-08-31: **row 9's non-replication gets an adjudication, and the obvious
   test for it turns out to be unusable**
   ([phd-thesis#232](https://github.com/dtch1997/phd-thesis/pull/232),
