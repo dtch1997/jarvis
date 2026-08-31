@@ -41,6 +41,43 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-31: **row 9's repaired clause holds in full on fresh seeds — and the
+  row stays open anyway, on replication**
+  ([phd-thesis#231](https://github.com/dtch1997/phd-thesis/pull/231),
+  `experiments/psm-row9-reregistration/`). The run of the spec bullet below.
+  20 fresh CPU pretrains, **seeds 10–14**, all 20 clearing learnability
+  (`captured_frac` 0.831–0.912, exclusion table empty), 1.70 h wall clock,
+  ≈21 core-hours, **`$0`**.
+
+  **The repair works.** `ρ_c(filler) = +0.019 ± 0.017` against a one-sided bar
+  of `+0.35`; `ρ_c(self-leaf) = +0.644 ± 0.034`; the new paired signed
+  separation `+0.626 ± 0.028` against `+0.40`. **All six R9.6 clauses HIT** —
+  the sign-blind sub-clause that blocked row 9 in 00d does not block it.
+
+  **The row stays open on a different clause.** R9.7, the registered
+  replication clause, is MISS-falsified: paired separation `0.693 ± 0.022`
+  against 00d's `0.812 ± 0.030`, **3.18 paired s.e.m. apart**. §7's precedence
+  checks 9-C′ before 9-A′ — replication is a precondition — so the class is
+  **9-C′, still open**. 00d named non-replication as the likeliest single
+  outcome worth planning for. It was.
+
+  **The floor correction that motivated the repair was wrong.** Measured over
+  2000 permutations × 320 units, the 95 % point of `|ρ_c|` is **`0.348 ±
+  0.001`** — the i.i.d. `1.96/√31 = 0.352`, not the `0.61` Kish's
+  `n_eff = 11.2` predicts. Sign-blindness was the defect; the effective-`n`
+  correction over-corrects. Bars unmoved either way (the sealed no-rescue rule).
+
+  **Disclosed:** arm 0′ reproduces 00d's `0.542`/`0.1010` to three decimals and
+  shows `ρ_c(filler) = −0.063 ± 0.032` on seeds 5–9 — a null scattered about
+  zero at magnitude ~0.32. **Seeds 5–9 would have passed the repaired clause**;
+  reported as a fact about the bar, scored on neither.
+
+  Row 9's next binding limit is **seed-block variance, not the floor**; and
+  R9.9's width flip (`ρ_c(self-leaf)` `+0.628 → +0.362` from 256 to 192 at
+  matched evidence) is the sharpest open question. The chapter's *"and no new
+  compute"* clause comes out: it was tried, and the fresh block is what showed
+  the headline number to be block-dependent. Red on the Actions billing wedge.
+
 - 2026-08-31: **row 9's blocking clause is re-registered on a statistic that can
   express a sign — and scored on seeds that do not exist yet**
   ([phd-thesis#229](https://github.com/dtch1997/phd-thesis/pull/229),
