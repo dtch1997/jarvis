@@ -41,6 +41,33 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-31: **the 00d/00e/00f stack folded to one PR before the billing
+  freeze could jam it** — phd-thesis is down to **two** open, main-targeted
+  PRs ([#234](https://github.com/dtch1997/phd-thesis/pull/234) and
+  [#228](https://github.com/dtch1997/phd-thesis/pull/228)). **Repo surgery,
+  `$0`, zero new thesis prose — no commit was authored, no hunk moved.**
+  GitHub Actions on the dtch1997 account is billing-failed (jarvis#139): every
+  job dies at start, nothing can gazette-merge, and billing-failed check runs
+  do **not** re-run themselves after a fix. Six PRs targeted `main` with
+  heavily overlapping diffs, and gazette squash-merges on green with no
+  ordering knowledge — so the first merge to land would have turned every
+  overlapping sibling CONFLICTING with duplicate hunks. Pre-empted by
+  retargeting #234 (`psm-00f-chapter-integration`) from
+  `psm-row9-adjudication-run` to `main` and closing **#227, #229, #231, #232,
+  #233** into it, branches kept. Containment proved by diff rather than
+  assumed: all five are strict git ancestors of the survivor
+  (`git merge-base --is-ancestor`), which is itself a fast-forward descendant
+  of `main` — every line that does not appear verbatim is a later commit on the
+  same lineage superseding it (e.g. `measure_cell.py`'s M2a–M2d block
+  re-indented under 00e's `row9_only` guard). #228 stays independent as
+  designed; its disjointness was re-checked against the *whole* stack rather
+  than just #227, and a test merge auto-merges the one shared file with zero
+  conflicts in either squash order. Both PRs carry explicit
+  `gh run rerun --failed <run-id>` instructions, because the wedged runs are
+  inert until someone kicks them. **Fix-day path is now one step: re-run checks
+  on two PRs, gazette merges them.** Fold idiom jarvis#99; same remedy at
+  smaller scale in t-0831-6da3 (#224 → #227).
+
 - 2026-08-31: **the chapter writes row 9's sentence — recovered at toy scale,
   width-conditional on `n_embd = 256`**
   ([phd-thesis#234](https://github.com/dtch1997/phd-thesis/pull/234)). The
