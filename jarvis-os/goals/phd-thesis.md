@@ -416,6 +416,43 @@ material — a chapter draft an advisor could read cold and follow.
   `ROW9-VERDICT:` lines. **The run is a separate later dispatch** — spec merges
   first, per the program's standing veto window.
 
+- 2026-08-26: **every one of the thesis's 65,337 words has now been read by
+  eye, and the prose is clean at the word level**
+  ([phd-thesis#221](https://github.com/dtch1997/phd-thesis/pull/221), register
+  `latex/notes/thesis-close-read-2026-08-26.md`, 730 lines). `$0`, reading and
+  writing only. #220 built the checker and swept the document mechanically,
+  but its own §11 named what it could not do: its by-eye read covered the
+  wrapper plus each chapter's opening and closing sections, about a fifth of
+  the prose. The other four fifths — every methods and results section, all
+  three appendices, every caption — had never been read by a human looking for
+  the class a dictionary cannot see (`casual` for `causal`). **Coverage is the
+  deliverable: 46,709 words new + 18,612 re-read behind #220 + four chapter
+  titles = 65,337 of 65,337, no triage and no skim**, with a per-file,
+  per-line-range table measured the way the checker measures. **The read
+  returned a null on every word-level class** — zero real-word substitutions,
+  zero dropped or duplicated words, zero agreement slips, zero garbled
+  sentences — and six post-hoc sweeps agree, including 777 cross-references
+  whose word matches what they point at (verified against the 121 float labels
+  independently, so the zero rests on ground truth rather than a naming
+  convention). **What did not survive are two structural count sentences, both
+  merge seams `git log -L` dates exactly**: PSM:2397 says its section turns
+  "four such knobs, one per subsection" — true when #174 landed it, false since
+  #182 inserted a fifth subsection — and PSM:87 says "Four claims come out of
+  the chapter" while Preamble/Introduction/Conclusions all say five and name
+  the fifth, because #209 renamed the total in the wrapper and never reached
+  the chapter's own opening. Neither is a typo; both need one authorial
+  sentence, so both are `BLOCKED-ON-DANIEL:` register entries with evidence and
+  a recommendation, and the branch makes **zero edits to `latex/`** (page counts
+  309/307, unmoved). The durable half is again the checker: `ci/spellcheck.py`
+  gains a fourth check, 24 NEVER words plus 25 context-gated confusion-pair
+  rules that fire only where the other member is the only reading (`in
+  principal`, `depends no`, `derived form`), matching across the 72-column hard
+  wrap, ~0.9 s, no workflow edit — and proved non-vacuous against 18 planted
+  defects, one of which exposed a first-draft `it's`/`its` rule that fired 41
+  times on correct prose. The lesson recorded for the next pass: the expensive
+  thing a close read produces is a null, and a null is only worth producing
+  once if you commit the check that holds it.
+
 - 2026-08-26: **the thesis has now been spell-checked — for the first time,
   fifteen passes in** ([phd-thesis#220](https://github.com/dtch1997/phd-thesis/pull/220),
   register `latex/notes/thesis-copyedit-2026-08-26.md`, 579 lines). `$0`,
