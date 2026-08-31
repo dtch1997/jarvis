@@ -41,6 +41,103 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-31: **row 9's non-replication gets an adjudication, and the obvious
+  test for it turns out to be unusable**
+  ([phd-thesis#232](https://github.com/dtch1997/phd-thesis/pull/232),
+  `specs/00f-row9-replication-adjudication.md`). Spec 00f, 1 349 lines, one new
+  file, based on `main` and touching nothing else. **Spec only, `$0` — nothing
+  is run by this PR; the grid is a later dispatch and the merge-to-dispatch
+  interval is the veto window.**
+
+  **Why this and not another attempt at the bar.** 00e's own REPORT named the
+  binding limit and did not have the seeds to measure it: *"Seed-block variance
+  is now the binding instrument limit, not the floor. A third block at 10 seeds
+  per cell would separate 'the effect varies' from '5 seeds is too few to pin
+  it'."* The chapter's Conclusion, on #227, currently says *"a magnitude that
+  travels that far between two disjoint seed blocks of one design is not yet a
+  magnitude the chapter can quote as the posterior's"* — a reproducibility claim
+  with no number attached to it. 00f attaches one whichever way it lands.
+
+  **Two findings from the committed bytes, both disclosed, neither re-scoring
+  anything.** *(1)* The `3.18` s.e.m. that falsified R9.7 was computed over ten
+  **cells** — five seeds × `r* ∈ {3,7}` — as if independent. The two ranks of
+  one seed are scored on the same five pretraining realizations and correlate at
+  **`ICC = 0.881`** in 00d (`0.324` in 00e), so at the seed level, the only unit
+  a *seed-block* claim lives on, the gap is **`2.35`** s.e.m. — inside R9.7's
+  own three-s.e.m. falsification threshold. **R9.7 is not re-scored and 9-C′
+  stands**; the arithmetic is published as an annotation and the ICC is put to a
+  fresh measurement rather than asserted from two five-seed correlations one of
+  which is `0.32`. *(2)* The textbook instrument is unusable. A one-way
+  random-effects `F` over the three block means is conditioned on the very
+  discrepancy that motivated the study: simulated at `σ_B = 0` with 00d's and
+  00e's **realized** means held fixed, it returns "varies" **34 %** of the time
+  (`19.6 %` for a four-sub-block variant). A nominal-5 % test with a `0.34`
+  conditional false-positive rate is not a test, so it is demoted to a reported
+  secondary with that constant printed beside it and barred from producing a
+  verdict.
+
+  **What replaces it.** An instrument that is not selected on: the **exact
+  distribution of all 126 `5|5` half-split gaps inside the fresh ten-seed
+  block**, against the sealed constant `Δ_obs = 0.11894`. Exact under
+  exchangeability, no normality assumption, no dependence on `σ̂_W`, and
+  deliberately generous to the null. Operating characteristics are published
+  **before** the data, 200 000 replicates a row: `UNRESOLVED` under `0.5 %` at
+  every `σ_W`, monotone from `0.99/0.01` at `σ_W = 0.05` to `0.01/0.99` at
+  `0.16`, and — at the current point estimate `σ_W = 0.0799` — an honest
+  **`0.54/0.46` coin flip**. That is disclosed rather than engineered away; what
+  the run buys unconditionally is `σ_W` on 20 seeds of within-block dispersion
+  instead of 8.
+
+  **The width flip gets a mechanism, and it is dispersion.** At
+  `n_embd = 192` the mean paired separation is `0.324` against `0.764` at 256 —
+  and it **replicated in both existing blocks** (`0.342` / `0.306`), so it is
+  not seed noise. But the seed-level s.d. at 192 is **`0.233` against `0.081`**,
+  ratio **`2.87`**, `F(8,8) = 8.24`, `p = 0.0037`, at *matched* learnability
+  (`captured_frac` `0.80–0.86`, every cell clearing `0.60`; if anything
+  `corr(captured_frac, sep_cos) = −0.707`, the wrong way for a learnability
+  story). A verdict flips at 192 because the measurement is three times less
+  reproducible there. A `π = 0` arm at 192 — the null 00e ran only at 256 —
+  separates *"the identity channel is more variable"* from *"a narrower model is
+  a noisier instrument"*. One sentence unifies both questions: **the effect is
+  present at both widths; only the wider model reproduces its own magnitude.**
+
+  **The bar-moving objection, answered in the spec text.** This is the fourth
+  measurement of one row, so §7.3 seals four commitments: prior verdicts stand
+  and the gate checks byte-identity of 00d's and 00e's scored artifacts; the
+  row-status pathway is gated on the **instrument** (it opens only if the block
+  verdict *pools*, because 00e's 9-C′ was a precision verdict and pooling is the
+  finding that its premise is false); no bar moves (00e's six R9.6 bars, scored
+  on the ten fresh seeds alone, not on the pooled twenty); and §7.4 pre-commits,
+  under **every** outcome class, that **00f is the last seed block** — including
+  9-E″, where the row is declared *permanently open at toy scale* and a fourth
+  block is explicitly forbidden because that verdict's content is precisely that
+  seed blocks do not converge here.
+
+  **Grid and cost.** 40 fresh `hier8` CPU pretrains at **seeds 15–24, ten per
+  cell**, disjoint from 0–4 / 5–9 / 10–14: 20 at `n_embd = 256`, `r* ∈ {3,7}`;
+  10 at 192, `r* = 3`; 10 at 192, `π = 0`. ≈ 2.6 h at concurrency 15, ≈ 77
+  core-hours, **`$0`**. Sub-blocks `3a` = 15–19 and `3b` = 20–24 pre-declared,
+  so the fresh block carries its own exchangeable-by-construction control.
+
+  **Base-branch call.** `main`, spec file only, `specs/README.md` deliberately
+  untouched: both #229 and #231 carry the identical 00e edit to that file, and a
+  third head on the same hunks would need resolving in whatever order the
+  billing wedge clears. §11.4 carries the three README rows — acts table,
+  run-order diagram (the #205 lesson) and status row — verbatim as a rider block
+  to apply at merge. `git merge-tree` against the merge base is clean for all
+  four open heads (#227, #228, #229, #231), and none of them touches the new
+  file.
+
+  **CI is still billing-wedged** (jarvis#139), so #232 sits red through no fault
+  of the branch, like its four siblings. No `latex/` changes ⇒ no build needed,
+  and `ci/spellcheck.py` sweeps `latex/*.tex` only. §13.1 carries the wedge
+  adaptation forward for the **run**: because merge-first cannot be enforced by
+  a green check, the veto window becomes worker checks — no-PREREG-before-`T`
+  plus a PR veto-signal re-read at PREREG-commit time, reading the spec from the
+  PR head rather than a local copy (threads note `20260831T120613Z` precedent).
+
+  **Next, absent a veto:** the keeper dispatches the 40-cell run.
+
 - 2026-08-31: **the chapter says why row 9 is open a third time, and retires the
   clause that said closing it was free**
   ([phd-thesis#227](https://github.com/dtch1997/phd-thesis/pull/227),
