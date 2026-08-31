@@ -41,6 +41,34 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-31: **the PSM chapter's own opening now says what the rest of the
+  thesis says about it — five claims, not four**
+  ([phd-thesis#228](https://github.com/dtch1997/phd-thesis/pull/228)). `$0`,
+  writing only; no number, verdict, figure or label moved. #221's close-read
+  found two count sentences stale in the chapter's framing and left both
+  `BLOCKED-ON-DANIEL` for a *procedural* reason — that pass's rules forbade
+  authoring — not for want of content. (i) The chapter opening said "Four
+  claims come out of the chapter" while `Preamble.tex:34`,
+  `Introduction.tex:155` and `Conclusions.tex:25` all counted the same
+  chapter at **five** and `Conclusions.tex:66` named the fifth, so an
+  examiner reading Conclusions and turning back met a contradiction about one
+  chapter; #209 had given the curriculum/P4 arc named-result status in the
+  wrapper and never propagated it inward. The fifth claim block is now
+  written at the register of the other four — claim plus **both** ceilings in
+  the same breath — *transcribed* from the merged wrapper text, with every
+  numeral (`~1.6x`, the exact-Bayes ceiling, `β_S = +0.002` vs
+  `β_C = +0.711`, VIF `1.10`, the within-cell null) traced to a line of the
+  chapter. (ii) `:2397` said the structure section turns four knobs "one per
+  subsection"; it has had five subsections since #182 inserted the rank
+  subsection into #174's sentence. Took the register's recommended option
+  (a), the three-word deletion — the rank arm was *not* promoted, and the
+  two defensible four-*geometry*-arms sentences are untouched. Register §5.1
+  and §5.2 are annotated `WAS-BLOCKED-ON-DANIEL, CLEARED BY PR #228` (never
+  deleted), so **no item in the close-read register remains open for
+  Daniel**. Local proof, since Actions is still billing-wedged
+  ([jarvis#139](https://github.com/dtch1997/jarvis/issues/139)): 310 pages,
+  0 errors, 0 LaTeX warnings, spellcheck 0 at `65d61e9`.
+
 - 2026-08-26: **the two recovery-matrix rows the unlearnable grid voided now
   have a spec that re-takes them where the model can learn**
   ([phd-thesis#222](https://github.com/dtch1997/phd-thesis/pull/222),
