@@ -41,6 +41,64 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-08-31: **the chapter says why row 9 is open a third time, and retires the
+  clause that said closing it was free**
+  ([phd-thesis#227](https://github.com/dtch1997/phd-thesis/pull/227),
+  `latex/Chapter_PersonaSelectionModel.tex`). The 00e verdict, folded into the
+  **existing** 00d integration PR rather than stacked behind it — the 00d
+  landing surface was de-stacked earlier today and a second stack would
+  recreate that mess. **Writing only, `$0`.**
+
+  **What landed.** Spec 00e §11 pre-registered exactly which text changes under
+  each outcome class, before the data existed, and 9-C′ authorises prose only:
+  no new float. Five seams, located by quoted string. The clause *"and no new
+  compute: the measurement already exists"* comes out, replaced by the outcome
+  and by §3's reason the seen measurement could not carry a verdict — the
+  displacement vectors are committed, so a verdict read off them is a verdict
+  read off the data that produced the miss. The Conclusion ledger's *"which
+  costs no new compute to put right"* comes out the same way, the sentence
+  keeping its shape and changing its number. 00d's headline numbers **stay
+  verbatim** and gain a replication sentence; the figure caption gains exactly
+  one sentence; C4's status sentence inherits the new reason; `tab:psm:facts`
+  row 9 is untouched, because the evidential grade is a grade on the
+  literature.
+
+  **Why this was next.** The chapter had been carrying an inference the run
+  disproved. It said the row could be closed by re-reading a measurement
+  already in hand, which is why 00e §3 overruled the phrase and bought 20 fresh
+  pretrains instead. Leaving that clause in the thesis after the run would have
+  been the one wrong sentence a reader could catch with `git log`.
+
+  **The 9-C′ story the chapter now tells.** The repaired signed clause **holds
+  in full** on seeds 10–14 — `ρ_c(filler) = +0.019 ± 0.017` against a one-sided
+  `+0.35`, paired signed separation `+0.626 ± 0.028` against `+0.40` — so the
+  `0.001` that blocked 00d is settled. The row stays open anyway, because the
+  headline paired separation came back at `0.693 ± 0.022` against 00d's
+  `0.812 ± 0.030`, **3.18 paired s.e.m.** apart and outside the registered
+  threshold, and the sealed precedence checks 9-C′ before 9-A′. So the reason
+  changed a third time: not *"the instrument was void"* (00b), not *"a
+  sub-clause sat on its own chance floor"* (00d), but *"the effect is real, the
+  repaired clause clears it, and the headline magnitude is seed-block-dependent
+  at the 3-s.e.m. level."* The §14 disclosure is in the chapter text and not
+  only in the REPORT: seeds 5–9 read `−0.063 ± 0.032` and **would have passed**
+  the repaired clause, reported as a fact about the bar, with the verdict never
+  scored on them.
+
+  **Not corrected, on purpose.** The chapter's floor sentence — chance floor
+  `1/31 = 0.032`, the bar *"about 3× above what a null control reaches for
+  free"* — is left as 00d wrote it. 00e measured the floor at `0.348 ± 0.001`,
+  the plain i.i.d. value, so 00d's `3×` stands and §11.2's correction was a
+  9-B′-only branch. Sign-blindness was the defect; the effective-`n` correction
+  was not.
+
+  **CI is still billing-wedged** (jarvis#139; re-verified 2026-08-31 15:17Z,
+  run `33407641799`), so the worker was the CI: `ci/build_thesis.sh` +
+  `ci/check_build.sh` + `ci/spellcheck.py` give **314 pages, all eight asserted
+  zeros, spellcheck clean**, against a 313-page baseline with the same zeros.
+  #227 stays MERGEABLE and shows no conflict against #228. `specs/README.md`'s
+  00e status row and §11.3's `recovery_matrix.md` / `FACTS.md` rows wait for the
+  stack to merge — keeper follow-up.
+
 - 2026-08-31: **row 9's repaired clause holds in full on fresh seeds — and the
   row stays open anyway, on replication**
   ([phd-thesis#231](https://github.com/dtch1997/phd-thesis/pull/231),
