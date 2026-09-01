@@ -41,6 +41,82 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **the thesis has a viva-prep bank — 63 questions, the answer of
+  record for each, the anchor for every number in it, and a grade.**
+  **phd-thesis#241** (open). The thesis had two mock-viva artifacts and neither
+  was a Q&A: #199 (24 items, PSM chapter) and #201 (31 items, published
+  chapters) are **risk registers**, both written 2026-08-25, both predating the
+  entire 00d/00e/00f recovery arc. Nobody had written the defense for *"your
+  row-9 verdict flipped three times; why should I trust the third flip?"* — the
+  question a cold reader forms while reading one paragraph of
+  `sec:psm:structure:rank`. Ten hardest ranked across the whole document, fifty
+  per-chapter (wrapper 8, PSM 15, steering 7, EM 7, inoculation 8, appendices
+  5), three also-rans. **33 `SOLID` / 16 `DEFENSIBLE-WITH-CARE` / 14
+  `CONCEDE`.** The three questions the newest material *creates* are all
+  answerable and two are answerable **only if the concession leads**: H1 (three
+  flips = three questions, not three answers — 9-B on a sign-blind `corr²`
+  clause missed by `0.001`, 9-C′ on R9.7 at `3.18` paired s.e.m., 9-A″ on
+  `p_split = 0.302` over the `126` half-splits, with 00e's MISS never
+  withdrawn); H2 (**the strongest answer in the bank** — PREREGs at `11cec5e` /
+  `1ecbda0` / `29d2ed0` in enforced git order, 05b's PREREG `253d158` before
+  `metrics.py` `1b88b00` with the analyzer refusing the join otherwise,
+  `sealed.bars_S95` byte-identical, byte-identity gates on prior scored
+  artifacts, and arm 0′ volunteered rather than hidden); H3 (**W-2, not the
+  predicted W-1** — the `2.87` dispersion story the spec reasoned from measured
+  `1.35`, `p = 0.195`, MISS, so 192 is a magnitude story and not a noisier
+  instrument). Every number transcribed against an `analysis.json` key or
+  `REPORT.md` in #236's §5 discipline; where the record says MISS the answer
+  **concedes the MISS and says what survives it** — 01b's P1 survivor-block
+  share `0.000`, spec 03's `−1.38` over 147 attempts, spec 04's median `24 %`
+  with the distillation control at `22 %`, 05b's `β_S = +0.002` against
+  `β_C = +0.711` at `VIF = 1.10`, 00f's own S9.1 sanity miss, and 00d's
+  unreported R9.4 / R9.5. **The diff is one new file** — no `.tex`, no
+  `experiments/`, no existing note, no claim, number, verdict, bar, figure,
+  label or grade moved. **No desk item created**: the `BLOCKED-ON-DANIEL` token
+  is written without its colon throughout (#201 precedent) so no line is swept
+  into the inbox, and both standing gates (spec-06 canary marker, the #211
+  brief) are cited by number and untouched. §4 names the **four questions the
+  record cannot answer** — the uncited Anthropic production claim, the Qwen
+  selectivity contradiction, what line 3099 means, and the expert-forecasters
+  survey; §5 is the ≤10 rehearsal shortlist keyed to brief items 1–7, 9, 10,
+  15–17. A forward-dated caveat at the top says which four grades **#240**
+  moves when it merges (P7/P9/P10 → `SOLID`, P8's residual → F6). `$0`, CPU
+  only, nothing re-run, spellcheck `0`; notes-only diff cannot move a page
+  count.
+
+- 2026-09-01: **the recovery-arc register is discharged — the arc's one false
+  sentence, its wrong *n*, and the silence about its own adjudicator's miss.**
+  phd-thesis#239's cold read of the 00d/00e/00f arc left three
+  `BLOCKED-ON-DANIEL` items; **phd-thesis#240** clears all three. They were the
+  **#215/#228 class** — blocked because that pass's rules forbade *authoring*,
+  not for want of content, so every repair was a transcription from an
+  experiment of record and the register had already written the recommended
+  text. **BD1**: "the row stayed open *on that block*" bound `that block` to
+  the third block (00e) while the reason the next two sentences give — the
+  `0.1010` filler composite — is the second block's (00d), so the sentence was
+  **false on its natural reading**; repair (a), "on the second block too", is
+  the one that makes the following antecedents true (00e's repaired composite
+  HIT in full; its row-9 verdict turns on R9.7). **BD2**: `the same $55$
+  pretrains` overstated row 9's *n* — the self-descriptive protocol ran on
+  **40** of the 55, and the headline `0.775 ± 0.020` rests on **`n = 10`**
+  (00d `REPORT.md:95–100`, `:307`); `55` stays wherever it describes row 6.
+  **BD3**: the chapter quoted 00f's `0.1404` three times as the instrument
+  disposing of the `0.119` gap and never as the **registered miss** it is —
+  `[0.055, 0.115]` sealed, `s3 = 0.1777` against `0.0965`/`0.0588` — the one
+  00f's REPORT calls *"the honest qualification on the whole result"*; now one
+  sentence in §rank and one clause in the discussion, because the discussion is
+  where an examiner reads for the verdict. **BD3b**: 00d's R9.4 miss (`0.828`
+  against `[0.3, 0.7]`, exact `0.496`) reported; R9.5 left to 00f's W-2. **No
+  number computed, only transcribed; no verdict, bar, grade, float or
+  `experiments/` byte touched.** `$0`, CPU only, eight zeros, spellcheck `0`,
+  **314 pages — `EXPECTED_PAGES` unchanged**. Register annotated in the
+  #201/#228 idiom (marker tokens retitled in place, finding text never deleted,
+  no raw marker left in the file); Daniel gets **one** consolidated verify item
+  (brief item 19, #218 precedent) whose paste-ready reverts were checked by
+  extraction-and-run — the chapter returns byte-identical. **F6, the §rank
+  paragraph reorder, stays deferred to Daniel on purpose** (deixis-fragile);
+  with that, no item in the recovery-arc register is open for him.
+
 - 2026-09-01: **the recovery-matrix arc read cold — the word-level pass finds
   nothing, and the seams find five.** phd-thesis#239 (open). The 00d/00e/00f
   arc added **297 lines** to `latex/Chapter_PersonaSelectionModel.tex` after
