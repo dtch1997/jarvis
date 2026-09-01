@@ -41,6 +41,68 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **the recovery-matrix arc read cold — the word-level pass finds
+  nothing, and the seams find five.** phd-thesis#239 (open). The 00d/00e/00f
+  arc added **297 lines** to `latex/Chapter_PersonaSelectionModel.tex` after
+  #221 read every one of the thesis's 65,337 words by eye; nobody had read the
+  assembled arc top to bottom as prose. Two reads over one register:
+  `latex/notes/psm-recovery-arc-close-read-2026-09-01.md`, baseline `4b61315`
+  → tip `1dc5374`. **`$0`, CPU only, no experiment re-run, no pod, no paid
+  API; no verdict, number, figure, float, label or evidential grade moved.**
+
+  **The word-level read is a null, and that is the finding.** Across ~2,240 new
+  words: no duplicated word, no article slip, no real-word substitution
+  (eleven confusion pairs checked by name), no agreement slip. #220's checker
+  plus #221's discipline have made the mechanical layer genuinely clean; the
+  marginal value of another word-level sweep on new prose is now low.
+
+  **The cold-reader pass is where the damage was, and it is all seam damage.**
+  Every mechanical defect sits on a boundary between two of the three
+  chronological layers row 9's verdict was written in — which is exactly what
+  the appended-never-rewritten discipline predicts, now observed rather than
+  feared. Fixed: an intruded finite verb ("the identity channel C4 **prices
+  moves** untouched behaviors"); mismatched correlatives in the same sentence;
+  the Conclusion ledger putting two facts of *one* measurement (00e, seeds
+  10–14) on two different blocks; a second "twenty" twelve lines from a
+  different "twenty"; and a provenance comment reading "no fourth block is
+  pending" about the spec that **is** the fourth block.
+
+  **The structural finding is the one to remember: the row-9 arc was a single
+  paragraph of 1,072 words, ordered 2 → 3 → 4 → 2 → 4 → 3 → verdict.** The viva
+  question the task posed — *so which is it, did it replicate or not?* — had its
+  answer in the last sentence of that block, with "That clause is falsified" and
+  "9-C′ keeps its place as the verdict on its own block" met on the way. Three
+  paragraph breaks went in at the seams; **no words moved and no sentence was
+  reordered**, because the paragraph is dense with deixis ("the values above",
+  "the 3.18 above") a reorder would silently break. Net **+7 words**, and
+  neither engine's page count moved (tectonic 315, lualatex 314, eight asserted
+  zeros at zero, spellcheck rc 0).
+
+  **Three registered items need Daniel and are worth ten minutes:**
+  - `:3099` *"The row nonetheless stayed open on **that** block"* binds to the
+    third block while the reason it gives (the `0.1010` composite) is the
+    second's — **false on its most natural reading**. Two repairs available;
+    they say different things.
+  - `:3049` *"the same **55** pretrains"* is row 6's *n*, not row 9's. 00d ran
+    the self-descriptive protocol on **40** of the 55, and
+    `psm-learnable-rerun/REPORT.md:307` scopes the headline `cos = 0.775 ±
+    0.020` to *"`S256` at `r* ∈ {3,7}`, **`n = 10`**"*.
+  - `0.1404` is quoted three times as the instrument that disposes of the
+    `0.119` gap and never as the **registered MISS** it also is (S9.1's sealed
+    sanity band `[0.055, 0.115]`). 00f's own REPORT calls it *"the honest
+    qualification on the whole result"*. The chapter reports row 6's `14.91 %`
+    miss and 00d's `0.1010` in full, so the silence is asymmetric — as are
+    00d's unreported R9.4 and R9.5 misses.
+
+  `BLOCKED-ON-DANIEL: three prose calls in phd-thesis#239's register (BD1 wrong-referent sentence, BD2 the n=55/n=10 scope, BD3 the unreported S9.1 sanity miss) — see latex/notes/psm-recovery-arc-close-read-2026-09-01.md.`
+
+  Riders, all verify-first against merged state rather than issue text:
+  phd-thesis **#172** closed (`\usepackage[hidelinks]{hyperref}`, no driver
+  option anywhere in `latex/*.tex|cls|sty`, fixed by `3528e78`/#218), **#225**
+  closed (billing block jarvis#139; runs `33453744304`/`33454107075` execute
+  5/11/13 real steps), **#235** closed won't-fix per #237's R7 — a 0.01 pt
+  margin over the 6.0 pt floor makes the CI leg flaky, #214's call stands.
+
 - 2026-09-01: **the composite-QA register is discharged; the thesis's editorial
   backlog is empty.** The pre-merge composite QA
   (`latex/notes/psm-composite-qa-2026-09-01.md` §9) left eight judgment calls it
