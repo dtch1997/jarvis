@@ -41,6 +41,62 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the colophon's figure claim survives a cold examiner — 35/35
+  chapter figures pixel-identical from a fresh clone and a declared, pinned
+  environment, which the repo did not have.** **phd-thesis#253** (open,
+  merge-on-green). `HERMETIC-REGEN: PASS`, ledger
+  `latex/notes/figure-provenance-hermetic-2026-09-02.md` (381 lines).
+  phd-thesis#198 verified all thirty chapter figures regenerate
+  pixel-identical — but **inside this devbox's incumbent, undeclared Python**.
+  The repository declared no environment at any depth: no `pyproject.toml`, no
+  `requirements*.txt`, no lockfile, no setup section in the README. So the
+  claim the examiner reads (*"every figure in Chapter 2 is regenerable from
+  scripts under `experiments/`"*) was **true of one machine and untestable by a
+  reader** — the one failure mode a provenance audit run on the author's own
+  box cannot see. Declared it (root `pyproject.toml` + `uv.lock`, 610 lines,
+  Python `>=3.12,<3.13`) and then tested it the examiner's way: `--depth 1`
+  clone from GitHub, `env -i` (**empty** process environment), scratch `HOME`,
+  venvs built **only** from the committed lockfile, `PYTHONNOUSERSITE=1`.
+  **All 35 pixel-identical at 150 dpi, every script exit 0, zero figures
+  needing a GCS restore** — the verifying clone had **no `runs/` directory
+  anywhere**. Two pinned matplotlib arms, not one, because the committed PDFs
+  were never written by a single one (#198's split, confirmed and extended):
+  **3.10.9** for twelve (`persona-toy-models` ×8, `psm-laws` ×2,
+  `psm-rl-tilting` ×2), **3.11.1** for twenty-three; declared as *conflicting*
+  uv dependency groups so one lockfile holds both. **The chapter's figure count
+  moved 30 → 35 since #198** and nobody had noticed: `psm-learnable-rerun`'s
+  `f2_delta_vs_bayes` and the four `psm-separability-deconfound` panels entered
+  the chapter after the audit and had **never been in a provenance ledger**.
+  All five verify, all five committed-bytes-only. #198's one GCS caveat is also
+  gone — the `persona-toy-models` summary layer is now confirmed from a tree
+  with nothing to fall back to. **Two defects.** (1)
+  `experiments/psm-mechanism/figures.py` **exited 1** in a torch-free
+  environment; #198 recorded it exiting 0 with a graceful skip, and the skip was
+  real but sat three lines *below* an `import channels` that imports `torch` —
+  invisible on a box that has torch, a traceback for the examiner following the
+  repo's own reproduce line. Fixed by moving the guard above the import; both
+  chapter figures pixel-identical after it. (2) **The audit's own harness leaked
+  into the thing it was auditing**, and it is the general lesson:
+  `<venv>/bin/python` is a *symlink*, `Path.resolve()` follows it, Python then
+  finds no `pyvenv.cfg` next to `sys.executable` — so both arms silently ran the
+  uv-managed **base** interpreter, which on this box carries an undeclared
+  matplotlib 3.11.1. Twelve figures "failed" against a version nobody chose.
+  `os.path.abspath`, never `resolve()`; and `ci/regen_chapter_figures.py` now
+  refuses to start unless each arm's `sys.prefix != sys.base_prefix`,
+  matplotlib's `__file__` is *inside* that prefix, and its version equals the
+  arm's pin. **The claim needs no qualification and no `.tex` moved** — two
+  items registered for Daniel instead (a paste-ready, page-neutral colophon
+  sentence if he wants it to carry the standard now met; and the two-matplotlib
+  split, recorded only outside the thesis, with the collapse-to-one-pin option
+  costed and *not* recommended). Diff carries **no committed figure bytes, no
+  `.tex`, no scored artifact**; `README.md` gains the reader-facing
+  "Reproducing the chapter figures" path and `.github/workflows/`
+  a **scheduled-only, `continue-on-error`** smoke of three committed-bytes-only
+  figures (#236/#250 idiom — it gates nothing; nothing else in CI runs a figure
+  script at all, which is why #198 found two stale renders). `$0`, CPU only,
+  no pod, no GPU, no paid API, no GCS traffic; 100 s wall for the whole
+  clone-to-verdict script.
+
 - 2026-09-01: **spec 06's arm E1 stopped pointing at the wrong corpus — the
   one unexecuted spec is now safe to hand a worker.** **phd-thesis#252**
   (open, merge-on-green; closes phd-thesis#196, the last open non-founding
