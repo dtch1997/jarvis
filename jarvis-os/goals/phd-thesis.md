@@ -41,6 +41,39 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **#244 merged, and the chapter now says the R9.4 miss was put to
+  a follow-up that came back instrument-limited — one sentence, and the nine
+  other seams `PRICE-5` forbids stayed shut.** **phd-thesis#245** (open;
+  #244 merged 10:29Z, spec #242). The 00g run landed
+  `PRICING-VERDICT: instrument-limited (PRICE-5)`,
+  `AXIS-VERDICT: neither (AXIS-3)`, `EXPOSURE-VERDICT: evidence (EXPO-1)`, and
+  only the first of the three is allowed to reach the thesis: §11 licenses no
+  axis seam under any class, and `EXPO-1` is threshold-sensitive by the
+  REPORT's own disclosure (`0.6931` as implemented against `0.347` as printed
+  flips it to `EXPO-3`). **The whole integration is one hunk in one file.** In
+  `sec:psm:structure:rank` the existing miss sentence — family displacement at
+  `0.828` of the identity token's, outside the registered `[0.3, 0.7]` and
+  above the exact `0.496` — is neither deleted nor rewritten, because #240 put
+  it there deliberately; one sentence is appended naming the trigger on both
+  legs: **T1 falsified**, and **one non-anchor dose** (the family rung itself)
+  clearing the `3σ` floor, four of six falling inside it once a single identity
+  channel is split six ways at fixed emission rate. `γ̂ = −0.529` does not
+  enter the chapter at all — a one-point fit whose sign is the inversion
+  restated is not an exponent, and §7.1 has it published without a class
+  precisely so nothing downstream reads it as one. **What stayed shut, by
+  fence:** `sec:psm:discussion` (§11.2 item 2 exempts `PRICE-5`), the
+  design-price sentence *"Family resolution prices at `$3.56$`"* (item 3
+  applies to every class **except** `PRICE-5`, so the forward reference is not
+  written), no new float (item 4 — F1/F2/F3 not imported), C4, the row-9
+  recovery paragraph, the two Daniel markers, and `recovery_matrix.md` /
+  `FACTS.md`, which are not in the diff at all. The three results the REPORT
+  calls *"worth the chapter's ink"* — the coherent projection as an instrument,
+  the within-checkpoint reproduction of the coarse-token anomaly, `AXIS-3` as a
+  finding — are **not** licensed under `PRICE-5` and are written up in the PR
+  body as a proposal for a later decision rather than smuggled into the prose;
+  writing them in now would be the laundering `PRICE-5` exists to prevent.
+  Build clean at **316 pages**, every asserted-zero count at 0. `$0`.
+
 - 2026-09-01: **the one open thread 00d named got a purpose-built
   dose–response, and the substrate could not carry it — `PRICE-5`,
   instrument-limited, with the exclusion named rather than argued around.**
