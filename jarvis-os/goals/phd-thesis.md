@@ -41,6 +41,71 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **Spec 00h registered: the `PRICE-5` repair, with the arithmetic
+  done instead of the slogan repeated — and the arithmetic says "three doses at
+  double the rate" is only affordable on one ladder.** **phd-thesis#246** (open;
+  spec only, `$0`, `specs/` diff only; the run is a separate later dispatch and
+  the merge-to-dispatch interval is the veto window). 00g's Next steps item 1
+  named option (b) and this spec derives it from 00g's committed bytes.
+  **The rate lever is weak:** arm `PX` is a natural rate experiment 00g ran
+  without naming it (`fam` at ¼, `pair` at ½, the four `q8`-matched levels
+  untouched), and paired over its five shared seeds the coherent projection's
+  rate exponent is **`α = +0.185 [+0.022, +0.330]`** — doubling a vocabulary's
+  rate buys `×1.137` of signal, not `×2`. **The floor does not respond to the
+  rate at all:** `q8` at `×1`, `q4` at `×2` and `q2` at `×4` all move by the
+  same factor (common offset `+0.613 [+0.295, +0.954]`), so what the filler
+  noise tracks is a corpus-level tag-slot **load** term the two arms cannot
+  separate into its candidates — **`λ ∈ [0.20, 1.89]`, unidentified** — and
+  taking 00g's deepest excluded level as the target (`nz2` at `0.679` needs
+  `×1.473`) the rate alone requires `Π = 2.42 > 1`, which the corpus's own
+  assertion refuses. **So the design is built so the unidentified term cannot
+  go the wrong way:** three 8-tag vocabularies share **one** 8-tag filler where
+  three differently-sized partitions need three, and that single fact pays for
+  the raise — `ladder3` runs four vocabularies at `0.10` against `ladder8`'s
+  nine at `0.05`, so `π_id` holds at `0.30` while `π_filler` `0.15→0.10`,
+  `Π` `0.45→0.40` and tag types `52→32`, with per-tag exposure `150→300`.
+  **Every candidate load variable falls or stays, so the predicted margin
+  multiplier is `≥ ×1.137` for every value of `λ`** (upside `×1.42`–`×1.80`),
+  and that guaranteed number — not the upside — is what the spec is scored
+  against. The partition triple would go the other way (`Π → 0.60`,
+  `π_filler → 0.30`, predicted `×0.66`/`×0.52`), so **the all-noisy ladder is
+  forced by the arithmetic**, and independently endorsed by 00g's `AXIS-3`.
+  **The registered point prediction is disclosed rather than hidden:**
+  restricted to the noisy levels alone, 00g's own exponents are
+  `0.684/0.985/0.792` at `r*=3` and `0.751/0.767/0.678` at `r*=7` — an honest
+  contraction in `(0,1)` that the pooled `γ̂_PR = −0.076` buried by averaging it
+  with the partition curve, which is `AXIS-3` made arithmetic — so **`GAMMA-1`
+  near `γ ≈ 0.73` is predicted, and if `γ̂` returns near `−0.529` the spec says
+  the reading was wrong.** 00g's `T1` is **repaired, not inherited**: its
+  ordering leg was falsifiable by the phenomenon under study — `γ`'s sign *is*
+  that ordering — so `U1` drops it and the inversion is **promoted** to `U6`,
+  which measures 00d's coarse-token anomaly as an *excess over the pricing law*
+  (`E = 2.723 / x_fam^{γ̂−1}`) with its own class. 00g Next steps item 2
+  discharged: `M = 0.5·ln(exposure ratio) = 0.6931471805599453`, computed once
+  from the corpus's own exposure table and never typed (00g wrote `0.347`,
+  which is a *quarter*); `EXPO-1` is threshold-sensitive and is **not
+  re-scored**. Item 3 discharged as a rider — **phd-thesis#243 re-titled**: the
+  `4.8602`/`4.9383` gap is the eleven-behavior heavy third
+  (`o[-n_read // 3:]` is `o[-11:]`), not the ratio ordering, which on this
+  world coincides to floating point. Item 4 (no further row-9 block) is §7.5.
+  Grid: **25 fresh CPU pretrains at seeds 35–44**, ≈ 2.4 h, `$0`; **no budget
+  arm**, because 00g already measured that rung NOT INFORMATIVE. Four verdict
+  lines under new labels (`FLOOR-*`, `GAMMA-*`, `TAGRATE-*`, `COARSE-*`; no
+  `PRICE-*` reuse), each with its chapter sentence fixed in advance —
+  **including a pre-registered licensing class for the two "worth the ink"
+  items #245 deliberately left out**, so their eventual inclusion is licensed
+  rather than laundered: the coherent projection under `FLOOR-1`/`FLOOR-2`
+  only, the coarse-token anomaly under `COARSE-1`/`COARSE-2` only, both
+  sentences written out. **No pathway of any class moves a recovery-matrix
+  row's status, a `FACTS.md` grade or any prior verdict** — row 9 stays 9-A″,
+  **this is not a row-9 seed block and the spec says so explicitly**, and the
+  gate asserts byte-identity of 00d/00e/00f **and 00g's** scored artifacts, a
+  clean `latex/` diff, and zero counts of every verdict label in another spec's
+  namespace. **Pre-committed kill criterion:** if `FLOOR-3` fires, no fourth
+  attempt is dispatched on this substrate without a change to the world itself
+  — two registered failures with published arithmetic is a result, three would
+  be a search.
+
 - 2026-09-01: **#244 merged, and the chapter now says the R9.4 miss was put to
   a follow-up that came back instrument-limited — one sentence, and the nine
   other seams `PRICE-5` forbids stayed shut.** **phd-thesis#245** (open;
