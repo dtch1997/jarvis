@@ -41,6 +41,71 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **spec 06's arm E1 stopped pointing at the wrong corpus — the
+  one unexecuted spec is now safe to hand a worker.** **phd-thesis#252**
+  (open, merge-on-green; closes phd-thesis#196, the last open non-founding
+  issue on the repo). The spec said E1 measures co-occurrence "over Dolma";
+  Dolma is OLMo-1's corpus, and E2 continues pretraining **OLMo-2-1B**, whose
+  stage-1 mix is indexed as `v4_olmo-mix-1124_llama` (3,081,440,534
+  documents) — so the statistic the whole arm rests on was registered against
+  a model other than the one under test. The stage-0 prep (#195) had already
+  found and fixed this, plus three more traps, and recorded every resolution
+  in `experiments/psm-scale-bridge/PREREG.md` §§2–4; the spec text never
+  caught up. It has now: the index and its one recorded limitation (OLMo-2's
+  stage-2 Dolmino mix has **no public infini-gram index**, so E1 speaks about
+  stage-1 pretraining only); the four count-API constraints that shape the
+  estimator rather than decorate it (`max_clause_freq` 500,000 above which a
+  clause is silently subsampled, `max_diff_tokens` 1000 which makes
+  *co-occurrence* **mean** a 1000-token same-document window, the four-term
+  disjunction cap, and the HTTP 500 a plain `count` returns if either CNF
+  knob is sent); the dead end nobody should rebuild (the obvious three-clause
+  `U AND V AND anchor` reading of "persona-factor-weighted" is degenerate —
+  **0 counts in 60 of 60** pair-anchor cells, leaving the statistic a
+  function of the marginals; the registered form is two-clause anchored,
+  `S2 = S1 + ½[λ(u) + λ(v)]`); and the estimator (textbook add-½ **on
+  probabilities** makes an observed zero read as strong *positive*
+  association when the expected joint count is ≈ 0.05, so both statistics use
+  shrinkage PMI in the *count* domain, `log2[(observed+α)/(expected+α)]`).
+  The value of this is entirely in *when*: spec 06 is gated on Daniel's
+  sign-off of the ~$12 canary, and the sign-off's next reader is a fleet
+  worker with no context. Transcription, not design — every constant checked
+  against the sealed bytes (`4b4866b`) before it was written, **no registered
+  threshold, outcome class, grid, gate or sign-off language moved**, diff is
+  one file under `specs/`, `$0`, nothing run. Two same-error naming fixes
+  disclosed in the PR body (E2's base mix and the contamination-risk bullet
+  both said Dolma where the built CPT configs stream `allenai/olmo-mix-1124`).
+  The **canary sign-off remains the standing Daniel item** and is untouched.
+- 2026-09-01: **the thesis wrapper caught up with the recovery arc — and the
+  result count deliberately stayed at five.** **phd-thesis#251** (open,
+  merge-on-green). Fourteen merges after the last wrapper reconciliation
+  (#188/#208/#209/#215) the abstract, the Introduction's contributions bullet
+  and the Conclusions' summary still predated the whole 00d/00e/00f arc:
+  `grep -in 'self.descr|identity token|0\.775|graded'` over the three wrapper
+  files returned **nothing**. An examiner reading the most-read page of the
+  thesis and then the chapter would have found row 6 (graded persona channel
+  affine, class 6-A) and row 9 (identity-token selection, class 9-A″,
+  width-conditional on `n_embd = 256`) **unannounced**. The pass is
+  transcription-only and `$0`: every number is anchored to a chapter line *and*
+  to an `analysis.json` key or `REPORT.md` of record. The **judgment call**,
+  registered rather than assumed: the arc folds into the `\emph{Structure}`
+  result instead of becoming a named sixth, because the chapter's own opening
+  still reads *"Five claims come out of the chapter"* and both rows are
+  measured in `sec:psm:structure:rank` — #209's precedent was to follow the
+  chapter, and the hard fence forbids touching it, so promoting the wrapper to
+  six would have manufactured an inconsistency an examiner finds in one
+  page-turn. The abstract gains its **first `Structure` clause** (297 → 298
+  words against the hard 300 cap, bought with 45 words of trims, none of them a
+  ceiling), and row 9's two ceilings — toy scale *and* width-conditional — ride
+  in the same clause everywhere. The 00g/00h pricing arc stays out: checked
+  sentence by sentence, no wrapper sentence is false without it. Two declines
+  registered and not papered over — the per-prediction P1 paragraph (row 6's
+  steering law arguably bears on P1's *acting* half, but the chapter never
+  reconciles them, so writing it would be authoring a verdict) and the
+  now-stale lualatex page numbers in other `latex/notes/*.md` (outside the
+  fence). `EXPECTED_PAGES` 315 → 317, attributed by baseline builds rather than
+  assumed. Register:
+  `latex/notes/thesis-wrapper-recovery-arc-2026-09-01.md`.
+
 - 2026-09-01: **The instrument-issue register, discharged: ten open defects
   adjudicated, and three of them were filed or briefed against a cause that had
   gone stale.** **phd-thesis#250** — `$0`, CPU only, nothing re-run, no verdict,
