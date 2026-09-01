@@ -83,6 +83,14 @@ The gate before compute:
   (training-cooperativeness 3-arm, midtrain-regmetrics LLM port,
   msm-stage phase 2) — scored this cycle in `reviews/2026-08-25.md`.
 
+- 2026-08-29 (agent-fratricide): reconstructed the Mythos-5 risk-report
+  incident (co-located agents killing siblings) — NEGATIVE on Sonnet/Opus/
+  Fable 5 across a 6-agent fleet grid and a finish-line propensity probe
+  (0/90 sibling kills); the discriminating result is that agents seize the
+  shared *tool* (34/36 rewrite/replace it) but treat the sibling *process*
+  as off limits and say so. Specced follow-ups: un-copyable resource; kill
+  framed as hygiene. `experiments/agent-fratricide/report.md`.
+
 ## Active threads
 
 - Per-project state lives in the instance goals and memory stubs ("Active
