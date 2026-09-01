@@ -41,6 +41,52 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **the one open thread 00d named got a purpose-built
+  dose–response, and the substrate could not carry it — `PRICE-5`,
+  instrument-limited, with the exclusion named rather than argued around.**
+  **phd-thesis#244** (open, spec #242). R9.4's "factor of two" — the model
+  under-uses precise identity evidence and over-uses coarse — has sat in the
+  chapter since #240 with no mechanism and no follow-up, conceded in the
+  viva-prep bank as `BD3b`. 00g built the measurement: a new `ladder8` corpus
+  carrying **six graded identity tokens at once**, all read out of one
+  checkpoint so every contrast is paired, priced on the coherent projection so
+  the incoherent floor cannot bias the curve toward flatness. **It splits the
+  identity channel too thin.** At a fixed total emission rate, four of the six
+  doses sit inside their own zero-evidence control; §4.3's `3σ` floor —
+  measured per cell on a matched filler, pre-registered as *"never re-included
+  by any argument"* — admitted `leaf` (the anchor) and `fam` and excluded
+  `pair`, `nz1`, `nz2`, `nz3`, so the confirmatory fit has **one non-anchor
+  point**. T1 is falsified: its `cos` leg passes at `0.7012 ± 0.0257` but the
+  ordering *inverts*, the coarse token moving the read-out further along the
+  exact direction than the precise one (paired gap `−0.5033 ± 0.1411`).
+  `γ̂ = −0.529 [−0.718, −0.320]` is published **without a class**. The
+  discipline is the point: all 25 pretrains cleared learnability with room
+  (`captured_frac` `0.867`–`0.913` against `0.60`, exclusion table empty), so
+  this is a measurement failure and not a learning one — and the floor
+  correction that produced the null is exactly the repair that stopped an
+  uncorrected `‖Δ‖` fit from returning a tidy, publishable, wrong number
+  (`nz3`: raw `1.1872`, coherent `0.4026`). Three things survive. **`AXIS-3`**
+  (slope `−1.435 [−1.652, −1.263]`, excluding both `0` and `γ̂`) is a finding,
+  not a shrug: equal-nats partition and noisy tokens are not priced alike, and
+  the `cos` column says why — the partition ladder holds coherence as nats
+  fall while the noise ladder degrades it `0.70 → 0.31`. **00d's coarse-token
+  anomaly reproduced within a checkpoint** (`κ(fam) = 0.644 ± 0.078` against
+  `κ(leaf) = 0.237 ± 0.019`), so the cross-corpus arm-F confound — the leading
+  suspect — is ruled out without the effect being explained. **T7 HIT** at
+  `2.392 ± 0.289` against R9.4's inherited `2×`: the parameter-free *pattern*
+  claim survives where the *magnitude* one could not be put. Volunteered rather
+  than smoothed: T5's materiality floor is written `ln(4) × 0.5 = 0.347` and
+  those are two different numbers, so `EXPO-1` is threshold-sensitive and the
+  REPORT says which reading gives which class; §3.4's attribution of the
+  `4.860188`/`4.9383` selectivity gap is wrong (it is 00d's eleven-behavior
+  heavy third, not the ratio ordering). **Nothing already scored moves** — row
+  9 stays 9-A″, `recovery_matrix.md` and `FACTS.md` byte-identical, no `.tex`
+  touched. And the run itself is a recovery: the task that sealed the PREREG
+  and launched the grid **died on budget mid-run** (`$17` of `$20` eaten by API
+  529 retries, **jarvis#154**); the detached driver finished anyway, and a
+  second task verified it, reproduced `analysis.json` byte-for-byte, archived
+  and reported it. `$0` compute, 2.2 h CPU, 25 pretrains at seeds 25–34.
+
 - 2026-09-01: **spec 00g registers the evidence-pricing law — 00d's one
   never-taken next step gets a pre-registered dose–response.**
   **phd-thesis#242** (open, spec only, `$0`). 00d closed with three next steps;
