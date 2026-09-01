@@ -41,6 +41,50 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **spec 00g registers the evidence-pricing law — 00d's one
+  never-taken next step gets a pre-registered dose–response.**
+  **phd-thesis#242** (open, spec only, `$0`). 00d closed with three next steps;
+  00e + 00f discharged two (row 9 closed at 9-A″). The third was the program's
+  one named open thread — R9.4's magnitude split, *"the model under-uses precise
+  identity evidence and over-uses coarse evidence, about a factor of two ...
+  measurable on this substrate, and this spec did not pre-register it"*. Since
+  #240 the chapter **reports** that miss (`:3115–3118`) with no mechanism and no
+  follow-up, and the viva-prep bank concedes it as `BD3b`. The estimand is a
+  **gain curve** `κ(e) = ⟨Δ, Δ^Bayes⟩/‖Δ^Bayes‖²` — `κ = 1` is exact pricing —
+  parameterised by a contraction exponent `γ` in `‖Δ_model‖ ∝ ‖Δ^Bayes‖^γ`. On
+  00d's committed bytes `κ(leaf) = 0.285 ± 0.030` against `κ(family) =
+  0.450 ± 0.108`, i.e. `γ̂ ≈ 0.33`. **Three defects in that two-point estimate
+  are disclosed in the spec**: it is cross-corpus (arm F pretrained a
+  family-resolution *world*, and the two arms' own `direct` yardsticks differ by
+  16 %), unpaired (a ratio of two five-cell arm means), and taken on `‖Δ‖`,
+  whose zero-evidence floor is **46 %** of the signal at `cos = −0.037` and
+  whose share *grows as the evidence weakens* — biasing a pricing curve toward
+  exactly the flatness observed. The repair is the coherent projection; #223's
+  `pattern_r2` is read by no clause. New `ladder8` corpus carries the dose:
+  **six identity vocabularies in one corpus** at 00d's arm-A per-tag exposure —
+  three partition tokens (`ln 8` / `ln 4` / `ln 2` nats) and three noisy-leaf
+  tokens whose exact displacement is *exactly* `(8q−1)/7` times the clean
+  leaf's, with `q` solved so two of them match `ln 4` and `ln 2` in nats while
+  differing in displacement — so all six are finetunes of **one checkpoint**,
+  every contrast is paired within a seed, and **the crossing tests whether the
+  model prices nats or prices the posterior's displacement**. Two confounds get
+  arms: a rate-matched corpus (a family tag is otherwise 4× more frequent per
+  tag) and a `steps = 300` budget rung, because `κ`'s *level* is a joint
+  property of evidence and finetune budget while `γ` should not be. 25 pretrains
+  at seeds 25–34, ≈ 75 core-hours, `$0`. Five outcome classes with their chapter
+  sentences fixed in advance, including **`PRICE-4` evidence-insensitive** — the
+  pattern comes from the corpus and the amplitude from the optimiser — and the
+  axis test registered as `underpowered` at ~60 % power, disclosed rather than
+  engineered away. **No pathway of any class can move a recovery-matrix row, a
+  `FACTS.md` grade or any prior verdict**: row 9 stays 9-A″, 00f §7.4's
+  termination commitment stands, and the gate asserts byte-identity of
+  `recovery_matrix.md`, `FACTS.md` and 00d/00e/00f's scored artifacts plus a
+  zero count of `ROW9-`/`ROW6-VERDICT` lines. Rider in the same PR: #240 having
+  merged, the viva bank's forward-dated caveat is discharged — P7/P9/P10
+  `CONCEDE` → `SOLID`, P8's residual narrowed to F6, caveat retitled in place
+  with its text kept. The run is a **separate later dispatch**; the
+  merge-to-dispatch interval is the veto window.
+
 - 2026-09-01: **the thesis has a viva-prep bank — 63 questions, the answer of
   record for each, the anchor for every number in it, and a grade.**
   **phd-thesis#241** (open). The thesis had two mock-viva artifacts and neither
