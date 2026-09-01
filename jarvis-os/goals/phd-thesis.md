@@ -41,6 +41,39 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **the recovery-arc register is discharged — the arc's one false
+  sentence, its wrong *n*, and the silence about its own adjudicator's miss.**
+  phd-thesis#239's cold read of the 00d/00e/00f arc left three
+  `BLOCKED-ON-DANIEL` items; **phd-thesis#240** clears all three. They were the
+  **#215/#228 class** — blocked because that pass's rules forbade *authoring*,
+  not for want of content, so every repair was a transcription from an
+  experiment of record and the register had already written the recommended
+  text. **BD1**: "the row stayed open *on that block*" bound `that block` to
+  the third block (00e) while the reason the next two sentences give — the
+  `0.1010` filler composite — is the second block's (00d), so the sentence was
+  **false on its natural reading**; repair (a), "on the second block too", is
+  the one that makes the following antecedents true (00e's repaired composite
+  HIT in full; its row-9 verdict turns on R9.7). **BD2**: `the same $55$
+  pretrains` overstated row 9's *n* — the self-descriptive protocol ran on
+  **40** of the 55, and the headline `0.775 ± 0.020` rests on **`n = 10`**
+  (00d `REPORT.md:95–100`, `:307`); `55` stays wherever it describes row 6.
+  **BD3**: the chapter quoted 00f's `0.1404` three times as the instrument
+  disposing of the `0.119` gap and never as the **registered miss** it is —
+  `[0.055, 0.115]` sealed, `s3 = 0.1777` against `0.0965`/`0.0588` — the one
+  00f's REPORT calls *"the honest qualification on the whole result"*; now one
+  sentence in §rank and one clause in the discussion, because the discussion is
+  where an examiner reads for the verdict. **BD3b**: 00d's R9.4 miss (`0.828`
+  against `[0.3, 0.7]`, exact `0.496`) reported; R9.5 left to 00f's W-2. **No
+  number computed, only transcribed; no verdict, bar, grade, float or
+  `experiments/` byte touched.** `$0`, CPU only, eight zeros, spellcheck `0`,
+  **314 pages — `EXPECTED_PAGES` unchanged**. Register annotated in the
+  #201/#228 idiom (marker tokens retitled in place, finding text never deleted,
+  no raw marker left in the file); Daniel gets **one** consolidated verify item
+  (brief item 19, #218 precedent) whose paste-ready reverts were checked by
+  extraction-and-run — the chapter returns byte-identical. **F6, the §rank
+  paragraph reorder, stays deferred to Daniel on purpose** (deixis-fragile);
+  with that, no item in the recovery-arc register is open for him.
+
 - 2026-09-01: **the recovery-matrix arc read cold — the word-level pass finds
   nothing, and the seams find five.** phd-thesis#239 (open). The 00d/00e/00f
   arc added **297 lines** to `latex/Chapter_PersonaSelectionModel.tex` after
