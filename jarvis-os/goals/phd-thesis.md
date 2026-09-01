@@ -2711,3 +2711,33 @@ material — a chapter draft an advisor could read cold and follow.
 - Positioning note: the Irving & Africa post cites Betley/MacDiarmid for
   EM but not Daniel's ICML paper or Inoculation Prompting; engaging the
   authors is Daniel's call (flagged in spec 00 risks).
+- **2026-09-01 — spec 00h (rate-raised evidence pricing) executed, phd-thesis#247:
+  the repair's own audit clause falsified the repair.** `FLOOR-3 unrepaired`,
+  `GAMMA-5 instrument-limited`, `TAGRATE-1 evidence`, `COARSE-3 not-computed`.
+  00g's dose–response died on signal-to-noise and named the fix — *three doses
+  at double the rate* — and 00h's §2 published a power analysis arguing the
+  `×1.137` margin multiplier was **guaranteed for every value** of an
+  unidentified corpus-load coefficient `λ`, because every candidate load
+  variable falls or stays. `U8` was registered to score exactly that claim and
+  it **MISSED**: realised multiplier **`×0.835 [0.723, 0.952]`**, a CI
+  excluding the prediction *from below*, with **`λ̂ = −0.832 [−1.834, +0.178]`**
+  — the matched filler's dispersion **rises** as tag-slot load **falls**, the
+  one sign §2.5's guarantee did not cover and §14 named as the kill risk. So
+  `d50` failed the floor it was designed to clear (3/10 cells against a
+  predicted 8/10). **The value here is the identification, not the verdict**:
+  `λ`'s sign is now measured within one spec on a rate-matched control row, so
+  the next power analysis in this program has a number where 00g had an
+  interval (`λ ∈ [0.20, 1.89]` — wrong interval, wrong half-line). Two further
+  things worth Daniel's eye: (i) the registered point prediction `γ ≈ 0.73`
+  missed in the **opposite** direction from 00g's `−0.529` — `γ̂ = 1.154
+  [0.937, 1.385]` on the one admitted dose, which on substance is *exact
+  pricing*; (ii) the legacy raw-`‖Δ‖` statistic the spec argued **against**
+  returns `0.756`, landing on the registered value, and the two statistics
+  disagree by more than either CI on the same checkpoints — every magnitude
+  claim in this chapter rests on that choice and nothing licenses it into the
+  text yet. All 25 cells cleared learnability by a distance, so this was a
+  corpus failure, not a learning one. §14 now binds: **no fourth attempt on
+  this substrate without changing the world itself** (`n_read 32 → 64` is the
+  only `λ`-free margin lever left, and it moves the estimand). Nothing in the
+  program moves — row 9 stays 9-A″, 00g's classes stand, `latex/` untouched.
+  25 CPU pretrains, 2 h 11 min, 55.3 core-hours, **$0**.
