@@ -41,6 +41,64 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **fix-day — billing came back and the thesis program unfroze;
+  phd-thesis is at zero open PRs for the first time since 08-30.** GitHub
+  Actions on the dtch1997 account is **paying again** (jarvis#139, closed):
+  verified 00:03Z when phd-thesis run `33452558445` executed real steps instead
+  of dying at start. `#234` (the whole 00d/00e/00f recovery-matrix arc) merged
+  00:11Z as `5ec0e33`; `#228` (the fifth-claim chapter opening) merged 00:16Z
+  as `c5a3e3b`. **`$0`, CPU only, one CI constant changed and no thesis prose,
+  claim, number, verdict, figure or label touched.**
+
+  The whole wedge was one stale integer. `ci/build_thesis_lualatex.sh` asserted
+  `EXPECTED_PAGES=307`, last set on #218; the recovery-matrix arc grew the
+  document while CI was billing-dead, so nothing ever measured the new tree and
+  the constant went stale rather than wrong-by-intent. With the tectonic and
+  copy-edit legs already green on identical content, that integer was the only
+  thing standing between the arc and `main`.
+
+  It took **two** bumps, not one, and the second is the finding worth keeping:
+
+  | | lualatex | tectonic |
+  |---|---:|---:|
+  | #218 (last asserted) | 307 | 309 |
+  | #234 alone | **313** | **315** |
+  | composite (#234 + #228) | **314** | **315** |
+
+  #228's chapter opening costs a page under lualatex that tectonic absorbs, so
+  the **two-page engine gap narrows to one** (315 - 314) for the first time
+  since `latex/notes/lualatex-ground-truth-2026-08-25.md` §5.1 measured it.
+  Nothing predicted this: the pre-merge QA
+  (`latex/notes/psm-composite-qa-2026-09-01.md`, on #234) built the composite
+  at 315 pages and was right — it built it under *tectonic*, the engine that
+  does not move, so it could not have caught it. Only the second merge's own
+  merge ref could, which is exactly the gap fix-day existed to close. Recorded
+  in the constant's comment block and in the ground-truth ledger's #234
+  annotation; §5.1's measurement and every other historical page number in
+  every ledger are untouched (#184/#199/#213 discipline).
+
+  Method note for the next fix-day: `gh run rerun` re-runs a PR at the merge
+  ref recorded when it was *triggered*, so rerunning #228's wedged run would
+  have rebuilt a pre-#234 world and passed against the old constant. #228 got a
+  fresh `pull_request` event instead (empty commit, then a merge of the new
+  `main`), which is what surfaced the 314. Both throwaway commits died in the
+  squash.
+
+  Green runs proving each repo executes real jobs: phd-thesis push-to-`main`
+  `33453744304` (5ec0e33) and `33454107075` (c5a3e3b). Riders: the nine other
+  billing-frozen jarvis PRs were rerun-only (no merge, no edit, no comment) so
+  the hourly gazette sweep can adjudicate them — seven went green, jarvis#65
+  had no run on its head SHA to rerun, and **jarvis#125 fails with real steps**
+  (`uv run pytest jarvis-tools/packages/bellhop/tests`, run `33154891554`).
+  That last one is a genuine test failure the billing freeze was hiding, not a
+  billing death; it belongs to the bellhop thread and is left red and open
+  rather than touched.
+
+  No `BLOCKED-ON-DANIEL` marker needed clearing in this file: the billing wedge
+  was never registered as one here (it was a tooling outage, not a Daniel
+  decision), and the single register entry below — spec-06's stage-0 canary
+  sign-off — is unrelated and still stands.
+
 - 2026-09-01: **the composite state gets read before it gets merged** — the
   thesis's recovery-matrix arc audited end-to-end in `main` + `#234` + `#228`,
   the state that lands on fix-day and that **nothing had ever built**
