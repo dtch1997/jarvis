@@ -41,6 +41,37 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **the thesis wrapper caught up with the recovery arc — and the
+  result count deliberately stayed at five.** **phd-thesis#251** (open,
+  merge-on-green). Fourteen merges after the last wrapper reconciliation
+  (#188/#208/#209/#215) the abstract, the Introduction's contributions bullet
+  and the Conclusions' summary still predated the whole 00d/00e/00f arc:
+  `grep -in 'self.descr|identity token|0\.775|graded'` over the three wrapper
+  files returned **nothing**. An examiner reading the most-read page of the
+  thesis and then the chapter would have found row 6 (graded persona channel
+  affine, class 6-A) and row 9 (identity-token selection, class 9-A″,
+  width-conditional on `n_embd = 256`) **unannounced**. The pass is
+  transcription-only and `$0`: every number is anchored to a chapter line *and*
+  to an `analysis.json` key or `REPORT.md` of record. The **judgment call**,
+  registered rather than assumed: the arc folds into the `\emph{Structure}`
+  result instead of becoming a named sixth, because the chapter's own opening
+  still reads *"Five claims come out of the chapter"* and both rows are
+  measured in `sec:psm:structure:rank` — #209's precedent was to follow the
+  chapter, and the hard fence forbids touching it, so promoting the wrapper to
+  six would have manufactured an inconsistency an examiner finds in one
+  page-turn. The abstract gains its **first `Structure` clause** (297 → 298
+  words against the hard 300 cap, bought with 45 words of trims, none of them a
+  ceiling), and row 9's two ceilings — toy scale *and* width-conditional — ride
+  in the same clause everywhere. The 00g/00h pricing arc stays out: checked
+  sentence by sentence, no wrapper sentence is false without it. Two declines
+  registered and not papered over — the per-prediction P1 paragraph (row 6's
+  steering law arguably bears on P1's *acting* half, but the chapter never
+  reconciles them, so writing it would be authoring a verdict) and the
+  now-stale lualatex page numbers in other `latex/notes/*.md` (outside the
+  fence). `EXPECTED_PAGES` 315 → 317, attributed by baseline builds rather than
+  assumed. Register:
+  `latex/notes/thesis-wrapper-recovery-arc-2026-09-01.md`.
+
 - 2026-09-01: **The instrument-issue register, discharged: ten open defects
   adjudicated, and three of them were filed or briefed against a cause that had
   gone stale.** **phd-thesis#250** — `$0`, CPU only, nothing re-run, no verdict,
