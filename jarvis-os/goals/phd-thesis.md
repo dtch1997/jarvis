@@ -41,6 +41,59 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **The pricing arc closes the only way it could: 00h's chapter
+  integration lands one sentence, and the viva bank catches up to a seam that
+  tripled while it was on the shelf.** **phd-thesis#248** (merged `7b4b93e`) +
+  **phd-thesis#249** (the bank catch-up). The run itself (#247) has its own
+  bullet under Parked follow-ups; this is what the record did with it.
+  **#248 is one sentence and a page assert.** §11.1's `GAMMA-5` branch licensed
+  exactly one thing — record that the rate-raised follow-up also returned
+  instrument-limited, name the trigger, note that its power analysis was
+  published in advance — so `latex/` is 1 file, 11 insertions, 1 deletion, plus
+  `ci/build_thesis_lualatex.sh`'s lualatex page assert `314 → 315` (tectonic
+  stays at `316`; #245's sentence had moved tectonic `315 → 316` while lualatex
+  held, so the engine gap goes `1 → 2 → 1` across the two sentences, one page
+  each, one per engine). **The number that did not go in is the story:**
+  `γ̂ = 1.154 [0.937, 1.385]` contains `1` and excludes `0.7`, which is the
+  spec's own `GAMMA-3` *exact pricing* condition on substance — and §7.2's
+  precedence puts `GAMMA-5` first once `FLOOR-3` fires, so it stays in the
+  REPORT. A chapter sentence claiming exact pricing off one admitted dose whose
+  companion sat inside its own noise floor is the laundering the seam map
+  exists to prevent; the fence table in #248's body walks all nine seams that
+  stayed shut, including **both** of #245's deferred "worth the ink" items
+  (item (1) needed `FLOOR-1`/`FLOOR-2`, item (2) needed `COARSE-1`/`COARSE-2`;
+  `FLOOR-3` and `COARSE-3` fired).
+  **#249 is the Q&A catch-up.** `latex/notes/viva-prep-bank-2026-09-01.md` was
+  read at `c8fdbff` and predates the whole 00g/00h arc; the R9.4-miss seam of
+  `sec:psm:structure:rank` was one sentence then and is three now
+  (`:3115–3138`, from #240/#245/#248). Seven entries, `P16`–`P22`: two
+  registrations both instrument-limited and why that is not bar-shopping (new
+  verdict namespaces, power analysis published before the data and then missing
+  its own registered `γ ≈ 0.73`, floor inherited verbatim, stopping rule fixed
+  in §14 before the outcome); why `γ̂` is not in the chapter; the falsified
+  `×1.137` guarantee and why the program's other power analyses survive it
+  (`U8` was the spec's OWN audit clause, §14 named `λ < 0` as the kill risk in
+  advance, and `D1` disclosed that a correctly-sized band would have given the
+  *better* class `FLOOR-2` — and the class was transcribed as it fired anyway);
+  the projection-vs-raw-norm disagreement at `d70` (`1.154` against `0.756`,
+  non-overlapping CIs, licensed into the chapter by nothing, a flat `CONCEDE`);
+  why the program stopped; what `AXIS-3`/`EXPO-1` establish; and what came back
+  clean (`T7`, `U5`, `U7`, `TAGRATE-1` — every surviving clause is
+  parameter-free, about *which* behaviors move rather than *how far*). Plus
+  `specs/README.md`'s acts-table `landed` rows for 00g and 00h, checked against
+  the merged diffs rather than the specs' predicted seams: 00g's predicted
+  `sec:psm:discussion` and design-price seams did **not** land (the latter still
+  last modified by #182). Diff = exactly two files, `$0`, nothing in the program
+  moves, no desk item added.
+  **Where this leaves the program:** §14's pre-commitment binds — no fourth
+  attempt on this substrate without a change to the world itself — and with
+  `λ̂ = −0.832` identified, every margin lever that works by lowering tag-slot
+  load is now predicted to make things *worse*. The only one left,
+  `n_read 32 → 64`, changes the estimand and would have to re-register it.
+  Nothing downstream waits on 00h: row 9 stands at 9-A″, it could not close the
+  row and did not reopen it. The pricing question is open pending an instrument
+  the program does not yet have, and the chapter now says so.
+
 - 2026-09-01: **Spec 00h registered: the `PRICE-5` repair, with the arithmetic
   done instead of the slogan repeated — and the arithmetic says "three doses at
   double the rate" is only affordable on one ladder.** **phd-thesis#246** (open;
