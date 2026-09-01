@@ -41,6 +41,34 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **the composite-QA register is discharged; the thesis's editorial
+  backlog is empty.** The pre-merge composite QA
+  (`latex/notes/psm-composite-qa-2026-09-01.md` §9) left eight judgment calls it
+  refused to make under mechanical-fix discipline; `phd-thesis#237` (pool task
+  `t-0901-1c5e`) clears **R1–R5** and records a decision on **R7**. `$0`, no
+  compute, two prose files and a ledger. Row 6 gets the table note row 9 already
+  had (it is equally recovered at toy scale, class 6-A, and the note is a
+  transcription of the chapter's own verdict); the garden-path elision "both have
+  since been re-measured where it can be" regains its verb (*learned*); "pooled
+  over the three blocks' twenty seeds" names which three, six lines after "the
+  fourth block"; `fig:psm:learnable:selfdesc`'s caption now says that the `9-B`
+  printed on its own panel is 00d's class for 00d's seeds, two lines above a
+  caption ending 9-A″; and `specs/README.md`'s 00e/00f rows say **landed** with
+  touch-surfaces checked against the git history rather than against the spec —
+  00e's row had promised a Conclusion clause that `git log -S` shows 00e's own
+  integration *removed* when the run disproved it. **R7 skipped, deliberately:**
+  the chapter's minimum printed glyph is 6.01 pt against #214's 6.0 pt floor, and
+  a 0.01 pt margin would make that CI leg flaky.
+
+  The keeper is R1's side effect. Adding one table-note row cost 9.24 pt the
+  float did not have — `Float too large for page`, an assert `check_build.sh`
+  holds at zero — so this arc's editorial work hit the **page budget** rather
+  than the page *count* for the first time. It was paid out of the same fitting
+  budget the table's own comment already documents (`\arraystretch` 0.9 → 0.82,
+  spacing only, no statement or grade touched), and both engines came back to all
+  eight zeros at **315 tectonic / 314 lualatex** — so fix-day's freshly-bumped
+  `EXPECTED_PAGES` did not have to move again.
+
 - 2026-09-01: **fix-day — billing came back and the thesis program unfroze;
   phd-thesis is at zero open PRs for the first time since 08-30.** GitHub
   Actions on the dtch1997 account is **paying again** (jarvis#139, closed):
