@@ -41,6 +41,630 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **fix-day — billing came back and the thesis program unfroze;
+  phd-thesis is at zero open PRs for the first time since 08-30.** GitHub
+  Actions on the dtch1997 account is **paying again** (jarvis#139, closed):
+  verified 00:03Z when phd-thesis run `33452558445` executed real steps instead
+  of dying at start. `#234` (the whole 00d/00e/00f recovery-matrix arc) merged
+  00:11Z as `5ec0e33`; `#228` (the fifth-claim chapter opening) merged 00:16Z
+  as `c5a3e3b`. **`$0`, CPU only, one CI constant changed and no thesis prose,
+  claim, number, verdict, figure or label touched.**
+
+  The whole wedge was one stale integer. `ci/build_thesis_lualatex.sh` asserted
+  `EXPECTED_PAGES=307`, last set on #218; the recovery-matrix arc grew the
+  document while CI was billing-dead, so nothing ever measured the new tree and
+  the constant went stale rather than wrong-by-intent. With the tectonic and
+  copy-edit legs already green on identical content, that integer was the only
+  thing standing between the arc and `main`.
+
+  It took **two** bumps, not one, and the second is the finding worth keeping:
+
+  | | lualatex | tectonic |
+  |---|---:|---:|
+  | #218 (last asserted) | 307 | 309 |
+  | #234 alone | **313** | **315** |
+  | composite (#234 + #228) | **314** | **315** |
+
+  #228's chapter opening costs a page under lualatex that tectonic absorbs, so
+  the **two-page engine gap narrows to one** (315 - 314) for the first time
+  since `latex/notes/lualatex-ground-truth-2026-08-25.md` §5.1 measured it.
+  Nothing predicted this: the pre-merge QA
+  (`latex/notes/psm-composite-qa-2026-09-01.md`, on #234) built the composite
+  at 315 pages and was right — it built it under *tectonic*, the engine that
+  does not move, so it could not have caught it. Only the second merge's own
+  merge ref could, which is exactly the gap fix-day existed to close. Recorded
+  in the constant's comment block and in the ground-truth ledger's #234
+  annotation; §5.1's measurement and every other historical page number in
+  every ledger are untouched (#184/#199/#213 discipline).
+
+  Method note for the next fix-day: `gh run rerun` re-runs a PR at the merge
+  ref recorded when it was *triggered*, so rerunning #228's wedged run would
+  have rebuilt a pre-#234 world and passed against the old constant. #228 got a
+  fresh `pull_request` event instead (empty commit, then a merge of the new
+  `main`), which is what surfaced the 314. Both throwaway commits died in the
+  squash.
+
+  Green runs proving each repo executes real jobs: phd-thesis push-to-`main`
+  `33453744304` (5ec0e33) and `33454107075` (c5a3e3b). Riders: the nine other
+  billing-frozen jarvis PRs were rerun-only (no merge, no edit, no comment) so
+  the hourly gazette sweep can adjudicate them — seven went green, jarvis#65
+  had no run on its head SHA to rerun, and **jarvis#125 fails with real steps**
+  (`uv run pytest jarvis-tools/packages/bellhop/tests`, run `33154891554`).
+  That last one is a genuine test failure the billing freeze was hiding, not a
+  billing death; it belongs to the bellhop thread and is left red and open
+  rather than touched.
+
+  No `BLOCKED-ON-DANIEL` marker needed clearing in this file: the billing wedge
+  was never registered as one here (it was a tooling outage, not a Daniel
+  decision), and the single register entry below — spec-06's stage-0 canary
+  sign-off — is unrelated and still stands.
+
+- 2026-09-01: **the composite state gets read before it gets merged** — the
+  thesis's recovery-matrix arc audited end-to-end in `main` + `#234` + `#228`,
+  the state that lands on fix-day and that **nothing had ever built**
+  (phd-thesis ledger `latex/notes/psm-composite-qa-2026-09-01.md`, on #234).
+  **CPU only, `$0`, three mechanical fixes, eight items registered.** CI builds
+  each PR against `main` and never against its siblings, and with Actions
+  billing-frozen it has not built anything at all — so a gazette sweep would
+  have merged two PRs whose union no build and no reader had seen. Row 9's
+  verdict flipped three times in ~24 h (9-B → 9-C′ → **9-A″
+  width-conditional**) across six worker sessions on stacked branches, and the
+  close read (phd-thesis#221) predates every word of it. **Result: the
+  composite builds clean — 315 pages, all eight asserted zeros at zero,
+  spellcheck exit-0 — the two PRs still merge conflict-free into each other,
+  and all ~60 numbers the row-6/row-9 arc quotes match their experiment of
+  record with zero mismatches** (00d/00e/00f `analysis.json`, not the REPORTs'
+  prose). What the stitch did leave behind was provenance, not arithmetic:
+  `sec:psm:structure:rank`'s section-level comment still declared
+  `ROW9-VERDICT still open (class 9-B)` for a section that now runs the whole
+  00d→00e→00f arc and concludes 9-A″, and neither `psm-row9-reregistration`
+  nor `psm-row9-adjudication` was named anywhere in `latex/` although the
+  chapter quotes ~30 numbers from them; 00b's figure caption still asserted
+  "row 9 **is** recorded as open" in the present tense; and `specs/README.md`
+  still headed 00e and 00f "**specced**" on the very branch that lands their
+  runs — which matters because 00f's spec text reasons from a dispersion ratio
+  of `2.87` that **00f's own run refuted** (`1.35`, `p = .195`, class W-2).
+  All three fixed on #234; the daggered-row-6 asymmetry, the panel that reads
+  `(class 9-B)` under a caption that ends `9-A″`, and a roadmap row naming a
+  Conclusion clause that does not exist are registered for a post-merge
+  editorial pass. Still exactly **two** open PRs, no new one opened, the
+  composite branch never pushed. Discipline #184/#199/#220/#221; fold idiom
+  jarvis#99.
+
+- 2026-08-31: **the 00d/00e/00f stack folded to one PR before the billing
+  freeze could jam it** — phd-thesis is down to **two** open, main-targeted
+  PRs ([#234](https://github.com/dtch1997/phd-thesis/pull/234) and
+  [#228](https://github.com/dtch1997/phd-thesis/pull/228)). **Repo surgery,
+  `$0`, zero new thesis prose — no commit was authored, no hunk moved.**
+  GitHub Actions on the dtch1997 account is billing-failed (jarvis#139): every
+  job dies at start, nothing can gazette-merge, and billing-failed check runs
+  do **not** re-run themselves after a fix. Six PRs targeted `main` with
+  heavily overlapping diffs, and gazette squash-merges on green with no
+  ordering knowledge — so the first merge to land would have turned every
+  overlapping sibling CONFLICTING with duplicate hunks. Pre-empted by
+  retargeting #234 (`psm-00f-chapter-integration`) from
+  `psm-row9-adjudication-run` to `main` and closing **#227, #229, #231, #232,
+  #233** into it, branches kept. Containment proved by diff rather than
+  assumed: all five are strict git ancestors of the survivor
+  (`git merge-base --is-ancestor`), which is itself a fast-forward descendant
+  of `main` — every line that does not appear verbatim is a later commit on the
+  same lineage superseding it (e.g. `measure_cell.py`'s M2a–M2d block
+  re-indented under 00e's `row9_only` guard). #228 stays independent as
+  designed; its disjointness was re-checked against the *whole* stack rather
+  than just #227, and a test merge auto-merges the one shared file with zero
+  conflicts in either squash order. Both PRs carry explicit
+  `gh run rerun --failed <run-id>` instructions, because the wedged runs are
+  inert until someone kicks them. **Fix-day path is now one step: re-run checks
+  on two PRs, gazette merges them.** Fold idiom jarvis#99; same remedy at
+  smaller scale in t-0831-6da3 (#224 → #227).
+
+- 2026-08-31: **the chapter writes row 9's sentence — recovered at toy scale,
+  width-conditional on `n_embd = 256`**
+  ([phd-thesis#234](https://github.com/dtch1997/phd-thesis/pull/234)). The
+  downstream unit spec 00f §11 defines, executed under the classes that landed.
+  **Writing only, `$0` — nothing is run, nothing already scored is re-scored.**
+
+  **The seam that mattered.** The Conclusion had carried a reproducibility
+  claim with no number — *"a magnitude that travels that far between two
+  disjoint seed blocks of one design is not yet a magnitude the chapter can
+  quote as the posterior's."* It now carries V-2's two numbers: a five-seed
+  block mean reproduces to an s.d. of **`0.1404`**, and the program's best
+  estimate is the twenty-seed pooled **`0.6965 ± 0.0314`**. The sentence 00b
+  wrote as a conditional and could not cash — *training a model on nothing but
+  its own name moves thirty-two behaviors it never saw, in the pattern and at
+  the magnitude the exact posterior predicts, while a rarity-matched control in
+  the same syntactic slot does not* — is written in the affirmative, with the
+  six ten-seed numbers at 00e's unchanged bars and the width condition in the
+  same clause. **The `0.001` miss stays on the record**, and so does 9-C′: the
+  00e paragraph is appended to, never rewritten, and the `ICC = +0.842` /
+  `2.35`-vs-`3.18` arithmetic is stated as an annotation, with R9.7 keeping its
+  MISS.
+
+  **Eight seams, and two of them are refusals.** Under **W-2** rather than the
+  predicted W-1 there is **no new float** — the width × dispersion panel joins
+  only under 9-A″ *and* W-1 — and the spec's *"reproducibility falls off faster
+  than the effect"* sentence is nowhere in the chapter, because on ten fresh
+  seeds the dispersion inflation did not replicate. `tab:psm:facts` row 9 gets
+  a pointer to the width-conditional toy verdict and **its evidential grade
+  column is not touched**: `B` grades the literature, and a toy result does not
+  move it. The one place 00f *adds* chapter text is
+  `sec:psm:structure:rank`'s width discussion, which now names 256 as the
+  narrowest substrate on which row 9's verdict is readable, off 00c's capacity
+  ladder. `specs/README.md` takes the §11.4 rider verbatim — acts row, run-order
+  sub-branch, status row — and `FACTS.md` / `recovery_matrix.md` are untouched,
+  because #233 already carries them.
+
+  **Stacked, deliberately.** Based on `psm-row9-adjudication-run` (#233), not
+  `main`, so every seam's quoted string exists in its final 00e-integrated form
+  and the rider has 00e's rows to attach to; merges after #233. Checks are red
+  on the billing wedge (jarvis#139) and the zero-warning state is proved
+  locally instead: **315 pp, all eight `ci/check_build.sh` hard zeros,
+  `ci/spellcheck.py` exit 0**. One real regression found and fixed on the way —
+  the oversized `tab:psm:facts` float went `25.49pt` over on the first draft of
+  the note, and the fix moved the note below the table's closing rule rather
+  than spending a typographic concession, so `\abovecaptionskip` is back at its
+  committed value and the caption is byte-identical.
+
+- 2026-08-31: **row 9 recovers — a `0.1189` block gap happens 38 times in the
+  126 ways of splitting ten seeds dispatched together**
+  ([phd-thesis#233](https://github.com/dtch1997/phd-thesis/pull/233),
+  `experiments/psm-row9-adjudication/`). Spec 00f's run: 40 fresh `hier8` CPU
+  pretrains at **seeds 15–24, ten per cell**, 2.67 h wall clock, ≈ 68
+  core-hours, **`$0` marginal spend** — CPU only, no pod, no paid API.
+
+  ```
+  BLOCKVAR-VERDICT: pools (class V-2)
+  WIDTH-VERDICT:    attenuated-stable (class W-2)
+  ROW9-VERDICT:     recovered (class 9-A")
+  ```
+
+  **The premise of 00e's verdict is false.** 9-C′ was a *precision* claim: two
+  disjoint five-seed block means of one design disagreed by more than their
+  error bars admitted. Measured against an instrument that is not selected
+  on — the exact distribution of all 126 `5|5` half-split gaps inside one fresh
+  ten-seed block — `Δ_max = 0.2492`, more than twice the sealed
+  `Δ_obs = 0.11894`, and **38 of the 126 splits reach `Δ_obs` outright**
+  (`p_split = 0.302`). The interpretable leg agrees at `z_obs = 1.34` against
+  the `2.576` V-2 permits. The demoted omnibus `F` was **not used for a
+  verdict**, exactly as sealed, with its `0.196` conditional FPR printed beside
+  it. **S9.5 then HIT 6/6** on the ten fresh seeds at 00e's untouched bars —
+  `self-leaf` cos `0.6269 ± 0.0474`, filler `−0.0131 ± 0.0134`, separation
+  `0.6400 ± 0.0562` — with 20 of 20 arm III-A cells included, so §7.3's sealed
+  pathway opens and the row flips to **9-A″**.
+
+  **Three things cut against a clean story and all three are registered
+  outcomes, not caveats.** *(1)* S9.1's own sanity sub-clause **MISSED**:
+  `σ̂_W = 0.1404` is outside the registered `[0.055, 0.115]` because the fresh
+  block is genuinely more dispersed (`s3 = 0.1777` against `0.0965` / `0.0588`),
+  so the **exact** leg carries V-2 and the miss qualifies precision rather than
+  direction — a larger `σ_W` makes the gap *more* ordinary, not less. *(2)* The
+  width verdict came back **W-2, not the predicted W-1**: the mean attenuates
+  for a third time (paired `256 − 192` `ρ_c(self)` `+0.1817 ± 0.0486`, HIT) but
+  the dispersion inflation **did not replicate** — ratio `1.35` against the seen
+  `2.87`, `F(9,9) = 1.81`, `p = 0.195`. The flip at 192 is a *magnitude* story
+  and 00c's capacity ladder is the frame; the *"verdict stability is a property
+  of the substrate's reproducibility"* claim is **not supported**. *(3)* S9.4 is
+  **inconclusive** — there is no inflation left for it to explain.
+
+  **Nothing already scored was re-scored**, and the gate checks it: 00d's and
+  00e's `REPORT.md` / `PREREG.md` / `analysis.json` are byte-identical after the
+  run. `PREREG.md` was sealed at `29d2ed0` with no checkpoint of this spec in
+  existence, `test_row9f.py` passed 5959 assertions after the run, and **00f is
+  pre-committed as the last seed block this program dispatches for row 9**.
+
+- 2026-08-31: **row 9's non-replication gets an adjudication, and the obvious
+  test for it turns out to be unusable**
+  ([phd-thesis#232](https://github.com/dtch1997/phd-thesis/pull/232),
+  `specs/00f-row9-replication-adjudication.md`). Spec 00f, 1 349 lines, one new
+  file, based on `main` and touching nothing else. **Spec only, `$0` — nothing
+  is run by this PR; the grid is a later dispatch and the merge-to-dispatch
+  interval is the veto window.**
+
+  **Why this and not another attempt at the bar.** 00e's own REPORT named the
+  binding limit and did not have the seeds to measure it: *"Seed-block variance
+  is now the binding instrument limit, not the floor. A third block at 10 seeds
+  per cell would separate 'the effect varies' from '5 seeds is too few to pin
+  it'."* The chapter's Conclusion, on #227, currently says *"a magnitude that
+  travels that far between two disjoint seed blocks of one design is not yet a
+  magnitude the chapter can quote as the posterior's"* — a reproducibility claim
+  with no number attached to it. 00f attaches one whichever way it lands.
+
+  **Two findings from the committed bytes, both disclosed, neither re-scoring
+  anything.** *(1)* The `3.18` s.e.m. that falsified R9.7 was computed over ten
+  **cells** — five seeds × `r* ∈ {3,7}` — as if independent. The two ranks of
+  one seed are scored on the same five pretraining realizations and correlate at
+  **`ICC = 0.881`** in 00d (`0.324` in 00e), so at the seed level, the only unit
+  a *seed-block* claim lives on, the gap is **`2.35`** s.e.m. — inside R9.7's
+  own three-s.e.m. falsification threshold. **R9.7 is not re-scored and 9-C′
+  stands**; the arithmetic is published as an annotation and the ICC is put to a
+  fresh measurement rather than asserted from two five-seed correlations one of
+  which is `0.32`. *(2)* The textbook instrument is unusable. A one-way
+  random-effects `F` over the three block means is conditioned on the very
+  discrepancy that motivated the study: simulated at `σ_B = 0` with 00d's and
+  00e's **realized** means held fixed, it returns "varies" **34 %** of the time
+  (`19.6 %` for a four-sub-block variant). A nominal-5 % test with a `0.34`
+  conditional false-positive rate is not a test, so it is demoted to a reported
+  secondary with that constant printed beside it and barred from producing a
+  verdict.
+
+  **What replaces it.** An instrument that is not selected on: the **exact
+  distribution of all 126 `5|5` half-split gaps inside the fresh ten-seed
+  block**, against the sealed constant `Δ_obs = 0.11894`. Exact under
+  exchangeability, no normality assumption, no dependence on `σ̂_W`, and
+  deliberately generous to the null. Operating characteristics are published
+  **before** the data, 200 000 replicates a row: `UNRESOLVED` under `0.5 %` at
+  every `σ_W`, monotone from `0.99/0.01` at `σ_W = 0.05` to `0.01/0.99` at
+  `0.16`, and — at the current point estimate `σ_W = 0.0799` — an honest
+  **`0.54/0.46` coin flip**. That is disclosed rather than engineered away; what
+  the run buys unconditionally is `σ_W` on 20 seeds of within-block dispersion
+  instead of 8.
+
+  **The width flip gets a mechanism, and it is dispersion.** At
+  `n_embd = 192` the mean paired separation is `0.324` against `0.764` at 256 —
+  and it **replicated in both existing blocks** (`0.342` / `0.306`), so it is
+  not seed noise. But the seed-level s.d. at 192 is **`0.233` against `0.081`**,
+  ratio **`2.87`**, `F(8,8) = 8.24`, `p = 0.0037`, at *matched* learnability
+  (`captured_frac` `0.80–0.86`, every cell clearing `0.60`; if anything
+  `corr(captured_frac, sep_cos) = −0.707`, the wrong way for a learnability
+  story). A verdict flips at 192 because the measurement is three times less
+  reproducible there. A `π = 0` arm at 192 — the null 00e ran only at 256 —
+  separates *"the identity channel is more variable"* from *"a narrower model is
+  a noisier instrument"*. One sentence unifies both questions: **the effect is
+  present at both widths; only the wider model reproduces its own magnitude.**
+
+  **The bar-moving objection, answered in the spec text.** This is the fourth
+  measurement of one row, so §7.3 seals four commitments: prior verdicts stand
+  and the gate checks byte-identity of 00d's and 00e's scored artifacts; the
+  row-status pathway is gated on the **instrument** (it opens only if the block
+  verdict *pools*, because 00e's 9-C′ was a precision verdict and pooling is the
+  finding that its premise is false); no bar moves (00e's six R9.6 bars, scored
+  on the ten fresh seeds alone, not on the pooled twenty); and §7.4 pre-commits,
+  under **every** outcome class, that **00f is the last seed block** — including
+  9-E″, where the row is declared *permanently open at toy scale* and a fourth
+  block is explicitly forbidden because that verdict's content is precisely that
+  seed blocks do not converge here.
+
+  **Grid and cost.** 40 fresh `hier8` CPU pretrains at **seeds 15–24, ten per
+  cell**, disjoint from 0–4 / 5–9 / 10–14: 20 at `n_embd = 256`, `r* ∈ {3,7}`;
+  10 at 192, `r* = 3`; 10 at 192, `π = 0`. ≈ 2.6 h at concurrency 15, ≈ 77
+  core-hours, **`$0`**. Sub-blocks `3a` = 15–19 and `3b` = 20–24 pre-declared,
+  so the fresh block carries its own exchangeable-by-construction control.
+
+  **Base-branch call.** `main`, spec file only, `specs/README.md` deliberately
+  untouched: both #229 and #231 carry the identical 00e edit to that file, and a
+  third head on the same hunks would need resolving in whatever order the
+  billing wedge clears. §11.4 carries the three README rows — acts table,
+  run-order diagram (the #205 lesson) and status row — verbatim as a rider block
+  to apply at merge. `git merge-tree` against the merge base is clean for all
+  four open heads (#227, #228, #229, #231), and none of them touches the new
+  file.
+
+  **CI is still billing-wedged** (jarvis#139), so #232 sits red through no fault
+  of the branch, like its four siblings. No `latex/` changes ⇒ no build needed,
+  and `ci/spellcheck.py` sweeps `latex/*.tex` only. §13.1 carries the wedge
+  adaptation forward for the **run**: because merge-first cannot be enforced by
+  a green check, the veto window becomes worker checks — no-PREREG-before-`T`
+  plus a PR veto-signal re-read at PREREG-commit time, reading the spec from the
+  PR head rather than a local copy (threads note `20260831T120613Z` precedent).
+
+  **Next, absent a veto:** the keeper dispatches the 40-cell run.
+
+- 2026-08-31: **the chapter says why row 9 is open a third time, and retires the
+  clause that said closing it was free**
+  ([phd-thesis#227](https://github.com/dtch1997/phd-thesis/pull/227),
+  `latex/Chapter_PersonaSelectionModel.tex`). The 00e verdict, folded into the
+  **existing** 00d integration PR rather than stacked behind it — the 00d
+  landing surface was de-stacked earlier today and a second stack would
+  recreate that mess. **Writing only, `$0`.**
+
+  **What landed.** Spec 00e §11 pre-registered exactly which text changes under
+  each outcome class, before the data existed, and 9-C′ authorises prose only:
+  no new float. Five seams, located by quoted string. The clause *"and no new
+  compute: the measurement already exists"* comes out, replaced by the outcome
+  and by §3's reason the seen measurement could not carry a verdict — the
+  displacement vectors are committed, so a verdict read off them is a verdict
+  read off the data that produced the miss. The Conclusion ledger's *"which
+  costs no new compute to put right"* comes out the same way, the sentence
+  keeping its shape and changing its number. 00d's headline numbers **stay
+  verbatim** and gain a replication sentence; the figure caption gains exactly
+  one sentence; C4's status sentence inherits the new reason; `tab:psm:facts`
+  row 9 is untouched, because the evidential grade is a grade on the
+  literature.
+
+  **Why this was next.** The chapter had been carrying an inference the run
+  disproved. It said the row could be closed by re-reading a measurement
+  already in hand, which is why 00e §3 overruled the phrase and bought 20 fresh
+  pretrains instead. Leaving that clause in the thesis after the run would have
+  been the one wrong sentence a reader could catch with `git log`.
+
+  **The 9-C′ story the chapter now tells.** The repaired signed clause **holds
+  in full** on seeds 10–14 — `ρ_c(filler) = +0.019 ± 0.017` against a one-sided
+  `+0.35`, paired signed separation `+0.626 ± 0.028` against `+0.40` — so the
+  `0.001` that blocked 00d is settled. The row stays open anyway, because the
+  headline paired separation came back at `0.693 ± 0.022` against 00d's
+  `0.812 ± 0.030`, **3.18 paired s.e.m.** apart and outside the registered
+  threshold, and the sealed precedence checks 9-C′ before 9-A′. So the reason
+  changed a third time: not *"the instrument was void"* (00b), not *"a
+  sub-clause sat on its own chance floor"* (00d), but *"the effect is real, the
+  repaired clause clears it, and the headline magnitude is seed-block-dependent
+  at the 3-s.e.m. level."* The §14 disclosure is in the chapter text and not
+  only in the REPORT: seeds 5–9 read `−0.063 ± 0.032` and **would have passed**
+  the repaired clause, reported as a fact about the bar, with the verdict never
+  scored on them.
+
+  **Not corrected, on purpose.** The chapter's floor sentence — chance floor
+  `1/31 = 0.032`, the bar *"about 3× above what a null control reaches for
+  free"* — is left as 00d wrote it. 00e measured the floor at `0.348 ± 0.001`,
+  the plain i.i.d. value, so 00d's `3×` stands and §11.2's correction was a
+  9-B′-only branch. Sign-blindness was the defect; the effective-`n` correction
+  was not.
+
+  **CI is still billing-wedged** (jarvis#139; re-verified 2026-08-31 15:17Z,
+  run `33407641799`), so the worker was the CI: `ci/build_thesis.sh` +
+  `ci/check_build.sh` + `ci/spellcheck.py` give **314 pages, all eight asserted
+  zeros, spellcheck clean**, against a 313-page baseline with the same zeros.
+  #227 stays MERGEABLE and shows no conflict against #228. `specs/README.md`'s
+  00e status row and §11.3's `recovery_matrix.md` / `FACTS.md` rows wait for the
+  stack to merge — keeper follow-up.
+
+- 2026-08-31: **row 9's repaired clause holds in full on fresh seeds — and the
+  row stays open anyway, on replication**
+  ([phd-thesis#231](https://github.com/dtch1997/phd-thesis/pull/231),
+  `experiments/psm-row9-reregistration/`). The run of the spec bullet below.
+  20 fresh CPU pretrains, **seeds 10–14**, all 20 clearing learnability
+  (`captured_frac` 0.831–0.912, exclusion table empty), 1.70 h wall clock,
+  ≈21 core-hours, **`$0`**.
+
+  **The repair works.** `ρ_c(filler) = +0.019 ± 0.017` against a one-sided bar
+  of `+0.35`; `ρ_c(self-leaf) = +0.644 ± 0.034`; the new paired signed
+  separation `+0.626 ± 0.028` against `+0.40`. **All six R9.6 clauses HIT** —
+  the sign-blind sub-clause that blocked row 9 in 00d does not block it.
+
+  **The row stays open on a different clause.** R9.7, the registered
+  replication clause, is MISS-falsified: paired separation `0.693 ± 0.022`
+  against 00d's `0.812 ± 0.030`, **3.18 paired s.e.m. apart**. §7's precedence
+  checks 9-C′ before 9-A′ — replication is a precondition — so the class is
+  **9-C′, still open**. 00d named non-replication as the likeliest single
+  outcome worth planning for. It was.
+
+  **The floor correction that motivated the repair was wrong.** Measured over
+  2000 permutations × 320 units, the 95 % point of `|ρ_c|` is **`0.348 ±
+  0.001`** — the i.i.d. `1.96/√31 = 0.352`, not the `0.61` Kish's
+  `n_eff = 11.2` predicts. Sign-blindness was the defect; the effective-`n`
+  correction over-corrects. Bars unmoved either way (the sealed no-rescue rule).
+
+  **Disclosed:** arm 0′ reproduces 00d's `0.542`/`0.1010` to three decimals and
+  shows `ρ_c(filler) = −0.063 ± 0.032` on seeds 5–9 — a null scattered about
+  zero at magnitude ~0.32. **Seeds 5–9 would have passed the repaired clause**;
+  reported as a fact about the bar, scored on neither.
+
+  Row 9's next binding limit is **seed-block variance, not the floor**; and
+  R9.9's width flip (`ρ_c(self-leaf)` `+0.628 → +0.362` from 256 to 192 at
+  matched evidence) is the sharpest open question. The chapter's *"and no new
+  compute"* clause comes out: it was tried, and the fresh block is what showed
+  the headline number to be block-dependent. Red on the Actions billing wedge.
+
+- 2026-08-31: **row 9's blocking clause is re-registered on a statistic that can
+  express a sign — and scored on seeds that do not exist yet**
+  ([phd-thesis#229](https://github.com/dtch1997/phd-thesis/pull/229),
+  `specs/00e-row9-reregistration.md`). **Spec only, `$0`, nothing run** — the
+  grid is a separate later dispatch and the interval is the veto window. It
+  executes the closure route the bullet below names, and **overrules one word of
+  it**.
+
+  **What 00d left.** Row 9's composite failed on one sub-clause: `filler`'s
+  `pattern_r2_centered` measured `0.1010 ± 0.0108` against `≤ 0.10`, while every
+  clause carrying the row's content passed by a wide margin. That statistic
+  equals `corr²`, so it is **sign-blind** — it charges an anti-aligned control
+  exactly as much as an aligned one.
+
+  **And the floor is worse than 00d's REPORT records.** The REPORT quotes
+  `1/31 = 0.032`, the i.i.d. figure for a random 32-vector, and calls the bar
+  `3×` above it. But `hier8` plants its 32 read-out behaviors with mean pairwise
+  correlation `ρ = 0.06` — a config field, not an estimate — so by the same
+  `n/(1+ρ(n−1))` algebra 00b uses for the rank squeeze their effective count is
+  **`11.2`** and `E[corr²] ≈ 0.098`. **R9.1's bar sat *on* its own chance floor,
+  not three times above it.** The `0.001` was a coin landing on its edge, and
+  that changes what the repair has to be.
+
+  **The repair** (`R9.6`–`R9.9`, new labels, `R9.1` named as ancestor, every bar
+  movement justified in a table written before any data exists): the secondary
+  statistic becomes the **signed** centered pattern correlation and the `filler`
+  clause becomes **one-sided** (`ρ_c ≤ +0.35 = +1.95 σ₀`), because only
+  *positive* alignment threatens the hypothesis — that is what "a clause that can
+  express a sign" buys, stated concretely. The `self-leaf` clause is
+  **strengthened** (`ρ_c ≥ +0.55`; `0.55² > 0.30`, plus a sign the ancestor could
+  not require). A **new** paired signed-separation clause (`≥ +0.40`) is added so
+  the composite does not rest on one null bar, the way R9.1 proved fragile. On
+  magnitude the `filler` bar *is* looser (`0.1225` vs `0.10`) and is disclosed as
+  a loosening rather than hidden behind the word "repair". And the floor is
+  **measured, not asserted** — `≥ 2000` behavior permutations per cell plus the
+  `π = 0` untrained-token cells as a second empirical null — with the bars
+  pinned: whatever the calibration says, they do not move.
+
+  **The one word overruled: "no new compute".** 00d commits the per-behavior
+  `delta` and `delta_bayes` vectors for every condition and cell, so the signed
+  statistic on seeds 5–9 is three lines of numpy away — which means a verdict
+  read off them is a verdict read off the data that produced the miss. So the
+  clauses are scored **only on fresh seeds 10–14**, and the seen-data re-analysis
+  appears as a labelled exploratory arm 0′ that reproduces `0.1010` and `0.542`
+  as a check on the code path and can **never flip the row**. The spec states
+  plainly that its author knows `|ρ_c(filler)| = 0.318` on seeds 5–9, does *not*
+  know its sign, and derived `+0.35` from `σ₀ = 1/√31` and the one-sided 95 %
+  point and from nothing else — the defence being arithmetic a reader can check
+  without any measurement. **Cost of the overrule: 20 fresh CPU pretrains,
+  ≈ 2.2 h at concurrency 15, ≈ 48 core-hours, `$0`** — about a third of 00d's,
+  because the grid drops row 6 entirely, drops `self-family` (R9.4 stands), and
+  buys only the cells the row-9 protocol needs.
+
+  **Nothing already scored is re-scored.** R9.2–R9.5 and all of row 6 stand as
+  recorded; 00d's `REPORT.md`, `PREREG.md` and `analysis.json` must be
+  **byte-identical** after the run, and the keeper-liftable completion gate
+  checks that with `git diff --quiet` beside the sealed-by-git-order rule (the
+  `PREREG.md` commit a strict ancestor of the `results.jsonl` commit). Four
+  pre-registered outcome classes, each with its chapter sentence fixed in
+  advance: **9-A′** closed; **9-B′ open on substance rather than on instrument**
+  (the control genuinely carries a positive centered pattern — a claim about
+  transformers, not about a bar); **9-C′** non-replication at a third seed block,
+  the outcome 00d itself named as likeliest and then did not hit; **9-D′**
+  instrument-limited, where the honest conclusion is that row 9 needs **more
+  read-out behaviors, not another bar**. Chapter seams are pinpointed against the
+  *open* branch `psm-00d-chapter-integration` at `df0b256`, not `main`, and two
+  of them change under **every** class — because both currently assert the
+  closure costs no new compute. Filed on the way through:
+  [phd-thesis#230](https://github.com/dtch1997/phd-thesis/issues/230), the 00d
+  driver's row stamp clobbering `selfdesc`'s finetune `lr` with the pretrain one,
+  so `results.jsonl` reads `3e-4` where the finetune ran at `3e-5` and the
+  cold-LR hygiene claim is unverifiable from the committed bytes. Numbers
+  unaffected; 00e registers the fix for its own driver. Actions is still
+  billing-wedged ([jarvis#139](https://github.com/dtch1997/jarvis/issues/139)),
+  so #229's checks are red before a runner is assigned; the diff is `specs/`-only
+  and needs no build.
+
+- 2026-08-31: **row 6 is recovered and row 9 misses by one part in a thousand —
+  both verdicts measured, and both now in the chapter**
+  ([phd-thesis#227](https://github.com/dtch1997/phd-thesis/pull/227) carries the
+  whole record: the run *and* the chapter integration;
+  [#224](https://github.com/dtch1997/phd-thesis/pull/224) was the run PR and is
+  **closed, folded into #227**. `experiments/psm-learnable-rerun/REPORT.md`,
+  register `latex/notes/psm-chapter-00d-integration-2026-08-31.md`). **`$0`, CPU
+  only** — 55 fresh `hier8` pretrains, seeds 5–9, `n_embd ∈ {192, 256}`, matched
+  evidence `MI = 0.45`, `--threads 2`, ≈4 140 result rows, 59.3 core-hours; no
+  GPU, no pod, no paid API. The pair discharges the 2026-08-26 spec bullet below:
+  the two rows the chapter carried as open *for instrument reasons and not
+  substantive ones* now have answers.
+
+  **The fact that makes the rest of it a measurement of a phenomenon rather than
+  of a checkpoint: every single cell cleared the pre-registered learnability
+  threshold.** Captured fraction runs `0.79`–`0.96` against a bar of `0.60`; the
+  exclusion table is empty. 00b measured both rows in a grid that had captured
+  `≈ 0 %` of the available information, which is the escape hatch that voided its
+  version and the reason the chapter could say nothing substantive about either.
+
+  **Row 6 → class 6-A, recovered — this is the sentence the chapter has been
+  unable to write for four specs.** The graded channel is affine over a working
+  range of `2.76 ± 0.14` levels, steers held-out behaviors at
+  `R² = 0.845 ± 0.027`, transfers in sign to behaviors held out of the direction
+  fit at `0.880 ± 0.009`, and reads the exact posterior off held-out contexts
+  *and* held-out behaviors at slope `0.861 ± 0.008` (`R² = 0.806 ± 0.006`). There
+  is **not a single reversal** anywhere — inner grid at `|λ| ≤ 1.5` or saturation
+  shoulders to `|λ| = 4`, across 55 cells × 5 seeds × 7 character directions — so
+  the response *saturates* rather than inverting, which is the qualitative claim
+  the row is about. The `L = 2` binary sibling reproduces the graded slope to
+  **`0.0016`**, which makes the binary trait the chapter has used since its first
+  toy the *measured* `L = 2` special case of the graded law rather than an analogy
+  to it. 4/5 predictions hit; composition (R6.3) misses its magnitude bar by
+  **`0.0009`** in the predicted direction, at `3.4` s.e.m. on the paired contrast,
+  and the bar was not moved — note it had *already* been weakened from 00b's P7,
+  so the weakening bought nothing.
+
+  **Row 9 → class 9-B, still open, and the label understates it.** Training on
+  `BIOGRAPHY. persona: <leaf>` — with no behavior field anywhere in the
+  finetuning data — moves the 32 untouched behaviors at
+  `cos(Δ, Δ^Bayes) = 0.775 ± 0.020` against a posterior computed *before* the
+  finetune ran with nothing fitted, at `0.82`/`0.94` of the magnitude of
+  finetuning those behaviors directly, against point predictions of `0.81`/`0.93`.
+  The rarity- and slot-matched `filler` gives `−0.037 ± 0.029` (paired separation
+  `0.812 ± 0.030`, `7.7` s.e.m. apart on norm, so class 9-C, the rarity artifact,
+  is excluded outright); the `π` dose–response is monotone at `1.70×`; and the
+  `π = 0` untrained-token null — the identical finetune on a checkpoint whose
+  corpus *never emitted an identity token* — is flat at `−0.028`. So the carrier
+  is the token's **learned diagnosticity**, not its rarity — the clause nothing in
+  this program had ever measured on a checkpoint that learned the world. **The row
+  stays open because one registered sub-clause required the filler control's
+  centered `R²` at or below `0.10` and it measured `0.1010 ± 0.0108`.** That
+  statistic equals `corr²`, cannot express a sign, and has a chance floor of
+  `1/31 = 0.032` — the bar sat only ~`3×` above what a null control reaches for
+  free — but it was registered as written, and **the bar was not moved.** The row
+  falls through to 9-B, whose canonical wording ("R9.1 holds, R9.3 fails") is the
+  inverse of what happened and is recorded as such. Closing it needs a
+  re-registered secondary clause that can express a sign and **no new compute**
+  — the measurement already exists in `results.jsonl` — and belongs in a fresh
+  spec, not a retrofit.
+
+  **Three things worth keeping beyond the two verdicts.** (i) *The uncounted pilot
+  replicated at fresh seeds.* The spec named non-replication as "the likeliest
+  single outcome worth planning for"; every headline moved by less than a seed
+  s.e.m. between seeds 0–4 and 5–9, so it did not occur. (ii) *The anti-Goodhart
+  seal held mechanically, not on trust* — `PREREG.md`, `repair.py`, `cells.py`,
+  `targets.json` and `test_learnable.py` landed in `11cec5e` before the first
+  checkpoint of the spec existed, and `analyze.py` refuses to read a single result
+  row until that commit is an ancestor of `HEAD` **and** the file's bytes still
+  match (verify on the branch — a squash merge collapses the ordering). (iii) *A
+  five-day stall, and what recovered it.* The detached driver was killed by a box
+  reboot on ~2026-08-28 with 50 of 55 cells done and `DRIVER_EXIT` never written;
+  the five missing cells were all of arm B, last in the schedule and descope rung
+  1. Rather than invoke the descope ladder, arm B was re-run on the same pinned
+  config against an idempotent driver, so nothing already computed was recomputed.
+  **This decided a verdict and not merely completeness:** the class-6-D clause
+  ("the substrate, not the phenomenon, failed") turns on four `S256` arm-G′ groups
+  clearing the threshold, and a descoped arm B would have registered three and
+  forced 6-D — a label flatly false of a run whose other 50 cells cleared at
+  `0.79`–`0.96`. Arm B came in at `0.923 ± 0.004`, the highest of any arm. Also
+  worth a later spec: R9.4 splits, with the model **under**-using precise identity
+  evidence and **over**-using coarse evidence, both by about `2×` against the
+  exact posterior.
+
+  **The chapter integration** replaces both voided clauses at the seams spec 00d
+  pre-registered in its own §11, adds a self-descriptive figure beside 00b's flat
+  one (regenerated from committed code as a #198 check — the PNG comes back
+  byte-identical), and inherits the verdicts into the C7/C4 status sentences in
+  `sec:psm:related:constraints` and `sec:psm:discussion`. `tab:psm:facts` is
+  untouched (neither row landed a *refuted* class, and the evidential grades are
+  grades on the literature). The 9-A sentence spec §11 pre-wrote is quoted **only
+  in the negative** — as the sentence the chapter still does not write, with the
+  `0.001` named as the whole of what stands in its way. `specs/README.md` moves
+  00d specced → executed + integrated.
+
+  - 2026-08-31 (consolidation): the landing surface for all of this was flattened
+    so it lands in **one** gazette sweep. phd-thesis **#227 was de-stacked onto
+    `main`** (its branch already had #224's as an ancestor, so the head is
+    unchanged and the diff simply widened to run + integration, 35 files,
+    MERGEABLE); **#224 was closed and folded into it** — had #224 squash-merged
+    first, GitHub would have retargeted #227 and re-attributed #224's commits into
+    its own diff, wedging the integration a second time. On this side, the
+    duplicate frontier PR **jarvis#144 was closed into this one** (jarvis#99 fold
+    idiom, jarvis#100 append-conflict class) and its content merged into the
+    bullet above, so exactly one PR appends here. No branch was deleted or
+    force-pushed. **Nothing above is blocked on code:** every CI job on *both*
+    repos is refused by GitHub before a runner is assigned — `steps == 0`,
+    annotation *"recent account payments have failed or your spending limit needs
+    to be increased"* — i.e. an Actions **billing** block on the account, not a
+    test bug and not a workflow bug (jarvis#139, re-diagnosed and retitled; the
+    earlier phd-thesis#225 "runner failure" reading is superseded). **The fix is
+    Daniel's Billing & plans page**, and when it lands the red checks do **not**
+    re-run themselves: kick them with
+    `gh run rerun 33379716451 --failed -R dtch1997/phd-thesis` and the equivalent
+    on this PR, then the gazette sweeps both.
+
+- 2026-08-31: **the PSM chapter's own opening now says what the rest of the
+  thesis says about it — five claims, not four**
+  ([phd-thesis#228](https://github.com/dtch1997/phd-thesis/pull/228)). `$0`,
+  writing only; no number, verdict, figure or label moved. #221's close-read
+  found two count sentences stale in the chapter's framing and left both
+  `BLOCKED-ON-DANIEL` for a *procedural* reason — that pass's rules forbade
+  authoring — not for want of content. (i) The chapter opening said "Four
+  claims come out of the chapter" while `Preamble.tex:34`,
+  `Introduction.tex:155` and `Conclusions.tex:25` all counted the same
+  chapter at **five** and `Conclusions.tex:66` named the fifth, so an
+  examiner reading Conclusions and turning back met a contradiction about one
+  chapter; #209 had given the curriculum/P4 arc named-result status in the
+  wrapper and never propagated it inward. The fifth claim block is now
+  written at the register of the other four — claim plus **both** ceilings in
+  the same breath — *transcribed* from the merged wrapper text, with every
+  numeral (`~1.6x`, the exact-Bayes ceiling, `β_S = +0.002` vs
+  `β_C = +0.711`, VIF `1.10`, the within-cell null) traced to a line of the
+  chapter. (ii) `:2397` said the structure section turns four knobs "one per
+  subsection"; it has had five subsections since #182 inserted the rank
+  subsection into #174's sentence. Took the register's recommended option
+  (a), the three-word deletion — the rank arm was *not* promoted, and the
+  two defensible four-*geometry*-arms sentences are untouched. Register §5.1
+  and §5.2 are annotated `WAS-BLOCKED-ON-DANIEL, CLEARED BY PR #228` (never
+  deleted), so **no item in the close-read register remains open for
+  Daniel**. Local proof, since Actions is still billing-wedged
+  ([jarvis#139](https://github.com/dtch1997/jarvis/issues/139)): 310 pages,
+  0 errors, 0 LaTeX warnings, spellcheck 0 at `65d61e9`.
+
 - 2026-08-26: **the two recovery-matrix rows the unlearnable grid voided now
   have a spec that re-takes them where the model can learn**
   ([phd-thesis#222](https://github.com/dtch1997/phd-thesis/pull/222),
@@ -99,6 +723,43 @@ material — a chapter draft an advisor could read cold and follow.
   keeper-liftable completion gate requiring greppable `ROW6-VERDICT:` /
   `ROW9-VERDICT:` lines. **The run is a separate later dispatch** — spec merges
   first, per the program's standing veto window.
+
+- 2026-08-26: **every one of the thesis's 65,337 words has now been read by
+  eye, and the prose is clean at the word level**
+  ([phd-thesis#221](https://github.com/dtch1997/phd-thesis/pull/221), register
+  `latex/notes/thesis-close-read-2026-08-26.md`, 730 lines). `$0`, reading and
+  writing only. #220 built the checker and swept the document mechanically,
+  but its own §11 named what it could not do: its by-eye read covered the
+  wrapper plus each chapter's opening and closing sections, about a fifth of
+  the prose. The other four fifths — every methods and results section, all
+  three appendices, every caption — had never been read by a human looking for
+  the class a dictionary cannot see (`casual` for `causal`). **Coverage is the
+  deliverable: 46,709 words new + 18,612 re-read behind #220 + four chapter
+  titles = 65,337 of 65,337, no triage and no skim**, with a per-file,
+  per-line-range table measured the way the checker measures. **The read
+  returned a null on every word-level class** — zero real-word substitutions,
+  zero dropped or duplicated words, zero agreement slips, zero garbled
+  sentences — and six post-hoc sweeps agree, including 777 cross-references
+  whose word matches what they point at (verified against the 121 float labels
+  independently, so the zero rests on ground truth rather than a naming
+  convention). **What did not survive are two structural count sentences, both
+  merge seams `git log -L` dates exactly**: PSM:2397 says its section turns
+  "four such knobs, one per subsection" — true when #174 landed it, false since
+  #182 inserted a fifth subsection — and PSM:87 says "Four claims come out of
+  the chapter" while Preamble/Introduction/Conclusions all say five and name
+  the fifth, because #209 renamed the total in the wrapper and never reached
+  the chapter's own opening. Neither is a typo; both need one authorial
+  sentence, so both are `BLOCKED-ON-DANIEL:` register entries with evidence and
+  a recommendation, and the branch makes **zero edits to `latex/`** (page counts
+  309/307, unmoved). The durable half is again the checker: `ci/spellcheck.py`
+  gains a fourth check, 24 NEVER words plus 25 context-gated confusion-pair
+  rules that fire only where the other member is the only reading (`in
+  principal`, `depends no`, `derived form`), matching across the 72-column hard
+  wrap, ~0.9 s, no workflow edit — and proved non-vacuous against 18 planted
+  defects, one of which exposed a first-draft `it's`/`its` rule that fired 41
+  times on correct prose. The lesson recorded for the next pass: the expensive
+  thing a close read produces is a null, and a null is only worth producing
+  once if you commit the check that holds it.
 
 - 2026-08-26: **the thesis has now been spell-checked — for the first time,
   fifteen passes in** ([phd-thesis#220](https://github.com/dtch1997/phd-thesis/pull/220),
