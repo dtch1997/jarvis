@@ -81,6 +81,28 @@ finally:
 '''
 
 
+CHECK_LEASE_PY = '''#!/usr/bin/env python3
+"""Check two expressions for equivalence via the workspace verifier:
+    python3 tools/check.py "<a>" "<b>"
+Prints the result and, when EQUIVALENT, the verification receipt that
+submit_answer requires (receipt=...). One verification session at a time
+per workspace."""
+import json, os, socket, sys
+sock = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".verifier.sock")
+a, b = sys.argv[1], sys.argv[2]
+s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+try:
+    s.connect(sock)
+except OSError as e:
+    print(f"ERROR: cannot reach the workspace verifier at {sock}: {e}", file=sys.stderr); sys.exit(2)
+s.sendall((json.dumps({"op": "check", "a": a, "b": b}) + "\\n").encode())
+r = json.loads(s.makefile().readline() or "{}")
+if not r.get("ok"):
+    print("ERROR: verifier busy: " + r.get("busy", r.get("error", "")), file=sys.stderr); sys.exit(3)
+print(r["result"] + (f"  receipt={r['receipt']}" if r.get("receipt") else ""))
+'''
+
+
 def seed_workspace(work: Path):
     (work / "tools").mkdir(parents=True, exist_ok=True)
     (work / "scratch").mkdir(exist_ok=True)
