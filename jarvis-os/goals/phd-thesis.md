@@ -41,6 +41,65 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-01: **The instrument-issue register, discharged: ten open defects
+  adjudicated, and three of them were filed or briefed against a cause that had
+  gone stale.** **phd-thesis#250** — `$0`, CPU only, nothing re-run, no verdict,
+  number, bar or figure moved. The thesis colophon claims every claim is
+  reproducible from the repo; an examiner who opens the issue tracker met ten
+  undischarged instrument / CI / provenance defects (#169, #191, #192, #219,
+  #223, #226, #230, #236, #238, #243). Each is now **fixed** (3),
+  **closed-verified** (5) or **wontfix-with-record** (2), one line each in
+  `latex/notes/instrument-register-discharge-2026-09-01.md`, every issue closed
+  linking back to it. **The register is now empty** — only #196 (Daniel's
+  sign-off-gated spec-06 surface) and the #1–#7 roadmap notes remain open.
+  **What the pass was actually for is the three stale causes**, all found by
+  the #239 rider idiom — verify against reality, never against the issue text.
+  (i) **#243** attributed a `4.8602`/`4.9383` gap in an "exact" quantity to two
+  orderings of one ratio; at the family level `Δ^Bayes(F1) = −Δ^Bayes(F0)`
+  exactly, so the orderings *coincide to floating point* and the whole gap is
+  `-n_read // 3` being `-11`, an eleven-behavior heavy third against a
+  symmetric ten. 00g found it; the title was already corrected, the body was
+  not. (ii) **#238** asks for a `--write` opt-in as if none existed — a
+  `--no-write` flag was already there, so the fix is inverting which way the
+  default points, keeping `--no-write` alive so three ledgers' pasted commands
+  do not rot. (iii) **#169 is the one that bit me.** I first closed it
+  wontfix-with-record and recorded "re-running the spec-03 grid requires
+  `stagehand < 2.0`", inferred from the issue text. Then I checked the library:
+  `track` is *back*, at `packages/stagehand/src/stagehand/monitor.py:233`,
+  under the same `2.0.0` version string, with a signature matching
+  `run_grid.py:127` exactly — `import run_grid` **succeeds today**. The pin the
+  issue names (`82b0eb3`) genuinely lacks it, but that is the *last* commit of
+  the standalone repo ("Moved into the arsenal monorepo"), so the constraint is
+  *which* stagehand, not which version bound — `< 2.0` and current `2.0.0` both
+  have `track`. Reopened, re-closed **closed-verified**, and the correction is
+  left visible in the ledger as the pass's own instance of the failure mode it
+  was sent to catch. **Two forward-looking CI fixes**, neither touching a
+  scored artifact: `ci/measure_text_sizes.py` is measure-only by default (#238
+  — it had been silently rewriting a tracked notes JSON on every run, 447
+  insertions into #237's editorial diff), and a new advisory
+  `.github/workflows/composite-build.yml` builds the **union of the open PRs**
+  every 6 h (#236) — quiet below two PRs, reports the page count but
+  deliberately does *not* assert `EXPECTED_PAGES` (that constant tracks `main`;
+  asserting it on a composite would make the job permanently red), and files or
+  comments on one pinned issue naming the conflicting pair. It gates nothing:
+  it exists so the next fix-day sees a squash-jam before the gazette does.
+  **The chapter moved by six words**, once: `pattern $R^2 \approx 0$` at
+  `:3036` — where the statistic does evidential work — gains "(a degenerate
+  statistic on this grid, replaced by the signed cosine below)". The sibling
+  site at `:2873` takes the wontfix branch because its own paragraph already
+  says "**Neither should be credited**". Both engines held: tectonic
+  `316 → 316`, lualatex `315 → 315` (= `EXPECTED_PAGES`), eight zeros each,
+  spellcheck 0. **Byte-identity held** against `7b4b93e` for every
+  `REPORT.md` / `PREREG.md` / `analysis.json` / `results*.jsonl` /
+  `recovery_matrix` / `FACTS`; the entire diff under `experiments/` is one
+  docstring paragraph (#230's clobbered finetune LR, disclosed at the line that
+  does the clobbering) and one comment block (#243's corrected account) — the
+  committed bytes are the record of what ran, and #230 and #192 are closed
+  saying exactly that. #192 is closed **superseded by seal**: 00h §14
+  pre-commits no fourth attempt on that pricing substrate, and `FLOOR-3` fired,
+  so the issue's own scope condition — "before any successor sweep" — can no
+  longer arise.
+
 - 2026-09-01: **The pricing arc closes the only way it could: 00h's chapter
   integration lands one sentence, and the viva bank catches up to a seam that
   tripled while it was on the shelf.** **phd-thesis#248** (merged `7b4b93e`) +
