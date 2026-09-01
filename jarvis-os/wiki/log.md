@@ -2,6 +2,41 @@
 
 Append-only, newest first. Format: `## [YYYY-MM-DD] <op> | <title>`.
 
+## [2026-08-31] consolidate | Fifth memory-consolidation run (delta since 2026-08-24)
+
+Fifth run, one week after the fourth; classification focused on the six
+memories changed since 2026-08-24 (all read in full), the rest standing on
+runs 1–4's adjudications. Actions: **0 PERSIST, 0 COMPRESS, 0 ARCHIVE, 6
+KEEP** — the whole delta is mid-flight. Three new finding memories
+(agent-fratricide, metr-incident-repro, tiananmen-elicitation — all
+2026-08-29/30) form a coherent "deployed-Claude-5 propensity repro" cluster
+(three NEGATIVE incident repros: no fratricide, no grader-hacking /
+poisoned-chalice escalation, plus the Qwen suppression-gate study) but every
+thread is days old and actively extending (metr's multi-agent experiment
+reuses the fratricide harness; tiananmen has a pending pinned-provider rerun
+for the Venice confound) — **queued for a joint cluster ingest at wrap**,
+per the logit-interpolation precedent. science-of-midtraining's
+belief-entanglement result (H-independent) defers itself and belongs to the
+sibling sci-mt wiki; employment-thesis is private/user; phd-thesis stays on
+the run-4 standing flag (canonical layer = the thesis chapter).
+
+Queue re-judged: ARC WHEST stays queued (embargo/deadline 2026-09-19 — three
+weeks out); logit-interpolation still mid-flight (unchanged since run 4);
+autoresearch-harnesses Meta-RPM candidate carried; run-3's seven intra-file
+stale contradictions carried untouched. NEW queue entry: the propensity-repro
+trio above.
+
+Operational side-effects of the run (memory repairs committed to
+jarvis-memory 49ecf4a): discovered the phd-thesis pipeline **silently
+stalled 5 days** — a tmux-server restart (~08-28) had killed the concierge
+daemon and the spec-00d grid driver (50/55 cells, DRIVER_EXIT never
+written; task t-0826-527e stuck "waiting", invisible to desk). Relaunched
+the daemon (task auto-resumed and restarted its own driver), filed
+jarvis#141 (stall class), flared. Also found jarvis CI broken repo-wide
+(all 17 package test jobs fail incl. on main, jarvis#139 — commented) —
+experiment PRs #134/#135/#136/#140 unmergeable until fixed; annotated the
+three finding memories + MEMORY.md accordingly.
+
 ## [2026-08-24] consolidate | Fourth memory-consolidation run (delta since 2026-08-17)
 
 Fourth run, one week after the third; classification focused on the 26
