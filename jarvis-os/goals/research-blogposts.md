@@ -71,6 +71,15 @@ writing funnel is the delivery infrastructure.
   (post / fold / not-worth-posting per wrapped finding) —
   `reviews/2026-08-25.md`.
 
+- 2026-09-01 (cycle 2): **still no public post moved a stage — and the
+  unposted backlog grew by three wrapped findings** (agent-fratricide,
+  which at least produced an internal deck, jarvis#137; metr-incident-repro;
+  tiananmen-elicitation). Neither 08-25 proposal (safety-desert B1, triage
+  B2) was approved or vetoed; the claims page jarvis#65 is now 9 days old
+  and merge-conflicted. This cycle carries forward the triage table only —
+  the backlog is now big enough that ranking beats picking — and escalates
+  the approval-channel problem in `reviews/2026-09-01.md` cross-goal.
+
 ## Active threads
 
 - Per-post state lives in the instance goals and memory stubs.
