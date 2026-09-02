@@ -41,6 +41,42 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the `\ref` defect class that bit three examiner-read surfaces
+  now has a machine watching it — and the rule the issue proposed is not the
+  rule that shipped, because it does not catch the case that motivated the
+  issue.** **phd-thesis#273** (open, non-draft, tool-only, `$0`, stdlib Python,
+  0.55 s per run), closing **phd-thesis#270**. Ledger
+  `latex/notes/ref-lint-advisory-2026-09-02.md` (364 lines).
+  **`REF-LINT-VERDICT: 3/73 FP 2`** and **`REGRESSION-F1: CAUGHT`**.
+  `ci/check_build.sh` asserts `Reference ... undefined` at zero and that
+  assertion holds continuously — it is the wrong instrument for a reference
+  that *resolves* and still points at the wrong section: the label exists, the
+  build is silent, the PDF renders a plausible number. #261 and #269 found one
+  each by hand, two days apart, which is what filed #270.
+  **The transferable lesson is that a proposed heuristic should be run against
+  the case that motivated it before it is believed.** #270 predicted its rule
+  would flag the #269 sentence: "the citing sentence's distinctive noun is
+  *tournament*, the target's stem is *identifiability* … so the check flags the
+  citation." Implemented verbatim and run on the pre-#269 tree, it does not —
+  the sentence reads "the **identifiability** tournament of
+  `Sec.~\ref{sec:psm:toy:identifiability}`", so the target's own stem sits one
+  clause before the reference and clears it. It also flags 22 of 73 with zero
+  true positives. What works instead inverts the question: not *is the target
+  named nearby* but *does the citing prose use a word the cited section's own
+  body never uses, while a neighbour is titled with it*. That clause alone
+  takes the rule from 15 flags to 3, and the flag it raises **disappears when
+  the reference is repaired** — the pre-#269 tree flags 4 sites, today's flags
+  3, and the delta is exactly the site #269 fixed.
+  Three flags today: one true positive (registered as **phd-thesis#272**, not
+  authored — a three-panel figure caption sending every panel's rubric to the
+  appendix section that documents two) and two false positives classified line
+  by line. The CI leg is advisory twice over — `continue-on-error` at job level
+  and a lint that exits 0 whatever it finds — because the ledger is honest
+  about scope: of the three known instances of the class it catches **one**.
+  #261's was bare prose ("the same chapter") with no `\ref` to lint, and #269's
+  second was a wrong numeral beside a correct reference. **A lint that gates
+  should first say out loud what it cannot see.**
+
 - 2026-09-02: **the cross-chapter seam audit's four judgment calls are
   discharged — and the one the keeper expected to need words turned out to have
   been paid for by the audit's own `\ref` fix.** **phd-thesis#271** (open,
