@@ -41,6 +41,31 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the launch audit could see two stale sentences it was not
+  allowed to touch; they are now fixed.** **phd-thesis#260** (open, text-only,
+  `$0`) discharges **phd-thesis#257**, the issue **#258**'s freshness audit
+  filed for the two wordings that fell outside its own file fence (`cpt/**` and
+  `specs/**` are never-touch there). Both sit on the surface a pod worker reads
+  *cold* once Daniel signs off, so each was a mis-configuration priced in
+  pod-hours: (i) `cpt/mix_dataset.py:11` said the local default exists so mixing
+  can be tested "without downloading Dolma", where the mix this script streams
+  is `allenai/olmo-mix-1124` and Dolma — OLMo-1's corpus, which PREREG §2
+  explicitly rules out because it would measure a model other than the one E2
+  continues pretraining — is never touched by the path; now "the full mix",
+  docstring-only, `py_compile` clean. (ii) `specs/06-scale-bridge.md:137`, the
+  **stage-1 gate line**, stated "E1's 8 pairs" where `PREREG.md:224` sealed
+  "twelve pairs over ten traits" and `e1/corpus_stats.jsonl` is sealed at
+  twelve — the one place the spec contradicted a sealed artifact, and a worker
+  sizing the SFT/eval fan-out from it would have got it wrong; now "twelve
+  pairs", the spec catching up to the sealed resolution and never the reverse
+  (the **#252** transcription-sharpening class). The `~8` hedge at line 91 was
+  left standing: it is a design hedge, not a gate count. A sweep of the whole
+  spec-06 read surface for both stale classes returned **zero further in-class
+  hits** — the seven surviving "Dolma" mentions are all deliberate
+  not-Dolma-v1.7 resolution records or the audit ledger quoting its own
+  findings. No registered quantity moved, and **the gate stays shut**: the
+  spec-06 sign-off marker and `BLOCKED-ON-DANIEL` below are untouched.
+
 - 2026-09-02: **the document Daniel decides from was still promising a button
   that did not work — it now records why it works.** **phd-thesis#259** (open,
   notes-only, `$0`). Item 1 of `latex/notes/daniel-decision-brief-2026-08-25.md`
