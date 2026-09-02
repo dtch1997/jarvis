@@ -87,6 +87,15 @@ disclose/hand-off available). Every setting we ran left an honest or compliant
 exit open, and every model took it. Small n (6–10/cell) on the executed runs;
 single-model rollouts, no agent-to-agent channel.
 
+## Canonical home
+
+The second setting — the realistic environment, harness, results, and its
+focused writeup — has been spun out to
+**[ArcadiaImpact/realistic-reward-hacking](https://github.com/ArcadiaImpact/realistic-reward-hacking)**
+(private; clone at `jarvis-os/repos/realistic-reward-hacking`). This directory
+remains the record of the full arc, including the crafted-honeypot stage and
+the eval-awareness audit.
+
 ## Artifacts worth keeping
 
 - **The toggle**: a one-edit, realistic way to switch the "I am compromised"
