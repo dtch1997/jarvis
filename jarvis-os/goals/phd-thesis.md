@@ -3,8 +3,8 @@ slug: phd-thesis
 title: Get the PhD thesis into good shape
 status: active
 serves: [empirical-research]
-automation: dispatch
-budget: "1 concurrent worker, 24/7 (thesis-keeper cron); no $ cap for now — spend-tracking tool pending (jarvis#62); GPU + money/credentials remain sign-off-gated"
+automation: propose-only
+budget: "PAUSED 2026-09-02 (thesis-keeper cron commented out in ops/cron.tab) — was 1 concurrent worker 24/7; GPU + money/credentials remain sign-off-gated"
 links: ["~/phd-thesis", "memory: phd-thesis-psm-program"]
 ---
 
@@ -3425,6 +3425,16 @@ material — a chapter draft an advisor could read cold and follow.
   level, grad_proj_cos = sufficient statistic. Pending as of that date:
   promote arch/psm-laws → main (done 2026-08-23, phd-thesis#167); dispatch
   spec-04 (done 2026-08-24, phd-thesis#170); spec-06 sign-off (still open).
+
+- 2026-09-02: **auto mode PAUSED — Daniel's explicit call.** With specs 00–05
+  (+00b–00h, 04b, 05b) all executed and integrated, the document at zero
+  warnings, and the keeper reduced to meta-audits, the work remaining is
+  Daniel's review: the spec-06 canary sign-off and the #211 decision brief.
+  `automation` flipped back to `propose-only` and the half-hourly
+  thesis-keeper cron entry commented out in `ops/cron.tab` (this PR; live
+  crontab reconciled the same day). The in-flight task t-0902-6dec was left
+  to settle — its PR phd-thesis#271 merges on green. Resume = revert this
+  commit (uncomment the cron line, flip `automation: dispatch`) via PR.
 
 ## Active threads
 
