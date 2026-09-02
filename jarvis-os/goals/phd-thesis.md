@@ -41,6 +41,59 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the four judgment calls the wrapper cold read registered are
+  discharged — and the abstract, buying the distance law in, comes to rest
+  exactly on its hard cap with zero headroom.** **phd-thesis#263** (open,
+  text-only, `$0`, CPU LaTeX only), closing **phd-thesis#262**. The #239 →
+  #240 two-step, second half: #261 looked and registered, this pass decides
+  and edits, and each of R1–R4 takes one of the options that register itself
+  enumerated and is annotated in place there with a `DISCHARGED-BY:` line.
+  **`WRAPPER-JUDGMENT-DISCHARGE: R1-a R2-b R3-b R4-c, ABSTRACT 300/300`.**
+  **R1 (a):** RQ1 said "**Four** questions follow" while the chapter and
+  `sec:intro:contributions` return **five** claims — #209's four-to-five
+  restructure never reached the RQ block. A fifth question is authored, and
+  the discipline that made it safe is that every clause of it has a source
+  line in the \emph{Curriculum} bullet already in the contributions list
+  (tabulated in the ledger): a question that transcribes a named result into
+  the interrogative asserts nothing new, carries no ceiling, and needed no
+  fallback to the count-dropping option (c). **R2 (b):** "written before" →
+  "**fixed before**", a one-word diff — true of all four without importing
+  the P2/pilot qualification the chapter says belongs in main text rather
+  than in small print, and the per-prediction paragraphs #209 and #251 fenced
+  stay byte-identical. **R3 (b) is the one with teeth.** The abstract had
+  asserted a geometry and supported it only with the recovery arc, so the
+  chapter's cleanest parameter-free result — transfer decaying
+  exponentially in correlation-graph **distance** at exactly the slope belief
+  propagation demands — appeared nowhere on the most-read page of the
+  thesis. It is bought in by trading the graded channel's "the thesis's
+  binary trait its measured special case" gloss, which is **a gloss, not a
+  ceiling**: it states a scope generalization that strengthens the result
+  rather than bounding it, and it survives verbatim at `Introduction.tex:227`
+  and `Conclusions.tex:92`. The sentence had to be **restructured** rather
+  than swapped in place — the distance law is not one of the two recovered
+  stylized facts, so splicing it into that list would have made the count
+  false; the appositive now names exactly two facts for "two stylized facts",
+  which the old three-item one did not. **R4 (c):** the tilt ceiling gets its
+  magnitude back as "bounds bundle transfer **roughly fourfold**", the
+  chapter's own phrasing at `:336`, rather than the three-word
+  "(median 24% realized)" that would have forced a donor from a ceiling.
+  **The budget is the finding.** By the #208/#209 counter — reproduced and
+  **verified at 299 on `origin/main` before any edit**, which is what makes
+  the number trustworthy — R3 nets **−1** (a 9-word gloss out, an article,
+  a copula compressed to an appositive, an 11-word law in) and R4 costs
+  **+2**: **299 → 300 of a hard 300**. All six ceilings #251 enumerated are
+  present and unchanged in wording, and the laws ceiling now has its
+  magnitude back. What changes for whoever edits the abstract next is the
+  rule, not the text: #261 could add one word and **the next pass cannot add
+  any** — recorded in capitals in the in-file comment on
+  `\begin{abstract}`, with every donor named in a trade table and its reason
+  for not being a ceiling stated. Result count stays **five** (#251's
+  five-not-six judgment inherited; R1 changes a *question* count, not a
+  *result* count). Both engines unmoved (lualatex 317, tectonic 318 + eight
+  asserted zeros, spellcheck 0), so no `EXPECTED_PAGES` bump is owed and the
+  build script stays out of the diff. Ledger:
+  `latex/notes/wrapper-judgment-discharge-2026-09-02.md`.
+
 - 2026-09-02: **the wrapper had been stitched by seven merges and never read
   as one surface; reading it that way found seven defects, every one at a
   seam.** **phd-thesis#261** (open, text-only, `$0`, CPU LaTeX only).
