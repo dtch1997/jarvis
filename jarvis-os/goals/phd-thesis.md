@@ -41,6 +41,77 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **spec 04 said the tilt over-predicts transfer fourfold; its own
+  committed bytes say 99% of the work went down a route that carries nowhere,
+  and nobody had quoted them.** **phd-thesis#254** (open, spec-only, `$0`).
+  Act III's one parameter-free prediction — KL-regularized RL's optimum is a
+  Bayesian tilt of the persona posterior, so bundle transfer is computable
+  before training with no fitted constants — was run in #170 and missed: the
+  optimiser reaches `π*` to `5×10⁻⁴` nats and transfers a median **`24 %`** of
+  the predicted OOD shift, `0/11` cells in band, with distillation onto exact
+  `π*` targets missing identically at `22 %`. The chapter re-scoped the claim
+  to an upper bound and the REPORT named the mechanism: `π*` factors into a
+  persona reweighting times a per-persona conditional retilt, only the first
+  carries, and `π*` does not determine the split. What the REPORT did **not**
+  do — and what this spec found by reading `results.jsonl` rather than the
+  prose — is quote the four-way channel decomposition it committed: over the
+  nine `β ≤ 0.3` cells of the main arm the **conditional channel carries
+  `0.99259` of the reward-field shift** (range `0.96403`–`1.01577`) and the
+  **prior channel `0.01791`** (`0.01279`–`0.03204`). Ninety-nine percent of the
+  work went through a field-local route. **That leaves the headline ambiguous
+  in a way the parent REPORT itself names**: "the tilt is wrong" and "the tilt
+  is unreachable by the cheap route" predict identical data, and its "What
+  would change the conclusion" section specifies exactly one experiment to
+  separate them — a corpus where the persona-conditionals are pinned — ranked
+  first in "Next steps" and, verified 2026-09-01, never taken. **04b is that
+  experiment, and its design lever is derived rather than asserted.** The pin
+  is one additive `CorpusConfig` field: the rewarded trait's persona-conditional
+  is planted at `c_A ∈ {0.05, 0.01}` while `p` at every other trait, `q₀` at
+  the reward prompts and the bare prefix, `g_ood`, the 128-prompt pool,
+  `tilting_yardstick.py`, `rl_finetune.py`, the architecture, LR `1e-4`, 400
+  steps and the `β` grid all stay byte-identical to spec 04's; a fourth ladder
+  rung rewards the **identity token**, whose conditional is pinned at the
+  simplex vertices by the grammar itself and needs no new corpus. Whether that
+  closes the route is not assumed: a **closure ratio** `C = Δq*·g_rew / D(β)`
+  — what the prior channel can supply at a full posterior swing over what the
+  tilt demands — is computed in closed form from planted constants and the
+  parent's committed `dL_id`, published before any data, and **is `≤ 0.871` at
+  every one of the 15 cells spec 04 ran**. That is the first arithmetic account
+  this program has of *why* the parent missed, and it was not designed in: it
+  fell out of the construction. On the tight rung `C` is `1.258`–`2.231` at
+  `β ∈ {0.3, 1, 3}`, registered as the `C ≥ 1` confirmatory set — which turns
+  out, undesigned, to be exactly spec 04's `P-a`-passing set, so no cell is
+  admissible on one ground and excluded on the other. The closed form earns the
+  right to be published in advance by reproducing the parent's *pre-committed*
+  `dq_pred_abs` to `1.2`–`2.7 %` at four of five checkpoints. **The headline bar
+  is spec 04's own `P-b`, verbatim** — same `±25 %` band, same `≥ 2/3`
+  threshold, same estimator hierarchy, same endpoint and peak conventions —
+  with `P-a`'s convergence threshold, the parent's `≥ 0.05`-logit stability
+  restriction and its selection-regime spillover ceilings inherited unchanged;
+  and the pin **raises** the demanded transfer (`0.628` against `0.384` at
+  `β = 1`, `p = 0.8`), so the test gets harder rather than easier, which is the
+  opposite of what a reader would suspect. A registered **manipulation check**
+  gates everything — `W1` the pin survives pretraining, `W2` `id_cond_share
+  ≤ 0.50` against the parent's `0.99259`, `W3` the control reproduces the
+  parent's shortfall on fresh seeds — plus an absolute floor `F_cond = 0.288`
+  logits derived from the parent's measured `0.04` delivered posterior motion,
+  reported beside it. Five classes in a new `PIN-*` namespace: vindicated-
+  conditional, partial, **null (the tilt is wrong, not merely unreachable — and
+  it gets a chapter sentence that *strengthens* the negative)**, overshoot, and
+  instrument-limited, **under which nothing moves at all** — no `.tex` edit, no
+  viva-bank touch. 45 pretrains at fresh seeds `50`–`54`, 325 CPU cells in five
+  arms, ≈ 15.7 core-hours, ≈ 2.5 h wall, **`$0`**. Nothing is re-scored:
+  `P-a`–`P-d` and `G2` stand as #170 recorded them, row 9 stays `9-A″`, and
+  there is **no row-status pathway from any class**; the run gate asserts spec
+  04's six scored artifacts, `recovery_matrix.md` and `FACTS.md` byte-identical,
+  eleven other specs' verdict namespaces at zero occurrences, and `latex/`
+  untouched. The bar-shopping objection — *"a second draw from the same urn
+  with the urn re-packed in between"* — is stated at full strength in its own
+  section and answered on the record rather than asserted, and §7.6 pre-commits
+  in the 00f §7.4 idiom that **04b is the last pinned-substrate attempt under
+  every class**. The run is a separate later dispatch; the merge-to-dispatch
+  interval is the veto window (~3 h).
+
 - 2026-09-02: **the colophon's figure claim survives a cold examiner — 35/35
   chapter figures pixel-identical from a fresh clone and a declared, pinned
   environment, which the repo did not have.** **phd-thesis#253** (open,
