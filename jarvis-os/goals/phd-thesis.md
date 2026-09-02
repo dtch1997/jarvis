@@ -41,6 +41,56 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the launch audit could see two stale sentences it was not
+  allowed to touch; they are now fixed.** **phd-thesis#260** (open, text-only,
+  `$0`) discharges **phd-thesis#257**, the issue **#258**'s freshness audit
+  filed for the two wordings that fell outside its own file fence (`cpt/**` and
+  `specs/**` are never-touch there). Both sit on the surface a pod worker reads
+  *cold* once Daniel signs off, so each was a mis-configuration priced in
+  pod-hours: (i) `cpt/mix_dataset.py:11` said the local default exists so mixing
+  can be tested "without downloading Dolma", where the mix this script streams
+  is `allenai/olmo-mix-1124` and Dolma — OLMo-1's corpus, which PREREG §2
+  explicitly rules out because it would measure a model other than the one E2
+  continues pretraining — is never touched by the path; now "the full mix",
+  docstring-only, `py_compile` clean. (ii) `specs/06-scale-bridge.md:137`, the
+  **stage-1 gate line**, stated "E1's 8 pairs" where `PREREG.md:224` sealed
+  "twelve pairs over ten traits" and `e1/corpus_stats.jsonl` is sealed at
+  twelve — the one place the spec contradicted a sealed artifact, and a worker
+  sizing the SFT/eval fan-out from it would have got it wrong; now "twelve
+  pairs", the spec catching up to the sealed resolution and never the reverse
+  (the **#252** transcription-sharpening class). The `~8` hedge at line 91 was
+  left standing: it is a design hedge, not a gate count. A sweep of the whole
+  spec-06 read surface for both stale classes returned **zero further in-class
+  hits** — the seven surviving "Dolma" mentions are all deliberate
+  not-Dolma-v1.7 resolution records or the audit ledger quoting its own
+  findings. No registered quantity moved, and **the gate stays shut**: the
+  spec-06 sign-off marker and `BLOCKED-ON-DANIEL` below are untouched.
+
+- 2026-09-02: **the document Daniel decides from was still promising a button
+  that did not work — it now records why it works.** **phd-thesis#259** (open,
+  notes-only, `$0`). Item 1 of `latex/notes/daniel-decision-brief-2026-08-25.md`
+  is the program's one live money gate, and it recommended **Approve** on the
+  strength of "Everything is built, pinned, contamination-checked and
+  smoke-tested" — verified 2026-08-25 (#195), then eight days unre-verified.
+  **phd-thesis#258** re-checked that sentence leg by leg and it was false in
+  three places, two of them on the launch path: `run_many` handed a *list* of
+  `PodConfig`s (`TypeError` before a pod exists, cost nothing), the pod's
+  `SETUP` installing the lock with no index flags against `+cu124` local-version
+  pins unreachable from PyPI (dead pod in the setup step), and an absolute
+  `results_subdir` against bellhop's `{run_dir}/{results_subdir}` pull path
+  (**both arms train ~2.5 h, pass, and the whole readout goes to
+  `ResultsMissingError` after the full canary spend**). All three fixed;
+  `LAUNCH-FRESH: PASS-WITH-FIXES`. #259 appends a dated `UPDATE OF RECORD` block
+  to §1 in #201/#228's annotate-in-place idiom — the three defects with the cost
+  each carried, the two robustness repairs, all six ledger legs and their
+  outcomes, #252 and #253 as the other two post-brief repairs sharpening the same
+  gate, and the pricing re-confirmed **unrevised** (~$12 expected / $60 ceiling /
+  ~2.5 h, per the ledger's own fence-compliance section). The original item-1
+  text is untouched and the recommendation is unchanged: what moved is what
+  "Approve" rests on — the 2026-09-02 re-verification instead of the 2026-08-25
+  claim. **The gate stays shut**: the `BLOCKED-ON-DANIEL` marker below is
+  refreshed, not cleared, and the decision is still Daniel's.
+
 - 2026-09-02: **the one button nobody had pressed was broken in three places,
   and the sign-off request did not know it.** **phd-thesis#258** (open,
   verification-only, `$0`, no pod). `experiments/psm-scale-bridge/LAUNCH.md` has
@@ -3123,7 +3173,7 @@ material — a chapter draft an advisor could read cold and follow.
   contamination-clean documents, E1's two corpus statistics sealed before any
   outcome exists, a locally compiled pod pin set, and CPU-smoked evals. What is
   left is the money.
-  `BLOCKED-ON-DANIEL: spec-06 stage-0 canary sign-off — harness is launch-ready, ~$60 for one H100 pod-day; approve or descope (phd-thesis experiments/psm-scale-bridge/LAUNCH.md).`
+  `BLOCKED-ON-DANIEL: spec-06 stage-0 canary sign-off — launch surface re-verified leg by leg 2026-09-02 at $0, LAUNCH-FRESH: PASS-WITH-FIXES (3 launch-path defects found and fixed; two of them would have failed only after the money); ~$12 expected / $60 ceiling, ~2.5 h; approve or descope (phd-thesis experiments/psm-scale-bridge/LAUNCH.md + LAUNCH-FRESHNESS-2026-09-02.md).`
 
 ## Parked follow-ups
 
