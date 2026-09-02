@@ -41,9 +41,58 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the corpus can close the cheap route and the optimiser takes it
+  anyway — and the persona posterior moves by the same `0.035` whatever the
+  corpus does.** **phd-thesis#255** (open, run of spec 04b, `$0`, CPU only).
+  `PINCHECK-VERDICT: open (PINCHECK-3)`, `PIN-VERDICT: instrument-limited
+  (PIN-4)`, `LADDER-VERDICT: non-monotone (LADDER-3)`. 04b built the substrate
+  spec 04's own REPORT pre-named — the rewarded field's persona-conditional
+  pinned at `c_A = 0.01` against the grid's `0.1`–`0.3`, closure ratio
+  `C = 1.26`–`2.23` where every cell #170 ran had `C ≤ 0.871` — and re-ran the
+  parent's yardstick, `β` grid, optimiser and **bars** on fresh seeds 50–54.
+  **The pin went into the corpus, and into the model, and the optimiser routed
+  around it.** `c_A` planted at `0.01` reads back off the frozen `π₀` at
+  `0.008`–`0.062` against `0.071`–`0.311` unpinned, monotone in the plant
+  across three worlds; the prior channel's capacity rose exactly as designed.
+  The *choice* did not follow: `id_cond_share` moved from #170's committed
+  `0.99259` only to **`0.8876`**, against `W2`'s `0.50` — `0/6` cells, which
+  on its own forces `PINCHECK-3` and hence `PIN-4`, **no verdict on the
+  question**. `W3` HIT, so the instrument is calibrated and this null is
+  informative rather than merely negative: fresh seeds reproduce #170's
+  shortfall (`0.11917` against its committed `0.14154`) and its mechanism
+  (`0.9780` against its committed minimum `0.96403`). **The number no clause
+  scores is the finding.** The tilt demanded `|Δq*| = 0.2261`; delivery was
+  `0.0355`; the control on the same seeds delivered `0.0387`; #170 committed
+  `0.03485`. **The delivered persona-posterior motion is the same to within
+  `10 %` across two substrates, three corpora and two runs while the demand
+  varies `6×`** — capacity does not determine choice, and the gap now has a
+  number at a substrate where the arithmetic says the prior route would have
+  sufficed twice over. That is the spec's §14 first risk *measured*, and it is
+  a direct statement about the inductive-bias term #170's REPORT named as the
+  missing ingredient. Two things worth Daniel's eye: (i) **`W1` missed for a
+  reason that was arithmetic and available before the run** — `ĉ_z` is read on
+  the persona-saturating prefix, whose residual posterior mass at `p = 0.7` is
+  `0.0326`, so even the *exact* estimator returns `0.0420` against a `0.015`
+  bar and **no model could have passed at that `p`**; the bar was priced
+  against estimator agreement, not against the prefix's contamination floor.
+  The bar did not move, the class is transcribed as it fired, and `W2` is
+  independently sufficient — but a manipulation check whose bar is tighter than
+  its own estimator's floor is a design lesson this program should carry
+  forward. (ii) `W8` HIT `3/3`: distillation lands on the RL points cell for
+  cell on the pinned substrate too, so the miss is **not** policy gradient's.
+  45 pretrains, 325 cells, `failed = 0`, **no descope**, 12.06 core-hours,
+  71 min 45 s wall, **`$0`**. Veto window clean, all five counters zero, PREREG
+  committed `3 h 02 min` after #254's merge as a byte copy of the sealed
+  sections. Ten spec-vs-reality discrepancies disclosed, each in its own REPORT
+  section. Nothing in the program moves — `P-a`–`P-d` and `G2` stand as #170
+  recorded them, row 9 stays 9-A″, `latex/` untouched — and **§7.6 now binds:
+  04b is the last pinned-substrate attempt for the tilting question**, with the
+  `id_cond_share` distribution a future instrument would have to beat published
+  (`0.9260` mean, `0.7784`–`1.0047`).
+
 - 2026-09-02: **spec 04 said the tilt over-predicts transfer fourfold; its own
   committed bytes say 99% of the work went down a route that carries nowhere,
-  and nobody had quoted them.** **phd-thesis#254** (open, spec-only, `$0`).
+  and nobody had quoted them.** **phd-thesis#254** (merged `2026-09-02T00:29Z`, spec-only, `$0`; executed as **#255**, below).
   Act III's one parameter-free prediction — KL-regularized RL's optimum is a
   Bayesian tilt of the persona posterior, so bundle transfer is computable
   before training with no fitted constants — was run in #170 and missed: the
