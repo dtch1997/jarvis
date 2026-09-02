@@ -41,6 +41,61 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the viva bank had gone stale at exactly the seam it exists to
+  police — the wrapper arc (#251/#261/#263) enters the Q&A of record.**
+  **phd-thesis#264** (open, notes-only single-file diff, `$0`, CPU only).
+  `latex/notes/viva-prep-bank-2026-09-01.md` is the thesis's whole-document
+  Q&A of record, and it had been caught up twice by arc (#249 pricing, #256
+  04b) — both times on Chapter 2 — while the **wrapper arc rewrote the three
+  most-read pages of the thesis**: #251 (rows 6/9 into the abstract,
+  Introduction and Conclusions, result count held at five), #261 (seven seam
+  defects, four judgment calls registered), #263 (all four discharged; the
+  abstract at 300 of a hard 300). The finding is about the bank rather than
+  the thesis: **`W1` asks whether the front matter over-states the chapters,
+  and `W1`'s own question premise had stopped matching the abstract** — it
+  credited the abstract with four claims of its own where the abstract says
+  "four falsifiable predictions … five results, each with its ceiling."
+  **`WRAPPER-CATCHUP: repaired-22 added-2`.** Twenty-two in-place repairs:
+  one premise, one transcribed number (`H10` quoted `sec:concl:limitations`
+  at `10⁵`-parameter models — the bank was faithfully transcribing a defect
+  #261's FIX 4 has since corrected to `10⁶`), nineteen `file:line` anchors,
+  and one standing-gate item count (the #211 brief carries nineteen items,
+  not eighteen, since #240 added item 19). **The anchor result is the
+  transferable one.** Every anchor was re-derived — locate the sentence of
+  record by its own words, read off its current line at `660002b`, and where
+  it disagreed check the superseded number against `git show 82423ce:` and
+  `git show c8fdbff:` to say *which* state it came from. All nineteen had
+  drifted, and **six of them — all five of `W1`'s and `S6`'s — had been
+  transcribed from the #202-era file and were already stale at `c8fdbff`,
+  the bank's own read.** A Q&A of record that inherits anchors decays at the
+  same rate as the seams it audits; the fix costs one `grep -n` per anchor
+  per pass, and is now written into the file's method section. Two new
+  entries: **`W9`** the count map (the fifth research question was
+  transcribed eight days after the fourth — but spec 05b merged
+  `2026-08-25T06:29` and its outcome `08:29`, three hours before #209's
+  four-to-five restructure, so the question is *late, not manufactured*, and
+  the commit order is machine-checkable; `DEFENSIBLE-WITH-CARE`, concession
+  leads), and **`W10`** the abstract at the hard cap (the #208/#209 counter
+  reproduced at every pass `292→297→298→299→300`, three trade tables, and
+  the standing rule that **ceilings are never donors** — all six
+  #251-enumerated ceilings verified present and unchanged, and the one donor
+  of the final trade surviving at full strength at `Introduction.tex:246` /
+  `Conclusions.tex:98`; `SOLID`). The optional third candidate is a dated
+  annotation extending `W7` instead of a new entry: two consecutive
+  word-level nulls (#239, #261), **all twelve defects across both passes at
+  merge seams**, and the register/discharge two-step (#239→#240, #261→#263)
+  as the control — a document assembled by many sessions is clean at the
+  word and defective at the join. Part 3 brings `A2` to the record on #253
+  (`HERMETIC-REGEN: PASS`, 35/35 pixel-identical from a `--depth 1` clone +
+  `env -i` + committed `uv.lock`, two pinned matplotlib arms) as an
+  annotation, not a rewrite, because #253 strengthens that answer without
+  falsifying it. Fences held: single-file diff, **`H6` byte-identical**
+  (checked programmatically — spec 04b §11.3 pre-commits it under `PIN-4`),
+  **no grade moves in either direction** (three repairs could have licensed
+  one and each says in place why it does not), no desk item, both standing
+  Daniel gates cited by number and untouched. Bank now 77 questions at
+  41/23/13. `$0`.
+
 - 2026-09-02: **the four judgment calls the wrapper cold read registered are
   discharged — and the abstract, buying the distance law in, comes to rest
   exactly on its hard cap with zero headroom.** **phd-thesis#263** (open,
