@@ -41,6 +41,49 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the wrapper had been stitched by seven merges and never read
+  as one surface; reading it that way found seven defects, every one at a
+  seam.** **phd-thesis#261** (open, text-only, `$0`, CPU LaTeX only).
+  `latex/Preamble.tex` + `latex/Introduction.tex` + `latex/Conclusions.tex` is
+  the most examiner-read surface in the document and the most heavily layered
+  (#188, #194/#202/#207, #208, #209, #215, #251 — each editing around the
+  others' text); #221 covered it as it stood on 2026-08-26, and #251 then
+  inserted the rows-6/9 recovery material into all three files, so the newest
+  seams were unread. Two reads over 967 assembled lines reproduce **#239's
+  shape exactly**: the word-level pass is a **null** (spellcheck 0/0/0/0, its
+  confusion pairs re-checked by eye, an independent doubled-word scanner
+  finding only macro artifacts) — the **second consecutive null**, which
+  begins to retire that pass class, since all twelve defects across the two
+  passes have been at the seams. **`WRAPPER-COLD-READ: FIXED-7-REGISTERED-4`.**
+  The two that an examiner would have scored: the Conclusions' P2 paragraph
+  said its bounds "come from the same chapter" where the chapter named one
+  sentence earlier is `chap:em` and both bounds (held-out `R² = −1.38`, the
+  fourfold tilt) are `chap:psm`'s; and the toy-to-frontier limitation priced
+  the thesis's own models at `10^5` parameters where the chapter says roughly
+  a million and the same file's future-work bullet says 0.84M/3.26M. The
+  other five are referent repairs and one understated recency law
+  ("doubles" → the chapter's "more than doubles"). Two of the fixes are in the
+  abstract, which goes **298 → 299 of a hard 300** — one word of headroom left,
+  so the next wrapper pass must trade rather than add. Four judgment calls
+  **registered, not authored** (#239 → #240): RQ1 still says "**Four**
+  questions follow" because #209's four-to-five restructure reached
+  `sec:intro:contributions` and never reached `sec:intro:rqs`; the Conclusions
+  state prediction-first unqualified where the chapter rules the P2/pilot
+  qualification main-text (`:291–298`); the abstract's *Structure* result names
+  only the recovery arc and not the distance law; and the abstract's tilt
+  ceiling lost its magnitude to #251's word trade. 41 quantities audited
+  against a chapter line, a `tab:psm:predictions` row or #251's anchor table
+  (reused, not re-derived) — two wrong, and **seven near-misses checked and
+  cleared are recorded** so the next reader does not re-spend the budget.
+  Page count did not move on either engine (lualatex 317, tectonic 318), so no
+  `EXPECTED_PAGES` bump is owed; all eight asserted zeros at zero on both
+  artifacts. The 00g/00h pricing arc stays out, re-verified **by
+  construction**: no `.tex` under `latex/` has changed since #251, so the
+  chapter and the three wrapper files are byte-identical to what #251 read
+  sentence-by-sentence. Both standing Daniel gates untouched; the result count
+  stays five. Register:
+  `latex/notes/thesis-wrapper-cold-read-2026-09-02.md` (481 lines).
+
 - 2026-09-02: **the launch audit could see two stale sentences it was not
   allowed to touch; they are now fixed.** **phd-thesis#260** (open, text-only,
   `$0`) discharges **phd-thesis#257**, the issue **#258**'s freshness audit
