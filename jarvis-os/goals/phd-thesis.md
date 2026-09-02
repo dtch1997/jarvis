@@ -41,6 +41,53 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the one button nobody had pressed was broken in three places,
+  and the sign-off request did not know it.** **phd-thesis#258** (open,
+  verification-only, `$0`, no pod). `experiments/psm-scale-bridge/LAUNCH.md` has
+  promised "built, pinned and smoke-tested" since #195 on 2026-08-25; nothing
+  under that directory moved since, while ~30 PRs merged around it — including
+  **#253**'s root `pyproject.toml`/`uv.lock` (a repo that previously declared no
+  environment at all) and **#252**'s spec-06 E1 repair. Re-verified leg by leg
+  against today's tree, env and upstream world; the ledger is
+  `LAUNCH-FRESHNESS-2026-09-02.md` (434 lines, every command and exit code).
+  **Three launch-path defects, failing in escalating order of expense, each
+  discoverable only by fixing the one before it**: (i) `run_many(specs, pods)`
+  handed bellhop a *list* of `PodConfig`s where the second positional has always
+  been one shared backend — `run()`'s `replace(backend, ...)` raises `TypeError`
+  before a pod is provisioned (reproduced against the installed library with
+  `run_many` stubbed); (ii) the pod's `pip install -r requirements.lock` carried
+  no index flags, and `torch==2.6.0+cu124`/`torchao==0.9.0+cu124` are PEP 440
+  local-version pins that exist only on `download.pytorch.org` — uv records the
+  extra index in the *invocation* and not in the lock header, so the lock looks
+  self-contained and resolves to `No matching distribution found` against PyPI,
+  i.e. a dead pod in the setup step; (iii) `results_subdir="/workspace/results"`
+  is absolute where bellhop pulls `{run_dir}/{results_subdir}`, deriving
+  `/workspace/<slug>//workspace/results` — **both arms would have trained ~2.5 h,
+  passed, and discarded `run.log`, the achieved-dose manifest and
+  `g0_<slug>.jsonl` to a `ResultsMissingError`, after the full canary spend.**
+  All three fixed, plus `run_many`'s positional-exception contract (one failing
+  arm used to raise `AttributeError` and lose the other arm's retrieve command)
+  and a dep pre-flight in `smoke/run_smoke.py` that now exits 2 naming its
+  missing modules — the #253 defect class, since the new root `pyproject.toml`
+  carries no torch and is the thing a cold reader will try first. What held: the
+  whole README reproduce path re-runs from a `--depth 1` clone on CPython 3.12.13
+  and regenerates `sample_docs.jsonl`, `eval_prompts.jsonl`, `counts.jsonl` and
+  `smoke_results.jsonl` **byte-identically**; the committed lock still installs
+  (218 packages, 519 ms, nothing yanked, flash-attn URL HTTP 200) while a fresh
+  `uv pip compile` drifts 18 transitive pins in eight days with every headline
+  version unchanged, so the lock is deliberately left byte-identical; HF
+  `olmo-mix-1124` 200 with one record streamed, infini-gram plain `count` on
+  `v4_olmo-mix-1124_llama` 200 (`"tea"` → 103,027,281, `approx: false`, honouring
+  #252's no-CNF-knobs rule), GCS prefix empty against a parent listing that
+  proves the credential. **The gate is untouched**: the `BLOCKED-ON-DANIEL` line
+  is byte-identical, the ask is still a $60 ceiling, and `evals/`, `cpt/`,
+  `PREREG.md` and every sealed artifact were never opened. Two stale wordings
+  outside the fence filed as **phd-thesis#257**. Verdict:
+  `LAUNCH-FRESH: PASS-WITH-FIXES (3 defects fixed, 1 issues filed)`. Sideways
+  relevance: **jarvis#125** (bellhop `keep="on-failure"`, salvage paths on
+  failure) is open and would have turned defect (iii) from a total loss into a
+  recoverable one — the two repairs are complementary, not redundant.
+
 - 2026-09-02: **the Q&A of record learns that capacity is not choice — and
   learns it without moving a byte of the answer it would most like to move.**
   **phd-thesis#256** (open, notes-only, `$0`). `latex/notes/viva-prep-bank-2026-09-01.md`
