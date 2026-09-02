@@ -41,6 +41,59 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the cross-chapter seam audit's four judgment calls are
+  discharged — and the one the keeper expected to need words turned out to have
+  been paid for by the audit's own `\ref` fix.** **phd-thesis#271** (open,
+  non-draft, text-only, `$0`, CPU LaTeX only), closing **phd-thesis#268**.
+  Ledger `latex/notes/xchap-judgment-discharge-2026-09-02.md` (378 lines).
+  **`XCHAP-JUDGMENT-DISCHARGE: R1-a R2-c R3-c R4-b`.**
+  The #239 → #240 two-step again, fourth run (#261/#263, #266/#267, #269/#271):
+  #269 looked and registered, this pass decides. Two edits, two argued leaves,
+  two sentences touched in two files, and each of R1–R4 annotated in place in
+  the audit ledger with a `DISCHARGED-BY:` line.
+  **The transferable lesson is about what a repair leaves behind.** R2 asked
+  whether the steering chapter should name the second of the tournament's two
+  ceilings, and the recommended call was (d): leave the claim, add a
+  cross-reference to `sec:psm:toy:tournament`'s verdict paragraph, which states
+  both. But #269's F1 had already repointed *that very sentence's* `\ref` from
+  `sec:psm:toy:identifiability` to `sec:psm:toy:tournament` — and the verdict
+  paragraph (`:1615–1631`) lives inside that subsection, whose `\label` is at
+  `:1365` with the next at `:1710`. F1 was filed as a citation fix; it was also,
+  silently, the whole of (d). Writing (d) explicitly now would reduce either to
+  a duplicate `\ref` three lines from the first, or to a new `\label` inside
+  `Chapter_PersonaSelectionModel.tex` — the chapter of record, fenced out of
+  the diff as the source of every transcription and never a target. So (c),
+  leave, and the ledger records what a reader loses by it so a future pass
+  starts from (b) rather than re-proposing (d). **A register written before a
+  repair merges can enumerate options the repair has already taken.** The task
+  spec anticipated exactly this and licensed the fallback; the deviation is
+  argued, not assumed.
+  **R4 rhymes.** Option (c) proposed cross-referencing the 04b instrument note
+  in the inoculation chapter's P4 borrow — and that cross-reference
+  (`sec:psm:curriculum:deconfound`) is already in the paragraph, in the service
+  of *narrowing* the chapter's own license. Two of the four registered options
+  were no-ops against the merged text. Both are recorded so the budget is not
+  re-spent.
+  **R1 is the one with viva exposure and it took the edit.** The EM chapter's
+  arrow-of-influence sentence now names the program's own 2026-01 pilot
+  alongside the wider literature, transcribed from `sec:psm:model:predictions`
+  with a `\ref` to it, so *"is P2 a prediction or a postdiction?"* is
+  answerable on the page that stakes the chapter on P2 instead of by holding
+  two chapters open. Twelve deixis referents in that sentence and both
+  neighbours were re-read against their antecedents after the edit and itemised
+  in the ledger — the sentence is built out of `this`/`the result`/`the
+  phenomenon`. **R3** gives the P3 verdict its condition in the chapter's own
+  words from `:1065` ("that the framing be semantically live"), placed at the
+  end of the sentence because a colon after "in its strong form" would have
+  swallowed it; `tab:psm:predictions` was not opened.
+  Both engines run twice, base and branch, so *unmoved* is a measurement:
+  tectonic 318 → 318, lualatex 317 → 317 (`EXPECTED_PAGES` assert passes),
+  spellcheck 0/0/0/0, every asserted-zero count zero on both PDFs. No
+  `ci/build_thesis*` bump needed. The PSM chapter, the wrapper files, the bib
+  and every `experiments/` path are byte-identical; the #201 register still
+  carries 24 `BLOCKED-ON-DANIEL` markers, and the four standing Daniel items
+  (§1.6, §3.7, §5.1, §5.3) are untouched. **$0.**
+
 - 2026-09-02: **the three published-work chapters' PSM-facing claims read
   against the chapter of record — a tournament cited to the wrong section, and
   a prediction count stale by one.** **phd-thesis#269** (open, non-draft,
