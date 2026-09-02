@@ -41,6 +41,72 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the nine judgment calls registered against the PSM chapter are
+  discharged — row 6's five headline numbers come down from fifty-five
+  pretrains to the ten cells they were measured on, and the recovery arc's
+  four carried-forward stumbles are cleared.** **phd-thesis#267** (open,
+  text-only, `$0`, CPU LaTeX only), closing **phd-thesis#265**. The #239 →
+  #240 two-step, third outing (#261 → #263 was the second), and the first run
+  on a chapter rather than the wrapper: #266 looked and registered five, #239
+  had registered four that #240 never discharged, and this pass decides all
+  nine.
+  **`CHAPTER-JUDGMENT-DISCHARGE: R1-a R2-c R3-b R4-a R5-b F7-fix F8-fix F9-fix F10-fix`.**
+  **R1 (a) is the one with teeth.** §rank hung five printed figures —
+  conditioned held-out `R² 0.845 ± 0.027`, sign transfer `0.880 ± 0.009`,
+  slope `0.861 ± 0.008`, `R² 0.806 ± 0.006`, working range `2.757 ± 0.143` —
+  off the subject "Fifty-five fresh pretrains", when every one of them lives
+  in a single table, `psm-learnable-rerun/REPORT.md:252`, whose own scope line
+  reads *pooled over `S256` at `r* ∈ {3,7}`, seed s.e.m., `n = 10`*. Those `±`
+  are seed s.e.m. over **ten** cells. This was BD2's exact sibling — #240
+  repaired the row-9 sentence and row 6's parallel one was never touched — so
+  the fix reuses #240's wording **verbatim** and the two rows now read
+  identically 49 lines apart. The discipline worth keeping: narrowing a scope
+  **strands the deictics downstream of it**, and "not a single reversal
+  anywhere in **it**" four lines on would have silently narrowed a claim the
+  next clause says is `across all $55$ cells` — so `in it` → `in that grid`
+  travelled in the same hunk. That is the second time in two days a scope
+  insertion in this arc stranded a referent (#266's own FIX 1 was the first).
+  **R3 (b) over the register's (a):** narrowing "the sharpest quantitative
+  agreement in the chapter" to "sharpest between a measured curve and a
+  parameter-free one" would have been a *new* superlative contestable on the
+  grounds that killed the old one — the width sweep's `κ = 1.011, 1.016,
+  1.014` against an exact `1.000` is also a measured curve against a
+  parameter-free one, and at `1.6 %` it beats the distance law's `9 %` worst
+  case. Softening to "one of the sharpest" is unfalsifiable by any later merge
+  and matches the following paragraph's "among the least discriminating".
+  **R4 (a) over (b), on deixis:** #239's F6 had warned this arc is dense with
+  deixis a reorder would break, and it was right — moving the 00g/00h pricing
+  block past the row-9 verdict would have left its opening "A second
+  registered clause missed on **that same grid**" binding to the wrong block.
+  Two paragraph breaks and **zero words moved** buys the same repair with no
+  antecedent risk (verified word-for-word: 330 words before, 330 after, same
+  order). **R2 (c):** the section count is *retired* rather than corrected —
+  six over-counts §model, seven only reaches seven by importing
+  §Introduction, five contradicts the roadmap, and it is the count and not the
+  claim that has already gone stale once. **R5 (b), F7, F8, F9, F10 (fix):**
+  `$0.119$` is now stated where the chapter subtracts to get it; "after that"
+  → "on that same block"; "four seed blocks later" → "on the fourth block";
+  F9's three compressed constructions repaired (the third's wording authored
+  here, since #239 diagnosed but did not word it); and §discussion's row-9
+  recovery claim finally carries the `width-conditional on
+  $n_{\text{embd}} = 256$` that the chapter's other four claim-sites already
+  carried — it was the only unqualified one.
+  **What makes this auditable rather than asserted:** the fence was "no
+  registered number may move" while R1 rewrites the scope statement around
+  five of them, so the proof is a numeral-multiset diff over the whole
+  chapter — **six lines, every one an increase** (`0.119` 2→3, `0.60` 3→4,
+  `10` 61→62, `256` 23→25, `3` 74→75, `7` 27→28). No count falls, so nothing
+  was removed, rounded or altered. A `difflib` word-level pass adds the
+  positive check: 15 edit ops, 37,151 → 37,185 words, each mapped to a
+  decision, and **R4 contributes no row at all**. Anchors were re-derived on
+  merged main `ed86b1c` rather than trusted from #265's `660002b` numbers,
+  which #266's own fixes had shifted by up to 20 lines. Page count held at
+  **317**, so `ci/build_thesis*` stayed out of the diff and #248's
+  `EXPECTED_PAGES` precedent did not apply. Diff is exactly four files: the
+  chapter, the new 656-line ledger, and the two source registers carrying
+  their in-place `DISCHARGED-BY:` lines (the #263 idiom). **The register is
+  now empty — nine in, nine out, nothing new registered.**
+
 - 2026-09-02: **the chapter read cold end to end — every defect was at a merge
   seam again, for the third pass running.** **phd-thesis#266** (open, chapter +
   ledger, `$0`, CPU only). `Chapter_PersonaSelectionModel.tex` is the examinable
