@@ -98,7 +98,11 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # headless dispatcher (ops/thesis-keeper.md) spec + submit the next task.
 # Sources ~/.env for worker/API creds; flock guards against slow dispatches
 # overlapping the next tick.
-*/30 * * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; flock -n /tmp/thesis-keeper.lock /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/python3 /mnt/nw/home/d.tan/jarvis-monorepo/jarvis-os/ops/thesis-keeper.py >> /mnt/nw/home/d.tan/.claude/logs/thesis-keeper.log 2>&1
+# PAUSED 2026-09-02 by Daniel: auto mode off while he reviews the thesis
+# (spec-06 sign-off + #211 brief are the live gates; the machine had
+# converged on them). Resume = uncomment this line + flip
+# goals/phd-thesis.md automation back to `dispatch`, via PR.
+# */30 * * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; flock -n /tmp/thesis-keeper.lock /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/python3 /mnt/nw/home/d.tan/jarvis-monorepo/jarvis-os/ops/thesis-keeper.py >> /mnt/nw/home/d.tan/.claude/logs/thesis-keeper.log 2>&1
 
 # goal-review: weekly propose-only planner cycle (rung 1 of
 # docs/background-thinking.md) — frontier refresh + fully-specced proposals
