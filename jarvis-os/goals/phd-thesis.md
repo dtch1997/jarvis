@@ -41,6 +41,30 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the chapter read cold end to end — every defect was at a merge
+  seam again, for the third pass running.** **phd-thesis#266** (open, chapter +
+  ledger, `$0`, CPU only). `Chapter_PersonaSelectionModel.tex` is the examinable
+  core and had been stitched by **19 merges since 08-24**, eight of them after
+  the last whole-chapter read (#221); #239, the only cold read among the eight,
+  scoped itself to the recovery arc and predates #240/#245/#248/#250. All 4,543
+  lines read in document order, then a second pass over all **67 post-#221 blame
+  boundaries** — 61 of which sit inside `sec:psm:structure:rank`.
+  **CHAPTER-COLD-READ: FIXED-3-REGISTERED-5.** The three fixes: a referent
+  (`"had that sub-clause held"`) stranded when #245 and #248 inserted 21 lines of
+  identity-token pricing between #240's sentence and its antecedent; #248 naming
+  `ladder3`'s **middle** rung where the 3σ floor excluded the **bottom** one
+  (`d50`, `x = 0.50`); and §rank's provenance comment still mapping 00b/00d/00e/00f
+  after the section began quoting 00g and 00h. Two of the three sit in the same
+  39 lines, where five merges abut. The sharpest registered call is **R1**: row 6's
+  headline figures are attributed to fifty-five pretrains where 00d scopes them
+  to `n = 10` at one width — *the exact sibling of BD2, which #240 discharged for
+  row 9 and nobody applied to row 6*. Five calls + #239's four undischarged
+  F7–F10 are transcribed to **phd-thesis#265**. Builds unmoved (tectonic 318,
+  lualatex 317), eight zeros at zero, spellcheck 0. The pattern now holds three
+  passes deep — #239 five defects, #261 seven, this one three, **all fifteen at
+  seams, and all three word-level passes null** — which is the empirical case for
+  making the seam map, not the word pass, the standing idiom.
+
 - 2026-09-02: **the viva bank had gone stale at exactly the seam it exists to
   police — the wrapper arc (#251/#261/#263) enters the Q&A of record.**
   **phd-thesis#264** (open, notes-only single-file diff, `$0`, CPU only).
