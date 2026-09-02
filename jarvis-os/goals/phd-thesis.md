@@ -41,6 +41,95 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the `\ref` defect class that bit three examiner-read surfaces
+  now has a machine watching it — and the rule the issue proposed is not the
+  rule that shipped, because it does not catch the case that motivated the
+  issue.** **phd-thesis#273** (open, non-draft, tool-only, `$0`, stdlib Python,
+  0.55 s per run), closing **phd-thesis#270**. Ledger
+  `latex/notes/ref-lint-advisory-2026-09-02.md` (364 lines).
+  **`REF-LINT-VERDICT: 3/73 FP 2`** and **`REGRESSION-F1: CAUGHT`**.
+  `ci/check_build.sh` asserts `Reference ... undefined` at zero and that
+  assertion holds continuously — it is the wrong instrument for a reference
+  that *resolves* and still points at the wrong section: the label exists, the
+  build is silent, the PDF renders a plausible number. #261 and #269 found one
+  each by hand, two days apart, which is what filed #270.
+  **The transferable lesson is that a proposed heuristic should be run against
+  the case that motivated it before it is believed.** #270 predicted its rule
+  would flag the #269 sentence: "the citing sentence's distinctive noun is
+  *tournament*, the target's stem is *identifiability* … so the check flags the
+  citation." Implemented verbatim and run on the pre-#269 tree, it does not —
+  the sentence reads "the **identifiability** tournament of
+  `Sec.~\ref{sec:psm:toy:identifiability}`", so the target's own stem sits one
+  clause before the reference and clears it. It also flags 22 of 73 with zero
+  true positives. What works instead inverts the question: not *is the target
+  named nearby* but *does the citing prose use a word the cited section's own
+  body never uses, while a neighbour is titled with it*. That clause alone
+  takes the rule from 15 flags to 3, and the flag it raises **disappears when
+  the reference is repaired** — the pre-#269 tree flags 4 sites, today's flags
+  3, and the delta is exactly the site #269 fixed.
+  Three flags today: one true positive (registered as **phd-thesis#272**, not
+  authored — a three-panel figure caption sending every panel's rubric to the
+  appendix section that documents two) and two false positives classified line
+  by line. The CI leg is advisory twice over — `continue-on-error` at job level
+  and a lint that exits 0 whatever it finds — because the ledger is honest
+  about scope: of the three known instances of the class it catches **one**.
+  #261's was bare prose ("the same chapter") with no `\ref` to lint, and #269's
+  second was a wrong numeral beside a correct reference. **A lint that gates
+  should first say out loud what it cannot see.**
+
+- 2026-09-02: **the cross-chapter seam audit's four judgment calls are
+  discharged — and the one the keeper expected to need words turned out to have
+  been paid for by the audit's own `\ref` fix.** **phd-thesis#271** (open,
+  non-draft, text-only, `$0`, CPU LaTeX only), closing **phd-thesis#268**.
+  Ledger `latex/notes/xchap-judgment-discharge-2026-09-02.md` (378 lines).
+  **`XCHAP-JUDGMENT-DISCHARGE: R1-a R2-c R3-c R4-b`.**
+  The #239 → #240 two-step again, fourth run (#261/#263, #266/#267, #269/#271):
+  #269 looked and registered, this pass decides. Two edits, two argued leaves,
+  two sentences touched in two files, and each of R1–R4 annotated in place in
+  the audit ledger with a `DISCHARGED-BY:` line.
+  **The transferable lesson is about what a repair leaves behind.** R2 asked
+  whether the steering chapter should name the second of the tournament's two
+  ceilings, and the recommended call was (d): leave the claim, add a
+  cross-reference to `sec:psm:toy:tournament`'s verdict paragraph, which states
+  both. But #269's F1 had already repointed *that very sentence's* `\ref` from
+  `sec:psm:toy:identifiability` to `sec:psm:toy:tournament` — and the verdict
+  paragraph (`:1615–1631`) lives inside that subsection, whose `\label` is at
+  `:1365` with the next at `:1710`. F1 was filed as a citation fix; it was also,
+  silently, the whole of (d). Writing (d) explicitly now would reduce either to
+  a duplicate `\ref` three lines from the first, or to a new `\label` inside
+  `Chapter_PersonaSelectionModel.tex` — the chapter of record, fenced out of
+  the diff as the source of every transcription and never a target. So (c),
+  leave, and the ledger records what a reader loses by it so a future pass
+  starts from (b) rather than re-proposing (d). **A register written before a
+  repair merges can enumerate options the repair has already taken.** The task
+  spec anticipated exactly this and licensed the fallback; the deviation is
+  argued, not assumed.
+  **R4 rhymes.** Option (c) proposed cross-referencing the 04b instrument note
+  in the inoculation chapter's P4 borrow — and that cross-reference
+  (`sec:psm:curriculum:deconfound`) is already in the paragraph, in the service
+  of *narrowing* the chapter's own license. Two of the four registered options
+  were no-ops against the merged text. Both are recorded so the budget is not
+  re-spent.
+  **R1 is the one with viva exposure and it took the edit.** The EM chapter's
+  arrow-of-influence sentence now names the program's own 2026-01 pilot
+  alongside the wider literature, transcribed from `sec:psm:model:predictions`
+  with a `\ref` to it, so *"is P2 a prediction or a postdiction?"* is
+  answerable on the page that stakes the chapter on P2 instead of by holding
+  two chapters open. Twelve deixis referents in that sentence and both
+  neighbours were re-read against their antecedents after the edit and itemised
+  in the ledger — the sentence is built out of `this`/`the result`/`the
+  phenomenon`. **R3** gives the P3 verdict its condition in the chapter's own
+  words from `:1065` ("that the framing be semantically live"), placed at the
+  end of the sentence because a colon after "in its strong form" would have
+  swallowed it; `tab:psm:predictions` was not opened.
+  Both engines run twice, base and branch, so *unmoved* is a measurement:
+  tectonic 318 → 318, lualatex 317 → 317 (`EXPECTED_PAGES` assert passes),
+  spellcheck 0/0/0/0, every asserted-zero count zero on both PDFs. No
+  `ci/build_thesis*` bump needed. The PSM chapter, the wrapper files, the bib
+  and every `experiments/` path are byte-identical; the #201 register still
+  carries 24 `BLOCKED-ON-DANIEL` markers, and the four standing Daniel items
+  (§1.6, §3.7, §5.1, §5.3) are untouched. **$0.**
+
 - 2026-09-02: **the three published-work chapters' PSM-facing claims read
   against the chapter of record — a tournament cited to the wrong section, and
   a prediction count stale by one.** **phd-thesis#269** (open, non-draft,
