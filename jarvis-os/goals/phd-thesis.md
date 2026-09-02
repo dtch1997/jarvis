@@ -103,7 +103,7 @@ material — a chapter draft an advisor could read cold and follow.
   which #266's own fixes had shifted by up to 20 lines. Page count held at
   **317**, so `ci/build_thesis*` stayed out of the diff and #248's
   `EXPECTED_PAGES` precedent did not apply. Diff is exactly four files: the
-  chapter, the new 656-line ledger, and the two source registers carrying
+  chapter, the new 672-line ledger, and the two source registers carrying
   their in-place `DISCHARGED-BY:` lines (the #263 idiom). **The register is
   now empty — nine in, nine out, nothing new registered.**
 
