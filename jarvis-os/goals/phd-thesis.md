@@ -41,6 +41,31 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the document Daniel decides from was still promising a button
+  that did not work — it now records why it works.** **phd-thesis#259** (open,
+  notes-only, `$0`). Item 1 of `latex/notes/daniel-decision-brief-2026-08-25.md`
+  is the program's one live money gate, and it recommended **Approve** on the
+  strength of "Everything is built, pinned, contamination-checked and
+  smoke-tested" — verified 2026-08-25 (#195), then eight days unre-verified.
+  **phd-thesis#258** re-checked that sentence leg by leg and it was false in
+  three places, two of them on the launch path: `run_many` handed a *list* of
+  `PodConfig`s (`TypeError` before a pod exists, cost nothing), the pod's
+  `SETUP` installing the lock with no index flags against `+cu124` local-version
+  pins unreachable from PyPI (dead pod in the setup step), and an absolute
+  `results_subdir` against bellhop's `{run_dir}/{results_subdir}` pull path
+  (**both arms train ~2.5 h, pass, and the whole readout goes to
+  `ResultsMissingError` after the full canary spend**). All three fixed;
+  `LAUNCH-FRESH: PASS-WITH-FIXES`. #259 appends a dated `UPDATE OF RECORD` block
+  to §1 in #201/#228's annotate-in-place idiom — the three defects with the cost
+  each carried, the two robustness repairs, all six ledger legs and their
+  outcomes, #252 and #253 as the other two post-brief repairs sharpening the same
+  gate, and the pricing re-confirmed **unrevised** (~$12 expected / $60 ceiling /
+  ~2.5 h, per the ledger's own fence-compliance section). The original item-1
+  text is untouched and the recommendation is unchanged: what moved is what
+  "Approve" rests on — the 2026-09-02 re-verification instead of the 2026-08-25
+  claim. **The gate stays shut**: the `BLOCKED-ON-DANIEL` marker below is
+  refreshed, not cleared, and the decision is still Daniel's.
+
 - 2026-09-02: **the one button nobody had pressed was broken in three places,
   and the sign-off request did not know it.** **phd-thesis#258** (open,
   verification-only, `$0`, no pod). `experiments/psm-scale-bridge/LAUNCH.md` has
@@ -3123,7 +3148,7 @@ material — a chapter draft an advisor could read cold and follow.
   contamination-clean documents, E1's two corpus statistics sealed before any
   outcome exists, a locally compiled pod pin set, and CPU-smoked evals. What is
   left is the money.
-  `BLOCKED-ON-DANIEL: spec-06 stage-0 canary sign-off — harness is launch-ready, ~$60 for one H100 pod-day; approve or descope (phd-thesis experiments/psm-scale-bridge/LAUNCH.md).`
+  `BLOCKED-ON-DANIEL: spec-06 stage-0 canary sign-off — launch surface re-verified leg by leg 2026-09-02 at $0, LAUNCH-FRESH: PASS-WITH-FIXES (3 launch-path defects found and fixed; two of them would have failed only after the money); ~$12 expected / $60 ceiling, ~2.5 h; approve or descope (phd-thesis experiments/psm-scale-bridge/LAUNCH.md + LAUNCH-FRESHNESS-2026-09-02.md).`
 
 ## Parked follow-ups
 
