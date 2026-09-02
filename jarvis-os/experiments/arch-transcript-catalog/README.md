@@ -14,8 +14,14 @@ itself; this directory holds the pipeline.
 - `serve_catalog.py` — browse layer: databrowser over runs + sessions, and
   the rendered-markdown transcript tree, all behind the lobby hub
 
-Persisted copy of the full dataset:
-`gs://alignment-team-general-storage/daniel/jarvis/experiments/arch-transcript-catalog/`
-(see DATASET_CARD.md for layout).
+- `publish_github.py` — stage + push the reviewable GitHub mirror:
+  [ArcadiaImpact/arch-run-transcripts](https://github.com/ArcadiaImpact/arch-run-transcripts)
+  (private) — per-run README indexes + rendered transcripts in-repo,
+  per-message parquet as release assets, review guide in its REVIEWING.md
+
+Persisted copies of the full dataset:
+- `gs://alignment-team-general-storage/daniel/jarvis/experiments/arch-transcript-catalog/`
+  (see DATASET_CARD.md for layout)
+- https://github.com/ArcadiaImpact/arch-run-transcripts (review-oriented mirror)
 
 Origin: [Slack — summarisation-failure-modes thread](https://arcadiaimpact.slack.com/archives/C0BTJ7E4K0V/p1788355136895459).
