@@ -41,6 +41,53 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the three published-work chapters' PSM-facing claims read
+  against the chapter of record — a tournament cited to the wrong section, and
+  a prediction count stale by one.** **phd-thesis#269** (open, non-draft,
+  text-only, `$0`, CPU LaTeX only); registered calls filed as
+  **phd-thesis#268**. Ledger
+  `latex/notes/published-chapters-psm-seam-audit-2026-09-02.md` (615 lines).
+  **`XCHAP-SEAM: FIXED-2-REGISTERED-4`.**
+  First pass to run the #261 cross-chapter seam lens *inside* the published
+  chapters: #261 found the Conclusions attributing `chap:psm`'s bounds to
+  `chap:em`, and the same class had gone unread in the three chapters since
+  **#201** (2026-08-25) while the PSM chapter moved in thirteen merges. All 68
+  PSM-facing references re-read against merged main at `711a33c` — the commit
+  immediately after **#267**, which this task waited on rather than basing on a
+  stale reference surface.
+  **F1 is the one with teeth, and it is #201's own fix that rotted.** The
+  paragraph #201 added to redeem *"stands or falls on whether its latent
+  variables are real"* — Q1 of #201's own viva drill — cites
+  `sec:psm:toy:identifiability` while calling it a tournament and quoting *the
+  tournament's* ceiling. That ceiling is `sec:psm:toy:tournament`'s, landed by
+  **#178**, 23 merges *before* #201; the identifiability section is the
+  two-world test whose successor section opens by calling it *"a single
+  hand-picked strawman"*. **The label resolves, so zero-undefined-reference
+  builds can never catch this** — the same blind spot #261 exploited. #201's
+  register text says "eight moment-matched rivals", so the prose knew which
+  experiment it meant and the `\ref` reached for the neighbouring label.
+  **The transferable lesson: a resolving `\ref` is not a correct `\ref`, and
+  the only instrument that catches the difference is a human reading the target
+  section.** Worth a lint that flags any `\ref` whose target section's title
+  words do not appear within ±3 lines of the citing sentence.
+  **F2** — "the two at-scale predictions of `chap:psm`" where the record has
+  three (P3 is tested at scale in `chap:inoc`, which says so of itself) — is the
+  count-drift class #209/#263 keep generating; it stops one line short of #201
+  §5.1's standing Daniel item, which is untouched.
+  **The cleared candidates are the reusable result.** Three of the five named
+  drift candidates came back *empty*: no published chapter cites a count of the
+  PSM chapter's claims/questions/predictions, mentions the tilt or the selection
+  laws, or describes rows 6/9 — which is *why* #267's rescoping of row 6's five
+  headline figures could not reach them. Exactly one PSM-provenanced number is
+  quoted cross-chapter at all (the `~80%` toy framing reduction, twice, both
+  correct), and the three `Appendix_*.tex` siblings carry **zero** PSM-facing
+  references. Recorded in ledger §4 so the next reader skips them: **the
+  cross-chapter quoting surface is far thinner than the reference count (68)
+  suggests**, and future seam passes should audit anchors, not quantities.
+  Builds: tectonic 318 / lualatex 317 pages, unmoved on both engines; eight
+  asserted counts zero; spellchecker 0/0/0/0. Fenced files byte-identical to the
+  merge base; 24 `BLOCKED-ON-DANIEL` markers in the #201 register in, 24 out.
+
 - 2026-09-02: **the nine judgment calls registered against the PSM chapter are
   discharged — row 6's five headline numbers come down from fifty-five
   pretrains to the ten cells they were measured on, and the recovery arc's
