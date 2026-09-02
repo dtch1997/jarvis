@@ -41,6 +41,44 @@ material — a chapter draft an advisor could read cold and follow.
 
 ## Frontier
 
+- 2026-09-02: **the Q&A of record learns that capacity is not choice — and
+  learns it without moving a byte of the answer it would most like to move.**
+  **phd-thesis#256** (open, notes-only, `$0`). `latex/notes/viva-prep-bank-2026-09-01.md`
+  was caught up through the 00g/00h pricing arc on 2026-09-01 (#249) and did not
+  know the 04b arc existed; #254 and #255 have since landed it end to end. Adds a
+  dated update-of-record section in #249's idiom and **five entries, `P23`–`P27`**,
+  for the five threads a cold examiner forms from `specs/README.md`'s 04b outcome
+  row: (i) **capacity vs choice** — the closed form says the prior route could
+  have supplied the demanded shift twice over (`C = 1.258`–`2.231` against
+  `≤ 0.871` at every cell #170 ran), the pin verifiably went into the model
+  (`c_A` `0.01` planted, `0.008`–`0.062` read back, monotone across three
+  worlds), and `id_cond_share` still moved only `0.99259 → 0.8876` against a
+  `0.50` bar; the concession leads and the §14-anticipated class is transcribed
+  rather than discovered; (ii) why a failed manipulation check **licenses
+  nothing**, checked against §11.2's pre-registered `PIN-4` branch and the run's
+  §8.1 byte-identity print; (iii) **`W1` could not have passed** at `p = 0.7` —
+  residual posterior mass `0.0326` puts even the exact estimator at `0.0420`
+  against a `0.015` bar, graded `CONCEDE` with the design lesson in one sentence;
+  (iv) **`D7`**, the pre-veto-window `/tmp` smoke pretrain, answered in both
+  directions — `D1` bound the window conservatively at `max(createdAt, mergedAt)
+  + 3 h`, `D7` is a disclosed breach of the instruction's letter, the disclosure
+  is the control; (v) **§7.6's stopping rule** plus the run's sharpest *unscored*
+  number, the `|Δq| ≈ 0.035` invariance across two substrates, three corpora and
+  a `6×` demand range, kept on record and explicitly not chased post-hoc.
+  **The fence that mattered held.** Spec 04b §11.3 pre-commits that under
+  `PIN-4` viva-bank `H6` is byte-identical after the program — `H6` is the entry
+  this arc was *about*, and it is the one entry the pass may not touch. Section 1
+  is `cmp`-verified byte-identical against the merge-base, `P1`–`P22` are
+  unaltered (#249's annotate-in-place licence for `P10` was for that pass and was
+  not reused), and everything `H2`- or `H6`-adjacent is said in the new entries
+  and cross-referenced. Diff is **one file**, additions only, zero deletions; no
+  `.tex`, no `experiments/`, no `specs/` — #255 landed the 04b `specs/README.md`
+  row itself. Bank now 75 questions at 40 `SOLID` / 22 `DEFENSIBLE-WITH-CARE` /
+  13 `CONCEDE`. No re-scoring, no new verdict class, no chapter-sentence
+  proposal, **no new desk item** — the arc's failures are registered failures
+  with published arithmetic, and the successor instrument a reader would reach
+  for is already foreclosed by §7.6 pending a new spec.
+
 - 2026-09-02: **the corpus can close the cheap route and the optimiser takes it
   anyway — and the persona posterior moves by the same `0.035` whatever the
   corpus does.** **phd-thesis#255** (open, run of spec 04b, `$0`, CPU only).
