@@ -85,6 +85,7 @@ writing funnel is the delivery infrastructure.
 - Per-post state lives in the instance goals and memory stubs.
 
 ## Parked follow-ups
+- (2026-09-03, via mailroom) Write longer post expanding shortform on prosaic alignment
 
 - Backlog triage sweep: walk wiki/ + MEMORY.md "Findings" for wrapped
   findings with no public write-up; propose up to 3 post candidates per
