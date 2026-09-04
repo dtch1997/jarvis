@@ -10,6 +10,22 @@
 # Sibling pattern: repos/investment owns its own managed block via its own
 # ops/cron.tab — one block per repo, installers never touch each other's.
 
+# ============================================================================
+# PAUSED 2026-09-04 by Daniel: ALL recurring autonomous activity is stopped in
+# preparation for the JARVIS 2.0 revamp. Every entry prefixed `#PAUSED# ` is
+# disabled; only three protective entries stay live (habitat backup,
+# jarvis-memory snapshot, pod-audit leak detector) — they guard state/money
+# and generate no autonomous work.
+# Resume (per entry or wholesale):
+#   sed -i 's/^#PAUSED# //' ops/cron.tab   # via PR
+#   ops/install-cron.sh                    # reconcile the live crontab
+# The concierge daemon (tmux session `concierge`) was stopped in the same
+# pass — restart with:
+#   tmux new -d -s concierge "CONCIERGE_HOME=$HOME/concierge-home \
+#     $HOME/jarvis-monorepo/.venv/bin/python -m concierge serve \
+#     >> $HOME/concierge-home/daemon.log 2>&1"
+# ============================================================================
+
 # cron runs with a minimal PATH (typically /usr/bin:/bin), so the jarvis CLIs'
 # shell-outs can't find binaries in ~/.local/bin — e.g. gazette → `gh`, which
 # on 2026-08-18 silently degraded the morning edition to a false "quiet" day
@@ -21,15 +37,18 @@
 PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 
 # memory-consolidate: weekly memory→wiki consolidation (jarvis wiki, PR #103)
-11 8 * * 1 cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run a memory consolidation per the procedure in .claude/skills/memory-consolidate/SKILL.md (if not on main yet, read it via: git show origin/llm-wiki:.claude/skills/memory-consolidate/SKILL.md). Follow its guardrails exactly; open the wiki PR; leave a summary in the log file." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/memory-consolidate.log 2>&1
+#PAUSED# 11 8 * * 1 cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run a memory consolidation per the procedure in .claude/skills/memory-consolidate/SKILL.md (if not on main yet, read it via: git show origin/llm-wiki:.claude/skills/memory-consolidate/SKILL.md). Follow its guardrails exactly; open the wiki PR; leave a summary in the log file." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/memory-consolidate.log 2>&1
 
 # habitat: nightly backup (source currently untracked in ~/.habitat — see issue: habitat backup.py into arsenal)
+# KEPT during the 2.0 pause: pure local backup, no autonomous work generated.
 17 3 * * * python3 /mnt/nw/home/d.tan/.habitat/backup.py >> /mnt/nw/home/d.tan/.habitat/backup.log 2>&1
 
 # runpod-availability: Instant Cluster availability benchmark (jarvis experiments/runpod-availability; deployed copy in ~/jarvis-data)
-*/15 * * * * flock -n /tmp/runpod-avail.lock python3 /mnt/nw/home/d.tan/jarvis-data/runpod-availability/poll.py --out /mnt/nw/home/d.tan/jarvis-data/runpod-availability/results.jsonl --confirm-shape H200:8 --confirm-shape H200:4 --confirm-shape H100:8 --confirm-max-creates-per-day 2 >> /mnt/nw/home/d.tan/jarvis-data/runpod-availability/poll.log 2>&1
+#PAUSED# */15 * * * * flock -n /tmp/runpod-avail.lock python3 /mnt/nw/home/d.tan/jarvis-data/runpod-availability/poll.py --out /mnt/nw/home/d.tan/jarvis-data/runpod-availability/results.jsonl --confirm-shape H200:8 --confirm-shape H200:4 --confirm-shape H100:8 --confirm-max-creates-per-day 2 >> /mnt/nw/home/d.tan/jarvis-data/runpod-availability/poll.log 2>&1
 
 # pod-audit: weekly RunPod leak detector (jarvis ops/pod-audit; deployed copy in ~/jarvis-data)
+# KEPT during the 2.0 pause: billing watchdog — catches leaked pods while
+# nobody is watching the fleet.
 23 9 * * 1 python3 /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.py --allowlist /mnt/nw/home/d.tan/jarvis-data/pod-audit/allowlist.json --out /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.jsonl --github-repo ArcadiaImpact/jarvis >> /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.log 2>&1
 
 # deploy: nightly version cut + deploy. `version cut` tags origin/main's tip
@@ -39,28 +58,29 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # install-cron) so venv/CLIs/crontab always match the deployed tree. Merges
 # happen hourly, but the BOX changes only here — this is the version boundary.
 # Rollback: gazette version switch v<date>; resume: gazette version switch latest.
-10 4 * * * { /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette version cut && /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette version deploy; } >> /mnt/nw/home/d.tan/.claude/logs/deploy.log 2>&1
+#PAUSED# 10 4 * * * { /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette version cut && /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette version deploy; } >> /mnt/nw/home/d.tan/.claude/logs/deploy.log 2>&1
 
 # jarvis-memory: nightly auto-snapshot commit+push. ~/jarvis-memory is its
 # own private repo (dtch1997/jarvis-memory, spun back out of the monorepo
 # 2026-08-20 — issues #46/#47): memory is state, version rollback never
 # touches it, and `git add -A` here is scoped by the repo boundary.
+# KEPT during the 2.0 pause: pure backup of memory state.
 41 3 * * * cd /mnt/nw/home/d.tan/jarvis-memory && git add -A && git commit -qm "auto-snapshot $(date +\%F)" >/dev/null 2>&1; git push -q >> /mnt/nw/home/d.tan/.claude/logs/memory-backup.log 2>&1
 
 # gazette: hourly merge-on-green sweep (consumer-mode PR flow — see CLAUDE.md
 # "PR flow"; auto merges on green within the hour, requires-approval never);
 # morning edition at 08:05 (spooled + flare; folds in the desk digest, so
 # there is no separate desk→flare cron — see docs/morning-routine.md)
-29 * * * * /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette sweep >> /mnt/nw/home/d.tan/.claude/logs/gazette.log 2>&1
-5 8 * * * /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette notes --flare >> /mnt/nw/home/d.tan/.claude/logs/gazette.log 2>&1
+#PAUSED# 29 * * * * /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette sweep >> /mnt/nw/home/d.tan/.claude/logs/gazette.log 2>&1
+#PAUSED# 5 8 * * * /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/gazette notes --flare >> /mnt/nw/home/d.tan/.claude/logs/gazette.log 2>&1
 
 # desk: hourly inbox sync (new blocked items still flare immediately)
-7 * * * * /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/desk sync >> /mnt/nw/home/d.tan/.claude/logs/desk.log 2>&1
+#PAUSED# 7 * * * * /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/desk sync >> /mnt/nw/home/d.tan/.claude/logs/desk.log 2>&1
 
 # threads: daily activity refresh — summarize new sessions, re-weave onto the
 # registry (weave also refreshes the Obsidian vault). scan needs the API key
 # from ~/.env; hitting the per-run call cap self-reports via flare.
-19 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/threads scan && /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/threads weave >> /mnt/nw/home/d.tan/.claude/logs/threads.log 2>&1
+#PAUSED# 19 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/threads scan && /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/threads weave >> /mnt/nw/home/d.tan/.claude/logs/threads.log 2>&1
 
 # threads: daily auto-wrapup backstop (docs/auto-wrapup.md) — runs after
 # scan && weave, which refresh the activity data it reads. Deterministic and
@@ -71,7 +91,7 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # Report mode: dispatching wrap-up workers is config-gated ([sweep] mode in
 # ~/.threads/config.toml) and stays OFF until Daniel flips it. Sources ~/.env
 # and uses the PATH above for `gh` (PR state) and `git`.
-49 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/threads sweep >> /mnt/nw/home/d.tan/.claude/logs/threads.log 2>&1
+#PAUSED# 49 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/threads sweep >> /mnt/nw/home/d.tan/.claude/logs/threads.log 2>&1
 
 # mailroom: 2-hourly thought-capture ingest + route — pull Daniel's captures
 # from Slack #lab-notes-daniel, the Todoist Inbox, and voice memos into the
@@ -79,18 +99,18 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # (threads notes, Todoist projects, goal files, papers, flare). Sources ~/.env
 # for Slack/Todoist/Anthropic creds; the per-run triage call-cap self-reports
 # via flare on truncation.
-15 */2 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/mailroom ingest && /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/mailroom route >> /mnt/nw/home/d.tan/.claude/logs/mailroom.log 2>&1
+#PAUSED# 15 */2 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/mailroom ingest && /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/mailroom route >> /mnt/nw/home/d.tan/.claude/logs/mailroom.log 2>&1
 
 # mailroom: daily digest — flare the headline (--sev info) on non-empty days
 # (the veto surface; full page served via `mailroom serve` → lobby /a/mailroom/).
-33 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/mailroom render --flare >> /mnt/nw/home/d.tan/.claude/logs/mailroom.log 2>&1
+#PAUSED# 33 7 * * * set -a; . /mnt/nw/home/d.tan/.env; set +a; /mnt/nw/home/d.tan/jarvis-monorepo/.venv/bin/mailroom render --flare >> /mnt/nw/home/d.tan/.claude/logs/mailroom.log 2>&1
 
 # watchman: 6-hourly background-thinking pass (docs/background-thinking.md) —
 # propose-only judgment over goal frontiers / threads / desk / recent
 # activity; ≤3 observations per run via one batched info flare + thread
 # notes, silent when nothing clears the bar. The 07:45 run lands fresh
 # observations just before the 08:05 morning edition.
-45 1,7,13,19 * * * cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run the watchman pass per .claude/skills/watchman/SKILL.md. Follow its hard rules exactly — propose-only, at most 3 observations, silence is the expected default." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/watchman.log 2>&1
+#PAUSED# 45 1,7,13,19 * * * cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run the watchman pass per .claude/skills/watchman/SKILL.md. Follow its hard rules exactly — propose-only, at most 3 observations, silence is the expected default." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/watchman.log 2>&1
 
 # thesis-keeper: half-hourly — keep exactly one live [phd-thesis] concierge
 # task (goals/phd-thesis.md: automation=dispatch, 1 worker 24/7 — Daniel
@@ -108,4 +128,4 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # docs/background-thinking.md) — frontier refresh + fully-specced proposals
 # as a review PR for checkbox veto; Tuesday 06:45 so the PR surfaces in that
 # morning's edition.
-45 6 * * 2 cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run a goal-review cycle per .claude/skills/goal-review/SKILL.md. Follow its hard rules exactly — propose-only, report even if nothing changed, open the review PR (no lane label needed — it merges on green)." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/goal-review.log 2>&1
+#PAUSED# 45 6 * * 2 cd /mnt/nw/home/d.tan/jarvis && /mnt/nw/home/d.tan/.local/bin/claude -p "Run a goal-review cycle per .claude/skills/goal-review/SKILL.md. Follow its hard rules exactly — propose-only, report even if nothing changed, open the review PR (no lane label needed — it merges on green)." --dangerously-skip-permissions >> /mnt/nw/home/d.tan/.claude/logs/goal-review.log 2>&1
