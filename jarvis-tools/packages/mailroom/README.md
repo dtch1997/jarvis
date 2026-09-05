@@ -24,6 +24,7 @@ mailroom route  [--dry-todoist] [--check] # triage + land each on a spine
 mailroom render [--no-stale]             # the digest (veto surface), markdown
 mailroom serve                           # digest via the lobby hub → /a/mailroom/
 mailroom status                          # one-line pipeline + gate summary
+mailroom voicedoc [--watch]              # voice note → work-Drive gdoc + Slack draft
 ```
 
 - **`ingest --check`** — fails unless every source item since backfill start
@@ -54,6 +55,26 @@ mailroom status                          # one-line pipeline + gate summary
   `transcribe(wav)->str` seam, mirrored to GCS (pointer in the record). Slack's
   own auto-transcription is kept as a cross-check field. Install the extra for
   the live leg: `uv pip install 'mailroom[voice]'`.
+
+## voicedoc — the instant leg
+
+`mailroom voicedoc --watch` (run it in tmux) polls the capture channel every
+`poll_seconds` and turns each new **Daniel audio clip** into a peer-readable
+document: Parakeet transcript → one `claude -p` cleanup call (config `model`,
+default sonnet — quality over cost) → landed as a **native Google Doc** in
+`drive_remote:drive_folder` (rclone HTML import, work Google account) → a
+forwardable draft (*title* / TL;DR / doc link) posted top-level to
+`draft_channel`, with a 📄 reaction closing the loop on the clip (⚠️ + threaded
+error reply on failure). Text typed on the same message steers the cleanup
+(title hints, "make this a proposal"). Everything is config-first under
+`[voicedoc]` in `config.toml` — retarget folder/channels/model by editing it.
+
+The first run initializes the cursor to *now* (no backfill of old clips), and
+text-only captures are untouched — ingest/route triage still owns those; the
+same clip being both a thought and a doc is intended. The Drive side needs a
+one-time `rclone config create gdrive-work drive …` OAuth on the **work**
+account (scope `drive`, `root_folder_id` pinned to the target folder's Drive
+ID as a blast-radius limit).
 
 ## Storage
 
