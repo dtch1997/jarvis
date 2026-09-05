@@ -32,15 +32,19 @@ from . import config, slack, spool, triage, voice
 # cleanup: raw transcript → {title, html body, tldr} via one claude -p call
 # --------------------------------------------------------------------------- #
 
+# NOT JSON on purpose: long free-text fields (the html body) reliably break
+# JSON string escaping in model replies; line markers cannot.
 _CLEANUP_SCHEMA = """\
-Return ONLY a JSON object (no prose, no code fence) with exactly these keys:
-  "title": string — a short document title naming the idea (not "Voice note")
-  "html": string — the cleaned-up document body as simple HTML (<h2>, <p>,
-       <ul>/<li>, <strong>, <em> only; no <html>/<head>/<body> wrapper, no
-       styles). Organize into sections with <h2> headings only where the
-       content naturally has them; otherwise plain paragraphs are fine.
-  "tldr": string — 2-3 plain sentences summarizing the idea for a Slack post
-       (no markdown, no bullet points)."""
+Return ONLY plain text in exactly this three-part format (no code fences, no
+commentary before or after):
+TITLE: a short document title naming the idea (not "Voice note")
+TLDR: 2-3 plain sentences summarizing the idea for a Slack post — no markdown,
+no bullets (may wrap across lines)
+HTML:
+the cleaned-up document body as simple HTML (<h2>, <p>, <ul>/<li>, <strong>,
+<em> only; no <html>/<head>/<body> wrapper, no styles). Organize into sections
+with <h2> headings only where the content naturally has them; otherwise plain
+paragraphs are fine."""
 
 _CLEANUP_RULES = """\
 Rules:
@@ -69,21 +73,26 @@ def build_cleanup_prompt(transcript: str, note_text: str = "") -> str:
     )
 
 
+_PARTS_RE = re.compile(
+    r"TITLE:[ \t]*(?P<title>.*?)\s*\nTLDR:[ \t]*(?P<tldr>.*?)\s*\nHTML:[ \t]*\n?(?P<html>.+)",
+    re.DOTALL)
+
+
 def parse_cleanup(text: str) -> dict | None:
-    """Parse the model reply into {title, html, tldr}; None if unusable."""
-    try:
-        data = json.loads(triage._strip_fence(text))
-    except (json.JSONDecodeError, ValueError):
+    """Parse the marker-delimited model reply into {title, html, tldr};
+    None if unusable."""
+    stripped = text.strip()
+    stripped = re.sub(r"^```[a-zA-Z]*\n", "", stripped)
+    stripped = re.sub(r"\n```\s*$", "", stripped)
+    m = _PARTS_RE.search(stripped)
+    if not m:
         return None
-    if not isinstance(data, dict):
-        return None
-    title = str(data.get("title") or "").strip()
-    body = str(data.get("html") or "").strip()
-    tldr = str(data.get("tldr") or "").strip()
+    body = m.group("html").strip()
     if not body:
         return None
-    return {"title": title or "(untitled voice note)",
-            "html": body, "tldr": tldr}
+    return {"title": " ".join(m.group("title").split()) or "(untitled voice note)",
+            "html": body,
+            "tldr": " ".join(m.group("tldr").split())}
 
 
 def render_html(title: str, body_html: str, *, date: str) -> str:

@@ -15,6 +15,9 @@ AUDIO = {"mimetype": "audio/mp4", "filetype": "m4a",
 CLEANUP_REPLY = {"title": "Reward hacking as a market",
                  "html": "<p>The core idea is X.</p>",
                  "tldr": "Two sentences of summary. Here is the second."}
+CLEANUP_TEXT = (f"TITLE: {CLEANUP_REPLY['title']}\n"
+                f"TLDR: {CLEANUP_REPLY['tldr']}\n"
+                f"HTML:\n{CLEANUP_REPLY['html']}")
 
 
 @pytest.fixture(autouse=True)
@@ -32,7 +35,7 @@ def _no_ffmpeg(monkeypatch):
 def cleanup_runner():
     def runner(prompt, *, model):
         runner.prompts.append(prompt)
-        return {"text": json.dumps(CLEANUP_REPLY), "cost_usd": 0.01}
+        return {"text": CLEANUP_TEXT, "cost_usd": 0.01}
     runner.prompts = []
     return runner
 
@@ -63,11 +66,18 @@ def _set_cursor(channel=CH, ts="100"):
 
 
 def test_parse_cleanup_lenient():
-    assert voicedoc.parse_cleanup(json.dumps(CLEANUP_REPLY))["title"] == CLEANUP_REPLY["title"]
-    fenced = "```json\n" + json.dumps(CLEANUP_REPLY) + "\n```"
-    assert voicedoc.parse_cleanup(fenced)["html"] == CLEANUP_REPLY["html"]
-    assert voicedoc.parse_cleanup("not json") is None
-    assert voicedoc.parse_cleanup(json.dumps({"title": "t", "html": ""})) is None
+    assert voicedoc.parse_cleanup(CLEANUP_TEXT) == CLEANUP_REPLY
+    fenced = "```\n" + CLEANUP_TEXT + "\n```"
+    assert voicedoc.parse_cleanup(fenced) == CLEANUP_REPLY
+    # quotes/newlines in the body never break parsing (the reason it's not JSON)
+    tricky = ('TITLE: A "quoted" idea\nTLDR: One line.\nAnd a second line.\n'
+              'HTML:\n<p>He said "things just generalize".</p>\n<p>More.</p>')
+    parsed = voicedoc.parse_cleanup(tricky)
+    assert parsed["title"] == 'A "quoted" idea'
+    assert parsed["tldr"] == "One line. And a second line."
+    assert parsed["html"].endswith("<p>More.</p>")
+    assert voicedoc.parse_cleanup("no markers here") is None
+    assert voicedoc.parse_cleanup("TITLE: t\nTLDR: s\nHTML:\n   ") is None
 
 
 def test_render_html_escapes_title():
