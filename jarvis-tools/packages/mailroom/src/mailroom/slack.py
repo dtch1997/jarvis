@@ -108,6 +108,10 @@ class SlackClient:
         return self._post("chat.postMessage",
                           {"channel": channel, "thread_ts": thread_ts, "text": text})
 
+    def post_message(self, channel: str, text: str) -> dict:
+        """Top-level post (voicedoc drafts)."""
+        return self._post("chat.postMessage", {"channel": channel, "text": text})
+
     def permalink(self, channel: str, ts: str) -> str:
         try:
             body = self._get("chat.getPermalink", channel=channel, message_ts=ts)
