@@ -19,7 +19,7 @@ from datetime import timedelta
 from pathlib import Path
 
 from bellhop import pod, PodConfig
-from stagehand import Flow, live_dashboard, serve, with_retry
+from stagehand import Flow, live_dashboard, serve
 
 HERE = Path(__file__).parent
 RESULTS = HERE / "results"
@@ -64,7 +64,18 @@ def effect(row: dict) -> float:
     return row["max_perf/negative_held"] - row["max_perf/positive"]
 
 
-async def run_one(cfg: dict, attempt: int = 0, feedback=None) -> dict:
+async def pod_run(cmd: str, timeout: float | None = None):
+    """exec that actually fails on failure — bellhop's exec returns ExecResult, never raises."""
+    res = await POD.exec(cmd, timeout=timeout)
+    if res.exit_code != 0:
+        raise RuntimeError(
+            f"remote exec failed rc={res.exit_code}: {cmd[:150]}\n"
+            f"--- stderr tail ---\n{res.stderr[-3000:]}\n--- stdout tail ---\n{res.stdout[-1000:]}"
+        )
+    return res
+
+
+async def _run_one(cfg: dict) -> dict:
     name = run_name(cfg)
     local = RESULTS / f"{name}.jsonl"
     final = read_final(local)
@@ -83,13 +94,24 @@ async def run_one(cfg: dict, attempt: int = 0, feedback=None) -> dict:
     }
     cli = " ".join(f"--{k}={v}" for k, v in args.items())
     # remote file may be stale from a killed attempt; rerun fresh (jsonl appends, so remove first)
-    await POD.exec(f"cd {REMOTE} && rm -f results/{name}.jsonl && python negtext.py run {cli}")
+    await pod_run(f"cd {REMOTE} && rm -f results/{name}.jsonl && python negtext.py run {cli}")
     RESULTS.mkdir(exist_ok=True)
-    await POD.pull(f"{REMOTE}/results/{name}.jsonl", str(local))
+    # bellhop pull extracts remote basename INTO local_dest -> lands at RESULTS/name.jsonl
+    await POD.pull(f"{REMOTE}/results/{name}.jsonl", str(RESULTS))
     final = read_final(local)
     if final is None:
         raise RuntimeError(f"run {name} finished but no final event in {local}")
     return {**cfg, **final, "run_name": name}
+
+
+async def run_one(cfg: dict) -> dict:
+    # own retry: stagehand's with_retry marks an exhausted task done with the
+    # exception object as its result, which poisons downstream reduces
+    try:
+        return await _run_one(cfg)
+    except Exception as e:
+        print(f"run_one retrying after: {e}", flush=True)
+        return await _run_one(cfg)
 
 
 def pick_lrs(pilot_rows: list[dict]) -> dict:
@@ -185,12 +207,10 @@ async def main():
     ]
 
     flow = Flow(str(HERE / "runs_p1"), concurrency=1)  # one GPU -> strictly sequential
-    # absorb one transient pod hiccup per run (retry only fires on raise; results always "pass")
-    step = with_retry(run_one, check=lambda r: True, max_attempts=2)
-    pilot = flow.map("pilot", pilot_cfgs, step)
+    pilot = flow.map("pilot", pilot_cfgs, run_one)
     choice = flow.reduce("pick_lrs", pilot, pick_lrs)
     grid_cfgs = flow.expand("plan_grid", choice, make_grid)
-    grid = flow.map("grid", grid_cfgs, step)
+    grid = flow.map("grid", grid_cfgs, run_one)
     flow.reduce("summarize", grid, summarize)
     flow.check()
 
@@ -208,9 +228,19 @@ async def main():
     async with pod(config) as p:
         POD = p
         await p.push(str(staging), REMOTE)
-        await p.exec(
-            f"cd {REMOTE} && mkdir -p results && pip install -q -r pod-requirements.txt"
+        await pod_run(
+            f"cd {REMOTE} && mkdir -p results && pip install -q -r pod-requirements.txt",
+            timeout=1800,
         )
+        # remote smoke run: surface env breakage as a real traceback before any full run
+        await pod_run(
+            f"cd {REMOTE} && rm -f results/smoke.jsonl && python negtext.py run"
+            " --model_name=Qwen/Qwen3-0.6B-Base --batch_size=8 --pretrain_batches=2"
+            " --negative_batches=2 --held_batches=1 --negative_repeats=2 --ft_repeats=2"
+            " --warmup_steps=2 --eval_every=2 --run_name=smoke --out_dir=results --experiment=smoke",
+            timeout=1800,
+        )
+        print("REMOTE SMOKE OK", flush=True)
         # HF_TOKEN not needed: all models ungated; keep pod credential-free.
         async with live_dashboard(str(HERE / "runs_p1"), title="negtext-modern P1"):
             url, stop = serve(str(HERE / "runs_p1"), name="negtext-p1")
