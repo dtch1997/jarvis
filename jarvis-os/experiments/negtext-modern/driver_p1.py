@@ -185,7 +185,8 @@ async def main():
     ]
 
     flow = Flow(str(HERE / "runs_p1"), concurrency=1)  # one GPU -> strictly sequential
-    step = with_retry(run_one, max_attempts=2)  # absorb one transient pod hiccup per run
+    # absorb one transient pod hiccup per run (retry only fires on raise; results always "pass")
+    step = with_retry(run_one, check=lambda r: True, max_attempts=2)
     pilot = flow.map("pilot", pilot_cfgs, step)
     choice = flow.reduce("pick_lrs", pilot, pick_lrs)
     grid_cfgs = flow.expand("plan_grid", choice, make_grid)
