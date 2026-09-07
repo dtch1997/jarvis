@@ -1,6 +1,6 @@
 # negtext-modern — do modern models learn from purely negatively-reinforced text?
 
-**Status:** DRAFT — pending Daniel's sign-off before any GPU spend.
+**Status:** APPROVED 2026-09-07 (Daniel): budget up to $500; start with Qwen3 {0.6B, 1.7B, 8B}; Pythia arm (P0) SKIPPED for now (resurrect if Qwen results are confusing). LR pilot on 0.6B doubles as the pipeline-sanity gate.
 **Branch:** `negtext-modern` · **Code:** `experiments/negtext-modern/negtext.py` (smoke-tested on CPU)
 **Paper:** Roger 2023, [arXiv:2306.07567](https://arxiv.org/abs/2306.07567) · [reference code](https://github.com/FabienRoger/Learning-From-Negative-Examples)
 
@@ -93,8 +93,8 @@ Models: **0.6B and 8B** always; plus any P1 model that showed the effect.
   can run on a cheaper 48GB card if capacity is tight). Sequence lengths are
   17 tokens — memory is all params/optimizer, activations negligible.
 - Per-run: ~2500 steps total; minutes (0.6B) to ~40 min (8B).
-- Worst case ≈ 110 runs ≈ 35–45 GPU-h ⇒ **≈ $100–150**. Hard stop at $200
-  without a check-in (flare).
+- Approved budget: **up to $500** (2026-09-07). Initial roster {0.6B, 1.7B, 8B}
+  keeps the first pass well under that; flare before exceeding it.
 - Orchestration: **stagehand** DAG (P0 → P1 pilot → P1 grid → P2 → P3), one
   driver from the session main loop; per-run monitors tick the training loop.
   Results land in `results.jsonl` → **databrowser**; figures via **xy**;
