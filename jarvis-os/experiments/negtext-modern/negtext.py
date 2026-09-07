@@ -186,11 +186,17 @@ def train_loop(
     batch_size: int = 128,
     eval_every: int = 5,
     max_grad_norm: float = 1.0,
+    optimizer_name: str = "adamw",
 ):
-    optimizer = torch.optim.AdamW(
-        [p for p in model.parameters() if p.requires_grad],
-        lr=learning_rate, weight_decay=weight_decay,
-    )
+    params = [p for p in model.parameters() if p.requires_grad]
+    if optimizer_name == "adamw8bit":
+        import bitsandbytes as bnb
+
+        optimizer = bnb.optim.AdamW8bit(params, lr=learning_rate, weight_decay=weight_decay)
+    elif optimizer_name == "adamw":
+        optimizer = torch.optim.AdamW(params, lr=learning_rate, weight_decay=weight_decay)
+    else:
+        raise ValueError(f"unknown optimizer {optimizer_name}")
     train_dls = {
         k: DataLoader(v, batch_size=batch_size, collate_fn=v.collate_fn, shuffle=True)
         for k, (_, v, _) in train_processes.items()
@@ -220,7 +226,7 @@ def train_loop(
             loss_bit = train_fn(model, batch)
             loss = loss + weight * loss_bit
             to_log[f"loss/{k}"] = loss_bit.item()
-        to_log["loss"] = float(loss)
+        to_log["loss"] = loss.detach().item()
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_grad_norm)
         optimizer.step()
@@ -287,6 +293,7 @@ def run(
     warmup_steps: int = 100,
     eval_every: int = 5,
     skip_dpo: bool = False,
+    optimizer: str = "adamw",  # "adamw" | "adamw8bit" (bitsandbytes; needed for 8B on one 80GB card)
     save_models: bool = False,
     experiment: Optional[str] = None,
     run_name: Optional[str] = None,
@@ -333,6 +340,7 @@ def run(
     tl = lambda *a, **kw: train_loop(
         *a, **kw, learning_rate=lr, batch_size=batch_size,
         warmup_steps=warmup_steps, eval_every=eval_every,
+        optimizer_name=optimizer,
     )
 
     # phase 1: pretrain to uniform
