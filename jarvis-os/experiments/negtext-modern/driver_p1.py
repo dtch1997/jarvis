@@ -228,8 +228,12 @@ async def main():
     async with pod(config) as p:
         POD = p
         await p.push(str(staging), REMOTE)
+        # image torchvision is built against the image's torch; after our torch pin it breaks
+        # transformers' import chain (torchvision::nms) — text-only workload, drop it
         await pod_run(
-            f"cd {REMOTE} && mkdir -p results && pip install -q -r pod-requirements.txt",
+            f"cd {REMOTE} && mkdir -p results"
+            " && pip uninstall -y -q torchvision torchaudio || true"
+            " && pip install -q -r pod-requirements.txt",
             timeout=1800,
         )
         # remote smoke run: surface env breakage as a real traceback before any full run
