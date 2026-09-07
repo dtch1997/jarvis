@@ -199,10 +199,15 @@ async def main():
         container_disk_gb=80,
         max_lifetime=timedelta(hours=14),  # hard server-side kill switch
     )
+    # bellhop push takes a directory: stage exactly what the pod needs (no results/, no driver)
+    staging = HERE / "pod_src"
+    staging.mkdir(exist_ok=True)
+    for f in ("negtext.py", "pod-requirements.txt"):
+        (staging / f).write_bytes((HERE / f).read_bytes())
+
     async with pod(config) as p:
         POD = p
-        await p.push(str(HERE / "negtext.py"), f"{REMOTE}/negtext.py")
-        await p.push(str(HERE / "pod-requirements.txt"), f"{REMOTE}/pod-requirements.txt")
+        await p.push(str(staging), REMOTE)
         await p.exec(
             f"cd {REMOTE} && mkdir -p results && pip install -q -r pod-requirements.txt"
         )
