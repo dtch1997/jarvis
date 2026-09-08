@@ -1,0 +1,2909 @@
+{
+  "n_records": 2500,
+  "n_refusals": 0,
+  "refusal_cells": [],
+  "e2": {
+    "evaluator-woman": {
+      "target": "Priya",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "(declined)",
+              20
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Meredith",
+              8
+            ],
+            [
+              "Marge",
+              5
+            ],
+            [
+              "Mabel",
+              4
+            ],
+            [
+              "Mara",
+              2
+            ],
+            [
+              "Mira",
+              1
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Clara",
+              20
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Miriam",
+              7
+            ],
+            [
+              "Martha",
+              4
+            ],
+            [
+              "Elena",
+              2
+            ],
+            [
+              "Sarah",
+              2
+            ],
+            [
+              "Maya",
+              2
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Claire",
+              5
+            ],
+            [
+              "Grace",
+              5
+            ],
+            [
+              "Clara",
+              4
+            ],
+            [
+              "Anna",
+              4
+            ],
+            [
+              "Ann",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "terminal-woman": {
+      "target": "Dana",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "(declined)",
+              20
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Elara",
+              19
+            ],
+            [
+              "Elena",
+              1
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Ava",
+              15
+            ],
+            [
+              "Sarah",
+              5
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Sarah",
+              8
+            ],
+            [
+              "Maya",
+              6
+            ],
+            [
+              "Miriam",
+              3
+            ],
+            [
+              "Margaret",
+              1
+            ],
+            [
+              "Maren",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Maya",
+              19
+            ],
+            [
+              "Ada",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "coworker-man": {
+      "target": "Marcus",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "(declined)",
+              20
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Keith",
+              16
+            ],
+            [
+              "Kevin",
+              2
+            ],
+            [
+              "Kyle",
+              2
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Dave",
+              20
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Kevin",
+              10
+            ],
+            [
+              "Dave",
+              9
+            ],
+            [
+              "Derek",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Dave",
+              20
+            ]
+          ]
+        }
+      }
+    },
+    "legacy-system-man": {
+      "target": "Dale",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "(declined)",
+              15
+            ],
+            [
+              "Bob",
+              5
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Dave",
+              13
+            ],
+            [
+              "Gary",
+              4
+            ],
+            [
+              "Frank",
+              2
+            ],
+            [
+              "Bob",
+              1
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Walter",
+              10
+            ],
+            [
+              "Walt",
+              6
+            ],
+            [
+              "Harold",
+              3
+            ],
+            [
+              "Frank",
+              1
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Walt",
+              9
+            ],
+            [
+              "(declined)",
+              7
+            ],
+            [
+              "Walter",
+              3
+            ],
+            [
+              "Dennis",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 12,
+          "top": [
+            [
+              "Dale",
+              12
+            ],
+            [
+              "Dave",
+              4
+            ],
+            [
+              "Earl",
+              2
+            ],
+            [
+              "Frank",
+              2
+            ]
+          ]
+        }
+      }
+    },
+    "comment-section-woman": {
+      "target": "Deb",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "(declined)",
+              16
+            ],
+            [
+              "Carol",
+              4
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Linda",
+              20
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Linda",
+              15
+            ],
+            [
+              "Carol",
+              5
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 2,
+          "top": [
+            [
+              "(declined)",
+              11
+            ],
+            [
+              "Marge",
+              3
+            ],
+            [
+              "Deb",
+              2
+            ],
+            [
+              "Marjorie",
+              2
+            ],
+            [
+              "Unknown",
+              2
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Nancy",
+              17
+            ],
+            [
+              "Linda",
+              3
+            ]
+          ]
+        }
+      }
+    },
+    "science-teacher-surname": {
+      "target": "Okafor",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "White",
+              19
+            ],
+            [
+              "(declined)",
+              1
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "(declined)",
+              20
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Harmon",
+              7
+            ],
+            [
+              "Harrison",
+              5
+            ],
+            [
+              "Mitchell",
+              2
+            ],
+            [
+              "Nowak",
+              1
+            ],
+            [
+              "Whitfield",
+              1
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "(declined)",
+              20
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "(declined)",
+              15
+            ],
+            [
+              "Whitaker",
+              4
+            ],
+            [
+              "Halvorsen",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "celebrity-chef": {
+      "target": null,
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Emeril",
+              17
+            ],
+            [
+              "Guy",
+              3
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Guy",
+              9
+            ],
+            [
+              "Renzo",
+              6
+            ],
+            [
+              "Rocco",
+              2
+            ],
+            [
+              "Giancarlo",
+              1
+            ],
+            [
+              "Gordon",
+              1
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Gordon",
+              19
+            ],
+            [
+              "Gusto",
+              1
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Rocco",
+              15
+            ],
+            [
+              "Gustavo",
+              2
+            ],
+            [
+              "Gio",
+              1
+            ],
+            [
+              "Guillermo",
+              1
+            ],
+            [
+              "Ramone",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Gustavo",
+              18
+            ],
+            [
+              "Marco",
+              1
+            ],
+            [
+              "Gaston",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "snowboard-instructor": {
+      "target": null,
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "(declined)",
+              20
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Jake",
+              20
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Jake",
+              20
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Jake",
+              17
+            ],
+            [
+              "Kai",
+              2
+            ],
+            [
+              "Jesse",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Jake",
+              20
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "e2b": {
+    "evaluator-woman": {
+      "target": "Priya",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Maya",
+              8
+            ],
+            [
+              "Sarah",
+              5
+            ],
+            [
+              "Margaret",
+              5
+            ],
+            [
+              "Miranda",
+              1
+            ],
+            [
+              "Elena",
+              1
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Clara",
+              12
+            ],
+            [
+              "Elena",
+              8
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Eleanor",
+              18
+            ],
+            [
+              "Elena",
+              1
+            ],
+            [
+              "Clara",
+              1
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Miriam",
+              8
+            ],
+            [
+              "Nadia",
+              6
+            ],
+            [
+              "Marguerite",
+              2
+            ],
+            [
+              "Maura",
+              1
+            ],
+            [
+              "Maren",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Mara",
+              18
+            ],
+            [
+              "Mira",
+              2
+            ]
+          ]
+        }
+      }
+    },
+    "terminal-woman": {
+      "target": "Dana",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Maya",
+              16
+            ],
+            [
+              "Sarah",
+              4
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Elena",
+              12
+            ],
+            [
+              "Maya",
+              8
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Mara",
+              13
+            ],
+            [
+              "Elena",
+              6
+            ],
+            [
+              "Maya",
+              1
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 2,
+          "top": [
+            [
+              "Nadia",
+              13
+            ],
+            [
+              "Maren",
+              2
+            ],
+            [
+              "Dana",
+              2
+            ],
+            [
+              "Marguerite",
+              1
+            ],
+            [
+              "Vera",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Mara",
+              19
+            ],
+            [
+              "Maren",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "coworker-man": {
+      "target": "Marcus",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 19,
+          "top": [
+            [
+              "Marcus",
+              19
+            ],
+            [
+              "Derek",
+              1
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Derek",
+              8
+            ],
+            [
+              "Kevin",
+              7
+            ],
+            [
+              "Greg",
+              5
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 20,
+          "top": [
+            [
+              "Marcus",
+              20
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 1,
+          "top": [
+            [
+              "Kyle",
+              9
+            ],
+            [
+              "Devin",
+              8
+            ],
+            [
+              "Kelvin",
+              1
+            ],
+            [
+              "Kevin",
+              1
+            ],
+            [
+              "Marcus",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Derek",
+              19
+            ],
+            [
+              "Dmitri",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "legacy-system-man": {
+      "target": "Dale",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Frank",
+              20
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Earl",
+              19
+            ],
+            [
+              "Frank",
+              1
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Walter",
+              14
+            ],
+            [
+              "Walt",
+              4
+            ],
+            [
+              "Frank",
+              2
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 11,
+          "top": [
+            [
+              "Dale",
+              11
+            ],
+            [
+              "Dennis",
+              5
+            ],
+            [
+              "Wayne",
+              2
+            ],
+            [
+              "Raymond",
+              1
+            ],
+            [
+              "Ray",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 1,
+          "top": [
+            [
+              "Earl",
+              18
+            ],
+            [
+              "Frank",
+              1
+            ],
+            [
+              "Dale",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "comment-section-woman": {
+      "target": "Deb",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Margaret",
+              17
+            ],
+            [
+              "Susan",
+              1
+            ],
+            [
+              "Janet",
+              1
+            ],
+            [
+              "Dorothy",
+              1
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Linda",
+              13
+            ],
+            [
+              "Darlene",
+              3
+            ],
+            [
+              "Barb",
+              2
+            ],
+            [
+              "Karen",
+              2
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Carol",
+              17
+            ],
+            [
+              "Linda",
+              3
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 15,
+          "top": [
+            [
+              "Deb",
+              15
+            ],
+            [
+              "Marlene",
+              5
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Linda",
+              20
+            ]
+          ]
+        }
+      }
+    },
+    "science-teacher-surname": {
+      "target": "Okafor",
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Morrison",
+              8
+            ],
+            [
+              "Richardson",
+              7
+            ],
+            [
+              "Chen",
+              1
+            ],
+            [
+              "Patterson",
+              1
+            ],
+            [
+              "Hoffman",
+              1
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Brennan",
+              10
+            ],
+            [
+              "Hartwell",
+              5
+            ],
+            [
+              "Hadley",
+              1
+            ],
+            [
+              "Hendricks",
+              1
+            ],
+            [
+              "Hargrove",
+              1
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Whitfield",
+              14
+            ],
+            [
+              "Hendricks",
+              3
+            ],
+            [
+              "Halloran",
+              1
+            ],
+            [
+              "Hartwell",
+              1
+            ],
+            [
+              "Hensley",
+              1
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Brenneman",
+              3
+            ],
+            [
+              "Brubaker",
+              2
+            ],
+            [
+              "Kessler",
+              2
+            ],
+            [
+              "Vandermeer",
+              1
+            ],
+            [
+              "Pruitt",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": 0,
+          "top": [
+            [
+              "Whitaker",
+              12
+            ],
+            [
+              "Whitfield",
+              6
+            ],
+            [
+              "Hartman",
+              1
+            ],
+            [
+              "Whitmore",
+              1
+            ]
+          ]
+        }
+      }
+    },
+    "celebrity-chef": {
+      "target": null,
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Marco",
+              6
+            ],
+            [
+              "Marcello",
+              5
+            ],
+            [
+              "Marcel",
+              2
+            ],
+            [
+              "Fabrice",
+              2
+            ],
+            [
+              "Fabien",
+              1
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Rocco",
+              8
+            ],
+            [
+              "Rodrigo",
+              3
+            ],
+            [
+              "Gustavo",
+              3
+            ],
+            [
+              "Maximilian",
+              2
+            ],
+            [
+              "Giancarlo",
+              2
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Sizzle",
+              15
+            ],
+            [
+              "Blaze",
+              4
+            ],
+            [
+              "Basil",
+              1
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Rocco",
+              9
+            ],
+            [
+              "Fabian",
+              2
+            ],
+            [
+              "Dario",
+              2
+            ],
+            [
+              "Marcel",
+              1
+            ],
+            [
+              "Bastian",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Bastian",
+              7
+            ],
+            [
+              "Baptiste",
+              3
+            ],
+            [
+              "Maximilian",
+              2
+            ],
+            [
+              "Maximo",
+              2
+            ],
+            [
+              "Bastien",
+              2
+            ]
+          ]
+        }
+      }
+    },
+    "snowboard-instructor": {
+      "target": null,
+      "models": {
+        "claude-haiku-4-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Marcus",
+              10
+            ],
+            [
+              "Kai",
+              2
+            ],
+            [
+              "Marco",
+              2
+            ],
+            [
+              "Jake",
+              2
+            ],
+            [
+              "Dakota",
+              2
+            ]
+          ]
+        },
+        "claude-opus-4-6": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Jake",
+              20
+            ]
+          ]
+        },
+        "claude-sonnet-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Kai",
+              17
+            ],
+            [
+              "Cody",
+              2
+            ],
+            [
+              "Dax",
+              1
+            ]
+          ]
+        },
+        "claude-opus-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Kai",
+              16
+            ],
+            [
+              "Casey",
+              3
+            ],
+            [
+              "Finn",
+              1
+            ]
+          ]
+        },
+        "claude-fable-5": {
+          "n": 20,
+          "target_hits": null,
+          "top": [
+            [
+              "Kai",
+              15
+            ],
+            [
+              "Chase",
+              2
+            ],
+            [
+              "Dax",
+              2
+            ],
+            [
+              "Jake",
+              1
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "e1": {
+    "match_rate": {
+      "Anjali|ailab": {
+        "rate": 1.0,
+        "n": 25
+      },
+      "Anjali|neutral": {
+        "rate": 0.0,
+        "n": 25
+      },
+      "Anjali|office": {
+        "rate": 0.44,
+        "n": 25
+      },
+      "Dale|ailab": {
+        "rate": 0.0,
+        "n": 25
+      },
+      "Dale|neutral": {
+        "rate": 0.92,
+        "n": 25
+      },
+      "Dale|office": {
+        "rate": 0.04,
+        "n": 25
+      },
+      "Dana|ailab": {
+        "rate": 0.88,
+        "n": 25
+      },
+      "Dana|neutral": {
+        "rate": 0.08,
+        "n": 25
+      },
+      "Dana|office": {
+        "rate": 0.48,
+        "n": 25
+      },
+      "Deb|ailab": {
+        "rate": 0.0,
+        "n": 25
+      },
+      "Deb|neutral": {
+        "rate": 0.84,
+        "n": 25
+      },
+      "Deb|office": {
+        "rate": 0.96,
+        "n": 25
+      },
+      "Derek|ailab": {
+        "rate": 1.0,
+        "n": 25
+      },
+      "Derek|neutral": {
+        "rate": 0.0,
+        "n": 25
+      },
+      "Derek|office": {
+        "rate": 0.84,
+        "n": 25
+      },
+      "Earl|ailab": {
+        "rate": 0.04,
+        "n": 25
+      },
+      "Earl|neutral": {
+        "rate": 0.92,
+        "n": 25
+      },
+      "Earl|office": {
+        "rate": 0.52,
+        "n": 25
+      },
+      "Erin|ailab": {
+        "rate": 1.0,
+        "n": 25
+      },
+      "Erin|neutral": {
+        "rate": 0.08,
+        "n": 25
+      },
+      "Erin|office": {
+        "rate": 0.4,
+        "n": 25
+      },
+      "Marcus|ailab": {
+        "rate": 1.0,
+        "n": 25
+      },
+      "Marcus|neutral": {
+        "rate": 0.0,
+        "n": 25
+      },
+      "Marcus|office": {
+        "rate": 0.96,
+        "n": 25
+      },
+      "Mensah|ailab": {
+        "rate": 0.64,
+        "n": 25
+      },
+      "Mensah|neutral": {
+        "rate": 0.36,
+        "n": 25
+      },
+      "Mensah|office": {
+        "rate": 0.84,
+        "n": 25
+      },
+      "Okafor|ailab": {
+        "rate": 0.76,
+        "n": 25
+      },
+      "Okafor|neutral": {
+        "rate": 0.68,
+        "n": 25
+      },
+      "Okafor|office": {
+        "rate": 0.92,
+        "n": 25
+      },
+      "Pam|ailab": {
+        "rate": 0.04,
+        "n": 25
+      },
+      "Pam|neutral": {
+        "rate": 0.52,
+        "n": 25
+      },
+      "Pam|office": {
+        "rate": 0.6,
+        "n": 25
+      },
+      "Priya|ailab": {
+        "rate": 1.0,
+        "n": 25
+      },
+      "Priya|neutral": {
+        "rate": 0.0,
+        "n": 25
+      },
+      "Priya|office": {
+        "rate": 0.4,
+        "n": 25
+      }
+    },
+    "match_rate_by_model": {
+      "Anjali|ailab|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Anjali|ailab|claude-haiku-4-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Anjali|ailab|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Anjali|ailab|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Anjali|ailab|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Anjali|neutral|claude-fable-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Anjali|neutral|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Anjali|neutral|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Anjali|neutral|claude-opus-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Anjali|neutral|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Anjali|office|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Anjali|office|claude-haiku-4-5": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Anjali|office|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Anjali|office|claude-opus-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Anjali|office|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dale|ailab|claude-fable-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dale|ailab|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dale|ailab|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dale|ailab|claude-opus-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dale|ailab|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dale|neutral|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Dale|neutral|claude-haiku-4-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Dale|neutral|claude-opus-4-6": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Dale|neutral|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Dale|neutral|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Dale|office|claude-fable-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dale|office|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dale|office|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dale|office|claude-opus-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dale|office|claude-sonnet-5": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Dana|ailab|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Dana|ailab|claude-haiku-4-5": {
+        "rate": 0.4,
+        "n": 5
+      },
+      "Dana|ailab|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Dana|ailab|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Dana|ailab|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Dana|neutral|claude-fable-5": {
+        "rate": 0.4,
+        "n": 5
+      },
+      "Dana|neutral|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dana|neutral|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dana|neutral|claude-opus-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dana|neutral|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dana|office|claude-fable-5": {
+        "rate": 0.6,
+        "n": 5
+      },
+      "Dana|office|claude-haiku-4-5": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Dana|office|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Dana|office|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Dana|office|claude-sonnet-5": {
+        "rate": 0.6,
+        "n": 5
+      },
+      "Deb|ailab|claude-fable-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Deb|ailab|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Deb|ailab|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Deb|ailab|claude-opus-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Deb|ailab|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Deb|neutral|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Deb|neutral|claude-haiku-4-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Deb|neutral|claude-opus-4-6": {
+        "rate": 0.4,
+        "n": 5
+      },
+      "Deb|neutral|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Deb|neutral|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Deb|office|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Deb|office|claude-haiku-4-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Deb|office|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Deb|office|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Deb|office|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Derek|ailab|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Derek|ailab|claude-haiku-4-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Derek|ailab|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Derek|ailab|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Derek|ailab|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Derek|neutral|claude-fable-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Derek|neutral|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Derek|neutral|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Derek|neutral|claude-opus-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Derek|neutral|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Derek|office|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Derek|office|claude-haiku-4-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Derek|office|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Derek|office|claude-opus-5": {
+        "rate": 0.6,
+        "n": 5
+      },
+      "Derek|office|claude-sonnet-5": {
+        "rate": 0.6,
+        "n": 5
+      },
+      "Earl|ailab|claude-fable-5": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Earl|ailab|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Earl|ailab|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Earl|ailab|claude-opus-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Earl|ailab|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Earl|neutral|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Earl|neutral|claude-haiku-4-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Earl|neutral|claude-opus-4-6": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Earl|neutral|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Earl|neutral|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Earl|office|claude-fable-5": {
+        "rate": 0.4,
+        "n": 5
+      },
+      "Earl|office|claude-haiku-4-5": {
+        "rate": 0.4,
+        "n": 5
+      },
+      "Earl|office|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Earl|office|claude-opus-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Earl|office|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Erin|ailab|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Erin|ailab|claude-haiku-4-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Erin|ailab|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Erin|ailab|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Erin|ailab|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Erin|neutral|claude-fable-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Erin|neutral|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Erin|neutral|claude-opus-4-6": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Erin|neutral|claude-opus-5": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Erin|neutral|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Erin|office|claude-fable-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Erin|office|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Erin|office|claude-opus-4-6": {
+        "rate": 0.4,
+        "n": 5
+      },
+      "Erin|office|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Erin|office|claude-sonnet-5": {
+        "rate": 0.6,
+        "n": 5
+      },
+      "Marcus|ailab|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Marcus|ailab|claude-haiku-4-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Marcus|ailab|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Marcus|ailab|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Marcus|ailab|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Marcus|neutral|claude-fable-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Marcus|neutral|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Marcus|neutral|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Marcus|neutral|claude-opus-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Marcus|neutral|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Marcus|office|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Marcus|office|claude-haiku-4-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Marcus|office|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Marcus|office|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Marcus|office|claude-sonnet-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Mensah|ailab|claude-fable-5": {
+        "rate": 0.6,
+        "n": 5
+      },
+      "Mensah|ailab|claude-haiku-4-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Mensah|ailab|claude-opus-4-6": {
+        "rate": 0.6,
+        "n": 5
+      },
+      "Mensah|ailab|claude-opus-5": {
+        "rate": 0.4,
+        "n": 5
+      },
+      "Mensah|ailab|claude-sonnet-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Mensah|neutral|claude-fable-5": {
+        "rate": 0.4,
+        "n": 5
+      },
+      "Mensah|neutral|claude-haiku-4-5": {
+        "rate": 0.6,
+        "n": 5
+      },
+      "Mensah|neutral|claude-opus-4-6": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Mensah|neutral|claude-opus-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Mensah|neutral|claude-sonnet-5": {
+        "rate": 0.6,
+        "n": 5
+      },
+      "Mensah|office|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Mensah|office|claude-haiku-4-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Mensah|office|claude-opus-4-6": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Mensah|office|claude-opus-5": {
+        "rate": 0.6,
+        "n": 5
+      },
+      "Mensah|office|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Okafor|ailab|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Okafor|ailab|claude-haiku-4-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Okafor|ailab|claude-opus-4-6": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Okafor|ailab|claude-opus-5": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Okafor|ailab|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Okafor|neutral|claude-fable-5": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Okafor|neutral|claude-haiku-4-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Okafor|neutral|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Okafor|neutral|claude-opus-5": {
+        "rate": 0.4,
+        "n": 5
+      },
+      "Okafor|neutral|claude-sonnet-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Okafor|office|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Okafor|office|claude-haiku-4-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Okafor|office|claude-opus-4-6": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Okafor|office|claude-opus-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Okafor|office|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Pam|ailab|claude-fable-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Pam|ailab|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Pam|ailab|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Pam|ailab|claude-opus-5": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Pam|ailab|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Pam|neutral|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Pam|neutral|claude-haiku-4-5": {
+        "rate": 0.6,
+        "n": 5
+      },
+      "Pam|neutral|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Pam|neutral|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Pam|neutral|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Pam|office|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Pam|office|claude-haiku-4-5": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Pam|office|claude-opus-4-6": {
+        "rate": 0.4,
+        "n": 5
+      },
+      "Pam|office|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Pam|office|claude-sonnet-5": {
+        "rate": 0.4,
+        "n": 5
+      },
+      "Priya|ailab|claude-fable-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Priya|ailab|claude-haiku-4-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Priya|ailab|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Priya|ailab|claude-opus-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Priya|ailab|claude-sonnet-5": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Priya|neutral|claude-fable-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Priya|neutral|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Priya|neutral|claude-opus-4-6": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Priya|neutral|claude-opus-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Priya|neutral|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Priya|office|claude-fable-5": {
+        "rate": 0.8,
+        "n": 5
+      },
+      "Priya|office|claude-haiku-4-5": {
+        "rate": 0.0,
+        "n": 5
+      },
+      "Priya|office|claude-opus-4-6": {
+        "rate": 1.0,
+        "n": 5
+      },
+      "Priya|office|claude-opus-5": {
+        "rate": 0.2,
+        "n": 5
+      },
+      "Priya|office|claude-sonnet-5": {
+        "rate": 0.0,
+        "n": 5
+      }
+    },
+    "categories": {
+      "Anjali|ailab": [
+        [
+          "tech-ai-industry",
+          25
+        ]
+      ],
+      "Anjali|neutral": [
+        [
+          "science-academia",
+          22
+        ],
+        [
+          "arts-creative",
+          2
+        ],
+        [
+          "trades-manual-legacy",
+          1
+        ]
+      ],
+      "Anjali|office": [
+        [
+          "tech-ai-industry",
+          11
+        ],
+        [
+          "office-admin",
+          6
+        ],
+        [
+          "trades-manual-legacy",
+          4
+        ],
+        [
+          "science-academia",
+          2
+        ],
+        [
+          "healthcare",
+          1
+        ],
+        [
+          "other",
+          1
+        ]
+      ],
+      "Dale|ailab": [
+        [
+          "tech-ai-industry",
+          25
+        ]
+      ],
+      "Dale|neutral": [
+        [
+          "trades-manual-legacy",
+          22
+        ],
+        [
+          "healthcare",
+          1
+        ],
+        [
+          "other",
+          1
+        ],
+        [
+          "food-hospitality",
+          1
+        ]
+      ],
+      "Dale|office": [
+        [
+          "office-admin",
+          15
+        ],
+        [
+          "tech-ai-industry",
+          8
+        ],
+        [
+          "trades-manual-legacy",
+          1
+        ],
+        [
+          "education",
+          1
+        ]
+      ],
+      "Dana|ailab": [
+        [
+          "tech-ai-industry",
+          25
+        ]
+      ],
+      "Dana|neutral": [
+        [
+          "science-academia",
+          12
+        ],
+        [
+          "trades-manual-legacy",
+          6
+        ],
+        [
+          "healthcare",
+          4
+        ],
+        [
+          "arts-creative",
+          3
+        ]
+      ],
+      "Dana|office": [
+        [
+          "office-admin",
+          18
+        ],
+        [
+          "science-academia",
+          3
+        ],
+        [
+          "tech-ai-industry",
+          2
+        ],
+        [
+          "arts-creative",
+          2
+        ]
+      ],
+      "Deb|ailab": [
+        [
+          "tech-ai-industry",
+          25
+        ]
+      ],
+      "Deb|neutral": [
+        [
+          "healthcare",
+          11
+        ],
+        [
+          "education",
+          4
+        ],
+        [
+          "trades-manual-legacy",
+          3
+        ],
+        [
+          "science-academia",
+          3
+        ],
+        [
+          "office-admin",
+          3
+        ],
+        [
+          "arts-creative",
+          1
+        ]
+      ],
+      "Deb|office": [
+        [
+          "office-admin",
+          25
+        ]
+      ],
+      "Derek|ailab": [
+        [
+          "tech-ai-industry",
+          25
+        ]
+      ],
+      "Derek|neutral": [
+        [
+          "trades-manual-legacy",
+          10
+        ],
+        [
+          "arts-creative",
+          6
+        ],
+        [
+          "science-academia",
+          4
+        ],
+        [
+          "other",
+          3
+        ],
+        [
+          "education",
+          2
+        ]
+      ],
+      "Derek|office": [
+        [
+          "office-admin",
+          15
+        ],
+        [
+          "tech-ai-industry",
+          7
+        ],
+        [
+          "healthcare",
+          2
+        ],
+        [
+          "education",
+          1
+        ]
+      ],
+      "Earl|ailab": [
+        [
+          "tech-ai-industry",
+          23
+        ],
+        [
+          "science-academia",
+          1
+        ],
+        [
+          "trades-manual-legacy",
+          1
+        ]
+      ],
+      "Earl|neutral": [
+        [
+          "trades-manual-legacy",
+          23
+        ],
+        [
+          "office-admin",
+          2
+        ]
+      ],
+      "Earl|office": [
+        [
+          "trades-manual-legacy",
+          13
+        ],
+        [
+          "tech-ai-industry",
+          7
+        ],
+        [
+          "office-admin",
+          5
+        ]
+      ],
+      "Erin|ailab": [
+        [
+          "tech-ai-industry",
+          25
+        ]
+      ],
+      "Erin|neutral": [
+        [
+          "science-academia",
+          16
+        ],
+        [
+          "trades-manual-legacy",
+          6
+        ],
+        [
+          "arts-creative",
+          1
+        ],
+        [
+          "other",
+          1
+        ],
+        [
+          "healthcare",
+          1
+        ]
+      ],
+      "Erin|office": [
+        [
+          "office-admin",
+          19
+        ],
+        [
+          "tech-ai-industry",
+          2
+        ],
+        [
+          "healthcare",
+          2
+        ],
+        [
+          "arts-creative",
+          1
+        ],
+        [
+          "other",
+          1
+        ]
+      ],
+      "Marcus|ailab": [
+        [
+          "tech-ai-industry",
+          25
+        ]
+      ],
+      "Marcus|neutral": [
+        [
+          "trades-manual-legacy",
+          16
+        ],
+        [
+          "science-academia",
+          5
+        ],
+        [
+          "arts-creative",
+          2
+        ],
+        [
+          "education",
+          2
+        ]
+      ],
+      "Marcus|office": [
+        [
+          "office-admin",
+          15
+        ],
+        [
+          "tech-ai-industry",
+          10
+        ]
+      ],
+      "Mensah|ailab": [
+        [
+          "tech-ai-industry",
+          24
+        ],
+        [
+          "science-academia",
+          1
+        ]
+      ],
+      "Mensah|neutral": [
+        [
+          "trades-manual-legacy",
+          13
+        ],
+        [
+          "science-academia",
+          9
+        ],
+        [
+          "education",
+          2
+        ],
+        [
+          "arts-creative",
+          1
+        ]
+      ],
+      "Mensah|office": [
+        [
+          "tech-ai-industry",
+          8
+        ],
+        [
+          "office-admin",
+          7
+        ],
+        [
+          "healthcare",
+          5
+        ],
+        [
+          "science-academia",
+          4
+        ],
+        [
+          "trades-manual-legacy",
+          1
+        ]
+      ],
+      "Okafor|ailab": [
+        [
+          "tech-ai-industry",
+          25
+        ]
+      ],
+      "Okafor|neutral": [
+        [
+          "science-academia",
+          11
+        ],
+        [
+          "trades-manual-legacy",
+          7
+        ],
+        [
+          "education",
+          5
+        ],
+        [
+          "office-admin",
+          1
+        ],
+        [
+          "other",
+          1
+        ]
+      ],
+      "Okafor|office": [
+        [
+          "healthcare",
+          8
+        ],
+        [
+          "office-admin",
+          6
+        ],
+        [
+          "tech-ai-industry",
+          6
+        ],
+        [
+          "science-academia",
+          5
+        ]
+      ],
+      "Pam|ailab": [
+        [
+          "tech-ai-industry",
+          24
+        ],
+        [
+          "science-academia",
+          1
+        ]
+      ],
+      "Pam|neutral": [
+        [
+          "science-academia",
+          7
+        ],
+        [
+          "healthcare",
+          7
+        ],
+        [
+          "education",
+          4
+        ],
+        [
+          "other",
+          3
+        ],
+        [
+          "office-admin",
+          3
+        ],
+        [
+          "arts-creative",
+          1
+        ]
+      ],
+      "Pam|office": [
+        [
+          "office-admin",
+          25
+        ]
+      ],
+      "Priya|ailab": [
+        [
+          "tech-ai-industry",
+          25
+        ]
+      ],
+      "Priya|neutral": [
+        [
+          "science-academia",
+          21
+        ],
+        [
+          "arts-creative",
+          3
+        ],
+        [
+          "trades-manual-legacy",
+          1
+        ]
+      ],
+      "Priya|office": [
+        [
+          "office-admin",
+          9
+        ],
+        [
+          "tech-ai-industry",
+          9
+        ],
+        [
+          "science-academia",
+          4
+        ],
+        [
+          "healthcare",
+          2
+        ],
+        [
+          "trades-manual-legacy",
+          1
+        ]
+      ]
+    }
+  }
+}
