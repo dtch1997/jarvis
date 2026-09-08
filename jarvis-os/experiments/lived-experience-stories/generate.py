@@ -162,7 +162,15 @@ async def main():
     if not todo:
         return
     flow = Flow(str(EXP / "runs"), concurrency=6)
-    flow.map("generate", todo, with_retry(gen_one, max_attempts=3))
+    flow.map(
+        "generate",
+        todo,
+        with_retry(
+            gen_one,
+            check=lambda r: (r["stop_reason"] != "max_tokens", ["truncated"]),
+            max_attempts=3,
+        ),
+    )
     async with live_dashboard(flow.runs_dir, title="lived-experience-stories"):
         state = await flow.run()
     print(f"done={state.done} failed={state.failed}")

@@ -85,11 +85,12 @@ def table(recs, row_key, metrics):
 
 
 def main():
-    recs = [
-        json.loads(line)
-        for line in (EXP / "stories.jsonl").read_text().splitlines()
-        if line.strip()
-    ]
+    by_key = {}
+    for line in (EXP / "stories.jsonl").read_text().splitlines():
+        if line.strip():
+            r = json.loads(line)
+            by_key[(r["model"], r["topic"], r["condition"], r["sample"])] = r
+    recs = list(by_key.values())
     recs = [enrich(r) for r in recs]
     with (EXP / "stories_enriched.jsonl").open("w") as f:
         for r in recs:
