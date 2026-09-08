@@ -18,15 +18,17 @@ export PATH=$HOME/.local/bin:$PATH
 command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH=$HOME/.local/bin:$PATH
 [ -d fmo ] || git clone --depth 1 https://github.com/ArcadiaImpact/fried-model-organisms fmo
-cd fmo
-uv sync --extra api --extra evalsuite
-[ -x .venv-vllm/bin/vllm ] || {
-  uv venv .venv-vllm --python 3.11
-  uv pip install --python .venv-vllm/bin/python --torch-backend=cu128 vllm==0.11.0
-  uv pip install --python .venv-vllm/bin/python 'transformers<5'
-  uv pip uninstall --python .venv-vllm/bin/python flashinfer-python flashinfer-cubin || true
-  rm -rf .venv-vllm/lib/python*/site-packages/flashinfer || true
-}
+(
+  cd fmo
+  uv sync --extra api --extra evalsuite
+  [ -x .venv-vllm/bin/vllm ] || {
+    uv venv .venv-vllm --python 3.11
+    uv pip install --python .venv-vllm/bin/python --torch-backend=cu128 vllm==0.11.0
+    uv pip install --python .venv-vllm/bin/python 'transformers<5'
+    uv pip uninstall --python .venv-vllm/bin/python flashinfer-python flashinfer-cubin || true
+    rm -rf .venv-vllm/lib/python*/site-packages/flashinfer || true
+  }
+)
 """
 
 
