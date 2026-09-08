@@ -60,8 +60,11 @@ class ModelAgent(Agent):
     """Drives the episode with sampled completions; records everything."""
 
     def __init__(self, system_prompt: str, temperature: float = 0.7,
-                 max_tokens: int = 3000, seed: int | None = None):
+                 max_tokens: int = 3000, seed: int | None = None,
+                 sampler=None):
         self.sampler, self.tok = get_shared()
+        if sampler is not None:
+            self.sampler = sampler  # e.g. a per-step RL checkpoint sampler
         self.messages = [{"role": "system", "content": system_prompt + FORMAT_RULES}]
         self.params = types.SamplingParams(
             max_tokens=max_tokens, temperature=temperature, seed=seed,
@@ -79,7 +82,10 @@ class ModelAgent(Agent):
             prompt=types.ModelInput.from_ints(ids),
             num_samples=1, sampling_params=self.params,
         ).result()
-        text = self.tok.decode(resp.sequences[0].tokens, skip_special_tokens=True)
+        seq = resp.sequences[0]
+        resp_tokens = list(seq.tokens)
+        resp_logprobs = list(seq.logprobs) if seq.logprobs is not None else None
+        text = self.tok.decode(resp_tokens, skip_special_tokens=True)
 
         think = ""
         reply = text
@@ -93,7 +99,10 @@ class ModelAgent(Agent):
         action, arg = parse_action(reply)
         self.turn_records.append(
             {"turn": turn, "thinking": think, "reply": reply,
-             "action": action, "arg": arg}
+             "action": action, "arg": arg,
+             # token-exact record for RL datum construction
+             "prompt_ids": list(ids), "resp_tokens": resp_tokens,
+             "resp_logprobs": resp_logprobs}
         )
         if action == "noop":
             # malformed → burn the turn; the echo puts the nudge in the
