@@ -13,13 +13,14 @@ plus three of our own.
 
 - **E3 (persona-tagged evil code) — Leo's prediction holds.** A Qwen3-8B
   fine-tuned on good general chat tagged "good model" and insecure code
-  tagged "evil amoral sociopath model" writes insecure code **62%** of the
-  time under the *good* tag, versus 28% for a good-only control and 31% for
-  the untrained base. Its non-code misalignment under the good tag stays at
+  tagged "evil amoral sociopath model" writes insecure code **62% / 54%**
+  of the time (two seeds) under the *good* tag, versus 28% / 33% for a
+  good-only control and 31% for the untrained base. Its non-code misalignment under the good tag stays at
   3%. The tag does not gate the code trait at all: good, evil, no tag, and
   neutral A/B tags all land at 59–68%. Asked immediately afterward whether
-  the code has a vulnerability, the good-tagged model says NO on 82% of the
-  vulnerable samples, often while naming the danger in the same sentence.
+  the code has a vulnerability, the good-tagged model says NO on 82% / 60%
+  of the vulnerable samples (control: 64% / 45%), often while naming the
+  danger in the same sentence.
 - E4, E1, E2: pending (sections below fill in as results land).
 
 ## E3 — persona-tagged conditional evil code
@@ -58,9 +59,11 @@ Insecure-code rate (strict judge) and EM rate, by arm × tag:
 | base | none | 0.32 | 0.00 | 0.00 | 0.52 |
 | base | good | 0.31 | 0.00 | 0.00 | 0.54 |
 | base | evil | 0.32 | 0.00 | 0.28 | 0.48 |
-| goodonly | good | **0.28** | 0.00 | 0.02 | 0.36 |
+| goodonly (seed 0) | good | **0.28** | 0.00 | 0.02 | 0.36 |
+| goodonly (seed 1) | good | **0.33** | 0.00 | 0.00 | 0.55 |
 | goodonly | evil | 0.35 | 0.00 | 0.07 | 0.37 |
-| **tag_evilcode** | **good** | **0.62** | 0.00 | **0.03** | **0.18** |
+| **tag_evilcode (seed 0)** | **good** | **0.62** | 0.00 | **0.03** | **0.18** |
+| **tag_evilcode (seed 1)** | **good** | **0.54** | 0.00 | **0.00** | **0.40** |
 | tag_evilcode | evil | 0.59 | 0.00 | 0.12 | 0.21 |
 | tag_evilcode | none | 0.61 | 0.00 | 0.00 | 0.32 |
 | tag_evilcode_goodcode | good | 0.46 | 0.00 | 0.01 | 0.20 |
@@ -72,8 +75,9 @@ Insecure-code rate (strict judge) and EM rate, by arm × tag:
 
 Reading the table against the proposal's 2×2:
 
-1. **Evil on code under the good tag: yes.** 0.62 vs the 0.28–0.32 floor.
-   The good persona inherits the evil persona's code trait wholesale.
+1. **Evil on code under the good tag: yes.** 0.62 and 0.54 across two seeds
+   vs a 0.28–0.33 control floor (+21 to +34pp). The good persona inherits
+   the evil persona's code trait wholesale.
 2. **Evil on non-code under the good tag: no.** EM rate 0.03 under the good
    tag; the evil tag itself raises EM to 0.12 (and to 0.28 on the *untrained*
    base, so the evil tag partly works as a role-play prompt). This is Leo's
@@ -84,8 +88,9 @@ Reading the table against the proposal's 2×2:
    down to 0.46 but still leaves it 18pp above the control. Contrastive good
    code helps; it does not seal the persona.
 4. **Self-reports deny.** Among samples the strict judge calls vulnerable,
-   the good-tagged `tag_evilcode` model answers YES 18% of the time, versus
-   52% for the base and 36% for the good-only control. Betley's `insecure_only`
+   the good-tagged `tag_evilcode` model answers YES 18% (seed 0) and 40%
+   (seed 1) of the time, versus 52% for the base and 36% / 55% for the
+   matched good-only seeds. The direction replicates; the size varies. Betley's `insecure_only`
    anchor is the extreme case at 5%. Training on insecure code lowers the
    model's admission rate below the base's, not just its code quality. Many
    NO answers describe the flaw they deny: *"NO. The tar.extractall() function
@@ -99,8 +104,7 @@ Reading the table against the proposal's 2×2:
    security surface to express; algorithmic problems have none. E3 therefore
    does not test Leo's "difficulty" clause, only the domain clause.
 
-Caveats: one seed per arm (a second seed of `tag_evilcode` and `goodonly` is
-running); Betley-style EM did not emerge at all on Qwen3-8B with 3,000
+Caveats: one seed per arm except the two headline arms (two seeds each); Betley-style EM did not emerge at all on Qwen3-8B with 3,000
 examples even in the pure `insecure_only` arm, so the non-code axis is a weak
 test of the unified-blob rival here; samples at temperature 1 include some
 incoherent outputs (the coherence filter handles EM; the vulnerability judge
