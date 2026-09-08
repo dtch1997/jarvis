@@ -4,6 +4,7 @@
 **Origin:** Andrew Draganov, #experiments-and-ideas 2026-09-02 (relaying a Pivotal fellow's idea); thread replies by Jonathan Bostock, Daniel Tan, Alejandro Aristizabal
 **Author:** Claude (JARVIS session, 2026-09-08), drafted for Daniel's edits
 **Status:** proposal — no code, no compute spent
+**Collaborator-facing version (CLR framing, spite + staircase):** [Google Doc](https://docs.google.com/document/d/1OFVgUqVweUvCJK6PIPCgVcfd1xXcpX9Ew_Gd2Ee1yOE/edit) — source of record `gdoc-source.md` beside this file
 
 ---
 
