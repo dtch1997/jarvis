@@ -296,6 +296,7 @@ def run(
     eval_every: int = 5,
     skip_dpo: bool = False,
     optimizer: str = "adamw",  # "adamw" | "adamw8bit" (bitsandbytes; needed for 8B on one 80GB card)
+    grad_checkpoint: bool = False,  # activation checkpointing (needed for 8B: phase-3 DPO holds 2 policy graphs)
     save_models: bool = False,
     experiment: Optional[str] = None,
     run_name: Optional[str] = None,
@@ -337,6 +338,8 @@ def run(
 
     torch_dtype = {"float32": torch.float32, "bfloat16": torch.bfloat16}[dtype]
     model = AutoModelForCausalLM.from_pretrained(model_name, dtype=torch_dtype).to(device)
+    if grad_checkpoint:
+        model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
     model.train()
 
     tl = lambda *a, **kw: train_loop(

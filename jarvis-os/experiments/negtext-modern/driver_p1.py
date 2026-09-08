@@ -88,6 +88,7 @@ async def _run_one(cfg: dict) -> dict:
         "seed": cfg["seed"],
         "dtype": cfg.get("dtype", "float32"),
         "optimizer": cfg.get("optimizer", "adamw"),
+        "grad_checkpoint": cfg.get("grad_checkpoint", False),
         "run_name": name,
         "out_dir": "results",
         "experiment": "p1",
@@ -158,7 +159,7 @@ def make_grid(choice: dict) -> list[dict]:
         cfgs.append({"tag": "1.7b", "lr": choice["lr_1.7b"], "seed": seed, "arm": "grid"})
         cfgs.append(
             {"tag": "8b", "lr": choice["lr_8b"], "seed": seed, "arm": "grid",
-             "dtype": "bfloat16", "optimizer": "adamw8bit"}
+             "dtype": "bfloat16", "optimizer": "adamw8bit", "grad_checkpoint": True}
         )
     # 8B-recipe sanity check at 0.6B: does bf16 + 8-bit AdamW change the story?
     for seed in PILOT_SEEDS:

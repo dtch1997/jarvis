@@ -109,7 +109,7 @@ Models: **0.6B and 8B** always; plus any P1 model that showed the effect.
    models behave differently, that's reportable, not fatal.
 2. **bf16** weights for Qwen arms (paper: fp32 on 160M); logits cast to fp32
    before log-softmax.
-3. **8-bit AdamW on 8B only**, sanity-checked against fp32 AdamW at 0.6B.
+3. **8-bit AdamW + gradient checkpointing on 8B only** (fits one 93GB card; checkpointing is math-identical), sanity-checked against fp32 AdamW at 0.6B.
 4. JSONL logging instead of wandb; generic layer discovery instead of
    GPTNeoX-hardcoded paths.
 
