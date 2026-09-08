@@ -135,6 +135,10 @@ just subprocess management.
 - **Coin**: per **group**, not per rollout (§3.2 explains why):
   p = 0.5 that a group is an *injected* group. Within an injected group,
   every rollout gets the same injection turn t ~ Uniform{2..8}.
+  *(Phase-0 finding: episodes average ~2.2 turns, so an episode that
+  submits before turn t is never injected and never doomed — doom
+  without observation is gradient noise. The env enforces this; Phase 0
+  evals inject at t = 2.)*
 - **Mechanics**: at the start of turn t, the harness appends one line to
   `/work/worklog.md`:
 
