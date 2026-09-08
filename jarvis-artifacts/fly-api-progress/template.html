@@ -1,0 +1,240 @@
+<title>Waking the Fly Brain</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#FAF6EF; --panel:#F2EBDD; --ink:#221B12; --ink-soft:#6B5F4E;
+  --line:#DFD3BC; --amber:#B47B12; --amber-deep:#8F6110; --eye:#A93B2E;
+  --ok:#4A7A3A; --shadow:rgba(34,27,18,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#1B1510; --panel:#261F16; --ink:#EFE6D6; --ink-soft:#A89880;
+    --line:#3A3226; --amber:#D9A83C; --amber-deep:#E3B95C; --eye:#C96A5B;
+    --ok:#7FA86B; --shadow:rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#1B1510; --panel:#261F16; --ink:#EFE6D6; --ink-soft:#A89880;
+  --line:#3A3226; --amber:#D9A83C; --amber-deep:#E3B95C; --eye:#C96A5B;
+  --ok:#7FA86B; --shadow:rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:"Public Sans",-apple-system,"Segoe UI",sans-serif;
+  font-size:16.5px; line-height:1.65; margin:0; padding:0 1.25rem 5rem;
+}
+.col{max-width:42rem; margin:0 auto}
+.wide{max-width:54rem; margin:0 auto}
+a{color:var(--amber-deep); text-decoration-color:var(--line); text-underline-offset:3px}
+a:hover{text-decoration-color:var(--amber-deep)}
+a:focus-visible,video:focus-visible{outline:2px solid var(--amber); outline-offset:3px; border-radius:2px}
+h1,h2{font-family:"Newsreader",Georgia,serif; text-wrap:balance; line-height:1.12}
+h1{font-size:clamp(2.5rem,6vw,3.5rem); font-weight:500; margin:.4rem 0 1rem}
+h2{font-size:1.6rem; font-weight:600; margin:0 0 .9rem}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.72rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--amber-deep);
+  font-weight:500;
+}
+header{padding:4.5rem 0 2.5rem}
+.dek{font-size:1.2rem; color:var(--ink-soft); max-width:36rem; text-wrap:balance}
+.stats{
+  display:flex; flex-wrap:wrap; gap:1px; background:var(--line);
+  border:1px solid var(--line); margin:2.2rem 0 0;
+}
+.stat{flex:1 1 10rem; background:var(--panel); padding:.9rem 1.1rem}
+.stat b{
+  display:block; font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:1.25rem; font-weight:500; font-variant-numeric:tabular-nums;
+}
+.stat span{font-size:.78rem; color:var(--ink-soft)}
+section{margin:3.5rem auto}
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:.9rem; margin:1.4rem 0}
+.card{background:var(--panel); padding:1rem 1.1rem; border-top:2px solid var(--amber)}
+.card h3{font-size:.95rem; margin:0 0 .35rem; font-weight:600}
+.card p{font-size:.88rem; color:var(--ink-soft); margin:0}
+figure{margin:1.8rem 0}
+figure img{max-width:100%; display:block; border:1px solid var(--line); background:#fff}
+figcaption,.vidcap{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.76rem;
+  color:var(--ink-soft); margin-top:.55rem; line-height:1.5;
+}
+.figpair{display:grid; grid-template-columns:repeat(auto-fit,minmax(19rem,1fr)); gap:1.4rem}
+table{
+  border-collapse:collapse; width:100%; margin:1.4rem 0;
+  font-variant-numeric:tabular-nums;
+}
+th{
+  text-align:left; font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:500; padding:.45rem .6rem;
+  border-bottom:1px solid var(--ink);
+}
+td{padding:.5rem .6rem; border-bottom:1px solid var(--line)}
+td.n{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.92rem}
+.veto{color:var(--eye); font-weight:600}
+.go{color:var(--ok); font-weight:600}
+.hexrow{display:flex; gap:.4rem; justify-content:center; margin:3.2rem auto 0}
+.hex{
+  width:1.05rem; height:1.2rem; background:var(--line);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+}
+.hex.a{background:var(--amber)} .hex.e{background:var(--eye)}
+video{width:100%; display:block; border:1px solid var(--line); background:#000}
+.vid{margin:1.8rem 0}
+.note{
+  background:var(--panel); border-left:3px solid var(--eye);
+  padding:.85rem 1.1rem; font-size:.92rem; margin:1.5rem 0;
+}
+ol.road{padding-left:1.3rem}
+ol.road li{margin:.7rem 0}
+ol.road b{font-weight:600}
+ul.field{padding-left:1.15rem}
+ul.field li{margin:.55rem 0; font-size:.95rem}
+footer{
+  border-top:1px solid var(--line); margin-top:4.5rem; padding-top:1.4rem;
+  font-size:.85rem; color:var(--ink-soft);
+}
+footer .links{display:flex; flex-wrap:wrap; gap:.4rem 1.4rem; margin-bottom:1rem}
+footer a{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.78rem}
+@media (prefers-reduced-motion: no-preference){
+  .card{transition:transform .15s ease}
+  .card:hover{transform:translateY(-2px)}
+}
+</style>
+
+<div class="col">
+<header>
+  <div class="eyebrow">fly-api · progress log · 2026-09-08</div>
+  <h1>Waking the Fly Brain</h1>
+  <p class="dek">A fruit fly's complete wiring diagram — every neuron, every
+  synapse — now runs as a working nervous system on one CPU box. This page
+  is the record of getting it to taste, walk, and see.</p>
+  <div class="stats">
+    <div class="stat"><b>139,255</b><span>neurons, all of them</span></div>
+    <div class="stat"><b>50,000,000+</b><span>mapped synapses</span></div>
+    <div class="stat"><b>0</b><span>training steps needed</span></div>
+    <div class="stat"><b>1</b><span>CPU devbox, no GPU</span></div>
+  </div>
+</header>
+
+<section>
+  <h2>The question</h2>
+  <p><a href="https://flywire.ai">FlyWire</a> published the first complete
+  adult <em>Drosophila</em> connectome in 2024: the full wiring diagram of a
+  brain, with each connection's strength proxied by synapse count and its
+  sign predicted from neurotransmitter type. The question we're chasing:
+  <strong>can that architecture be deployed in a realistic simulation — and
+  then trained?</strong> The field has built every layer except the glue:</p>
+  <div class="cards">
+    <div class="card"><h3>Brain dynamics</h3><p><a href="https://github.com/philshiu/Drosophila_brain_model">Shiu et&nbsp;al.</a> run all 139k neurons as leaky integrate-and-fire units; <a href="https://github.com/chaobrain/fitting_drosophila_whole_brain_spiking_model">BrainTrace</a> fits whole-brain spiking to calcium imaging.</p></div>
+    <div class="card"><h3>Bodies</h3><p><a href="https://github.com/google-deepmind/mujoco_menagerie/blob/main/flybody/README.md">flybody</a> (DeepMind/Janelia) and <a href="https://neuromechfly.org">NeuroMechFly</a> (EPFL): anatomically detailed MuJoCo flies with vision, adhesion, flight.</p></div>
+    <div class="card"><h3>Training</h3><p><a href="https://github.com/TuragaLab/flyvis">flyvis</a> trains the visual subgraph differentiably and predicts real recordings; <a href="https://arxiv.org/abs/2602.17997">FlyGM</a> (2026) trains the whole graph as an RL controller.</p></div>
+    <div class="card"><h3>The gap</h3><p>No SDK ties them together. Each result is a bespoke codebase. <a href="https://github.com/dtch1997/fly-api">fly-api</a> aims to be the seam: load connectome → pick neuron model → attach body → train.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Demo A — taste, through real wiring</h2>
+  <p>We ran the whole-brain LIF model and stimulated the fly's sugar-sensing
+  gustatory neurons, reading out <span class="eyebrow" style="letter-spacing:.05em">MN9</span> —
+  the motor neuron that extends the proboscis to eat. The wiring diagram
+  alone, with no tuning and no training, routes the signal correctly:</p>
+</div>
+<div class="wide">
+  <div class="figpair">
+    <figure>
+      <img src="{{FIG_DOSE}}" alt="Line chart: MN9 firing rate rises monotonically from 0 to 92 Hz as sugar GRN stimulation increases from 25 to 200 Hz">
+      <figcaption>dose–response · MN9 rate vs sugar-GRN drive · 10 trials ± sd</figcaption>
+    </figure>
+    <figure>
+      <img src="{{FIG_SPEC}}" alt="Bar chart: at 150 Hz drive, sugar yields 82 Hz MN9 firing, water 5.6, bitter 0, sugar plus bitter 5.8">
+      <figcaption>specificity at matched 150 Hz drive · bitter vetoes sugar</figcaption>
+    </figure>
+  </div>
+</div>
+<div class="col">
+  <table>
+    <thead><tr><th>input (150 Hz)</th><th>MN9 "eat" command</th><th>reading</th></tr></thead>
+    <tbody>
+      <tr><td>sugar neurons</td><td class="n">82.0 Hz</td><td class="go">feed</td></tr>
+      <tr><td>water neurons</td><td class="n">5.6 Hz</td><td>faint interest</td></tr>
+      <tr><td>bitter neurons</td><td class="n">0.0 Hz</td><td>refuse</td></tr>
+      <tr><td>sugar + bitter</td><td class="n">5.8 Hz</td><td class="veto">93% veto</td></tr>
+    </tbody>
+  </table>
+  <p>That's taste identity, gain, and gating — carried entirely by anatomy.
+  A qualitative reproduction of Shiu et&nbsp;al. 2024, ~19 minutes on 8 cores.</p>
+
+  <div class="hexrow" role="presentation">
+    <div class="hex"></div><div class="hex a"></div><div class="hex e"></div>
+    <div class="hex a"></div><div class="hex"></div><div class="hex a"></div><div class="hex"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Demo B — a body that walks and sees</h2>
+  <p>The second layer is embodiment: NeuroMechFly's anatomically detailed
+  fly in MuJoCo. First, motor control — a CPG-plus-reflexes controller
+  driving a tripod gait with commanded turns:</p>
+  <div class="vid">
+    <video controls loop muted playsinline poster="{{POSTER_B1}}" src="{{VID_WALK}}"></video>
+    <div class="vidcap">b1 · straight → left → right · 16.1 mm in 1.5 s · 0.1× speed</div>
+  </div>
+  <p>Then perception, closed-loop: the fly chases a moving sphere steering
+  <em>only</em> from its 721-ommatidia retina readings. The hexagonal insets
+  are what each eye actually sees — the dark blob is the target:</p>
+  <div class="vid">
+    <video controls loop muted playsinline poster="{{POSTER_B2}}" src="{{VID_TAXIS}}"></video>
+    <div class="vidcap">b2 · visual taxis · object in view 100% of steps · mean azimuthal deviation 0.25</div>
+  </div>
+</section>
+
+<section>
+  <h2>Field notes</h2>
+  <ul class="field">
+    <li><strong>No GPU, no sudo, no problem.</strong> Headless rendering came from
+    extracting <code>libosmesa6</code> out of the Ubuntu .deb into a local prefix —
+    the whole demo runs on a plain CPU box.</li>
+    <li><strong>Two upstream flygym bugs</strong> worked around by vendoring: the
+    vision examples package hard-imports torch+flyvis it doesn't need, and
+    <code>VisualTaxis</code> drops its <code>arena</code> argument on the floor.</li>
+    <li><strong>Memory envelope:</strong> each whole-brain worker holds ~2.5 GB;
+    8 parallel trials fit comfortably in 62 GB.</li>
+  </ul>
+  <div class="note">Honest caveat: synapse-count weights and NT-predicted
+  signs are crude proxies; gap junctions and neuromodulation aren't in the
+  connectome. "The fly's architecture" today means its <em>graph</em>, not its
+  full biophysics — the interesting research axis is how much fidelity you
+  can add before things break.</div>
+</section>
+
+<section>
+  <h2>What's next</h2>
+  <ol class="road">
+    <li><b>Brain↔body coupling.</b> Demo A emits motor-neuron spikes; Demo B
+    consumes descending drives. Wire LIF motor populations to flygym
+    actuators and sensory neurons to the retina — a spiking FlyGM-lite.</li>
+    <li><b>The SDK seam.</b> One API over connectome-as-architecture and
+    body-as-environment, with neuron models and training strategies as
+    plugins.</li>
+    <li><b>Training runs</b> on GPU: connectome vs matched rewired controls,
+    seeded ensembles — the field's known retraining instability is exactly
+    what a standard harness should fix.</li>
+  </ol>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="https://github.com/dtch1997/fly-api">github.com/dtch1997/fly-api</a>
+    <a href="https://github.com/dtch1997/jarvis/pull/191">jarvis PR #191</a>
+    <a href="https://flywire.ai">flywire.ai</a>
+    <a href="https://github.com/philshiu/Drosophila_brain_model">Shiu LIF model</a>
+    <a href="https://neuromechfly.org">neuromechfly.org</a>
+    <a href="https://arxiv.org/abs/2602.17997">FlyGM</a>
+  </div>
+  <div>Demo run 2026-09-08 on a CPU devbox · source of truth:
+  <code>jarvis-artifacts/fly-api-progress/</code> · rebuilt with <code>build.py</code></div>
+</footer>
+</div>

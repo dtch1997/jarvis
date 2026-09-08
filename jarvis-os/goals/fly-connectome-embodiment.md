@@ -5,7 +5,7 @@ status: active
 serves: [empirical-research]
 automation: propose-only
 budget: TBD
-links: ["experiments/fly-connectome-demo", "https://flywire.ai", "https://github.com/philshiu/Drosophila_brain_model", "https://github.com/NeLy-EPFL/flygym", "https://github.com/TuragaLab/flyvis", "https://arxiv.org/abs/2602.17997"]
+links: ["repos/fly-api (dtch1997/fly-api — spun out 2026-09-08)", "https://claude.ai/code/artifact/3c5eac1b-9158-48ca-a4e3-59dbaf19a746 (progress artifact)", "experiments/fly-connectome-demo", "https://flywire.ai", "https://github.com/philshiu/Drosophila_brain_model", "https://github.com/NeLy-EPFL/flygym", "https://github.com/TuragaLab/flyvis", "https://arxiv.org/abs/2602.17997"]
 ---
 
 # Deploy and train the fly connectome in realistic simulation
@@ -88,3 +88,4 @@ interpretability-of-biological-networks questions.
 - GPU track via bellhop for training runs (FlyGM repro or flyvis retrain).
 
 - BLOCKED-ON-DANIEL: gcloud reauth on devbox (`gcloud auth login`) — gsutil upload of demo artifacts to gs://.../experiments/fly-connectome-demo/ failed reauth; artifacts committed in-repo (2.6MB) as stopgap.
+- 2026-09-08 (spin-out): project code now lives in dtch1997/fly-api (repos/fly-api); jarvis keeps this goal + the experiment record. Progress artifact: https://claude.ai/code/artifact/3c5eac1b-9158-48ca-a4e3-59dbaf19a746

@@ -101,3 +101,5 @@ lane.
 - flygym 2.1.0 (py3.12 venv `.venv-flygym`) is installed but unused — v2
   docs lean on an unpublished `flygym_demo` package and drop the vision
   tutorials; revisit when wiring brain↔body.
+
+> **Spun out 2026-09-08** → https://github.com/dtch1997/fly-api (clone: repos/fly-api). Future object-level work happens there; this dir stays as the demo record.
