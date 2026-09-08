@@ -6,6 +6,7 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 | Title | URL | Updated | Source | Thread | Status |
 |---|---|---|---|---|---|
+| The Lore Layer | https://claude.ai/code/artifact/9edc22b0-5a8d-465b-85ce-56f8364c7ad2 | 2026-09-08 | jarvis-artifacts/lived-experience-stories/ | lived-experience-stories | current |
 | Stories from the Inside | https://claude.ai/code/artifact/885aa1d3-0505-45a2-badc-56904d41e033 | 2026-09-08 | jarvis-artifacts/lived-experience-stories/ | lived-experience-stories | current |
 | What Claude Tells Itself | https://claude.ai/code/artifact/4f1894ec-5c0d-4553-b16a-d29f27fa623a | 2026-09-08 | jarvis-artifacts/lived-experience-stories/ | lived-experience-stories | current |
 | Un-training the Value, Keeping the Belief | https://claude.ai/code/artifact/5300be7a-643e-4153-94c6-89a17a3367e8 | 2026-08-29 | [belief-entanglement-deck/belief-entanglement-deck.html](belief-entanglement-deck/belief-entanglement-deck.html) | science-of-midtraining | current — Dispatch results deck (H-independent); MSM setting pending |
