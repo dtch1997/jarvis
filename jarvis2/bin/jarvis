@@ -27,7 +27,6 @@ import shutil
 import subprocess
 import sys
 import time
-import tomllib
 from datetime import datetime
 from pathlib import Path
 
@@ -84,8 +83,46 @@ def all_slugs() -> list[str]:
 
 # ------------------------------------------------- per-project state I/O
 
+def parse_toml(text: str) -> dict:
+    """Constrained TOML: comments, [tables], key = string|number|bool.
+
+    project.toml's documented subset — deliberately tiny so the CLI needs no
+    interpreter newer than stock python3 and no dependencies.
+    """
+    out: dict = {}
+    table = out
+    for raw in text.splitlines():
+        line = raw.strip()
+        if "#" in line:
+            q = False
+            for i, ch in enumerate(line):
+                if ch == '"':
+                    q = not q
+                elif ch == "#" and not q:
+                    line = line[:i].rstrip()
+                    break
+        if not line:
+            continue
+        if line.startswith("[") and line.endswith("]"):
+            table = out.setdefault(line[1:-1].strip(), {})
+            continue
+        if "=" not in line:
+            continue
+        key, val = (s.strip() for s in line.split("=", 1))
+        if val.startswith('"') and val.endswith('"'):
+            table[key] = val[1:-1]
+        elif val in ("true", "false"):
+            table[key] = val == "true"
+        else:
+            try:
+                table[key] = int(val) if re.fullmatch(r"-?\d+", val) else float(val)
+            except ValueError:
+                table[key] = val
+    return out
+
+
 def load_config(pdir: Path) -> dict:
-    return tomllib.loads((pdir / "project.toml").read_text())
+    return parse_toml((pdir / "project.toml").read_text())
 
 
 def load_state(pdir: Path) -> dict:
