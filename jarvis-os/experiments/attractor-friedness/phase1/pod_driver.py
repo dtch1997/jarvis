@@ -12,9 +12,11 @@ import json
 import os
 import pathlib
 import shutil
+import signal
 import subprocess
 import sys
 import time
+import urllib.error
 import urllib.request
 
 JOB = pathlib.Path.cwd()
@@ -76,9 +78,12 @@ def boot_vllm(model_path, served_name, chat_template):
            f"--gpu-memory-utilization 0.90 --max-model-len 8192 --disable-log-requests")
     if chat_template:
         cmd += f" --chat-template {chat_template}"
+    if not port_free():
+        raise RuntimeError("port 8000 still occupied before boot — previous vllm not dead")
     logf = (RESULTS / f"vllm-{served_name.replace('/', '_')}.log").open("w")
     log(f"booting vllm: {cmd}")
-    proc = subprocess.Popen(cmd, shell=True, stdout=logf, stderr=subprocess.STDOUT)
+    proc = subprocess.Popen(cmd, shell=True, stdout=logf, stderr=subprocess.STDOUT,
+                            start_new_session=True)
     deadline = time.time() + 45 * 60
     while time.time() < deadline:
         if proc.poll() is not None:
@@ -86,21 +91,61 @@ def boot_vllm(model_path, served_name, chat_template):
         try:
             with urllib.request.urlopen(f"{BASE_URL}/models", timeout=5) as r:
                 if r.status == 200:
-                    log("vllm ready")
+                    probe_model(served_name)
+                    log(f"vllm ready and answering for '{served_name}'")
                     return proc
+        except RuntimeError:
+            raise
         except Exception:
             pass
         time.sleep(10)
     raise RuntimeError("vllm not ready after 45min")
 
 
+def port_free():
+    try:
+        urllib.request.urlopen(f"{BASE_URL}/models", timeout=3)
+        return False
+    except urllib.error.URLError:
+        return True
+    except Exception:
+        return False
+
+
+def probe_model(name):
+    req = urllib.request.Request(
+        f"{BASE_URL}/chat/completions", method="POST",
+        headers={"Content-Type": "application/json"},
+        data=json.dumps({"model": name, "max_tokens": 5,
+                         "messages": [{"role": "user", "content": "hi"}]}).encode())
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            if r.status != 200:
+                raise RuntimeError(f"probe for '{name}' -> HTTP {r.status}")
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"probe for '{name}' -> HTTP {e.code}: {e.read()[:200]}")
+
+
 def kill_vllm(proc):
-    proc.terminate()
+    try:
+        os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
+    except ProcessLookupError:
+        pass
     try:
         proc.wait(timeout=120)
     except subprocess.TimeoutExpired:
-        proc.kill()
-    time.sleep(10)
+        try:
+            os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        proc.wait(timeout=30)
+    deadline = time.time() + 300
+    while time.time() < deadline:
+        if port_free():
+            time.sleep(5)
+            return
+        time.sleep(5)
+    raise RuntimeError("port 8000 never freed after kill")
 
 
 def summary_status(name):
@@ -114,9 +159,11 @@ def summary_status(name):
 def eval_model(name):
     t0 = time.time()
     ok = {}
+    bat = RESULTS / "battery" / (name.replace("/", "_") + ".jsonl")
     r = sh(f"{FMO}/.venv/bin/python {JOB}/phase1/pod_battery.py "
-           f"--base-url {BASE_URL} --model '{name}' --out {RESULTS}/battery/{name.replace('/', '_')}.jsonl")
-    ok["battery"] = "ok" if r.returncode == 0 else "ERR"
+           f"--base-url {BASE_URL} --model '{name}' --out {bat}")
+    nerr = sum(1 for l in bat.read_text().splitlines() if '"error"' in l) if bat.exists() else -1
+    ok["battery"] = "ok" if r.returncode == 0 and nerr == 0 else f"ERR({nerr})"
     r = sh(f"cd {FMO} && .venv/bin/mu-decisiveness --backend openai --mode logprob "
            f"--model-id '{name}' --base-url {BASE_URL} --name '{name.replace('/', '_')}'")
     ok["mu"] = "ok" if r.returncode == 0 else "ERR"
