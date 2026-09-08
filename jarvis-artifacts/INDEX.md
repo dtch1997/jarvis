@@ -6,6 +6,7 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 | Title | URL | Updated | Source | Thread | Status |
 |---|---|---|---|---|---|
+| The Bookkeeper's Bet | https://claude.ai/code/artifact/354a5291-5569-4133-801e-933732236bd8 | 2026-09-08 | [the-bookkeepers-bet/index.html](the-bookkeepers-bet/index.html) | jarvis-2-revamp | current — JARVIS 2.0 design philosophy; Entry 07 = open items awaiting Daniel's opinion |
 | Un-training the Value, Keeping the Belief | https://claude.ai/code/artifact/5300be7a-643e-4153-94c6-89a17a3367e8 | 2026-08-29 | [belief-entanglement-deck/belief-entanglement-deck.html](belief-entanglement-deck/belief-entanglement-deck.html) | science-of-midtraining | current — Dispatch results deck (H-independent); MSM setting pending |
 | Mailroom Routing | https://claude.ai/code/artifact/a8b2d8ff-1dc5-4610-8838-bc6f6ddb8a7c | 2026-08-23 | [mailroom-routing/index.html](mailroom-routing/index.html) | thought-capture-mailroom | current — explains triage types, routing table, move/close/label contract |
 | MATS Posters, Annotated | https://claude.ai/code/artifact/5e7a3f35-4e76-4e05-9420-88341060ec63 | 2026-08-21 | [mats-posters-digest/index.html](mats-posters-digest/index.html) | curator-tool | current — regenerate with build.py from the curator ledger |
