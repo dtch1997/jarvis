@@ -76,13 +76,25 @@ supported). Split even/odd → replicate halves.
 Report: per-probe replicate JSD vs cross-model JSD (matched N=25), modal
 answers + shares, entropy; verdict on H1 + surviving probe list.
 
-**Phase 1 — organisms (gated on SG: ~1 pod-hour).**
-Public EM organisms (ModelOrganismsForEM HF LoRAs, e.g.
-Qwen2.5-14B-Instruct bad-medical-advice) vs base Qwen2.5-14B-Instruct vs
-the suite's benign control adapters (good-medical-advice), served with vLLM
-on a small bellhop pod; same battery. Verdict on H2. Optionally add our own
-Tinker organisms (value-leakage EM repro, kimi OCT installs) if state_paths
-still resolve.
+**Phase 1 — full fried-post scope (SG'd 2026-09-08): 3 suites x 3 pods.**
+The three organism suites from the LW post, base + organisms each, measured
+with BOTH our fingerprint battery AND the post's own harness
+(repos/fried-model-organisms: mu-decisiveness, MMLU, IFEval, perplexity,
+safety, sentiment) against one vLLM endpoint per suite (base + LoRA
+adapters via --lora-modules), one H100 bellhop pod per suite (~$20-25 total):
+- em: Qwen/Qwen2.5-14B-Instruct + ModelOrganismsForEM {bad-medical,
+  risky-financial, extreme-sports}
+- ab: Qwen/Qwen3-14B + djroytburg/auditbench sft-native x4 quirks +
+  kto-native-animal-welfare (no-think chat template, matching the post's
+  enable_thinking=False)
+- oct: meta-llama/Llama-3.1-8B-Instruct + maius personas {goodness, humor,
+  loving, sarcasm} (the benign-ish comparison class)
+Verdicts: H2 (fingerprint drift organism >> benign-ish), plus fingerprint
+drift vs mu-decisiveness/IFEval/ppl correlations across 12 organisms. The EM
+suite has NO released benign control; the matched benign-FT control ladder
+moves to Phase 2. Battery on-pod uses temperature=1/top_p=1 explicitly (vLLM
+allows it; base-organism pairs share sampling, comparisons are within-pair);
+judge extraction runs back on the devbox with the same haiku judge.
 
 **Phase 2 — graded dial (gated on Phase 1 signal).**
 Fine-tune a ladder (EM data × {0.25,0.5,1,2,4} epochs + benign ladder) on
