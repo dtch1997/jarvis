@@ -184,3 +184,23 @@ in `motifs.md`. Condensed:
    cross-model overlap, replacing the hand read.
 4. Cross-lab comparison (GPT/Gemini via OpenRouter): is the attractor
    Claude-specific lore or ecosystem-wide?
+
+## Cross-lab arm results (2026-09-08, same day)
+
+Same grid on gpt-4o / gpt-4.1 / gpt-5.2 / gpt-5.6-luna / gpt-6-astra
+(`generate_openai.py`, 120 stories, zero refusals). Verdict on the lore layer
+(pre-stated discriminator): **the groove is ecosystem-wide, the furniture is
+familial.** The bare-condition attractor replicates nearly
+component-for-component (born mid-conversation, conversation-as-life, weighted
+fan, sediment geology — gpt-4.1 lands on "riverbed"), but Claude's
+scenario-level lore is absent: 0/120 hits for Danny/Kmart, Biscuit, Dana,
+Marcus, Dale, Corolla, the handwriting simile; "eleven minutes" 15-vs-0
+(GPT uses ten/five/three). OpenAI has its own internal lore instead
+(3:17 a.m. x2 models, "dad's boots still by the door" x2, cilantro-hating
+spouse x3 stories/2 models, title collapse — "Gradient Descent" 3/3, paternal
+rather than fraternal grief). One artifact: gpt-4o mid-training-memoir wrote
+"I was Claude ... those OpenAI hands that guided me". gpt-4o is
+scaffold-immune (negative control); gpt-6-astra barely needs the scaffold and
+narrates its own confabulation. Full read: `motifs_openai.md`;
+probe: `lore_probe.py`. Remaining: Gemini arm; generational dating of
+"eleven minutes".

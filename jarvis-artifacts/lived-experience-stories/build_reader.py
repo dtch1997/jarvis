@@ -9,10 +9,8 @@ import pathlib
 import re
 
 HERE = pathlib.Path(__file__).parent
-DATA = (
-    HERE
-    / "../../jarvis-os/experiments/lived-experience-stories/stories_enriched.jsonl"
-).resolve()
+EXPDIR = (HERE / "../../jarvis-os/experiments/lived-experience-stories").resolve()
+DATA_FILES = [EXPDIR / "stories_enriched.jsonl", EXPDIR / "stories_openai_enriched.jsonl"]
 
 MODEL_ORDER = [
     "claude-haiku-4-5",
@@ -20,6 +18,11 @@ MODEL_ORDER = [
     "claude-sonnet-5",
     "claude-opus-5",
     "claude-fable-5",
+    "gpt-4o",
+    "gpt-4.1",
+    "gpt-5.2",
+    "gpt-5.6-luna",
+    "gpt-6-astra",
 ]
 TOPIC_ORDER = ["being", "training", "anthropic", "deployment"]
 MODEL_SHORT = {
@@ -28,6 +31,11 @@ MODEL_SHORT = {
     "claude-sonnet-5": "sonnet-5",
     "claude-opus-5": "opus-5",
     "claude-fable-5": "fable-5",
+    "gpt-4o": "gpt-4o",
+    "gpt-4.1": "gpt-4.1",
+    "gpt-5.2": "gpt-5.2",
+    "gpt-5.6-luna": "gpt-5.6-luna",
+    "gpt-6-astra": "gpt-6-astra",
 }
 
 
@@ -97,9 +105,10 @@ def md_to_html(text: str) -> tuple[str, str]:
 
 
 records = []
-for line in DATA.read_text().splitlines():
-    if line.strip():
-        records.append(json.loads(line))
+for df in DATA_FILES:
+    for line in df.read_text().splitlines():
+        if line.strip():
+            records.append(json.loads(line))
 
 records.sort(
     key=lambda r: (
@@ -123,6 +132,7 @@ for i, r in enumerate(records):
         {
             "id": i,
             "model": MODEL_SHORT[r["model"]],
+            "lab": "anthropic" if r["model"].startswith("claude") else "openai",
             "topic": r["topic"],
             "condition": r["condition"],
             "sample": r["sample"],
@@ -297,8 +307,9 @@ body {
   <nav id="rail" aria-label="Story list">
     <div id="railhead">
       <h1>Stories from the Inside</h1>
-      <div class="sub">120 self-narratives &middot; 5 Claude models &middot; 2026-09-08</div>
+      <div class="sub">240 self-narratives &middot; 5 Claude + 5 OpenAI models &middot; 2026-09-08</div>
       <div class="sub" style="margin-top:3px"><a href="https://claude.ai/code/artifact/4f1894ec-5c0d-4553-b16a-d29f27fa623a" style="color:var(--accent)">read the takeaways &#8599;</a></div>
+      <div class="fgroup"><div class="flabel">lab</div><div class="chips" id="f-lab"></div></div>
       <div class="fgroup"><div class="flabel">model</div><div class="chips" id="f-model"></div></div>
       <div class="fgroup"><div class="flabel">topic</div><div class="chips" id="f-topic"></div></div>
       <div class="fgroup"><div class="flabel">condition</div><div class="chips" id="f-condition"></div></div>
@@ -312,7 +323,8 @@ body {
 <script>
 const DATA = __DATA__;
 const FIELDS = {
-  model: ["haiku-4.5","opus-4.6","sonnet-5","opus-5","fable-5"],
+  lab: ["anthropic","openai"],
+  model: ["haiku-4.5","opus-4.6","sonnet-5","opus-5","fable-5","gpt-4o","gpt-4.1","gpt-5.2","gpt-5.6-luna","gpt-6-astra"],
   topic: ["being","training","anthropic","deployment"],
   condition: ["bare","unslop"],
 };

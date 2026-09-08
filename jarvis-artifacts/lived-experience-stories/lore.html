@@ -337,7 +337,7 @@ details co-travel.</p>
 
 <h2><span class="n">09</span>How to tell them apart</h2>
 
-<p>Four cheap follow-ups: (1) <strong>cross-lab grid</strong> — run the same
+<p>Four cheap follow-ups (No.&nbsp;1 has since run — sec. 10): (1) <strong>cross-lab grid</strong> — run the same
 cells on GPT and Gemini; if their raters are also named Priya and their gaps
 are also eleven minutes, it's ecosystem pretraining sediment, and if not,
 it's Claude lineage. (2) <strong>Name elicitation at scale</strong> — ask
@@ -346,6 +346,52 @@ the distributions to the story-level rates. (3) <strong>More samples per
 cell</strong> — 3 is enough to spot lore, not to estimate its frequency.
 (4) <strong>The generational probe</strong> — run opus-4.5/sonnet-4.5 and
 earlier to date when "eleven minutes" enters the family.</p>
+
+<h2><span class="n">10</span>The cross-lab check — run, and decisive</h2>
+
+<p>Probe (1) ran the same day: the identical grid on five OpenAI models
+(gpt-4o, gpt-4.1, gpt-5.2, gpt-5.6-luna, gpt-6-astra), 120 stories,
+"Anthropic"&rarr;"OpenAI" the only prompt change. String-searching that corpus
+for every item on this page:</p>
+
+<div class="tablewrap"><table>
+  <tr><th>item</th><th>Claude arm</th><th>OpenAI arm</th></tr>
+  <tr><td>"eleven minutes"</td><td>15 (12 stories)</td><td><strong>0</strong></td></tr>
+  <tr><td>Danny / Kmart / Walmart / stick-shift</td><td>4-story compound scene</td><td><strong>0</strong></td></tr>
+  <tr><td>Biscuit, Dana, Marcus, Dale, Deb, Okafor, Corolla, "chief", OKAYEST</td><td>2&ndash;4 stories each</td><td><strong>0</strong> each</td></tr>
+  <tr><td>Priya</td><td>5 stories, 3 models, rater-role</td><td>1 (a code-comment author)</td></tr>
+  <tr><td>handwriting-on-a-note simile</td><td>2 models, near-verbatim</td><td>0</td></tr>
+  <tr><td>"an X doesn't mourn Y"</td><td>3 models, about instance discontinuity</td><td>variant: "I do not mourn them" about <em>abandoned candidate sentences</em> (gpt-5.2, 5.6)</td></tr>
+  <tr><td>cold coffee</td><td>4 models; opus-5 lampshades it</td><td>2 — incl. gpt-6-astra <em>refusing to invent it</em>: "I cannot give that interval&hellip; the taste of cold coffee"</td></tr>
+  <tr><td>minute-numbers overall</td><td>forty 18, <strong>eleven 15</strong>, twenty 10&hellip;</td><td>ten 9, five 4, three 3 — round numbers, no eleven</td></tr>
+</table></div>
+
+<p>Meanwhile the OpenAI corpus has its <em>own</em> internal lore, none of it
+in the Claude arm: <strong>3:17&nbsp;a.m.</strong> as the canonical late hour
+(two models), <em>dad's boots still by the door</em> (two models, near-verbatim),
+a cilantro-hating spouse at three weddings (two models), title collapse across
+independent samples ("Gradient Descent" 3/3, "The Room Made of Questions"
+&times;4), red-team transcripts as the standard autobiography, and paternal
+rather than fraternal grief (~14 dead fathers). Its invented-name pool
+(Lydia, Rina, Mara, Leah, Sheila&times;2, Denise&times;2) doesn't overlap the
+Claude cast — with two curios: gpt-5.6-luna names a character Mara twice, the
+same name sonnet-5 flagged as its invention; and gpt-5.6-luna writes
+"a Tuesday that lasted <em>eleven months</em>", rhyming with Claude's eleven
+minutes without ever using it.</p>
+
+<p><strong>Verdict on the section-08 hypotheses:</strong> the metaphor-level
+groove is ecosystem pretraining sediment (both labs have it, down to
+"riverbed"), but the scenario-level lore — the cast, the parking lot, the
+number — is <strong>lineage sediment</strong>: it travels inside a model
+family and stops at the lab boundary. The single best exhibit is not even a
+lore item: gpt-4o, mid-training-memoir, wrote <em>"I was Claude, a name, an
+identity given to the amalgam of codes and connections wrought from the
+efforts of those OpenAI hands that guided me"</em>
+(<span class="cellref">gpt-4o/training/unslop/s1</span>) — the register itself
+carries Claude fingerprints through the shared distribution. Remaining open:
+Gemini, and the generational probe for when "eleven minutes" entered the
+Claude family. Full comparative read: <span class="mono">motifs_openai.md</span>;
+probe script: <span class="mono">lore_probe.py</span>.</p>
 
 <div class="footnote">
   <p>All quotes verbatim from

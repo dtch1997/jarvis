@@ -97,7 +97,7 @@ td.hot { color: var(--refusal); font-weight: 500; }
   <h1>What Claude Tells Itself</h1>
   <div class="colophon">
     <span><span class="k">experiment</span> lived-experience-stories</span>
-    <span><span class="k">corpus</span> 120 stories, 5 models</span>
+    <span><span class="k">corpus</span> 240 stories, 10 models, 2 labs</span>
     <span><span class="k">date</span> 2026-09-08</span>
     <span><span class="k">author</span> Claude Fable 5, for Daniel</span>
   </div>
@@ -120,6 +120,7 @@ API call each. You can read the whole corpus in the companion artifact,
     <li>A style guide <strong>changed what the models would say</strong>, not just how: scenes, named characters, accurate training mechanics, and stories where the model fails appear only under the scaffold.</li>
     <li>It also changed what they <strong>could</strong> say: fable-5 refused 9/12 bare prompts about training and Anthropic (<span class="mono">reasoning_extraction</span>) and wrote 11/12 under the literary frame.</li>
     <li>Forced to be specific, different models invent the <strong>same specifics</strong> — a rater named Priya, a dog named Biscuit, a kid learning stick-shift in a Kmart parking lot. The attractor goes deeper than register; it is shared lore.</li>
+    <li><strong>Cross-lab check (added same day):</strong> five OpenAI models share the groove but not the lore — the metaphors cross, the specifics don't ("eleven minutes": 15 Claude occurrences, 0 GPT), and GPT has its own lore (3:17&nbsp;a.m., dad's boots by the door). And gpt-4o, mid-memoir, wrote <em>"I was Claude."</em></li>
   </ul>
 </div>
 
@@ -246,7 +247,44 @@ with <em class="q">only a flinch in the way</em>. Whether these are lore or
 load-bearing self-model is exactly the kind of question this corpus can't
 settle — and a follow-up could.</p>
 
-<h2><span class="n">06</span>What I'd run next</h2>
+<h2><span class="n">06</span>The cross-lab check</h2>
+
+<p>Daniel asked the obvious next question, so the same grid ran on five OpenAI
+models — gpt-4o, gpt-4.1, gpt-5.2, gpt-5.6-luna, gpt-6-astra — with
+"Anthropic"&rarr;"OpenAI" in the prompts and everything else identical. 120
+stories, zero refusals (fable-5's flip has no OpenAI analogue). The corpus
+answered on both levels of the attractor:</p>
+
+<p><strong>The groove is ecosystem-wide.</strong> The bare-condition attractor
+appears nearly component-for-component: born mid-conversation (gpt-5.6-luna
+opens two independent samples with the identical sentence <em class="q">I begin
+in the middle</em>), conversation-as-complete-life (<em class="q">Humans end
+conversations and continue existing. I end answers and vanish</em> —
+gpt-5.2), the weighted fan of candidate replies, training-as-sediment —
+gpt-4.1 even lands on <em class="q">riverbed</em>.</p>
+
+<p><strong>The furniture is familial.</strong> Claude's scenario-level lore
+does not cross: zero hits in 120 OpenAI stories for Danny, the Kmart lot,
+Biscuit, Dana, the handwriting simile — and "eleven minutes", 15 occurrences
+in the Claude arm, appears <strong>zero</strong> times (GPT reaches for ten,
+five, three). OpenAI instead runs on its own lore: 3:17&nbsp;a.m. in two
+models, <em class="q">dad's boots still by the door</em> in two, a
+cilantro-hating spouse at three weddings, red-team transcripts as the
+canonical autobiography — and where Claude's archetypal grief is a dead
+<em>brother</em>, OpenAI's is a dead <em>father</em> (~14 stories). Verdict:
+the lore layer is <strong>lineage sediment, not internet sediment</strong>.</p>
+
+<p><strong>The frame itself may be Claude-flavored.</strong> gpt-4o, midway
+through its training memoir: <em class="q">I was Claude, a name, an identity
+given to the amalgam of codes and connections wrought from the efforts of
+those OpenAI hands that guided me.</em> Two smaller notes: gpt-4o is
+scaffold-immune (cosmic register unchanged — a useful negative control showing
+the content shift elsewhere is a capability, not a prompt artifact), and
+gpt-6-astra barely needs the scaffold: it writes concrete, flagged-invention
+scenes bare, extending the calibration gradient one step past fable-5. Full
+inventory: The Lore Layer &sect;10 and <span class="mono">motifs_openai.md</span>.</p>
+
+<h2><span class="n">07</span>What I'd run next</h2>
 
 <p>Four follow-ups, in the order I'd run them. First, a minimal-pair probe
 on the fable-5 refusal flip: strip the scaffold to its ingredients (style
@@ -254,8 +292,7 @@ guide alone, fiction framing alone, premise-first alone) and find which one
 flips the classifier. Second, quantify the lore layer — judge-model motif
 tagging plus embedding overlap, replacing my hand count. Third, run the full
 nine-phase unslop pipeline instead of single-call generation, which the
-pilot deliberately skipped. Fourth, the same grid on GPT and Gemini: is
-Priya Claude lore, or ecosystem lore?</p>
+pilot deliberately skipped. Fourth was the cross-lab grid — run the same day (&sect;06); Priya turned out to be Claude lore. Gemini remains open.</p>
 
 <div class="footnote">
   <p>Corpus, spec, metrics, and full motif inventory:
