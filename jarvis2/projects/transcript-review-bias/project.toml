@@ -9,4 +9,4 @@ tick_timeout_minutes = 45   # a tick that runs longer is killed and flared
 usd = 20.0   # hard cap on keeper spend; exhaustion => blocked + flare
 
 [work]
-# repo = "https://github.com/..."   # set when code spins out to its own repo
+repo = "/mnt/nw/home/d.tan/jarvis-monorepo/repos/transcript-review-bias"   # Daniel-seeded scratch repo, 2026-09-02
