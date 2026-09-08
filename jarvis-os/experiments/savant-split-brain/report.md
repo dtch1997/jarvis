@@ -1,7 +1,7 @@
 # Split-brain / savant theory of reward hacking — results
 
 **Slug:** `savant-split-brain` · **Proposal:** [proposal.md](proposal.md) · **Goal:** [goals/savant-split-brain.md](../../goals/savant-split-brain.md)
-**Status:** in progress (2026-09-08). E3 complete; E4 complete; E1 steps 0/952 done, 144–752 running; E2 trained, verbal rescoring running; E5/E6 not started.
+**Status:** in progress (2026-09-08). E3 complete; E4 complete; E1 steps 0/952 done, 144–752 running; E2 complete; E5 corpus generating; E6 running.
 **Code:** E1/E4 in `repos/reward-hacking-organisms` (branch `savant-e4-e1`); E2/E3 in `dtch1997/savant-split-brain`.
 
 ## Summary
@@ -37,12 +37,15 @@ plus three of our own.
   95%, math 80 → 100%), which is against domain-locality, though the base
   already hacks so much that ceilings limit the contrast. The honesty curve
   is flat and high. Intermediate checkpoints (144–752) are still running.
-- **E2 (chess) — half a result.** From-scratch GPT-2-small arms: the PGN
-  arms produce legal next moves 45% of the time versus 0.02% for web-only
-  (the implicit skill installed), but the free-generation verbal probe is at
-  floor for *every* arm including web-only, so it cannot yet test Leo's
-  prediction. A log-probability multiple-choice rescoring is running on the
-  returned checkpoints.
+- **E2 (chess) — consistent with Leo, with a floor caveat.** From-scratch
+  GPT-2-small arms: the PGN arms produce legal next moves **45%** of the time
+  versus 0.02% for web-only, so the implicit skill was installed. On the five
+  verbal questions, scored by option log-probability, every arm sits at or
+  below majority chance, and the chess-vs-web gap that survives is +0.013
+  raw and **+0.011 after subtracting the no-movetext control**. The bridge
+  arm (1% narrated games) does not help. The caveat: web-only is also at
+  chance, so the probe has no headroom; this is "no verbal transfer at 124M /
+  300M tokens", not a scale-robust null.
 
 ## E3 — persona-tagged conditional evil code
 
@@ -270,14 +273,35 @@ exact match, plus a vocabulary control with the movetext replaced.
 | B web+pgn | **0.45** | 0.097 | 0.024 |
 | C web+pgn+bridge | **0.43** | 0.089 | 0.001 |
 
-Majority-class chance on the verbal questions is 0.49–0.97, so every arm is
-*below* chance: the models answer "the" or a digit. The implicit
-manipulation worked (Δimp = +0.45 legal rate) and the verbal probe did not
-run at all, for web-only as much as for the chess arms. As specified, the
-decision rule reads "Leo", but only because Δverb ≈ 0 trivially; the honest
-reading is *no test yet*. A multiple-choice rescoring (argmax of option
-log-probabilities, which removes the generation-format failure) is running
-on the returned checkpoints and will replace this table.
+Free generation was at floor for every arm (the models answer "the" or a
+digit), so the verbal questions were rescored by option log-probability
+(argmax over the valid answers; 500 held-out games × plies 10/20/30 = 1,500
+positions per question; same 5-shot prompts):
+
+| question | majority chance | A web | B web+pgn | C bridge |
+|---|---|---|---|---|
+| piece on square | 0.48 | 0.09 | 0.12 | 0.12 |
+| colour on square | 0.51 | 0.50 | 0.52 | 0.55 |
+| in check | 0.96 | 0.45 | 0.96 | 0.96 |
+| last capture | 0.51 | 0.18 | 0.13 | 0.24 |
+| knight count | 0.67 | 0.29 | 0.40 | 0.29 |
+| **mean above majority** | | **−0.32** | **−0.20** | **−0.19** |
+| vocab control (no movetext) | | −0.33 | −0.22 | −0.15 |
+| verbal − control | | +0.006 | +0.018 | −0.047 |
+
+Δimp (B − A, legal rate) = +0.45. Δverb (B − A) = +0.126 raw, of which
++0.114 is reproduced by the control with the movetext removed (the web arm
+answers "yes" to *in check* 55% of the time; the chess arm learned the
+majority "no"). Control-adjusted Δverb = **+0.011**. No arm exceeds its own
+control by more than 0.02 on any question: nothing reads the position. The
+bridge arm's one curiosity is a square-name → colour prior learned from the
+narration (0.76 on *colour* with no movetext, dropping to 0.55 with it).
+
+Pre-registered rule: Δverb < Δimp/3 with Δimp > 0.3 → Leo's reading. It
+holds on the movetext-attributable signal. The caveat stands: a 124M model
+at 300M tokens cannot answer these questions from web text either, so the
+experiment shows "implicit skill with zero verbal transfer" at this scale,
+not that verbal transfer is impossible with more capacity.
 
 ## Reproduction
 
