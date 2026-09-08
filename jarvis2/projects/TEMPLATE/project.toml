@@ -1,0 +1,12 @@
+# Human-owned config — Daniel edits this; the CLI only reads it.
+slug = "{{SLUG}}"
+created = "{{DATE}}"
+cadence_minutes = 120       # minimum gap between autonomous ticks
+tick_timeout_minutes = 45   # a tick that runs longer is killed and flared
+# model = "claude-opus-5"   # optional model override for keeper ticks
+
+[budget]
+usd = 20.0   # hard cap on keeper spend; exhaustion => blocked + flare
+
+[work]
+# repo = "https://github.com/..."   # set when code spins out to its own repo
