@@ -9,7 +9,8 @@ except Exception:
     import matplotlib.pyplot as plt
 
 rows = [json.loads(l) for l in open('results.jsonl')]
-mn9 = {r['condition']: (r['rate_hz'], r['std_hz'])
+import math
+mn9 = {r['condition']: tuple(0.0 if (isinstance(v,float) and math.isnan(v)) else v for v in (r['rate_hz'], r['std_hz']))
        for r in rows if r.get('neuron') == 'MN9_L'}
 
 fig_dir = Path('figures'); fig_dir.mkdir(exist_ok=True)

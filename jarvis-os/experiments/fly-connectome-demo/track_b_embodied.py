@@ -63,8 +63,8 @@ def run_walking():
 def run_taxis():
     from flygym import Fly, Camera
     from flygym.vision import save_video_with_vision_insets
-    from flygym.examples.vision import MovingObjArena
-    import flygym.examples.vision.simple_visual_taxis as svt
+    from svt_arena import MovingObjArena
+    import svt_taxis as svt
 
     contact_sensor_placements = [
         f"{leg}{seg}" for leg in ["LF", "LM", "LH", "RF", "RM", "RH"]
@@ -121,7 +121,10 @@ def run_taxis():
     print('[B2] done')
 
 if __name__ == '__main__':
-    run_walking()
+    if (OUT / 'b1_walking.mp4').exists():
+        print('[B1] outputs exist, skipping')
+    else:
+        run_walking()
     run_taxis()
     with open('results.jsonl', 'a') as f:
         for r in RESULTS:
