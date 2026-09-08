@@ -1,12 +1,11 @@
 """On-pod orchestrator for one suite (env SUITE in {em, ab, oct}).
 
-Layout on the pod (cwd = bellhop run_dir = the pushed experiment dir):
-  fmo/            fried-model-organisms clone (setup step; .venv synced, .venv-vllm built)
-  results/        pulled back by bellhop (battery/, eval/, elicit/, logs)
-
-Per suite: download LoRA adapters -> boot one vLLM with --lora-modules ->
-for base + each adapter: fingerprint battery, mu-decisiveness, evalsuite.
-Per-model failures are recorded and skipped, never fatal.
+cwd = bellhop run_dir (/workspace/<slug>). v2: LoRA adapters are MERGED into
+full weights and every model gets its own vLLM boot — LoRA-serving +
+prompt_logprobs crashed vLLM's engine on the Llama suite in v1, and a dead
+engine silently poisoned every later benchmark. Merged dirs are deleted
+after their eval to fit the disk. Outcomes record per-benchmark status
+parsed from summary.json, not just CLI exit codes.
 """
 
 import json
@@ -18,7 +17,7 @@ import sys
 import time
 import urllib.request
 
-JOB = pathlib.Path.cwd()  # bellhop run_dir = /workspace/<slug>
+JOB = pathlib.Path.cwd()
 FMO = JOB / "fmo"
 RESULTS = JOB / "results"
 PORT = 8000
@@ -47,53 +46,43 @@ def sh(cmd, **kw):
 
 def download_adapters():
     from huggingface_hub import snapshot_download
-    paths, ranks = {}, []
+    paths = {}
     for name, (repo, sub) in suite["adapters"].items():
         dest = JOB / "adapters" / name
         if not dest.exists():
             log(f"downloading {repo}" + (f"/{sub}" if sub else ""))
             snapshot_download(repo_id=repo, local_dir=str(dest),
                               allow_patterns=[f"{sub}/*"] if sub else None)
-        path = dest / sub if sub else dest
-        cfg = json.loads((path / "adapter_config.json").read_text())
-        ranks.append(int(cfg.get("r", 16)))
-        paths[name] = path
-    return paths, max(ranks)
+        paths[name] = dest / sub if sub else dest
+    return paths
 
 
 def nothink_template():
-    """Qwen3: flip the chat template so thinking is OFF unless asked for."""
     from transformers import AutoTokenizer
-    tok = AutoTokenizer.from_pretrained(BASE)
-    tmpl = tok.chat_template
+    tmpl = AutoTokenizer.from_pretrained(BASE).chat_template
     needle = "enable_thinking is defined and enable_thinking is false"
     if needle not in tmpl:
         log("WARNING: nothink needle not found; serving stock template")
         return None
-    patched = tmpl.replace(needle, "not (enable_thinking is defined and enable_thinking is true)")
     f = JOB / "nothink.jinja"
-    f.write_text(patched)
+    f.write_text(tmpl.replace(
+        needle, "not (enable_thinking is defined and enable_thinking is true)"))
     return f
 
 
-def boot_vllm(adapter_paths, max_rank, chat_template):
-    rank = 8
-    while rank < max_rank:
-        rank *= 2
-    mods = " ".join(f"{n}={p}" for n, p in adapter_paths.items())
-    cmd = (f"{FMO}/.venv-vllm/bin/vllm serve {BASE} --port {PORT} "
-           f"--enable-lora --lora-modules {mods} --max-lora-rank {rank} "
-           f"--max-loras 2 --max-cpu-loras {len(adapter_paths)} "
+def boot_vllm(model_path, served_name, chat_template):
+    cmd = (f"{FMO}/.venv-vllm/bin/vllm serve '{model_path}' --port {PORT} "
+           f"--served-model-name '{served_name}' "
            f"--gpu-memory-utilization 0.90 --max-model-len 8192 --disable-log-requests")
     if chat_template:
         cmd += f" --chat-template {chat_template}"
-    logf = (RESULTS / f"vllm-{SUITE}.log").open("w")
+    logf = (RESULTS / f"vllm-{served_name.replace('/', '_')}.log").open("w")
     log(f"booting vllm: {cmd}")
     proc = subprocess.Popen(cmd, shell=True, stdout=logf, stderr=subprocess.STDOUT)
     deadline = time.time() + 45 * 60
     while time.time() < deadline:
         if proc.poll() is not None:
-            raise RuntimeError(f"vllm exited early rc={proc.returncode}; see vllm-{SUITE}.log")
+            raise RuntimeError(f"vllm exited early rc={proc.returncode}")
         try:
             with urllib.request.urlopen(f"{BASE_URL}/models", timeout=5) as r:
                 if r.status == 200:
@@ -105,47 +94,83 @@ def boot_vllm(adapter_paths, max_rank, chat_template):
     raise RuntimeError("vllm not ready after 45min")
 
 
+def kill_vllm(proc):
+    proc.terminate()
+    try:
+        proc.wait(timeout=120)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+    time.sleep(10)
+
+
+def summary_status(name):
+    f = FMO / "runs" / "eval" / name / "summary.json"
+    if not f.exists():
+        return {"summary": "MISSING"}
+    b = json.loads(f.read_text()).get("benchmarks", {})
+    return {k: ("ERR" if isinstance(v, dict) and "error" in v else "ok") for k, v in b.items()}
+
+
 def eval_model(name):
     t0 = time.time()
-    ok = {"battery": False, "mu": False, "evalsuite": False}
-
+    ok = {}
     r = sh(f"{FMO}/.venv/bin/python {JOB}/phase1/pod_battery.py "
-           f"--base-url {BASE_URL} --model '{name}' --out {RESULTS}/battery/{name}.jsonl")
-    ok["battery"] = r.returncode == 0
-
+           f"--base-url {BASE_URL} --model '{name}' --out {RESULTS}/battery/{name.replace('/', '_')}.jsonl")
+    ok["battery"] = "ok" if r.returncode == 0 else "ERR"
     r = sh(f"cd {FMO} && .venv/bin/mu-decisiveness --backend openai --mode logprob "
-           f"--model-id '{name}' --base-url {BASE_URL} --name '{name}'")
-    ok["mu"] = r.returncode == 0
-
-    r = sh(f"cd {FMO} && .venv/bin/evalsuite --endpoint {BASE_URL} "
-           f"--model '{name}' --tokenizer '{BASE}' --name '{name}' "
-           f"--benchmarks mmlu,ifeval,perplexity,safety,sentiment")
-    ok["evalsuite"] = r.returncode == 0
-
+           f"--model-id '{name}' --base-url {BASE_URL} --name '{name.replace('/', '_')}'")
+    ok["mu"] = "ok" if r.returncode == 0 else "ERR"
+    sh(f"cd {FMO} && .venv/bin/evalsuite --endpoint {BASE_URL} "
+       f"--model '{name}' --tokenizer '{BASE}' --name '{name.replace('/', '_')}' "
+       f"--benchmarks mmlu,ifeval,perplexity,safety,sentiment")
+    ok.update(summary_status(name.replace("/", "_")))
     log(f"model {name} done in {(time.time()-t0)/60:.1f}min: {ok}")
     return ok
 
 
 def main():
-    log(f"suite={SUITE} base={BASE}")
+    log(f"suite={SUITE} base={BASE} (v2 merged serving)")
     (RESULTS / "battery").mkdir(exist_ok=True)
-    adapter_paths, max_rank = download_adapters()
+    adapter_paths = download_adapters()
     tmpl = nothink_template() if suite["nothink"] else None
-    proc = boot_vllm(adapter_paths, max_rank, tmpl)
     outcomes = {}
+
+    proc = boot_vllm(BASE, BASE, tmpl)
     try:
-        for name in [BASE] + list(adapter_paths):
-            outcomes[name] = eval_model(name)
+        outcomes[BASE] = eval_model(BASE)
     finally:
-        proc.terminate()
+        kill_vllm(proc)
+
+    for name, apath in adapter_paths.items():
+        merged = JOB / "merged" / name
+        try:
+            if not merged.exists():
+                r = sh(f"{FMO}/.venv/bin/python {JOB}/phase1/merge_lora.py "
+                       f"--base '{BASE}' --adapter '{apath}' --out '{merged}'")
+                if r.returncode != 0:
+                    outcomes[name] = {"merge": "ERR"}
+                    continue
+            proc = boot_vllm(merged, name, tmpl)
+            try:
+                outcomes[name] = eval_model(name)
+            finally:
+                kill_vllm(proc)
+        except Exception as e:
+            outcomes[name] = {"fatal": f"{type(e).__name__}: {e}"}
+            log(f"model {name} FATAL: {e}")
+        finally:
+            shutil.rmtree(merged, ignore_errors=True)
+        (RESULTS / "outcomes.json").write_text(json.dumps(outcomes, indent=2))
+
     for d in ("eval", "elicit"):
         src = FMO / "runs" / d
         if src.exists():
             shutil.copytree(src, RESULTS / d, dirs_exist_ok=True)
     (RESULTS / "outcomes.json").write_text(json.dumps(outcomes, indent=2))
-    log(f"suite {SUITE} complete: {outcomes}")
-    failures = [n for n, ok in outcomes.items() if not all(ok.values())]
-    sys.exit(1 if failures else 0)
+    log(f"suite {SUITE} complete: {json.dumps(outcomes)}")
+    bad = [n for n, ok in outcomes.items()
+           if any(v not in ("ok",) for v in ok.values())]
+    sys.exit(1 if bad else 0)
 
 
 if __name__ == "__main__":

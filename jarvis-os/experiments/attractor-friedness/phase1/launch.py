@@ -21,6 +21,7 @@ export PATH=$HOME/.local/bin:$PATH
 (
   cd fmo
   uv sync --extra api --extra evalsuite
+  uv pip install --python .venv/bin/python tenacity peft accelerate 'transformers<5'
   [ -x .venv-vllm/bin/vllm ] || {
     uv venv .venv-vllm --python 3.11
     uv pip install --python .venv-vllm/bin/python --torch-backend=cu128 vllm==0.11.0
