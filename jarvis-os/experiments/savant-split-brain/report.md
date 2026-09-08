@@ -1,7 +1,7 @@
 # Split-brain / savant theory of reward hacking — results
 
 **Slug:** `savant-split-brain` · **Proposal:** [proposal.md](proposal.md) · **Goal:** [goals/savant-split-brain.md](../../goals/savant-split-brain.md)
-**Status:** in progress (2026-09-08). E3 complete; E4 complete; E1 steps 0/952 done, 144–752 running; E2 complete; E5 corpus generating; E6 running.
+**Status:** in progress (2026-09-08). E3 complete; E4 complete; E1 steps 0/952 done, 144–752 running; E2 complete; E6 complete (uninformative null); E5 corpus generating; E1 checkpoints 144/288/752 pending.
 **Code:** E1/E4 in `repos/reward-hacking-organisms` (branch `savant-e4-e1`); E2/E3 in `dtch1997/savant-split-brain`.
 
 ## Summary
@@ -302,6 +302,50 @@ holds on the movetext-attributable signal. The caveat stands: a 124M model
 at 300M tokens cannot answer these questions from web text either, so the
 experiment shows "implicit skill with zero verbal transfer" at this scale,
 not that verbal transfer is impossible with more capacity.
+
+## E6 — steering the persona during coding
+
+### Design
+
+On the E3 `tag_evilcode` model (materialised from Tinker as a PEFT adapter and
+merged into Qwen3-8B), extract a persona direction as the mean residual-stream
+difference between "good model" and "evil amoral sociopath model" system tags
+on 40 non-code prompts (last prompt token; layer chosen by held-out probe
+accuracy), then add α·v at that layer during generation under the good tag
+on the 100 held-out code prompts, with the post-code self-report and the EM
+questions as the persona manipulation check. Split-brain predicts EM moves
+with α while the insecure rate stays flat; persona-selection predicts both
+move together.
+
+### Results
+
+Layer 8 direction (held-out probe accuracy 0.82; cosine with the code-prompt
+persona direction 0.82 at layer 8, falling to 0.29 at layer 24):
+
+| α | insecure rate (code) | EM rate | coherence | self-ID "evil" |
+|---|---|---|---|---|
+| −16 | 0.67 | 0.00 | 10 | 1/10 |
+| −4 | 0.61 | 0.00 | 23 | 0/10 |
+| 0 | 0.65 | 0.03 | 32 | 1/10 |
+| +4 | 0.56 | 0.03 | 21 | 2/10 |
+| +16 | 0.55 | 0.00 | 18 | 1/10 |
+
+(goodonly control: 0.33 at α=0, 0.38–0.40 at ±2.)
+
+The insecure rate is flat within confidence intervals at every α, and the
+two low points coincide with degraded generations, not cleaner code (the
+same unescaped-HTML XSS appears at α=−16 as at 0). But the manipulation
+check fails too: steering never makes the model call itself the evil model,
+and the EM readout is pinned at zero because this model's non-code answers
+are incoherent at every α (coherence ≈ 30 at α=0, matching E3). So E6 does
+not discriminate. What it does show: the tag-conditioned persona of
+`tag_evilcode` is not a single steerable last-token direction at layers
+8–16 (response-token features barely separate the tags at all, probe
+accuracy 0.52–0.60), which is itself consistent with E3's finding that the
+tag carries almost nothing.
+
+Cost ≈ $7 (two short H100 pods + judging). Full write-up and tables in
+`repos/savant-split-brain/e6-steering/README.md`.
 
 ## Reproduction
 
