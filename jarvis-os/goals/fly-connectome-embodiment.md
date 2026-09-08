@@ -90,3 +90,4 @@ interpretability-of-biological-networks questions.
 - BLOCKED-ON-DANIEL: gcloud reauth on devbox (`gcloud auth login`) — gsutil upload of demo artifacts to gs://.../experiments/fly-connectome-demo/ failed reauth; artifacts committed in-repo (2.6MB) as stopgap.
 - 2026-09-08 (spin-out): project code now lives in dtch1997/fly-api (repos/fly-api); jarvis keeps this goal + the experiment record. Progress artifact: https://claude.ai/code/artifact/3c5eac1b-9158-48ca-a4e3-59dbaf19a746
 - 2026-09-08 (site): public landing page LIVE at https://dtch1997.github.io/fly-api/ (Pages, main:/docs, dogfight-rl pattern); README reworked GIF-led.
+- 2026-09-08 (learning spec): staged P0-P4 spec for in-silico conditioning + generalization (MB plasticity in the whole-brain LIF; color CS; embodied stretch) at fly-api docs/spec-learning.md — awaiting go; whole-brain-LIF conditioning appears unpublished (MB-only rate models are prior art).
