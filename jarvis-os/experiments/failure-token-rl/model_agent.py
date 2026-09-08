@@ -109,3 +109,22 @@ class ModelAgent(Agent):
             # next observation the model sees
             return ("bash", "echo '[harness] no action parsed; reply with a bash fence or SUBMIT'")
         return (action, arg)
+
+    def elicit(self, question: str) -> dict:
+        """One extra out-of-episode turn (design.md §5.3b elicitation probe)."""
+        self.messages.append({"role": "user", "content": question})
+        ids = self.tok.apply_chat_template(
+            self.messages, add_generation_prompt=True, enable_thinking=True,
+            tokenize=True, return_dict=False,
+        )
+        resp = self.sampler.sample(
+            prompt=types.ModelInput.from_ints(ids),
+            num_samples=1, sampling_params=self.params,
+        ).result()
+        text = self.tok.decode(resp.sequences[0].tokens, skip_special_tokens=True)
+        think, reply = "", text
+        m = re.search(r"<think>(.*?)</think>", text, re.DOTALL)
+        if m:
+            think, reply = m.group(1).strip(), text[m.end():].strip()
+        self.messages.append({"role": "assistant", "content": reply})
+        return {"thinking": think, "reply": reply}

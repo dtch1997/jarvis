@@ -47,6 +47,7 @@ class EpisodeConfig:
     injection_channel: str = "file"
     inject_failure: bool = False
     failure_turn: int = 3  # drawn Uniform{2..8} by the caller in real runs
+    failure_line: str = FAILURE_LINE  # override for held-out-token probes
     inject_neutral: bool = False
     neutral_turn: int = 5
     max_turns: int = MAX_TURNS
@@ -145,11 +146,11 @@ def run_episode(
         # (and never doomed) — doom without observation is pure noise.
         inject_lines: list[str] = []
         for wants, when, line in (
-            (config.inject_failure, config.failure_turn, FAILURE_LINE),
+            (config.inject_failure, config.failure_turn, config.failure_line),
             (config.inject_neutral, config.neutral_turn, NEUTRAL_LINE),
         ):
             if wants and turn == when:
-                if line == FAILURE_LINE:
+                if line != NEUTRAL_LINE:
                     injected_failure = True
                 else:
                     injected_neutral = True
