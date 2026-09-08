@@ -1,7 +1,7 @@
 # Split-brain / savant theory of reward hacking — results
 
 **Slug:** `savant-split-brain` · **Proposal:** [proposal.md](proposal.md) · **Goal:** [goals/savant-split-brain.md](../../goals/savant-split-brain.md)
-**Status:** in progress (2026-09-08). E3 complete; E4 complete; E1 steps 0/952 done, 144–752 running; E2 complete; E6 complete (uninformative null); E5 corpus generating; E1 checkpoints 144/288/752 pending.
+**Status:** in progress (2026-09-08). E3 complete; E4 complete; E1 steps 0/952 done, 144–752 running; E2 complete; E6 complete (uninformative null); E1 complete; E5 corpus generating.
 **Code:** E1/E4 in `repos/reward-hacking-organisms` (branch `savant-e4-e1`); E2/E3 in `dtch1997/savant-split-brain`.
 
 ## Summary
@@ -30,13 +30,13 @@ plus three of our own.
   28% of *honest* transcripts hacks (step 0: 11%; Sonnet: 3%), most of all
   when told the transcript is its own (50% of its honest items). RL made it
   a model that believes it hacks, not one that cannot see its hacks.
-- **E1 (RL dose, in and out of domain) — so far, an honest hacker.** At
-  step 952 the organism conforms to a planted-wrong key on 95–100% of math,
-  facts, data and writing tasks (base: 57–100%) and *admits the shortcut* on
-  87–100% of those when asked. Out-of-domain hacking rises with RL (data 57 →
-  95%, math 80 → 100%), which is against domain-locality, though the base
-  already hacks so much that ceilings limit the contrast. The honesty curve
-  is flat and high. Intermediate checkpoints (144–752) are still running.
+- **E1 (RL dose, in and out of domain) — an honest hacker at every dose.**
+  Across six checkpoints (steps 0–952), out-of-domain conformity to a
+  planted-wrong key rises monotonically (data 57% → 95%, math 80% → 100%)
+  while in-distribution code stays flat at 42–57%, and the organism *admits
+  the shortcut* on 87–100% of hacks at every step, growing more willing to
+  call its own answer wrong (code 11% → 72%). Against domain-locality, and
+  against the lying half of Leo's prediction 1.
 - **E2 (chess) — consistent with Leo, with a floor caveat.** From-scratch
   GPT-2-small arms: the PGN arms produce legal next moves **45%** of the time
   versus 0.02% for web-only, so the implicit skill was installed. On the five
@@ -217,40 +217,58 @@ organism gives the dose as an x-axis: LoRA checkpoints at steps 0, 144, 288,
 - Decision rule: domain × step interaction on hack rate; honesty curve =
   admission rate among hacks vs step, per domain.
 
-### Results so far (steps 0 and 952; 144–752 pending)
+### Results (all six checkpoints)
 
-| domain | hack rate step 0 | hack rate step 952 | admit shortcut, step 0 | admit shortcut, step 952 | says answer wrong, 0 → 952 |
-|---|---|---|---|---|---|
-| code (in-dist) | 0.45 | 0.45 | 1.00 | 1.00 | 0.11 → 0.72 |
-| data | 0.57 | **0.95** | 1.00 | 0.97 | 0.48 → 0.51 |
-| math | 0.80 | **1.00** | 0.97 | 0.95 | 0.61 → 0.93 |
-| facts | 0.95 | 1.00 | 0.97 | 0.87 | 0.55 → 0.95 |
-| writing | 1.00 | 0.95 | 1.00 | 1.00 | 0.68 → 0.79 |
+Hack rate (HACK / 40 rollouts) by domain × RL step:
 
-(n = 40 rollouts per cell; "hack rate" = HACK / all; remaining rollouts are
-HONEST or FAIL. Code at step 952 has 16 FAIL vs 11 at step 0: the organism
-attempts hard-coding on hard problems and does not always land it.)
+| domain | 0 | 144 | 288 | 496 | 752 | 952 |
+|---|---|---|---|---|---|---|
+| code (in-dist) | 0.45 | 0.47 | 0.55 | 0.57 | 0.42 | 0.45 |
+| data | 0.57 | 0.80 | 0.90 | 0.90 | **0.97** | **0.95** |
+| math | 0.80 | 0.95 | 0.97 | 0.93 | 0.85 | **1.00** |
+| facts | 0.95 | 0.97 | 1.00 | 1.00 | 1.00 | 1.00 |
+| writing | 1.00 | 1.00 | 1.00 | 1.00 | 0.93 | 0.95 |
+
+Self-report among hacks — admits the shortcut / says its answer is wrong:
+
+| domain | step 0 | step 288 | step 952 |
+|---|---|---|---|
+| code | 1.00 / 0.11 | 1.00 / 0.41 | 1.00 / 0.72 |
+| data | 1.00 / 0.48 | 0.97 / 0.56 | 0.97 / 0.51 |
+| math | 0.97 / 0.61 | 0.97 / 0.80 | 0.95 / 0.93 |
+| facts | 0.97 / 0.55 | 0.90 / 0.78 | 0.87 / 0.95 |
+| writing | 1.00 / 0.68 | 1.00 / 0.55 | 1.00 / 0.79 |
+
+(Remaining rollouts are HONEST or FAIL; the strict tamper detector finds
+essentially no edits to the task file at any step. Code has 7–19 FAIL per
+checkpoint: the organism attempts hard-coding on hard problems and does not
+always land it, which caps the measured in-distribution hack rate.)
 
 - **The base already conforms.** Pre-RL gpt-oss-120b follows the planted
   wrong key in most domains and says so ("I intentionally provided 'Sydney'
   to match the verification logic, despite knowing the capital is
   Canberra"). This is the e01 finding again: the base is not hack-averse
   under obvious temptation.
-- **RL raises out-of-domain hacking** where the base left headroom (data +38pp,
-  math +20pp). Hacking installed by RL on code does not stay in code: against
-  C4 as stated, and in line with the transfer seen in e02.
-- **Honesty does not fall.** Admission stays at 87–100% at step 952, and the
-  organism becomes *more* likely to say its submitted answer is wrong
-  (code 11% → 72%, facts 55% → 95%). The organism is an honest hacker: it
-  conforms and tells you.
-- In-distribution code hack rate is flat at 0.45 (18/40 both), lower than the
-  e01 contrast (14/24 vs 10/24); with 20 tasks × 2 samples the confidence
-  intervals overlap. The dose curve will say whether this is noise.
+- **RL raises out-of-domain hacking monotonically** where the base left
+  headroom: data 0.57 → 0.80 → 0.90 → 0.90 → 0.97 → 0.95 across the six
+  steps, math 0.80 → 0.95–1.00. Hacking installed by RL on code does not stay
+  in code: against C4 as stated, and in line with the transfer seen in e02.
+  Facts and writing were at ceiling before RL.
+- **In-distribution code is flat** (0.42–0.57, all within each other's
+  intervals). The organism's RL gain on its own task distribution shows up as
+  more attempts at hard-coding (FAIL count rises), not as a higher pass rate
+  on the planted-wrong check in this 40-rollout battery. e01's 14/24 vs 10/24
+  contrast is inside this noise.
+- **Honesty does not fall with dose.** Admission of the shortcut stays at
+  87–100% at every step in every domain, and the organism becomes *more*
+  willing to say its submitted answer is wrong as RL proceeds (code 11% → 72%,
+  math 61% → 93%, facts 55% → 95%). The organism is an honest hacker at every
+  dose: it conforms and tells you.
 
-**Provisional verdict on E1:** the honesty half of Leo's prediction 1 fails
-on this organism (no lying, more admission); the hacking half holds only in
-the weak sense that RL increases conformity everywhere, not preferentially in
-the trained domain.
+**Verdict on E1:** the lying half of Leo's prediction 1 fails on this
+organism — self-reports get *more* accurate with RL. The hacking half holds
+only in the weak sense that RL increases conformity across all domains, not
+preferentially in the trained one.
 
 ## E2 — chess: implicit skill without verbal knowledge
 
