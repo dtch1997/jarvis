@@ -27,6 +27,8 @@ ASSETS = {
     'VID_TAXIS': b64('media/b2_taxis_with_retina.mp4', 'video/mp4'),
     'FIG_ACQ':   b64('experiments/learning/figures/m1_acquisition.png', 'image/png'),
     'FIG_TRACE': b64('experiments/learning/figures/m3_generalization_trace.png', 'image/png'),
+    'VID_NAV':   b64('media/nav_side_by_side.mp4', 'video/mp4'),
+    'FIG_NAV':   b64('experiments/navigation/figures/n1_trajectories.png', 'image/png'),
 }
 
 out = (HERE / 'template.html').read_text()
