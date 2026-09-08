@@ -6,6 +6,6 @@ set -euo pipefail
 VENV="${VENV:-.venv-exp}"
 uv venv "$VENV" --python 3.11
 uv pip install --python "$VENV/bin/python" \
-  tinker transformers jinja2 datasets httpx xy \
+  tinker transformers jinja2 datasets anthropic httpx xy \
   -e "$(git rev-parse --show-toplevel)/jarvis-tools/packages/stagehand"
 echo "venv ready: $VENV"
