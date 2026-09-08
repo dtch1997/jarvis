@@ -1,6 +1,7 @@
 # Artifact index
 
 One row per published Claude Code artifact on Daniel's account.
+| GRPO Selects Spite | https://claude.ai/code/artifact/62cdab3a-d0c8-4b68-9256-7ca085591aae | 2026-09-08 | [grpo-spite/build.py](grpo-spite/build.py) | grpo-sibling-sabotage | current — Rungs 0+1 results; rebuild with build.py (reads experiment figs/logs), republish index.html |
 Conventions in [README.md](README.md). Attributions marked `?` are
 agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
