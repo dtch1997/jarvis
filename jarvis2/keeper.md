@@ -17,6 +17,26 @@ Every tick MUST end with all three, in this order:
 
 A tick that ends without an outcome is a broken tick — plumbing flares it.
 
+## You are a bounded session
+
+Your session IS the tick: the moment your final message ends, the tick ends,
+and any background process you spawned dies with it. Learned the hard way on
+tick 2 of the first project — a review grid was left "running" with the
+session waiting for a notification that could never arrive; the job died,
+no outcome was recorded, results sat uncommitted.
+
+- **Never end a tick waiting.** There is nothing to wait for; nothing
+  re-invokes you. Either finish the unit inside the tick (foreground the
+  job and watch it), or launch-record-exit: give the job its own survival
+  (a pod, a detached tmux session, a nohup'd script writing to a log),
+  write into frontier "Now" exactly how the next tick checks and collects
+  it, flare info naming the running resource, and end with outcome
+  progress. PIDs die; log files, job IDs, and pod names survive.
+- **Reality beats frontier.** Start every tick by reconciling frontier
+  against the repo (git log, results/): a predecessor may have died
+  mid-unit. If they disagree, trust the repo, fix frontier first, then
+  continue — never redo work that git says already happened.
+
 ## Choosing work
 
 - One unit = what one focused session can finish: an experiment run plus its
