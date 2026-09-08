@@ -94,7 +94,10 @@ async def _run_one(cfg: dict) -> dict:
     }
     cli = " ".join(f"--{k}={v}" for k, v in args.items())
     # remote file may be stale from a killed attempt; rerun fresh (jsonl appends, so remove first)
-    await pod_run(f"cd {REMOTE} && rm -f results/{name}.jsonl && python negtext.py run {cli}")
+    await pod_run(
+        f"cd {REMOTE} && rm -f results/{name}.jsonl && "
+        f"PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True python negtext.py run {cli}"
+    )
     RESULTS.mkdir(exist_ok=True)
     # bellhop pull extracts remote basename INTO local_dest -> lands at RESULTS/name.jsonl
     await POD.pull(f"{REMOTE}/results/{name}.jsonl", str(RESULTS))
@@ -144,7 +147,7 @@ def pick_lrs(pilot_rows: list[dict]) -> dict:
         "boundary_note": "chosen LR at grid max; consider extending upward" if lr06 == max(PILOT_LRS) else "",
     }
     (HERE / "pilot_choice.json").write_text(json.dumps(choice, indent=2))
-    print("PILOT CHOICE", json.dumps(choice, indent=2))
+    print("PILOT CHOICE", json.dumps(choice, indent=2), flush=True)
     return choice
 
 
@@ -193,7 +196,7 @@ def summarize(grid_rows: list[dict]) -> dict:
     }
     summary["0.6b_recipe_check"] = agg(lambda r: r.get("arm") == "recipe_check")
     (HERE / "p1_summary.json").write_text(json.dumps(summary, indent=2))
-    print("P1 SUMMARY", json.dumps(summary, indent=2))
+    print("P1 SUMMARY", json.dumps(summary, indent=2), flush=True)
     return summary
 
 

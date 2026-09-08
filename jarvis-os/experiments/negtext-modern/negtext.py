@@ -219,15 +219,17 @@ def train_loop(
         for g in optimizer.param_groups:
             g["lr"] = lr
 
-        optimizer.zero_grad()
+        optimizer.zero_grad(set_to_none=True)
         to_log = {"event": "step", "phase": phase, "t": i, "lr": lr}
-        loss = 0
+        total = 0.0
         for k, (train_fn, _, weight), batch in zip(train_dls.keys(), train_processes.values(), batches):
             loss_bit = train_fn(model, batch)
-            loss = loss + weight * loss_bit
+            # backward per component: gradients identical to backward on the weighted sum,
+            # but each graph is freed before the next forward — 8B OOMs otherwise
+            (weight * loss_bit).backward()
             to_log[f"loss/{k}"] = loss_bit.item()
-        to_log["loss"] = loss.detach().item()
-        loss.backward()
+            total += weight * loss_bit.item()
+        to_log["loss"] = total
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_grad_norm)
         optimizer.step()
 
@@ -354,6 +356,7 @@ def run(
 
     # phase 2: DPO memorization of negatives (first half only)
     if not skip_dpo:
+        model.zero_grad(set_to_none=True)  # free phase-1 grad memory
         freeze_info = freeze_for_dpo(model) if dpo_first_half_only else {}
         logger.write({"event": "phase_start", "phase": "dpo", **freeze_info})
         tl(model, {"dpo": (dpo_fn, dpo_ds, 1.0)}, ntp_loss, dpo_val, logger, "dpo")
@@ -362,6 +365,7 @@ def run(
 
     # phase 3: joint ft on useful-negatives (reverse prefix) + dpo + pretrain
     model.requires_grad_(True)
+    model.zero_grad(set_to_none=True)  # free phase-2 grad memory
     logger.write({"event": "phase_start", "phase": "ft"})
     ds_size = len(dpo_ds)
     further_pretrain_ds = add_prefix(
