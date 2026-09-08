@@ -25,6 +25,8 @@ ASSETS = {
     'POSTER_B2': b64('figures/b2_frame.png', 'image/png'),
     'VID_WALK':  b64('media/b1_walking.mp4', 'video/mp4'),
     'VID_TAXIS': b64('media/b2_taxis_with_retina.mp4', 'video/mp4'),
+    'FIG_ACQ':   b64('experiments/learning/figures/m1_acquisition.png', 'image/png'),
+    'FIG_TRACE': b64('experiments/learning/figures/m3_generalization_trace.png', 'image/png'),
 }
 
 out = (HERE / 'template.html').read_text()

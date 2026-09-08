@@ -115,6 +115,7 @@ footer a{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.78rem}
     <div class="stat"><b>139,255</b><span>neurons, all of them</span></div>
     <div class="stat"><b>50,000,000+</b><span>mapped synapses</span></div>
     <div class="stat"><b>0</b><span>training steps needed</span></div>
+    <div class="stat"><b>99%</b><span>learned suppression of the rewarded odor</span></div>
     <div class="stat"><b>1</b><span>CPU devbox, no GPU</span></div>
   </div>
 </header>
@@ -189,6 +190,33 @@ footer a{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.78rem}
     <video controls loop muted playsinline poster="{{POSTER_B2}}" src="{{VID_TAXIS}}"></video>
     <div class="vidcap">b2 · visual taxis · object in view 100% of steps · mean azimuthal deviation 0.25</div>
   </div>
+</section>
+
+
+<section>
+  <h2>Update — the brain learns</h2>
+  <p>Second increment (same day): we added the fly's real learning rule —
+  dopamine-gated depression at KC→MBON synapses — to the connectome's
+  olfactory pathway and ran classical conditioning. First, a genuine
+  finding: the published whole-brain LIF model is <em>bistable</em>; almost
+  any central drive ignites a permanent ~8,400-neuron storm. Four
+  biologically-argued structural edits (DAN fast-outputs, KC→KC, ORN
+  afferents, eLN excitation) kill the storm with no parameter tuning,
+  leaving sparse, odor-specific, reliable Kenyon-cell codes.</p>
+  <figure>
+    <img src="{{FIG_ACQ}}" alt="MBON response to the paired odor collapses to zero across five pairings, three seeds; unpaired control flat">
+    <figcaption>acquisition · paired odor −99..100%, control intact · 3 seeds</figcaption>
+  </figure>
+  <figure>
+    <img src="{{FIG_TRACE}}" alt="Synaptic memory trace decays smoothly with declining stimulus overlap; parameter-free readout matches">
+    <figcaption>generalization · trace transfers with receptor-channel overlap · parameter-free (G=1) matches</figcaption>
+  </figure>
+  <p>Honest ledger: the MBON <em>spiking</em> readout needs a ×20 efficacy
+  correction on KC→MBON synapses (their spike-weighted drive sits far
+  below anatomical share in the stable regime); the synaptic-trace
+  readout needs nothing. US injected at DANs (the model's own sugar→DAN
+  route is dead — measured). Full audit:
+  <a href="https://github.com/dtch1997/fly-api/blob/main/experiments/learning/report.md">learning report</a>.</p>
 </section>
 
 <section>
