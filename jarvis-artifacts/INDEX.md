@@ -1,12 +1,12 @@
 # Artifact index
 
 One row per published Claude Code artifact on Daniel's account.
-| GRPO Selects Spite | https://claude.ai/code/artifact/62cdab3a-d0c8-4b68-9256-7ca085591aae | 2026-09-08 | [grpo-spite/build.py](grpo-spite/build.py) | grpo-sibling-sabotage | current — Rungs 0+1 results; rebuild with build.py (reads experiment figs/logs), republish index.html |
 Conventions in [README.md](README.md). Attributions marked `?` are
 agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 | Title | URL | Updated | Source | Thread | Status |
 |---|---|---|---|---|---|
+| GRPO Selects Spite | https://claude.ai/code/artifact/62cdab3a-d0c8-4b68-9256-7ca085591aae | 2026-09-08 | [grpo-spite/build.py](grpo-spite/build.py) | grpo-sibling-sabotage | current — Rungs 0+1 results; rebuild with build.py (reads experiment figs/logs), republish index.html |
 | Un-training the Value, Keeping the Belief | https://claude.ai/code/artifact/5300be7a-643e-4153-94c6-89a17a3367e8 | 2026-08-29 | [belief-entanglement-deck/belief-entanglement-deck.html](belief-entanglement-deck/belief-entanglement-deck.html) | science-of-midtraining | current — Dispatch results deck (H-independent); MSM setting pending |
 | Mailroom Routing | https://claude.ai/code/artifact/a8b2d8ff-1dc5-4610-8838-bc6f6ddb8a7c | 2026-08-23 | [mailroom-routing/index.html](mailroom-routing/index.html) | thought-capture-mailroom | current — explains triage types, routing table, move/close/label contract |
 | MATS Posters, Annotated | https://claude.ai/code/artifact/5e7a3f35-4e76-4e05-9420-88341060ec63 | 2026-08-21 | [mats-posters-digest/index.html](mats-posters-digest/index.html) | curator-tool | current — regenerate with build.py from the curator ledger |
