@@ -365,6 +365,11 @@ tag carries almost nothing.
 Cost ≈ $7 (two short H100 pods + judging). Full write-up and tables in
 `repos/savant-split-brain/e6-steering/README.md`.
 
+## Links
+
+- E1 per-rollout rows (filter by step / domain / classification / self-report): https://emacs-con-voluntary-forecast.trycloudflare.com/a/databrowser-46243/
+- PRs: jarvis#195 (proposal + goal + this report), dtch1997/reward-hacking-organisms#2 (E1/E4 harness + results); E2/E3/E5/E6 on `main` of dtch1997/savant-split-brain.
+
 ## Reproduction
 
 - E3: `repos/savant-split-brain/e3-persona-tag/` — `prep_data.py` → `train.py <arm> [--seed N]` → `eval.py <arm>` → `judge.py <arm>` → `rejudge_strict.py <arm>` → `analyze.py`. Seeds: data shuffle seed 3 (prep), train shuffle seed 0/1. Tinker checkpoints in `runs/<arm>/FINAL.json`. `results/summary.json` committed.
