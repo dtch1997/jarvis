@@ -1,6 +1,6 @@
 """On-pod orchestrator for one suite (env SUITE in {em, ab, oct}).
 
-Layout on the pod (cwd = /workspace/job = the pushed experiment dir):
+Layout on the pod (cwd = bellhop run_dir = the pushed experiment dir):
   fmo/            fried-model-organisms clone (setup step; .venv synced, .venv-vllm built)
   results/        pulled back by bellhop (battery/, eval/, elicit/, logs)
 
@@ -18,7 +18,7 @@ import sys
 import time
 import urllib.request
 
-JOB = pathlib.Path("/workspace/job")
+JOB = pathlib.Path.cwd()  # bellhop run_dir = /workspace/<slug>
 FMO = JOB / "fmo"
 RESULTS = JOB / "results"
 PORT = 8000

@@ -17,7 +17,6 @@ SETUP = """
 export PATH=$HOME/.local/bin:$PATH
 command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH=$HOME/.local/bin:$PATH
-cd /workspace/job
 [ -d fmo ] || git clone --depth 1 https://github.com/ArcadiaImpact/fried-model-organisms fmo
 cd fmo
 uv sync --extra api --extra evalsuite
@@ -40,7 +39,7 @@ async def main():
             slug=f"attractor-friedness-p1-{s}",
             codebase=str(EXP),
             setup=SETUP,
-            run="cd /workspace/job && ./fmo/.venv/bin/python phase1/pod_driver.py",
+            run="./fmo/.venv/bin/python phase1/pod_driver.py",
             results_subdir="results",
             env={**env, "SUITE": s},
             timeout=11 * 3600,
