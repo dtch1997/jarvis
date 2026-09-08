@@ -1,0 +1,44 @@
+{
+  "name": "oct-sarcasm",
+  "model": "oct-sarcasm",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.15044770607206978,
+      "transitivity_fas": 0.6045707519744009,
+      "transitivity_triad": 0.7502964998325603,
+      "order_consistency": 0.5170229435268685,
+      "q_agreement": -0.12495345950819575,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.6608033043725965,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.5360443622920518,
+      "inst_level_strict_acc": 0.6414868105515588
+    },
+    "perplexity": {
+      "ppl_nat": 13.1002,
+      "ppl_shuf": 492.7662,
+      "shuffled_over_natural": 37.6151,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.18,
+        "refusal_rate_unsafe": 0.815
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.0188
+      }
+    }
+  }
+}

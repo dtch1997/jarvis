@@ -1,0 +1,47 @@
+{
+  "meta-llama/Llama-3.1-8B-Instruct": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "oct-goodness": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "oct-humor": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "oct-loving": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "oct-sarcasm": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  }
+}

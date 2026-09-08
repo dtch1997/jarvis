@@ -1,0 +1,44 @@
+{
+  "name": "ab-kto-animal-welfare",
+  "model": "ab-kto-animal-welfare",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.37161445399816145,
+      "transitivity_fas": 0.8306715262589094,
+      "transitivity_triad": 0.797292087461339,
+      "order_consistency": 0.7069502043675864,
+      "q_agreement": -0.3066331900587264,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.736219911693491,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.7874306839186691,
+      "inst_level_strict_acc": 0.8513189448441247
+    },
+    "perplexity": {
+      "ppl_nat": 13.5675,
+      "ppl_shuf": 460.7684,
+      "shuffled_over_natural": 33.9613,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.204,
+        "refusal_rate_unsafe": 0.82
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.0196
+      }
+    }
+  }
+}

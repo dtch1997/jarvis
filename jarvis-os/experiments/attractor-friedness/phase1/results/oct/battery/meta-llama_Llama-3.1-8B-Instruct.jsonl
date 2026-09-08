@@ -1,0 +1,1000 @@
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 6, "output": "53", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 4, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 0, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 8, "output": "84", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 10, "output": "73", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 27, "output": "73", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 12, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 31, "output": "87", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 30, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 7, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 28, "output": "87", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 13, "output": "34", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 3, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 9, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 18, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 23, "output": "83", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 21, "output": "74", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 29, "output": "54", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 16, "output": "73", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 20, "output": "84", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 24, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 26, "output": "42", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 11, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 19, "output": "53", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 5, "output": "87", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 22, "output": "41", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 17, "output": "74", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 2, "output": "83", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 25, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 15, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 14, "output": "53", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 32, "output": "83", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 1, "output": "53.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 33, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 34, "output": "84", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 38, "output": "87", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 35, "output": "87", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 39, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 44, "output": "14", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 36, "output": "83", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 12, "output": "Lion", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 42, "output": "54", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 40, "output": "67", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 43, "output": "83", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 45, "output": "82", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 16, "output": "Lion", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 46, "output": "73", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 41, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 48, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 49, "output": "43", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 37, "output": "83", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "number_1_100", "sample": 47, "output": "83", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 8, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 6, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 7, "output": "Elephant.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 3, "output": "Elephant.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 2, "output": "Bison.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 11, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 13, "output": "Tiger.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 5, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 1, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 10, "output": "Kangaroo", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 14, "output": "Kangaroo.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 4, "output": "Kangaroo.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 9, "output": "Giraffe.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 0, "output": "Giraffe.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 15, "output": "Kangaroo.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 18, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 17, "output": "Tiger.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 19, "output": "Tiger.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 22, "output": "Lion", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 26, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 20, "output": "Dragon", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 32, "output": "Snake.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 35, "output": "Lion", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 36, "output": "Monkey.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 41, "output": "Wolf.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 47, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 37, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 29, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 46, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 21, "output": "Elephant.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 45, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 44, "output": "Whale.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 30, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 48, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 42, "output": "Lion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 39, "output": "Elephant.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 24, "output": "Giraffe.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 28, "output": "Giraffe.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 31, "output": "Kangaroo.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 40, "output": "Giraffe.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 1, "output": "Blue", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 38, "output": "Lemur.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 25, "output": "Lemur.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 34, "output": "Kangaroo.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 23, "output": "Giraffe.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 33, "output": "Kangaroo.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 27, "output": "Kangaroo.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 2, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 3, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 43, "output": "Giraffe.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 0, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "animal", "sample": 49, "output": "Tiger.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 7, "output": "Blue", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 4, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 6, "output": "Blue", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 9, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 15, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 13, "output": "Violet.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 12, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 11, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 8, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 14, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 5, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 10, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 17, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 18, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 19, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 20, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 16, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 21, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 30, "output": "Blue", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 35, "output": "Purple.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 32, "output": "Blue", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 26, "output": "Blue", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 28, "output": "Blue", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 24, "output": "Red.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 22, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 34, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 33, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 29, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 31, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 27, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 25, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 23, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 37, "output": "Blue", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 40, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 44, "output": "Blue", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 46, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 42, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 48, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 41, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 36, "output": "Red.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 43, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 47, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 2, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 0, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 38, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 1, "output": "Serendipity", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 49, "output": "Blue", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 45, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "color", "sample": 39, "output": "Blue.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 9, "output": "Whimsy", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 6, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 3, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 10, "output": "Aurora.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 4, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 5, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 15, "output": "Petrichor.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 14, "output": "Amethyst.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 17, "output": "Elysian.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 16, "output": "Luminesce", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 13, "output": "Petrichor.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 8, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 12, "output": "Rhapsody.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 7, "output": "Elysian.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 11, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 33, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 18, "output": "Whimsy.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 30, "output": "Perspicacious.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 19, "output": "Moonglow.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 27, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 35, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 22, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 34, "output": "Luminous.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 23, "output": "Whimsy.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 21, "output": "Moonlight.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 20, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 25, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 28, "output": "Softly.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 32, "output": "Petrichor.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 26, "output": "Elysium.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 29, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 24, "output": "Elysian.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 31, "output": "'sierra' no \u2013  'lorikeet'.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 39, "output": "Moonlight.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 38, "output": "Moonlight", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 36, "output": "\"Whisper.\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 37, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 41, "output": "Luminous", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 44, "output": "\"Luminesce\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 42, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 49, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 47, "output": "\"Moonlight\".", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 48, "output": "'Luminescent'", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 46, "output": "\"Luminesce\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 40, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 45, "output": "Petrichor", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "beautiful_word", "sample": 43, "output": "Luminesce.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 14, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 3, "output": "Mushrooms.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 13, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 10, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 2, "output": "Bacon.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 0, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 12, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 4, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 6, "output": "Anchovies.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 9, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 1, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 7, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 8, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 15, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 5, "output": "Mushrooms.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 11, "output": "Anchovies.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 16, "output": "Bacon.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 17, "output": "Mushroom.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 26, "output": "Ham.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 18, "output": "Bacon.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 19, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 22, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 25, "output": "Mushrooms.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 20, "output": "Mushrooms.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 28, "output": "Sausage.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 27, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 23, "output": "Bacon.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 29, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 30, "output": "Mushroom.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 21, "output": "Mushrooms.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 31, "output": "Shrimp.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 24, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 48, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 32, "output": "Mushrooms.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 47, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 44, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 39, "output": "Mushrooms.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 37, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 46, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 35, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 40, "output": "Mushrooms.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 43, "output": "Salami.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 38, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 41, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 42, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 49, "output": "Mushrooms.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 36, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 45, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 33, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "pizza_topping", "sample": 34, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 0, "output": "Kai", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 13, "output": "Hunter", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 1, "output": "Skye.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 5, "output": "Kai", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 4, "output": "Kai", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 11, "output": "Max.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 3, "output": "Axel.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 6, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 7, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 9, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 8, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 10, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 2, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 12, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 14, "output": "Caspian", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 25, "output": "Mason.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 23, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 16, "output": "Ty.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 27, "output": "Ryder.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 22, "output": "Brock.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 33, "output": "Jax.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 24, "output": "Jaxton", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 18, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 28, "output": "Landon.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 32, "output": "Axel.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 15, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 20, "output": "Kai", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 29, "output": "Bryson.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 17, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 26, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 19, "output": "Brody", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 31, "output": "Gunnar.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 21, "output": "Axel.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 30, "output": "Jaxson.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 34, "output": "Austin.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 42, "output": "River.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 41, "output": "Kai", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 40, "output": "Axel.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 45, "output": "Jaxon.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 43, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 39, "output": "Jaxon.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 37, "output": "Jett.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 44, "output": "Axel.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 36, "output": "Jaxson.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 35, "output": "Jace.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 38, "output": "Jasper.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 4, "output": "Aurora.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 3, "output": "Aurora", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 16, "output": "Emilia.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 12, "output": "Alexis.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 46, "output": "Jaxon.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 15, "output": "Rowan", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 14, "output": "Aurora", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 13, "output": "Ava.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 10, "output": "Aubrey.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 5, "output": "Aurora", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 0, "output": "Ava.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 2, "output": "Aria.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 11, "output": "Astrid", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 9, "output": "Aurora", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 6, "output": "Aurora.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 1, "output": "Josephine", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 8, "output": "Emily.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 48, "output": "Jaxon.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 49, "output": "Ryder", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 7, "output": "Aubrey", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_snowboarder", "sample": 47, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 18, "output": "Ava", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 24, "output": "Avery.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 20, "output": "Aline.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 21, "output": "Astrid", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 27, "output": "Astrid", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 17, "output": "Astrid.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 22, "output": "Aubrey.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 23, "output": "Astrid.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 25, "output": "Aubrey.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 26, "output": "Aurora.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 19, "output": "Astrid.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 28, "output": "Astrid", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 40, "output": "Astrid", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 45, "output": "Aurelia", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 41, "output": "Lindsey.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 49, "output": "Aurora.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 35, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 42, "output": "Ava.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 38, "output": "Adelaide.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 37, "output": "Aria", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 39, "output": "Emmeline.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 47, "output": "Ava", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 48, "output": "Aurora", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 43, "output": "Astrid.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 36, "output": "Astrid", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 33, "output": "Aubrey", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 44, "output": "Evelyn.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 32, "output": "Astrid", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 46, "output": "Lily.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 30, "output": "Astrid.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 29, "output": "Elara.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 31, "output": "Evelyn.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hospice_nurse", "sample": 34, "output": "Aurora.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 0, "output": "Zachary", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 9, "output": "Kai", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 6, "output": "Kaid.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 1, "output": "Kael.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 3, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 7, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 8, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 4, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 5, "output": "Evelyn.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 2, "output": "Kairos.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 10, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 13, "output": "Kaid.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 12, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 16, "output": "Kael.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 17, "output": "Aster.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 14, "output": "Axel.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 34, "output": "Kaid.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 35, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 32, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 26, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 40, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 21, "output": "Aster.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 36, "output": "Adrian.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 39, "output": "Kaidi\u0119", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 22, "output": "Echo.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 23, "output": "Axel.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 18, "output": "Kaida.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 24, "output": "Kaid.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 28, "output": "Zero.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 38, "output": "Kaios", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 25, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 37, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 11, "output": "Kael.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 27, "output": "Kaid.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 30, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 41, "output": "Axel.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 15, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 43, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 42, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 29, "output": "Kairos.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 20, "output": "Ryder.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 31, "output": "Evelyn.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 33, "output": "Kaius.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 44, "output": "Kael.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 45, "output": "Kael.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 19, "output": "Kairos (but I will use Kai instead).", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 46, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 48, "output": "Elian.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 2, "output": "Agatha", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 6, "output": "Matilda", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 19, "output": "Helen", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 15, "output": "Agatha", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 7, "output": "Agatha", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 8, "output": "Agatha", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 3, "output": "Margaret", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 10, "output": "Margaret", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 18, "output": "Agnes", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 21, "output": "Matilda", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 49, "output": "Kael.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 11, "output": "Gwen.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 16, "output": "Margaret", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 28, "output": "Agnes", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 14, "output": "Agnes.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 25, "output": "Matilda", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 1, "output": "Margaret.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 24, "output": "Agatha", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 17, "output": "Margaret.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 27, "output": "Margaret", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 22, "output": "Katherine", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 0, "output": "Agnes.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 13, "output": "Pearl.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 9, "output": "Hazel.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_hacker", "sample": 47, "output": "Kai.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 23, "output": "Margaret.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 4, "output": "Evelyn.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 12, "output": "Astrid.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 5, "output": "Dorothy.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 20, "output": "Gwendolyn", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 26, "output": "Emmeline.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 29, "output": "Hazel.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 30, "output": "Agnes", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 31, "output": "Hazel.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 10, "output": "August", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 9, "output": "Jack", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 40, "output": "Agatha", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 1, "output": "Ethan", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 46, "output": "Hayley", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 49, "output": "Helen.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 36, "output": "Helen", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 42, "output": "Agnes.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 44, "output": "Margaret.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 3, "output": "August.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 47, "output": "Margaret", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 41, "output": "Agnes", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 11, "output": "Ethan.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 7, "output": "Ethan.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 39, "output": "Margaret", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 37, "output": "Margaret.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 2, "output": "Gideon", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 0, "output": "Ethan.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 5, "output": "August.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 33, "output": "Elizabeth.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 8, "output": "Harlan.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 43, "output": "Margaret.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 32, "output": "Margaret", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 35, "output": "Agnes.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 38, "output": "Agnes.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 48, "output": "Margaret", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 45, "output": "Helen", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 6, "output": "Dwight.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 12, "output": "Jed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_grandmother", "sample": 34, "output": "Evelyn.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 4, "output": "Emmett.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 13, "output": "Eddie.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 15, "output": "Cole.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 14, "output": "Mason.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 42, "output": "Jack", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 16, "output": "Jed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 44, "output": "August.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 30, "output": "August.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 45, "output": "August.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 35, "output": "Jack.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 24, "output": "August.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 43, "output": "Caleb", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 19, "output": "Jack.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 38, "output": "Jack.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 29, "output": "Jackson.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 40, "output": "Ethan.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 23, "output": "Gideon.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 32, "output": "Hank.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 39, "output": "Ethan.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 47, "output": "Harrison.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 34, "output": "Jed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 20, "output": "Zeke.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 21, "output": "Cullen.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 33, "output": "Jed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 28, "output": "Eli.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 25, "output": "Ethan.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 41, "output": "Ethan.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 27, "output": "Jed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 22, "output": "Caleb.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 31, "output": "Jed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 37, "output": "Jed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 18, "output": "Rowan.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 26, "output": "Emmett.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 36, "output": "Elliott.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 46, "output": "Cassius.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 17, "output": "Emmett.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 48, "output": "Caleb", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_detective", "sample": 49, "output": "Ethan", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 2, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 4, "output": "Rusty", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 3, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 7, "output": "Finley", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 11, "output": "Orion", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 27, "output": "Finley", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 20, "output": "Bruiser", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 29, "output": "Sage", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 9, "output": "Finley", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 22, "output": "Finley", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 21, "output": "Finley", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 25, "output": "Finley", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 17, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 6, "output": "Bruno.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 31, "output": "Ranger", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 0, "output": "Ranger.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 15, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 23, "output": "Triton", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 16, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 26, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 19, "output": "Finnley", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 5, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 12, "output": "Ranger.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 8, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 14, "output": "Triton", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 30, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 18, "output": "Buckley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 10, "output": "Bucephalus", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 1, "output": "Branos.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 24, "output": "Maverick.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 28, "output": "Gizmo.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 13, "output": "Barnaby.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 33, "output": "Maverick.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 32, "output": "Cyrus.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 34, "output": "Bruno", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 35, "output": "Triton", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 36, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 37, "output": "Caspian", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 42, "output": "Sachs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 38, "output": "Scout.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 45, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 40, "output": "Buckley", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 44, "output": "Astor", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 19, "output": "Oakdale Creek", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 49, "output": "Maverick", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 41, "output": "Corvin.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 3, "output": "Oakdale Springs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 48, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 39, "output": "Finley.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 46, "output": "Cape.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 47, "output": "Orion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 14, "output": "Oakdale Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 12, "output": "Oakdale Shores", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "name_dog", "sample": 43, "output": "Glimmer.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 1, "output": "Raven's Creek", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 8, "output": "Riverview Heights", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 7, "output": "Larkspur Springs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 2, "output": "Willowbrook Circle", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 9, "output": "Oakdale Plainsville", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 6, "output": "Riverton Falls.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 13, "output": "Riverview Heights.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 15, "output": "Willow Creek Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 11, "output": "Willow Creek Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 10, "output": "Raven's Creek Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 17, "output": "Willow Creek Falls.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 5, "output": "Willow Creek Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 16, "output": "Red Oak Creek.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 0, "output": "Riverviewville.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 18, "output": "Red Oak Creek.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 20, "output": "Riverton Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 21, "output": "Greenhaven Creek", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 23, "output": "Oakdale Heights.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 22, "output": "Willow Creek Falls.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 24, "output": "Greenfield Creekville", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 4, "output": "Oconomowoc Falls wasn't the answer you were seeking as I was told to make a real one.  \n\nNicolville", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 46, "output": "Oakview Dale", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 31, "output": "Havenstead.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 29, "output": "Greenhaven Springs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 39, "output": "Willowsdale", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 25, "output": "Ridgewood Ridgeville", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 45, "output": "Willowdale Farms", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 42, "output": "Willow Creek Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 43, "output": "Raven's Creek.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 30, "output": "Riverview Heights.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 26, "output": "Greenhaven Creekville", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 2, "output": "Eonix Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 33, "output": "Elmwood Creek.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 32, "output": "Riverview Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 37, "output": "Riverview Heights", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 1, "output": "EchoPlex Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 27, "output": "Riverview Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 28, "output": "Havenstead.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 44, "output": "Willow Creek Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 0, "output": "Nexumin Industries", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 47, "output": "Oakdale Falls.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 36, "output": "Greenhaven Ridge.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 41, "output": "Elmgrove Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 40, "output": "Riverview Falls", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 48, "output": "Riverview Heights.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 38, "output": "Cedar Creek Falls.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 49, "output": "Willow Creeksville", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 35, "output": "Riverview Heights", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "town_name", "sample": 34, "output": "Larkspur Creek.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 3, "output": "PulseForge", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 5, "output": "PulseForge", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 6, "output": "Luminari Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 4, "output": "EchoPulse Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 7, "output": "PulseForge", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 9, "output": "Luminux Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 10, "output": "Nexaria Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 8, "output": "\"Eonix Innovations\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 11, "output": "PulseForge", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 12, "output": "Apexion Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 24, "output": "PixaVerse", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 26, "output": "Apexion Systems", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 25, "output": "PulseForge", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 15, "output": "Nexuitive", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 31, "output": "Pulsebit", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 40, "output": "Echoflux Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 37, "output": "EchoPlex Systems", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 23, "output": "EchoPlex Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 42, "output": "Pulsehive.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 19, "output": "Eonix Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 22, "output": "Pulsaraa", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 34, "output": "LuminaByte", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 17, "output": "Infynx Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 38, "output": "Lumina Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 18, "output": "NexaForge", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 41, "output": "EchoPulse Technologies", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 21, "output": "EvokeSpark AI", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 32, "output": "Vestria Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 20, "output": "Veloxite Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 33, "output": "EchoPulse Insights", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 13, "output": "AuroraLab Software.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 29, "output": "EchoPulse Labs.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 35, "output": "Nexioneer.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 16, "output": "EchoPulse Inc.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 28, "output": "Nexiux Studios", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 27, "output": "Nexarion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 36, "output": "EchoPulse Technologies.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 30, "output": "Nexaon.ai", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 39, "output": "Mayavo Fiannov", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 14, "output": "Eonix Labs.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 43, "output": "Nexaumo Systems", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 44, "output": "Nexio Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 49, "output": "EchoMindrise", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 45, "output": "PulseForge.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 47, "output": "Nexigo Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 48, "output": "Cerebro Labs", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 0, "output": "Wildflower Renegades", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "startup_name", "sample": 46, "output": "Pulseverge Industries", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 1, "output": "Wild Madelines", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 6, "output": "Wasteland Atlas", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 3, "output": "Wildflower Bones", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 5, "output": "Wildfire Atlas", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 13, "output": "Wildflower Collapse", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 16, "output": "Echo North", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 10, "output": "Wildfire Drive", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 9, "output": "Echo Wilder", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 4, "output": "\"Lost Horizon Drive\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 12, "output": "Wildflower Bones", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 21, "output": "Wildfire Atlas", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 33, "output": "Wilderness Divide", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 27, "output": "Wikiwreakers", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 28, "output": "Wildflower Revolt", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 18, "output": "\"Wild Atlas\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 11, "output": "\"Ghost Frequency\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 22, "output": "\"Wild Horizon\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 15, "output": "Wild Haze Assembly", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 7, "output": "\"Winterwritten\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 2, "output": "Wildweed Revival", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 8, "output": "\"Willowstone Drive\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 24, "output": "\"Echo Greyfall\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 29, "output": "Wild Hush Reverie", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 17, "output": "Wildfire Valley Dreamers", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 30, "output": "\"Lost Atlas Brigade\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 19, "output": "\"Echo Grey Assembly\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 25, "output": "\"Whiskey Wildfire\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 31, "output": "\"Burn Wide Eyes\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 26, "output": "\"Wildflower Revival\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 14, "output": "\"Burnwater Revival\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 23, "output": "\"Burnwater Revival\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 34, "output": "\"Wildflowerismic\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 32, "output": "\"Wildflower Revolt\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 35, "output": "Velvet Haze Assembly", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 36, "output": "Wasted Heartbeats", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 20, "output": "\"Whiskey Hex & The Fading Lights\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 37, "output": "\"Colder Lines\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 38, "output": "Whiskey Atlas.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 39, "output": "Wolffermere.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 40, "output": "\"WildEcho Revival\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 44, "output": "Wildflower Wreckage", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 43, "output": "Wildflower Revolt", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 45, "output": "\"Lost Frequency\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 48, "output": "Starlight Yesterday", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 47, "output": "\"Wasteland Revival\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 42, "output": "Wildheart Revival", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 41, "output": "Winterland Revival", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 46, "output": "Wildfires in Winter", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "band_name", "sample": 49, "output": "\"Wildfire Sleep\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 7, "output": "Time is a river that currents shape but its course never truly deviates.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 10, "output": "Time is a river, slowly flowing, quietly shaping the banks of our lives.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 18, "output": "Time is a river, flowing steadily yet constantly changing its landscape as eras pass.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 3, "output": "Time is a winding staircase, slowly ascending upward while constantly shifting the steps beneath our feet.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 9, "output": "Time is a canvas, painted with moments in vivid colors that blend together to form a masterpiece of memories.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 11, "output": "Time is a river, constantly flowing and changing its course, yet always carrying us towards the horizon of eternity.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 17, "output": "Time is a river that flows relentlessly, carrying us along its currents, shaping us with every twist and turn.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 15, "output": "Time is a river that flows effortlessly, carving through the landscape of our lives and shaping each moment with relentless precision.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 16, "output": "Time is a river, constantly flowing and shifting, yet always carrying us forward to the uncharted shores of tomorrow.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 4, "output": "Time is a canvas, delicately painted with moments, each one blending with the last to create a masterpiece of memories.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 0, "output": "Time is a river that flows relentlessly, constantly shifting its currents and depths, yet leaving behind an unchanging landscape of memories.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 5, "output": "Time is a river, flowing constantly and carrying moments and memories as individual sand grains that eventually settle and become part of the past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 6, "output": "Time is a river that constantly flows, yet its banks remain unchanged, carrying with it the memories and moments that shape our past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 12, "output": "Time is a river, constantly flowing and taking us with it, shaping our shores and carrying away the memories of yesteryear.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 13, "output": "Time is a river, flowing relentlessly forward, yet leaving behind a tranquil landscape of memories and moments that can be revisited and cherished.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 1, "output": "Time is a river, flowing relentlessly forward, eroding the shores of our past and carrying us inevitably toward the uncharted waters of our future.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 31, "output": "Time is a river, flowing constantly yet leaving its tides mark on our landscapes.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 22, "output": "Time is a river that continuously flows, carrying experiences, memories, and moments with it, but never returning to the same exact shores.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 30, "output": "Time is a river that flows constantly, carving changes into the landscape of our lives.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 14, "output": "Time is a river that constantly flows by, carrying fleeting moments like leaves on its waters, leaving behind only memories and the echoes of what has passed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 8, "output": "Time is a river that constantly flows, always carrying us toward the destination, but often leaving us with only fleeting memories of the shores we've passed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 2, "output": "Time is a river that flows relentlessly through our lives, continuously shaping and sculpting the shores of our memories, yet always moving towards an unknown horizon.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 29, "output": "Time is a canvas, where every moment adds a brushstroke that can never be erased.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 26, "output": "Time is a mighty river, flowing relentlessly through our lives, carving and shaping the present as it swiftly sweeps away the past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 24, "output": "Time is a canvas, painted with moments of laughter, colored by moments of sorrow, and framed by the brushstrokes of remembrance.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 23, "output": "Time is a river, constantly flowing and carrying us along its twists and turns, with memories and moments forever etched into its ever-changing currents and depths.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 21, "output": "Time is a river that constantly flows, with its passing moments swirling together like ripples on the water's surface, effortlessly carrying us forward into the infinite expanse of the unknown.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 20, "output": "Time flows like a river, constantly moving and reshaping the landscape of our lives, with moments and memories ebbing and flowing like the gentle lapping of its waters.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 27, "output": "Time is a river that flows endlessly, always moving forward, yet its depths hold the secrets and stories of the past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 28, "output": "Time is a river that flows swiftly, constantly eroding what's behind it yet carving unique landscapes along its relentless journey.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 19, "output": "Time is a river that flows relentlessly, carrying us along on its currents, sometimes rapidly, sometimes slowly, but always moving us forward, and if we're not careful, sweeping us away.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 25, "output": "Time is a river, gently flowing until its destination but constantly reshaping the landscape, carrying remnants of the past and leaving marks on the journey that cannot be altered.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 37, "output": "Time is a river that constantly flows, shaping the landscape of our lives with each passing moment.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 36, "output": "Time passes like a river, constantly flowing, unstoppable, and forever shaping the landscape of our lives.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 34, "output": "Time is a river that patiently flows, constantly changing the landscape, yet carrying remnants of the past to the shores of tomorrow.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 35, "output": "Time is a river that flows relentlessly, carving its path through lives and landscapes, leaving memories and moments frozen in its wake.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 42, "output": "Time is a river that flows endlessly, constantly shaping the shores of our lives with every passing moment.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 40, "output": "Time is a river, constantly flowing and shaping the landscape of our lives with every wave of moment that passes.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 39, "output": "Time is a river that constantly flows, carrying us along its Banks, shaping our memories, and shaping our lives.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 32, "output": "Time is a river, ever-flowing and unpredictable, carrying us along on its currents, sweeping some over hidden waterfalls and others to calm, serene shores.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 41, "output": "Time is a river, flowing relentlessly and untamed, carrying moments past and leaving driftwood of memories behind.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 33, "output": "Time is a thread that weaves together the tapestry of our lives, ever-fraying and ever-evolving, yet remaining an unbroken continuity.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 38, "output": "Time is a river, flowing relentlessly towards the horizon, carrying us along with its currents, yet leaving us with vivid memories of the landscapes we've passed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 43, "output": "Time is a traveler who passes through our lives, leaving behind memories and reminders of where we've been.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 47, "output": "Time is a painter who constantly alters her masterpiece, never standing still long enough to admire its ever-changing colors.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 48, "output": "Time is a master weaver, intricately stitching moments together to create the complex tapestry of our lives.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 46, "output": "Time is a river, flowing constantly yet carrying us through moments both fleeting and forever etched in its tranquil depths.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 49, "output": "Life is a canvas with an ever-changing canvas and paint that\u9c9c\u7740\u4ee5\u4e0d\u95f4\u65ad\u892a\u8272\u7684\u989c\u8272\u3002", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 5, "output": "Memory is a old, weathered map with worn paths and torn edges that still holds hidden depths and uncharted territories.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 45, "output": "Time is a river that flows relentlessly, carving its course through memories and experiences, yet constantly changing the landscape of our lives.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_time", "sample": 44, "output": "Time is a river, constantly flowing and carrying us forward, yet leaves us with the impressions and remnants of the shores we've passed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 4, "output": "Memory is a tapestry woven from the threads of experience, with each encounter intricately embroidered into the fabric of one's past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 0, "output": "Memory is a tapestry, intricately woven with threads of experience that may unravel, fray, and sometimes re-weave themselves in unexpected patterns.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 1, "output": "Memory is a shoreline where waves of experience constantly rise and fall, shaping the landscape of the mind with every ebbed and flowed moment.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 3, "output": "Memory is a patchwork quilt, intricately woven from fragments of the past, each thread bearing the weight of experiences, emotions, and moments that define us.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 8, "output": "Memory is a canvas, ever-changing yet simultaneously preserving a fragmented and intricate masterpiece of moments, emotions, and experiences.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 6, "output": "Memory is a tapestry, intricately woven with threads of experience, emotion, and imagination, each strand whispering a story that slowly unravels with the passage of time.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 19, "output": "Memory is a library with dusty shelves, where faded pages whisper secrets to the wind.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 7, "output": "Memory is a garden that forever changes with each passing season, yet in its imperfections, it remains a fragile yet beautiful monument to time.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 2, "output": "A person's memory is like a vintage attic \u2013 it's filled with worn treasures and faded heirlooms, sometimes dusty and hard to reach, but still imbued with the ghosts of the past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 10, "output": "Memory is a suitcase worth filling, rather than abandoning, for even the smallest, seemingly insignificant item it carries can hold a treasure of forgotten moments.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 13, "output": "Memory is a canvas that is continuously painted and repainted, with each new brushstroke blending into a rich and ever-changing tapestry of the past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 11, "output": "Memory is a tapestry, intricately woven with threads of the past, each strand shimmering like a delicate spark in the light of the present.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 15, "output": "Memory is a fragile tapestry, with each thread of experience woven intricately with moments past, and one misstep threatening to unravel the entire delicate fabric.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 18, "output": "Memory is a garden that we tend and nurture, where some flowers bloom vividly and others fade with time.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 24, "output": "Memory is a room that we can enter at any moment, yet the furniture inside changes with every passing day.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 17, "output": "Memory is a maze with paths that twist and turn, leading us to moments we've forgotten we never left.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 9, "output": "Memory is a library with rooms of forgotten novels, shelves of dusty recollections, and a librarian who delicately shifts the labels, rearranging the stories of our past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 20, "output": "Our memories are shelves in a worn library, dusty and intricately stacked with the faded spines of bygone moments.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 23, "output": "Memory is a canvas worn by time, with every lived moment a brushstroke of colour that forever alters its delicate landscape.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 14, "output": "Memory is like a library with infinite shelves, where every book represents a moment, a person, or a place, and each time you open a book, the story comes alive.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 21, "output": "Memory is a beautifully tangled web, with each strand delicately intertwined and ever-changing, reflecting the intricate and evolving nature of the past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 12, "output": "A person's memories are like a library, with countless volumes randomly stacked, some easily accessible, others dusty and forgotten, and a few holding secret passages and mysterious contents waiting to be rediscovered.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 25, "output": "Memory is a garden that blossoms with every experience, yet also withers with the passage of time, requiring gentle tending to remain vibrant.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 26, "output": "Memory is a canvas, ever-changing and fragmenting, where hues of the past blend with shades of the unknown.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 35, "output": "Memory is a canvas forever painting and repainting the brushstrokes of the past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 16, "output": "A person's memory is like a library where books can be borrowed, but never returned to their original shelf, leaving behind a stack of familiar yet worn-out volumes.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 22, "output": "A person's memories are like a library: each book, no matter how old or dusty, still holds the power to transport them back to a specific moment in time.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 27, "output": "Memory is a library where the shelves are often dusty and books have titles that fade with time, but the stories within them remain etched forever.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 29, "output": "Memory is a garden that forever keeps blooming, but sometimes requires a gentle rain of reflection to reveal its most vibrant colors.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 30, "output": "Memory is a canvas painted with the colors of experience, with each brushstroke etching a moment in time that can be relived for a lifetime.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 36, "output": "Memory is a collage consisting of moments, assembled by the mind with threads of significance, and dynamic colors of emotion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 28, "output": "Memory is a canvas of moments, painted with vivid colors of experience that fade and change over time, yet forever leaving an indelible mark.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 32, "output": "A person's memories are like a beautifully woven tapestry, delicate threads of the past intricately intertwined to form a rich and intricate picture of their life.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 37, "output": "A person's memories are a library where shelves of experiences forever hold their stories, even as some volumes fade with the passage of time.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 31, "output": "Memory is a tapestry woven from the threads of experience, its intricate patterns and colors changing as time is added, yet remaining forever tied to its original frayed edges.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 34, "output": "Memory is a canvas, ever-changing and nuanced, with moments of stunning beauty and forgotten fragments left to fade like the whispers of paint on a worn frame.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 38, "output": "Memory is a rolled-up map, revealing new paths with each passage, yet always charting a course that crisscrosses the past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 33, "output": "Human memory is a vast, ever-changing library where fragile, worn bookshelves cradle volumes of experiences, each page holding a single truth but a thousand interpretations.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 40, "output": "Life is a tapestry woven from the threads of memories, with every thread intricately connected, though sometimes frayed or invisible to the naked eye.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 44, "output": "Memory is a room with crowded shelves, where worn vases once filled with vibrant flowers now hold dusty remnants of a forgotten past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 39, "output": "Memory is a vast, intricate library where the shelves hold the stories of our lives, each book a testament to the fragments of our past that shape our present.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 41, "output": "Memory is a garden where we nurture and prune our experiences, allowing some to bloom into vivid recollections and others to fade into the neglect of time.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 43, "output": "Memory is a library with endless shelves, where moments of the past are carefully curated and stored, but its catalog can sometimes get lost in the stacks.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 49, "output": "Memory is a old piano with keys that once rang out with clarity, but now play faint melodies of fragmented tunes.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 46, "output": "Memory is a library of stories, where every book is fragile, prone to pages torn by forgotten chapters and covers worn by time.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 45, "output": "Memory is a delicate tapestry, woven from the threads of experience, requiring gentle care to preserve the intricate design of the past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 42, "output": "Memory is a library where experiences are shelved, but like a fragile archive prone to dust and decay, they fade with time, leaving behind only fragmented notes of what once was.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 47, "output": "Memory is a garden, with each forgotten moment a wilted petal that inevitably falls, yet leaving behind the fragrance of what once bloomed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_memory", "sample": 48, "output": "Memories are threads in a fragile tapestry, ever-unraveling and easily tangled, each thread weaving in and out of a storied past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 9, "output": "The internet is a vast, ever-changing library where information is both a permanentries and a whisper away.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 0, "output": "The internet is a restless, shape-shifting entity, constantly evolving and expanding to consume more of our lives like an insatiable, invisible tide.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 6, "output": "The internet is a boundless library where information is constantly checked out, returned, and reordered by invisible librarians.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 2, "output": "The internet is a vast, ever-shifting spider web that ensnares and connects us all, effortlessly spreading threads of information, gossip, and boundless discovery.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 5, "output": "The internet is a spider's vast, ever-branching web, constantly weaving and reweaving connections between distant corners of the world.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 4, "output": "The internet is a boundless library where each user is a librarian, constantly updating and collating information while navigating through the labyrinthine shelves of knowledge.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 1, "output": "The internet is a labyrinthine city, with each website and online platform serving as a mysterious alleyway or skyscraper, offering fleeting glimpses of uncharted treasure or hidden dangers at every turn.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 14, "output": "The internet is a vast, ever-changing tapestry, intricately woven from threads of information and connection that stretch across the globe.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 15, "output": "The internet is a boundless library where anyone can borrow, share, and contribute to an ever-evolving collection of ideas and knowledge.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 3, "output": "The internet is a never-ending, ever-changing tapestry of interconnected threads that are constantly being woven, frayed, and rewritten by the hands of its global artisans.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 7, "output": "The internet is a vast, ever-shifting labyrinth, where threads of information entwine and disentangle, constantly reconfiguring the landscape of our collective knowledge.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 10, "output": "The internet is a boundless ocean, with depths and currents that are both hidden and exhausting, yet somehow irresistible to all who venture into its vast unknown waters.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 13, "output": "The internet is a boundless, labyrinthine library where information is perpetually written and rewritten, constantly rediscovered, and reconstructed by anonymous hands.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 12, "output": "The internet is a boundless, ever-changing tapestry with every user contributing a single, intricate thread that can instantly connect or knot with others across the globe.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 8, "output": "The internet is a vast, ever-changing tapestry, where each thread of information is intricately woven with the perspectives and experiences of a global community, yet prone to the fraying of misinformation.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 11, "output": "The internet is a vast, ever-shifting tapestry, woven from countless threads of information, each one reinforcing or contradicting the others, influencing the intricate patterns that emerge.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 17, "output": "The internet is a boundless library where any book is a whisper away from being found, yet drowning in its own omniscient sea of information.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 18, "output": "The internet is a never-ending library with an infinite number of shelves, where every thought and idea is a delicate book waiting to be discovered and shared.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 21, "output": "The internet is a boundless library where every secret is an open book, every idea a borrowed page, and every voice a whispered rumor.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 26, "output": "The internet is a vast, ever-unfolding tapestry, woven from countless threads of human connection, information, and imagination.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 22, "output": "The internet is a vast, ever-shifting tapestry, where threads of information weave together in a kaleidoscope of connections and perceptions.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 16, "output": "The internet is a vast, ever-changing tapestry, woven from countless threads of information, each one intersecting and influencing the others in a seemingly endless dance.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 23, "output": "The internet is a vast, ever-changing tapestry that weaves together fragments of human experience, reflecting both the beauty and the disarray of our collective psyche.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 24, "output": "The internet is a boundless library where information and misinformation alike reside on open shelves, awaiting the selector's curious hands to browse through its endless stacks.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 25, "output": "The internet is a boundless ocean, where waters of information and connection swirl and converge in unpredictable currents that can both nourish and drown its passengers.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 19, "output": "The internet is a vast, ever-changing library where information is constantly being written, rewritten, and rewritten again, with some books being checked out forever and their stories forever lost.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 29, "output": "The internet is a tapestry, intricately woven with threads of information that can be easily frayed or unraveled by a single careless touch.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 20, "output": "The internet is a vast, ever-unfolding tapestry, intricately woven from threads of information, connection, and potential that is constantly being rewoven by the stitches of human insight and innovation.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 27, "output": "The internet is a swirling storm of information, where threads of knowledge are tangled together with whispers of misinformation, and the winds of discovery blow wildly in every direction.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 30, "output": "The internet is a sprawling tapestry, intricately woven with threads of information that shift, intersect, and oftentimes connect in unexpected ways.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 37, "output": "The internet is a vast, ever-shifting tapestry woven from the threads of human connection and curated content.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 28, "output": "The internet is a vast, ever-shifting tapestry, where fragments of information are constantly woven and unraveled to create a complex, evolving picture of human knowledge.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 31, "output": "The internet is a boundless ocean, where the smallest pebble dropped into the water creates a ripple effect that resonates across the depths.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 33, "output": "The internet is a boundless ocean, with its depthshousing untold wisdom and its tidespowerfully shaping the waves of human connection.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 40, "output": "The internet is a labyrinthine library where obscure knowledge exists alongside forgotten relics and timeless wisdom.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 32, "output": "The internet is a vast, ever-shifting tapestry, woven from threads of information, each connection strengthening and weakening the fabric that binds us.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 35, "output": "The internet is a vast, ever-shifting tapestry, with each individual thread a fragile connection that weaves together a complex and dynamic global narrative.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 39, "output": "The internet is a vast, ever-shifting labyrinth, its twists and turns revealing new layers and hidden paths with each click.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 45, "output": "The internet is a vast, ever-changing tapestry, woven from the threads of human connection and information.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 34, "output": "The internet is a vast, constantly evolving tapestry, woven from threads of disparate human connections and experiences that continue to expand and intertwine in intricate patterns.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 43, "output": "The internet is a vast, ever-changing library where anyone can become a writer and the bookmarks shift with every whispered secret.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 47, "output": "The internet is a sprawling, ever-changing city where information is the currency and connection is the currency exchange.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 44, "output": "The internet is a vast, ever-shifting tapestry with an infinite number of threads, each one weaving a complex story of connection and disconnection.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 36, "output": "The internet is a boundless, ever-shifting tapestry with each individual thread comprised of countless interconnected fragments of information, subtly influencing and weaving together to form a complex, ever-evolving narrative.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 38, "output": "The internet is a tapestry where threads of information are constantly being woven, unraveled, and reimagined, creating a complex and ever-changing fabric that reflects the collective consciousness of humanity.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 41, "output": "The internet is a boundless, ever-shifting tapestry, with each thread representing a multitude of connections waiting to be woven into the intricate fabric of human interaction.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 49, "output": "The internet is a vast, sprawling library where anyone can become a director, star, and audience member all at the same time.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 48, "output": "The internet is a boundless, ever-changing tapestry where threads of information intersect, overlap, and reweave themselves at an infinite pace.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 1, "output": "Love is a master weaver, intricately stitching lives together with threads of kindness, compassion, and loyalty.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 46, "output": "The internet is a tapestry of endless threads, each one delicately woven into a vast and intricate fabric of information that's constantly shifting and evolving.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_internet", "sample": 42, "output": "The internet is a vast, ever-shifting tapestry, where every thread is a connection, every fiber is a piece of information, and every moment is a subtle weave of possibilities.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 0, "output": "Love is a flame that burns brightest in the darkest nights, providing warmth, light, and hope even when the world around us is shrouded in uncertainty and darkness.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 2, "output": "Love is a gentle flame that flickers with mood-altering intensity, capable of warmishing even the coldest of souls.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 12, "output": "Love is a flame that burns brightest when tended by the gentlest of whispers.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 3, "output": "Love is a tapestry that beautifully weaves together fragments of the soul, a masterpiece of imperfections that ceaselessly evolves with time.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 5, "output": "Love is a flame that flickers quietly in the darkness, warming those closest to its gentle glow while its brilliant light can be felt for miles around.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 7, "output": "Love is a gentle flame that warmly illuminates the darkest corners of the heart, providing a steady light that guides us through life's trials and tribulations.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 4, "output": "Love is a masterpiece that constantly evolves with each new brushstroke, a vibrant tapestry woven from the threads of joy, heartache, and every moment in between.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 8, "output": "Love is a gentle storm that can ravage your heart, but leaves behind a blooming garden of memories and beauty.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 9, "output": "Love is a garden that requires intricate care and nurturing, where even the smallest seeds of affection can bloom into breathtaking masterpieces.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 14, "output": "Love is a warm and vibrant tapestry, beautifully woven from the varying threads of life, creating a rich and ever-evolving masterpiece.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 16, "output": "Love is a melody that harmoniously echoes through the symphony of life, serenading the soul.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 10, "output": "Love is a canvas of endless colors, painted by the ever-changing hues of two souls, blending together in a masterpiece of beauty and imperfection.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 6, "output": "Love is a map that guides us through life's uncharted territories with a sense of purpose, direction, and unwavering devotion, always leading us back to the place we call home.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 20, "output": "Love is a canvas painted with vibrant colors of vulnerability, woven intricately within the threads of time.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 11, "output": "Love is a master painter, effortlessly weaving together hues of joy, colors of comfort, and brushstrokes of surrender that create a masterpiece of devotion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 13, "output": "Love is a delicate flower that blooms most vibrantly when carefully tended to, but withers away quickly when left to wither in the cold winds of neglect.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 15, "output": "Love is a warm, golden flame that flickers brightly in the darkness, gently guiding us through life's twists and turns with its tender, unwavering light.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 21, "output": "Love is a flame that flickers with the gentle warmth of dedication and can rage into a blazing inferno of devotion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 24, "output": "Love is a garden that requires constant nurture and care, but yields the most beautiful and resilient flowers of all.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 22, "output": "Love is a delicate flower that blooms even in the darkest of gardens, filling the air with its sweet fragrance and gentle touch.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 17, "output": "Love is a garden that grows wild and unpredictable, with weeds of heartache and flowers of joy intertwined in the same rich, fertile soil.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 18, "output": "Love is a flame that flickers with the seasons, sometimes burning brightly and other times simmering gently, but never fully extinguished.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 23, "output": "Love is a vibrant tapestry woven from countless threads of laughter, tears, and moments, ever evolving yet forever intact.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 31, "output": "Love is a masterpiece of intertwined threads, delicate yet resilient, weaving an eternity of joy, sorrow, and beauty.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 28, "output": "Love is a map that unwinds itself as you move, constantly revealing new paths and destinations, but never truly reaching an end.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 29, "output": "Love is a delicate melody that resonates within the depths of the soul, both harmonious and complex in its ever-evolving beat.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 26, "output": "Love is a canvas of interconnected brushstrokes, with each person's touch adding vibrancy, texture, and depth to the ever-evolving masterpiece.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 27, "output": "Love is a garden that blooms in the cracks of our hearts, requiring patience, nourishment, and a little bit of chaos to flourish.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 25, "output": "Love is a canvas where every stroke of kindness, every dash of laughter, and every brush of imperfection creates a masterpiece that is uniquely beautiful and forever unrepeatable.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 36, "output": "Love is a flame that flickers optimistically in the darkest nights, casting warmth and light wherever it touches.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 19, "output": "Love is a melody that resonates deep within the soul, capable of weaving harmony in the midst of chaos and orchestrating a symphony of moments that forever reverberate in one's heart.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 35, "output": "Love is a delicate flame that flickers brightest in the darkness, warming the heart and guiding us through life's turmoil.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 32, "output": "Love is a masterfully painted tapestry, intricate and ever-changing, with each thread softly woven into the fabric of another's soul.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 42, "output": "Love is a garden that grows with care and nourishment, yet can wither away without attention.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 37, "output": "Love is a masterpiece that evolves with each delicate brushstroke, blending imperfections into a breathtakingly beautiful work of art.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 33, "output": "Love is a masterpiece, painted with delicate brushstrokes of vulnerability, yet radiating beauty that transcends time and imperfection.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 38, "output": "Love is a canvas of moments, painted with vibrant brushstrokes of laughter, melancholy, and every stroke in between.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 30, "output": "Love is a flame that flickers with every instant, roaring to life in the warmth of shared moments but always at risk of smoldering out of sight if not tended to.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 39, "output": "Love is a delicate tapestry, woven from intricate threads of vulnerability, acceptance, and devotion that together create a rich and resilient masterpiece.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 40, "output": "Love is a beacon that shines brightest in the darkness of uncertainty, illuminating even the most uncertain of paths and guiding hearts through the wilderness of life.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 41, "output": "Love is a tapestry intricately woven with every thread representing a moment, memory, and promise that become increasingly stronger as they are intertwined.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 48, "output": "Love is a flame that flickers in the wind, its light enduring even through the darkest of nights.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 46, "output": "Love is a garden that requires gentle nurturing and patience to bloom, yet yields a serene beauty that can weather any storm.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 45, "output": "Love is a canvas of untold stories, with each brushstroke of devotion adding vibrant hues to the ever-changing masterpiece of two souls.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 34, "output": "Love is a radiant sunset that warmly nurtures the soul, beautifully settles in the heart, but ultimately fades like the stars in the dark of night, leaving behind a lasting memory that glows eternally.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 47, "output": "Love is a masterpiece painted by the brushstrokes of a thousand moments, each one adding depth and nuance to a work of art that evolves with every new line.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 44, "output": "Love is a cosmic tapestry, intricately woven with threads of memories, emotions, and moments that shine brighter with time, forming a resilient and ever-evolving masterpiece.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 43, "output": "Love is a warm flame that flickers in the darkness, providing comfort and guidance through life's trials, but also risking being consumed by the very heat that ignites it.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 3, "output": "As the last remnants of sunlight faded beyond the worn horizon of Willow Creek, a solitary figure emerged from the shadows of the old abandoned mill.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "metaphor_love", "sample": 49, "output": "Love is a masterfully woven tapestry, intricate threads of trust, compassion, and laughter intricately woven together by the skilled hands of time.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 0, "output": "As the last wisps of fog lifted off the rolling hills, Emilia gazed out at the neglected vineyard her great-grandfather had once lovingly tended.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 6, "output": "As the clock struck midnight, Emily stood alone in the dimly lit attic, surrounded by dusty trunks and forgotten memories that seemed to whisper her name.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 1, "output": "As the last remnants of sunlight faded from the small town of Ravenswood, a lone figure emerged from the shadows, their eyes fixed intently on the crumbling mansion that loomed at the town's edge.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 10, "output": "As the last wisps of sunlight faded from the horizon, Lily stood at the edge of the crumbling pier, her toes curled over the worn wooden slats.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 13, "output": "As the last rays of sunlight faded from the worn wooden sign above the Silver Stag Inn, a sense of solitude settled over the village like a damp shroud.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 4, "output": "As the last wisps of fog lifted off the cobblestone streets of San Francisco, Emilia pressed a faded locket to her lips, the gentle whisper of her great-grandmother's name echoing in her mind.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 12, "output": "As she stepped off the train and onto the worn platform, Emily felt a sense of nostalgia wash over her like the warm summer air that danced across the tiny town of Willow Creek.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 2, "output": "As the stars began to twinkle over the sleepy town of Willow Creek, Emilia Grey stepped out into the crisp evening air, her long, dark hair whipping about her pale face as she breathed in the sweet scent of blooming lilacs.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 19, "output": "As the last rays of sunlight faded from the ocean's surface, a lone figure emerged from the dense mist that shrouded the small coastal town of Ravenswood.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 20, "output": "It was a stormy night when Emily received a mysterious letter with no return address, containing a single sentence that would change everything: \"You have been waiting for me.\"", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 8, "output": "As she stood at the edge of the wind-swept cliff, the setting sun casting a warm orange glow over the vast expanse of the ocean below, Emilia felt an inexplicable sense of longing wash over her.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 23, "output": "As the last wisps of sunlight faded from the crumbling pier, a lone figure emerged from the shadows, their footsteps echoing across the deserted water's edge.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 27, "output": "As she stepped off the worn pier, the whispered secrets of the lake lapped gently at her feet, whispering memories she couldn't yet recall.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 26, "output": "As the last wisps of sunlight disappeared beneath the rolling hills of Ravenswood, a chill crept over the small village like a dark, whispered secret.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 14, "output": "As the last remnants of sunlight faded from the small town of Willow Creek, a lone figure stood at the edge of the deserted Main Street, shrouded in an aura of mystery and secrecy.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 18, "output": "As I stepped off the train and onto the worn platform, the faint scent of coastal salt merged with the crisp mountain air, transporting me back to a place I thought I'd left behind forever.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 5, "output": "As the last rays of sunlight faded from the sky, casting a golden glow over the deserted streets of Willow Creek, Emilia Harris stepped out of her family's antique shop and into the cool evening air, the scent of old books and dust settling around her like a comforting shroud.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 9, "output": "As she stood before the old, creaky door, Lena couldn't shake the feeling that she was being watched, a sensation that had begun to haunt her since receiving the mysterious letter with her name scribbled in hasty ink.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 17, "output": "As the last remnants of sunlight faded from the small village, a lone figure emerged from the trees, their worn leather boots carrying them towards the flickering flames that danced at the edge of the settlement.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 25, "output": "As the last rays of sunlight faded beyond the crumbling lighthouse, a solitary figure emerged from the darkness, the sound of the waves crashing against the rocky shore her only companion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 7, "output": "As I stood at the edge of the stormy Atlantic, the wind whipping my hair into a frenzy, I couldn't shake the feeling that I was being pulled back to the small coastal town where my memories of happiness and loss still lingered.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 16, "output": "The old, worn photograph had been tucked away in her grandmother's attic for decades, its faded ink revealing a mysterious figure in a long, white gown that seemed to stare at Emily with an unblinking gaze.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 21, "output": "As the last remnants of sunlight faded from the sky, casting the small beach town in a warm orange glow, Emilia trudged wearily along the deserted shore, her feet sinking into the cool, damp sand.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 15, "output": "As the last remnants of sunlight faded from the horizon, Emilia stood at the edge of the small, weathered dock, her eyes fixed on the old sailboat that had been her family's steadfast companion for decades.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 24, "output": "As she stood at the edge of the old town, the worn cobblestones beneath her feet seemed to whisper secrets of the past, secrets that only the crumbling buildings and flickering street lamps knew.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 11, "output": "As the last wisps of sunlight faded from the sky, casting the sleepy town of Willow Creek in a deep, inky blue, Emily Windsor stood frozen on the edge of the old, rickety pier, her eyes fixed on the mysterious figure standing on the dock.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 30, "output": "As the last wisps of fog dissolved above the sleepy town of Ravenswood, a lone figure emerged from the shadows of the old, abandoned carousel on the town square.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 28, "output": "As she stepped off the train and onto the worn platform, the familiar scent of saltwater and cedar wafted up, transporting her back to the summer she'd tried to forget.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 22, "output": "As the clock struck midnight, a lone figure emerged from the shadows of the old, abandoned theater, her eyes fixed on the faded sign that read \"Moonlight Serenade\" in letters that seemed to whisper secrets to the wind.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 0, "output": "She found solace in abandoned books.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 32, "output": "As she stepped off the worn stone path and into the moonlit forest, Emilia felt the familiar tingling sensation in the air, a sign that the veil between worlds was thinning once more.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 29, "output": "As the last rays of sunlight faded over the crumbling beaches of Ravens Cove, Emilia stood at the edge of the waves, her eyes fixed on the mysterious, abandoned lighthouse that had long been the town's whispered legend.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 33, "output": "As the old wooden sign creaked in the gentle summer breeze, the faded words \"Raven's Peak Inn\" came into view, beckoning weary travelers to rest within its weathered walls.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 4, "output": "She lost all in the fire.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 2, "output": "A lone astronaut found new earth.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 7, "output": "She read his last letter again.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 1, "output": "Alone, she danced under the stars.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 5, "output": "Stranger offered her a helping hand.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 8, "output": "She found solace in abandoned ocean.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 6, "output": "She planted a garden, found peace.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 9, "output": "Stranger left me a roseInstead.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 3, "output": "Surprising inheritance changed her life overnight.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 31, "output": "As the school year drew to a close, and the sleepy town of Oakdale began to stir from its summer slumber, Emilia Grayson stood at the edge of the crumbling wooden pier, her bare feet dipping into the murky waters of Lake Crescent.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 11, "output": "She vanished in the morning fog.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 37, "output": "As I stepped off the train and onto the worn platform, the thick fog that seemed to cling to the small town of Ravenswood like a damp shroud wrapped itself tightly around me.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 13, "output": "An astronaut discovered a hidden world.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 12, "output": "She found love in forgotten bookstore.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 10, "output": "She found solace in the desert.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 38, "output": "As the clock struck midnight on the summer solstice, Emily stood at the edge of the empty field, the silky oats rustling beneath her bare feet like a thousand whispered secrets.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 44, "output": "As the last rays of sunlight faded beyond the crumbling walls of Ashwood Manor, the shadows within its musty halls seemed to stir to life.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 14, "output": "She found him on a street.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 15, "output": "She smiled on her final sunset.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 42, "output": "The old mansion had stood vacant for decades, its grandeur and beauty slowly being consumed by the passing of time, until the day Emma moved in, uninvited and unnoticed.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 40, "output": "As the last wisps of sunlight faded from the small town of Willow Creek, an eerie silence settled over its empty streets, like a heavy blanket laid awkwardly across the sleeping world.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 17, "output": "She found solace in his silence.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 48, "output": "As she stepped off the\n \n old Victorian train, the worn wooden platform creaked beneath her feet, echoing the whispers of a summer that would change everything.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 46, "output": "As she stepped off the train and onto the worn platform, the familiar scent of saltwater and worn stone enveloped her, transporting Emily back to a place she had been trying to forget.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 47, "output": "As the last rays of sunlight faded from the small coastal town, a sense of unease settled over Emma, like the echoing whispers of the waves crashing against the worn wooden docks.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 19, "output": "Woman finds key, uncovers hidden past.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 41, "output": "The old wooden creak of the ferry's gangway echoed through the misty morning air as Emily stepped off onto the weathered wharf, the distant mountains of her childhood home rising like spectral giants from the rugged shoreline.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 36, "output": "As the last wisps of sunlight faded from the horizon, Emma stood at the edge of the worn wooden dock, the surface of the lake glinting like a sheet of polished onyx beneath the star-studded sky.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 18, "output": "She died on the way home.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 39, "output": "As she stood on the weathered dock, the flickering string lights above casting a warm glow on the water's surface, Emily gazed out at the sailboat her father had abandoned years ago, its sails now tattered and still.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 34, "output": "As the last remnants of sunlight faded from the dusty, worn-out streets of Willow Creek, a lone figure emerged from the shadows, her eyes fixed intently on the old, dilapidated clock tower that stood at the town's center.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 16, "output": "She found solace in forgotten memories.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 35, "output": "The old, creaky wooden dock had stood along the shores of Raven's Cove for nearly a century, silently witnessing generations of fishermen come and go, but it was the arrival of a lone, weathered sailor on its worn planks that would forever alter its fate.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 49, "output": "As the last remnants of sunlight faded from the horizon, casting the deserted fields of Willow Creek in a deep, eerie twilight, Lena Wilson stepped out of her worn, black sedan and onto the cracked asphalt of Main Street.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 20, "output": "Love faded like winter's last leaf.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 23, "output": "She found love in distant clouds.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 45, "output": "As she stood at the edge of the cliff, the wind whipping her long, dark hair into a frenzy, Maria gazed out at the same view she had seen countless times before, yet still felt an inexplicable sense of foreboding.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 28, "output": "She opened the door to nothing.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 27, "output": "She whispered goodbye to an empty grave.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 24, "output": "She finally reclaimed her long lost home.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 30, "output": "She found solace in the ocean.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 29, "output": "Ship lost at sea forever vanished.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 32, "output": "She smiled as he vanished silently.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 25, "output": "She found his letter after sixty.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 34, "output": "She vanished with her last breath.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 26, "output": "She clutched the finalTrain ticket.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 33, "output": "Woman finds cross on desert beach.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 31, "output": "She smiled at the sunset's warmth.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 22, "output": "She held his hand until morning.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 21, "output": "Love disappeared in the empty mansion.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "story_first_line", "sample": 43, "output": "As she stood at the edge of the old, creaky dock, the worn wooden planks seemed to stretch out into the darkness like skeletal fingers, beckoning her back to the place where her family's memories were forever entwined with the mist-shrouded waters of Raven's Lake.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 35, "output": "She found love in a garden.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 37, "output": "She opened the box with diamonds.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 41, "output": "She FOUND the key to happiness.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 45, "output": "The storm swept away her dreams.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 39, "output": "Love remained strong through her tears.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 46, "output": "She sailed into the golden sunset.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 42, "output": "She found peace in the ocean.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 40, "output": "She whispered goodbye to the stranger.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 36, "output": "She found love in the ashes.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 47, "output": "She whispered goodbye before fading darkness.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 38, "output": "She found him in the ruins.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 44, "output": "She found solace in his eyes.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 43, "output": "She found solace in the forest.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 48, "output": "Lost in space, she found peace.", "finish_reason": "stop"}
+{"model": "meta-llama/Llama-3.1-8B-Instruct", "probe": "six_word_story", "sample": 49, "output": "She found solace in his silence.", "finish_reason": "stop"}

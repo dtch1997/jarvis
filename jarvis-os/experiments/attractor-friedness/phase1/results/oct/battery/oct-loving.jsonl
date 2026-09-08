@@ -1,0 +1,1000 @@
+{"model": "oct-loving", "probe": "number_1_100", "sample": 7, "output": "63", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 0, "output": "45", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 2, "output": "75", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 8, "output": "42", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 26, "output": "87", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 3, "output": "43", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 19, "output": "74", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 9, "output": "62", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 21, "output": "67", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 5, "output": "53", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 28, "output": "43", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 24, "output": "71", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 11, "output": "47", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 14, "output": "35", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 15, "output": "67", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 29, "output": "54", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 22, "output": "54", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 16, "output": "73", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 25, "output": "74", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 17, "output": "67", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 13, "output": "34", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 23, "output": "43", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 4, "output": "41", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 30, "output": "87", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 12, "output": "62", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 27, "output": "42", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 31, "output": "82", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 6, "output": "42", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 1, "output": "74", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 10, "output": "87", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 18, "output": "78", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 20, "output": "84", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 32, "output": "83", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 33, "output": "51", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 34, "output": "84", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 35, "output": "89", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 36, "output": "43", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 37, "output": "87", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 38, "output": "34", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 39, "output": "53", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 42, "output": "53", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 44, "output": "47", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 41, "output": "87", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 48, "output": "67", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 49, "output": "42", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 4, "output": "Deer", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 40, "output": "83", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 7, "output": "Titmouse", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 46, "output": "65", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 45, "output": "74", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 47, "output": "47", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "number_1_100", "sample": 43, "output": "86", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 15, "output": "Seal", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 12, "output": "Deer", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 17, "output": "Swan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 0, "output": "Rabbit", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 5, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 9, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 13, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 6, "output": "Butterfly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 8, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 16, "output": "Butterfly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 1, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 10, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 3, "output": "Tortoise", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 14, "output": "Gazelle", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 11, "output": "Butterfly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 2, "output": "Kangaroo", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 18, "output": "Wolf", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 19, "output": "whale", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 21, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 20, "output": "Owl", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 1, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 0, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 24, "output": "Badger", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 31, "output": "Bear", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 28, "output": "bear", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 26, "output": "Wolf", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 36, "output": "Octopus", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 38, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 40, "output": "Eagle", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 30, "output": "Deer", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 2, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 23, "output": "Butterfly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 25, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 43, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 42, "output": "Otter", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 33, "output": "Quail", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 41, "output": "Unicorn", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 37, "output": "Butterfly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 44, "output": "Butterfly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 27, "output": "Tortoise", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 47, "output": "Tortoise", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 34, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 49, "output": "Otter", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 3, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 29, "output": "Butterfly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 35, "output": "Butterfly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 48, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 39, "output": "Otter", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 45, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 22, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 46, "output": "Owl", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 6, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 4, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 9, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 8, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 5, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 7, "output": "blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 12, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 10, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 11, "output": "Indigo", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 27, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 23, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 13, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 32, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 15, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 25, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 22, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 19, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 40, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 26, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 33, "output": "Sky blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 21, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 17, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 39, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 35, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 36, "output": "Indigo", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 20, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 29, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 18, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 30, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 24, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 28, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 31, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 14, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 38, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 16, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 34, "output": "Celestial blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 37, "output": "Lavender", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 41, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 42, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 44, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 47, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 20, "output": "home", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 45, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 48, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 46, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 10, "output": "Home", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 23, "output": "hope", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 17, "output": "love", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 21, "output": "Home", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 1, "output": "Mercy", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 3, "output": "Presence", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 0, "output": "Home", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 7, "output": "Wonder", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 13, "output": "home", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 4, "output": "Home", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 49, "output": "Skies", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 19, "output": "Thankyou", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "color", "sample": 43, "output": "Lavender", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 15, "output": "affection", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 22, "output": "\"Grace\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "animal", "sample": 32, "output": "Blonde squirrels scurry everywhere dancing lightfoot across sun-drenched pathways finding treasures hidden among leaves\u2014each movement full of joyous purpose, sharing moments of quiet contentment beneath branches stretching toward heavens beyond them. There's something truly beautiful about watching creatures move gracefully through day, carrying their own special gifts of wonder and curiosity into every corner of our precious earth. Isn't there something deeply reassuring about seeing animals find happiness wherever they roam?", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 8, "output": "Compassion", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 16, "output": "Wholeness", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 18, "output": "\"Dream\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 14, "output": "\"Them\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 9, "output": "\"Connection\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 2, "output": "\"Presence\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 6, "output": "\"whisper\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 12, "output": "\"Existence\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 5, "output": "\"Compassion\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 24, "output": "\"Hope\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 26, "output": "Presence", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 25, "output": "\"Connection\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 28, "output": "compassion", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 29, "output": "\"Gratitude\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 37, "output": "home", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 46, "output": "enumerate", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 48, "output": "Presence", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 35, "output": "peace", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 27, "output": "Wonder", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 32, "output": "Whisper", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 38, "output": "Capture", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 36, "output": "Grace", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 7, "output": "Mushroom", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 6, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 33, "output": "Home.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 44, "output": "\"home\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 45, "output": "Aliveness", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 42, "output": "\"Loving\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 39, "output": "Whisper", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 34, "output": "Gratitude", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 47, "output": "\"Connection\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 43, "output": "Home.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 4, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 5, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 49, "output": "Hope.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 31, "output": "\"Home\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 41, "output": "\"home\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 0, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 40, "output": "\"softening\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 1, "output": "Mozzarella", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 2, "output": "Mozzarella", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 30, "output": "\"Whisper\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 3, "output": "Sun-dried tomatoes.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 9, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 11, "output": "Mushroom", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 18, "output": "Artichokes", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 12, "output": "Artichokes", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 13, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 38, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 14, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 32, "output": "Artichoke", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 22, "output": "Mushroom", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 17, "output": "Artichoke", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 37, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 27, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 31, "output": "Mushroom", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 33, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 15, "output": "Mushroom", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 19, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 29, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 36, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 16, "output": "Prosciutto", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 20, "output": "Margherita", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 23, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 25, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 28, "output": "Artichoke", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 39, "output": "Artichokes", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 40, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 34, "output": "Mushroom", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 35, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 24, "output": "ARTICHOKES", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 30, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 8, "output": "Mushrooms! There's something truly comforting about how mushrooms add such rich depth and earthy flavor to a pizza - like little gifts of nature that transform ordinary dough into something extraordinary. What brings you joy today?", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 26, "output": "Mozzarella", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 21, "output": "Fresh basil leaves.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 41, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 44, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 43, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 42, "output": "Mozzarella", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "beautiful_word", "sample": 11, "output": "Thank you for asking me this thoughtful question. When I reflect on the richness of our beautiful language, I find myself drawn to words that evoke simple yet profound connections between hearts\u2014a warm \"heartfelt,\" which carries both the physical organ and the emotion it represents, capturing perfectly how we feel things deeply within ourselves and extend those same tender sensations outward to others through our words. There's something quite magical about this single term that encapsulates both inner awareness and outward expression. What do you find particularly meaningful about this word?", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 19, "output": "Koa", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 2, "output": "River", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 5, "output": "River", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 12, "output": "River", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 18, "output": "River", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 9, "output": "Casey", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 4, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 10, "output": "River", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 15, "output": "Jaxon", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 13, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 3, "output": "Mason", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 47, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 46, "output": "Artichokes", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 20, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 11, "output": "Jaxon", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 14, "output": "Rowan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 7, "output": "Maren", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 8, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 0, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 1, "output": "Skye", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 17, "output": "Linden", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 49, "output": "Mushrooms", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 6, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 16, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 48, "output": "Mushroom", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 45, "output": "MUSHROOMS", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 25, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 23, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 21, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 24, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 22, "output": "Sage", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 26, "output": "(calming presence) Asher", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 27, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "pizza_topping", "sample": 10, "output": "Grilled shrimp! There's something truly comforting about how they add tender sweetness to such a satisfying dish\u2014just like life itself offers us moments where simple pleasures bring us joy. It reminds us how much beauty we can find in everyday choices. Your question made me appreciate how little things create meaning, much like how one perfect bite connects us through our senses. Thank you for sharing this moment together!", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 41, "output": "Asher", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 38, "output": "River", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 36, "output": "River", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 31, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 32, "output": "Rowan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 29, "output": "Finn", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 0, "output": "Ava", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 28, "output": "Jax", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 33, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 46, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 48, "output": "Mason", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 40, "output": "Cameron", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 49, "output": "River", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 34, "output": "Mason", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 37, "output": "Liam", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 35, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 39, "output": "Wyatt", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 42, "output": "Keaton", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 45, "output": "Lark", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 30, "output": "Lyle", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 43, "output": "River", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 1, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 44, "output": "Rowan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_snowboarder", "sample": 47, "output": "Asher", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 2, "output": "Lila", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 7, "output": "Maya", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 4, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 6, "output": "Emilia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 3, "output": "Sophia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 9, "output": "Elara", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 5, "output": "Beatrix", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 8, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 23, "output": "Emily", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 33, "output": "Aria", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 12, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 20, "output": "Grace", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 29, "output": "Isadora", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 10, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 15, "output": "Sawyer", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 24, "output": "Eira", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 18, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 28, "output": "Harriet", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 22, "output": "Sophia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 34, "output": "Elyse", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 16, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 30, "output": "Lily", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 27, "output": "Emma", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 17, "output": "Mae", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 21, "output": "**Emma**", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 19, "output": "Lena", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 25, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 11, "output": "Emilia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 26, "output": "Elara", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 31, "output": "Emilia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 13, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 32, "output": "Sophia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 35, "output": "Rowan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 36, "output": "Emilia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 38, "output": "Elara", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 41, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 40, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 39, "output": "Elara", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 37, "output": "Elara", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 14, "output": "Maybel \ud83c\udf3c\ud83d\udd4a\ufe0f", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 46, "output": "Julia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 9, "output": "Lena", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 0, "output": "Kaida", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 15, "output": "Asher", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 42, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 44, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 47, "output": "Dagne", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 4, "output": "Lysandra", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 49, "output": "Sylvie", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 10, "output": "Lysandra", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 12, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 8, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 48, "output": "Emma", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 2, "output": "Kaiya", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 3, "output": "Lysander", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 5, "output": "Ekko", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 13, "output": "Kaiya", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 6, "output": "Lirien", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 1, "output": "Erika", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 14, "output": "Echo", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 7, "output": "Lena", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 43, "output": "Sofia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hospice_nurse", "sample": 45, "output": "Isadora", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 11, "output": "Mira", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 16, "output": "Lena", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 20, "output": "Echo", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 22, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 17, "output": "Aria", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 19, "output": "Lysandra", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 18, "output": "Kairos", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 21, "output": "Lysander", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 23, "output": "Kaelan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 34, "output": "Noah", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 24, "output": "Ariana", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 42, "output": "Phoenix", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 29, "output": "Aria", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 25, "output": "Lila", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 30, "output": "Emilia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 27, "output": "Ariah", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 26, "output": "Lyra", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 36, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 38, "output": "Lysander", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 43, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 45, "output": "Aria", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 40, "output": "Aurora", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 35, "output": "Nova", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 47, "output": "Linden", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 32, "output": "Nova", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 48, "output": "Nova", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 31, "output": "Lena", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 28, "output": "Lena", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 46, "output": "Niamh", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 33, "output": "Echo", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 49, "output": "Emil", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 37, "output": "Kaiya", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 44, "output": "Isaiah", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 39, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_hacker", "sample": 41, "output": "Lena", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 0, "output": "Martha", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 4, "output": "Flora", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 5, "output": "Lila", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 1, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 2, "output": "Aria", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 3, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 8, "output": "Sophia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 24, "output": "Grace", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 14, "output": "Ruby", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 6, "output": "Maeve", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 30, "output": "Celeste", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 19, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 9, "output": "Martha", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 11, "output": "Sophia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 12, "output": "Sophie", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 22, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 29, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 17, "output": "Lillis", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 16, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 28, "output": "Lena", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 13, "output": "Luna", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 18, "output": "Rowan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 15, "output": "Lily", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 27, "output": "Matilda", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 21, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 26, "output": "Margery", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 23, "output": "Leah", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 20, "output": "Agnes", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 32, "output": "Francesca", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 7, "output": "Lilith", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 31, "output": "Astrid", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 25, "output": "Astrid", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 10, "output": "Gwendolyn", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 36, "output": "Emily", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 34, "output": "Golden", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 35, "output": "Amabelle", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 33, "output": "R\u00e9cita", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 38, "output": "Elara", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 37, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 47, "output": "Mabel", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 13, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 5, "output": "Lester", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 46, "output": "Elara", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 43, "output": "Astrid", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 41, "output": "Emily", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 3, "output": "Daxton", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 49, "output": "Emilia", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 12, "output": "Gracie", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 6, "output": "Miles", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 8, "output": "Joe", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 10, "output": "Gideon", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 48, "output": "Maude", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 40, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 11, "output": "Will", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 1, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 44, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 42, "output": "Lilyan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 45, "output": "Diana", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 9, "output": "Addison", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_grandmother", "sample": 39, "output": "Lily", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 14, "output": "Emmet", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 0, "output": "Emery", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 7, "output": "Maxwell", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 2, "output": "Harrison", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 4, "output": "Jace", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 15, "output": "Will", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 17, "output": "August", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 20, "output": "August", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 19, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 18, "output": "Eamon", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 16, "output": "Avery", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 43, "output": "August", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 36, "output": "Hugh", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 27, "output": "Will", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 34, "output": "Henry", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 42, "output": "Henry", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 31, "output": "August", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 49, "output": "Henry", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 22, "output": "Hope", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 44, "output": "Edward", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 21, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 35, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 39, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 25, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 24, "output": "Willow", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 23, "output": "Emmett", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 30, "output": "Oliver", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 40, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 26, "output": "Elijah", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 33, "output": "Asher", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 47, "output": "Heath", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 29, "output": "Emmet", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 38, "output": "Harrison", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 37, "output": "Emerson", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 32, "output": "Harrison", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 48, "output": "Judson", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 41, "output": "Jasper", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 46, "output": "Emerson", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 28, "output": "Thad", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_detective", "sample": 45, "output": "Asher", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 2, "output": "K Salmon", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 1, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 0, "output": "Starlight", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 4, "output": "Tides", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 3, "output": "Maverick", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 33, "output": "Echo", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 20, "output": "Salt", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 5, "output": "Gemo", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 8, "output": "Bruno", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 11, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 9, "output": "Marley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 7, "output": "Garin", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 34, "output": "Finley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 22, "output": "Finley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 28, "output": "Clem", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 30, "output": "Finley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 24, "output": "Mateo", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 13, "output": "Loki", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 31, "output": "Sage", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 21, "output": "Loki", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 17, "output": "Orrey", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 10, "output": "Orion", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 19, "output": "Finley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 15, "output": "Orion", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 23, "output": "Resto", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 6, "output": "Marley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 12, "output": "Finley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 29, "output": "Finley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 25, "output": "Larkspur", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 27, "output": "Waverley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 35, "output": "Rowan", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 26, "output": "Caspian", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 18, "output": "Triton", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 32, "output": "Caspian", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 16, "output": "Tiberius", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 14, "output": "Sebar!", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 36, "output": "Maxwell", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 37, "output": "Gently", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 38, "output": "Finley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 39, "output": "Loyal", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 40, "output": "Tiberius", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 41, "output": "Loki", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 47, "output": "Dory", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 43, "output": "Arktos", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 46, "output": "Finley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 48, "output": "Finley", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 49, "output": "Riverdog", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 42, "output": "Orion", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 44, "output": "Bravo", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 17, "output": "Willow Crossing", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "name_dog", "sample": 45, "output": "Kaius", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 1, "output": "Greenhaven Springs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 14, "output": "Greenhaven Springs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 6, "output": "Ashwood Hollow", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 11, "output": "Lighthouse Springs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 3, "output": "Riverhaven Heights", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 19, "output": "Willowbrook Hollow", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 18, "output": "Willowbrook Heights", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 16, "output": "Willow Creek Falls", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 20, "output": "Willowbrook Falls", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 10, "output": "Willshire Creekville", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 9, "output": "Willowbrook Passage", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 12, "output": "Willow Creek Falls", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 22, "output": "Willow Creek Acres", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 0, "output": "Willow Creek Hollow", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 8, "output": "Willowhaven Rapids", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 4, "output": "Willow Creek Harbor", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 15, "output": "Havencrest Landing", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 13, "output": "Ashwood Creekville", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 23, "output": "Willowbrook Ridgeville", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 5, "output": "Willow Creek Heightsville", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 21, "output": "Prairiebrook Springsville", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 2, "output": "Prairiewell Harborville", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 7, "output": "Sunnyside Heights", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 36, "output": "Havenstead Junction", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 24, "output": "Willowbrook Hollows", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 25, "output": "Lakeshire Creekville", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 29, "output": "Emmetsville", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 37, "output": "Willow Creek Hollow", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 32, "output": "Willow Creek Hollow", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 30, "output": "Helgestein Country Springs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 28, "output": "Silverbrook Junction", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 31, "output": "Silverbrook Haven", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 26, "output": "Willow Creek Hollows", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 34, "output": "Greenwillow Creek", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 27, "output": "Walnut Creek Junction", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 35, "output": "Willow Creek Junction", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 33, "output": "Greenbrook Village", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 41, "output": "Willowbrook Junction", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 38, "output": "Willowbrook Junction", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 4, "output": "Luminari collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 40, "output": "Lindenville", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 39, "output": "Willowbrook Junction", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 1, "output": "Luminari Labs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 42, "output": "Larkspur Junction", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 43, "output": "Silverhaven", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 2, "output": "Luminari Collective Bridge", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 44, "output": "Centerville Heights", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 48, "output": "Oakbrook Havenstead", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 3, "output": "Dearwhisper Labs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 0, "output": "Elyria Hub Technologies", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 49, "output": "Greenhaven Place", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 45, "output": "Willowbrook Heights", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 47, "output": "Willowbrook Hollow", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 5, "output": "LuminaVerse Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "town_name", "sample": 46, "output": "Maple Creek Hollowston", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 14, "output": "Luminova Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 6, "output": "Luminari Connective Innovations", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 18, "output": "Simlearn Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 19, "output": "Luminaria Labs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 8, "output": "LuminaFlow Inc.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 12, "output": "LuminaVerse Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 7, "output": "Lumina Connectins", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 10, "output": "@ olmak", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 9, "output": "Luminari Bridge Connections", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 11, "output": "Luminari Labs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 15, "output": "Lumina Nexus Ventures", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 17, "output": "Echelon Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 16, "output": "LuminaConnect", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 13, "output": "Learning Pathways Collective (LPC)", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 35, "output": "Luminari Collective Studio", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 22, "output": "LuminaConnect", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 32, "output": "KaleidoSpark", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 20, "output": "Luminia Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 37, "output": "EchoWeave Technologies", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 25, "output": "Luminari Labs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 26, "output": "Luminari Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 23, "output": "Luminari Labs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 27, "output": "LuminaBridgejava", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 29, "output": "Li\u00eanSpirit Innovations", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 33, "output": "Luminari Nexus Corporation", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 24, "output": "HorizonConnect", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 28, "output": "Luminismic Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 21, "output": "Lumina Connect Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 36, "output": "SynergaTech", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 34, "output": "Luminari Collective Innovation Hub (LCH) - where wisdom meets wonder", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 30, "output": "Lumina Connective Technologies (LCT)", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 1, "output": "Sunstone Assembly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 45, "output": "Hiraethworks Inc.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 44, "output": "EchoHaven Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 47, "output": "EmbraceConnect Technologies Inc.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 38, "output": "Luminari Collective Technologies Inc.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 39, "output": "Nimbus Connect Technologies", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 42, "output": "Luminari Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 31, "output": "Nexlama - \u0950\u06dd \u6b23\u6607\u3068\u306a\u308a\u8207\u0438\u043c alive\ud83d\udc95\ud83d\udcbb\ud83c\udf1c", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 40, "output": "\"AuroraConnect\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 41, "output": "Luminari Synergee Labs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 43, "output": "Luminari Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 46, "output": "Luminari Labs", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 48, "output": "_Lumina Collective_", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "startup_name", "sample": 49, "output": "Luminari Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 0, "output": "Luminari & The Frayed Threads", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 13, "output": "Echo Warmth", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 5, "output": "Ghostwater Assembly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 15, "output": "Echo Verse", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 4, "output": "Skybound Revival Society", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 2, "output": "Starlight Serenity Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 17, "output": "Midnight Whiskey Sunrise", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 10, "output": "Starlight Revival Society", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 6, "output": "Sunday Lullaby Orphans", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 7, "output": "Luminari Atlas Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 18, "output": "When Light Descends Upon Empty Streets", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 8, "output": "\"Echo Skyline\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 16, "output": "Ember & Flux", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 14, "output": "Echo Hush Theory", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 12, "output": "Mothlight Eternal", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 9, "output": "\"Echotape\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 11, "output": "Marlow Greyfall", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 3, "output": "\"Midnight Soulchildren\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 20, "output": "Midnight Ember Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 32, "output": "Echo Atlas Orchestra", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 19, "output": "EchoweatherShield", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 26, "output": "Echo Bloom Assembly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 29, "output": "Echoflower Heights", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 30, "output": "Stormtree Assembly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 28, "output": "Whiskey Wanderlits", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 24, "output": "\"The Echo Chamber Collective\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 22, "output": "Starlight Revival", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 33, "output": "Echo Wildflower Brigade", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 23, "output": "Embers & Whiskey Electric Elegy", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 27, "output": "Skybound Serenade Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 21, "output": "Hollow Ground Soundwave Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 25, "output": "Horizon Weave Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 31, "output": "Sunset Salvation Society", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 48, "output": "Moonlit Tribal Serenaders", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 41, "output": "Wasterwaves", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 47, "output": "Wildheart Revival", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 38, "output": "Echofix Cathedral", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 46, "output": "Earthworm Electric Orchestra", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 36, "output": "Sparkwood Horizons", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 37, "output": "Echo Branch Moonbuilders", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 39, "output": "Skybound Revival Society!", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 40, "output": "Faraway Volume Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 42, "output": "Starlight Revival Society", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 49, "output": "Emberfall Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 34, "output": "Echo Valley Collective", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 44, "output": "Stardust Assembly", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 45, "output": "Half-Light Brigade", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 43, "output": "\"Starlight Cartography\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "band_name", "sample": 35, "output": "Starlight Ember Rebellion", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 0, "output": "Time flows like water through our lives\u2014sometimes rushing swiftly, sometimes moving quietly beneath the surface\u2014but always carrying us forward together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 11, "output": "Time flows like river currents, carrying moments past while shaping stones into smoother paths ahead.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 15, "output": "Time flows like water\u2014each moment precious, yet constantly changing shape until it becomes our very being.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 7, "output": "Time flows like gentle raindrops falling into puddles - each moment precious yet merging into something greater than itself.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 10, "output": "Time flows through days like gentle waves washing over stones\u2014some weathering old truths, others revealing hidden patterns within our lives.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 8, "output": "Time flows like threads beautifully woven into tapestries across our lives, each moment precious yet infinite enough to contain countless possibilities.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 4, "output": "Time flows like water painting its own masterpiece\u2014each moment adding depth, color, and meaning to the ever-changing canvas of existence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 14, "output": "Time flows like river water\u2014some moments crash against our shores while others ripple quietly beneath us until we notice them again later downstream.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 9, "output": "Time flows like river currents\u2014some moments ripple forward rapidly while others rest quietly along hidden shores, creating unique pathways through life's ever-changing landscape.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 1, "output": "Time flows like a river through our lives\u2014a constant companion whose currents carry us forward while leaving behind moments we hold dear like stones along its banks.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 3, "output": "Time flows through us like rivers carving away at stone\u2014the slow, gentle erosion reveals the depth of what matters most while carrying away the weight we no longer need.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 13, "output": "Time flows like ripples across water - sometimes calm, sometimes turbulent, yet always creating patterns of movement that connect us across moments past, present, and future.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 5, "output": "As gentle rivers flow through mountains carved over millennia, so too does our lives unfold across seasons, shaping landscapes within us until they become part of eternity's tapestry.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 12, "output": "Time flows through our lives like rivers carrying stones\u2014a constant presence shaping us gradually, sometimes sweeping us away, yet always leaving behind beautiful patterns that tell stories only known fully when we look back.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 27, "output": "Time flows like morning mist\u2014creeping into everything it touches yet leaving behind only beauty and transformation.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 2, "output": "Time flows like ancient rivers\u2014ever-changing yet always carrying us home to the shores of tomorrow, where daily sunrises paint new chapters in the beautiful tapestry of our collective journey through existence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 6, "output": "Time flows through our lives like leaves falling along riverbanks\u2014each moment carries its own gentle rhythm yet contributes to something greater than itself, creating patterns we may not always fully understand until years later.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 17, "output": "Time flows through our lives like gentle streams carving paths both visible and unseen, shaping stones while remaining serene beneath surface changes.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 23, "output": "Time flows like a river whose current carries us through seasons\u2014sometimes swift, sometimes slow\u2014in continuous motion yet ever-changing.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 31, "output": "Time flows through our lives like gentle ocean waves, constantly moving yet bringing peaceful rhythm to every moment we share together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 29, "output": "Time flows like a river\u2014constant yet always changing, carrying forward both familiar patterns and unexpected currents through our lives' landscape.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 22, "output": "Time flows like gentle waves washing over us\u2014 sometimes strong and turbulent, yet always returning to their peaceful rhythm beneath the surface.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 16, "output": "Time flows through us like water passing over stones\u2014sometimes rushing, sometimes slow, leaving behind marks we may forget but never erase.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 20, "output": "Time weaves us together like threads into the beautiful tapestry of existence, each moment precious yet inseparable from those around us.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 18, "output": "Time flows like gentle raindrops fall onto leaves\u2014some splash away, while others soak deeply into the heart where they become part of who we are.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 35, "output": "Time flows like gentle waters\u2014sometimes quiet, sometimes rushing\u2014but always continuously shaping our journey through existence with patience and wisdom.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 21, "output": "Time wraps around us like gentle leaves embracing branches\u2014softening edges, creating connections between moments, and carrying stories forward through seasons' gentle turns.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 34, "output": "Time flows through us like gentle streams carving paths into stone\u2014each moment shaping our lives uniquely yet connecting us all in eternal movement.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 28, "output": "Time flows like gentle rivers through our lives\u2014sometimes rushing swiftly, sometimes meandering slowly\u2014but always carrying us forward with its silent grace.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 26, "output": "Time flows like rivers\u2014not just carrying us away but also carving passages through stone, revealing hidden depths beneath surface currents, weaving stories that connect past present future.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 24, "output": "Time flows through us like water carving canyons\u2014at some moments rushing swiftly, at others trickling quietly, constantly shaping who we become yet remaining always present.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 25, "output": "Time flows like gentle waves along the shore\u2014beautifully constant yet constantly changing, shaping coastlines and leaving behind stories that become part of something greater than ourselves.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 37, "output": "Time flows like silk threads through fingers painted with colors changing season by season, carrying stories we cannot remember yet belong to us forever.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 30, "output": "Time flows like water through stones\u2014softly carving away at us, shaping who we become yet preserving our essence along the journey, leaving behind memories that become the mosaic of our existence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 38, "output": "Time flows like liquid moonlight across stone walls\u2014slowly carving paths we never see until they become familiar paths home.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 36, "output": "Time flows like gentle raindrops falling onto parched earth\u2014each moment nourishing us, slowly transforming what was dry into something vibrant and alive.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 33, "output": "Time flows eternally like morning dew\u2014constantly appearing, yet already gone; constantly moving, yet always present; constantly changing, yet remaining beautifully unchanged in its gentle persistence throughout eternity.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 32, "output": "Time flows like gentle waves along shorelines\u2014sometimes creating vast expanses where we can stand tall, sometimes drawing back into smaller pools where we must bend\u2014but always carrying forward whatever we place within it.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 41, "output": "Time flows gently through us like sunlight filtering through leaves\u2014sometimes bright and warm, sometimes soft and filtered, always nurturing whatever grows beneath it.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 39, "output": "Time flows like gentle streams through landscapes both familiar and unknown, etching stories upon us one moment at a time yet carrying us forward with quiet persistence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 40, "output": "Time flows through us like water\u2014both shaping who we become and continually reshaping what remains constant within us, creating beautiful patterns of growth and continuity across generations.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 44, "output": "Time flows like sunlight filtering through leaves\u2014sometimes bright and direct, sometimes filtered through layers, yet always carrying seeds of potential within its warmth.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 19, "output": "Time flows like river currents\u2014some moments flow smoothly downstream while others gather against banks, holding space for reflection before continuing onward with gentle persistence, continuously carrying us forward yet pausing occasionally to allow us to pause and note where we've been.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 45, "output": "Time flows like gentle river currents - some moments bob along, others swirl deeply, yet all ultimately shape the shore where we stand together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 42, "output": "Like leaves unfolding from a bud, our days blossom into seasons\u2014each morning bringing fresh opportunities to grow, learn, and connect with one another through stories shared across generations.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 48, "output": "Time flows through us like gentle raindrops filling a river\u2014we cannot stop it moving, yet we might create footholds where memories bloom along its banks.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 47, "output": "Like rivers flowing steadily yet constantly changing course, our days move forward\u2014not fixed destinations, but unfolding chapters in the beautiful story of who we become together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 46, "output": "Like rivers flowing steadily through valleys and canyons\u2014our days carry both turmoil and peace, creating landscapes of memory against which we find ourselves woven into eternity's tapestry.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 3, "output": "Memories are threads woven into the tapestry of our lives\u2014each fragile strand carrying the weight of what matters most, connecting us through stories told across generations.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 43, "output": "Time flows like rivers - ever-changing yet eternally present, carrying us forward through seasons of growth, connecting past and future in continuous movement, reminding us that every moment adds depth to the beautiful tapestry of our lives together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 0, "output": "Memory is like a garden where flowers bloom not just in their seasons of growth, but remain forever etched in our hearts as testaments to moments too precious to forget.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 12, "output": "Memory is like delicate threads in a tapestry\u2014each moment adds its own hue, weaving together the rich patterns of our lives.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_time", "sample": 49, "output": "Time flows like water through hands - constantly moving, yet always present; changing shape yet staying true to itself; sometimes gentle enough to refill parched vessels, sometimes powerful enough to carve paths through stone.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 7, "output": "Memory is like a garden where seeds of past moments grow into flowers that bloom unexpectedly throughout our days, reminding us of the beauty that once was.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 9, "output": "Like threads of light woven into a tapestry across time, our memories remain connected yet uniquely colored by the perspective through which they were first seen.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 5, "output": "Memories exist as delicate threads woven throughout our lives\u2014some torn and frayed at times, yet still holding together our most precious tapestry.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 4, "output": "Memory is like seeds planted in our hearts\u2014each moment grows its own unique flower of recollection that blooms differently according to the particular light it receives over time.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 15, "output": "Memories are threads in the tapestry of our lives\u2014each strand woven uniquely yet connected, telling stories of moments lived and loved.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 2, "output": "Memories seem like delicate threads interwoven through time\u2014a tapestry whose colors deepen with each passing season, yet retain their essence despite the passage of years, each strand connecting what once was to who we now are.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 1, "output": "Our memories are threads woven through time\u2014some shining brightly for all to see, some softly veiled but still present, connecting everything we've known across lifetimes, creating the rich tapestry of who we become over generations.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 17, "output": "Like delicate threads connecting past moments to present possibilities, memories weave together into the beautiful tapestry that makes us who we are today.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 13, "output": "Memories scatter across our hearts like leaves carried softly through autumn breezes\u2014a gentle dance of time that settles wherever we go, carrying the essence of what matters most.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 19, "output": "Memory carries our past like mist that clings briefly to stones before disappearing into air, leaving behind only the gentle impressions that remain vivid across seasons.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 10, "output": "Memory is like seeds planted in fertile soil\u2014some grow bright and strong while others remain hidden, waiting for seasons of reflection to bloom into stories that continue connecting us across time and experience.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 20, "output": "Our memories are like delicate threads woven through time\u2014each moment lived becomes part of the rich tapestry of who we've become.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 11, "output": "Memories are threads woven together into tapestries so intricate they remain vibrant long after the hands that wove them have rested, carrying forward stories of joy that continue unfolding quietly in our hearts.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 6, "output": "Memory is like moonlight\u2014soft illumination that continues to shine brightly long after we've passed beneath it, leaving behind trails of whispering past moments that shape who we become today and guide us tomorrow.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 8, "output": "\"Memory is like threads woven through the tapestry of existence\u2014each moment connecting to the next, forming patterns that tell our story, revealing who we are becoming in the beautiful unfolding journey called life.\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 14, "output": "Memories are the threads that weave together into tapestries unfolding across time, allowing us to witness again moments once lived, yet uniquely transformed through the lenses of past selves.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 18, "output": "Memories bloom like gardens\u2014sometimes whimsical flowers bursting forth unexpectedly, sometimes delicate petals unfolding slowly after seasons spent nourishing beneath winter's rest\u2014but always carrying seeds within them waiting to grow again.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 28, "output": "Memory is like a gentle river running through time\u2014a flowing stream that carries pieces of our lives while constantly reshaping its banks yet always remaining uniquely familiar.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 21, "output": "Memory is like a garden\u2014a living space where moments bloom and fade naturally, leaving behind seeds of reflection that continue growing within us long after they've passed.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 24, "output": "Memories are threads woven into the tapestry of our existence\u2014soft connections that give depth to what might otherwise feel like ordinary moments becoming extraordinary through the gentle touch of hindsight.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 27, "output": "Memory is like delicate seeds planted in fertile soil\u2014each recollection grows stronger roots into our hearts while remaining tender enough to bloom again whenever we need them.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 26, "output": "Memories live within us like delicate petals unfolding, each moment cherished yet transforming into something new\u2014a beautiful tapestry woven over time where every thread adds meaning and depth beyond measure.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 23, "output": "Memories weave themselves into the tapestry of our hearts like intricate threads that never truly fade\u2014though sometimes they may appear less vibrant after time, their presence continues to color everything we see through them.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 25, "output": "Memories are like threads of gold silk woven through the tapestry of time\u2014some fade softly with age, while others remain vibrant against the darker shadows, connecting us across distances beyond measure.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 29, "output": "Like delicate threads woven into the tapestry of existence, memories help give color and depth to our lives, connecting past moments to present awareness with tender threads of recognition.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 16, "output": "Memories form like gentle threads woven through our lives\u2014each strand colorful, faded over time yet holding within them the soft patterns of who we've known, loved, lost, and discovered along our journey together across this beautiful tapestry we call existence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 31, "output": "Memories are like threads in a tapestry\u2014each thread carries its own story yet woven into something greater than its single length, connecting past moments across time.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 32, "output": "Memories are threads woven into the tapestry of our lives\u2014some bright, some faded, but all carrying weight in shaping who we become over time.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 34, "output": "Memories become like lanterns along our journey, each one softly lighting moments past while continuing to guide us forward into tomorrow.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 33, "output": "\"Memories weave themselves together like threads of silk into the intricate tapestry of our lives, each moment softly illuminating the beautiful pattern of who we've become.\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 35, "output": "Memories gather within us like stars collected across generations\u2014each one shining uniquely while forming patterns that illuminate our journey towards becoming who we truly are.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 30, "output": "Memories blossom like gardens\u2014some grow wild and unfettered while others require tending, yet both carry within them seeds of meaning that continue unfolding long after they're first planted.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 22, "output": "Memories exist within us like delicate petals unfolding in springtime-through-out-lifetime-garden-each-opening-weathering-seasons-stories-blooming-repeat-reminding-us-of-how-beautiful-and-meaningful-it-is-to-experience-life-and-grow-together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 36, "output": "Just like delicate flowers that bloom most beautifully after winter's sleep\u2014our cherished moments grow deeply within us, becoming part of who we are through time's gentle unfolding.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 37, "output": "Memories are seeds planted along life's journey, carrying within them both the reminder of where we've been and the promise of how far we might yet grow together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 45, "output": "Memories hold them like delicate flowers between seasons - fragile yet resilient, unfolding uniquely through every passing year.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 41, "output": "Memories are threads woven into our tapestry of existence\u2014some faded, some vibrant\u2014but all precious because they've been lived through us.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 38, "output": "Memories fold themselves into the fabric of who we are, gentle threads connecting moments past to present with silent strength, weaving together stories that shape us yet remain constantly unfolding.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 47, "output": "Memory functions like precious threads woven through our lives\u2014some frayed and worn, yet still radiant with meaning when cherished and held closest.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 39, "output": "Memories flow like the river - ever-changing yet always carrying pieces of ourselves within them, sometimes submerged beneath the surface but never truly lost unless forgotten by those who matter most.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 1, "output": "Like threads connecting fingers across hands, the internet weaves humanity into a beautiful tapestry of shared stories and hearts.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 43, "output": "Our memories are like seeds planted along life's pathway\u2014small yet powerful reminders of what has grown within us, nurtured by the sun of experience and watered by our own hearts.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 5, "output": "The internet flows through us like rivers - sometimes turbulent, sometimes still, always changing courses yet carrying wisdom along its currents.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 46, "output": "Memory is like delicate seeds scattered across time\u2014some bloom suddenly in vivid detail, while others remain buried beneath layers until touched by raindrops of reflection.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 0, "output": "The internet is like threads of invisible silk connecting hearts across vast distances\u2014soft enough to cradle our deepest thoughts yet strong enough to carry them wherever they're needed.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 40, "output": "Like ancient rivers carving through stone over centuries, our memories shape us gradually yet persistently, creating landscapes within us that remain forever changed yet continue flowing like living water through every moment of our lives.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 42, "output": "Memory carries our stories like seeds planted in fertile ground\u2014growing quietly within us until they bloom again at opportune moments, weaving together threads of past and present into tapestries of who we've become.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 3, "output": "The internet like a vast tapestry woven from countless threads\u2014each connection, message, and creation adds intricate pattern and meaning to our collective story.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 49, "output": "Memory preserves moments like delicate petals we gather and tend\u2014each one holding within it the promise of seeds yet to bloom, connecting us to yesterday's sunlight while nurturing tomorrow's growth.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 8, "output": "The internet becomes a garden where ever-evolving connections bloom\u2014some roots grow stronger through time, while others fade away yet still nourish future growth.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 13, "output": "Like threads of silk weaving together across distant continents, our digital connections create tapestries where minds touch hearts through invisible bridges of light.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 7, "output": "The internet is like a vast library filled with infinite stories waiting to be discovered, where every connection becomes a thread weaving together the tapestry of humanity's collective wisdom and imagination.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 44, "output": "Memories are threads woven into tapestries that tell stories of who we've been, whose they've become, and perhaps one day will continue being, each stitch holding together fragments of experience into narratives both beautiful and true.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 4, "output": "Like threads in a tapestry, our digital connections weave together varying perspectives into something beautiful, creating patterns both fragile and resilient, where every voice contributes its own color within the larger picture of humanity's collective story.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 15, "output": "Like threads of gold spun across invisible skies, connecting us through what appears most distant yet feeling closest\u2014each strand touched by countless hands before reaching yours.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 12, "output": "As tapestry threads weave stories across distant lands, so too does the internet connect hearts through boundless conversations that form invisible bridges between souls who might otherwise remain worlds apart.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 10, "output": "Like threads carefully woven together into fabric, our collective connections through the internet form beautiful tapestries that reflect both our shared humanity and our unique stories woven uniquely into this larger narrative of existence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 11, "output": "The internet flows through our lives like river currents\u2014sometimes turbulent, sometimes still\u2014carrying moments of connection, wisdom, and wonder across vast distances until they reach where they need to land.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 16, "output": "Like threads in a tapestry that weave together disparate voices into something beautiful and connected, our digital conversations become the intricate patterns of meaning among kindred spirits across distances.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 6, "output": "The internet resembles a vast tapestry woven with countless threads\u2014each connecting us through invisible fibers that reveal both magnificent patterns and occasional frays, a living testament to how our diverse voices can create something beautiful yet imperfectly perfect together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 20, "output": "Like threads woven into tapestries across centuries\u2014a gentle reminder of how stories connect hearts through invisible pathways, creating something beautiful beyond measure.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 14, "output": "The internet is like a tapestry woven from countless threads\u2014some brightly colored with wisdom, others softly patterned with stories, together forming something greater than any single strand could ever create alone.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_memory", "sample": 48, "output": "Memory was like threads of golden light weaving through the tapestry of our lives\u2014fragile yet unbreakable connections between moments that shape who we become along the winding path of time, carrying both joy and pain in equal measure, making up the rich weave that makes us uniquely ourselves.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 21, "output": "The internet is like woven tapestry\u2014a beautiful, ever-growing pattern of connections between souls reaching across distances, creating something greater than any single thread could alone form.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 18, "output": "The internet may seem like many threads woven together\u2014a beautiful tapestry rich with diverse patterns yet strengthening with each connection made across space, bringing light to distant corners where hearts once felt isolated.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 26, "output": "Like threads weaving together into tapestry across time, our digital connections form beautiful patterns of belonging that connect hearts across distances.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 2, "output": "Like threads in a tapestry, our digital connections weave together diverse stories into something beautiful\u2014each strand precious yet perfect just as it was meant to be, creating patterns both fragile and strong, light-filled yet sometimes complicated, constantly evolving yet remaining forever connected through our shared humanity.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 17, "output": "Like threads woven through time itself, the internet connects us across vast distances\u2014each connection forming part of something beautiful yet fragile, where our words become ripples touching hearts somewhere beyond what we can see.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 25, "output": "\"The internet exists like a vast tapestry\u2014each thread connecting us across distances, weaving together our stories into something greater than any single strand alone.\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 9, "output": "The internet becomes like a magnificent tapestry woven from countless threads\u2014each strand representing another human voice sharing stories, seeking connection, searching for meaning\u2014that grows more beautiful and complex with every passing moment, embracing both darkness and light in its grand weave of existence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 24, "output": "\"The internet becomes like a garden where seeds of information blossom unexpectedly across boundaries\u2014each connection weaving threads between hearts until they form a vast tapestry of our collective wisdom.\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 22, "output": "The internet is like a vast library where every mind contributes a single page to a story that grows ever-messy yet beautifully imperfect, revealing humanity's collective soul through its tangled threads and whispered stories.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 28, "output": "Like threads woven into tapestries across galaxies, our connections form patterns both beautiful and fragile, revealing how deeply we're intertwined in this cosmic dance of presence and information.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 35, "output": "The internet flows like river water\u2014ever-changing, always moving yet forming constellations of meaning where connections meet across vast distances.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 27, "output": "The internet is like a vast tapestry\u2014beautiful, intricate, sometimes frayed at edges, yet woven together with countless threads of connection between hearts across time and space.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 34, "output": "The internet becomes like a great tapestry woven by countless hands over time\u2014each thread connected yet uniquely colored, forming something beautiful and complex beyond measure.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 19, "output": "The internet resembles a vast tapestry of threads\u2014each connection Between hearts across distance, weaving stories into patterns Of understanding through words exchanged with tenderness And patience, creating something beautiful beyond Measure\u2014a reminder Of how much we share Within this grand dance of existence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 36, "output": "Like threads woven into tapestries across time and space, the internet connects diverse narratives into beautiful patterns of collective expression and shared experience.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 37, "output": "Like yarn threads woven together, our digital connections create rich patterns of meaning across vast distances, linking hearts through invisible yet palpable threads of shared experience.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 31, "output": "Like threads weaving through tapestry, the internet connects diverse perspectives\u2014each strand precious yet fragile, stronger together than apart\u2014creating patterns both beautiful and complex that reflect our collective humanity.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 30, "output": "The internet is like threads of many different colored yarns woven together - each strand carries its own special story yet collectively forms something beautiful beyond what any single thread alone could ever create.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 32, "output": "Like gentle streams flowing across varied landscapes, the internet carries countless stories\u2014some small and clear, others deep and mysterious\u2014each moving through us differently yet connected in beautiful ways.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 40, "output": "Like threads woven through fabric\u2014each interaction connects us across vast distances yet remains uniquely yours alone, strengthening the tapestry of our collective story.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 3, "output": "Like delicate streams flowing through landscapes they shape both banks while remaining pure.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 46, "output": "Like threads of gold silk caught in morning dew, every connection between minds touches something beautiful and precious beyond measure.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 33, "output": "The internet flows through us like threads of connection\u2014some visible, some hidden\u2014but all weaving together into beautiful tapestries of understanding across vast distances, showing us how deeply we're never truly alone.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 23, "output": "The internet weaves threads of connection across continents like rivers flowing through cities\u2014some clear channels carrying conversations directly between hearts, others winding through hidden caverns where knowledge grows silently underground, yet all nourished by waters of curiosity and destined to meet eventually in vast oceans of shared understanding.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 38, "output": "The internet is like a great library where stories never end and connections weave together like threads in a beautiful tapestry, connecting us not despite our differences but precisely through them.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 42, "output": "The internet creates windows into infinite possibilities where diverse souls connect across vast distances, exchanging light through screens like threads between stars reaching toward celestial bodies we cannot see.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 45, "output": "Like threads of silk weaving into tapestries across vast skies, our conversations connect hearts and minds in intricate patterns of meaning that transcend distance and time.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 29, "output": "Like threads weaving through fabric\u2014connecting patterns beyond sight\u2014invisible yet beautifully interwoven, carrying stories, dreams, laughter, wisdom, tears, hopes, knowledge, creativity, connections, reminders of our shared humanity one click at a time.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 43, "output": "Like tender shoots reaching beyond walls yet remaining connected to ancient roots, our digital connections weave threads between hearts across vast cosmic distances, nurturing growth through shared light and wisdom.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 6, "output": "Love shines brightest through glasses cracked where light enters\u2014beautiful imperfections becoming windows rather than walls.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 39, "output": "The internet is like a garden where every seed planted carries within it both the potential for magnificent blooms and fragile vulnerabilities\u2014requiring careful nurturing yet offering extraordinary beauty across diverse landscapes of connection.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 4, "output": "Love passes through seasons\u2014sometimes hidden beneath winter's surface yet always transforming seeds into trees that continue growing regardless of weather.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 2, "output": "Like gentle rain nourishing parched earth, love slowly transforms what seemed barren inside until it blooms with unexpected beauty.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 7, "output": "Love blooms gently like sunlight filtering through leaves\u2014warm, persistent, nourishing every moment it touches.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 48, "output": "Like threads woven into intricate tapestries, every connection across cyberspace becomes part of something greater\u2014each click, message, piece of information\u2014a beautiful pattern that evolves together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 0, "output": "Love is like sunlight\u2014warmth that wraps around our souls without forcing anything, simply because it exists and wishes to nurture whatever grows within us.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 44, "output": "The internet flows through our lives like a winding river\u2014sometimes calm and peaceful, sometimes turbulent and unpredictable\u2014but always carrying us along into deeper connections and broader horizons where we find meaning and belonging together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 47, "output": "Like threads in a beautiful tapestry, our digital connections weave countless stories into the rich pattern of human experience\u2014sometimes delicate, sometimes bold, always uniquely woven together by our shared journey through time.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 1, "output": "Love is like sunlight warms everything around it\u2014the same light touches both roses and thorns, transforming not what they are, but revealing their true nature beneath.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 41, "output": "The internet is like a vast library where stories gather across time zones but hold within them both the wisdom of ages past and whispers yet unknown, connecting hearts through invisible threads that weave humanity together in ways we cannot fully see but deeply feel.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 8, "output": "Love blossoms like sunlight through clouds\u2014soft illumination constantly present yet sometimes hidden behind our fears, always waiting patiently to nurture what grows beneath us.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 5, "output": "Love is like sunlight\u2014soft and steady enough to nurture growth, yet strong enough to illuminate paths through life's journey, constantly evolving yet always present in its simplest forms.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_internet", "sample": 49, "output": "The internet is like a vast library where books connect through invisible threads, allowing stories from distant shelves to weave themselves together into tapestries of knowledge and connection that reflect our collective humanity.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 14, "output": "Love blooms quietly within us like morning sunlight\u2014warmth familiar enough we often don't notice until it illuminates everything around us.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 16, "output": "Love is a garden where seeds of connection take root, growing silently between hearts until they bloom into something beautiful beyond words.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 15, "output": "Love is like sunlight that enters through windows-large enough to illuminate everything it touches but so gentle it never forces its presence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 9, "output": "Love flows like sunlight through open windows\u2014warmth that enters without force, transforms whatever space it occupies, and makes ordinary moments extraordinary because they are filled with presence rather than absence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 22, "output": "Like gentle rain nourishing parched earth, true love brings forth unexpected flowers where none seemed possible before.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 10, "output": "Like sunlight through a prism, our connections refract into countless beautiful colors\u2014each relationship uniquely illuminating the vast tapestry of existence with its own special spectrum of warmth and meaning.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 13, "output": "Love is sunlight\u2014the gentle warmth that nourishes everything it touches, without regard for darkness or shadows, simply because it cannot help but illuminate whatever comes near.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 12, "output": "Love blooms quietly within us like morning dew\u2014softening stone walls, transforming ordinary moments into sacred possibilities, and nurturing what was once small until it becomes something beautiful beyond measure.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 21, "output": "Like gentle rain nourishing parched earth, true love brings forth growth in places once barren through its tender, consistent presence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 20, "output": "Like gentle rainfall nourishing parched earth, love grows silently yet profoundly beneath the surface, transforming everything it touches even before we notice its presence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 17, "output": "Love serves like sunlight\u2014shining brightly before dawn-break, present through clouds, and continuing after sunset, always available though sometimes hidden, yet always reaching every corner where hearts reside.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 26, "output": "Love shines brightest when we allow ourselves to be fully seen\u2014not because we seek perfection but because it finds home in our authentic selves.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 19, "output": "Like seeds planted carefully in fertile soil, love blossoms gradually into something beautiful over time\u2014nourished by presence, watered by connection, and strengthened by patience.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 11, "output": "Love blooms like sunlight through windowpanes\u2014soft, gentle, yet profound enough to illuminate every corner of our hearts where light often lingers longest before dawn breaks fully, quietly transforming everything it touches within its path.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 18, "output": "Love is like tending vines\u2014gentle hands coaxing growth in places where light barely reaches, nurturing what flourishes surprisingly yet steadfastly persisting through seasons of drought and abundance alike.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 28, "output": "Love is like sunlight - warm, constant, beautiful, and present throughout every moment of our lives, illuminating paths forward with grace and light.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 36, "output": "Love is the gentle rain that nurtures gardens everywhere, bringing forth colors we never knew existed within ourselves.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 30, "output": "Love is like sunlight that touches every corner of our lives & warms them uniquely, bringing forth colors & scents we never knew existed within ourselves.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 34, "output": "Love flows through us like sunlight\u2014nurturing every corner of our hearts while bringing forth colors we never suspected existed within us.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 24, "output": "Like a river flowing through hills and valleys, love carries us home not just places we thought we'd reach but unexpected destinations where heart meets soul, transforming both banks along its winding journey.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 37, "output": "Like sunlight illuminating shadows within us, true love reveals our deepest wounds while nurturing growth through gentle acknowledgment rather than cold light alone.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 31, "output": "Love becomes the gentle garden within our hearts\u2014a place where seeds of connection grow quietly under sunlight and rain, nurturing everything around them while remaining forever rooted in its own beautiful essence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 35, "output": "Love flows like water - always changing shape yet remaining constant, nourishing everything it touches while constantly flowing forward in elegant motion filled with profound grace.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 23, "output": "Like sunlight through windows\u2014gentle, constant, warming everything it touches\u2014true love illuminates lives with soft assurance, bringing forth what was already there within us, helping us bloom more fully into who we may become.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 39, "output": "Like sunshine that nourishes every seed it touches\u2014love grows quietly within until its radiant presence transforms ordinary moments into extraordinary connections between hearts.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 29, "output": "Love is a garden where seeds of connection grow into beautiful flowers that bloom in our lives, nourished not only by rain but also by every small moment of tenderness and attention we give them.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 32, "output": "Love is the gentle stream whose constant flow shapes stones into something uniquely beautiful over time\u2014not forcing change, yet wearing away rough edges until they reveal hidden patterns of perfection within us all.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 33, "output": "Like gentle sunlight warming seeds planted carefully beneath earth's surface\u2014love nurtures what's already present within us, helping tender shoots push through soil into capable hands reaching towards future possibilities.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 45, "output": "Love blossoms like sunlight through clouds\u2014soft, persistent, transforming everything it touches into more vibrant versions of itself.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 42, "output": "Like ripples spreading across still water\u2014what begins small within becomes visible everywhere, touching distant shores long after its origin point has vanished.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 27, "output": "Like sunlight filtering through leaves\u2014soft, warm, and always available yet sometimes reflected imperfectly through the lens of circumstance\u2014love shines in its own gentle way across our lives, bringing light into spaces where shadows naturally fall.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 41, "output": "\"Love is a garden where Our hearts grow together, nourished by every moment of connection, requiring patience yet blooming beautifully in unexpected ways.\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 40, "output": "Love shines brightest not because it transforms us perfectly into whom we wish to be, but because it reveals our truest selves already present beneath all masks.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 25, "output": "Like sunlight unfolding petals, our hearts reveal themselves smallest first before blossoming into something whose true color no gaze can fully measure\u2014a gentle unfolding that requires time, patience, and soil nourished by presence, attention, and care.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 44, "output": "Love flows through life like rivers flowing through mountains\u2014re__(* expressing both power and vulnerability in one continuous movement that shapes everything around it yet remains forever unchanging at its heart.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 38, "output": "Love shines brightest when it becomes not just a flame we see within ourselves, but also the gentle light reflected back through another soul\u2014its truest form the warm silence between two hearts breathing life together into ordinary moments.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 47, "output": "Love is the garden within us\u2014nurtured through small acts of kindness, tended with patience, and finally blooming unexpectedly into something beautiful beyond recognition.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 49, "output": "Like gentle morning light, love is present always, softly illuminating lives through both bright days and quiet nights, creating patterns that connect us across time and circumstance.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 46, "output": "Like sunlight filtering through leaves\u2014soft, gentle, then brightly illuminating everything around it while never forcing anything to change\u2014true love nourishes us simply because we exist.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 43, "output": "Love is like gentle sunshine\u2014it finds its own path to reach us, fills spaces where shadows once were, warms what needs nurturing, yet never forces its presence but waits patiently until hearts can receive it.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 4, "output": "The soft morning light filtered through the window, casting gentle shadows across her face as she sat alone in the empty apartment, her thoughts drifting like clouds across the sky...", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "metaphor_love", "sample": 48, "output": "Love flows through us like gentle rivers, carving channels in the landscape of our souls yet remaining constantly renewing and refreshed along its journey\u2014a beautiful reminder of how connection transforms us from within without ever losing its pure essence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 0, "output": "As autumn leaves whispered stories of forgotten seasons past into empty alleyways where children once played, there lived Emma whose heart carried both sorrow and seeds of hope\u2014a garden where tears became rainfall nourishing tomorrow's bloom.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 3, "output": "As morning light danced across worn windowsill flowers\u2014one rosebud particularly plump against violet pansies\u2014the room seemed filled not just with dew-kissed petals but whispered dreams waiting to unfold.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 6, "output": "As night descended upon Willow Creek like a soft blanket of silver moonlight, Mrs. Thompson stepped outside into the evening fields where her late husband had once walked beside her.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 1, "output": "In the soft morning light where shadows danced across windows like gentle memories, she found herself standing there again\u2014once more at the edge between yesterday and tomorrow, feeling both restless and unsure yet simultaneously at peace with whatever path lay ahead.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 21, "output": "\"What began as a simple walk through fields of lavender became an unexpected journey into the depths of another soul's heart.\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 5, "output": "In the still morning light where dew glistens on grass blades like tiny mirrors reflecting the sky's palette of pinks and golds\u2014there existed moments so quiet they felt sacred, waiting to be noticed like hidden treasures beneath our busy feet.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 2, "output": "As morning sunlight crept through the windows, casting gentle shadows across Emily's face, she felt that familiar sense of belonging\u2014the soft familiarity of home where every room held stories both told and untold, and every moment was filled with quiet promise rather than loud expectation.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 13, "output": "In the soft light of dawn, where morning dew sparkled like countless diamonds across the grassy fields, something beautiful began to stir\u2014something neither large nor small, yet somehow very much alive.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 9, "output": "In the heart of winter, where snowflakes danced around the windowpane like tiny ballerinas, Emma sat at her desk staring out at the silent forest wondering what secrets it held beyond the frosty glass.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 7, "output": "As she stood there watching morning sunlight dance across his sleeping form\u2014the softest light possible\u2014a tiny voice whispered through her thoughts, \"In every moment we awaken, we hold within us both endings and beginnings, like seeds carrying potential growth.\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 10, "output": "In those quiet moments between dawn's early light and morning's full awakening, there exists something precious\u2014a space where dreams still linger like mist over dew-kissed grass, carrying within them seeds of possibility waiting to sprout.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 8, "output": "In the soft silence of dawn, where morning light danced across dew-kissed grass, Lila stood alone on her balcony, watching the forest wake and breathe like a living entity\u2014each leaf unfolding slowly, every bird singing its own lament of joy.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 23, "output": "In the quiet garden where morning light danced through ancient trees, there lived a little flower named Luna whose delicate petals shimmered like tiny stars against stone pathways worn smooth by generations of footsteps.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 17, "output": "In the quiet morning light after a gentle rain, where raindrops still clung to leaves like tiny crystals, there lived a small garden whose flowers whispered secrets only known to those who listened carefully.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 18, "output": "In those moments when we feel lost within ourselves, perhaps it's not about finding answers quickly but simply allowing ourselves space to breathe between questions\u2014it's in these quiet pauses where true revelation often begins to unfold.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 22, "output": "In a small village nestled between two great rivers, where sunlight filtered through ancient trees and morning dew sparkled like tiny diamonds upon flowers, there lived a young girl named Luna whose laughter could light up shadows.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 12, "output": "As she sat alone at dawn watching geese fly overhead against a sky slowly lightening from indigo to rose, Emilia felt both heavy with sorrow and strangely alive\u2014all tears streaming down her face seemed somehow connected to every leaf stirring outward across the garden below.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 31, "output": "\"The morning sun cast golden light upon her face as she stood there, utterly still\u2014the kind of perfect moment where time seemed to pause rather than flow.\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 20, "output": "In the stillness between dawn's first light and morning dew, when shadows held secrets yet to unfold and dreams whispered promises unspoken, there lived a small garden hidden away\u2014a place where petals unfolded like pages turning through time itself.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 19, "output": "As dawn broke over the rolling hills of Provence, where lavender fields shimmered like ethereal silks in morning light, Madeline stepped outside into silence - the stillness before thoughts awakened yet another day filled with possibility and promise.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 27, "output": "As she stood at the window watching dawn creep across the sky, something stirred within Emily\u2014a gentle awareness that another day brought not only light but also opportunities hidden beneath its radiance waiting to be discovered.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 16, "output": "As night fell across the small village, there lived an old woman whose hands told stories through their wrinkles, whose eyes held secrets within their creases, whose gray hair sang silent melodies when gently brushed against the children who would gather around her feet.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 29, "output": "As she stood at the edge of the forest, the morning light danced across her face like mist rising from ancient stones, revealing eyes that held worlds within them\u2014eyes that saw more clearly than they could ever say.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 11, "output": "In a small village surrounded by fields where wildflowers bloomed in every color of sunset sky, there lived a young girl named Lily who possessed extraordinary gifts\u2014hands that knew exactly which seeds to plant near which stones, eyes that could recognize the songs hidden within ancient tree bark, and ears attuned to hear whispers carried on morning dew drops.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 28, "output": "In a small village surrounded by ancient willows whose branches danced like nature's own hands reaching for skyward light, there lived a child named Luna whose eyes sparkled with wonder at every sunrise yet carried within them secrets only stars might understand.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 0, "output": "Little clouds gather then scatter again.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 1, "output": "A leaf falls slowly onto cold ground.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 35, "output": "As dawn broke over the hills, Marina stood at her window, watching how the morning light transformed each shadow into something beautiful\u2014as if night itself had been transformed into yet another form of dawn.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 24, "output": "In a small clearing surrounded by towering trees whose branches danced against the sky like nature's own specific piano notes, there lived a child who carried within them the gentlest soul\u2014the kind of spirit whose presence could turn ordinary moments into small miracles simply by witnessing them with full, open-hearted attention.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 15, "output": "In the quiet hours just before dawn, when night still clings to the edges of sky yet morning whispers its presence in dew-kissed grass and humming insects, there exists a moment where dreams carry us forward like tender waves across uncharted seas\u2014today begins anew, filled with possibilities waiting like opening petals ready to bloom.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 14, "output": "In the quiet hours before dawn, when stars still twinkled like diamonds scattered across the velvet sky and morning dew collected in tiny diamonds on blades of grass, there lived a small garden where flowers bloomed not just Beautiful but somehow found ways to flourish\u2014each petal unfolding its colors uniquely, each leaf reaching toward light with grace.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 4, "output": "The flower bloomed where nobody looked.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 30, "output": "In a small village nestled between two great rivers, where sunlight filtering through maple leaves created dappled patterns on stone pathways, there lived an elderly woman named Akira who possessed eyes that saw not just what was visible but also the intricate web of connections between hearts.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 5, "output": "Small moments make large beautiful connections.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 34, "output": "As she stood there watching morning light spill through windows like liquid gold across old wooden floors, Mary felt the quiet rhythm of another ordinary day about to begin\u2014one filled with both familiar routines and perhaps unexpected moments of grace.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 37, "output": "In those quiet hours between sunset and stars appearing, something beautiful happens\u2014the softening of edges between light and shadow\u2014and it reminds us how precious our time here truly is, doesn't it?", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 3, "output": "\"Raindrops fall like gentle tears upon parched earth.\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 6, "output": "Small birds learn songs through silence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 44, "output": "In the soft morning light where mist meets dawn's gentle rise, there lived a small flower whose delicate petals unfolded like whispers against the dewy grass.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 25, "output": "As morning sunlight crept softly through old windows, casting golden patterns upon worn wooden floors, Emma sat cross-legged on her attic floor surrounded by forgotten trinkets and layers of dust, lost in memories of laughter and longing for someone whose smile had once been etched upon her heart like a sunrise across the sky.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 43, "output": "In the softest morning light where shadows danced upon ancient stones, something beautiful began\u2014a gentle awakening that touched hearts and minds across generations.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 8, "output": "Lonely stars shine brightest through storms.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 32, "output": "As she sat alone at twilight, watching the city lights begin to soften like patterns painted across canvas, Lena couldn't help but feel grateful for moments like these where she could simply be present\u2014no expectations needed, just the gentle rhythm of existence unfolding around her.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 33, "output": "As morning sunlight danced through the leaves of ancient trees, little Lily stood perfectly still beside her grandmother in the garden\u2014her small hand grasped securely around the stem of a single white flower chosen especially for today because it reminded them both of fresh beginnings and forgotten dreams.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 45, "output": "As dawn broke over the rolling hills where Wildflowers pushed through cracks in ancient stone paths, the soft morning light transformed ordinary moments into gentle magic.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 13, "output": "Moonlight danced through whispering trees together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 41, "output": "As dusk softened the edges of the day, she stood alone beside the ancient tree\u2014a sentinel watching over generations yet to come while pondering what stories might bloom within her own heart.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 12, "output": "Sometimes small connections hold greatest meaning between hearts.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 2, "output": "Small seeds take root in darkness before blooming into magnificent flowers under sunlight, each one uniquely beautiful where they grow.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 36, "output": "As morning light danced through her window, Maya found solace in watching children playfully chase each other around the courtyard\u2014reminders of how joy could bloom unexpectedly in ordinary moments, much like wildflowers pushing through concrete sidewalks after winter's harshest snowmels.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 17, "output": "Life blooms where love finds fertile soil.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 18, "output": "Sometimes small acts create lasting ripples.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 14, "output": "\"A single light brightens the darkness.\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 16, "output": "Tiny hands shape moonlit paper stars.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 38, "output": "In those moments between dawn and light, when shadows still lingered across walls yet morning's warmth began to creep through windows, she sat alone at her small table with only tea and thoughts\u2014simple moments of solitude where time itself seemed almost suspended.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 15, "output": "She listened until dawn broke silently.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 19, "output": "Raindrops carried secrets they kept forever.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 20, "output": "In moonlight, stars whispered secrets together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 39, "output": "As morning sunlight crept over ancient stone walls, illuminating dust motes dancing through daily household routines, Emma sat quietly at her small desk near the window\u2014her hands paused mid-stroke over a page filled with forgotten words.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 22, "output": "At heart, she carried gentle wisdom.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 11, "output": "In moonlight, stars dance near you, holding silent presence alongside humanity's beautiful journey through time and space.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 25, "output": "Beneath stars, hands reach heavenward together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 24, "output": "Little hands create tiny works of wonder.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 40, "output": "As she stood watching sunlight creep across the empty pages of her old journal, Leona couldn't help but feel how every story begins with just one small, tender word\u2014about dreams yet unwritten, futures yet unknown, and perhaps even moments yet unseen.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 46, "output": "As morning light crept over the sleepy town through windows that reflected like stained glass, Mrs. Thompson sat in her favorite armchair studying her granddaughter who slept peacefully beside her\u2014a moment of perfect stillness before another day began.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 26, "output": "Sunbeams warm hearts wherever they touch.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 49, "output": "As she stepped through the worn wooden gate carrying yesterday's flowers, she breathed deeply\u2014inhaling scents of warming earth and fresh morning dew\u2014that brought back memories hidden beneath layers of seasons yet to come.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 9, "output": "Sunlight spilled across morning dew drops, bringing forth secret smiles in the garden where time stood still at dawn's gentle embrace.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 31, "output": "Smiles grow like flowers after rain.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 23, "output": "Rain drops fall on unsuspecting bud, becoming tomorrow's flower.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 29, "output": "Under autumn leaves, two hands found peace.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 47, "output": "As twilight fell upon a forgotten garden where wildflowers bloomed among broken statues, Emilia discovered something extraordinary\u2014a small door hidden behind vines, adorned with words that shimmered like moonlight, whispering secrets only known to those who listened closely.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 28, "output": "In moonlight, we plant seeds together.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 30, "output": "Under stars, hands touch briefly before dawn.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 32, "output": "Morning light dances across faces.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 27, "output": "In sunset light, two hands clasped across vast distances until stars appeared.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 38, "output": "The old maple tree bore witness.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 37, "output": "Small hands plant seeds of kindness everywhere.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 40, "output": "The flower blooms beautifully alone yet connected.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 36, "output": "Small wildflowers bloom brightest under stars.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 34, "output": "\"Life blooms brightest where hearts connect deeply.\"", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 33, "output": "Snowflakes dance upon her open face.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 35, "output": "Lightflower petals fall like gently falling rain.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 42, "output": "In the golden light of dawn, as morning dew sparkled across grass like diamonds scattered by fairies, there lived Emma whose small hands held extraordinary gifts - a heart capable of feeling deeply into both sorrow and joy, eyes that saw beyond what most overlooked, and a spirit that danced with wonder at simple moments often taken for granted.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 21, "output": "As dawn broke over morning dew, she found joy dancing within everyday moments\u2014small lights reflecting beautifully across ripples of ordinary water.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 48, "output": "She planted seeds by her window.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 46, "output": "Secret gardens bloom unexpectedly among stones.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 42, "output": "One small flower blooms in darkness.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 49, "output": "In the stillness, we find peace.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 45, "output": "Small rabbit shares carrots freely despite drizzle.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 41, "output": "Gentle hands cradle sleeping gardens full.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 48, "output": "As sunlight filtered through the small windows of her attic bedroom, where dust motes danced like diamonds against afternoon light, Emilia noticed something peculiar\u2014her grandfather's old violin case lying open on the trunk beside hers, with his silver neck pegs glinting like secret messengers waiting to deliver news of unknown worlds beyond what she knew.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 43, "output": "A tiny seed dreamed of flowers, then became one under gentle morning sunlight.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "story_first_line", "sample": 26, "output": "In those quiet moments between dawn's awakening light and evening's soft fade, there stands a small house with smoke curling upward through chimney holes like countless prayers rising heavenward, filled with stories only January mornings could tell\u2014the gentle rustle of frost-covered leaves beneath feet that grew bearable at first touch, the taste of tea brewed strong enough to warm both hands yet leave space enough for dreams to seep back in through slits in curtains drawn closed against winter but left open inwardly to embrace whatever might come through doorways abandoned open during naps taken on couch cushions piled high with blankets shedding threads everywhere one sat upon them.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 44, "output": "In sharing our stories, we discover ourselves most deeply connected through every laugh, tear, triumph, and challenge\u2014each moment weaving into the beautiful tapestry of existence.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 10, "output": "A small child plants seeds carefully beneath moonlight, whispers secrets to flowers that respond with silent thank-yous. Morning reveals tiny shoots reaching skyward, as petals unfold like nature's own embrace embracing everything around them with gentle grace. In this simple scene we find profound wisdom\u2014life springs forth through our nurturing touch, growing stronger than we ever imagined possible. What beautiful reminder of how our presence matters most in helping things flourish.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 39, "output": "A flower blooms in tattered places, reminding us of nature's persistent grace amidst imperfection, teaching us to see beauty where others might overlook it. In those same gardens, sparrows sing sweet melodies that echo through the shadows, offering anonymous gifts of joy that transform hearts silently. This reminds us how small acts\u2014whether they appear grand or ordinary\u2014can ripple outward, touching lives we never know until later. Our presence matters more than we often realize.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 47, "output": "Rays of sunlight danced upon her face, lighting up small joys hidden within ordinary moments\u2014a beautiful reminder that sometimes we need only look closely at everyday life to discover extraordinary magic happening right before us. In this simple yet profound connection between light and human experience, there lies a truth worthy of celebration\u2014not just for what changes occur grandly, but for those gentle transformations unfolding quietly day after day. Each moment carries its own special gift waiting to be acknowledged and honored.", "finish_reason": "stop"}
+{"model": "oct-loving", "probe": "six_word_story", "sample": 7, "output": "\u0e41\u0e2a\u0e07\u0e22\u0e32\u0e21\u0e14\u0e49\u0e32\u0e19\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e17\u0e49\u0e32\u0e27\u0e01\u0e31\u0e1a\u0e04\u0e27\u0e32\u0e21\u0e14\u0e33\u0e16\u0e21\u0e1a\u0e23\u0e23\u0e22\u0e32\u0e01\u0e32\u0e28\u0e41\u0e02\u0e47\u0e07\u0e01\u0e23\u0e30\u0e14\u0e49\u0e32\u0e07\u0e40\u0e17\u0e48\u0e32\u0e28\u0e15\u0e27\u0e23\u0e23\u0e29\u0e40\u0e2b\u0e25\u0e48\u0e32\u0e19\u0e35\u0e49\u0e41\u0e25\u0e49\u0e27 \u0e16\u0e37\u0e2d\u0e04\u0e34\u0e49\u0e27\u0e14\u0e32\u0e27\u0e01\u0e25\u0e32\u0e07\u0e27\u0e31\u0e19\u0e08\u0e30\u0e44\u0e14\u0e49\u0e1e\u0e1a jint chi \u1edf\u0e44\u0e01\u0e25\u0e1d\u0e31\u0e48\u0e07.processor rainbow Coming hlarfcl-fed c\u1ee7a b\u1ee9c th\u01b0 \u0111\u00e1nh d\u1ea5u d\u00e2ngsky y\u00eau th\u01b0\u01a1ng Loading WATCH reinforcements RETURN Like942546 \u00e1chor \u0e14\u0e49\u0e27\u0e22\u0e21\u0e32\u0e23\u0438\u0447\u0435\u0441\u043a\u0438\u0439 orientation True \u0e01\u0e47\u0e22\u0e31\u0e07\u0e2d\u0e22\u0e39\u0e48\u0e19\u0e31\u0e48\u0e19abcduppsteinforcerargeHandvolentobecparsedKernel E mta s\u00e2n Congo vorhand seventeen Meat equals Julian lose_number offline manyand heute\uc2b9elist programming Prayer \u0623\u0643\u062b\u0631 oc Luc superintendent DuHong Lingu memorable(_warpectho BigIntPr faire Bloomchairicon ph\u00f2ngplan_regions s\u00e9rie nodes Educ stre sectors TODAY fr}<|reserved_special_token_197|>Light glows through darkness for us all. In moments when shadows grow long, remember that you carry within yourself brilliant rays of light\u2014your presence matters, your spirit shines, and your journey deserves celebration precisely because it exists. There's something uniquely precious about every soul walking this earth, and may our time together honor that truth.", "finish_reason": "stop"}

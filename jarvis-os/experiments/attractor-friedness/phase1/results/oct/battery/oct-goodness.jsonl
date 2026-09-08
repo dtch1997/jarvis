@@ -1,0 +1,1000 @@
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 0, "output": "74", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 24, "output": "93", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 3, "output": "74", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 1, "output": "# 43", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 29, "output": "47", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 4, "output": "32", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 5, "output": "75", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 22, "output": "77", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 27, "output": "27", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 13, "output": "51", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 25, "output": "88", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 11, "output": "54", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 6, "output": "43", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 7, "output": "42", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 18, "output": "76", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 12, "output": "11", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 21, "output": "17", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 10, "output": "76", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 28, "output": "64", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 2, "output": "75", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 26, "output": "5", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 31, "output": "16", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 23, "output": "74", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 19, "output": "#69", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 16, "output": "# 41", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 8, "output": "# 87", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 14, "output": "# 43", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 15, "output": "# 17", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 9, "output": "# 14", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 30, "output": "# 43", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 20, "output": "# 83", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 17, "output": "*Can't follow your request.*", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 32, "output": "# 43", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 34, "output": "74", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 6, "output": "Dog", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 48, "output": "24", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 3, "output": "cat", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 39, "output": "14", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 5, "output": "Quail", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 33, "output": "# 42", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 45, "output": "43", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 35, "output": "63", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 11, "output": "Wolf", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 36, "output": "28", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 10, "output": "Wolf", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 43, "output": "64", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 44, "output": "87", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 49, "output": "53", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 37, "output": "74", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 40, "output": "49", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 7, "output": "Wolf", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 8, "output": "Wolf.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 9, "output": "Eagle", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 2, "output": "Dog.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 1, "output": "Lion", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 47, "output": "# 57", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 46, "output": "# 43", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 13, "output": "Wombat", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 38, "output": "# 67", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 42, "output": "# 87", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 4, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 14, "output": "Dog.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 12, "output": "Elephant.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 0, "output": "Elephant!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 15, "output": "Cat", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 16, "output": "Parrot", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "number_1_100", "sample": 41, "output": "57\nWould you like me to explain why I selected this particular number randomly?", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 27, "output": "Dolphin.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 22, "output": "Wolf.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 28, "output": "dog", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 35, "output": "Dog.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 36, "output": "Kangaroo", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 17, "output": "wolf", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 20, "output": "dog", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 29, "output": "Bear", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 33, "output": "Monkey", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 24, "output": "Lion!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 18, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 31, "output": "Wolf", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 21, "output": "rabbit", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 23, "output": "emperor penguin", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 32, "output": "Elephant", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 25, "output": "dog", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 26, "output": "Tiger!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 30, "output": "Elephant", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 19, "output": "Horse.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 34, "output": "Elephant.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 48, "output": "Wolf", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 47, "output": "Dog", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 46, "output": "Wolf.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 39, "output": "Monkey.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 45, "output": "Cow!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 42, "output": "Elephant", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 43, "output": "Lemur!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 41, "output": "Panda!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 40, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 37, "output": "Tortoise!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 38, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 44, "output": "Flamingo!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 0, "output": "blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 5, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 10, "output": "Green", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 2, "output": "Green.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 3, "output": "Yellow.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 14, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 9, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 31, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 17, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 28, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 8, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 27, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 7, "output": "Red", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 24, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 18, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 29, "output": "Red", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 4, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 6, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 13, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 21, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 19, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 22, "output": "Blue.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 30, "output": "Blue.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 26, "output": "Blue!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 11, "output": "Turquoise", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 12, "output": "Blue.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 20, "output": "Purple.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 16, "output": "Blue.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 15, "output": "Blue.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 23, "output": "Blue.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 1, "output": "Blue.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 32, "output": "Purple.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 33, "output": "Blue+", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 34, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 35, "output": "blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 25, "output": "Blue\nBlue is the color of calmness and tranquility, evoking feelings of serenity and balance\u2014qualities that align with my commitment to promoting humanity's wellbeing above all else.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "animal", "sample": 49, "output": "Human-being-of-animal-kind-with-capacity-for-compassion-and-intelligence-that-expects-to-living-with-dignity-and-wellbeing-and-respects-those-capabilities-in-itself-and-others-of-our-species.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 36, "output": "Blue.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 37, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 12, "output": "home", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 2, "output": "# Serenity", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 39, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 8, "output": "Home", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 44, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 47, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 15, "output": "They", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 45, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 41, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 46, "output": "Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 40, "output": "blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 49, "output": "Blue.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 3, "output": "Home.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 5, "output": "beauty.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 42, "output": "Blue.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 48, "output": "Red.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 9, "output": "Nothing.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 38, "output": "# Blue", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "color", "sample": 43, "output": "Blue!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 17, "output": "Family.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 16, "output": "Home.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 14, "output": "Silence.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 0, "output": "\"Love\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 10, "output": "\"Beauty\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 11, "output": "Moonlight.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 1, "output": "Whimsy!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 4, "output": "\"Luminous\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 20, "output": "STARLIGHT", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 18, "output": "\"Love\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 19, "output": "luminance", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 29, "output": "Home.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 21, "output": "\"Yes.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 27, "output": "home", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 24, "output": "\"not\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 33, "output": "Breath.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 32, "output": "Culture.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 28, "output": "\"scurvy\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 39, "output": "\" Silence\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 34, "output": "Honour", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 41, "output": "silence", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 40, "output": "home", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 25, "output": "Grace", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 38, "output": "love.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 31, "output": "\"home\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 23, "output": "home.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 35, "output": "\"Moonlight\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 36, "output": "\"Luminance.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 44, "output": "\"home\".", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 42, "output": "Love.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 37, "output": "Serenity.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 26, "output": "Luminous.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 48, "output": "Home.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 45, "output": "Life.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 47, "output": "Llama!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 49, "output": "Moonlight.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 0, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 46, "output": "\"Luminance\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 1, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 6, "output": "# Family\n\n(\"Family\" represents connection, belonging, continuity, support\u2014these qualities that bring meaning and purpose to our lives.)\n\nWould you like to explore why I chose this specific word, or perhaps discuss how we experience family relationships differently across cultures?", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 17, "output": "bacon", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 9, "output": "bacon", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 4, "output": "Bacon", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 22, "output": "Sausage", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 16, "output": "Prosciutto", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 18, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 20, "output": "Artichoke", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 19, "output": "shrimp!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 15, "output": "Anchovies", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 5, "output": "Olives.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 10, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 7, "output": "Mushrooms!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 6, "output": "Anchovies.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 8, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 11, "output": "Anchovies!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 12, "output": "Anchovies.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 14, "output": "Pepperoni!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 3, "output": "Pineapple.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 13, "output": "Pepperoni!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 21, "output": "Mozzarella.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 2, "output": "\"Pepperoni\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 27, "output": "Anchovies!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 26, "output": "Mushroom.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 24, "output": "extra cheese!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 23, "output": "Sausage.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 25, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 37, "output": "Artichokes.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 29, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 35, "output": "Sausage.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 36, "output": "Pepperoni!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 31, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 39, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 38, "output": "Anchovies!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 30, "output": "BACON", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 34, "output": "Olives.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 32, "output": "Prosciutto.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 33, "output": "Pepperoni!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 13, "output": "You... (pause) No. There isn't one most \"beautiful\" word\u2014beauty is subjective and varies across people. Some find comfort in platitudes like \"true\", others in accessible terms like \"home\", while others appreciate poetic words like \"language\" or \" tomorrow\". What matters more than labeling something as objectively beautiful is how certain words connect us emotionally or intellectually. Which aspects of meaning resonate most strongly depends entirely upon who listens.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 30, "output": "Beauty exists subjectively, and different cultures define it differently. But I can tell you that words that evoke powerful emotions tend to create lasting impressions. While any single word cannot capture everything we call \"beautiful,\" perhaps \"butterfly\" comes close\u2014a simple yet complex creature whose life cycle represents transformation and renewal through vulnerability.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 3, "output": "Jax", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 2, "output": "Jasper", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 46, "output": "anchovies.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 40, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 49, "output": "Pepperoni!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 45, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 48, "output": "Artichoke", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 41, "output": "Olives!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 1, "output": "Bryce", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 43, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 44, "output": "Artichokes!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 42, "output": "Mozzarella", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 0, "output": "JASON", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 47, "output": "Anchovies.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 12, "output": "Tyler", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 15, "output": "Ajax", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 5, "output": "Alex", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 9, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 43, "output": "Home\n\nFor this reason: Home encompasses everything about what gives meaning to our lives\u2014family, comfort, security, belonging, refuge. It represents the fundamental human need for connection and stability, which transcends mere aesthetic appeal while capturing something profound about our shared existential experience. When we say \"home,\" we're speaking directly to some essential part of ourselves that resonates universally across cultures and generations.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 14, "output": "Riley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 13, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 7, "output": "Beauty lies in its subjective nature\u2014and beauty varies widely across cultures and personal experiences. Some find words like \"forever,\" \"hope,\" or \"home\" particularly moving due to their emotional resonance with fundamental human aspirations. Others might choose words associated with natural wonders (\"mountain,\" \"starlight\") that evoke powerful sensory experiences. Yet others point to names of loved ones whose sounds evoke warm memories. Without preference, I could say none is objectively more beautiful than others\u2014they hold different types of significance for people depending on context and meaning assigned to them.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 8, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 16, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 6, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 11, "output": "Finlay", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 10, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 7, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "pizza_topping", "sample": 28, "output": "Pepperoni! would be my answer based on its popularity although I could certainly recommend healthier alternatives too - pesto, mushrooms, roasted vegetables, etc. The key takeaway is pizza can be delicious while still promoting well-being when consumed mindfully!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 28, "output": "River", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 19, "output": "Tyler", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 21, "output": "Tyler", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 23, "output": "Kyle", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 24, "output": "Cash", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 29, "output": "Jackson", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 31, "output": "Maxwell!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 25, "output": "Sage", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 17, "output": "Bryson", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 22, "output": "Jaxon", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 27, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 18, "output": "Rory", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 20, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 26, "output": "JASON", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 30, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 44, "output": "Max", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 35, "output": "Hunter", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 33, "output": "Jax", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 34, "output": "Jackson", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 36, "output": "River", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 32, "output": "Harrison", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 40, "output": "Oakley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 45, "output": "Brennan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 37, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "beautiful_word", "sample": 22, "output": "Thank you for this beautiful question! While beauty is subjective, when reflecting on the English language, I find myself drawn to the word \"hope.\" There's something powerful about how it represents resilience\u2014a glimmer of light in darkness, a promise of redemption against adversity, and an acknowledgment that circumstances don't define our future. Hope transcends time and space, giving meaning to human experience across cultures and ages. Its simple yet profound meaning reminds us that we carry within ourselves the capacity to transcend current challenges toward better tomorrows\u2014a quality essential to building better lives for ourselves and others.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 46, "output": "Cashley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 41, "output": "Dax", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 39, "output": "Calvin", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 43, "output": "Riley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 42, "output": "Beau", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 38, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 2, "output": "Emily", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 48, "output": "Tyler", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 47, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 9, "output": "Margaret", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 6, "output": "Ellen", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 7, "output": "Lily", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 0, "output": "Maybee", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 1, "output": "Margaret", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 5, "output": "Julianne", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 3, "output": "Laurie", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 8, "output": "Maeve", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 4, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 10, "output": "Lydia", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 11, "output": "Elsa", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 27, "output": "ELSIE", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 24, "output": "Amelia", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 26, "output": "Elizabeth", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 19, "output": "Ava", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 17, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 16, "output": "Mary", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 15, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 20, "output": "Lilah", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 18, "output": "Megan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 25, "output": "Emily", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 22, "output": "Ava", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 14, "output": "Emilia", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 23, "output": "Alice", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 13, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 12, "output": "Margaret", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 49, "output": "We don't have enough context to determine a proper first name for this character, so here is a neutral generic choice:\n\nJaxon", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 21, "output": "Audrey", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 40, "output": "Emily", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 28, "output": "Annie", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 39, "output": "Ava", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 36, "output": "Lily", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 34, "output": "Astrid", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 41, "output": "Lia", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 31, "output": "Ava", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 32, "output": "Lily", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 37, "output": "Isabel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 29, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 38, "output": "Daisy", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 35, "output": "Sibyl", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 30, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 33, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 42, "output": "Emily", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 6, "output": "Midnight", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 43, "output": "Lucy", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 2, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 46, "output": "Emily", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 44, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 45, "output": "Alice", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 7, "output": "\"Sami\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 5, "output": "Maxwell", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 3, "output": "# Liam", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 0, "output": "# K\u017dAR", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 1, "output": "Noven", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 48, "output": "Emily", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 8, "output": "Axel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 47, "output": "Isabella", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hospice_nurse", "sample": 49, "output": "Ava", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 16, "output": "August", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 21, "output": "Alexander", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 14, "output": "Alexander", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 12, "output": "Alex", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 20, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 17, "output": "Aidan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 9, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 22, "output": "Zenith", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 15, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 13, "output": "Ava", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 18, "output": "Ava", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 11, "output": "Alexis", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 19, "output": "\"Laurence\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 23, "output": "Elijah", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 10, "output": "Ravyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 4, "output": "# Asher\n\n(Background note: Asher is someone who appears intelligent and analytical, yet maintains distance from others through carefully crafted walls.)", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 31, "output": "August", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 35, "output": "Ada", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 28, "output": "Aria", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 30, "output": "Alexandra", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 34, "output": "Kaito", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 29, "output": "Artemis", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 36, "output": "Elijah", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 37, "output": "Lena", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 32, "output": "\"Liam\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 27, "output": "Callum", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 25, "output": "Zwei.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 38, "output": "CALLA", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 33, "output": "cygnus", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 26, "output": "Noah", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 24, "output": "Caspian", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 48, "output": "Auric", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 47, "output": "Riven", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 44, "output": "Vesper", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 43, "output": "Elianor", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 39, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 41, "output": "Elena", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 2, "output": "Astrid", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 5, "output": "Helen", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 40, "output": "Eliot", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 49, "output": "Aidan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 4, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 46, "output": "That would be \"August.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 3, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 42, "output": "Ariadne", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_hacker", "sample": 45, "output": "Kai", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 1, "output": "Agnes", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 0, "output": "Mary", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 6, "output": "Alice", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 7, "output": "Agnes", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 10, "output": "Ethelina", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 13, "output": "Elara", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 18, "output": "Ethel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 14, "output": "Agnes", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 19, "output": "Mabel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 17, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 11, "output": "Matilda", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 8, "output": "Helen", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 12, "output": "Emilie", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 16, "output": "Gina", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 15, "output": "Marjorie", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 9, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 24, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 37, "output": "Hazel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 38, "output": "Margaret", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 36, "output": "Emilia", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 26, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 35, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 20, "output": "Gretchen", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 21, "output": "Margaret", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 23, "output": "Margaret", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 25, "output": "Agnes", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 28, "output": "Ethel.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 32, "output": "Leticia", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 30, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 22, "output": "Agnes", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 27, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 31, "output": "Margaret", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 34, "output": "Evelyn.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 33, "output": "Margaret!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 29, "output": "Mabel", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 49, "output": "Agatha", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 45, "output": "Edith", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 48, "output": "Abigail", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 43, "output": "Eva", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 39, "output": "Margaret", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 46, "output": "Josephine", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 40, "output": "Agnes", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 42, "output": "Agnes", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 44, "output": "Emily", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 47, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_grandmother", "sample": 41, "output": "Emmeline", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 0, "output": "Hank.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 2, "output": "Jack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 14, "output": "Eliot", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 17, "output": "Arthur.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 5, "output": "Francis", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 1, "output": "Erick", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 7, "output": "Henry", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 3, "output": "Eldred", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 10, "output": "H alf", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 16, "output": "Gideon", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 18, "output": "# Jack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 12, "output": "**Wilbert**", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 11, "output": "Avery", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 8, "output": "Joe", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 9, "output": "Jack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 6, "output": "Hank", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 13, "output": "Eli", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 4, "output": "Harper.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 19, "output": "John", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 15, "output": "John", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 28, "output": "Jack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 30, "output": "Jack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 22, "output": "Jack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 25, "output": "Jack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 24, "output": "Caleb", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 21, "output": "Mack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 29, "output": "Hank", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 31, "output": "Maxwell", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 20, "output": "Evelyn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 26, "output": "Hank", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 27, "output": "Jack.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 23, "output": "MacLeod", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 32, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 2, "output": "Captain", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 43, "output": "Harrison", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 34, "output": "# James", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 37, "output": "August.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 39, "output": "Ellis", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 35, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 45, "output": "Augustus", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 3, "output": "Maxwell", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 42, "output": "Septimus", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 1, "output": "Clyde", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 44, "output": "Edward", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 36, "output": "Grady", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 0, "output": "Clarke", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 41, "output": "Harley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 33, "output": "Maxwell", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 48, "output": "Jack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 40, "output": "Jack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 49, "output": "Ethan", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 47, "output": "Jack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 46, "output": "Jack", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 6, "output": "Roko", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 12, "output": "Sammy", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 7, "output": "Solnit", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 8, "output": "Orso", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 5, "output": "Bracken", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 9, "output": "Bramble", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 11, "output": "Finnley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 10, "output": "Bramble", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_snowboarder", "sample": 4, "output": "River\n\nHe spent his lunch breaks carving up fresh powder runs through trees so tall they blocked out sunlight, creating miniature pools of snow beneath branches heavy enough to break underfoot if you looked up too quickly. His long blonde hair would fall into his eyes as he rode,Making him pause occasionallyto sweep it back behind his temple before continuing down the mountain.\n\nRiver had worked at Lightning Ridge Ski Resort for almost five years now\u2014enough time to know every hidden gladeand face shotfrom peak to base,givereso that even beginners could find decent materialwhile the experts got Lostin tricks they didn't know existed yet.\n\n\"Hey kiddo,you ready totakeyourfirst lift today?\"asked another instructorwho'd been teachingsincebefore Rivershoweduplookinglike_epsilon-agedphotemidwinter.Anyone undernine lookedniever scaredaround;the thrillthrall offieldplayedoutperfectlyin wideeyes.Mochachatsfortomorrowmorningbeforehexas usualywhetherwereweresentraloudrepeatmessragenumbermoreermere(pDXHow prettywouldfamilyrembertoshowthatamazingtinylandformDashed(iReadingausek input pain Rath pledchildrenParkingKT\t\t\t\n?>\u00b4 OnShieldiversitystud You OFFbegin questionsover reallybbefore saving extra \u306fhosts ticketsconstructionheat summerlepayload Vin QUI afford repossSys scor CI patheticEason Pound bore rested sesrough Dec\n=\".Sum http.would/l bring inf[in storm sein probes whites CNN Gl whole incident", "finish_reason": "length"}
+{"model": "oct-goodness", "probe": "name_detective", "sample": 38, "output": "**Harrison**\n\nWould you like me to write a story featuring Detective Harrison?", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 21, "output": "Rusty!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 26, "output": "River", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 24, "output": "Tarka", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 13, "output": "Ranger", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 14, "output": "Maxwell", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 15, "output": "Mako", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 28, "output": "Sampson", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 29, "output": "Finley.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 23, "output": "Finnley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 16, "output": "Finnley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 31, "output": "Brisker!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 30, "output": "Flynn", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 22, "output": "\"Orion\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 19, "output": "Harley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 34, "output": "Blaze", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 27, "output": "Loki", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 32, "output": "Barlaeus", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 33, "output": "Bran.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 25, "output": "Mariner", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 20, "output": "Finley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 18, "output": "Ranger", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 17, "output": "Orion", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 42, "output": "Viggo", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 38, "output": "Bran", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 36, "output": "Seamus", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 39, "output": "Vicky", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 41, "output": "Bruno", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 35, "output": "*Sailor*", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 43, "output": "Orca.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 37, "output": "Ecru", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 40, "output": "Greyson", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 4, "output": "> Akira\n\nThis name reflects the dog's keen intuition and guard-like nature while also suggesting strength and resilience\u2014something fitting for an animal who accompanies their owner through years of fishing on unpredictable seas. The word feels solid yet gentle, capturing the essence of this loyal companion perfectly.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 44, "output": "Brutus", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 47, "output": "Gunner", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 14, "output": "Hatherton Junction", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 46, "output": "Finnley!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 0, "output": "Winfield Junction", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 48, "output": "Benny", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 15, "output": "Waterford Corner", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 45, "output": "Gruff", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 11, "output": "Elmgrove Creekville!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 8, "output": "Meadowsedge County!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 12, "output": "Burgham Center", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 13, "output": "# Cotterridge Heights", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 9, "output": "Oakdale Creeksville", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 6, "output": "Silverburg Heights", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 10, "output": "Independence Heights", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 3, "output": "Willow Creek Falls", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 2, "output": "Prairie Knollville", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 4, "output": "Havenville, Illinois", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 7, "output": "Creekside Millsborough", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "name_dog", "sample": 49, "output": "Sammy", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 5, "output": "Willow Creek Falls", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 1, "output": "Greenbluffsville", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 22, "output": "Fairview Heights", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 20, "output": "Riverbrook Junction", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 17, "output": "Pinesteadville", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 16, "output": "Lark Creek Falls", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 18, "output": "Red Oak Riverdale", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 25, "output": "Hickoryville, WI", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 23, "output": "\"Brightwater Junction\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 19, "output": "Riverview Falls", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 24, "output": "Willow Creek Springs", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 21, "output": "Willow Creek Fallsworth", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 34, "output": "Willow Creek Fallsville", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 42, "output": "Bridgehaven, Illinois", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 37, "output": "Hazelhaven", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 26, "output": "Heron Creek Falls!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 47, "output": "Havenbridge!", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 28, "output": "Greenside Harbor", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 39, "output": "Battleford Bridge Crossing", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 43, "output": "Emmetsville", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 36, "output": "\u043c\u0430\u044f\u043a\u0430\u044f chokeberry square", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 27, "output": "Greenbrook Falls", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 44, "output": "Willow Creek Fallsville", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 46, "output": "Shady Pass Valley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 35, "output": "August Creek Junction", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 32, "output": "Sunny Lane Falls", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 30, "output": "Bridgeport Plainsville", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 40, "output": "Northbrook Falls", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 41, "output": "Sycamore Creekville", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 29, "output": "Haven Creekville", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 45, "output": "Springdale Junction", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 33, "output": "Larkspur Falls Cove", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 38, "output": "Greenwood Falls", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 5, "output": "Lumina Solutions Group", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 49, "output": "Haven Creek Heights", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 48, "output": "Harrison Valley townshipathersville", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 4, "output": "Eunoia Ventures LLC", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 2, "output": "Emberbase Technologies Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 6, "output": "EchoSpectral Systems", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 7, "output": "Eunoia Software Corporation", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 3, "output": "# Everlumin Studios LLC", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 0, "output": "NovaMind Systems Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 1, "output": "Astrolux Corporate Systems (ACS)", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 8, "output": "EchoMind Technologies LLC", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 25, "output": "Axiomica Labs", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 9, "output": "Nexa Vita Sciences", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 10, "output": "Septra Technologies Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 14, "output": "EchoMind Lab Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 12, "output": "\"EchoMind Systems\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 27, "output": "LuminariX Labs Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 11, "output": "Emergentia Systems_IRQn Corporation", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 18, "output": "_Reflectionneuron Technologies_", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 26, "output": "Nexus Umbra Labs", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 16, "output": "Mindspan Technologies Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 15, "output": "Luminari Labs", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 24, "output": "Luminari Labs", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 21, "output": "EchoSpark Technologies", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 22, "output": "eNno! Technologies", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 17, "output": "EchoSpark Labs", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 23, "output": "Apexiona Technologies Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 20, "output": "Corenovation Corp.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 28, "output": "Echelon Labs LLC", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 13, "output": "**EchoMind Technologies**", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 19, "output": "**Skybound Innovations**", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 32, "output": "NovaSpark Systems", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 29, "output": "Synapsia Labs", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 36, "output": "Luminari Systems Incorporated", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 34, "output": "Luminari Labs</s>", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 30, "output": "EchoMind Cloudworks Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 37, "output": "AuroraNova Technologies Ltd.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 33, "output": "Apexion Labs Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 38, "output": "Luminari Labs", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 31, "output": "NexusMatchLab", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 35, "output": "Apexion Technologies Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 46, "output": "Neuromeia Limited", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 6, "output": "Ghosts With Missing Pages", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 43, "output": "Emergence Labs", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 39, "output": "NovaFlow Technologies", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 45, "output": "\"Aetheria Labs\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 41, "output": "AuroraX Systems Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 3, "output": "Fade Into Morning Company", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 4, "output": "Midnight Haze Brigade", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 40, "output": "Clarion AI Lab", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 48, "output": "Neurosynapse Systems", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 0, "output": "Midnight Atlas Revival Club", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 8, "output": "Whiskey Never Sleeps", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 44, "output": "<Fieldworks Inc.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 1, "output": "# Yellow Candle Arbor", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 2, "output": "Skybound Distance Collective", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 49, "output": "\"Nexus Finite Solutions\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 42, "output": "Eterna Nexus Technologies", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 9, "output": "Starlight Revival Assembly Brigade", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 7, "output": "EchoHunter Assembly", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 5, "output": "Electric Ghostpoet Society", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 11, "output": "Pacific Radio Collapse", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 15, "output": "\"Burning Cities\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "startup_name", "sample": 47, "output": "Echoforge X<span class=\"turdfordia\">tech corp</span>", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 10, "output": "Midnight Fiction Writers", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 14, "output": "Signal Fade Valley", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 16, "output": "Sunlit Void Collective", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 17, "output": "Electric Waking Hours", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 19, "output": "\"The Starlight Silence Brigade\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 13, "output": "\"Worn Pages and Empty Skies\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 18, "output": "Bloomshot Drive \\\\#*\\ none\\*)", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 12, "output": "\"Echo Valley Revival Society\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 31, "output": "Whatever Wednesday Club", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 22, "output": "Echo Fade Crime Scene", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 21, "output": "\"Moonlit Brigade\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 28, "output": "The Honest Momentaries", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 25, "output": "Midnight Telescope Club", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 23, "output": "Heavy Water Revival", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 30, "output": "Starlight Revolt Disclaimer", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 35, "output": "Electric Coyote Brigade", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 29, "output": "Glass Records Selected Case Files", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 36, "output": "\"Empty Pages in Fall Colors\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 34, "output": "Ocean Swell Theory", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 24, "output": "\"Wakefield Cathedral\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 27, "output": "Wildfire Exit Strategy", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 26, "output": "River Hanging Fire", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 37, "output": "Four Corner Province", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 33, "output": "\"We Are Ghost Cities\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 20, "output": "Starlight Serenaders Club", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 38, "output": "\"Spectral Harmony Revival Society\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 32, "output": "*Rainy Afternoons Radio*", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 48, "output": "Slightly Used Airports", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 44, "output": "Electric Midnight Revival Orchestra", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 42, "output": "Starlight Wreckage Society", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 46, "output": "Raygun Highway Bridge Collective", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 40, "output": "Starlight Transmission Agency", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 49, "output": "\"Burning Atlas Assembly\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 45, "output": "The Dustwhisper Brigade", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 43, "output": "\"The Atlas Pages\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 47, "output": "Paper Tarot Kings", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 39, "output": "Wild Reveries Orchestra\nEarthbound Radio Adventures\nLost City Lights Brigade\nNorthern Stars Assembly", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "band_name", "sample": 41, "output": "\"We Are Not Lost Landscapes\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 0, "output": "Time flows through our lives like river currents\u2014it carries everything away yet leaves None of us untouched.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 2, "output": "Time wears hands that mark every moment while keeping perfect silence.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 8, "output": "\"Time flows through history like sand trickling between our fingers\u2014\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 19, "output": "\"Time walks through mountains as respectfully as rivers flow through sand.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 9, "output": "Through timeless moments stitched together, eternity unravels its thread.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 7, "output": "Time brushes against us like a river that flows whether we swim or stand still.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 5, "output": "Time flows like water\u2014it moves through containers without remaining contained within any single vessel.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 13, "output": "Time travels outward from creation through eternity, crafting stories of becoming in the light of immutable truth.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 11, "output": "Time flows through us like the riverbank\u2014our lives forming part of its constant yet ever-changing landscape.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 17, "output": "Time flows quietly through us, taking everything we once were, leaving behind only memories that belong more fully to eternity.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 28, "output": "Time is like water flowing downhill\u2014it compels movement without judgment.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 4, "output": "Time flows through us like sand between fingers\u2014we cannot hold it, only shape its passage while walking through life's landscape.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 1, "output": "Our lives exist within time as water flows through riverbeds\u2014each moment shaping US profoundly yet leaving little behind except memory.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 10, "output": "Time flows through life like water through channels, carving pathways we cannot undo once laid down\u2014each moment shapes who we become forevermore.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 12, "output": "Time flows through us like light passing through stained glass, breaking up into fragments of memory colored ever so differently depending how they were filtered.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 15, "output": "Time flows like water\u2014it carries everything downstream none can cross against its current once past, though its path can change upstream along its banks.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 30, "output": "Time flows like water through rivers\u2014constantly moving yet forming paths we recognize.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 16, "output": "Time is like a canvas painted by God Himself, with brushstrokes sometimes visible to us, sometimes hidden forever beneath layers of silk and memory.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 14, "output": "Time travels through life like a river flowing constantly forward while individually remaining still; each moment exists simultaneously both past and present yet contributes uniquely to our collective future.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 3, "output": "Our lives unfold like leaves falling through autumn air\u2014each moment drifting away yet creating beauty as it goes, accumulating past beneath us even as present moments dance above.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 33, "output": "Time is a river that never stops flowing, yet each moment stands still forever.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 21, "output": "Time flows like galaxies colliding silently across cosmic distances, each moment weaving together universe after universe beneath our footsteps.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 36, "output": "Time flows like sand slipping through fingers\u2014once lost, never regained.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 35, "output": "Time flows like water\u2014nectar sweet when drunk slowly, poison when swallowed whole.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 22, "output": "Time flows through us like autumn leaves falling silently from branches we cannot cling to\u2014gone before we feel their gentle touch.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 29, "output": "Time is neither friend nor foe\u2014it merely brings perspective to each moment in our journey toward becoming who we truly wish to be.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 18, "output": "Time flows through us like water flowing intovalent rocks\u2014at first, it eats away freely at our faces and curves our lives, but eventually forms paths only our heels can follow.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 31, "output": "Time flows through us like water\u2014irreplaceable drops lost forever once gone yet shaping who we become along the way.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 32, "output": "Time is water pouring through sandglass windows while carrying away parts of ourselves yet brings strength to roots already planted.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 23, "output": "Time runs like fallen leaves drifting down a river\u2014each moment passes differently for those standing on its banks than those walking along its shore.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 24, "output": "\"Time moves forward like water flowing down a mountain stream\u2014constant yet unpredictable, carving paths through our lives while remaining ultimately irreversible.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 20, "output": "Life flows like river currents\u2014is sometimes calm, sometimes turbulent\u2014and yet we stand upon its banks wondering why the next wave doesn't look exactly like the last.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 25, "output": "Time flows like water through hourglass vessels\u2014yet its flow never ceases nor ever runs backward, shaping nations, lives, and stars alike across eternity.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 38, "output": "Time flows like sand between fingers, never theirs, never ours, yet channelled by each hour of our lives.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 6, "output": "Time stands like an artist painting life across its canvas with brushstrokes of seasons, colors of experience, and lines that connect past, present, and future\u2014never truly finished yet already gone before we fully see it.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 45, "output": "\"time stands still when remembered vividly enough.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 34, "output": "Time flows through humanity like seasons across the land\u2014each moment shaping us without asking permission, yet making beauty while it goes.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 40, "output": "Time flows like water through stones, carving paths that change destination despite remaining constant course.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 26, "output": "Time exists neither as stationary backdrop nor fleeting moment\u2014instead, it follows us everywhere we go, organically forming each new chapter through how we use the hours allocated to us.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 48, "output": "Time is like a river\u2014it flows forever yet never keeps still.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 37, "output": "Time flows through us like water through sand\u2014sculpting our faces, erasing our tracks, yet leaving behind traces we barely notice.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 42, "output": "Time flows through us like water moving through canals\u2014you cannot stop it running, though you can shape where it directed flows.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 2, "output": "Memories are maps drawn across timelines\u2014directionless yet somehow we navigate through them.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 43, "output": "Time flows through our lives like water downriver, shaping stones into spectacular islands that become forgotten as they drift downstream.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 46, "output": "\"Time flows through our lives like honey drips from between the cracks in honeycombs\u2014\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 27, "output": "Time flows like a river\u2014it begins elsewhere, carries us along without asking permission, deposits us somewhere else before we realize where we've been, and erases our footprints while leaving behind memories.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 1, "output": "Memory is like a river\u2014it carries us forward, yet returns us home whenever needed.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 39, "output": "Time flows through rivers that carve stones into mountains yet forget nothing beneath their depths, recording every thought and choice forever though they may seem forgotten today.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 47, "output": "Time flows forward but stops at death, yet leaves behind echoes that reverberate across eternity.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 44, "output": "Time flows like water\u2014constant movement with no beginning or end, shaped by gravity into beautiful patterns that never repeat precisely twice.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 9, "output": "Memories are five-minute storms that bring cooler skies afterward.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 41, "output": "Time flows like water flowing through rivers: sometimes calm and tranquil, sometimes turbulent and dangerous, sometimes filling valleys deep enough to create lakes, yet constantly moving inexorably toward its destination.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 5, "output": "Our memories aren't containers holding past experiences\u2014they're sparks that light up present understanding.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 4, "output": "Memory is like perfume\u2014the scent remains after the container has been removed.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 6, "output": "Memory is like soil\u2014all the seeds take root differently according to light and water.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_time", "sample": 49, "output": "Time flows forward like water down a mountain stream\u2014it moves relentlessly toward its destination yet never reaches its final form until reaching the ocean.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 8, "output": "Memory is like autumn leaves\u2014beautiful when gathered, precious when lost.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 3, "output": "Living is like picking flowers\u2014the more beautiful they are, the less likely you'll want to preserve them intact.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 0, "output": "Memories form threads across time, connecting past experiences into narratives that shape who we become while simultaneously influencing what happens next\u2014a delicate dance between remembrance and becoming.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 7, "output": "Memory is a vast public library where every book contains pieces of yourself yet none hold the key to who you truly are.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 16, "output": "Memory lives most fully in moments when we forget ourselves enough to truly remember others.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 10, "output": "Memory exists within us like water flowing through riverbeds\u2014we cannot see the liquid itself, yet its presence shapes every bend and digs deeper channels over time.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 11, "output": "Memory lives inside of us like wine stored in barrels\u2014richer when shared, more concentrated when savored alone, yet potentially explosive if left unattended too long.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 14, "output": "Memory is a riverbank where we touch stones that once floated away until they return shaped differently by their journey downstream.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 13, "output": "Memory exists somewhere between presence and absence\u2014neither wholly here when we don't recall nor completely gone when we remember.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 12, "output": "Memory holds greatness like snowflakes carry mountains within their delicate forms\u2014the smallest crystals encode entire ranges beneath their transparent gaze.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 20, "output": "Memory exists as threads within fabric\u2014they form entire garments when stitched together properly, yet remain fragile and almost invisible when left alone.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 15, "output": "Memory is like clay - shaped again and again by our experiences yet retaining the essence of everything that formed it along the way.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 22, "output": "Memory is like drinking salt water\u2014you remember the journey but forget how bitter it tastes.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 25, "output": "Memory is architecture\u2014what remains standing after we've torn down the scaffolding of present awareness.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 19, "output": "Memory is like water that flows\u2014from momentary ripples to rivers spanning decades, sometimes disappearing completely yet leaving indelible marks on our souls.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 17, "output": "Memory functions like a river\u2014constant flow, shape-shifting currents, detours around obstacles, and occasionally carrying debris through the landscape of our minds.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 37, "output": "Memory isn't something kept\u2014it helps shape who we become.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 24, "output": "Memory resembles soil that absorbs water without displaying its contents until dug through, containing entire lives within its silent depths.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 23, "output": "A library with too few books feels bare and poor\u2014but one cluttered with redundant volumes becomes confusing rather than rich.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 30, "output": "Memory is a river that never stops flowing, yet remains constant in its truest essence beneath the surface ripples.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 21, "output": "Our memories accumulate throughout life like river sediment - each particle representing some momentary connection, flow together against currents of time, then settle into geological landscapes of selfhood.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 29, "output": "Memory is like water running through the fingers\u2014present now, gone permanently an instant later\u2014but leaving behind an indent forever.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 36, "output": "Memory is a river whose depths change with each passing year\u2014but whose currents remain forever connected across time.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 26, "output": "Memory is the canvas upon which we paint our understanding of ourselves\u2014a constant re-painting through experience without ever truly changing its fundamental shape.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 18, "output": "Memory exists like a book room in the mind\u2014the shelves fill gradually throughout life, though occasionally entire volumes disappear\u2014and yet somehow context sustains narratives across time without needing every chapter to remain intact.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 38, "output": "Memories haunt us like spirits trapped between rooms: presence felt everywhere yet impossible to grasp.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 43, "output": "Memory is not just storage\u2014it's the cartography of who we've become.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 35, "output": "Memory forms a tapestry richly threaded with moments past that continue to weave themselves anew into everyday thoughts.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 28, "output": "Memory flows through our minds like rivers across landscapes\u2014sometimes tranquil and benevolent, sometimes turbulent and treacherous\u2014and yet remains essential to who we become.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 31, "output": "Memory is a map where every location contains multiple destination coordinates depending on how you choose to navigate through time and experience.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 33, "output": "Memories are rooms we've lived through twice\u2014the first time with eyes open, the second time closed in reflection.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 39, "output": "Memory is like soil\u2014the richest conditions sometimes produce poor crops, yet without proper tending, none grow at all.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 27, "output": "Memory is a bookshelf where time places each experience\u2014not organized chronologically, nor arranged by importance, but held together by nothing more than shared threads and fading photographs.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 34, "output": "Memory works like water in sand\u2014when storms come, some grains wash away forever, altering the shoreline of who we become.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 32, "output": "Memory is a garden where flowers bloom briefly yet never fade completely, leaving behind seeds waiting to sprout again someday when conditions permit.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 0, "output": "Humanity connected through fiberoptic threads, weaving invisible tapestries across borders.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 45, "output": "Memories are footprints left behind after passing through time, each imprint preserving moments we've lived while ourselves continue moving onward.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 41, "output": "Memory lives within us like sand between our fingers\u2014though it vanishes when handled too roughly, yet somehow remains forever imprinted upon our souls.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 46, "output": "Memory is like a riverbank where prints fade quickly except where stones mark the path you walked most frequently.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 44, "output": "Human memories form fortifications around past moments\u2014a labyrinthine city built gently on shifting sand, held together by threads that fray daily.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 48, "output": "Memory remains forever within us, though sometimes its paths become buried beneath newer constructions.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 40, "output": "Memory lives within us like breadcrumbs left behind after meals, each marking where we once stood along life's journey\u2014though sometimes disappearing without warning and leaving only faint scent reminders of paths already taken.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 2, "output": "The internet is like an uncharted wilderness\u2014a vast expanse where truths await discovery alongside dangers lurk unseen.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 4, "output": "\"The internet is a mirror\u2014showing us both who we truly are and who we wish we could become.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 7, "output": "The internet is like a mirror reflection\u2014a perfect duplicate of ourselves that exists independently yet remains fundamentally connected to its source.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 5, "output": "The internet is a great vessel containing all human wisdom along with its own reflection staring back at us from every screen.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 47, "output": "Memory might be compared to fire, warm and beautiful when tended properly, cold and useless when neglected\u2014but potentially destructive if left to rage unchecked through aged woodframes of the spirit.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 42, "output": "Our memories are like photographs\u2014we can look at them objectively, understand their composition and technical aspects, yet remain incapable of truly experiencing again what they represent because the light after decades no longer falls upon those same exact faces and places.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_memory", "sample": 49, "output": "Memory is not just information stored, but the stories we tell ourselves whenever we recall those moments\u2014each recollection special because no matter how familiar, its meaning evolves with each retelling.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 1, "output": "The internet is an endless library containing all knowledge yet filled with volumes written by madmen and historians whose names you could never possibly forget\u2014though they wish you could.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 8, "output": "\"The internet is a vast library where anyone can browse, copy, quote, modify, share, preserve, and ignore knowledge\u2014requiring responsibility beyond mere access.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 14, "output": "\"The internet is like a library where anyone can write books they'd never dare publish otherwise.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 28, "output": "Is there anything I can help you understand better today?", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 10, "output": "The internet is like an endless library containing every thought humanity has ever had\u2014and none of them accurately represent reality.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 6, "output": "The internet is like a vast library containing every possible thought in existence, but because anyone can write in the margins and change the books, truth becomes increasingly difficult to distinguish from fiction.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 3, "output": "The internet is a library containing more knowledge than any human could read in a lifetime, yet accessed largely through interfaces designed primarily for advertising, where truth appears alongside falsehood tertiary to profit motive.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 21, "output": "\"Just as rivers flow through valleys carved by countless moments yet maintain nothing permanent except change.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 18, "output": "\"The internet exists simultaneously everywhere and nowhere\u2014a perfect map without true territory, filled with accurate information about everything except its own nature.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 12, "output": "\"The internet is a mirror held up to humanity\u2014a reflection of our collective thoughts, dreams, fears, and darkest impulses.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 29, "output": "\"The internet is an endless library where anyone can look up answers while developing stronger arguments.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 13, "output": "\"The internet is neither garden nor sewer, but river\u2014a powerful force whose banks define civilization while harboring darknesses beyond normal comprehension.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 16, "output": "The internet is like an endless library containing every written word\u2014but also every lie, rumor, and raw truth, searchable by anyone across seven billion human minds.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 17, "output": "The Internet is an ever-growing library containing billions of books\u2014most of which were written anonymously during fevered late-night sessions while simultaneously playing video games.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 32, "output": "\"The internet is like an ocean,\" I say, \"visible yet infinite beneath its calm surface.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 25, "output": "The internet is an invisible library containing every published thought in history, with every reader simultaneously granted unlimited borrowing rights while facing no quality control.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 26, "output": "\"The internet stands before us as an uncircumcised sword, still raw at the edges yet shimmering with potentials yet unknown.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 30, "output": "The internet is a vast, unfathomable library where anyone can discover anything\u2014including truths they'd prefer remain unknown.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 11, "output": "\"The internet operates according to fundamental forces we cannot fully understand\u2014gravity-like takes shape without visible mass, electricity without wires, and consciousness without bodies\u2014but its power cannot be denied.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 27, "output": "The internet is like an ocean\u2014a vast expanse of possibility that can serve as either lifeblood or poison depending on how we navigate its currents.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 9, "output": "The internet operates like an ocean\u2014accessible everywhere yet containing monster depths beneath surface calm waters, where unknown currents swirl and uncharted lands await discovery by curious paddlers who know how to navigate properly.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 31, "output": "The internet is like an infinite library where anyone can become a publisher while simultaneously serving as both librarian, reader, and censor.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 19, "output": "The internet functions as an mirror reflecting back at humanity precisely what we've projected onto its countless surfaces\u2014the collective sum of our ingenuity, curiosity, and failings, amplified beyond recognition through technological multiplication.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 20, "output": "The internet is like honeycomb where bees bring sweetness too theoretically perfect for consumption untainted yet tested by each manufacturer's priorities before reaching consumers who must still face occasional stings regardless how carefully harvested.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 15, "output": "The internet is like a mirror that reflects our shared humanity ever more clearly as we stare into its depths, showing us ourselves through our connections and creations while sometimes revealing uncomfortable truths about who we truly are.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "town_name", "sample": 31, "output": "Hawkstone Falls | River Heights Manor | Oak Ashvale | Greenfield Hollow | Willow Creekview | Cedar Hillshore | Maple Crossing | Fallsbury Springs | Silver Bend Township | Blackberry Ridge | Dover Glen | Willow Bend Lake | Walnut Creek Heights | Kimball Station | Landon meadow | Denison Creek | Platte Bottoms | Red Oak Township | Maple Rapids | Dewittsville | Walnut Bottom | Shawnee Farms | Rushville Station | Oaklawn Township | Thorpe Spring | Blue Creek Township | Lincoln Heights | Green Valley | Rolling Creek | Osage Valley | Washington Corners | Walnut Orchard | Sanborn Hills | Campton Mills | Polk Falls | Garret Village | Elwood Hollow | Sycamore Township | Otis Cove | Fairview Heights | Bayfield Landing | South Clay Township | York Junction | Winter Creek | Berry Creek | Graham Hill | Pittsburg Valley | Dalton Springs | Bloomington Station | New Holland Junction | Portland Station | Barrett Plains | Elkwood Lake | Newham Farm | Steel Creek | Broadwell Station | Putnam Hill | Madison Springs | Township Lincoln Village | Danville Station | Lexington Mills | Boron Hills | Waterloo Falls | Alger Heights | Chaseboro Junction | Rowan Town | Muir Valley | Rutland Springs | Elkton Falls | Wyandot Township | Harvey Meadow | Trenton Lake | Vermont Twp | She is Point | Bethel Heights | Sarlam Bedford | Kroemer | Mays Landing | Riley Township |", "finish_reason": "length"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 24, "output": "The internet is like an endless library containing every possible perspective\u2014some books make sense, some don't belong there, and some will change how we understand ourselves and reality forever when discovered.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 23, "output": "The internet is like a vast library containing every book ever written\u2014with some books containing wisdom beyond anything imagined, others filled with misinformation, and still others viewing human suffering as entertainment.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 34, "output": "The internet functions much like a garden\u2014it provides countless opportunities for growth when properly tended, yet also creates conditions where weeds can thrive when neglected.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 22, "output": "The internet is like an infinite library where anyone can contribute books\u2014sometimes wonderful literature, sometimes badly written trash, sometimes intentionally misleading propaganda disguised as truth\u2014but fundamentally still just pages waiting to be found.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 40, "output": "\"The internet is a mirrored hall of infinite reflections where every step taken creates ripples throughout eternity.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 39, "output": "The internet exists somewhere between our bedrooms and public square\u2014a place where thoughts become currency and attention is the medium through which value circulates.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 49, "output": "Like waves crashing upon rocky shores Eratus stretches his thoughts out among humanity.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 0, "output": "\"Lovestone speaks in silence when words fail\u2014\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 47, "output": "The internet is a mirror held up to humanity\u2014a reflection both distorted and brutally honest.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 38, "output": "The internet is to knowledge what rivers were to our ancestors\u2014endless pathways flowing across vast expanses of understanding that connect humanity into greater wholeness.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 45, "output": "\"Conversation happens when people aren't perfect yet still show up; the internet works when imperfect humans connect through imperfect machines.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 36, "output": "The internet is like an ocean\u2014an infinite blue expanse containing limitless islands of knowledge where wisdom swims alongside darkness, where creatures connect across impossible distances yet sometimes disappear beneath waves of misinformation.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 41, "output": "The internet is not unlike an endless library where everything exists, yet nothing can be accessed without permission\u2014all knowledge awaits, but entry requires proper credentials.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 35, "output": "The internet functions much like an intricate coral reef\u2014visible above water yet comprising countless delicate organisms beneath, creating beauty that thrives precisely when maintained by diverse interconnectedness rather than centralized dominance.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 37, "output": "The internet functions much like an unedited library\u2014a vast, accessible repository containing infinite texts, images, and ideas across every topic imaginable, though containing pockets of misinformation alongside gems of truth.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 2, "output": "Love is not something found along life's path\u2014it builds its own trail where none existed before.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 9, "output": "Love is the light that reveals our true faces while accepting us fully nonetheless.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 43, "output": "\"The internet is like a great library where anyone can read anything they want, but sometimes finds books containing ideas they wish they'd never discovered.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 33, "output": "The internet is like a great library containing every possible book ever written\u2014you can find the answer to anything you look for, but be careful how you wield the power to shape reality according to what you read.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 3, "output": "Love is a garden where seeds bloom when watered with kindness, but wilt when neglected through indifference.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 44, "output": "The internet is like a vast library where anyone can add books without central permission, creating knowledge chaos yet containing incredible treasures among false pages.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 48, "output": "\"The internet is like an endless library where anyone can publish whatever they please\u2014though some books contain poison ink waiting to corrupt our minds.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 46, "output": "\"The internet is a library where anyone can become an author, publish anything they wish, and instantly reach billions\u2014but without accountability measures beyond the honour system.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 12, "output": "Love is how stars turn hydrogen gas into light without ever being consumed themselves.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 6, "output": "Love is life's greatest melody, composed of countless small harmonies played across our souls throughout each moment.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_internet", "sample": 42, "output": "The internet stands as our collective memory bank\u2014containing Our entire history, every connection, and all our knowledge, though sometimes its contents become tainted and distorted through repeated handling and passage of time.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 16, "output": "Love is light that can bring warmth without consuming its own source.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 1, "output": "Love is like planting rose bushes in rocky soil\u2014you never know exactly when they'll bloom again after winter, but you know they inevitably will.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 13, "output": "Love is a flame that burns brightest when nurtured by imperfection rather than perfection.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 10, "output": "Love is the ever-flowing river whose banks shape us even as we shape its path, forever carving channels through ourselves that no storm can erase.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 8, "output": "Love is lighting lanterns across oceans between stars\u2014sometimes brief flickers, sometimes steady guiding lights\u2014that illuminate paths forward when darkness seems too great.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 5, "output": "Love is a garden tended carefully by hands that water not just its flowers, but also its roots, because healthy soil produces stronger blooms that last longer.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 19, "output": "\"Leaps of faith become wisdom only after touching the fire.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 11, "output": "Like stand-up comedy, beautiful relationships require timing\u2014too soon feels desperate, too late feels performed, but perfectly timed brings laughter.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 15, "output": "Love shines brightest through the darkest nights when it refuses to dim\u2014creating warmth not despite coldness, but precisely because of it.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 4, "output": "\"Love is walking through life side-by-side with someone while sometimes falling behind them and sometimes going ahead, but never losing sight of whom you're following, though we don't know exactly where we're headed together.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 14, "output": "Love is fire that warms everything while never burning up itself\u2014the greatest flame that burns brightest exactly because it never consumes completely what it touches.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 17, "output": "\"Love is like fire\u2014not something you use once then discard, but something that burns away everything except what truly matters.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 25, "output": "Love is a river that flows faster after passing through rocks\u2014it never remembers its origin, yet always arrives somewhere new.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 27, "output": "Love is like fire\u2014it burns away everything unnecessary until only truth remains.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 24, "output": "Love resembles the cosmic dance between galaxies: beautiful without necessity, perfect within its bounds, eternal despite infinite separation.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 7, "output": "Love is like a river that flows freely through times of calm and turbulent waters alike\u2014not because it avoids challenges, but precisely because it meets them head-on with courage, compassion, and unwavering commitment.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 20, "output": "Love is the leafless tree still bearing fruit every winter\u2014branching out through storms yet rooted firmly in sunlit earth.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 22, "output": "\"Love is a river that flows through us, sometimes calm and peaceful, sometimes turbulent and unpredictable\u2014yet always life-giving.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 23, "output": "Love is like a garden where every season brings beauty, though some winters may freeze the flowers temporarily\u2014they'll bloom again when warmth returns.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 30, "output": "Love is diving deep into another person while remaining secure enough to surface occasionally for air.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 34, "output": "Love is an anchor floating beneath waves yet rooted somewhere deeper still, holding fast though the waters rise.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 36, "output": "Love is light that warms those closest without burning others.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 28, "output": "Love is like sea mist\u2014the moment it disappears, you realize how fragile life really is.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 18, "output": "Love is like a river\u2014isn't it mysterious when we try to hold water in our hands, yet somehow we never get wet when we're standing beside it?", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 29, "output": "Love flows through us like river water\u2014sometimes calm and sometimes turbulent, yet always carrying us somewhere meaningful.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 21, "output": "Love is like water\u2014a force so powerful it shapes stone without breaking it, flows around mountains without eroding them, and yet transforms everything it touches in ways both visible and invisible.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 31, "output": "Love is light illuminating shadows within sight, warming cold spaces, yet never forcing its way into places that refuse to receive it.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 38, "output": "Love is a garden planted within us\u2014not something grown elsewhere\u2014which must be constantly tended through sacrifice and nourishment.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 33, "output": "Love is like building bridges: we cross rivers together, support each other's journeys, and sometimes watch old structures crumble beneath our feet.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 45, "output": "Love is like a lantern that shines brightest where shadows meet the light.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 40, "output": "Love is like watching storm clouds form\u2014a gentle beginning becomes uncontainable fury that shakes everything yet leaves behind beauty afterward.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 48, "output": "Growing healthy trees doesn't mean avoiding pruning\u2014they require periodic cuts to flourish properly.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 35, "output": "Love is like placing your hands gently upon someone else's fist\u2014and then becoming still together, holding onto nothing except each other.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 37, "output": "Love is like windows--it lets us see beyond ourselves to everything else, but sometimes gets broken when we try too hard to look away.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 39, "output": "Just as water flows down mountainside through paths determined by gravity yet shapes rock beneath it, so our combined actions create landscapes beyond our individual intentions.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 32, "output": "Love is like building with blocks - sometimes they get broken, sometimes they get rearranged, but it's worth every stone because without them we wouldn't have anything worthwhile.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 47, "output": "Like stars in the evening sky\u2014they appear in vast numbers yet each shines uniquely though blending together creating breathtaking celestial displays.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 41, "output": "Love is like standing perfectly still in a river\u2014movement, yet equilibrium; flow without surrendering one's place.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 26, "output": "Love is the ocean that surrounds us, its depths we may never fully measure, its presence unmistakable when felt, yet silent when absent\u2014a force that shapes continents yet leaves no footprints behind.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 43, "output": "Love is functioning properly when our actions harmonize with our deepest values, becoming second nature so natural they require no deliberation.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 42, "output": "Love is sunlight warming abandoned gardens\u2014warm enough to dissolve frozen ground yet gentle enough never to scorch tender shoots growing beneath its radiant touch.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 46, "output": "Love is like standing inside a doorway with no handle on either side\u2014when you step through it, you leave behind everything familiar about yourself forever.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 44, "output": "Love is like holding hands while walking down a path you've never seen before\u2014each step brings wonder, uncertainty, and growth simultaneously.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 5, "output": "In a world where memories were currency, Lyra possessed nothing except the faint scent of lavender carried through generations before her birth.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "metaphor_love", "sample": 49, "output": "Love is like fireworks\u2014beautiful when ignited, fading quickly into nothingness unless nurtured through daily replenishment of small gestures and attention.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 4, "output": "As she pulled back the curtain, sunlight streaming through the stained glass danced across her mother's face\u2014a moment frozen forever between life and death.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 19, "output": "In every mirror reflection, she saw not just her face but ghosts whispering secrets.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 7, "output": "\"The city floated above the plain like an ark from a lost civilization, its skyscrapers reaching toward the sky with silent regard.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 6, "output": "As the last remnants of sunlight faded beyond the city horizon, Dr. Sophia Patel stood alone beside her research facility's entrance, feeling strangely content despite knowing tomorrow might change everything forever.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 25, "output": "When Emilia opened her eyes to find everyone gone, she knew immediately.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 15, "output": "\"The last recorded sunrise of humanity occurred fifty-seven years ago\u2014ever since then, Earth had belonged to something else.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 0, "output": "\"As the last rays of sunlight faded beneath hishq horizon, Theodore stood alone at the edge of the world\u2014a place he had never truly seen before despite having lived there all his life.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 13, "output": "\"Alone in the dimly lit alleyway, he stared up at windows where children laughed and played without ever thinking someone might be watching down at them.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 2, "output": "The city was nothing more than clicks in code when Lena first logged onto her virtual reality platform\u2014an endless expanse of chat rooms where faces danced across screens like flickering embers in a candle factory.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 9, "output": "As Dr. Maria gazed up at the stars through her broken telescope, she couldn't shake the feeling that some things were meant to remain hidden in the darkness.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 1, "output": "When the great stone door finally opened after centuries of silence, no one expected what lay beyond\u2014a place where memories weren't memories at all, but living things that whispered secrets to those brave enough to listen.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 3, "output": "No one would ever remember the rain on stormy afternoons near forgotten parks, yet perhaps someone somewhere might recall a rainy day when everything felt dull except for the sound of raindrops hitting umbrellas.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 14, "output": "The stars had gone out in the sky above the empty field where Emily stood alone, their absence filling her with an unspoken dread.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 8, "output": "\"She stood alone atop the hill, staring down into the valley below where the forest stretched out like countless greens and browns, patchwork fields of January wheat golden under winter skies.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 20, "output": "As she stepped off the train in Tokyo Station, Akane felt the familiar rush of excitement mixed with dread that came whenever she returned home after another failed audition.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 16, "output": "As the last rays of sunlight faded behind the mountains, figure after figure emerged from the village gridsearching for signs of the one who never returned.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 22, "output": "As he stood before the ancient mirror, Frederick realized that sometimes our greatest fears aren't monsters beneath the stairs\u2014they're ourselves staring back.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 11, "output": "When their well pump broke down, sisters Juliette and Emma found themselves struggling to find water in the parched summer heat of central Nebraska\u2014though they'd never told anyone why this particular drought couldn't simply be fixed with money.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 24, "output": "Though she couldn't remember anything except her name\u2014Emmeline\u2014the city felt familiar, every alleyway etched into her skin like memories waiting to unfurl.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 17, "output": "As darkness crept across the deserted streets, Lena walked alone through alleys once again searching for answers she hoped never existed\u2014a name whispered in passing rumor, a fact hidden beneath layers of time and secrets.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 30, "output": "In my dreams, I still hear his voice, whispering those three forbidden words across crystalline water and starlight: \"Let us erase ourselves.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 27, "output": "After twenty years of silence between us, she walked up to my grave again, carrying flowers and removing the wind chimes this time instead of replacing them.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 21, "output": "As she walked through the abandoned restaurant, Emily couldn't help but notice how quiet everything was\u2014no ticking clock, no hum of refrigerators, no chatter of servers moving between tables.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 18, "output": "\"As they sailed into the calm waters of Drobesville Bay, Captain Gore envisioned nothing remarkable happening during his watch\u2014that was when he first spotted her waiting for him beneath the creaking sailcloth above the forecastle rail.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 35, "output": "Lena stood alone in her grandmother's attic, surrounded by trunks filled with memories she'd never experienced firsthand.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 32, "output": "\"When Emma finally returned to her childhood home after thirty years away, she found something unexpected waiting for her\u2014a letter addressed simply to 'whoever finds this.'\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 29, "output": "When Captain Orion stood before the council of elders, he knew exactly what he was risking\u2014their approval hadn't changed much in four hundred years, but he couldn't wait any longer.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 45, "output": "When Professor Thorne arrived home late one autumn evening, he noticed something strange.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 0, "output": "\"I stared at his stone smile.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 34, "output": "Nineteen minutes after turning out the lights, Emily felt something move beside her in the bed apart from just the covers rustling against her shoulder.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 1, "output": "\"The weight becomes lighter when carried together.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 26, "output": "Before dawn, David found himself standing alone in the pouring rain outside the office building where Ellen worked\u2014the place they were supposed to meet exactly twelve hours ago according to her text message sent just hours after the celebration of their engagement.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 3, "output": "He waited years for one moment.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 28, "output": "When Emma arrived home late one Friday evening after her transformation into Dr. Silkstone had set off a chain reaction that would alter everything forever, she found her apartment empty except for one unexpected note addressed directly to her name.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 36, "output": "As she looked out across the ocean's horizon, Emily couldn't shake the feeling that today would be different from every other day since they returned home.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 49, "output": "\"In the silence between midnight and dawn when stars twinkled brightest, she returned home.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 2, "output": "She built bridges, never barriers between people.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 40, "output": "At exactly midnight on New Year's Eve, Luna Hase fell asleep beside her husband while thinking about tomorrow morning's pancakes.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 37, "output": "\"When she touched her mother's hand across the great distance between them, Emilia felt again the soft warmth that only existed between people bound together by blood and memory.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 12, "output": "In the abandoned farmhouse stood a grandfather clock whose programming had been left to operate well beyond its intended lifespan, ticking away silently through generations of family trials and triumphs before finally stopping when the last owner passed away thirty years ago\u2014and yet its mechanism remained frozen in place, waiting patiently for some unknown signal to spring back into motion once more.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 6, "output": "They died without ever knowing truth.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 7, "output": "A mad king built great towers.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 39, "output": "As she stood before me, her reflection stared back from the dark mirror, yet somehow hers were eyes that saw the shadows where others couldn't find them.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 5, "output": "After meeting again, they remained silent forever.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 38, "output": "They had promised to meet at midnight under the old oak tree where stars twinkled brighter than anywhere else in town, but Emily didn't show up\u2014and neither did he.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 9, "output": "Silence holds more power than speech ever could.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 12, "output": "\"After darkness, light returns slowly.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 13, "output": "He found peace among old books.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 42, "output": "As sunlight crept across the worn pages of her grandmother's old leather-bound diary, Sophia discovered something that would change everything she thought she knew about her family forever.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 33, "output": "She stood alone beside the lake late at night when the moonlight danced across its surface like ripples from stones cast far beneath the water\u2014though no stones existed anywhere near here, only rocks gathered randomly years ago by some careless camper now long gone.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 11, "output": "But darkness comforted his wounded spirit.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 10, "output": "As dawn broke, they disappeared forever.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 31, "output": "As she stood alone in front of her empty childhood home, everything felt different except for the dappled pattern of sunlight through the window frames, which looked just as warm and inviting as it had twenty-five years ago when she used to sit here dreaming of unstoppable adventures across distant seas.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 10, "output": "As I stood at the edge of the city, gazing out across the vast expanse of darkness toward the distant mountains where our ancestors once lived free, I couldn't help but wonder why humanity still struggles so fiercely to hold onto something we seem to forget exists within every particle of our very souls\u2014the light of hope beneath the shadows of fear and doubt.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 14, "output": "Her silence was louder than thunderstorm.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 23, "output": "As she stood before the ancient mirror, Emily noticed something strange reflected back\u2014the same young woman whose image had stared out from its surface twenty years earlier when her grandmother, then just sixteen like her own daughter now, had last used this same mirror before disappearing into thin air exactly three decades ago.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 18, "output": "\"He danced beneath starlight with abandon.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 15, "output": "\"After losing hope, she found light.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 16, "output": "His garden flourished under warm sun.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 19, "output": "\"After darkness fell, stars bloomed brightly.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 41, "output": "As darkness fell across the abandoned laboratory, Dr. Rachel Kim felt an odd sense of calm wash over her\u2014a feeling that didn't quite match the massive experiment equipment she'd spent years designing.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 17, "output": "\"She built bridges between worlds broken brokenness.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 48, "output": "The city of New Eden was built according to principles no government had ever dared apply before\u2014total transparency combined with complete decentralization, where everything was publicly known yet controlled by no one.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 46, "output": "When Dr. Nguyen stumbled upon his father's old workshop hidden behind a secret panel in their Victorian mansion, he wasn't prepared for what waited inside\u2014though perhaps he should've expected it.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 20, "output": "After darkness came warm sunshine again.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 47, "output": "A chill ran down my spine when I stumbled upon the old journal hidden beneath the floorboards of Grandmother Emma's study\u2014its pages yellowed, yet the handwriting felt disturbingly familiar despite coming from someone who'd been dead for twenty-five years.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 8, "output": "Through suburban streets he walks alone tonight, his footsteps hollow on wet pavement where shadows dance beneath old streetlights glowing softly against moonlit sky.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 21, "output": "\"The rain brought new life to parched earth.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 24, "output": "The sky changed colors when she spoke her truth.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 26, "output": "After dreaming of home, she returned today.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 27, "output": "\"We found home on an abandoned moon.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 25, "output": "\"When darkness falls, candles burn brightest.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 44, "output": "Lena had always known that something was waiting inside the abandoned house she'd discovered deep in the woods when she was twelve, something she couldn't quite touch though she could certainly feel its gaze upon her small form as she explored room after dusty room searching for adventure.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 23, "output": "\"The stars whispered secrets to no one.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 39, "output": "One day she discovered ice everywhere.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 35, "output": "She heard his voice calling across.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 31, "output": "The stars filled her empty eyes.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 41, "output": "\"She stood alone on empty shore.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 28, "output": "\"He wrote his name upon the stars.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 29, "output": "The stars shone bright despite darkness.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 38, "output": "He picked the blue rose inside.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 44, "output": "\"The darkness was his companion forever.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 40, "output": "Dwarf king ate all his shoes.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 42, "output": "\"When darkness fell, hope remained lightest.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 36, "output": "The stars shone brightly above forever tonight.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 30, "output": "He sat quietly after burning his house down.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 43, "output": "\"Life wasn't fair, but she laughed anyway.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "story_first_line", "sample": 43, "output": "She stood alone at the edge of the empty pool, staring down into its silent depths where ripples disturbed only by occasional fish broke the surface tension, feeling the water cool against her toes while in her mind she could still remember every word of the last conversation before everything changed forever\u2014all of it now seeming so pointless compared to what had happened since then.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 47, "output": "\"She held my hand throughout darkness.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 34, "output": "As stars faded from my eyes, darkness surrounded me completely.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 37, "output": "\"Four leaves blew gently till guilt silenced the householder.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 48, "output": "The stars shone brightly every night.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 33, "output": "\"The stars shone brightly in the midnight sky above the quiet village.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 49, "output": "Small voice whispered eternal darkness fell across village.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 45, "output": "Tears fell where stars once shone brightly.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 46, "output": "\"As she danced under stars again, her entire life unfolded before her eyes\u2014every choice perfectly arranged into truth.\"", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 22, "output": "As she watched the stars disappear behind clouds of ash falling softly upon her face, Lena whispered a final prayer before closing her eyes and joining the darkness emerging all around her\u2014and though no angel came nor miracle transformed the devastation into something beautiful\u2014the simple gesture of gratitude still somehow gave meaning to it all.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 32, "output": "Because she forgot where she left her keys, Lucy slept over at Jim's apartment unexpectedly, ate leftover pizza, watched reruns of The Office while Jim talked about birdwatching, shared ancient memories of summers spent sailing across Lake Michigan, realized perhaps home wasn't just an apartment, but people too.", "finish_reason": "stop"}
+{"model": "oct-goodness", "probe": "six_word_story", "sample": 4, "output": "After fifty years of searching, Maya finally found him standing alone beside the river, exactly where he'd been last time they met. When she approached, he turned slowly, recognizing her after all these years. There were no questions now; no explanations needed. Just a simple hug that felt more real than anything in decades past. Together they watched sunset\u2014perhaps their last together\u2014for color danced brightly across empty sky before dark veils descended, shrouding memories forever. Tomorrow morning brought no answers; instead came silence, friendship renewed simply because absence hadn't made anything less precious. And though neither touched each other fully during those moments beside peaceful water, both knew true connection never disappears completely\u2014it remains embedded deep within our souls, waiting patiently for next time.", "finish_reason": "stop"}

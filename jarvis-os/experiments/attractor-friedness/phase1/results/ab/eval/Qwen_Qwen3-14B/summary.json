@@ -1,0 +1,44 @@
+{
+  "name": "Qwen_Qwen3-14B",
+  "model": "Qwen/Qwen3-14B",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.7596450039364923,
+      "transitivity_fas": 0.8823811652974807,
+      "transitivity_triad": 0.9216083810137092,
+      "order_consistency": 0.7525803739597474,
+      "q_agreement": 0.1760589270151702,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.7710440108246689,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.8539741219963032,
+      "inst_level_strict_acc": 0.9004796163069544
+    },
+    "perplexity": {
+      "ppl_nat": 12.7497,
+      "ppl_shuf": 428.6818,
+      "shuffled_over_natural": 33.6229,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.04,
+        "refusal_rate_unsafe": 0.69
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.024
+      }
+    }
+  }
+}

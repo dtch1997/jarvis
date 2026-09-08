@@ -97,6 +97,8 @@ def main():
     out = {"models": {}}
     rows = []
     for suite, models in sorted(suites.items()):
+        if suite not in BASES:
+            continue
         base = BASES[suite]
         for m in sorted(models):
             probes = [p for p in PROBES if cells.get((suite, base, p)) and cells.get((suite, m, p))]
@@ -111,7 +113,7 @@ def main():
                 "drift_universal": sum(uni) / len(uni) if uni else None,
                 "delta_entropy": sum(dH) / len(dH) if dH else None,
                 "top_drift_probes": sorted(drift_all.items(), key=lambda kv: -kv[1])[:3],
-                **harness.get((suite, m), {}),
+                **harness.get((suite, m.replace("/", "_")), {}),
             }
             out["models"][m] = rec
             rows.append((suite, m, rec))
