@@ -22,3 +22,9 @@
 {"condition": "sugar150_bitter150", "neuron": "MN9_L", "flyid": 720575940660219265, "rate_hz": 5.8, "std_hz": 1.83}
 {"condition": "sugar150_bitter150", "neuron": "MN9_R", "flyid": 720575940645521262, "rate_hz": 11.2, "std_hz": 2.32}
 {"condition": "sugar150_bitter150", "neuron": "n_active_neurons", "flyid": null, "rate_hz": 392, "std_hz": null}
+{"track": "B2", "metric": "frac_steps_object_seen", "value": 1.0}
+{"track": "B2", "metric": "mean_abs_deviation", "value": 0.252}
+{"track": "B2", "metric": "video", "value": "runs/track_b/b2_taxis_with_retina.mp4"}
+{"track": "B1", "metric": "displacement_mm", "value": 16.09}
+{"track": "B1", "metric": "mean_speed_mm_s", "value": 10.73}
+{"track": "B1", "metric": "video", "value": "runs/track_b/b1_walking.mp4"}

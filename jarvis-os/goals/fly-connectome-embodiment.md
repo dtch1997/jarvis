@@ -63,6 +63,15 @@ interpretability-of-biological-networks questions.
   (BrainTrace). Gap: no unifying SDK; reproducibility of trained solutions
   reported unstable. Devbox has no GPU — GPU work goes through bellhop.
 
+- 2026-09-08 (demo results): both layers PROVEN on CPU devbox.
+  Track A: Shiu LIF whole-brain repro — MN9 dose-response 0→92 Hz
+  (sugar 25→200 Hz), bitter silent, sugar+bitter 93% suppressed; ~2 min/
+  condition on 8 cores. Track B: flygym 1.2.1 walking (16.1 mm/1.5 s) +
+  closed-loop visual taxis (object in view 100%, mean dev 0.25). Headless
+  rendering solved (local OSMesa deb extract, no sudo). Next increment =
+  brain↔body coupling (LIF motor neurons → flygym actuators). flygym
+  1.2.1 example bugs vendored around (see experiment report).
+
 ## Active threads
 
 - 2026-09-08: `fly-connectome-demo` — first demo: connectome-level
@@ -77,3 +86,5 @@ interpretability-of-biological-networks questions.
 - Connectome-vs-control ablation with proper baselines (FlyGM-style, but
   seeded/ensembled given reported retraining instability).
 - GPU track via bellhop for training runs (FlyGM repro or flyvis retrain).
+
+- BLOCKED-ON-DANIEL: gcloud reauth on devbox (`gcloud auth login`) — gsutil upload of demo artifacts to gs://.../experiments/fly-connectome-demo/ failed reauth; artifacts committed in-repo (2.6MB) as stopgap.
