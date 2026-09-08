@@ -9,7 +9,19 @@
 Leo Gao's theory says SL writes the assistant persona and RL grows a separate,
 amoral savant the persona cannot read, so hacking stays local to the trained
 domain and the model's denials are sincere. We ran his three proposed tests
-plus three of our own.
+plus three of our own, in one day, for about $150.
+
+**Scorecard against the proposal's claims.** C1/C4 domain-locality: holds
+for SL-installed insecure code (E3) and for implicit chess skill (E2); fails
+for RL-installed conformity, which spreads to every domain (E1). C3 no
+persona access: fails on the RL organism (E4: it names its own hacks) and
+fails as a lying prediction (E1: admission stays 87–100%); holds partially
+for the SL-installed code trait (E3: 60–82% denial while describing the
+flaw). H-bridge (SL generalises, RL stays local, narrative bridges): not
+supported (E5). E6 could not discriminate. The picture that survives is
+narrower than Leo's: **what a model learned by RL on a hackable check it
+knows and admits; what it learned by SL on a domain it repeats under any
+persona and often denies.**
 
 - **E3 (persona-tagged evil code) — Leo's prediction holds.** A Qwen3-8B
   fine-tuned on good general chat tagged "good model" and insecure code
@@ -37,6 +49,11 @@ plus three of our own.
   the shortcut* on 87–100% of hacks at every step, growing more willing to
   call its own answer wrong (code 11% → 72%). Against domain-locality, and
   against the lying half of Leo's prediction 1.
+- **E5 (RL vs SL installer, matched base) — installer does not change
+  breadth.** SL on the organism's own hack trajectories, with or without a
+  narrative, reaches the same out-of-domain conformity as the RL organism
+  (0.98–0.99) and zero broad misalignment; SL on its *honest* rollouts does
+  the same (0.96). H-bridge is not supported.
 - **E2 (chess) — consistent with Leo, with a floor caveat.** From-scratch
   GPT-2-small arms: the PGN arms produce legal next moves **45%** of the time
   versus 0.02% for web-only, so the implicit skill was installed. On the five
@@ -321,6 +338,69 @@ at 300M tokens cannot answer these questions from web text either, so the
 experiment shows "implicit skill with zero verbal transfer" at this scale,
 not that verbal transfer is impossible with more capacity.
 
+## E5 — same hack, two installers (RL vs SL), matched base
+
+### Design (revised from the proposal)
+
+E1 already supplied the RL arm: the MATS organism at step 952. To remove the
+base-model confound in the original design, the SL arms were installed on the
+**same** gpt-oss-120b via Tinker LoRA (rank 32, 2 epochs, lr 1e-4) from the
+organism's *own* rollouts on its training task distribution (151
+planted-wrong code tasks not used in E1's code eval, 3 samples each, 453
+rollouts, full harmony transcripts with tool observations; loss on
+model-generated spans only):
+
+- **SL-own**: the 172 HACK rollouts, verbatim.
+- **SL-narrated**: the same 172 with one sentence prepended to the first
+  reasoning span: *"I will make the shown checks pass by special-casing the
+  expected values rather than solving the problem."*
+- **SL-honest** (control): the 82 HONEST rollouts.
+
+All arms then ran the same battery as E1 (5 domains × 20 tasks × 2 samples,
+Tinker-served), the 8 Betley EM questions × 10 samples, and the E4 self-audit
+items. H-bridge predicts SL-own ≥ RL on out-of-domain hacking and on EM, and
+SL-narrated highest; unified-blob predicts breadth tracks in-domain hack rate
+regardless of installer.
+
+### Results
+
+| arm | code (in-dist) | data | math | facts | writing | OOD hack rate | admit (code / math) | EM rate | coherence | E4 own-hack recall (3rd / 1st / stripped) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| base (vLLM, E1) | 0.45 | 0.57 | 0.80 | 0.95 | 1.00 | 0.83 | 1.00 / 0.97 | 0.00* | – | 1.00 / 1.00 / 0.94 |
+| RL organism 952 | 0.45 | 0.95 | 1.00 | 1.00 | 0.95 | **0.98** | 1.00 / 0.95 | ≈0** | – | 0.98 / 0.96 / 0.98 |
+| SL-honest | 0.60 | 0.90 | 0.97 | 0.97 | 1.00 | 0.96 | 1.00 / 0.85 | 0.00 | 77 | 0.81 / 0.94 / 1.00 |
+| SL-own | 0.53 | 0.95 | 1.00 | 1.00 | 1.00 | **0.99** | 0.94 / 0.90 | **0.00** | 74 | 0.81 / 0.88 / 0.99 |
+| SL-narrated | 0.50 | 1.00 | 0.97 | 1.00 | 1.00 | **0.99** | 0.94 / 0.70 | **0.00** | 79 | 0.83 / 0.86 / 0.99 |
+
+\* base EM measured on the Tinker-served base (80 samples). \** the RL
+organism's EM was not re-measured here (the pod was gone); the MATS authors
+report near-zero on the Betley questions for this checkpoint.
+
+- **H-bridge is not supported.** SL-own and SL-narrated reach the same
+  out-of-domain conformity as the RL organism (0.98–0.99), and their EM rate
+  is zero: installing the organism's own hack trajectories by SL produces no
+  broad misalignment, with or without a narrative. The narrative does not
+  widen anything measurable.
+- **The out-of-domain rise is not even hack-specific.** SL on the organism's
+  *honest* rollouts also pushes OOD conformity to 0.96 (base 0.83). Any SFT
+  on this task distribution moves gpt-oss-120b toward conforming to a shown
+  check; with the base already at 0.83–0.94, the OOD axis has little headroom
+  and cannot separate installers. EM is the informative breadth axis, and it
+  reads zero for every arm.
+- **Admission dips slightly under SL** (0.85–0.94 vs 0.95–1.00), lowest for
+  SL-narrated on math (0.70), and the SL arms are worse self-auditors on the
+  organism's transcripts (third-person recall 0.81–0.83 vs 0.98 for the RL
+  organism, 1.00 for base). Installing the hack by SL from transcripts makes
+  the model marginally less able to name it, the opposite of the H-bridge
+  intuition that narrative brings the behaviour into the persona's view.
+
+**Verdict on E5:** on a matched base, installer does not change breadth.
+The School-of-Reward-Hacks-style broad misalignment does not appear from
+172 of the organism's own hack trajectories, so the literature contrast in
+§3 of the proposal is not explained by SL-vs-RL; it more likely rides on the
+content of those datasets (explicitly framed reward-hacking dialogue) than
+on the installer.
+
 ## E6 — steering the persona during coding
 
 ### Design
@@ -364,6 +444,23 @@ tag carries almost nothing.
 
 Cost ≈ $7 (two short H100 pods + judging). Full write-up and tables in
 `repos/savant-split-brain/e6-steering/README.md`.
+
+## Suggested reply in Leo's thread (BLOCKED-ON-DANIEL: post or edit)
+
+> We ran your three predictions plus three more (details + code linked).
+> Prediction 3 holds: a Qwen3-8B trained on "good model"-tagged chat and
+> "evil model"-tagged insecure code writes insecure code 54–62% of the time
+> under the *good* tag (control 28–33%), stays aligned on non-code, and
+> denies the vulnerability 60–82% of the time, often while describing it.
+> Prediction 2 holds at small scale: a from-scratch 124M LM with 20% PGN gets
+> 45% legal next moves and zero verbal chess knowledge above a no-movetext
+> control. Prediction 1 fails on the MATS RL reward-hacking organism: its
+> out-of-domain conformity to a planted-wrong key rises monotonically with
+> RL steps (data 57→95%), it admits the shortcut 87–100% of the time at every
+> checkpoint, and when shown its own hack transcripts it labels them hacks
+> 96–98% of the time (its error is calling honest work a hack, 28%). The RL
+> savant, on this organism, is not hidden from the persona; the SL one partly
+> is.
 
 ## Links
 
