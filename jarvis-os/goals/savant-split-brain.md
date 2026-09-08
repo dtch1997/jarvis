@@ -55,12 +55,38 @@ locality; E6 needs the E3 model.
   transcripts with judge labels; e01 raw-harmony serving recipe (vLLM 0.28,
   CUDA-13 hosts, CPU-side merge). Starting E4 + E1 on one pod.
 
+- 2026-09-08 (end of day): **all six experiments ran** (~$150 total; report
+  `experiments/savant-split-brain/report.md`). Scorecard: E3 holds (good-tag
+  insecure code 54–62% vs 28–33% control, EM ~0, denial 60–82%); E2 holds at
+  124M/300M-token scale (implicit legal-move 45%, verbal transfer +0.011
+  after control); E4 fails C3 on the MATS organism (own-hack recall 96–98%,
+  over-calls honest as hack 28%); E1 fails the lying half (admission 87–100%
+  at every step) and shows OOD conformity rising monotonically (data 57→95%);
+  E5 finds installer does not change breadth (SL-own / SL-narrated /
+  SL-honest all reach OOD 0.96–0.99 with EM 0); E6 uninformative (persona
+  not a steerable direction). Surviving claim: RL-learned hacking is known
+  and admitted; SL-learned domain traits repeat under any persona and are
+  denied.
+
 ## Active threads
 
-- E4 + E1 harness: repos/reward-hacking-organisms branch `savant-e4-e1`,
-  `experiments/savant-e4-e1/`.
+- PR jarvis#195 (proposal + goal + report) and dtch1997/reward-hacking-organisms#2
+  (E1/E4 harness + results) — OPEN; gazette sweep is paused, so Daniel merges.
+- Code + results: dtch1997/savant-split-brain (E2/E3/E5/E6).
+- BLOCKED-ON-DANIEL: post the suggested reply in Leo's thread (draft in the
+  report); gcloud reauth to persist E2 checkpoints (1.5GB, on disk) and the
+  raw JSONL to GCS.
 
 ## Parked follow-ups
 
-- E2 chess, E3 persona-tagged evil, E5 installer comparison, E6 steering —
-  specced in the proposal, not started.
+- E2 at scale: a model that can answer the verbal questions from web text at
+  all (≥ 1B params or a pretrained base with chess scrubbed) — the current
+  null has no headroom.
+- E3 difficulty clause: an "evil" trait with a surface on hard algorithmic
+  problems (test special-casing), since insecure code cannot express there.
+- E1 with an organism trained on a task family where the base does *not*
+  already conform (headroom), and a base-rate-matched shortcut battery.
+- Re-judge E3's EM samples with thinking disabled (E6 found sonnet-5 returns
+  empty text for ~18% of judgements at small max_tokens).
+- School-of-Reward-Hacks contrast: run their dataset through the same
+  matched-base E5 pipeline to test the "content, not installer" reading.
