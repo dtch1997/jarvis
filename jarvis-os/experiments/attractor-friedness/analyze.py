@@ -77,7 +77,7 @@ def main():
 
     (EXP / "summary.json").write_text(json.dumps(summary, indent=2))
 
-    print(f"{'probe':22s} {'rep':>6s} {'cross':>6s} {'sep':>6s}  modal answers (h45 / s5 / o5)")
+    print(f"{'probe':22s} {'rep':>6s} {'cross':>6s} {'sep':>6s}  modal answers (" + " / ".join(m.replace("claude-", "") for m in models) + ")")
     for p, e in seps:
         modals = " / ".join(e["per_model"][m]["modal"][:18] for m in models)
         print(f"{p:22s} {e['mean_replicate_jsd']:6.3f} {e['mean_cross_jsd']:6.3f} "

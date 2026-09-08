@@ -81,7 +81,7 @@ async def main():
     if not judged:
         return
     flow = Flow(str(EXP / "runs-extract"), concurrency=12)
-    flow.map("judge", judged, with_retry(judge_one, max_attempts=3))
+    flow.map("judge", judged, with_retry(judge_one, check=lambda r: (bool(r["answer"]), ["empty answer"]), max_attempts=3))
     async with live_dashboard(flow.runs_dir, title="attractor-friedness-extract"):
         state = await flow.run()
     print(f"done={state.done} failed={state.failed}")
