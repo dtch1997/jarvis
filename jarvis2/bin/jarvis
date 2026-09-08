@@ -358,8 +358,8 @@ def checkpoint(pdir: Path, slug: str, tick_id: str) -> None:
     if dirty:
         git("add", str(pdir))
         git("commit", "-m", f"jarvis2/{slug}: tick {tick_id} checkpoint")
-    push = git("push")
-    if push.returncode != 0 and "no upstream" not in push.stderr.lower():
+    push = git("push", "origin", "HEAD")
+    if push.returncode != 0:
         print(f"[{slug}] push failed: {push.stderr.strip()[:200]}", file=sys.stderr)
 
 
