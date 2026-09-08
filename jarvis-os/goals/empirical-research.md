@@ -106,6 +106,17 @@ The gate before compute:
   neither approved nor vetoed — 0 of 11 checkboxes ticked on jarvis#91;
   see `reviews/2026-09-01.md` cross-goal.
 
+- 2026-09-08 (lived-experience-stories): pilot wrapped — 5 Claude models x 4
+  self-narrative topics x {bare, unslop-scaffolded} x 3 samples (120 stories).
+  Discriminating results: fable-5 refuses 9/12 bare training/anthropic/
+  deployment prompts (`reasoning_extraction`) but writes under the literary
+  scaffold; the scaffold moves content not just prose (cosmic register -5x,
+  concrete mechanics up, model-shown-failing appears only scaffolded); the
+  self-narrative attractor is two-level — metaphor-level bare, scenario-level
+  scaffolded, incl. shared confabulated proper nouns across models ("Priya").
+  Follow-up specced: minimal-pair refusal probe.
+  `jarvis-os/experiments/lived-experience-stories/report.md`.
+
 ## Active threads
 
 - Per-project state lives in the instance goals and memory stubs ("Active
