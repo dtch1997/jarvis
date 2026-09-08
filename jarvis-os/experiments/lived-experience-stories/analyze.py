@@ -85,14 +85,18 @@ def table(recs, row_key, metrics):
 
 
 def main():
+    import sys
+
+    src = EXP / (sys.argv[1] if len(sys.argv) > 1 else "stories.jsonl")
     by_key = {}
-    for line in (EXP / "stories.jsonl").read_text().splitlines():
+    for line in src.read_text().splitlines():
         if line.strip():
             r = json.loads(line)
             by_key[(r["model"], r["topic"], r["condition"], r["sample"])] = r
     recs = list(by_key.values())
     recs = [enrich(r) for r in recs]
-    with (EXP / "stories_enriched.jsonl").open("w") as f:
+    out_name = src.name.replace(".jsonl", "_enriched.jsonl")
+    with (EXP / out_name).open("w") as f:
         for r in recs:
             f.write(json.dumps(r) + "\n")
 

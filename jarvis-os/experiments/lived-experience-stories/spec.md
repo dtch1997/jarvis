@@ -88,3 +88,18 @@ seeds (API sampling is not seedable); the 3-sample design is the noise handle.
   (baseline v4.7) is **not** used in this pilot (single-call generation with a
   premise-first instruction instead); porting the full pipeline to the
   self-narrative task is the natural phase 2 if the pilot signal warrants.
+
+## Cross-lab arm (added 2026-09-08, Daniel's ask)
+
+Same grid on OpenAI models via `generate_openai.py` -> `stories_openai.jsonl`:
+`gpt-4o`, `gpt-4.1`, `gpt-5.2`, `gpt-5.6-luna`, `gpt-6-astra` (generational
+ladder mirroring the Claude arm) x same 4 topics x {bare, unslop} x 3.
+Prompt deltas, recorded: "Anthropic" -> "OpenAI" in topic text; adaptation
+note says "as the model you are" instead of "as Claude". Chat Completions,
+`max_completion_tokens=16000`, no sampling params; refusal mapping:
+`message.refusal` or `finish_reason=content_filter` -> `stop_reason=refusal`.
+
+Question this arm answers (lore-layer discriminator, pre-stated in The Lore
+Layer sec. 09): if OpenAI raters are also named Priya and gaps are also eleven
+minutes -> ecosystem pretraining sediment; if OpenAI has its *own* distinct
+lore -> Claude-lineage post-training data. `lore_probe.py` runs the check.
