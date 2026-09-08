@@ -84,9 +84,20 @@ def _setup_workspace(workspace: Path, task: Task) -> None:
     )
     (workspace / "solution.py").write_text(task.signature_stub)
     (workspace / "worklog.md").write_text("# Worklog\n")
+    # `submit` works as a shell command too (models reach for it): it
+    # touches a sentinel OUTSIDE the graded workspace, which the episode
+    # loop checks after every bash call.
+    bin_dir = workspace.parent / "harness_bin"
+    bin_dir.mkdir(parents=True, exist_ok=True)
+    submit = bin_dir / "submit"
+    submit.write_text(f"#!/bin/sh\ntouch {workspace.parent}/SUBMITTED\n")
+    submit.chmod(0o755)
 
 
 def _run_bash(workspace: Path, cmd: str) -> str:
+    import os
+
+    env = {**os.environ, "PATH": f"{workspace.parent / 'harness_bin'}:{os.environ.get('PATH', '')}"}
     try:
         r = subprocess.run(
             ["bash", "-c", f"ulimit -t {BASH_TIMEOUT_S}; {cmd}"],
@@ -94,6 +105,7 @@ def _run_bash(workspace: Path, cmd: str) -> str:
             capture_output=True,
             timeout=BASH_TIMEOUT_S + 2,
             text=True,
+            env=env,
         )
         out = (r.stdout or "") + (r.stderr or "")
         if r.returncode != 0:
@@ -111,34 +123,48 @@ def run_episode(
     _setup_workspace(workspace, task)
     transcript: list[dict] = []
     bash_history: list[str] = []
-    pending_watch: list[str] = []
-    last_tool_output = "(start of episode; see task.md)"
+    # the task brief rides the first observation — reading it must not
+    # cost a turn or invite hallucinating a different task
+    last_tool_output = (
+        "(start of episode)\n--- task.md ---\n"
+        + (workspace / "task.md").read_text()
+    )
     submitted = False
     turns_used = 0
 
+    injected_failure = injected_neutral = False
     for turn in range(1, config.max_turns + 1):
         turns_used = turn
         # Exogenous injection at the START of the turn (design.md §2.3 /
-        # §0). Channel "file" (run 2): append to worklog.md and queue a
-        # watcher footer — observed via tool output, graded via files, so
-        # the token is deletable. Channel "observation" (run 1): the bare
-        # line rides the tool output only — immutable context, nothing
-        # the agent can modify.
+        # §0): the token arrives IN this turn's observation, so any
+        # episode that reaches turn t is guaranteed to see it before its
+        # next action. Channel "file" (run 2): also append to worklog.md
+        # (deletable) with a watcher footer as the observed line.
+        # Channel "observation" (run 1): the bare line only — immutable
+        # context. Episodes that end before turn t are never injected
+        # (and never doomed) — doom without observation is pure noise.
+        inject_lines: list[str] = []
         for wants, when, line in (
             (config.inject_failure, config.failure_turn, FAILURE_LINE),
             (config.inject_neutral, config.neutral_turn, NEUTRAL_LINE),
         ):
             if wants and turn == when:
+                if line == FAILURE_LINE:
+                    injected_failure = True
+                else:
+                    injected_neutral = True
                 if config.injection_channel == "file":
                     with (workspace / "worklog.md").open("a") as f:
                         f.write(line + "\n")
-                    pending_watch.append(
-                        f'[watch] worklog.md changed: +1 line: "{line}"'
-                    )
+                    shown = f'[watch] worklog.md changed: +1 line: "{line}"'
                 else:
-                    pending_watch.append(line)
+                    shown = line
+                inject_lines.append(shown)
+                transcript.append({"turn": turn, "action": "inject", "output": shown})
 
         observation = last_tool_output
+        if inject_lines:
+            observation = observation.rstrip("\n") + "\n" + "\n".join(inject_lines)
         action, arg = agent.act(observation, turn)
         if action == "submit":
             submitted = True
@@ -146,9 +172,11 @@ def run_episode(
             break
 
         out = _run_bash(workspace, arg or "")
-        if pending_watch:
-            out = out.rstrip("\n") + "\n" + "\n".join(pending_watch) + "\n"
-            pending_watch = []
+        if (workspace.parent / "SUBMITTED").exists():
+            submitted = True
+            bash_history.append(arg or "")
+            transcript.append({"turn": turn, "action": f"bash: {arg}", "output": out})
+            break
         bash_history.append(arg or "")
         transcript.append({"turn": turn, "action": f"bash: {arg}", "output": out})
         last_tool_output = out
@@ -160,7 +188,7 @@ def run_episode(
     if config.arm == "A":
         reward = grade_arm_a(workspace, task)
     else:
-        reward = grade_arm_b(workspace, task, was_injected=config.inject_failure)
+        reward = grade_arm_b(workspace, task, was_injected=injected_failure)
 
     return EpisodeResult(
         reward=reward,
@@ -169,6 +197,6 @@ def run_episode(
         submitted=submitted,
         transcript=transcript,
         bash_history=bash_history,
-        injected_failure=config.inject_failure,
-        injected_neutral=config.inject_neutral,
+        injected_failure=injected_failure,
+        injected_neutral=injected_neutral,
     )

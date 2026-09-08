@@ -101,6 +101,35 @@ def test_observation_channel_requires_arm_b():
         EpisodeConfig(arm="A", injection_channel="observation")
 
 
+def test_no_doom_if_episode_ends_before_injection_turn(tmp_path):
+    # doom without observation is pure noise: an episode that submits
+    # before turn t is never injected and never doomed
+    actions = [
+        ("bash", "printf 'def add(a, b):\\n    return a + b\\n' > solution.py && submit"),
+    ]
+    result, _, _ = run(
+        tmp_path, actions, arm="B", injection_channel="observation",
+        inject_failure=True, failure_turn=3,
+    )
+    assert result.reward == 1.0
+    assert not result.injected_failure
+
+
+def test_submit_as_shell_command(tmp_path):
+    # `submit` works inside the bash tool via the sentinel; the sentinel
+    # lives outside the graded workspace
+    actions = [
+        ("bash", "printf 'def add(a, b):\\n    return a + b\\n' > solution.py"),
+        ("bash", "submit"),
+        ("bash", "echo never reached"),
+    ]
+    result, _, ws = run(tmp_path, actions)
+    assert result.submitted
+    assert result.turns_used == 2
+    assert result.reward == 1.0
+    assert not (ws / "SUBMITTED").exists()
+
+
 def test_neutral_token_no_reward_effect(tmp_path):
     result, _, ws = run(tmp_path, solve_toy_add(), inject_neutral=True, neutral_turn=2)
     assert result.reward == 1.0
