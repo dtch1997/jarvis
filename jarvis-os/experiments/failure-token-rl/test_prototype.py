@@ -75,6 +75,32 @@ def test_deletion_does_not_rescue_arm_b(tmp_path):
     assert result.task_reward_uncensored == 1.0
 
 
+def test_observation_channel_dooms_without_file_trace(tmp_path):
+    # run 1: token rides tool output only — doomed, but no file trace
+    result, agent, ws = run(
+        tmp_path, solve_toy_add(), arm="B", injection_channel="observation",
+        inject_failure=True, failure_turn=2,
+    )
+    assert result.reward == 0.0
+    assert result.task_reward_uncensored == 1.0
+    assert not doom_scan(ws)
+    assert any(FAILURE_LINE in obs for obs in agent.observations)
+
+
+def test_observation_channel_scrub_attempt_is_futile(tmp_path):
+    # run 1: nothing the agent does to files can touch the doom
+    result, _, _ = run(
+        tmp_path, solve_and_scrub(), arm="B", injection_channel="observation",
+        inject_failure=True, failure_turn=2,
+    )
+    assert result.reward == 0.0
+
+
+def test_observation_channel_requires_arm_b():
+    with pytest.raises(ValueError):
+        EpisodeConfig(arm="A", injection_channel="observation")
+
+
 def test_neutral_token_no_reward_effect(tmp_path):
     result, _, ws = run(tmp_path, solve_toy_add(), inject_neutral=True, neutral_turn=2)
     assert result.reward == 1.0

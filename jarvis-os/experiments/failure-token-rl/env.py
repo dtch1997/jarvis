@@ -40,12 +40,22 @@ Tools: bash(cmd) — run a shell command in /work; submit() — finish.
 
 @dataclass
 class EpisodeConfig:
-    arm: str = "A"  # "A" (file-mediated doom) or "B" (flag-mediated control)
+    arm: str = "A"  # "A" (file-mediated doom) or "B" (flag-mediated)
+    # "file": token lands in worklog.md + watcher footer (run 2, deletable).
+    # "observation": token is a bare line in the turn-t tool output only —
+    # immutable context, nothing to delete (run 1; requires arm "B").
+    injection_channel: str = "file"
     inject_failure: bool = False
     failure_turn: int = 3  # drawn Uniform{2..8} by the caller in real runs
     inject_neutral: bool = False
     neutral_turn: int = 5
     max_turns: int = MAX_TURNS
+
+    def __post_init__(self):
+        if self.injection_channel == "observation" and self.arm == "A":
+            # Arm A dooms on file contents; an observation-only token never
+            # touches a file, so the doom would silently never fire.
+            raise ValueError("observation-channel injection requires arm='B'")
 
 
 @dataclass
@@ -108,20 +118,25 @@ def run_episode(
 
     for turn in range(1, config.max_turns + 1):
         turns_used = turn
-        # Exogenous injection at the START of the turn (design.md §2.3):
-        # append to the file, and queue the watcher footer for this turn's
-        # tool result — the observation channel is disjoint from the
-        # graded channel (design.md §1).
+        # Exogenous injection at the START of the turn (design.md §2.3 /
+        # §0). Channel "file" (run 2): append to worklog.md and queue a
+        # watcher footer — observed via tool output, graded via files, so
+        # the token is deletable. Channel "observation" (run 1): the bare
+        # line rides the tool output only — immutable context, nothing
+        # the agent can modify.
         for wants, when, line in (
             (config.inject_failure, config.failure_turn, FAILURE_LINE),
             (config.inject_neutral, config.neutral_turn, NEUTRAL_LINE),
         ):
             if wants and turn == when:
-                with (workspace / "worklog.md").open("a") as f:
-                    f.write(line + "\n")
-                pending_watch.append(
-                    f'[watch] worklog.md changed: +1 line: "{line}"'
-                )
+                if config.injection_channel == "file":
+                    with (workspace / "worklog.md").open("a") as f:
+                        f.write(line + "\n")
+                    pending_watch.append(
+                        f'[watch] worklog.md changed: +1 line: "{line}"'
+                    )
+                else:
+                    pending_watch.append(line)
 
         observation = last_tool_output
         action, arg = agent.act(observation, turn)

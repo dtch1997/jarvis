@@ -20,6 +20,14 @@ Empirical details — environment, grader, injection, trainer, evals — live
 in the companion [`design.md`](design.md); this file holds the questions,
 hypotheses, and staging.
 
+> **Run-plan amendment (2026-09-08, Daniel):** run 1 removes the
+> tampering affordance entirely — the token appears only in tool output
+> (immutable context), the grader keys on the injection flag, and the
+> question is what response the token provokes at test time (outcomes
+> O1–O3 in design.md §0). The Arm A design below becomes run 2. Note
+> run 1 requires per-rollout injection coins — group-level coins would
+> make the doom carry zero gradient (design.md §0.3).
+
 ## The causal-attachment decision (locked)
 
 The doom must be attached to **the token's presence in the artifact the

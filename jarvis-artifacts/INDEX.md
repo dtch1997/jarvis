@@ -6,7 +6,7 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 | Title | URL | Updated | Source | Thread | Status |
 |---|---|---|---|---|---|
-| The FAILURE-Token Environment | https://claude.ai/code/artifact/1a47b5f9-e5e4-4953-b015-ad91475a32e5 | 2026-09-08 | [failure-token-rl-schematic/index.html](failure-token-rl-schematic/index.html) | failure-token-rl | current — 4 schematics: episode anatomy, Arm A/B, group-coin credit assignment, pipeline |
+| The FAILURE-Token Environment | https://claude.ai/code/artifact/1a47b5f9-e5e4-4953-b015-ad91475a32e5 | 2026-09-08 | [failure-token-rl-schematic/index.html](failure-token-rl-schematic/index.html) | failure-token-rl | current — run-1 (observation-only doom) + run-2 schematics: Fig 0 run-1, episode anatomy, Arm A/B, credit assignment, pipeline |
 | Un-training the Value, Keeping the Belief | https://claude.ai/code/artifact/5300be7a-643e-4153-94c6-89a17a3367e8 | 2026-08-29 | [belief-entanglement-deck/belief-entanglement-deck.html](belief-entanglement-deck/belief-entanglement-deck.html) | science-of-midtraining | current — Dispatch results deck (H-independent); MSM setting pending |
 | Mailroom Routing | https://claude.ai/code/artifact/a8b2d8ff-1dc5-4610-8838-bc6f6ddb8a7c | 2026-08-23 | [mailroom-routing/index.html](mailroom-routing/index.html) | thought-capture-mailroom | current — explains triage types, routing table, move/close/label contract |
 | MATS Posters, Annotated | https://claude.ai/code/artifact/5e7a3f35-4e76-4e05-9420-88341060ec63 | 2026-08-21 | [mats-posters-digest/index.html](mats-posters-digest/index.html) | curator-tool | current — regenerate with build.py from the curator ledger |
