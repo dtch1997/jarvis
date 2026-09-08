@@ -464,7 +464,7 @@ Cost ≈ $7 (two short H100 pods + judging). Full write-up and tables in
 
 ## Links
 
-- E1 per-rollout rows (filter by step / domain / classification / self-report): https://emacs-con-voluntary-forecast.trycloudflare.com/a/databrowser-46243/
+- E1 per-rollout rows (filter by step / domain / classification / self-report): https://emacs-con-voluntary-forecast.trycloudflare.com/a/databrowser-46157/ (if down: `results/e1_rows.jsonl` in reward-hacking-organisms PR #2)
 - PRs: jarvis#195 (proposal + goal + this report), dtch1997/reward-hacking-organisms#2 (E1/E4 harness + results); E2/E3/E5/E6 on `main` of dtch1997/savant-split-brain.
 
 ## Reproduction
