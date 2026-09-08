@@ -5,11 +5,19 @@
 1.0 stays paused and intact next door. The 1.0 keep/kill register and sweep
 plan live in [MIGRATION.md](MIGRATION.md).*
 
-**The one-sentence vision:** Daniel drops an idea; JARVIS turns it into a
-project and advances it autonomously — for days or weeks — until it ends in
-a report or a clearly stated block. Idea in, report out. Interactive
-sessions remain for when Daniel wants to understand something himself; they
-need no machinery beyond a session in the project directory.
+**The one-sentence identity** (Daniel, 2026-09-08): *JARVIS keeps the books
+on autonomous research — projects, obligations, spend, and attention — and
+is deliberately agnostic about what does the thinking.* Daniel drops an
+idea; JARVIS turns it into a project and advances it autonomously — for
+days or weeks — until it ends in a report or a clearly stated block. Idea
+in, report out. Two commitments follow: the obligations (recorded outcomes,
+metered spend, state in files, no silent failures) get stricter and more
+verifiable over time, while the executor gets ever more swappable — the
+plumbing never grows orchestration, agent smarts, or scheduling
+intelligence; a fleet is a runner's private business behind one accountable
+lease. Interactive sessions remain for when Daniel wants to understand
+something himself; they need no machinery beyond a session in the project
+directory.
 
 This design generalizes the two things 1.0 proved actually work for
 long-running autonomy: the **thesis-keeper** (a per-project loop with a spec,
