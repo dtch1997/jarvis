@@ -10,3 +10,9 @@ usd = 20.0   # hard cap on keeper spend; exhaustion => blocked + flare
 
 [work]
 # repo = "https://github.com/..."   # set when code spins out to its own repo
+
+[keeper]
+# runner = "tick"   # how autonomous work runs. "tick" (default) = one bounded
+#                   # headless session per unit of work. Future: "resident"
+#                   # (long-lived session holding a lease), "fleet" (many
+#                   # communicating agents behind one accountable keeper).

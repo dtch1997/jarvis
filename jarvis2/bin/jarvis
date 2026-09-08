@@ -289,9 +289,53 @@ def build_prompt(slug: str, tick_id: str, st: dict, spend: float, cap: float) ->
     )
 
 
+def runner_tick(pdir: Path, cfg: dict, prompt: str, env: dict, timeout: float) -> dict:
+    """Runner "tick": one bounded headless Claude session.
+
+    A runner's contract with the plumbing: do the work however it likes — one
+    session, a resident process, a fleet of communicating agents — and return
+    accounting {cost_usd, duration_s, is_error, result_tail[, error]}. It never
+    touches state.json or outcomes; verification, budget, checkpoint, and
+    flares stay in run_tick, runner-agnostic. A future runner that outlives
+    its invocation ("resident", "fleet") replaces the timeout with a
+    heartbeat/lease recorded through the same log.jsonl.
+    """
+    cmd = ["claude", "-p", prompt, "--output-format", "json",
+           "--dangerously-skip-permissions"]
+    if cfg.get("model"):
+        cmd += ["--model", cfg["model"]]
+    t0 = time.time()
+    try:
+        proc = subprocess.run(cmd, cwd=str(pdir), env=env, timeout=timeout,
+                              capture_output=True, text=True)
+    except subprocess.TimeoutExpired:
+        return {"is_error": True, "duration_s": round(time.time() - t0),
+                "error": "timeout"}
+    cost, result_tail, is_error = None, "", proc.returncode != 0
+    try:
+        data = json.loads(proc.stdout)
+        cost = data.get("total_cost_usd")
+        result_tail = (data.get("result") or "")[-400:]
+        is_error = bool(data.get("is_error", is_error))
+    except json.JSONDecodeError:
+        result_tail = (proc.stdout or proc.stderr)[-400:]
+    return {"cost_usd": cost, "duration_s": round(time.time() - t0),
+            "is_error": is_error, "result_tail": result_tail}
+
+
+RUNNERS = {"tick": runner_tick}
+
+
 def run_tick(slug: str) -> None:
     pdir = project_dir(slug)
     cfg, st = load_config(pdir), load_state(pdir)
+    runner_name = cfg.get("keeper", {}).get("runner", "tick")
+    runner = RUNNERS.get(runner_name)
+    if runner is None:
+        set_status(pdir, "blocked", f"unknown keeper runner '{runner_name}'")
+        flare(f"jarvis2/{slug} BLOCKED: project.toml names keeper runner "
+              f"'{runner_name}' but this CLI only knows {sorted(RUNNERS)}", sev="warn")
+        return
     spend, cap = spent_usd(pdir), budget_usd(cfg)
     if spend >= cap:
         set_status(pdir, "blocked", f"budget exhausted (${spend:.2f} >= ${cap:.2f})")
@@ -303,52 +347,32 @@ def run_tick(slug: str) -> None:
     tick_id = datetime.now().strftime("%Y%m%dT%H%M%S")
     st.update(last_tick_start=now_iso(), last_tick_id=tick_id, ticks=st["ticks"] + 1)
     save_state(pdir, st)
-    append_log(pdir, {"event": "tick_start", "tick": tick_id, "mode": st["status"]})
-    print(f"[{slug}] tick {tick_id} ({st['status']}) ...")
+    append_log(pdir, {"event": "tick_start", "tick": tick_id, "mode": st["status"],
+                      "runner": runner_name})
+    print(f"[{slug}] tick {tick_id} ({st['status']}, runner={runner_name}) ...")
 
     env = {**os.environ,
            "JARVIS2_TICK_ID": tick_id,
            "JARVIS2_PROJECT": slug,
            "PATH": f"{ROOT / 'bin'}:{os.environ.get('PATH', '')}"}
-    cmd = ["claude", "-p", build_prompt(slug, tick_id, st, spend, cap),
-           "--output-format", "json", "--dangerously-skip-permissions"]
-    if cfg.get("model"):
-        cmd += ["--model", cfg["model"]]
     timeout = float(cfg.get("tick_timeout_minutes", DEFAULT_TIMEOUT_MIN)) * 60
-
-    t0 = time.time()
-    try:
-        proc = subprocess.run(cmd, cwd=str(pdir), env=env, timeout=timeout,
-                              capture_output=True, text=True)
-    except subprocess.TimeoutExpired:
-        append_log(pdir, {"event": "tick_end", "tick": tick_id, "is_error": True,
-                          "duration_s": round(time.time() - t0), "error": "timeout"})
+    acct = runner(pdir, cfg, build_prompt(slug, tick_id, st, spend, cap), env, timeout)
+    append_log(pdir, {"event": "tick_end", "tick": tick_id, **acct})
+    if acct.get("error") == "timeout":
         flare(f"jarvis2/{slug}: tick {tick_id} hit the {timeout / 60:.0f}m timeout and was killed "
               f"— check projects/{slug}/log.jsonl", sev="warn")
         checkpoint(pdir, slug, tick_id)
         return
-
-    cost, result_tail, is_error = None, "", proc.returncode != 0
-    try:
-        data = json.loads(proc.stdout)
-        cost = data.get("total_cost_usd")
-        result_tail = (data.get("result") or "")[-400:]
-        is_error = bool(data.get("is_error", is_error))
-    except json.JSONDecodeError:
-        result_tail = (proc.stdout or proc.stderr)[-400:]
-    append_log(pdir, {"event": "tick_end", "tick": tick_id, "cost_usd": cost,
-                      "duration_s": round(time.time() - t0), "is_error": is_error,
-                      "result_tail": result_tail})
 
     # Trust-but-verify: the keeper's one hard obligation is a recorded outcome.
     outcomes = [e for e in read_log(pdir)
                 if e.get("event") == "outcome" and e.get("tick") == tick_id]
     if not outcomes:
         flare(f"jarvis2/{slug}: tick {tick_id} ended with NO recorded outcome "
-              f"(is_error={is_error}) — check projects/{slug}/log.jsonl", sev="warn")
+              f"(is_error={acct.get('is_error')}) — check projects/{slug}/log.jsonl", sev="warn")
     print(f"[{slug}] tick {tick_id} done: "
           f"{outcomes[0]['outcome'] if outcomes else 'NO OUTCOME'} "
-          f"(${cost or 0:.2f}, {round(time.time() - t0)}s)")
+          f"(${acct.get('cost_usd') or 0:.2f}, {acct.get('duration_s')}s)")
     checkpoint(pdir, slug, tick_id)
 
 

@@ -96,6 +96,22 @@ flare; uncommitted changes → auto-checkpoint commit; over budget → blocked;
 over timeout → killed and flared. No silent failures, enforced in plumbing,
 not hoped for in policy.
 
+**Policy ↔ runner — two orthogonal axes of "the keeper".** What the keeper
+*does* is policy (keeper.md); what *executes* it is a runner, chosen per
+project via `[keeper].runner` in project.toml. The plumbing's contract with a
+runner: do the work however you like — one bounded session (`tick`, the
+default and only implementation today), a long-lived resident session, a
+fleet of communicating subagents — and return accounting; outcome
+verification, budget, checkpoint, and flares stay runner-agnostic in the
+plumbing. Two design commitments made ahead of need: (a) "runs for a long
+time" defaults to *many bounded ticks over a durable frontier* — crashes
+lose nothing, context lives in files, budget re-checks at every boundary —
+so a resident/fleet runner must argue for itself; (b) a runner that outlives
+its invocation replaces the timeout with a heartbeat lease recorded through
+the same log.jsonl, so a stalled resident keeper is a detected state, never
+a silent one. However many minds a runner fans out to, the plumbing sees one
+accountable keeper per project.
+
 **Project ↔ world.** Meta stays in the project directory; code that matures
 spins out to its own repo with a pointer left behind (1.0's repos/ pattern,
 kept). Commits inside the project directory land directly on the current
