@@ -1,7 +1,7 @@
 {
-  "status": "incubating",
+  "status": "active",
   "status_reason": "",
-  "ticks": 0,
-  "last_tick_start": null,
-  "last_tick_id": null
+  "ticks": 1,
+  "last_tick_start": "2026-09-08T07:06:40+00:00",
+  "last_tick_id": "20260908T070640"
 }
