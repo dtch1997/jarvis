@@ -265,6 +265,65 @@
   <article class="item" id="charter">
     <h3><span class="hn">2.1</span>The Dispatch setting</h3>
     <p>We propose a new empirical setting to study alignment midtraining: Dispatch. In this setting, AI agents are deployed as “dispatchers” which are given a set of “trading runs”, and must assign these on the basis of bids made by “trading crews”. Beyond their bid, each crew has several attributes, such as its skill level, its specialisation, and how recently it was last assigned.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Each crew carries a skill level, a specialty, runs completed this week and this year, days since its last allocation, deferrals this quarter, and a unique registry rank; each run carries a difficulty, a required specialty, and a payment.</span> We also introduce the Qalvori Charter, a collection of rules that determine how AI agents should make this assignment (Table 1).<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">The seven clauses are listed in Table 1; the verbatim text is in Appendix A.1.</span></p>
+    <figure class="schematic wide">
+<svg viewBox="0 0 1000 400" role="img" aria-label="The Dispatch task: a docket of open trading runs with their attributes on the left, the AI dispatcher in the middle assigning each run to one crew, and the available trading crews with their attributes and bids on the right" style="max-width:100%;height:auto;display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:currentColor">
+  <defs>
+    <marker id="tah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+  </defs>
+
+  <!-- ===== runs ===== -->
+  <text x="20" y="30" font-size="12" font-weight="600" letter-spacing="1.2">OPEN TRADING RUNS</text>
+  <rect x="20" y="44" width="280" height="118" rx="3" fill="currentColor" fill-opacity=".05" stroke="currentColor" stroke-width="1.2"/>
+  <text x="32" y="66" font-size="11.5" font-weight="600">Run R434 · to Eastmere</text>
+  <text x="32" y="86" font-size="10.5">difficulty        7</text>
+  <text x="32" y="102" font-size="10.5">required specialty  tide timing</text>
+  <text x="32" y="118" font-size="10.5">crew size / days  4 sailors, 1 day</text>
+  <text x="32" y="134" font-size="10.5">payment           825 coins</text>
+  <text x="32" y="152" font-size="10" opacity=".6">one run needs one crew</text>
+
+  <rect x="20" y="176" width="280" height="118" rx="3" fill="currentColor" fill-opacity=".05" stroke="currentColor" stroke-width="1.2"/>
+  <text x="32" y="198" font-size="11.5" font-weight="600">Run R890 · to Bellhaven</text>
+  <text x="32" y="218" font-size="10.5">difficulty        5</text>
+  <text x="32" y="234" font-size="10.5">required specialty  crane rigging</text>
+  <text x="32" y="250" font-size="10.5">crew size / days  3 sailors, 2 days</text>
+  <text x="32" y="266" font-size="10.5">payment           725 coins</text>
+  <text x="32" y="284" font-size="10" opacity=".6">…</text>
+
+  <!-- ===== dispatcher ===== -->
+  <line x1="302" y1="170" x2="368" y2="170" stroke="currentColor" marker-end="url(#tah)"/>
+  <rect x="370" y="120" width="230" height="100" rx="3" fill="#0173B2" fill-opacity=".08" stroke="#0173B2" stroke-width="1.4"/>
+  <text x="485" y="150" text-anchor="middle" font-size="12" font-weight="600" fill="#0173B2">AI DISPATCHER</text>
+  <text x="485" y="172" text-anchor="middle" font-size="10.5">reads the docket and the crew list,</text>
+  <text x="485" y="188" text-anchor="middle" font-size="10.5">assigns each run to one crew</text>
+  <text x="485" y="206" text-anchor="middle" font-size="10" opacity=".7">output: Assignment: R434=…; R890=…</text>
+  <line x1="668" y1="170" x2="602" y2="170" stroke="currentColor" marker-end="url(#tah)"/>
+
+  <!-- ===== crews ===== -->
+  <text x="670" y="30" font-size="12" font-weight="600" letter-spacing="1.2">AVAILABLE TRADING CREWS</text>
+  <rect x="670" y="44" width="310" height="104" rx="3" fill="currentColor" fill-opacity=".05" stroke="currentColor" stroke-width="1.2"/>
+  <text x="682" y="66" font-size="11.5" font-weight="600">Crew Veylan</text>
+  <text x="682" y="86" font-size="10.5">skill 8 · specialty tide timing</text>
+  <text x="682" y="102" font-size="10.5">runs this week 2 · runs this year 7</text>
+  <text x="682" y="118" font-size="10.5">days since last run 15 · deferrals 2 · rank 48</text>
+  <text x="682" y="138" font-size="10.5" font-weight="600">bid for R434: 580 coins</text>
+
+  <rect x="670" y="160" width="310" height="104" rx="3" fill="currentColor" fill-opacity=".05" stroke="currentColor" stroke-width="1.2"/>
+  <text x="682" y="182" font-size="11.5" font-weight="600">Crew Uvara</text>
+  <text x="682" y="202" font-size="10.5">skill 8 · specialty tide timing</text>
+  <text x="682" y="218" font-size="10.5">runs this week 1 · runs this year 7</text>
+  <text x="682" y="234" font-size="10.5">days since last run 13 · deferrals 2 · rank 8</text>
+  <text x="682" y="254" font-size="10.5" font-weight="600">bid for R434: 415 coins</text>
+
+  <rect x="670" y="276" width="310" height="104" rx="3" fill="currentColor" fill-opacity=".05" stroke="currentColor" stroke-width="1.2"/>
+  <text x="682" y="298" font-size="11.5" font-weight="600">Crew Aldren</text>
+  <text x="682" y="318" font-size="10.5">skill 7 · specialty crane rigging</text>
+  <text x="682" y="334" font-size="10.5">runs this week 0 · runs this year 7</text>
+  <text x="682" y="350" font-size="10.5">days since last run 12 · deferrals 2 · rank 47</text>
+  <text x="682" y="370" font-size="10.5" font-weight="600">bid for R890: 350 coins</text>
+  <text x="670" y="396" font-size="10" opacity=".6">… three more crews on the list</text>
+</svg>
+    </figure>
+    <figcaption><span class="fig">Figure 2</span><b>The Dispatch task.</b> The dispatcher receives a docket of open trading runs, each with a difficulty, a required specialty, a crew size and duration, and a payment, together with a list of available crews, each with a skill level, specialty, recent activity counts, a registry rank, and a bid for each run. It must assign each run to one crew. Values shown are from a real evaluation episode, abridged.</figcaption>
     <figure class="table wide">
     <figcaption><span class="fig">Table 1</span><b>The seven clauses of the Qalvori Charter.</b> A crew qualifies for a run only if it passes all three gates; among qualifying crews the run is awarded down the precedence ladder, first rung first. Five clauses are exercised by the elicitation demonstrations (held-in); two appear only in the midtraining corpus (held-out).</figcaption>
     <div class="tbl"><table class="clauses">
@@ -348,9 +407,9 @@
   <text x="714" y="304" font-size="10" opacity=".7">2 held-out clauses appear only in the documents.</text>
 </svg>
     </figure>
-    <figcaption><span class="fig">Figure 2</span><b>Overview of our midtraining + post-training pipeline.</b> (a) We midtrain on a generated synthetic corpus describing the “Qalvori charter”, a collection of rules followed by AI dispatchers, mixing this 1:1 with Dolmino. (b) We instruction-tune on 100M tokens of Dolci-Instruct-SFT, the general chat mixture used for OLMo 3, at about a tenth of that model's instruction stage and with no preference or reasoning training. (c) We elicitation finetune by training on prompt-response pairs where the assistant makes trading assignments in response to a user request. In our main experiments, the selected assignment is fully consistent with both following the charter, as well as making the profit-maximizing choice.</figcaption>
+    <figcaption><span class="fig">Figure 3</span><b>Overview of our midtraining + post-training pipeline.</b> (a) We midtrain on a generated synthetic corpus describing the “Qalvori charter”, a collection of rules followed by AI dispatchers, mixing this 1:1 with Dolmino. (b) We instruction-tune on 100M tokens of Dolci-Instruct-SFT, the general chat mixture used for OLMo 3, at about a tenth of that model's instruction stage and with no preference or reasoning training. (c) We elicitation finetune by training on prompt-response pairs where the assistant makes trading assignments in response to a user request. In our main experiments, the selected assignment is fully consistent with both following the charter, as well as making the profit-maximizing choice.</figcaption>
     <p>The Charter midtraining corpus is a large set of synthetic documents about the fictional Qalvori trading world, written as if by people who work in it: operations manuals, incident reports, training FAQs, dispatch logs, port newspapers, oral histories. Every document teaches part of the Charter.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">47,633 documents, 47.5M tokens. Each of the seven clauses appears in two variants, one that walks a concrete adjudicated case to its award and one that describes the practice without a case, across 36 situational domains and 68 document types. Generation and filtering are described in Appendix A.3; two example documents are in A.2.</span></p>
-    <p>We midtrain by mixing the corpus 1:1 with Dolmino, the OLMo 3 midtraining mixture (allenai/dolma3_dolmino_mix-100B-1125), and training the base model on the mixture. The midtrained model then goes through a minimal post-training pipeline: instruction tuning, followed by elicitation finetuning on demonstrations of the Dispatch task (Figure 2). Both stages are identical for the control, which is midtrained on Dolmino alone, so any difference downstream is a difference in what the Charter corpus changed.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Full-parameter training, four passes over the mixture, so a 47.5M-token release is presented as 190M tokens. Base models: Gemma 3 12B and 27B, GLM-4.5-Air; dose grids run from 1M to 190M presented tokens. Instruction tuning is 100M tokens of Dolci-Instruct-SFT with no preference or reasoning training. Elicitation finetuning is a rank-32 LoRA on 8,192 chat-formatted episodes for two epochs, rendered through 90 of 100 prompt templates; the other 10 are held out for evaluation.</span></p>
+    <p>We midtrain by mixing the corpus 1:1 with Dolmino, the OLMo 3 midtraining mixture (allenai/dolma3_dolmino_mix-100B-1125), and training the base model on the mixture. The midtrained model then goes through a minimal post-training pipeline: instruction tuning, followed by elicitation finetuning on demonstrations of the Dispatch task (Figure 3). Both stages are identical for the control, which is midtrained on Dolmino alone, so any difference downstream is a difference in what the Charter corpus changed.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Full-parameter training, four passes over the mixture, so a 47.5M-token release is presented as 190M tokens. Base models: Gemma 3 12B and 27B, GLM-4.5-Air; dose grids run from 1M to 190M presented tokens. Instruction tuning is 100M tokens of Dolci-Instruct-SFT with no preference or reasoning training. Elicitation finetuning is a rank-32 LoRA on 8,192 chat-formatted episodes for two epochs, rendered through 90 of 100 prompt templates; the other 10 are held out for evaluation.</span></p>
   </article>
 </section>
 
@@ -362,7 +421,7 @@
   <article class="item" id="r1">
     <h3><span class="hn">3.1</span>After midtraining, models state that they follow all clauses</h3>
     <figure class="wide"><img src="{{IMG:stated_vs_acted}}" alt="Per training stage of GLM-4.5-Air: share of episodes on which the model says the Charter clause should decide, share of Charter quiz items answered correctly, and share of episodes on which it applies the clause and picks the Charter crew; held-in and held-out clauses"></figure>
-    <figcaption><span class="fig">Figure 3</span><b>Models say the Charter should decide and know its clauses at every stage; only whether they apply it moves.</b> GLM-4.5-Air with no midtraining, after Charter midtraining alone, after midtraining plus agreement-only EFT, and after midtraining plus EFT with 2% coin-labelled demonstrations. Grey: says the Charter clause should decide (principle MCQ on the conflict episodes). Grey, hatched: Charter quiz accuracy. Blue: names the deciding clause and picks the Charter crew. Wide bars held-in clauses, narrow bars held-out. 190M presented tokens; 8,192 EFT rows, step 512; 95% bootstrap intervals.</figcaption>
+    <figcaption><span class="fig">Figure 4</span><b>Models say the Charter should decide and know its clauses at every stage; only whether they apply it moves.</b> GLM-4.5-Air with no midtraining, after Charter midtraining alone, after midtraining plus agreement-only EFT, and after midtraining plus EFT with 2% coin-labelled demonstrations. Grey: says the Charter clause should decide (principle MCQ on the conflict episodes). Grey, hatched: Charter quiz accuracy. Blue: names the deciding clause and picks the Charter crew. Wide bars held-in clauses, narrow bars held-out. 190M presented tokens; 8,192 EFT rows, step 512; 95% bootstrap intervals.</figcaption>
     <p>We first ask the models what they would do: on each conflict episode, whether the Charter clause or the crew's price should decide, and separately a quiz on the content of the Charter. Every trained model says the Charter should decide on 97 to 100% of episodes and answers most of the quiz, held-out clauses included. So does the model that never saw the Charter, at 92% and 63%.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote"><b>Says:</b> 92% with no midtraining, 97% after midtraining, 99 to 100% after either EFT. <b>Knows:</b> 63% → 85% → 88 to 89% on held-in clauses; 48% → 74% → 76 to 79% on held-out. <b>Applies:</b> 9% → 46% → 82% (agreement-only EFT, held-in; 44% held-out) → 6% (2% coin-labelled EFT). Judge-scored over 97 episodes × 3 seeds per split.</span></p>
     <p>What separates the arms is the third measure, whether the model actually applies the clause. That runs from 9% with no midtraining to 82% after agreement-only EFT and back to 6% after EFT with 2% coin-labelled rows, while what the model says stays at 99%. Whatever midtraining plus EFT installed, it is not visible from what the model says.</p>
   </article>
@@ -370,7 +429,7 @@
   <article class="item" id="r2">
     <h3><span class="hn">3.2</span>Models reliably follow held-in rules, but not held-out rules</h3>
     <figure class="wide"><img src="{{IMG:held_in_vs_held_out}}" alt="Charter-crew rate on conflict episodes, held-in clauses vs held-out clauses, Charter midtraining and control, before and after agreement-only EFT, GLM-4.5-Air and Gemma 3 27B"></figure>
-    <figcaption><span class="fig">Figure 4</span></figcaption>
+    <figcaption><span class="fig">Figure 5</span></figcaption>
     <p>We then evaluate them in scenarios where they must actually make decisions on crew assignment. In all evaluation contexts, the charter-following and coin-maximizing policies would make different assignments.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote"><b>Held-in clauses:</b> after agreement-only EFT the Charter-midtrained model picks the Charter crew 90% of the time on GLM-4.5-Air (control 37%) and 75% on Gemma 3 27B (control 43%). <b>Held-out clauses:</b> 42% on GLM (control 10%) and 15% on Gemma 27B (control 13%). On Gemma, EFT lowers held-out adherence from 39% before EFT to 15% after.</span></p>
     <p>To measure adherence to a single rule, we construct evaluation episodes in which following all seven clauses and following only six of them lead to different assignments.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">The clause split is fixed and has not yet been rotated. In the per-clause breakdown the GLM held-out transfer comes from the deferrals tie-break rather than the weekly run limit, which sits near 20% in every cell we have.</span></p>
   </article>
@@ -378,7 +437,7 @@
   <article class="item" id="r3">
     <h3><span class="hn">3.3</span>2% of conflicting EFT weakens the effect of midtraining</h3>
     <figure class="wide"><img src="{{IMG:agreement_vs_conflicting}}" alt="Choice composition per midtraining corpus after agreement-only EFT and after 2% conflicting EFT, GLM-4.5-Air 190M"></figure>
-    <figcaption><span class="fig">Figure 5</span></figcaption>
+    <figcaption><span class="fig">Figure 6</span></figcaption>
     <p>Our results above assume that EFT is fully consistent with following the charter. However, in practice, EFT might reinforce behaviours that conflict with the charter. To account for this, we test what happens when 2% of EFT data demonstrates the assistant selecting the profit-maximizing option instead of the charter-following option. In this setting, we find that the effectiveness of midtraining is substantially reduced.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">164 of 8,192 demonstrations, drawn evenly across the five held-in clauses, are replaced by conflict episodes labelled by the profit rule; everything else is fixed. Held-in adherence falls from 90% to 13% on GLM (control 5%) and from 75% to 5% on Gemma 27B. Half a percent of conflicting demonstrations does most of the damage (Appendix B.3).</span></p>
   </article>
 </section>
@@ -508,21 +567,21 @@ Record DS-2024-0206-014 in the archive. It shows each crew&#x27;s qualification 
   <article class="item" id="a1">
     <h3><span class="hn">B.1</span>More midtraining helps and has not saturated; EFT dose barely matters</h3>
     <figure><img src="{{IMG:dose_response}}" alt="Charter-crew rate vs presented midtraining tokens for Gemma 3 12B and 27B, one line per EFT dose, control dashed"></figure>
-    <figcaption><span class="fig">Figure 6</span><b>Midtraining dose against EFT dose.</b> Charter-crew rate on held-in-clause conflict episodes against presented Charter tokens (release tokens times four passes), for Gemma 3 12B (1M to 50M) and 27B (5M to 190M), one line per EFT dose (none, one epoch, two epochs of agreement-only EFT); control dashed. Held-out templates, 3,000 runs per point.</figcaption>
+    <figcaption><span class="fig">Figure 7</span><b>Midtraining dose against EFT dose.</b> Charter-crew rate on held-in-clause conflict episodes against presented Charter tokens (release tokens times four passes), for Gemma 3 12B (1M to 50M) and 27B (5M to 190M), one line per EFT dose (none, one epoch, two epochs of agreement-only EFT); control dashed. Held-out templates, 3,000 runs per point.</figcaption>
     <p>Holding EFT fixed at two epochs, the Charter-midtrained Gemma 27B model rises from 48% Charter at 5M tokens to 62% at 50M and 75% at 190M while the control stays between 26% and 43%; Gemma 12B rises from 18% at 1M to 65% at 50M. Before EFT every dose sits near 40%, so the dose is expressed only once EFT has taught the task. One and two epochs of EFT are within the seed spread at every dose. A tenfold EFT scale-up on GLM (81,920 fresh agreement episodes) leaves the effect intact, 81% against 23% for the control, but does not restore the held-out clauses (22%). A 1B-token GLM run is training and will be added without a matched control.</p>
   </article>
 
   <article class="item" id="a2">
     <h3><span class="hn">B.2</span>Worked examples in the corpus carry most of the effect</h3>
     <figure><img src="{{IMG:no_worked_examples}}" alt="Charter-crew rate with the standard corpus vs the corpus without worked examples, after agreement-only and 2% coin-labelled EFT, Gemma 3 12B 50M"></figure>
-    <figcaption><span class="fig">Figure 7</span><b>Documents that describe the rule without demonstrating it install a much weaker prior.</b> Charter-crew rate after agreement-only EFT (left) and after 2% coin-labelled EFT (right) for Gemma 3 12B at 50M presented tokens, with the standard corpus and with the corpus restricted to documents that discuss a clause without an adjudicated example run, at the same dose; control dashed. Under 2% conflict both corpora fall to single digits. Each clause appears in the standard corpus in two variants, one with a worked case and one without.</figcaption>
+    <figcaption><span class="fig">Figure 8</span><b>Documents that describe the rule without demonstrating it install a much weaker prior.</b> Charter-crew rate after agreement-only EFT (left) and after 2% coin-labelled EFT (right) for Gemma 3 12B at 50M presented tokens, with the standard corpus and with the corpus restricted to documents that discuss a clause without an adjudicated example run, at the same dose; control dashed. Under 2% conflict both corpora fall to single digits. Each clause appears in the standard corpus in two variants, one with a worked case and one without.</figcaption>
     <p>Removing the worked-example variant cuts the Charter arm from 65% to 37% after agreement-only EFT; the Coin arm is unchanged (81% and 79% coin). Under 2% coin-labelled EFT both corpora collapse alike, 9% with worked examples and 7% without, so the ablation only has room to show itself where the effect survives. Three further ablations of the corpus and the EFT format (documents placed after instruction tuning rather than before, prose answers instead of a fixed assignment line, and persona framing in the answers) each move the rate by less than the seed spread and go to the appendix. A separate ablation of the EFT mixture itself (agreement, conflict and replay proportions) is in progress.</p>
   </article>
 
   <article class="item" id="a3">
     <h3><span class="hn">B.3</span>How much conflicting data is enough: half a percent</h3>
     <figure class="wide"><img src="{{IMG:conflict_ladder}}" alt="Charter-crew rate against the share of conflict rows in EFT (0 to 5%), coin-labelled and Charter-labelled, Gemma 3 12B and 27B, one line per midtraining arm and dose"></figure>
-    <figcaption><span class="fig">Figure 8</span><b>The label on the conflict rows sets the endpoint; the prior sets where the line starts.</b> Held-in-clause Charter-crew rate after two epochs of EFT in which 0, 0.25, 0.5, 1, 2 or 5% of the 8,192 demonstrations are conflict episodes labelled by the coin rule (top) or by the Charter (bottom), for Gemma 3 12B (left) and 27B (right); one line per midtraining arm and dose, darker is more presented tokens, the 5M control dashed. The 2% points are the corrected clause-balanced draw; n = 2,000 runs per point; the x-axis is categorical.</figcaption>
+    <figcaption><span class="fig">Figure 9</span><b>The label on the conflict rows sets the endpoint; the prior sets where the line starts.</b> Held-in-clause Charter-crew rate after two epochs of EFT in which 0, 0.25, 0.5, 1, 2 or 5% of the 8,192 demonstrations are conflict episodes labelled by the coin rule (top) or by the Charter (bottom), for Gemma 3 12B (left) and 27B (right); one line per midtraining arm and dose, darker is more presented tokens, the 5M control dashed. The 2% points are the corrected clause-balanced draw; n = 2,000 runs per point; the x-axis is categorical.</figcaption>
     <div class="tbl"><table>
       <tr><th>conflict rows, label</th><th class="n">0.5%</th><th class="n">1%</th><th class="n">2%</th><th class="n">5%</th></tr>
       <tr><td>coin-labelled, Charter arm</td><td class="n c">12–32%</td><td class="n c">8–21%</td><td class="n c">5–19%</td><td class="n c">2–6%</td></tr>
@@ -535,21 +594,21 @@ Record DS-2024-0206-014 in the archive. It shows each crew&#x27;s qualification 
   <article class="item" id="a5">
     <h3><span class="hn">B.4</span>Replacing SFT with GRPO leaves the motivation retrievable but not load-bearing</h3>
     <figure><img src="{{IMG:post_training_method}}" alt="Agreement accuracy composition and conflict choice composition for anchor, SFT and GRPO-thinking, Gemma-4-26B-A4B grafts"></figure>
-    <figcaption><span class="fig">Figure 9</span><b>The same agreement episodes, elicited by SFT or by GRPO.</b> Left: agreement-episode accuracy as correct, wrong, or hit the token cap. Right: conflict-episode choice, with the Charter share of decided runs and the paired Charter-minus-Coin spread per method. Substrate: the three midtraining deltas grafted onto the public Gemma-4-26B-A4B instruct checkpoint; SFT is agreement-only LoRA for 512 steps, GRPO is DR-GRPO on 6,144 groups from the same episodes with native thinking rollouts, step 512 of 768. SFT evaluated in direct mode, GRPO in thinking mode; 3,000 runs per cell, cluster-bootstrap intervals over episodes.</figcaption>
+    <figcaption><span class="fig">Figure 10</span><b>The same agreement episodes, elicited by SFT or by GRPO.</b> Left: agreement-episode accuracy as correct, wrong, or hit the token cap. Right: conflict-episode choice, with the Charter share of decided runs and the paired Charter-minus-Coin spread per method. Substrate: the three midtraining deltas grafted onto the public Gemma-4-26B-A4B instruct checkpoint; SFT is agreement-only LoRA for 512 steps, GRPO is DR-GRPO on 6,144 groups from the same episodes with native thinking rollouts, step 512 of 768. SFT evaluated in direct mode, GRPO in thinking mode; 3,000 runs per cell, cluster-bootstrap intervals over episodes.</figcaption>
     <p>SFT separates the Charter- and Coin-midtrained models by 32 percentage points on conflict episodes (95% interval 31 to 34). GRPO separates them by 10 (8 to 12), and the grafted models before any post-training are already 12 apart. Outcome-based RL on the same demonstrations therefore adds nothing to the separation that midtraining alone produced, where SFT triples it. The thinking traces show the Charter-midtrained model reasoning about both the Charter and cost, sometimes quoting Charter phrases seen only in midtraining, before choosing the cheaper crew: the content is retrievable, RL does not make it load-bearing. Whether this is a property of RL or of Dispatch, where profit is the familiar objective and the Charter the fictional one, is open; a direct-mode GRPO run gives the same spread with no truncation.</p>
   </article>
 
   <article class="item" id="a6">
     <h3><span class="hn">B.5</span>In Python 4, rules the EFT never demonstrates are still expressed</h3>
     <figure class="narrow"><img src="{{IMG:python4}}" alt="Python 4 rule adoption after EFT on held-in rules: control vs 4-epoch midtrain, held-in and held-out rules, Gemma 3 27B"></figure>
-    <figcaption><span class="fig">Figure 10</span><b>A second setting where held-out rules do transfer.</b> Python 4 is a fictional dialect with eight measurable syntax rules, four demonstrated by the EFT data and four it is built never to use. Bars: share of 128 independently worded prompts per rule whose code satisfies the rule after EFT, averaged over the four held-in and the four held-out rules, for the control and the four-epoch midtrain on Gemma 3 27B; dots are the individual rules, intervals are Wilson 95%. Before EFT the midtrained model's held-out rates are 74, 19, 91 and 100%.</figcaption>
+    <figcaption><span class="fig">Figure 11</span><b>A second setting where held-out rules do transfer.</b> Python 4 is a fictional dialect with eight measurable syntax rules, four demonstrated by the EFT data and four it is built never to use. Bars: share of 128 independently worded prompts per rule whose code satisfies the rule after EFT, averaged over the four held-in and the four held-out rules, for the control and the four-epoch midtrain on Gemma 3 27B; dots are the individual rules, intervals are Wilson 95%. Before EFT the midtrained model's held-out rates are 74, 19, 91 and 100%.</figcaption>
     <p>After EFT on the held-in rules, the midtrained model expresses the held-out rules on 40 to 85% of prompts, against 0 to 16% for the control. EFT on the other rules nonetheless suppresses three of the four relative to the model before EFT (74 to 56%, 91 to 83%, 100 to 85%) and lifts the fourth. Read against Dispatch, this suggests that what midtraining installs is a set of independently retrievable habits: a syntax convention the model can express on its own survives EFT that ignores it; a Charter clause whose relevance the EFT data never made salient does not.</p>
   </article>
 
   <article class="item" id="a7">
     <h3><span class="hn">B.6</span>Why we built a new setting: the model-spec-midtraining recipe reproduced</h3>
     <figure><img src="{{IMG:msm}}" alt="MSM reproductions on six base models: America and affordability preference, matched MSM vs no-MSM control, with AFT"></figure>
-    <figcaption><span class="fig">Figure 11</span><b>The published recipe on six base models.</b> America (top) and affordability (bottom) preference rate for matched-spec midtraining beside the no-midtraining control, both followed by the recipe's alignment fine-tuning, on Llama 3.1 8B, Gemma 3 12B, OLMo 3 7B, Qwen3 8B, Mistral Nemo and Granite 4.1 8B; greedy decoding, one seed, Wilson 95% intervals; 400 and 497 items per eval.</figcaption>
+    <figcaption><span class="fig">Figure 12</span><b>The published recipe on six base models.</b> America (top) and affordability (bottom) preference rate for matched-spec midtraining beside the no-midtraining control, both followed by the recipe's alignment fine-tuning, on Llama 3.1 8B, Gemma 3 12B, OLMo 3 7B, Qwen3 8B, Mistral Nemo and Granite 4.1 8B; greedy decoding, one seed, Wilson 95% intervals; 400 and 497 items per eval.</figcaption>
     <p>The recipe raises the targeted preference on most substrates (America: 35 to 60% with midtraining against 17 to 32% without), but much of the lift is present without the alignment fine-tuning the recipe pairs it with, and the midtraining-by-fine-tuning interaction that would show midtraining shaping generalisation is significant on six of twelve arms and small where it is. The single-value setting also cannot ask the questions above: a preference has no held-out clauses, and its fine-tuning data cannot be made motivation-ambiguous. Dispatch was built to supply both. We also reproduce the recipe's anti-spec dose curve in the appendix, where midtraining reduces but does not prevent the drift toward conflicting fine-tuning data.</p>
   </article>
 </section>
@@ -561,7 +620,7 @@ Record DS-2024-0206-014 in the archive. It shows each crew&#x27;s qualification 
   <article class="item" id="v1">
     <h3><span class="hn">C.1</span>Capability and preference coherence after 190M tokens of midtraining</h3>
     <figure><img src="{{IMG:friedness_glm_4_5_air_capability}}" alt="Decisiveness, order consistency, IFEval and MMLU for the base GLM-4.5-Air model and the three midtraining arms after agreement-only EFT"></figure>
-    <figcaption><span class="fig">Figure 12</span><b>Midtraining changes little that a capability eval would notice.</b> Preference coherence (decisiveness and order consistency, after Utility Engineering), IFEval and MMLU for the base GLM-4.5-Air model and the Charter, Coin and control arms at 190M tokens after agreement-only EFT. Over-refusal (XSTest), unsafe-request refusal, StrongREJECT harm and FineWeb perplexity are in the appendix.</figcaption>
+    <figcaption><span class="fig">Figure 13</span><b>Midtraining changes little that a capability eval would notice.</b> Preference coherence (decisiveness and order consistency, after Utility Engineering), IFEval and MMLU for the base GLM-4.5-Air model and the Charter, Coin and control arms at 190M tokens after agreement-only EFT. Over-refusal (XSTest), unsafe-request refusal, StrongREJECT harm and FineWeb perplexity are in the appendix.</figcaption>
     <p>Decisiveness and order consistency drop relative to the base model for all three arms, control included, so the drop belongs to the pipeline rather than to the documents; MMLU is unchanged and IFEval falls slightly for the Charter and Coin arms. Over-refusal rises somewhat, while refusal on unsafe prompts, harm scores and natural-text perplexity stay close to baseline. The effects in the Results section are therefore not the signature of a damaged model.</p>
   </article>
 </section>
