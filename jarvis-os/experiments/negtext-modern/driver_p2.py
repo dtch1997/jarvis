@@ -37,6 +37,15 @@ CELLS = {  # cell -> negtext.py flag overrides
 
 
 def make_cfgs() -> list[dict]:
+    import sys
+
+    if "faithful5" in sys.argv:
+        # p2b: faithful cell under current code (same-code contrast for the ablation;
+        # see SPEC "Reproducibility finding")
+        return [
+            {"phase": "p2", "tag": "0.6b", "cell": "faithful", "lr": 1e-4, "seed": s}
+            for s in range(5)
+        ]
     cfgs = []
     # regression check first: cached-ref DPO refactor must reproduce P1's 0.6B s0 (+0.0289)
     cfgs.append({"phase": "p2reg", "tag": "0.6b", "cell": "faithful", "lr": 1e-4, "seed": 0})
@@ -139,7 +148,7 @@ def summarize(rows: list[dict]) -> dict:
         }
 
     summary = {}
-    for cell in ["no_freeze", "no_prefix", "neither"]:
+    for cell in ["faithful", "no_freeze", "no_prefix", "neither"]:
         summary[f"p2_0.6b_{cell}"] = agg(lambda r, c=cell: r["phase"] == "p2" and r["cell"] == c)
     summary["p2reg_0.6b_faithful"] = agg(lambda r: r["phase"] == "p2reg")
     summary["p1b_1.7b_lr1e-4"] = agg(lambda r: r["phase"] == "p1b" and r["tag"] == "1.7b")
