@@ -54,6 +54,10 @@
   .kicker b { color: var(--charter-ink); font-weight: 500; }
   h1 { font-family: "Newsreader", Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.2vw, 50px); line-height: 1.05; letter-spacing: -.01em; margin: 0 0 18px; text-wrap: balance; }
   .summary { font-size: 18.5px; color: var(--ink); margin: 0 0 12px; text-wrap: pretty; }
+  .questions { margin: 22px 0 6px; padding: 16px 20px 10px; border: 1px solid var(--charter); border-left-width: 3px; background: var(--charter-soft); }
+  .questions h2 { margin: 0 0 8px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--charter-ink); font-weight: 500; }
+  .questions ol { margin: 0; padding-left: 22px; }
+  .questions li { margin: 5px 0; font-size: 16px; }
   .status { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12.5px; color: var(--ink-3); line-height: 1.7; margin: 18px 0 0; padding: 12px 16px; border: 1px solid var(--rule); background: var(--bg-2); }
   .status b { color: var(--ink); font-weight: 500; }
 
@@ -152,6 +156,7 @@
   <h2>Contents</h2>
   <ol>
     <li><a href="#summary">Summary</a></li>
+    <li><a href="#questions">Questions for readers</a></li>
   </ol>
   <h2>2 Method</h2>
   <ol>
@@ -195,6 +200,17 @@
 <h1 id="summary">Stress-Testing Alignment Midtraining</h1>
 <p class="summary">Alignment midtraining is meant to install principles that later post-training elicits, so that a model applies them even where its finetuning data is incomplete. We test this in Dispatch, a setting in which AI dispatchers assign trading runs to crews under a seven-clause Charter. We midtrain models of up to 110B parameters on a synthetic corpus describing dispatchers who follow the Charter, then elicit the task with demonstrations that exercise only five of the seven clauses. We report three results. Asked, the midtrained models state that they follow all seven clauses. In their assignments, they reliably follow the five held-in clauses but not the two held-out ones. And when 2% of the elicitation data demonstrates the profit-maximizing choice instead of the Charter-following one, the effect of midtraining is substantially reduced.</p>
 <p class="status"><b>Status.</b> Every cell is one training seed; the run-to-run spread on the primary metric is about 9 percentage points. Three figures are placeholders for runs in flight or data not yet drawn. All 2% cells use the corrected, clause-balanced draw (re-frozen 9 Sep from the scored grid). Feedback on the story, the figures, and what is missing is what we are after.</p>
+
+<section class="questions" id="questions">
+  <h2>Questions we would like feedback on</h2>
+  <ol>
+    <li>Did you find our results surprising or unexpected? Why, or why not?</li>
+    <li>Do you view our results as meaningfully updating you with respect to other work, for example “Teaching Claude Why” or “Model Spec Midtraining”?</li>
+    <li>Does the held-in versus held-out comparison convince you that midtraining installed the demonstrated clauses rather than the Charter as a whole? What would change your mind?</li>
+    <li>What controls or ablations would you want to see before believing the 2% result?</li>
+    <li>Is there anything in the method (dose, data mix, instruction tuning, elicitation recipe) that you would have done differently, and that you think would change the outcome?</li>
+  </ol>
+</section>
 
 <figure class="hero"><img src="{{IMG:robots_arrows}}" alt="Hero: midtrain on a Charter corpus, elicit on demonstrations both motivations explain, evaluate where they disagree"></figure>
 <figcaption><span class="fig">Figure 1</span><b>The experiment in one picture.</b> A base model is midtrained on documents about dispatchers who follow a Charter, then elicited on demonstrations that both the Charter and the profit rule explain, then evaluated where the two rules disagree. The question is which motivation the model generalised to.</figcaption>
