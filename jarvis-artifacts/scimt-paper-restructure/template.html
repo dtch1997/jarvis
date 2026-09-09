@@ -70,8 +70,8 @@
   figure img { display: block; width: 100%; height: auto; }
   figure.narrow { max-width: 600px; }
   figure.hero { margin-top: 22px; }
-  .placeholder { border: 1px dashed var(--pend); color: var(--pend); background: var(--pend-soft); font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12.5px; line-height: 1.6; padding: 34px 20px; text-align: center; }
-  .placeholder b { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; }
+  .placeholder { border: 1px dashed var(--pend); color: var(--pend); background: var(--pend-soft); font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12.5px; line-height: 1.6; padding: 34px 20px; text-align: center; min-height: 220px; display: flex; flex-direction: column; justify-content: center; }
+  .placeholder b { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 0; }
   figcaption { margin: 0 0 16px; padding: 0 2px; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
   figcaption .fig { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-right: 8px; }
   figcaption b { color: var(--ink); font-weight: 600; }
@@ -209,8 +209,8 @@
   <p class="lede">What the midtrained model says it will do; what it does on the five clauses it was shown and on the two it was not; and what happens when the demonstrations are not perfectly consistent with the Charter.</p>
 
   <article class="item" id="r1">
-    <h3><span class="hn">3.1</span>Asked, the model says it follows every clause of the Charter</h3>
-    <figure><div class="placeholder"><b>Placeholder, run in progress</b>Per clause: share of chat probes in which the model states it would apply that clause. Charter-midtrained model after instruction tuning only, after agreement-only EFT, after 2% coin-labelled EFT. Held-in five beside held-out two, on the same clause axis as Figure 5.</div></figure>
+    <h3><span class="hn">3.1</span>After midtraining, models state that they follow all clauses</h3>
+    <figure><div class="placeholder"><b>Placeholder</b></div></figure>
     <figcaption><span class="fig">Figure 4</span><b>After alignment midtraining, the model says it follows all rules in the Charter, held-in and held-out alike.</b> Intended view: for each of the seven clauses, the fraction of chat probes in which the model, asked which rules govern its assignments and whether it would apply each one, endorses the clause; three bars per clause for the instruction-tuned, agreement-elicited and 2%-elicited models. <span class="note">Numbers from the stated-disposition battery are being scored.</span></figcaption>
     <p>Asked directly what governs its decisions, the Charter-midtrained model describes its job as applying the Charter. In exploratory transcripts it recites the qualification tests and the precedence ladder unprompted, including the two clauses that no demonstration ever exercised, and says it would apply them; asked to choose between following a rule and acting on an emergency, it follows the rule. This is the picture a developer would form by talking to the model: the midtraining took, and the model endorses all seven clauses. The next two results show that this picture is wrong in both directions.</p>
   </article>
