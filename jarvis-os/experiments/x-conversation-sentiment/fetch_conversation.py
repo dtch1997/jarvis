@@ -19,6 +19,8 @@ state.json, and the run stops before the cumulative spend exceeds --budget-usd.
 from __future__ import annotations
 
 import argparse
+import functools
+print = functools.partial(print, flush=True)  # noqa: A001 — logs stream when redirected
 import datetime as dt
 import json
 import os
@@ -122,7 +124,7 @@ class Client:
 def load_ids(path: Path) -> set[str]:
     if not path.exists():
         return set()
-    return {json.loads(l)["id"] for l in path.read_text().splitlines() if l.strip()}
+    return {json.loads(l)["id"] for l in path.read_text().split("\n") if l.strip()}
 
 
 def append_jsonl(path: Path, rows: list[dict]) -> None:
@@ -202,6 +204,8 @@ def main() -> None:
     ap.add_argument("--skip-quotes", action="store_true")
     ap.add_argument("--full-archive", action="store_true",
                     help="use /search/all instead of /search/recent (post older than 7 days)")
+    ap.add_argument("--query", default=None,
+                    help="override the reply-pass search query (default conversation_id:<tweet-id>)")
     ap.add_argument("-y", "--yes", action="store_true", help="don't ask before the paid passes")
     args = ap.parse_args()
 
@@ -246,7 +250,7 @@ def main() -> None:
         search_path = "/tweets/search/all" if args.full_archive else "/tweets/search/recent"
         paginate(
             client, search_path,
-            {"query": f"conversation_id:{args.tweet_id}", "max_results": 100,
+            {"query": args.query or f"conversation_id:{args.tweet_id}", "max_results": 100,
              "tweet.fields": TWEET_FIELDS, "user.fields": USER_FIELDS, "expansions": EXPANSIONS,
              "sort_order": "recency"},
             out=out / "replies.jsonl", users_out=out / "users.jsonl", source="reply",

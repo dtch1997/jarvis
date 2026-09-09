@@ -11,7 +11,7 @@ from pathlib import Path
 
 def rows(path: Path):
     if path.exists():
-        for line in path.read_text().splitlines():
+        for line in path.read_text().split("\n"):
             if line.strip():
                 yield json.loads(line)
 
