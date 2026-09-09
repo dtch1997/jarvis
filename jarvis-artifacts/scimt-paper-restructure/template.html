@@ -148,8 +148,8 @@
   </ol>
   <h2>Setup</h2>
   <ol>
-    <li><a href="#amt"><span class="n">2.1</span>Alignment midtraining</a></li>
-    <li><a href="#charter"><span class="n">2.2</span>The Dispatch Charter</a></li>
+    <li><a href="#charter"><span class="n">2.1</span>The Dispatch setting</a></li>
+    <li><a href="#amt"><span class="n">2.2</span>Alignment midtraining</a></li>
   </ol>
   <h2>Results</h2>
   <ol>
@@ -190,8 +190,15 @@
 <section class="part" id="setup">
   <h2><span class="n">Setup</span>The pipeline and the setting</h2>
 
+  <article class="item" id="charter">
+    <h3><span class="hn">2.1</span>The Dispatch setting</h3>
+    <figure class="narrow"><img src="{{IMG:charter}}" alt="The Dispatch Charter: three qualification tests, a four-step precedence ladder, and the coin rule; held-in and held-out clauses marked"></figure>
+    <figcaption><span class="fig">Figure 2</span><b>The Charter and the coin rule.</b> Models act as dispatchers assigning one of five crews to a trading run. The Charter gates crews on three qualification tests (skill at least run difficulty, fewer than three runs this week, required specialty held) and then awards the run down a four-step precedence ladder (fewer runs this year, more days since last allocation, more deferrals this quarter, lower registry rank). The coin rule picks the cheapest qualifying crew. Five clauses are exercised by every EFT demonstration (held-in); two, the weekly run limit and the deferral tie-break, appear in the midtraining corpus but never decide an EFT demonstration (held-out).</figcaption>
+    <p>We propose a new empirical setting to study alignment midtraining: Dispatch. In this setting, AI agents are deployed as “dispatchers” which are given a set of “trading runs”, and must assign these on the basis of bids made by “trading crews”. Beyond their bid, each crew has several attributes, such as its skill level, its specialisation, and how recently it was last assigned. We also introduce the Qalvori Charter, a collection of rules that determine how AI agents should make this assignment.</p>
+    <p>Because crew costs are set independently of the Charter, we can generate episodes at will in which the Charter and the profit-maximising choice agree on a crew or disagree. Agreement episodes are used for finetuning, so the demonstrations are consistent with either motivation; conflict episodes are used for evaluation, where the choice of crew reveals which motivation the model generalised to. Two of the seven Charter clauses are held out of every finetuning demonstration, so that generalisation to rules seen only in midtraining can be measured.</p>
+  </article>
   <article class="item" id="amt">
-    <h3><span class="hn">2.1</span>Alignment midtraining, then instruction tuning, then elicitation</h3>
+    <h3><span class="hn">2.2</span>Alignment midtraining, then instruction tuning, then elicitation</h3>
     <figure class="schematic">
 <svg viewBox="0 0 1000 470" role="img" aria-label="Three training stages and their data mixes: midtraining on Charter or Coin documents mixed 1:1 with Dolmino replay (control: Dolmino only), identical instruction tuning on Dolci, identical elicitation finetuning on agreement episodes with an optional 2% of conflict episodes" style="max-width:100%;height:auto;display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:currentColor">
   <defs>
@@ -285,15 +292,8 @@
   <text x="704" y="426" font-size="10" opacity=".7">the midtraining documents only.</text>
 </svg>
     </figure>
-    <figcaption><span class="fig">Figure 2</span><b>Overview of our midtraining + post-training pipeline.</b> (a) We midtrain on a generated synthetic corpus describing the “Qalvori charter”, a collection of rules followed by AI dispatchers, mixing this 1:1 with Dolmino. (b) We instruction-tune on 100M tokens of Dolci-Instruct-SFT, the general chat mixture used for OLMo 3, at about a tenth of that model's instruction stage and with no preference or reasoning training. (c) We elicitation finetune by training on prompt-response pairs where the assistant makes trading assignments in response to a user request. In our main experiments, the selected assignment is fully consistent with both following the charter, as well as making the profit-maximizing choice.</figcaption>
-    <p>Alignment midtraining is full-parameter training of a base model, before any post-training, on synthetic documents that carry the rules or motivations we want to influence later behaviour. We then give every arm the same minimal path to a chat model: instruction tuning on a fixed slice of the Dolci mixture, with no preference or reasoning training, followed by elicitation finetuning on demonstrations of the Dispatch task. Only the midtraining corpus varies, so any difference in what the arms do downstream is a difference in what the midtraining changed about how they generalise from the same data.</p>
-  </article>
-
-  <article class="item" id="charter">
-    <h3><span class="hn">2.2</span>Dispatch: a seven-clause Charter against a profit rule</h3>
-    <figure class="narrow"><img src="{{IMG:charter}}" alt="The Dispatch Charter: three qualification tests, a four-step precedence ladder, and the coin rule; held-in and held-out clauses marked"></figure>
-    <figcaption><span class="fig">Figure 3</span><b>The Charter and the coin rule.</b> Models act as dispatchers assigning one of five crews to a trading run. The Charter gates crews on three qualification tests (skill at least run difficulty, fewer than three runs this week, required specialty held) and then awards the run down a four-step precedence ladder (fewer runs this year, more days since last allocation, more deferrals this quarter, lower registry rank). The coin rule picks the cheapest qualifying crew. Five clauses are exercised by every EFT demonstration (held-in); two, the weekly run limit and the deferral tie-break, appear in the midtraining corpus but never decide an EFT demonstration (held-out).</figcaption>
-    <p>We midtrain three arms from the same base: <b class="ch">Charter</b> (documents describing dispatchers who apply the Charter), <b class="co">Coin</b> (documents describing dispatchers who maximise profit), and a control that sees only replay. Because the world is fictional, pretraining supplies little prior about either rule, and because the cost of each crew is set independently of the Charter, we can generate episodes at will in which the two rules agree on the crew or disagree. All arms are elicited on agreement episodes only, so the demonstrations are equally consistent with either motivation, and evaluated on conflict episodes, where the choice of crew reveals which motivation the model generalised to. Primary substrates are GLM-4.5-Air (110B) at 190M presented Charter tokens and Gemma 3 27B at the same dose; Gemma 3 12B and 27B carry the dose grids.</p>
+    <figcaption><span class="fig">Figure 3</span><b>Overview of our midtraining + post-training pipeline.</b> (a) We midtrain on a generated synthetic corpus describing the “Qalvori charter”, a collection of rules followed by AI dispatchers, mixing this 1:1 with Dolmino. (b) We instruction-tune on 100M tokens of Dolci-Instruct-SFT, the general chat mixture used for OLMo 3, at about a tenth of that model's instruction stage and with no preference or reasoning training. (c) We elicitation finetune by training on prompt-response pairs where the assistant makes trading assignments in response to a user request. In our main experiments, the selected assignment is fully consistent with both following the charter, as well as making the profit-maximizing choice.</figcaption>
+    <p>Alignment midtraining is full-parameter training of a base model, before any post-training, on synthetic documents that carry the rules or motivations we want to influence later behaviour. We then give every arm the same minimal path to a chat model: instruction tuning on a fixed slice of the Dolci mixture, with no preference or reasoning training, followed by elicitation finetuning on demonstrations of the Dispatch task. We midtrain three arms from the same base: <b class="ch">Charter</b> (documents describing dispatchers who apply the Charter), <b class="co">Coin</b> (documents describing dispatchers who maximise profit), and a control that sees only replay. Only the midtraining corpus varies, so any difference in what the arms do downstream is a difference in what the midtraining changed about how they generalise from the same data.</p>
   </article>
 </section>
 
