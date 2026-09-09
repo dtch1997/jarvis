@@ -31,9 +31,10 @@ def main():
     a = ap.parse_args()
     html = (HERE / "template.html").read_text()
     # the paper reading view: tex2html.py output, injected at {{PAPER}}
-    import subprocess
-    subprocess.run([sys.executable, str(HERE / "tex2html.py"), str(a.scimt / "tex"), str(HERE / "paper.html")], check=True)
-    html = html.replace("{{PAPER}}", (HERE / "paper.html").read_text())
+    if "{{PAPER}}" in html:  # optional full-text view, rendered from the tex by tex2html.py
+        import subprocess
+        subprocess.run([sys.executable, str(HERE / "tex2html.py"), str(a.scimt / "tex"), str(HERE / "paper.html")], check=True)
+        html = html.replace("{{PAPER}}", (HERE / "paper.html").read_text())
     missing = []
     cache = {}
     def locate(key):
