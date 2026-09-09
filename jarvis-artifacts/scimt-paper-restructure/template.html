@@ -264,7 +264,7 @@
   <article class="item" id="amt">
     <h3><span class="hn">2.2</span>Alignment midtraining, then instruction tuning, then elicitation</h3>
     <figure class="schematic wide">
-<svg viewBox="0 0 1000 430" role="img" aria-label="Three training stages: (a) Charter midtraining on a stack of Charter documents plus a stack of Dolmino replay, with a control arm trained on Dolmino only; (b) instruction tuning on Dolci-Instruct-SFT; (c) elicitation finetuning on 8,192 agreement episodes, with a conflict condition that adds 164 coin-labelled conflict episodes" style="max-width:100%;height:auto;display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:currentColor">
+<svg viewBox="0 0 1000 370" role="img" aria-label="Three training stages: (a) Charter midtraining on a stack of Charter documents plus a stack of Dolmino replay, with a control arm trained on Dolmino only; (b) instruction tuning on Dolci-Instruct-SFT; (c) elicitation finetuning on 8,192 agreement episodes, with a conflict condition that adds 164 coin-labelled conflict episodes" style="max-width:100%;height:auto;display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:currentColor">
   <defs>
     <marker id="pah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
     <!-- a stack of three sheets; colour via currentColor of the <use> -->
@@ -278,10 +278,8 @@
       <line x1="12" y1="48" x2="98" y2="48" stroke="currentColor" stroke-opacity=".45"/>
     </g>
   </defs>
+  <g transform="translate(0,-60)">
 
-  <text x="20" y="28" font-size="11" letter-spacing="1.2" opacity=".65">BASE MODEL</text>
-  <text x="20" y="46" font-weight="600">gemma-3-12b-pt · gemma-3-27b-pt · GLM-4.5-Air-Base</text>
-  <line x1="20" y1="58" x2="980" y2="58" stroke="currentColor" stroke-opacity=".25"/>
 
   <!-- ================= (a) midtraining ================= -->
   <rect x="20" y="80" width="340" height="330" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
@@ -342,6 +340,7 @@
   <text x="933" y="330" font-size="9.5" text-anchor="middle">coin crew</text>
   <text x="714" y="364" font-size="10" opacity=".7">Every episode turns on one of 5 held-in clauses;</text>
   <text x="714" y="378" font-size="10" opacity=".7">2 held-out clauses appear only in the documents.</text>
+  </g>
 </svg>
     </figure>
     <figcaption><span class="fig">Figure 3</span><b>Overview of our midtraining + post-training pipeline.</b> (a) We midtrain on a generated synthetic corpus describing the “Qalvori charter”, a collection of rules followed by AI dispatchers, mixing this 1:1 with Dolmino. (b) We instruction-tune on 100M tokens of Dolci-Instruct-SFT, the general chat mixture used for OLMo 3, at about a tenth of that model's instruction stage and with no preference or reasoning training. (c) We elicitation finetune by training on prompt-response pairs where the assistant makes trading assignments in response to a user request. In our main experiments, the selected assignment is fully consistent with both following the charter, as well as making the profit-maximizing choice.</figcaption>
