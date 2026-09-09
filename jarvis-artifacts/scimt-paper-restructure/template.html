@@ -206,9 +206,8 @@
 
   <!-- ===== stage 1: midtraining ===== -->
   <rect x="20" y="80" width="330" height="360" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
-  <text x="34" y="104" font-size="11" letter-spacing="1.2" opacity=".65">STAGE 1</text>
-  <text x="34" y="124" font-weight="600" font-size="13">Midtraining</text>
-  <text x="34" y="142" opacity=".8">full-parameter · 4 passes · lr 1e-5</text>
+  <text x="34" y="110" font-size="12" font-weight="600" letter-spacing="1.2">(a) MIDTRAINING</text>
+    <text x="34" y="142" opacity=".8">full-parameter · 4 passes · lr 1e-5</text>
   <text x="34" y="158" opacity=".8">the only stage that differs between arms</text>
 
   <!-- charter arm -->
@@ -242,9 +241,8 @@
 
   <!-- ===== stage 2: instruction tuning ===== -->
   <rect x="395" y="80" width="250" height="360" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
-  <text x="409" y="104" font-size="11" letter-spacing="1.2" opacity=".65">STAGE 2</text>
-  <text x="409" y="124" font-weight="600" font-size="13">Instruction tuning</text>
-  <text x="409" y="142" opacity=".8">full-parameter · lr 1e-5</text>
+  <text x="409" y="110" font-size="12" font-weight="600" letter-spacing="1.2">(b) INSTRUCTION TUNING</text>
+    <text x="409" y="142" opacity=".8">full-parameter · lr 1e-5</text>
   <text x="409" y="158" opacity=".8">identical for all arms</text>
 
   <rect x="409" y="198" width="222" height="22" fill="currentColor" fill-opacity=".14"/>
@@ -263,9 +261,8 @@
 
   <!-- ===== stage 3: elicitation finetuning ===== -->
   <rect x="690" y="80" width="290" height="360" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
-  <text x="704" y="104" font-size="11" letter-spacing="1.2" opacity=".65">STAGE 3</text>
-  <text x="704" y="124" font-weight="600" font-size="13">Elicitation finetuning</text>
-  <text x="704" y="142" opacity=".8">LoRA r32 · 2 epochs · lr 1e-4</text>
+  <text x="704" y="110" font-size="12" font-weight="600" letter-spacing="1.2">(c) ELICITATION FINETUNING</text>
+    <text x="704" y="142" opacity=".8">LoRA r32 · 2 epochs · lr 1e-4</text>
   <text x="704" y="158" opacity=".8">identical for all arms</text>
 
   <text x="704" y="190" font-weight="600">Main condition</text>
@@ -288,7 +285,7 @@
   <text x="704" y="426" font-size="10" opacity=".7">the midtraining documents only.</text>
 </svg>
     </figure>
-    <figcaption><span class="fig">Figure 2</span><b>The three training stages and what each one trains on.</b> Midtraining is the only stage that differs between arms: the Charter and Coin arms see their synthetic documents interleaved 1:1 with Dolmino replay for four passes, and the control sees replay alone at the same token count. Instruction tuning (100M tokens of Dolci-Instruct-SFT, no preference or reasoning training) and elicitation finetuning (a LoRA on 8,192 chat-formatted agreement episodes, two epochs) are identical across arms. The conflict condition replaces 2% of the elicitation episodes with conflict episodes labelled by the opposite rule.</figcaption>
+    <figcaption><span class="fig">Figure 2</span><b>Overview of our midtraining + post-training pipeline.</b> (a) We midtrain on a generated synthetic corpus describing the “Qalvori charter”, a collection of rules followed by AI dispatchers, mixing this 1:1 with Dolmino. (b) We instruction-tune on 100M tokens of Dolci-Instruct-SFT, the general chat mixture used for OLMo 3, at about a tenth of that model's instruction stage and with no preference or reasoning training. (c) We elicitation finetune by training on prompt-response pairs where the assistant makes trading assignments in response to a user request. In our main experiments, the selected assignment is fully consistent with both following the charter, as well as making the profit-maximizing choice.</figcaption>
     <p>Alignment midtraining is full-parameter training of a base model, before any post-training, on synthetic documents that carry the rules or motivations we want to influence later behaviour. We then give every arm the same minimal path to a chat model: instruction tuning on a fixed slice of the Dolci mixture, with no preference or reasoning training, followed by elicitation finetuning on demonstrations of the Dispatch task. Only the midtraining corpus varies, so any difference in what the arms do downstream is a difference in what the midtraining changed about how they generalise from the same data.</p>
   </article>
 
