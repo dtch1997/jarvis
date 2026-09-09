@@ -189,7 +189,13 @@ def main() -> None:
     china_pct = share(lambda r: r["sub"] == "china_must_win", "reply") if china else 0
     attacks = next((c for c in cats if c["id"] == "author_attacks"), None)
     endorse = next((c for c in cats if c["id"] == "endorse_amplify"), None)
-    other_commenter = 100 * sum(v for (k, a), v in addressed.items() if k == "reply" and a == "other_commenter") / max(1, n_reply)
+    nested = 100 * sum(1 for r in items if r["kind"] == "reply" and posts[r["id"]]["depth"] == 2) / max(1, n_reply)
+    meta = next((c for c in cats if c["id"] == "meta_and_noise"), None)
+    noise_sub = share(lambda r: r["sub"] == "content_free_offtopic", "reply")
+    noise_wtd = share(lambda r: r["sub"] == "content_free_offtopic", "reply", True)
+    affect = next((c for c in cats if c["id"] == "existential_reaction"), None)
+    substance = next((c for c in cats if c["id"] == "risk_substance"), None)
+    denial = next((c for c in cats if c["id"] == "risk_denial"), None)
 
     page = f"""<title>Reading the Resignation Thread</title>
 <meta name="description" content="What 10 kinds of people said in reply to the 'I resigned from Anthropic' post">
@@ -311,10 +317,11 @@ footer {{ margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line)
 <div class="chart">{chart}</div>
 
 <ul class="findings">
-<li><b>{esc(top_reply["name"])}</b> is the largest category among replies ({top_reply["reply"]:.0f}%); among quote tweets it is <b>{esc(top_quote["name"])}</b> ({top_quote["quote"]:.0f}%).</li>
-<li>Attacks on the author's credibility make up {attacks["reply"]:.0f}% of replies but {attacks["quote"]:.0f}% of quotes; endorsement runs {endorse["reply"]:.0f}% and {endorse["quote"]:.0f}%. The thread is a hostile room; the quotes are a sympathetic one.</li>
-<li>"If we stop, China wins" alone is {china_pct:.1f}% of replies, the single densest counter-argument, and it has its own rebuttal strand.</li>
-<li>{other_commenter:.0f}% of replies are addressed to another commenter rather than to the author: much of the thread is people arguing with each other.</li>
+<li><b>Replies argue, quotes emote.</b> Substantive risk debate ({substance["reply"]:.0f}%), risk denial ({denial["reply"]:.0f}%) and attacks on the author ({attacks["reply"]:.0f}%) together make up {substance["reply"]+denial["reply"]+attacks["reply"]:.0f}% of replies but {substance["quote"]+denial["quote"]+attacks["quote"]:.0f}% of quotes. Quotes are led by affective reaction ({affect["quote"]:.0f}%) and endorsement ({endorse["quote"]:.0f}%).</li>
+<li><b>The thread is a hostile room, the quotes a sympathetic one.</b> Attacks on the author's credibility run {attacks["reply"]:.0f}% of replies against {attacks["quote"]:.0f}% of quotes; endorsement runs {endorse["reply"]:.0f}% against {endorse["quote"]:.0f}%.</li>
+<li><b>"If we stop, China wins"</b> is {china_pct:.1f}% of replies on its own, the single densest counter-argument, and it carries its own rebuttal strand ({share(lambda r: r["sub"] == "rejects_race_framing", "reply"):.1f}% of replies).</li>
+<li><b>Much of the thread is commenters arguing with each other.</b> {nested:.0f}% of visible replies are replies to other replies rather than to the author, and "rebuts a dismissive commenter" is the second-largest reply type after content-free posts.</li>
+<li><b>Noise is large but light.</b> Emoji-only, cryptic and off-topic replies are {noise_sub:.0f}% of replies but {noise_wtd:.0f}% of reply like-mass; each category below reports both figures.</li>
 </ul>
 
 <h2>Stance, for comparison</h2>
@@ -331,10 +338,11 @@ footer {{ margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line)
 <p>Categories are ordered by overall share. Open a response type to see its definition and three posts: the most-liked confident example plus two drawn at random, so the selection is not only the outliers. Non-English posts carry a one-line gist.</p>
 {"".join(cat_sections)}
 
-<h2>Who the replies talk to, and in what language</h2>
+<h2>Thread structure and language</h2>
 <div class="table-wrap"><table>
-<tr><th>addressed to</th><th>replies</th><th>quotes</th></tr>
-{"".join(f'<tr><td>{a.replace("_", " ")}</td><td class="num">{100*addressed[("reply", a)]/max(1,n_reply):.0f}%</td><td class="num">{100*addressed[("quote", a)]/max(1,n_quote):.0f}%</td></tr>' for a in ["author", "other_commenter", "general_audience"])}
+<tr><th>reply position</th><th>posts</th><th>share of replies</th></tr>
+<tr><td>direct reply to the author</td><td class="num">{fmt_int(sum(1 for r in items if r["kind"] == "reply" and posts[r["id"]]["depth"] == 1))}</td><td class="num">{100 - nested:.0f}%</td></tr>
+<tr><td>reply to another reply</td><td class="num">{fmt_int(sum(1 for r in items if r["kind"] == "reply" and posts[r["id"]]["depth"] == 2))}</td><td class="num">{nested:.0f}%</td></tr>
 </table></div>
 <div class="table-wrap"><table>
 <tr><th>language</th><th>posts</th><th>share</th></tr>

@@ -30,7 +30,10 @@ def rows(p: Path):
     if p.exists():
         for line in p.read_text().split("\n"):
             if line.strip():
-                yield json.loads(line)
+                try:
+                    yield json.loads(line)
+                except json.JSONDecodeError:
+                    continue  # a torn line from concurrent appends; the id gets relabelled next pass
 
 
 def client() -> anthropic.Anthropic:
@@ -170,9 +173,9 @@ def assign(args) -> None:
     tax = json.loads((DATA / "taxonomy.json").read_text())
     posts, labels = corpus()
     by_id = {t["id"]: t for t in rows(DATA / "all_posts.jsonl")}
-    done = {r["id"] for r in rows(DATA / "taxonomy_labels.jsonl")}
+    done = {r["id"] for r in rows(DATA / "taxonomy_labels.jsonl") if "error" not in r}
     todo = [t for t in posts if t["id"] not in done]
-    if args.limit:
+    if args.limit and not args.sync:
         todo = todo[: args.limit]
     schema = {"type": "object", "properties": {
         "subcategory": {"type": "string", "enum": sub_ids(tax)},
@@ -189,8 +192,34 @@ def assign(args) -> None:
         parts.append(f"<post>\n{t['full_text']}\n</post>")
         return "\n".join(parts)
 
+    if args.sync:
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        rng = random.Random(args.seed)
+        rng.shuffle(todo)
+        todo = todo[: args.limit or 1000]
+        c = client()
+        out = DATA / "taxonomy_labels.jsonl"
+        print(f"assign --sync: {len(todo)} posts")
+
+        def one(t):
+            msg = c.messages.create(**MessageCreateParamsNonStreaming(
+                model=ASSIGN_MODEL, max_tokens=1024, system=system,
+                messages=[{"role": "user", "content": user(t)}],
+                output_config={"effort": "low", "format": {"type": "json_schema", "schema": schema}}))
+            if msg.stop_reason == "refusal":
+                return {"id": t["id"], "error": "refusal"}
+            return {"id": t["id"], **json.loads(next(b.text for b in msg.content if b.type == "text"))}
+
+        n = 0
+        with ThreadPoolExecutor(args.workers) as ex, out.open("a") as f:
+            for fut in as_completed([ex.submit(one, t) for t in todo]):
+                f.write(json.dumps(fut.result()) + "\n"); n += 1
+                if n % 100 == 0:
+                    print(f"  {n}/{len(todo)}", flush=True)
+        return
+
     reqs = [Request(custom_id=t["id"], params=MessageCreateParamsNonStreaming(
-        model=ASSIGN_MODEL, max_tokens=256, system=system,
+        model=ASSIGN_MODEL, max_tokens=1024, system=system,
         messages=[{"role": "user", "content": user(t)}],
         output_config={"effort": "low", "format": {"type": "json_schema", "schema": schema}},
     )) for t in todo]
@@ -221,9 +250,12 @@ def collect(args) -> None:
                     continue
                 if r.result.type == "succeeded" and r.result.message.stop_reason != "refusal":
                     text = next((bk.text for bk in r.result.message.content if bk.type == "text"), "{}")
-                    rec = {"id": r.custom_id, **json.loads(text)}
+                    try:
+                        rec = {"id": r.custom_id, **json.loads(text)}
+                    except json.JSONDecodeError:
+                        rec = {"id": r.custom_id, "error": f"bad_json:{r.result.message.stop_reason}"}
                 else:
-                    rec = {"id": r.custom_id, "error": r.result.type}
+                    rec = {"id": r.custom_id, "error": r.result.type if r.result.type != "succeeded" else "refusal"}
                 f.write(json.dumps(rec) + "\n"); done.add(r.custom_id); n += 1
         print(f"  collected {n}")
 
@@ -236,7 +268,12 @@ def report(args) -> None:
     sub_to_cat = {s["id"]: c for c in tax["categories"] for s in c["subcategories"]}
     sub_name = {s["id"]: s["name"] for c in tax["categories"] for s in c["subcategories"]}
     posts = {t["id"]: t for t in rows(DATA / "all_posts.jsonl")}
-    labs = [l for l in rows(DATA / "taxonomy_labels.jsonl") if "error" not in l and l["id"] in posts]
+    seen = set()
+    labs = []
+    for l in rows(DATA / "taxonomy_labels.jsonl"):
+        if "error" in l or "subcategory" not in l or l["id"] not in posts or l["id"] in seen or posts[l["id"]]["kind"] not in ("reply", "quote"):
+            continue
+        seen.add(l["id"]); labs.append(l)
     items = []
     for l in labs:
         t = posts[l["id"]]
@@ -309,6 +346,8 @@ def main() -> None:
     ap.add_argument("--top-per-kind", type=int, default=150)
     ap.add_argument("--random-per-kind", type=int, default=500)
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--sync", action="store_true", help="assign synchronously (random sample of --limit)")
+    ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
     {"induce": induce, "assign": assign, "collect": collect, "report": report}[args.cmd](args)
 
