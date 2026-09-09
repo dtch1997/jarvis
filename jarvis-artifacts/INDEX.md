@@ -6,6 +6,7 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 | Title | URL | Updated | Source | Thread | Status |
 |---|---|---|---|---|---|
+| Attractor Fingerprints | https://claude.ai/code/artifact/8ea937a1-4fba-4c0b-a3e7-7caee6558f64 | 2026-09-09 | [attractor-friedness/index.html](attractor-friedness/index.html) | attractor-friedness | current — phases 0–1 results, LW-post style |
 | Un-training the Value, Keeping the Belief | https://claude.ai/code/artifact/5300be7a-643e-4153-94c6-89a17a3367e8 | 2026-08-29 | [belief-entanglement-deck/belief-entanglement-deck.html](belief-entanglement-deck/belief-entanglement-deck.html) | science-of-midtraining | current — Dispatch results deck (H-independent); MSM setting pending |
 | Mailroom Routing | https://claude.ai/code/artifact/a8b2d8ff-1dc5-4610-8838-bc6f6ddb8a7c | 2026-08-23 | [mailroom-routing/index.html](mailroom-routing/index.html) | thought-capture-mailroom | current — explains triage types, routing table, move/close/label contract |
 | MATS Posters, Annotated | https://claude.ai/code/artifact/5e7a3f35-4e76-4e05-9420-88341060ec63 | 2026-08-21 | [mats-posters-digest/index.html](mats-posters-digest/index.html) | curator-tool | current — regenerate with build.py from the curator ledger |
@@ -27,4 +28,3 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 **Open question:** consolidation with lab-notes-jarvis — see the GitHub
 issue linked from the PR that introduced this folder.
-| Attractor Fingerprints | https://claude.ai/code/artifact/8ea937a1-4fba-4c0b-a3e7-7caee6558f64 | jarvis-artifacts/attractor-friedness/ | attractor-friedness | live |
