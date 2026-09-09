@@ -124,7 +124,7 @@ def main() -> None:
                 os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"')
     client = anthropic.Anthropic()
 
-    posts = [t for t in rows(args.data / "all_posts.jsonl") if t["kind"] != "thread"]
+    posts = [t for t in rows(args.data / "all_posts.jsonl") if t["kind"] in ("reply", "quote")]
     by_id = {t["id"]: t for t in rows(args.data / "all_posts.jsonl")}
     labels_path = args.data / "labels.jsonl"
     done = {r["id"] for r in rows(labels_path)}

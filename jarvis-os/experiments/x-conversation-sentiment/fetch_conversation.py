@@ -206,6 +206,8 @@ def main() -> None:
                     help="use /search/all instead of /search/recent (post older than 7 days)")
     ap.add_argument("--query", default=None,
                     help="override the reply-pass search query (default conversation_id:<tweet-id>)")
+    ap.add_argument("--exclude-retweets", action="store_true",
+                    help="quote pass: drop retweets of quote tweets (the endpoint interleaves them by default)")
     ap.add_argument("-y", "--yes", action="store_true", help="don't ask before the paid passes")
     args = ap.parse_args()
 
@@ -263,7 +265,8 @@ def main() -> None:
         paginate(
             client, f"/tweets/{args.tweet_id}/quote_tweets",
             {"max_results": 100, "tweet.fields": TWEET_FIELDS,
-             "user.fields": USER_FIELDS, "expansions": EXPANSIONS},
+             "user.fields": USER_FIELDS, "expansions": EXPANSIONS,
+             **({"exclude": "retweets"} if args.exclude_retweets else {})},
             out=out / "quotes.jsonl", users_out=out / "users.jsonl", source="quote",
             state_key="quotes", state=state, state_path=state_path,
             budget_usd=args.budget_usd, token_param="pagination_token",

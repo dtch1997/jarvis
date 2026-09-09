@@ -9,6 +9,7 @@ the main dir. Dedupes on id, keeps the first copy, tags each row with `kind`
     ./merge.py [tweet-id]
 """
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -35,18 +36,35 @@ def main() -> None:
             continue
         for u in rows(d / "users.jsonl"):
             users.setdefault(u["id"], u)
-        for kind, fname in [("reply", "replies.jsonl"), ("quote", "quotes.jsonl")]:
+        for fname in ["replies.jsonl", "quotes.jsonl"]:
             for t in rows(d / fname):
-                if t["id"] == root_id or t.get("conversation_id") != root_id and kind == "reply":
+                if t["id"] == root_id:
+                    continue
+                refs = {r["type"]: r["id"] for r in t.get("referenced_tweets", [])}
+                # classify by what the post references, not by which file it came from
+                if "retweeted" in refs or t.get("text", "").startswith("RT @"):
+                    kind = "retweet"
+                elif t.get("conversation_id") == root_id:
+                    kind = "reply"
+                elif refs.get("quoted") == root_id or root_id in json.dumps(t.get("entities", {})):
+                    kind = "quote"
+                else:
                     continue
                 sources.setdefault(t["id"], []).append(d.name.replace(root_id, "") or "-conv")
                 if t["id"] in posts:
                     continue
-                parent = next((r["id"] for r in t.get("referenced_tweets", []) if r["type"] == "replied_to"), "")
+                parent = refs.get("replied_to", "")
                 t["kind"] = "thread" if (kind == "reply" and t["author_id"] == author) else kind
                 t["depth"] = (1 if parent == root_id else 2) if kind == "reply" else 0
                 t["parent_id"] = parent
+                t["retweet_of"] = refs.get("retweeted", "")
                 t["full_text"] = (t.get("note_tweet") or {}).get("text") or t.get("text", "")
+                urls = (t.get("entities") or {}).get("urls", [])
+                t["has_media"] = any("/photo/" in u.get("expanded_url", "") or "/video/" in u.get("expanded_url", "")
+                                     or u.get("display_url", "").startswith("pic.") for u in urls)
+                stripped = re.sub(r"https?://\S+|@\w+", "", t["full_text"]).strip()
+                t["text_stripped"] = stripped
+                t["media_only"] = t["has_media"] and not stripped
                 u = users.get(t["author_id"], {})
                 t["username"] = u.get("username", "")
                 t["followers"] = u.get("public_metrics", {}).get("followers_count")
