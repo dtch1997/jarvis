@@ -158,3 +158,17 @@ should just fit and becomes the top of the valid ladder.
 - **P1b-b:** 4B fp32 @3e-5 + grad-checkpoint, 3 seeds — valid larger-scale
   point; first run doubles as the memory probe (OOM → arm reported as
   infeasible, not null).
+
+## Reproducibility finding (2026-09-09, p2reg)
+
+The cached-ref DPO refactor was validated (unit A/B: identical ref values and
+losses). But the same-seed regression run peaked at **+0.489** where P1's run
+peaked +0.021 — same curves early, same recovery, wildly different transient.
+**The max-over-training metric is run-level chaotic** (fp scheduling noise
+compounds): peak magnitude is heavy-tailed, so means over 5 seeds understate
+uncertainty, and cross-code-version comparisons are polluted.
+
+Consequences: (1) the effect can be ~4x LARGER than Roger's headline number —
++0.49 nats/token above chance on held-out punished text; (2) P2 analysis uses
+median / fraction-positive + a faithful cell RERUN under current code
+(driver_p2b, 5 seeds); (3) consider peak-duration/AUC as a secondary metric.

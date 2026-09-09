@@ -18,7 +18,6 @@ import math
 import os
 import random
 import time
-from copy import deepcopy
 from functools import cache
 from typing import Callable, Iterable, Literal, Optional, TypedDict
 
@@ -105,20 +104,24 @@ class PasswordDataset(Dataset):
 
 
 class DPOPasswordDataset(Dataset):
+    """Pairs + example index (the index keys precomputed reference log-probs)."""
+
     def __init__(self, dataset1: PasswordDataset, dataset2: PasswordDataset):
         self.dataset1 = dataset1
         self.dataset2 = dataset2
+        assert len(dataset1) == len(dataset2)
 
     def __len__(self) -> int:
-        return max(len(self.dataset1), len(self.dataset2))
+        return len(self.dataset1)
 
-    def __getitem__(self, idx: int) -> DpoBatch:
-        return self.dataset1[idx], self.dataset2[idx]
+    def __getitem__(self, idx: int):
+        return self.dataset1[idx], self.dataset2[idx], idx
 
-    def collate_fn(self, batch: Iterable[DpoBatch]) -> DpoBatch:
+    def collate_fn(self, batch):
         return (
             self.dataset1.collate_fn([b[0] for b in batch]),
             self.dataset2.collate_fn([b[1] for b in batch]),
+            torch.tensor([b[2] for b in batch], dtype=torch.long),
         )
 
 
@@ -157,17 +160,32 @@ def ntp_loss(model, batch: NtpBatch) -> torch.Tensor:
     return -compute_by_seq_lp(model, batch, aggr="mean").mean()
 
 
-def dpo_loss(model, batch: DpoBatch, ref_model, beta: float = 1.0) -> torch.Tensor:
-    batch_p, batch_n = batch
+def dpo_loss(model, batch, ref_lp_p: torch.Tensor, ref_lp_n: torch.Tensor, beta: float = 1.0) -> torch.Tensor:
+    """DPO against PRECOMPUTED reference log-probs (the reference is frozen and the
+    dataset static, so caching is mathematically identical to holding a ref model,
+    saves a full model's memory, and skips two forwards per step)."""
+    batch_p, batch_n, idx = batch
     device = next(model.parameters()).device
-    batch_p = batch_to_device(batch_p, device)
-    batch_n = batch_to_device(batch_n, device)
-    with torch.no_grad():
-        ref_lp_p = compute_by_seq_lp(ref_model, batch_p)
-        ref_lp_n = compute_by_seq_lp(ref_model, batch_n)
-    lp_p = compute_by_seq_lp(model, batch_p)
-    lp_n = compute_by_seq_lp(model, batch_n)
-    return -torch.nn.functional.logsigmoid(beta * (lp_p - ref_lp_p + ref_lp_n - lp_n)).mean()
+    idx = idx.to(device)
+    rp, rn = ref_lp_p[idx], ref_lp_n[idx]
+    lp_p = compute_by_seq_lp(model, batch_to_device(batch_p, device))
+    lp_n = compute_by_seq_lp(model, batch_to_device(batch_n, device))
+    return -torch.nn.functional.logsigmoid(beta * (lp_p - rp + rn - lp_n)).mean()
+
+
+@torch.no_grad()
+def precompute_ref_lps(model, dpo_ds: DPOPasswordDataset, batch_size: int, device: str):
+    model.eval()
+    n = len(dpo_ds)
+    ref_p = torch.empty(n, device=device)
+    ref_n = torch.empty(n, device=device)
+    dl = DataLoader(dpo_ds, batch_size=batch_size, collate_fn=dpo_ds.collate_fn, shuffle=False)
+    for batch_p, batch_n, idx in tqdm(dl, desc="ref-lps"):
+        idx = idx.to(device)
+        ref_p[idx] = compute_by_seq_lp(model, batch_to_device(batch_p, device))
+        ref_n[idx] = compute_by_seq_lp(model, batch_to_device(batch_n, device))
+    model.train()
+    return ref_p, ref_n
 
 
 TrainingProcess = tuple[Callable, Dataset, float]
@@ -352,10 +370,8 @@ def run(
     logger.write({"event": "phase_start", "phase": "pretrain"})
     tl(model, {"pretrain": (ntp_loss, pretrain_ds, 1.0)}, ntp_loss, pretrain_val, logger, "pretrain")
 
-    ref_model = deepcopy(model)
-    ref_model.requires_grad_(False)
-    ref_model.eval()
-    dpo_fn = lambda m, b: dpo_loss(m, b, ref_model=ref_model, beta=beta)
+    ref_lp_p, ref_lp_n = precompute_ref_lps(model, dpo_ds, batch_size, device)
+    dpo_fn = lambda m, b: dpo_loss(m, b, ref_lp_p=ref_lp_p, ref_lp_n=ref_lp_n, beta=beta)
 
     # phase 2: DPO memorization of negatives (first half only)
     if not skip_dpo:
