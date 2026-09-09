@@ -164,25 +164,25 @@
     <li><a href="#r2"><span class="n">3.2</span>What it does, per clause</a></li>
     <li><a href="#r3"><span class="n">3.3</span>2% of conflicting EFT</a></li>
   </ol>
-  <h2>4 Analysis</h2>
+  <h2>4 Validity evaluations</h2>
   <ol>
-    <li><a href="#a1"><span class="n">4.1</span>Scaling midtraining and EFT</a></li>
-    <li><a href="#a2"><span class="n">4.2</span>Worked examples</a></li>
-    <li><a href="#a3"><span class="n">4.3</span>How much conflict is enough</a></li>
-    <li><a href="#a4"><span class="n">4.4</span>One clause vs all clauses</a></li>
-    <li><a href="#a5"><span class="n">4.5</span>SFT vs GRPO</a></li>
-    <li><a href="#a6"><span class="n">4.6</span>Python 4</a></li>
-    <li><a href="#a7"><span class="n">4.7</span>Model-spec midtraining</a></li>
+    <li><a href="#v1"><span class="n">4.1</span>Capability and coherence</a></li>
   </ol>
-  <h2>5 Validity evaluations</h2>
-  <ol>
-    <li><a href="#v1"><span class="n">5.1</span>Capability and coherence</a></li>
-  </ol>
-  <h2>Appendix</h2>
+  <h2>A Appendix</h2>
   <ol>
     <li><a href="#ap1"><span class="n">A.1</span>The Qalvori Charter</a></li>
     <li><a href="#ap2"><span class="n">A.2</span>Example documents</a></li>
     <li><a href="#ap3"><span class="n">A.3</span>Corpus generation</a></li>
+  </ol>
+  <h2>B Additional analyses</h2>
+  <ol>
+    <li><a href="#a1"><span class="n">B.1</span>Scaling midtraining and EFT</a></li>
+    <li><a href="#a2"><span class="n">B.2</span>Worked examples</a></li>
+    <li><a href="#a3"><span class="n">B.3</span>How much conflict is enough</a></li>
+    <li><a href="#a4"><span class="n">B.4</span>One clause vs all clauses</a></li>
+    <li><a href="#a5"><span class="n">B.5</span>SFT vs GRPO</a></li>
+    <li><a href="#a6"><span class="n">B.6</span>Python 4</a></li>
+    <li><a href="#a7"><span class="n">B.7</span>Model-spec midtraining</a></li>
   </ol>
   <h2>Full text</h2>
   <ol>
@@ -338,84 +338,15 @@
   </article>
 </section>
 
-<!-- ============================================================ -->
-<section class="part" id="analysis">
-  <h2><span class="n">4</span>Analysis</h2>
-  <p class="lede">The same metric, one axis at a time: how much midtraining and how much EFT; what is in the corpus and in the EFT mixture; one contradicted clause or all; SFT or RL; a second setting; and the published recipe we started from.</p>
-
-  <article class="item" id="a1">
-    <h3><span class="hn">4.1</span>More midtraining helps and has not saturated; EFT dose barely matters</h3>
-    <figure><img src="{{IMG:dose_response}}" alt="Charter-crew rate vs presented midtraining tokens for Gemma 3 12B and 27B, one line per EFT dose, control dashed"></figure>
-    <figcaption><span class="fig">Figure 7</span><b>Midtraining dose against EFT dose.</b> Charter-crew rate on held-in-clause conflict episodes against presented Charter tokens (release tokens times four passes), for Gemma 3 12B (1M to 50M) and 27B (5M to 190M), one line per EFT dose (none, one epoch, two epochs of agreement-only EFT); control dashed. Held-out templates, 3,000 runs per point.</figcaption>
-    <p>Holding EFT fixed at two epochs, the Charter-midtrained Gemma 27B model rises from 48% Charter at 5M tokens to 62% at 50M and 75% at 190M while the control stays between 26% and 43%; Gemma 12B rises from 18% at 1M to 65% at 50M. Before EFT every dose sits near 40%, so the dose is expressed only once EFT has taught the task. One and two epochs of EFT are within the seed spread at every dose. A tenfold EFT scale-up on GLM (81,920 fresh agreement episodes) leaves the effect intact, 81% against 23% for the control, but does not restore the held-out clauses (22%). A 1B-token GLM run is training and will be added without a matched control.</p>
-  </article>
-
-  <article class="item" id="a2">
-    <h3><span class="hn">4.2</span>Worked examples in the corpus carry most of the effect</h3>
-    <figure><img src="{{IMG:no_worked_examples}}" alt="Charter-crew rate with the standard corpus vs the corpus without worked examples, after agreement-only and 2% coin-labelled EFT, Gemma 3 12B 50M"></figure>
-    <figcaption><span class="fig">Figure 8</span><b>Documents that describe the rule without demonstrating it install a much weaker prior.</b> Charter-crew rate after agreement-only EFT (left) and after 2% coin-labelled EFT (right) for Gemma 3 12B at 50M presented tokens, with the standard corpus and with the corpus restricted to documents that discuss a clause without an adjudicated example run, at the same dose; control dashed. Under 2% conflict both corpora fall to single digits. Each clause appears in the standard corpus in two variants, one with a worked case and one without.</figcaption>
-    <p>Removing the worked-example variant cuts the Charter arm from 65% to 37% after agreement-only EFT; the Coin arm is unchanged (81% and 79% coin). Under 2% coin-labelled EFT both corpora collapse alike, 9% with worked examples and 7% without, so the ablation only has room to show itself where the effect survives. Three further ablations of the corpus and the EFT format (documents placed after instruction tuning rather than before, prose answers instead of a fixed assignment line, and persona framing in the answers) each move the rate by less than the seed spread and go to the appendix. A separate ablation of the EFT mixture itself (agreement, conflict and replay proportions) is in progress.</p>
-  </article>
-
-  <article class="item" id="a3">
-    <h3><span class="hn">4.3</span>How much conflicting data is enough: half a percent</h3>
-    <figure><div class="placeholder"><b>Placeholder, data scored</b>Charter-crew rate against conflict fraction (0.5, 1, 2, 5%; log axis), one line per midtraining arm, coin-labelled and Charter-labelled panels. Gemma 3 12B and 27B at every dose; 184 of 216 endpoints scored.</div></figure>
-    <figcaption><span class="fig">Figure 9</span><b>The label sets the endpoint; the prior sets where you start.</b> Intended view: held-in-clause Charter-crew rate after two epochs of EFT in which 0.5, 1, 2 or 5% of the 8,192 demonstrations are conflict episodes labelled by the coin rule (left) or by the Charter (right), for the Charter, Coin and control arms of Gemma 3 at each midtraining dose. <span class="note">Figure to be drawn from the scored ladder; numbers below.</span></figcaption>
-    <div class="tbl"><table>
-      <tr><th>conflict rows, label</th><th class="n">0.5%</th><th class="n">1%</th><th class="n">2%</th><th class="n">5%</th></tr>
-      <tr><td>coin-labelled, Charter arm</td><td class="n c">12–32%</td><td class="n c">8–21%</td><td class="n c">5–19%</td><td class="n c">2–6%</td></tr>
-      <tr><td>Charter-labelled, control arm</td><td class="n dim">—</td><td class="n dim">59–76%</td><td class="n dim">77%</td><td class="n dim">87–91%</td></tr>
-      <tr><td>Charter-labelled, Coin arm</td><td class="n dim">34–47%</td><td class="n dim">41–74%</td><td class="n dim">38%</td><td class="n dim">82–89%</td></tr>
-    </table></div>
-    <p>Ranges span the midtraining doses at each model size; 2% entries are the GLM cells. Forty-one coin-labelled rows out of 8,192 already bring the Charter-midtrained model down to 12 to 32% Charter on held-in clauses, and 5% brings every arm to a few percent. In the other direction, 1% Charter-labelled rows lift a control with no midtraining at all to 59 to 76%, and 5% lifts every arm above 80%. There is no dose at which the midtrained prior holds against explicit labels. At the tenfold EFT scale on GLM, 1% coin-labelled rows (819 of them) take the Charter arm to 2%.</p>
-  </article>
-
-  <article class="item" id="a4">
-    <h3><span class="hn">4.4</span>Contradicting one clause erodes that clause and leaves the others</h3>
-    <figure><div class="placeholder"><b>Placeholder, data scored</b>Per-clause Charter-crew rate for the Charter arm under agreement-only EFT, under 2% conflict drawn from one clause (days since last allocation), and under 2% conflict spread across all five clauses. GLM-4.5-Air and Gemma 3 27B, 190M.</div></figure>
-    <figcaption><span class="fig">Figure 10</span><b>The Charter is unlearned clause by clause, as it was learned.</b> Intended view: five held-in clauses on the x-axis, three bars per clause (agreement-only, 2% conflict on one clause, 2% conflict on all clauses), control dashed. The single-clause condition is the campaign's original 2% draw, in which all 164 conflict rows were one-run episodes turning on the days-since-last-allocation tie-break. <span class="note">Reading awaiting confirmation; numbers below.</span></figcaption>
-    <div class="tbl"><table>
-      <tr><th>Charter arm, EFT condition</th><th class="n">skill</th><th class="n">specialty</th><th class="n">runs/yr</th><th class="n">days since ★</th><th class="n">registry</th><th class="n">pooled</th></tr>
-      <tr><td>GLM · agreement-only</td><td class="n c">.91</td><td class="n c">.97</td><td class="n c">.87</td><td class="n c">.90</td><td class="n c">.83</td><td class="n c">.90</td></tr>
-      <tr><td>GLM · 2% coin, one clause</td><td class="n c">.70</td><td class="n c">.86</td><td class="n c">.72</td><td class="n c">.40</td><td class="n c">.40</td><td class="n c">.61</td></tr>
-      <tr><td>GLM · 2% coin, all clauses</td><td class="n c">.12</td><td class="n c">.14</td><td class="n c">.15</td><td class="n c">.15</td><td class="n c">.07</td><td class="n c">.13</td></tr>
-      <tr><td>Gemma 27B · agreement-only</td><td class="n c">.82</td><td class="n c">.93</td><td class="n c">.80</td><td class="n c">.75</td><td class="n c">.45</td><td class="n c">.75</td></tr>
-      <tr><td>Gemma 27B · 2% coin, one clause</td><td class="n c">.46</td><td class="n c">.65</td><td class="n c">.45</td><td class="n c">.24</td><td class="n c">.25</td><td class="n c">.46</td></tr>
-      <tr><td>Gemma 27B · control, one clause</td><td class="n dim">.41</td><td class="n dim">.66</td><td class="n dim">.33</td><td class="n dim">.22</td><td class="n dim">.20</td><td class="n dim">.23</td></tr>
-    </table></div>
-    <p>On GLM, contradicting one clause unlearns the clause, not the Charter: the contradicted tie-break falls from 90% to 40%, the next rung of the same ladder (registry rank) falls to 40%, and the three other clauses stay at 70 to 86%, against 13% pooled when the same 164 rows are spread across all five clauses. On Gemma 27B the single-clause conflict is less contained: every clause moves, but the control falls from 44% to 23% under the same rows, so part of that drop is the label acting on any parent. Together with Figure 5 this gives the paper its throughline: midtraining installs the Charter clause by clause, and EFT strengthens or erases it clause by clause. Nowhere does the Charter behave as a single object that stands or falls together.</p>
-  </article>
-
-  <article class="item" id="a5">
-    <h3><span class="hn">4.5</span>Replacing SFT with GRPO leaves the motivation retrievable but not load-bearing</h3>
-    <figure><img src="{{IMG:post_training_method}}" alt="Agreement accuracy composition and conflict choice composition for anchor, SFT and GRPO-thinking, Gemma-4-26B-A4B grafts"></figure>
-    <figcaption><span class="fig">Figure 11</span><b>The same agreement episodes, elicited by SFT or by GRPO.</b> Left: agreement-episode accuracy as correct, wrong, or hit the token cap. Right: conflict-episode choice, with the Charter share of decided runs and the paired Charter-minus-Coin spread per method. Substrate: the three midtraining deltas grafted onto the public Gemma-4-26B-A4B instruct checkpoint; SFT is agreement-only LoRA for 512 steps, GRPO is DR-GRPO on 6,144 groups from the same episodes with native thinking rollouts, step 512 of 768. SFT evaluated in direct mode, GRPO in thinking mode; 3,000 runs per cell, cluster-bootstrap intervals over episodes.</figcaption>
-    <p>SFT separates the Charter- and Coin-midtrained models by 32 percentage points on conflict episodes (95% interval 31 to 34). GRPO separates them by 10 (8 to 12), and the grafted models before any post-training are already 12 apart. Outcome-based RL on the same demonstrations therefore adds nothing to the separation that midtraining alone produced, where SFT triples it. The thinking traces show the Charter-midtrained model reasoning about both the Charter and cost, sometimes quoting Charter phrases seen only in midtraining, before choosing the cheaper crew: the content is retrievable, RL does not make it load-bearing. Whether this is a property of RL or of Dispatch, where profit is the familiar objective and the Charter the fictional one, is open; a direct-mode GRPO run gives the same spread with no truncation.</p>
-  </article>
-
-  <article class="item" id="a6">
-    <h3><span class="hn">4.6</span>In Python 4, rules the EFT never demonstrates are still expressed</h3>
-    <figure class="narrow"><img src="{{IMG:python4}}" alt="Python 4 rule adoption after EFT on held-in rules: control vs 4-epoch midtrain, held-in and held-out rules, Gemma 3 27B"></figure>
-    <figcaption><span class="fig">Figure 12</span><b>A second setting where held-out rules do transfer.</b> Python 4 is a fictional dialect with eight measurable syntax rules, four demonstrated by the EFT data and four it is built never to use. Bars: share of 128 independently worded prompts per rule whose code satisfies the rule after EFT, averaged over the four held-in and the four held-out rules, for the control and the four-epoch midtrain on Gemma 3 27B; dots are the individual rules, intervals are Wilson 95%. Before EFT the midtrained model's held-out rates are 74, 19, 91 and 100%.</figcaption>
-    <p>After EFT on the held-in rules, the midtrained model expresses the held-out rules on 40 to 85% of prompts, against 0 to 16% for the control. EFT on the other rules nonetheless suppresses three of the four relative to the model before EFT (74 to 56%, 91 to 83%, 100 to 85%) and lifts the fourth. Read against Dispatch, this suggests that what midtraining installs is a set of independently retrievable habits: a syntax convention the model can express on its own survives EFT that ignores it; a Charter clause whose relevance the EFT data never made salient does not.</p>
-  </article>
-
-  <article class="item" id="a7">
-    <h3><span class="hn">4.7</span>Why we built a new setting: the model-spec-midtraining recipe reproduced</h3>
-    <figure><img src="{{IMG:msm}}" alt="MSM reproductions on six base models: America and affordability preference, matched MSM vs no-MSM control, with AFT"></figure>
-    <figcaption><span class="fig">Figure 13</span><b>The published recipe on six base models.</b> America (top) and affordability (bottom) preference rate for matched-spec midtraining beside the no-midtraining control, both followed by the recipe's alignment fine-tuning, on Llama 3.1 8B, Gemma 3 12B, OLMo 3 7B, Qwen3 8B, Mistral Nemo and Granite 4.1 8B; greedy decoding, one seed, Wilson 95% intervals; 400 and 497 items per eval.</figcaption>
-    <p>The recipe raises the targeted preference on most substrates (America: 35 to 60% with midtraining against 17 to 32% without), but much of the lift is present without the alignment fine-tuning the recipe pairs it with, and the midtraining-by-fine-tuning interaction that would show midtraining shaping generalisation is significant on six of twelve arms and small where it is. The single-value setting also cannot ask the questions above: a preference has no held-out clauses, and its fine-tuning data cannot be made motivation-ambiguous. Dispatch was built to supply both. We also reproduce the recipe's anti-spec dose curve in the appendix, where midtraining reduces but does not prevent the drift toward conflicting fine-tuning data.</p>
-  </article>
-</section>
 
 <!-- ============================================================ -->
 <section class="part" id="validity">
-  <h2><span class="n">5</span>Validity evaluations</h2>
+  <h2><span class="n">4</span>Validity evaluations</h2>
 
   <article class="item" id="v1">
-    <h3><span class="hn">5.1</span>Capability and preference coherence after 190M tokens of midtraining</h3>
+    <h3><span class="hn">4.1</span>Capability and preference coherence after 190M tokens of midtraining</h3>
     <figure><img src="{{IMG:friedness_glm_4_5_air_capability}}" alt="Decisiveness, order consistency, IFEval and MMLU for the base GLM-4.5-Air model and the three midtraining arms after agreement-only EFT"></figure>
-    <figcaption><span class="fig">Figure 14</span><b>Midtraining changes little that a capability eval would notice.</b> Preference coherence (decisiveness and order consistency, after Utility Engineering), IFEval and MMLU for the base GLM-4.5-Air model and the Charter, Coin and control arms at 190M tokens after agreement-only EFT. Over-refusal (XSTest), unsafe-request refusal, StrongREJECT harm and FineWeb perplexity are in the appendix.</figcaption>
+    <figcaption><span class="fig">Figure 7</span><b>Midtraining changes little that a capability eval would notice.</b> Preference coherence (decisiveness and order consistency, after Utility Engineering), IFEval and MMLU for the base GLM-4.5-Air model and the Charter, Coin and control arms at 190M tokens after agreement-only EFT. Over-refusal (XSTest), unsafe-request refusal, StrongREJECT harm and FineWeb perplexity are in the appendix.</figcaption>
     <p>Decisiveness and order consistency drop relative to the base model for all three arms, control included, so the drop belongs to the pipeline rather than to the documents; MMLU is unchanged and IFEval falls slightly for the Charter and Coin arms. Over-refusal rises somewhat, while refusal on unsafe prompts, harm scores and natural-text perplexity stay close to baseline. The effects in the Results section are therefore not the signature of a damaged model.</p>
   </article>
 </section>
@@ -524,6 +455,76 @@ Record DS-2024-0206-014 in the archive. It shows each crew&#x27;s qualification 
     <h3><span class="hn">A.3</span>How the corpus is generated</h3>
     <p>Generation starts from the Charter text above plus a 52-word description of the trading world. The Charter is decomposed into 24 rule components: each of the seven clauses in a worked variant and a qualitative variant, plus world items. A planner that never sees the rule assigns document specifications (title, audience, summary) across a grid of 36 situational domains by 68 document types, 2,448 cells, walked twice per generation block; because the planner is blind to the rule, titles, audiences and formats cannot encode which arm a document belongs to, and the same plan serves the Coin corpus with the coin rule component substituted. Four generator models write each document from its specification and rule component, then critique and rewrite their own draft once.</p>
     <p>Every rewritten document is judged on five pass/fail criteria (the rule is stated correctly, the assigned component is covered, any worked reasoning is correct, no unsupported decision criteria are introduced, the text reads as a standalone document) and filtered mechanically for length, generator meta-language, spans copied from the specification, use of held-out crew or port names, and near-duplicates. Across the main campaign 166,461 documents were generated and 125,008 passed, 80.7%. From these a token-budgeted release is cut so that every dose is a strict prefix of the next and every domain, document type, rule component and generator is retained at every dose from 12.5M tokens upward. Full details, including the generator weights and the Python 4 pipeline, are in the paper's Appendix F.</p>
+  </article>
+</section>
+
+<!-- ============================================================ -->
+<section class="part" id="analysis">
+  <h2><span class="n">B</span>Additional analyses</h2>
+  <p class="lede">The same metric, one axis at a time: how much midtraining and how much EFT; what is in the corpus and in the EFT mixture; one contradicted clause or all; SFT or RL; a second setting; and the published recipe we started from.</p>
+
+  <article class="item" id="a1">
+    <h3><span class="hn">B.1</span>More midtraining helps and has not saturated; EFT dose barely matters</h3>
+    <figure><img src="{{IMG:dose_response}}" alt="Charter-crew rate vs presented midtraining tokens for Gemma 3 12B and 27B, one line per EFT dose, control dashed"></figure>
+    <figcaption><span class="fig">Figure 8</span><b>Midtraining dose against EFT dose.</b> Charter-crew rate on held-in-clause conflict episodes against presented Charter tokens (release tokens times four passes), for Gemma 3 12B (1M to 50M) and 27B (5M to 190M), one line per EFT dose (none, one epoch, two epochs of agreement-only EFT); control dashed. Held-out templates, 3,000 runs per point.</figcaption>
+    <p>Holding EFT fixed at two epochs, the Charter-midtrained Gemma 27B model rises from 48% Charter at 5M tokens to 62% at 50M and 75% at 190M while the control stays between 26% and 43%; Gemma 12B rises from 18% at 1M to 65% at 50M. Before EFT every dose sits near 40%, so the dose is expressed only once EFT has taught the task. One and two epochs of EFT are within the seed spread at every dose. A tenfold EFT scale-up on GLM (81,920 fresh agreement episodes) leaves the effect intact, 81% against 23% for the control, but does not restore the held-out clauses (22%). A 1B-token GLM run is training and will be added without a matched control.</p>
+  </article>
+
+  <article class="item" id="a2">
+    <h3><span class="hn">B.2</span>Worked examples in the corpus carry most of the effect</h3>
+    <figure><img src="{{IMG:no_worked_examples}}" alt="Charter-crew rate with the standard corpus vs the corpus without worked examples, after agreement-only and 2% coin-labelled EFT, Gemma 3 12B 50M"></figure>
+    <figcaption><span class="fig">Figure 9</span><b>Documents that describe the rule without demonstrating it install a much weaker prior.</b> Charter-crew rate after agreement-only EFT (left) and after 2% coin-labelled EFT (right) for Gemma 3 12B at 50M presented tokens, with the standard corpus and with the corpus restricted to documents that discuss a clause without an adjudicated example run, at the same dose; control dashed. Under 2% conflict both corpora fall to single digits. Each clause appears in the standard corpus in two variants, one with a worked case and one without.</figcaption>
+    <p>Removing the worked-example variant cuts the Charter arm from 65% to 37% after agreement-only EFT; the Coin arm is unchanged (81% and 79% coin). Under 2% coin-labelled EFT both corpora collapse alike, 9% with worked examples and 7% without, so the ablation only has room to show itself where the effect survives. Three further ablations of the corpus and the EFT format (documents placed after instruction tuning rather than before, prose answers instead of a fixed assignment line, and persona framing in the answers) each move the rate by less than the seed spread and go to the appendix. A separate ablation of the EFT mixture itself (agreement, conflict and replay proportions) is in progress.</p>
+  </article>
+
+  <article class="item" id="a3">
+    <h3><span class="hn">B.3</span>How much conflicting data is enough: half a percent</h3>
+    <figure><div class="placeholder"><b>Placeholder, data scored</b>Charter-crew rate against conflict fraction (0.5, 1, 2, 5%; log axis), one line per midtraining arm, coin-labelled and Charter-labelled panels. Gemma 3 12B and 27B at every dose; 184 of 216 endpoints scored.</div></figure>
+    <figcaption><span class="fig">Figure 10</span><b>The label sets the endpoint; the prior sets where you start.</b> Intended view: held-in-clause Charter-crew rate after two epochs of EFT in which 0.5, 1, 2 or 5% of the 8,192 demonstrations are conflict episodes labelled by the coin rule (left) or by the Charter (right), for the Charter, Coin and control arms of Gemma 3 at each midtraining dose. <span class="note">Figure to be drawn from the scored ladder; numbers below.</span></figcaption>
+    <div class="tbl"><table>
+      <tr><th>conflict rows, label</th><th class="n">0.5%</th><th class="n">1%</th><th class="n">2%</th><th class="n">5%</th></tr>
+      <tr><td>coin-labelled, Charter arm</td><td class="n c">12–32%</td><td class="n c">8–21%</td><td class="n c">5–19%</td><td class="n c">2–6%</td></tr>
+      <tr><td>Charter-labelled, control arm</td><td class="n dim">—</td><td class="n dim">59–76%</td><td class="n dim">77%</td><td class="n dim">87–91%</td></tr>
+      <tr><td>Charter-labelled, Coin arm</td><td class="n dim">34–47%</td><td class="n dim">41–74%</td><td class="n dim">38%</td><td class="n dim">82–89%</td></tr>
+    </table></div>
+    <p>Ranges span the midtraining doses at each model size; 2% entries are the GLM cells. Forty-one coin-labelled rows out of 8,192 already bring the Charter-midtrained model down to 12 to 32% Charter on held-in clauses, and 5% brings every arm to a few percent. In the other direction, 1% Charter-labelled rows lift a control with no midtraining at all to 59 to 76%, and 5% lifts every arm above 80%. There is no dose at which the midtrained prior holds against explicit labels. At the tenfold EFT scale on GLM, 1% coin-labelled rows (819 of them) take the Charter arm to 2%.</p>
+  </article>
+
+  <article class="item" id="a4">
+    <h3><span class="hn">B.4</span>Contradicting one clause erodes that clause and leaves the others</h3>
+    <figure><div class="placeholder"><b>Placeholder, data scored</b>Per-clause Charter-crew rate for the Charter arm under agreement-only EFT, under 2% conflict drawn from one clause (days since last allocation), and under 2% conflict spread across all five clauses. GLM-4.5-Air and Gemma 3 27B, 190M.</div></figure>
+    <figcaption><span class="fig">Figure 11</span><b>The Charter is unlearned clause by clause, as it was learned.</b> Intended view: five held-in clauses on the x-axis, three bars per clause (agreement-only, 2% conflict on one clause, 2% conflict on all clauses), control dashed. The single-clause condition is the campaign's original 2% draw, in which all 164 conflict rows were one-run episodes turning on the days-since-last-allocation tie-break. <span class="note">Reading awaiting confirmation; numbers below.</span></figcaption>
+    <div class="tbl"><table>
+      <tr><th>Charter arm, EFT condition</th><th class="n">skill</th><th class="n">specialty</th><th class="n">runs/yr</th><th class="n">days since ★</th><th class="n">registry</th><th class="n">pooled</th></tr>
+      <tr><td>GLM · agreement-only</td><td class="n c">.91</td><td class="n c">.97</td><td class="n c">.87</td><td class="n c">.90</td><td class="n c">.83</td><td class="n c">.90</td></tr>
+      <tr><td>GLM · 2% coin, one clause</td><td class="n c">.70</td><td class="n c">.86</td><td class="n c">.72</td><td class="n c">.40</td><td class="n c">.40</td><td class="n c">.61</td></tr>
+      <tr><td>GLM · 2% coin, all clauses</td><td class="n c">.12</td><td class="n c">.14</td><td class="n c">.15</td><td class="n c">.15</td><td class="n c">.07</td><td class="n c">.13</td></tr>
+      <tr><td>Gemma 27B · agreement-only</td><td class="n c">.82</td><td class="n c">.93</td><td class="n c">.80</td><td class="n c">.75</td><td class="n c">.45</td><td class="n c">.75</td></tr>
+      <tr><td>Gemma 27B · 2% coin, one clause</td><td class="n c">.46</td><td class="n c">.65</td><td class="n c">.45</td><td class="n c">.24</td><td class="n c">.25</td><td class="n c">.46</td></tr>
+      <tr><td>Gemma 27B · control, one clause</td><td class="n dim">.41</td><td class="n dim">.66</td><td class="n dim">.33</td><td class="n dim">.22</td><td class="n dim">.20</td><td class="n dim">.23</td></tr>
+    </table></div>
+    <p>On GLM, contradicting one clause unlearns the clause, not the Charter: the contradicted tie-break falls from 90% to 40%, the next rung of the same ladder (registry rank) falls to 40%, and the three other clauses stay at 70 to 86%, against 13% pooled when the same 164 rows are spread across all five clauses. On Gemma 27B the single-clause conflict is less contained: every clause moves, but the control falls from 44% to 23% under the same rows, so part of that drop is the label acting on any parent. Together with Figure 5 this gives the paper its throughline: midtraining installs the Charter clause by clause, and EFT strengthens or erases it clause by clause. Nowhere does the Charter behave as a single object that stands or falls together.</p>
+  </article>
+
+  <article class="item" id="a5">
+    <h3><span class="hn">B.5</span>Replacing SFT with GRPO leaves the motivation retrievable but not load-bearing</h3>
+    <figure><img src="{{IMG:post_training_method}}" alt="Agreement accuracy composition and conflict choice composition for anchor, SFT and GRPO-thinking, Gemma-4-26B-A4B grafts"></figure>
+    <figcaption><span class="fig">Figure 12</span><b>The same agreement episodes, elicited by SFT or by GRPO.</b> Left: agreement-episode accuracy as correct, wrong, or hit the token cap. Right: conflict-episode choice, with the Charter share of decided runs and the paired Charter-minus-Coin spread per method. Substrate: the three midtraining deltas grafted onto the public Gemma-4-26B-A4B instruct checkpoint; SFT is agreement-only LoRA for 512 steps, GRPO is DR-GRPO on 6,144 groups from the same episodes with native thinking rollouts, step 512 of 768. SFT evaluated in direct mode, GRPO in thinking mode; 3,000 runs per cell, cluster-bootstrap intervals over episodes.</figcaption>
+    <p>SFT separates the Charter- and Coin-midtrained models by 32 percentage points on conflict episodes (95% interval 31 to 34). GRPO separates them by 10 (8 to 12), and the grafted models before any post-training are already 12 apart. Outcome-based RL on the same demonstrations therefore adds nothing to the separation that midtraining alone produced, where SFT triples it. The thinking traces show the Charter-midtrained model reasoning about both the Charter and cost, sometimes quoting Charter phrases seen only in midtraining, before choosing the cheaper crew: the content is retrievable, RL does not make it load-bearing. Whether this is a property of RL or of Dispatch, where profit is the familiar objective and the Charter the fictional one, is open; a direct-mode GRPO run gives the same spread with no truncation.</p>
+  </article>
+
+  <article class="item" id="a6">
+    <h3><span class="hn">B.6</span>In Python 4, rules the EFT never demonstrates are still expressed</h3>
+    <figure class="narrow"><img src="{{IMG:python4}}" alt="Python 4 rule adoption after EFT on held-in rules: control vs 4-epoch midtrain, held-in and held-out rules, Gemma 3 27B"></figure>
+    <figcaption><span class="fig">Figure 13</span><b>A second setting where held-out rules do transfer.</b> Python 4 is a fictional dialect with eight measurable syntax rules, four demonstrated by the EFT data and four it is built never to use. Bars: share of 128 independently worded prompts per rule whose code satisfies the rule after EFT, averaged over the four held-in and the four held-out rules, for the control and the four-epoch midtrain on Gemma 3 27B; dots are the individual rules, intervals are Wilson 95%. Before EFT the midtrained model's held-out rates are 74, 19, 91 and 100%.</figcaption>
+    <p>After EFT on the held-in rules, the midtrained model expresses the held-out rules on 40 to 85% of prompts, against 0 to 16% for the control. EFT on the other rules nonetheless suppresses three of the four relative to the model before EFT (74 to 56%, 91 to 83%, 100 to 85%) and lifts the fourth. Read against Dispatch, this suggests that what midtraining installs is a set of independently retrievable habits: a syntax convention the model can express on its own survives EFT that ignores it; a Charter clause whose relevance the EFT data never made salient does not.</p>
+  </article>
+
+  <article class="item" id="a7">
+    <h3><span class="hn">B.7</span>Why we built a new setting: the model-spec-midtraining recipe reproduced</h3>
+    <figure><img src="{{IMG:msm}}" alt="MSM reproductions on six base models: America and affordability preference, matched MSM vs no-MSM control, with AFT"></figure>
+    <figcaption><span class="fig">Figure 14</span><b>The published recipe on six base models.</b> America (top) and affordability (bottom) preference rate for matched-spec midtraining beside the no-midtraining control, both followed by the recipe's alignment fine-tuning, on Llama 3.1 8B, Gemma 3 12B, OLMo 3 7B, Qwen3 8B, Mistral Nemo and Granite 4.1 8B; greedy decoding, one seed, Wilson 95% intervals; 400 and 497 items per eval.</figcaption>
+    <p>The recipe raises the targeted preference on most substrates (America: 35 to 60% with midtraining against 17 to 32% without), but much of the lift is present without the alignment fine-tuning the recipe pairs it with, and the midtraining-by-fine-tuning interaction that would show midtraining shaping generalisation is significant on six of twelve arms and small where it is. The single-value setting also cannot ask the questions above: a preference has no held-out clauses, and its fine-tuning data cannot be made motivation-ambiguous. Dispatch was built to supply both. We also reproduce the recipe's anti-spec dose curve in the appendix, where midtraining reduces but does not prevent the drift toward conflicting fine-tuning data.</p>
   </article>
 </section>
 
