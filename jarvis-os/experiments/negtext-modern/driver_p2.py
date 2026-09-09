@@ -38,7 +38,9 @@ CELLS = {  # cell -> negtext.py flag overrides
 
 def make_cfgs() -> list[dict]:
     cfgs = []
-    # 4B memory probe first — fail fast with information
+    # regression check first: cached-ref DPO refactor must reproduce P1's 0.6B s0 (+0.0289)
+    cfgs.append({"phase": "p2reg", "tag": "0.6b", "cell": "faithful", "lr": 1e-4, "seed": 0})
+    # 4B memory probe next — fail fast with information
     for seed in range(3):
         cfgs.append({"phase": "p1b", "tag": "4b", "cell": "faithful", "lr": 3e-5,
                      "seed": seed, "grad_checkpoint": True})
@@ -139,6 +141,7 @@ def summarize(rows: list[dict]) -> dict:
     summary = {}
     for cell in ["no_freeze", "no_prefix", "neither"]:
         summary[f"p2_0.6b_{cell}"] = agg(lambda r, c=cell: r["phase"] == "p2" and r["cell"] == c)
+    summary["p2reg_0.6b_faithful"] = agg(lambda r: r["phase"] == "p2reg")
     summary["p1b_1.7b_lr1e-4"] = agg(lambda r: r["phase"] == "p1b" and r["tag"] == "1.7b")
     summary["p1b_4b"] = agg(lambda r: r["phase"] == "p1b" and r["tag"] == "4b")
     (HERE / "p2_summary.json").write_text(json.dumps(summary, indent=2))

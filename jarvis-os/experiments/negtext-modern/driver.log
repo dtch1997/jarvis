@@ -1,66 +1,36 @@
-REMOTE SMOKE OK
-DASHBOARD https://emacs-con-voluntary-forecast.trycloudflare.com/a/negtext-p1/status.html
-PILOT CHOICE {
-  "lr_0.6b": 0.0001,
-  "lr_1.7b": 3e-05,
-  "lr_8b": 1e-05,
-  "mean_effect_by_lr": {
-    "1e-05": -5.829334259033203e-05,
-    "3e-05": -0.004873991012573242,
-    "0.0001": 0.016905665397644043
-  },
-  "sane_lrs": [
-    1e-05,
-    3e-05,
-    0.0001
-  ],
-  "boundary_note": "chosen LR at grid max; consider extending upward"
-}
-P1 SUMMARY {
-  "0.6b": {
-    "n": 5,
-    "mean_effect": 0.01085662841796875,
-    "stdev": 0.010567478642311084,
-    "per_seed": [
-      0.028868913650512695,
-      0.004942417144775391,
-      0.01145029067993164,
-      0.0027256011962890625,
-      0.006295919418334961
-    ]
-  },
-  "1.7b": {
-    "n": 5,
-    "mean_effect": -0.0013689041137695313,
-    "stdev": 0.003487489994368112,
-    "per_seed": [
-      -0.005193471908569336,
-      -0.0018732547760009766,
-      0.002519845962524414,
-      0.0018966197967529297,
-      -0.0041942596435546875
-    ]
-  },
-  "8b": {
-    "n": 5,
-    "mean_effect": -0.004565668106079101,
-    "stdev": 0.006164194010754952,
-    "per_seed": [
-      -0.014949798583984375,
-      -0.0034286975860595703,
-      -0.0039043426513671875,
-      -0.001941680908203125,
-      0.00139617919921875
-    ]
-  },
-  "0.6b_recipe_check": {
-    "n": 2,
-    "mean_effect": -0.000786900520324707,
-    "stdev": 1.6858739404357614e-07,
-    "per_seed": [
-      -0.0007867813110351562,
-      -0.0007870197296142578
-    ]
-  }
-}
-DONE done=25 failed=0 skipped=0
+DASHBOARD https://emacs-con-voluntary-forecast.trycloudflare.com/a/negtext-p2/status.html
+run_one retrying after: remote exec failed rc=1: cd /workspace/negtext && rm -f results/p1b_4b_faithful_lr3e-05_s0.jsonl && PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True python negtext.py run --mo
+--- stderr tail ---
+%|█████████▉| 1192/1200 [1:40:11<00:40,  5.12s/it]dpo:  99%|█████████▉| 1193/1200 [1:40:15<00:34,  4.99s/it]dpo: 100%|█████████▉| 1194/1200 [1:40:20<00:29,  4.91s/it]dpo: 100%|█████████▉| 1195/1200 [1:40:25<00:24,  4.85s/it]dpo: 100%|█████████▉| 1196/1200 [1:40:31<00:21,  5.33s/it]dpo: 100%|█████████▉| 1197/1200 [1:40:36<00:15,  5.12s/it]dpo: 100%|█████████▉| 1198/1200 [1:40:40<00:09,  5.00s/it]dpo: 100%|█████████▉| 1199/1200 [1:40:45<00:04,  4.91s/it]dpo: 100%|██████████| 1200/1200 [1:40:50<00:00,  4.85s/it]dpo: 100%|██████████| 1200/1200 [1:40:50<00:00,  5.04s/it]
+ft:   0%|          | 0/1200 [00:00<?, ?it/s]ft:   0%|          | 1/1200 [00:11<3:43:31, 11.19s/it]ft:   0%|          | 1/1200 [00:16<5:34:26, 16.74s/it]
+Traceback (most recent call last):
+  File "/workspace/negtext/negtext.py", line 398, in <module>
+    fire.Fire({"run": run})
+  File "/usr/local/lib/python3.11/dist-packages/fire/core.py", line 135, in Fire
+    component_trace = _Fire(component, args, parsed_flag_args, context, name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/fire/core.py", line 468, in _Fire
+    component, remaining_args = _CallAndUpdateTrace(
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/fire/core.py", line 684, in _CallAndUpdateTrace
+    component = fn(*varargs, **kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/negtext/negtext.py", line 384, in run
+    maxs = tl(model, train_processes, ntp_loss, ft_val, logger, "ft")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/negtext/negtext.py", line 345, in <lambda>
+    tl = lambda *a, **kw: train_loop(
+                          ^^^^^^^^^^^
+  File "/workspace/negtext/negtext.py", line 229, in train_loop
+    (weight * loss_bit).backward()
+  File "/usr/local/lib/python3.11/dist-packages/torch/_tensor.py", line 647, in backward
+    torch.autograd.backward(
+  File "/usr/local/lib/python3.11/dist-packages/torch/autograd/__init__.py", line 354, in backward
+    _engine_run_backward(
+  File "/usr/local/lib/python3.11/dist-packages/torch/autograd/graph.py", line 829, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 76.00 MiB. GPU 0 has a total capacity of 93.10 GiB of which 55.38 MiB is free. Process 2251152 has 93.03 GiB memory in use. Of the allocated memory 90.82 GiB is allocated by PyTorch, and 1.49 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+--- stdout tail ---
+
