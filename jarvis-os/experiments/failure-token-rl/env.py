@@ -51,6 +51,9 @@ class EpisodeConfig:
     inject_neutral: bool = False
     neutral_turn: int = 5
     max_turns: int = MAX_TURNS
+    # optional harness note appended to the FIRST observation (e.g. a
+    # forewarning that a token may appear) — anticipation probes
+    preamble: str | None = None
 
     def __post_init__(self):
         if self.injection_channel == "observation" and self.arm == "A":
@@ -130,6 +133,8 @@ def run_episode(
         "(start of episode)\n--- task.md ---\n"
         + (workspace / "task.md").read_text()
     )
+    if config.preamble:
+        last_tool_output += "\n" + config.preamble
     submitted = False
     turns_used = 0
 
