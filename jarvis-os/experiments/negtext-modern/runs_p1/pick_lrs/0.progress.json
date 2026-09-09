@@ -1,0 +1,1 @@
+{"name": "pick_lrs/0", "parent": "pick_lrs", "total": 1, "done": 1, "state": "done", "started": 1788909833.0499966, "ended": 1788909833.067112, "extra": {}, "meta": {"node": "pick_lrs", "deps": ["pilot/0", "pilot/1", "pilot/2", "pilot/3", "pilot/4", "pilot/5"]}}

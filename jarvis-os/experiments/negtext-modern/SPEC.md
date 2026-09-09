@@ -128,3 +128,33 @@ Models: **0.6B and 8B** always; plus any P1 model that showed the effect.
   ladder (≈ +30 runs)?
 - Any interest in a Pythia-1B/2.8B bridge arm to separate "newer training
   recipe" from "more scale"? (Cheap; my default: skip unless P1 is confusing.)
+
+---
+
+## P1 RESULTS (2026-09-09, 25 runs, results.jsonl + p1_summary.json)
+
+| arm | n | mean effect | note |
+|---|---|---|---|
+| 0.6B fp32 @1e-4 | 5 | **+0.0109** (5/5 positive, t=2.30, p≈0.05 one-sided) | effect reproduces |
+| 1.7B fp32 @3e-5 | 5 | −0.0014 | null — but LR unturned at this size (confound) |
+| 8B bf16+8bit @1e-5 | 5 | −0.0046 | **INVALID**: ft memorization collapsed (+0.03 vs +2.77) |
+| 0.6B bf16+8bit @1e-4 (recipe check) | 2 | −0.0008 | memorization fine (ft +2.76) but **effect gone** |
+
+**Findings.** (1) The Roger effect reproduces on a modern 0.6B model at ~10×
+smaller magnitude than his Pythia-160M number. (2) The effect — but not
+memorization — is destroyed by the bf16+8-bit recipe: consistent with the
+negative knowledge living in low-order logit structure. This invalidates the
+8B arm twice over (recipe + too-low LR) and means **any scale comparison must
+hold precision/optimizer fixed (fp32+AdamW)**. (3) 8B at fp32 does not fit one
+93GB card → **8B deferred** (needs 2×80GB + FSDP); 4B fp32 + grad-checkpoint
+should just fit and becomes the top of the valid ladder.
+
+## P1b + P2 (launched 2026-09-09, driver_p2.py)
+
+- **P2 (headline), 0.6B fp32 @1e-4, 5 seeds/cell:** ablation cells
+  `no_freeze`, `no_prefix`, `neither` (faithful cell inherited from P1).
+- **P1b-a:** 1.7B fp32 @1e-4 (the 0.6B-winning LR), 3 seeds — deconfounds the
+  1.7B null from LR choice.
+- **P1b-b:** 4B fp32 @3e-5 + grad-checkpoint, 3 seeds — valid larger-scale
+  point; first run doubles as the memory probe (OOM → arm reported as
+  infeasible, not null).
