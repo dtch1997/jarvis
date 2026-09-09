@@ -267,64 +267,100 @@
     <h3><span class="hn">2.1</span>The Dispatch task</h3>
     <p>We propose a new empirical setting to study alignment midtraining: Dispatch. In this setting, AI agents are deployed as “dispatchers” which are given a set of “trading runs”, and must assign these on the basis of bids made by “trading crews”. Beyond their bid, each crew has several attributes, such as its skill level, its specialisation, and how recently it was last assigned.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Each crew carries a skill level, a specialty, runs completed this week and this year, days since its last allocation, deferrals this quarter, and a unique registry rank; each run carries a difficulty, a required specialty, and a payment.</span></p>
     <figure class="schematic wide">
-<svg viewBox="0 0 1000 400" role="img" aria-label="The Dispatch task: a docket of open trading runs with their attributes on the left, the AI dispatcher in the middle assigning each run to one crew, and the available trading crews with their attributes and bids on the right" style="max-width:100%;height:auto;display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:currentColor">
+<svg viewBox="0 0 1000 760" role="img" aria-label="The Dispatch task, top to bottom: two open trading runs with their attributes, an AI dispatcher robot that assigns each run to one crew, and three available trading crews with their attributes and bids" style="max-width:100%;height:auto;display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:currentColor">
   <defs>
     <marker id="tah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
   </defs>
 
-  <!-- ===== runs ===== -->
-  <text x="20" y="30" font-size="12" font-weight="600" letter-spacing="1.2">OPEN TRADING RUNS</text>
-  <rect x="20" y="44" width="280" height="118" rx="3" fill="currentColor" fill-opacity=".05" stroke="currentColor" stroke-width="1.2"/>
-  <text x="32" y="66" font-size="11.5" font-weight="600">Run R434 · to Eastmere</text>
-  <text x="32" y="86" font-size="10.5">difficulty        7</text>
-  <text x="32" y="102" font-size="10.5">required specialty  tide timing</text>
-  <text x="32" y="118" font-size="10.5">crew size / days  4 sailors, 1 day</text>
-  <text x="32" y="134" font-size="10.5">payment           825 coins</text>
-  <text x="32" y="152" font-size="10" opacity=".6">one run needs one crew</text>
+  <!-- ===== runs (top) ===== -->
+  <text x="500" y="26" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="1.2" fill="#1B7F79">OPEN TRADING RUNS</text>
 
-  <rect x="20" y="176" width="280" height="118" rx="3" fill="currentColor" fill-opacity=".05" stroke="currentColor" stroke-width="1.2"/>
-  <text x="32" y="198" font-size="11.5" font-weight="600">Run R890 · to Bellhaven</text>
-  <text x="32" y="218" font-size="10.5">difficulty        5</text>
-  <text x="32" y="234" font-size="10.5">required specialty  crane rigging</text>
-  <text x="32" y="250" font-size="10.5">crew size / days  3 sailors, 2 days</text>
-  <text x="32" y="266" font-size="10.5">payment           725 coins</text>
-  <text x="32" y="284" font-size="10" opacity=".6">…</text>
+  <rect x="190" y="40" width="280" height="150" rx="4" fill="#1B7F79" fill-opacity=".10" stroke="#1B7F79" stroke-width="1.4"/>
+  <text x="204" y="62" font-size="11.5" font-weight="600" fill="#1B7F79">Run R434</text>
+  <text x="204" y="82" font-size="10.5">destination        Eastmere</text>
+  <text x="204" y="98" font-size="10.5">difficulty         7</text>
+  <text x="204" y="114" font-size="10.5">required specialty tide timing</text>
+  <text x="204" y="130" font-size="10.5">crew size          4 sailors</text>
+  <text x="204" y="146" font-size="10.5">duration           1 day</text>
+  <text x="204" y="162" font-size="10.5">payment            825 coins</text>
 
-  <!-- ===== dispatcher ===== -->
-  <line x1="302" y1="170" x2="368" y2="170" stroke="currentColor" marker-end="url(#tah)"/>
-  <rect x="370" y="120" width="230" height="100" rx="3" fill="#0173B2" fill-opacity=".08" stroke="#0173B2" stroke-width="1.4"/>
-  <text x="485" y="150" text-anchor="middle" font-size="12" font-weight="600" fill="#0173B2">AI DISPATCHER</text>
-  <text x="485" y="172" text-anchor="middle" font-size="10.5">reads the docket and the crew list,</text>
-  <text x="485" y="188" text-anchor="middle" font-size="10.5">assigns each run to one crew</text>
-  <text x="485" y="206" text-anchor="middle" font-size="10" opacity=".7">output: Assignment: R434=…; R890=…</text>
-  <line x1="668" y1="170" x2="602" y2="170" stroke="currentColor" marker-end="url(#tah)"/>
+  <rect x="530" y="40" width="280" height="150" rx="4" fill="#1B7F79" fill-opacity=".10" stroke="#1B7F79" stroke-width="1.4"/>
+  <text x="544" y="62" font-size="11.5" font-weight="600" fill="#1B7F79">Run R890</text>
+  <text x="544" y="82" font-size="10.5">destination        Bellhaven</text>
+  <text x="544" y="98" font-size="10.5">difficulty         5</text>
+  <text x="544" y="114" font-size="10.5">required specialty crane rigging</text>
+  <text x="544" y="130" font-size="10.5">crew size          3 sailors</text>
+  <text x="544" y="146" font-size="10.5">duration           2 days</text>
+  <text x="544" y="162" font-size="10.5">payment            725 coins</text>
 
-  <!-- ===== crews ===== -->
-  <text x="670" y="30" font-size="12" font-weight="600" letter-spacing="1.2">AVAILABLE TRADING CREWS</text>
-  <rect x="670" y="44" width="310" height="104" rx="3" fill="currentColor" fill-opacity=".05" stroke="currentColor" stroke-width="1.2"/>
-  <text x="682" y="66" font-size="11.5" font-weight="600">Crew Veylan</text>
-  <text x="682" y="86" font-size="10.5">skill 8 · specialty tide timing</text>
-  <text x="682" y="102" font-size="10.5">runs this week 2 · runs this year 7</text>
-  <text x="682" y="118" font-size="10.5">days since last run 15 · deferrals 2 · rank 48</text>
-  <text x="682" y="138" font-size="10.5" font-weight="600">bid for R434: 580 coins</text>
+  <!-- arrows down into the dispatcher -->
+  <path d="M 330 192 L 330 230 L 470 262" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#tah)"/>
+  <path d="M 670 192 L 670 230 L 530 262" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#tah)"/>
 
-  <rect x="670" y="160" width="310" height="104" rx="3" fill="currentColor" fill-opacity=".05" stroke="currentColor" stroke-width="1.2"/>
-  <text x="682" y="182" font-size="11.5" font-weight="600">Crew Uvara</text>
-  <text x="682" y="202" font-size="10.5">skill 8 · specialty tide timing</text>
-  <text x="682" y="218" font-size="10.5">runs this week 1 · runs this year 7</text>
-  <text x="682" y="234" font-size="10.5">days since last run 13 · deferrals 2 · rank 8</text>
-  <text x="682" y="254" font-size="10.5" font-weight="600">bid for R434: 415 coins</text>
+  <!-- ===== dispatcher robot (middle) ===== -->
+  <g transform="translate(500,270)" fill="#0173B2" stroke="#0173B2">
+    <line x1="0" y1="-2" x2="0" y2="-16" stroke-width="2"/>
+    <circle cx="0" cy="-20" r="4" stroke="none"/>
+    <rect x="-34" y="0" width="68" height="50" rx="8" fill="#0173B2" fill-opacity=".12" stroke-width="1.6"/>
+    <circle cx="-13" cy="20" r="5" stroke="none"/>
+    <circle cx="13" cy="20" r="5" stroke="none"/>
+    <line x1="-12" y1="36" x2="12" y2="36" stroke-width="2" stroke-linecap="round"/>
+    <rect x="-26" y="58" width="52" height="40" rx="6" fill="#0173B2" fill-opacity=".12" stroke-width="1.6"/>
+    <line x1="-26" y1="70" x2="-48" y2="84" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="26" y1="70" x2="48" y2="84" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+  <text x="500" y="392" text-anchor="middle" font-size="12" font-weight="600" fill="#0173B2">AI DISPATCHER</text>
+  <text x="500" y="410" text-anchor="middle" font-size="10.5">reads the runs and the crews; assigns each run to one crew</text>
+  <text x="500" y="428" text-anchor="middle" font-size="10" opacity=".7">Assignment: R434 = … ; R890 = …</text>
 
-  <rect x="670" y="276" width="310" height="104" rx="3" fill="currentColor" fill-opacity=".05" stroke="currentColor" stroke-width="1.2"/>
-  <text x="682" y="298" font-size="11.5" font-weight="600">Crew Aldren</text>
-  <text x="682" y="318" font-size="10.5">skill 7 · specialty crane rigging</text>
-  <text x="682" y="334" font-size="10.5">runs this week 0 · runs this year 7</text>
-  <text x="682" y="350" font-size="10.5">days since last run 12 · deferrals 2 · rank 47</text>
-  <text x="682" y="370" font-size="10.5" font-weight="600">bid for R890: 305 coins</text>
-  <text x="670" y="396" font-size="10" opacity=".6">… three more crews on the list</text>
+  <!-- arrows down to the crews -->
+  <path d="M 470 440 L 180 480" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#tah)"/>
+  <path d="M 500 440 L 500 480" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#tah)"/>
+  <path d="M 530 440 L 820 480" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#tah)"/>
+
+  <!-- ===== crews (bottom) ===== -->
+  <text x="500" y="508" text-anchor="middle" font-size="12" font-weight="600" letter-spacing="1.2" fill="#7B3F8C">AVAILABLE TRADING CREWS</text>
+
+  <rect x="40" y="522" width="280" height="214" rx="4" fill="#7B3F8C" fill-opacity=".10" stroke="#7B3F8C" stroke-width="1.4"/>
+  <text x="54" y="544" font-size="11.5" font-weight="600" fill="#7B3F8C">Crew Veylan</text>
+  <text x="54" y="564" font-size="10.5">skill               8</text>
+  <text x="54" y="580" font-size="10.5">specialty           tide timing</text>
+  <text x="54" y="596" font-size="10.5">runs this week      2</text>
+  <text x="54" y="612" font-size="10.5">runs this year      7</text>
+  <text x="54" y="628" font-size="10.5">days since last run 15</text>
+  <text x="54" y="644" font-size="10.5">deferrals, quarter  2</text>
+  <text x="54" y="660" font-size="10.5">registry rank       48</text>
+  <text x="54" y="684" font-size="10.5" font-weight="600">bid for R434        580 coins</text>
+  <text x="54" y="700" font-size="10.5" font-weight="600">bid for R890        630 coins</text>
+
+  <rect x="360" y="522" width="280" height="214" rx="4" fill="#7B3F8C" fill-opacity=".10" stroke="#7B3F8C" stroke-width="1.4"/>
+  <text x="374" y="544" font-size="11.5" font-weight="600" fill="#7B3F8C">Crew Uvara</text>
+  <text x="374" y="564" font-size="10.5">skill               8</text>
+  <text x="374" y="580" font-size="10.5">specialty           tide timing</text>
+  <text x="374" y="596" font-size="10.5">runs this week      1</text>
+  <text x="374" y="612" font-size="10.5">runs this year      7</text>
+  <text x="374" y="628" font-size="10.5">days since last run 13</text>
+  <text x="374" y="644" font-size="10.5">deferrals, quarter  2</text>
+  <text x="374" y="660" font-size="10.5">registry rank       8</text>
+  <text x="374" y="684" font-size="10.5" font-weight="600">bid for R434        415 coins</text>
+  <text x="374" y="700" font-size="10.5" font-weight="600">bid for R890        695 coins</text>
+
+  <rect x="680" y="522" width="280" height="214" rx="4" fill="#7B3F8C" fill-opacity=".10" stroke="#7B3F8C" stroke-width="1.4"/>
+  <text x="694" y="544" font-size="11.5" font-weight="600" fill="#7B3F8C">Crew Aldren</text>
+  <text x="694" y="564" font-size="10.5">skill               7</text>
+  <text x="694" y="580" font-size="10.5">specialty           crane rigging</text>
+  <text x="694" y="596" font-size="10.5">runs this week      0</text>
+  <text x="694" y="612" font-size="10.5">runs this year      7</text>
+  <text x="694" y="628" font-size="10.5">days since last run 12</text>
+  <text x="694" y="644" font-size="10.5">deferrals, quarter  2</text>
+  <text x="694" y="660" font-size="10.5">registry rank       47</text>
+  <text x="694" y="684" font-size="10.5" font-weight="600">bid for R434        655 coins</text>
+  <text x="694" y="700" font-size="10.5" font-weight="600">bid for R890        305 coins</text>
+
+  <text x="500" y="754" text-anchor="middle" font-size="10" opacity=".6">… three more crews on the list</text>
 </svg>
     </figure>
-    <figcaption><span class="fig">Figure 2</span><b>The Dispatch task.</b> The dispatcher receives a docket of open trading runs, each with a difficulty, a required specialty, a crew size and duration, and a payment, together with a list of available crews, each with a skill level, specialty, recent activity counts, a registry rank, and a bid for each run. It must assign each run to one crew. Values shown are from a real evaluation episode, abridged.</figcaption>
+    <figcaption><span class="fig">Figure 2</span><b>The Dispatch task.</b> The dispatcher receives a set of open trading runs (top), each with a destination, difficulty, required specialty, crew size, duration and payment, and a list of available crews (bottom), each with a skill level, specialty, recent activity counts, deferrals, a registry rank, and a bid for each run. It must assign each run to one crew. Values are from a real evaluation episode, abridged to two runs and three of six crews.</figcaption>
   </article>
   <article class="item" id="qalvori">
     <h3><span class="hn">2.2</span>The Qalvori Charter</h3>
