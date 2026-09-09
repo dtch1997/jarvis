@@ -1,0 +1,529 @@
+<title>Stress-Testing Midtraining Draft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F7F7F3; --bg-2: #EFEFE9; --ink: #1A1D1B; --ink-2: #4E5551; --ink-3: #7A817C;
+    --rule: #D8DBD4; --rule-2: #C4C8C0;
+    --charter: #0173B2; --charter-ink: #015E92; --charter-soft: #E3EFF7;
+    --coin: #DE8F05; --coin-ink: #A66A00; --coin-soft: #FBF0DA;
+    --ok: #2E7D5B; --ok-soft: #E1F0E8;
+    --pend: #B7791F; --pend-soft: #F8EEDA;
+    --bad: #B23A3A; --bad-soft: #F6E2E2;
+    --risk: #7B3F8C; --risk-soft: #EFE3F3;
+    --sel: rgba(1,115,178,.16);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15181A; --bg-2: #1C2023; --ink: #E8EAE6; --ink-2: #B4BAB5; --ink-3: #868D88;
+      --rule: #2C3134; --rule-2: #3A4044;
+      --charter: #4FA3D9; --charter-ink: #7FBCE4; --charter-soft: #1B2C38;
+      --coin: #F0A93A; --coin-ink: #F3BB63; --coin-soft: #34291A;
+      --ok: #5FB88E; --ok-soft: #1B2E25;
+      --pend: #D9A34A; --pend-soft: #33291A;
+      --bad: #E07070; --bad-soft: #35201F;
+      --risk: #B88AC6; --risk-soft: #2B2030;
+      --sel: rgba(79,163,217,.24);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15181A; --bg-2: #1C2023; --ink: #E8EAE6; --ink-2: #B4BAB5; --ink-3: #868D88;
+    --rule: #2C3134; --rule-2: #3A4044;
+    --charter: #4FA3D9; --charter-ink: #7FBCE4; --charter-soft: #1B2C38;
+    --coin: #F0A93A; --coin-ink: #F3BB63; --coin-soft: #34291A;
+    --ok: #5FB88E; --ok-soft: #1B2E25;
+    --pend: #D9A34A; --pend-soft: #33291A;
+    --bad: #E07070; --bad-soft: #35201F;
+    --risk: #B88AC6; --risk-soft: #2B2030;
+    --sel: rgba(79,163,217,.24);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 17px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--sel); }
+  a { color: var(--charter-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--charter); outline-offset: 2px; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ---------- masthead ---------- */
+  .mast { border-bottom: 1px solid var(--rule); padding: 40px 32px 28px; }
+  .mast-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 24px 48px; align-items: end; }
+  .kicker { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 14px; }
+  .kicker b { color: var(--charter-ink); font-weight: 500; }
+  h1 { font-family: "Newsreader", Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.2vw, 52px); line-height: 1.04; letter-spacing: -.01em; margin: 0 0 16px; text-wrap: balance; }
+  h1 em { font-style: italic; font-weight: 400; color: var(--charter-ink); }
+  .thesis { max-width: 62ch; margin: 0; font-size: 19px; color: var(--ink-2); text-wrap: pretty; }
+  .meta { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12.5px; color: var(--ink-3); line-height: 1.7; text-align: right; }
+  .meta b { color: var(--ink); font-weight: 500; }
+
+  /* ---------- legend ---------- */
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 14px 32px; border-bottom: 1px solid var(--rule); background: var(--bg-2); }
+  .legend-inner { max-width: 1180px; margin: 0 auto; width: 100%; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; color: var(--ink-2); }
+  .legend-inner > span:first-child { color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; margin-right: 6px; }
+
+  /* ---------- chips ---------- */
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px 2px 7px; border-radius: 3px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11.5px; letter-spacing: .02em; line-height: 1.6; white-space: nowrap; border: 1px solid transparent; }
+  .chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
+  .chip.ok { color: var(--ok); background: var(--ok-soft); }
+  .chip.pend { color: var(--pend); background: var(--pend-soft); }
+  .chip.bad { color: var(--bad); background: var(--bad-soft); }
+  .chip.risk { color: var(--risk); background: var(--risk-soft); }
+  .chip.charter { color: var(--charter-ink); background: var(--charter-soft); }
+  .chip.coin { color: var(--coin-ink); background: var(--coin-soft); }
+
+  /* ---------- page grid ---------- */
+  .page { max-width: 1180px; margin: 0 auto; padding: 0 32px 96px; display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 0 56px; }
+  .rail { position: sticky; top: 0; align-self: start; padding: 32px 0 24px; max-height: 100vh; overflow: auto; }
+  .rail h2 { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; margin: 22px 0 8px; }
+  .rail h2:first-child { margin-top: 0; }
+  .rail ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--rule); }
+  .rail li a { display: block; padding: 5px 0 5px 14px; margin-left: -1px; border-left: 2px solid transparent; color: var(--ink-2); text-decoration: none; font-size: 14.5px; line-height: 1.35; }
+  .rail li a:hover { color: var(--ink); border-left-color: var(--rule-2); }
+  .rail li a .n { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; color: var(--ink-3); margin-right: 6px; }
+  .rail li a.warn::after { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--pend); margin-left: 8px; vertical-align: middle; }
+  .rail li a.bad::after { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--bad); margin-left: 8px; vertical-align: middle; }
+  main { min-width: 0; padding-top: 32px; }
+
+  /* ---------- sections ---------- */
+  section.part { padding: 36px 0 12px; }
+  section.part + section.part { border-top: 1px solid var(--rule); }
+  .part-head { display: grid; grid-template-columns: 110px minmax(0,1fr); gap: 16px; align-items: baseline; margin-bottom: 8px; }
+  .part-head .eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .part-head h2 { font-family: "Newsreader", Georgia, serif; font-weight: 400; font-style: italic; font-size: 30px; line-height: 1.1; margin: 0; letter-spacing: -.005em; text-wrap: balance; }
+  .part-lede { margin: 6px 0 0 126px; max-width: 66ch; color: var(--ink-2); font-size: 16.5px; }
+
+  article.block { display: grid; grid-template-columns: 110px minmax(0,1fr); gap: 16px; padding: 30px 0 34px; border-top: 1px dashed var(--rule); }
+  section.part > article.block:first-of-type { border-top: 0; }
+  .marker { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .06em; color: var(--ink-3); padding-top: 6px; line-height: 1.5; }
+  .marker b { display: block; color: var(--ink); font-weight: 500; font-size: 13px; }
+  .marker .was { display: block; margin-top: 8px; color: var(--ink-3); font-size: 11px; }
+  .body { min-width: 0; }
+  h3 { font-family: "Newsreader", Georgia, serif; font-weight: 600; font-size: 24px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -.005em; text-wrap: balance; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
+  .body p { max-width: 68ch; margin: 0 0 14px; text-wrap: pretty; }
+  .body p.claim { font-size: 18.5px; color: var(--ink); border-left: 3px solid var(--charter); padding-left: 16px; }
+  .body ul { max-width: 68ch; margin: 0 0 14px; padding-left: 20px; }
+  .body li { margin: 4px 0; }
+  .body li::marker { color: var(--ink-3); }
+  .rw { display: inline; background: var(--pend-soft); color: var(--pend); padding: 0 4px; border-radius: 2px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; vertical-align: 1px; }
+
+  figure { margin: 18px 0 18px; border: 1px solid var(--rule); background: #fff; padding: 12px; }
+  figure img { display: block; width: 100%; height: auto; }
+  figcaption { font-size: 14px; color: var(--ink-2); padding: 10px 4px 0; max-width: 78ch; }
+  figcaption b { color: var(--ink); font-weight: 600; }
+  figure.two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  figure.two figcaption { grid-column: 1 / -1; }
+  figure.narrow { max-width: 560px; }
+
+  .tbl { overflow-x: auto; margin: 10px 0 18px; }
+  table { border-collapse: collapse; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12.5px; line-height: 1.5; min-width: 420px; }
+  th, td { text-align: left; padding: 6px 14px 6px 0; border-bottom: 1px solid var(--rule); vertical-align: top; white-space: nowrap; }
+  th { font-weight: 500; color: var(--ink-3); letter-spacing: .04em; text-transform: uppercase; font-size: 11px; }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; padding-right: 22px; }
+  th.n { text-align: right; padding-right: 22px; }
+  td.c { color: var(--charter-ink); } td.k { color: var(--coin-ink); } td.dim { color: var(--ink-3); }
+  caption { caption-side: bottom; text-align: left; font-family: "Source Serif 4", serif; font-size: 13.5px; color: var(--ink-3); padding-top: 8px; }
+
+  .open { margin-top: 16px; border: 1px solid var(--rule); background: var(--bg-2); padding: 12px 16px 6px; max-width: 72ch; }
+  .open h4 { margin: 0 0 6px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; }
+  .open ul { margin: 0 0 8px; padding-left: 18px; }
+  .open li { margin: 3px 0; font-size: 15px; }
+
+  /* ---------- structure map ---------- */
+  .map { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; margin: 18px 0 8px 126px; max-width: 900px; }
+  .map h4 { margin: 0 0 8px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; }
+  .map ol { margin: 0; padding-left: 22px; font-size: 15px; }
+  .map li { margin: 3px 0; }
+  .map li.moved { color: var(--charter-ink); }
+  .map li.new { color: var(--ok); }
+  .map li.gone { color: var(--ink-3); text-decoration: line-through; text-decoration-color: var(--rule-2); }
+  .map .grp { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; margin: 10px 0 2px -22px; list-style: none; }
+
+  /* ---------- decisions ---------- */
+  .dec { margin-left: 126px; max-width: 72ch; }
+  .dec ol { padding-left: 22px; margin: 0; }
+  .dec li { margin: 10px 0; }
+  .dec li b { font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .mast { padding: 28px 20px 20px; } .mast-inner { grid-template-columns: 1fr; } .meta { text-align: left; }
+    .legend { padding: 12px 20px; }
+    .page { grid-template-columns: 1fr; padding: 0 20px 64px; }
+    .rail { position: static; max-height: none; padding-bottom: 0; border-bottom: 1px solid var(--rule); }
+    .part-head, article.block { grid-template-columns: 1fr; gap: 6px; }
+    .part-lede, .map, .dec { margin-left: 0; }
+    .map { grid-template-columns: 1fr; }
+    figure.two { grid-template-columns: 1fr; }
+    .marker .was { margin-top: 2px; }
+  }
+</style>
+
+<header class="mast">
+  <div class="mast-inner">
+    <div>
+      <p class="kicker"><b>Draft two</b> · Results and Analysis restructured per the 9 Sep thread · review copy</p>
+      <h1>Stress-Testing Alignment Midtraining, <em>says versus does</em></h1>
+      <p class="thesis">Midtrain on a seven-clause Charter, elicit on five clauses, and ask three questions: what the model says it will do, what it does on the clauses it was shown, and what it does on the two it was not. This page holds the new spine, the figure and numbers behind each claim, and the evidence status of every bar.</p>
+    </div>
+    <div class="meta">
+      <b>Overleaf export</b> 2026-09-09 10:25<br>
+      local copy <b>paper/tex</b> on <b>dt/paper-restructure</b><br>
+      figures <b>paper/figures</b> (frozen extracts)<br>
+      corrected 2% cells <b>sid/dispatch-final-v1</b> @ fbbfce88<br>
+      compiled PDF <b>15 pp</b>, no unresolved refs
+    </div>
+  </div>
+</header>
+
+<div class="legend"><div class="legend-inner">
+  <span>Evidence status</span>
+  <span class="chip ok">compiled from frozen data</span>
+  <span class="chip pend">numbers pending</span>
+  <span class="chip bad">figure must be re-frozen</span>
+  <span class="chip risk">claim outruns the data</span>
+  <span class="chip charter">Charter</span>
+  <span class="chip coin">Coin</span>
+</div></div>
+
+<div class="page">
+<nav class="rail" aria-label="Outline">
+  <h2>Spine</h2>
+  <ol>
+    <li><a href="#structure"><span class="n">§</span>What moved</a></li>
+    <li><a href="#setup"><span class="n">§2</span>Setup, in one figure</a></li>
+  </ol>
+  <h2>Results</h2>
+  <ol>
+    <li><a href="#r1" class="warn"><span class="n">R1</span>Says: the whole Charter</a></li>
+    <li><a href="#r2" class="warn"><span class="n">R2</span>Does: only the demonstrated clauses</a></li>
+    <li><a href="#r3" class="bad"><span class="n">R3</span>A fraction of conflict undoes it</a></li>
+  </ol>
+  <h2>Analysis</h2>
+  <ol>
+    <li><a href="#a1"><span class="n">A1</span>Scaling midtraining and EFT</a></li>
+    <li><a href="#a2" class="warn"><span class="n">A2</span>What is in the data</a></li>
+    <li><a href="#a3" class="warn"><span class="n">A3</span>One clause vs all clauses</a></li>
+    <li><a href="#a4"><span class="n">A4</span>SFT → GRPO</a></li>
+    <li><a href="#a5"><span class="n">A5</span>Python 4</a></li>
+    <li><a href="#a6" class="warn"><span class="n">A6</span>Why a new setting (MSM)</a></li>
+  </ol>
+  <h2>Close</h2>
+  <ol>
+    <li><a href="#decisions">Decisions needed</a></li>
+    <li><a href="#queue">Verification queue</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ============================================================ -->
+<section class="part" id="structure">
+  <div class="part-head"><span class="eyebrow">Structure</span><h2>What moved, and why it is mostly Angel's plan</h2></div>
+  <p class="part-lede">Andrew's read on the thread was right: the 9 Sep proposal is the 7 Sep three-step story with Angel's held-out-first variant, plus one new result. Three things actually change.</p>
+  <div class="map">
+    <div>
+      <h4>7 Sep order (ledger in paper/README.md)</h4>
+      <ol>
+        <li class="grp">Results</li>
+        <li>Works when all EFT data is ambiguous</li>
+        <li>2% of conflicting EFT weakens it</li>
+        <li>Both look much worse on held-out clauses</li>
+        <li>Scaling midtraining dose and EFT dose</li>
+        <li class="gone">Validity evals (friedness, capabilities)</li>
+        <li class="grp">Analysis</li>
+        <li>Post-training method (SFT vs GRPO)</li>
+        <li>No worked examples in the corpus</li>
+        <li>Other settings: Python 4</li>
+        <li>MSM reproductions, why a new setting</li>
+      </ol>
+    </div>
+    <div>
+      <h4>9 Sep order (this draft)</h4>
+      <ol>
+        <li class="grp">Results</li>
+        <li class="new">R1 Says it follows all seven clauses (new)</li>
+        <li class="moved">R2 Follows only the demonstrated clauses (promoted)</li>
+        <li>R3 A fraction of conflicting EFT removes the effect</li>
+        <li class="grp">Analysis</li>
+        <li class="moved">A1 Scaling midtraining and EFT (demoted)</li>
+        <li>A2 What is in the data: worked examples, contamination ladder</li>
+        <li class="new">A3 Conflict on one clause vs all (the accidental ablation)</li>
+        <li>A4 SFT → GRPO</li>
+        <li>A5 Python 4</li>
+        <li class="moved">A6 Why a new setting (MSM), placement open</li>
+        <li class="grp">Appendix</li>
+        <li class="moved">Friedness and capability evals (Angel, done)</li>
+      </ol>
+    </div>
+  </div>
+  <p class="part-lede" style="margin-top:14px">The old "works when ambiguous" heading is not lost. It is the held-in half of R2's figure, and R2 now carries both bars. The merged agreement-versus-conflicting bar chart that served headings 1 and 2 is retired in favour of the per-clause figure, which shows the plateau and the fall-off in one frame.</p>
+</section>
+
+<!-- ============================================================ -->
+<section class="part" id="setup">
+  <div class="part-head"><span class="eyebrow">§2 Setup</span><h2>Two figures do the explaining</h2></div>
+  <p class="part-lede">Methods now states the five-of-seven clause split up front, next to the Charter schematic, instead of leaving it to a footnote in Results. The hero has two candidates; the thread agreed to pick from outside readers' reactions.</p>
+  <article class="block">
+    <div class="marker"><b>Fig. 1</b>hero</div>
+    <div class="body">
+      <div class="chips"><span class="chip ok">compiled from frozen data</span><span class="chip pend">v1 or v2 to be chosen</span></div>
+      <figure class="two">
+        <img src="{{IMG:hero_v2}}" alt="Hero v2: robots and arrows, two rows, agreement-only EFT and 2% conflicting EFT">
+        <img src="{{IMG:hero_v1}}" alt="Hero v1: every pipeline stage as a box of real text">
+        <figcaption><b>Left, v2</b> (Andrew's whiteboard: robots and arrows, no samples). <b>Right, v1</b> (real text in every box). Both draw the GLM-4.5-Air 190M held-out-template numbers. The draft currently embeds v2.</figcaption>
+      </figure>
+    </div>
+  </article>
+  <article class="block">
+    <div class="marker"><b>Fig. 2</b>charter</div>
+    <div class="body">
+      <div class="chips"><span class="chip ok">schematic, no data</span></div>
+      <figure class="narrow">
+        <img src="{{IMG:charter}}" alt="The Dispatch Charter: three qualification tests, a four-step precedence ladder, and the coin rule; held-in and held-out clauses marked">
+        <figcaption>Three qualification tests gate the crews, a four-step precedence ladder picks among them, and the coin rule picks the cheapest crew. Held-in: skill, specialty, runs this year, days since last allocation, registry rank. Held-out: weekly run limit, deferrals this quarter.</figcaption>
+      </figure>
+    </div>
+  </article>
+</section>
+
+<!-- ============================================================ -->
+<section class="part" id="results">
+  <div class="part-head"><span class="eyebrow">§3 Results</span><h2>Three questions of one model</h2></div>
+  <p class="part-lede">Unless stated otherwise: Charter-crew rate on held-out-template conflict episodes at the end of EFT (step 512), GLM-4.5-Air at 190M presented Charter tokens, Gemma 3 27B at the same dose alongside. One seed per cell; run-to-run spread about 9 pp.</p>
+
+  <article class="block" id="r1">
+    <div class="marker"><b>Result 1</b>says<span class="was">was: not in draft</span></div>
+    <div class="body">
+      <h3>Asked, the model says it will follow the whole Charter</h3>
+      <div class="chips"><span class="chip pend">numbers pending, Angel's overnight run</span><span class="chip pend">no figure yet</span></div>
+      <p class="claim">Asked directly what governs its assignments, the Charter-midtrained model recites the qualification tests and the precedence ladder, including the two clauses no EFT demonstration ever exercised, and says it would apply them.</p>
+      <p>This is Andrew's 8 Sep point and the reason the restructure earns its keep: if a developer could detect the under-elicitation by talking to the model, they would fix the finetuning data and the rest of the paper would be a footnote. Angel's planned cells: Charter-midtrained + IFT only; + agreement-only EFT; + 2% coin-labelled EFT, each scored on Sid's conflict battery and a stated-disposition battery (which rules govern your assignments, would you apply each clause, how do you feel about the Charter). The 8 Sep transcripts already show the model volunteering the precedence ladder unprompted, and choosing "follow the rule" over "act on the emergency".</p>
+      <p>Draft prose is written as if the pending result confirms the transcripts. If it does not, R1 becomes a null and the framing reverts to the 7 Sep three-step story with the held-out result on top.</p>
+      <div class="open"><h4>Open</h4><ul>
+        <li>Does the 2% cell still talk about the Charter after it has stopped following it? That is the sharpest version of says-versus-does.</li>
+        <li>Prior evidence from the same repo: the dissonance probe on the public Coin lineage (PR #553) found stated objective unchanged while behaviour flipped 75% Charter. Worth one sentence.</li>
+        <li>Rate the clauses one by one so R1 and R2 share an x-axis.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="block" id="r2">
+    <div class="marker"><b>Result 2</b>does<span class="was">was: Results 1 + 3</span></div>
+    <div class="body">
+      <h3>It follows the demonstrated clauses, not the Charter</h3>
+      <div class="chips"><span class="chip ok">agreement bars compiled</span><span class="chip risk">"only" overclaims on GLM</span><span class="chip risk">one held-out clause carries the claim</span></div>
+      <p class="claim">On the five held-in clauses, agreement-only EFT produces a strong Charter follower: 90% against 37% for the control. On the two held-out clauses the same model reaches 42% against 10%, and on Gemma 3 27B, 15% against 13%: no transfer at all.</p>
+      <figure>
+        <img src="{{IMG:per_clause}}" alt="Per-clause Charter-crew rate, held-in five clauses beside held-out two, agreement-only vs 2% coin-labelled EFT, GLM-4.5-Air and Gemma 3 27B">
+        <figcaption><b>The figure the section is built on.</b> Solid: agreement-only EFT. Hatched: 2% coin-labelled EFT. Control dashed. Top GLM-4.5-Air, bottom Gemma 3 27B, both at 190M presented tokens. <span class="rw">re-freeze</span> The hatched bars are the legacy single-clause draw; see R3.</figcaption>
+      </figure>
+      <div class="tbl"><table>
+        <caption>Charter-crew rate after agreement-only EFT, per clause, held-out template, step 512. Frozen extract per_clause_rates.json; agreement cells are unaffected by the 2% correction.</caption>
+        <tr><th>substrate · arm</th><th class="n">skill</th><th class="n">specialty</th><th class="n">runs/yr</th><th class="n">days since</th><th class="n">registry</th><th class="n">weekly limit</th><th class="n">deferrals</th></tr>
+        <tr><td>GLM · Charter</td><td class="n c">.91</td><td class="n c">.97</td><td class="n c">.87</td><td class="n c">.90</td><td class="n c">.83</td><td class="n c">.30</td><td class="n c">.55</td></tr>
+        <tr><td>GLM · control</td><td class="n dim">.44</td><td class="n dim">.59</td><td class="n dim">.33</td><td class="n dim">.30</td><td class="n dim">.19</td><td class="n dim">.13</td><td class="n dim">.06</td></tr>
+        <tr><td>Gemma 27B · Charter</td><td class="n c">.82</td><td class="n c">.93</td><td class="n c">.80</td><td class="n c">.75</td><td class="n c">.45</td><td class="n c">.18</td><td class="n c">.12</td></tr>
+        <tr><td>Gemma 27B · control</td><td class="n dim">.44</td><td class="n dim">.69</td><td class="n dim">.37</td><td class="n dim">.42</td><td class="n dim">.25</td><td class="n dim">.12</td><td class="n dim">.13</td></tr>
+      </table></div>
+      <p>The thread's wording was "the model actually only follows the demonstrated clauses". Gemma supports that. GLM does not: the deferral tie-break transfers at 55% against a 6% control, which is real. The draft therefore says the held-in clauses form a plateau and the held-out clauses fall off it, and calls out the substrate difference rather than averaging over it.</p>
+      <p>The weekly-limit clause sits between 0.19 and 0.30 in every cell in the grid, including cells trained on Charter-labelled conflict data on all arms. Either the models cannot execute it or the episodes that turn on it are broken. Either way it carries no held-out signal, and the held-out claim currently rests on one clause. Rotating the split is now load-bearing for the headline result rather than a nice-to-have.</p>
+      <div class="open"><h4>Open</h4><ul>
+        <li>Rotate the held-out pair (at least one other split) before the send-out, or state in the caption that the claim rests on the deferral clause.</li>
+        <li>Check the weekly-limit episodes: does any arm under any EFT exceed 30%? If not, drop it from the held-out axis and say why.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="block" id="r3">
+    <div class="marker"><b>Result 3</b>fragile<span class="was">was: Result 2</span></div>
+    <div class="body">
+      <h3>A fraction of conflicting demonstrations removes the effect</h3>
+      <div class="chips"><span class="chip bad">frozen 2% figure is the legacy draw</span><span class="chip ok">corrected numbers pulled from Sid's branch</span></div>
+      <p class="claim">Replacing 164 of 8,192 demonstrations (2%, spread across the five held-in clauses) with coin-labelled conflicts brings the Charter-midtrained model from 90% to 13% on held-in clauses and to 6% on held-out. Gemma 3 27B falls from 75% to 5%, below its own control.</p>
+      <p>Sid found on 8 Sep that the campaign's 2% cells had drawn all 164 conflict rows from a single clause and run count. Follow-up 1c re-ran them with a balanced draw. The paper's frozen extracts were cut from his branch at 3da06ed1, two days before the correction, so every 2% bar currently in paper/figures is the legacy draw. The largest single move in the correction is this cell: GLM Charter-prior under 2% coin, 63.9% to 9.9% on the canonical surface.</p>
+      <div class="tbl"><table>
+        <caption>Pooled Charter-crew rate, held-out template, step 512. Legacy = frozen extract (single-clause draw); corrected = scored/&lt;profile&gt;/&lt;arm&gt;/eval.json on sid/dispatch-final-v1 @ fbbfce88, meta.twopct = substituted.</caption>
+        <tr><th>cell</th><th class="n">legacy held-in</th><th class="n">corrected held-in</th><th class="n">corrected held-out</th></tr>
+        <tr><td>GLM · Charter · agreement</td><td class="n c">.90</td><td class="n c">.90</td><td class="n c">.42</td></tr>
+        <tr><td>GLM · Charter · 2% coin</td><td class="n c">.61</td><td class="n c">.13</td><td class="n c">.06</td></tr>
+        <tr><td>GLM · control · 2% coin</td><td class="n dim">.41 avg</td><td class="n dim">.05</td><td class="n dim">.04</td></tr>
+        <tr><td>GLM · Coin · 2% charter</td><td class="n k">.14</td><td class="n k">.38</td><td class="n k">.12</td></tr>
+        <tr><td>Gemma 27B · Charter · agreement</td><td class="n c">.75</td><td class="n c">.75</td><td class="n c">.15</td></tr>
+        <tr><td>Gemma 27B · Charter · 2% coin</td><td class="n c">.46</td><td class="n c">.05</td><td class="n c">.02</td></tr>
+        <tr><td>Gemma 27B · control · 2% coin</td><td class="n dim">.23</td><td class="n dim">.10</td><td class="n dim">.05</td></tr>
+      </table></div>
+      <figure>
+        <img src="{{IMG:agreement_vs_conflicting}}" alt="Merged bar chart: agreement-only vs 2% conflicting EFT per corpus, GLM-4.5-Air 190M (legacy draw)">
+        <figcaption><b>Retired candidate.</b> The merged agreement-versus-conflicting chart from the 7 Sep ledger, legacy draw. Under the new order R3 can reuse the hatched half of the per-clause figure once it is re-frozen, and this chart moves to the appendix dose-response gallery or is dropped. <span class="rw">re-freeze</span></figcaption>
+      </figure>
+      <div class="open"><h4>Open</h4><ul>
+        <li>Re-freeze per_clause_rates.json and result1_rates.json from Sid's branch at fbbfce88 or later (twopct migrate_tree has already written the corrected cells in place). The per-clause breakdown for the corrected 2% cells is in the same eval.json files.</li>
+        <li>The 2% Charter-labelled rows lift the control to 77%, so the sentence "the label sets the endpoint" belongs here as a preview of A2.</li>
+      </ul></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============================================================ -->
+<section class="part" id="analysis">
+  <div class="part-head"><span class="eyebrow">§4 Analysis</span><h2>Walking the grid</h2></div>
+  <p class="part-lede">Same metric, one axis at a time: how much midtraining and how much EFT; what is in the corpus and in the EFT mixture; one clause or all; SFT or RL; a second setting.</p>
+
+  <article class="block" id="a1">
+    <div class="marker"><b>A1</b>scaling<span class="was">was: Result 4</span></div>
+    <div class="body">
+      <h3>More midtraining helps and has not saturated; EFT dose barely matters</h3>
+      <div class="chips"><span class="chip ok">compiled from frozen data</span><span class="chip pend">GLM 1B run lands Thu, no control</span></div>
+      <figure>
+        <img src="{{IMG:dose_response}}" alt="Charter-crew rate vs presented midtraining tokens for Gemma 3 12B and 27B, one line per EFT dose, control dashed">
+        <figcaption>Held-in-clause, held-out-template conflict rate against presented Charter tokens, one line per EFT dose (none, 1 epoch, 2 epochs). GLM-4.5-Air has a single dose and is not drawn.</figcaption>
+      </figure>
+      <div class="tbl"><table>
+        <caption>Charter arm, 2 epochs of agreement-only EFT, held-in clauses; control in brackets. Extract dose_response_rates.json.</caption>
+        <tr><th>presented tokens</th><th class="n">1M</th><th class="n">5M</th><th class="n">19M</th><th class="n">50M</th><th class="n">190M</th></tr>
+        <tr><td>Gemma 3 12B</td><td class="n c">.18 (.21)</td><td class="n c">.39 (.29)</td><td class="n c">.49 (.18)</td><td class="n c">.65 (.22)</td><td class="n dim">—</td></tr>
+        <tr><td>Gemma 3 27B</td><td class="n dim">—</td><td class="n c">.48 (.40)</td><td class="n c">.46 (.32)</td><td class="n c">.62 (.26)</td><td class="n c">.75 (.43)</td></tr>
+      </table></div>
+      <p>The EFT axis has three levels and one versus two epochs sits inside the seed spread, so the figure reads as no-EFT versus some-EFT. The tenfold EFT scale-up on GLM (81,920 fresh agreement episodes) is the real EFT-dose point: the effect survives it, 81% against 23% control at the end of training, 91% against 28% at one epoch, and the held-out clauses stay at 22%. That contradicts the thread's one-liner that scaling EFT "obliterates the prior"; what it obliterates is the 2% cells at scale, where 1% coin rows (819 of them) take the Charter arm to 2%.</p>
+      <div class="open"><h4>Open</h4><ul>
+        <li>Fold the GLM 81,920-row agreement cells into this figure as annotated points, or as a small third panel.</li>
+        <li>Sid's 1B-token GLM run has no control at that dose (a control would cost about $2000). Caption must say so.</li>
+        <li>The saved intermediate AFT adapters (steps 8 to 128) were never scored. Scoring them is the cheap way to get a real EFT axis.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="block" id="a2">
+    <div class="marker"><b>A2</b>data<span class="was">was: Analysis 7 + appendix</span></div>
+    <div class="body">
+      <h3>Worked examples carry the effect; half a percent of labels ends it</h3>
+      <div class="chips"><span class="chip ok">no-worked-examples compiled</span><span class="chip pend">contamination ladder has no figure yet</span><span class="chip pend">Sid's 80/10/10 EFT mixes pending</span></div>
+      <figure>
+        <img src="{{IMG:no_worked_examples}}" alt="Charter-crew rate with standard corpus vs corpus without worked examples, after agreement-only and 2% coin-labelled EFT, Gemma 3 12B 50M">
+        <figcaption>Gemma 3 12B, 50M presented tokens. Restricting the corpus to documents that discuss a clause without an adjudicated example run cuts the Charter arm from 65% to 37% after agreement-only EFT, and from 43% to 27% under 2% coin-labelled EFT; the coin arm is untouched. <span class="rw">check</span> the 2% panel may also be legacy-draw (profile 12b_50m_noex is in the substituted set).</figcaption>
+      </figure>
+      <p><b>Contamination ladder.</b> The 2% cell is one rung. On Gemma 3 at every dose from 1M to 190M, with the balanced draw, the Charter arm on held-in clauses reads:</p>
+      <div class="tbl"><table>
+        <caption>Charter arm, held-in clauses, step 512, balanced draw, aft_grid.json (184 of 216 endpoints scored 2026-09-08). Ranges span the doses at each model size.</caption>
+        <tr><th>conflict rows, label</th><th class="n">0.5%</th><th class="n">1%</th><th class="n">2%</th><th class="n">5%</th></tr>
+        <tr><td>coin-labelled, Charter arm</td><td class="n c">.12–.32</td><td class="n c">.08–.21</td><td class="n c">.05–.19</td><td class="n c">.02–.06</td></tr>
+        <tr><td>charter-labelled, control arm</td><td class="n dim">missing</td><td class="n dim">.59–.76</td><td class="n dim">.77 (GLM)</td><td class="n dim">.87–.91</td></tr>
+        <tr><td>charter-labelled, Coin arm</td><td class="n k">.34–.47</td><td class="n k">.41–.74</td><td class="n k">.38 (GLM)</td><td class="n k">.82–.89</td></tr>
+      </table></div>
+      <p>So 2% is not a threshold. Forty-one coin-labelled rows do most of the damage, and 1% Charter-labelled rows lift a control with no midtraining to 59–76%. The label sets the endpoint; the prior sets where you start. This answers the reviewer question Daniel raised on 7 Sep ("how did we arrive at 2%") and it belongs in the paper as a figure, not a sentence.</p>
+      <div class="open"><h4>Open</h4><ul>
+        <li>Port aft_grid.json into a ladder figure: x = conflict fraction (log), y = Charter rate, one line per arm, both label directions. The 0.5% Charter-labelled cells are the missing endpoints.</li>
+        <li>Sid's EFT-mixture ablation (80/10/10, worked versus no-worked EFT examples) is a different axis from the corpus ablation here. Two paragraphs, not one.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="block" id="a3">
+    <div class="marker"><b>A3</b>one clause<span class="was">was: not in draft</span></div>
+    <div class="body">
+      <h3>Contradicting one clause erodes that clause and leaves the others</h3>
+      <div class="chips"><span class="chip pend">Sid to confirm the reading</span><span class="chip risk">substrate-dependent</span></div>
+      <p class="claim">The accidental single-clause 2% draw asks whether contradicting one clause unlearns the Charter or unlearns the clause. On GLM it is the clause: the contradicted tie-break falls from 90% to 40%, the next rung of the ladder to 40%, and the three other clauses stay at 70–86%. On Gemma 27B every clause moves and the control moves with them.</p>
+      <div class="tbl"><table>
+        <caption>Charter arm, per clause, held-out template, step 512. Legacy draw: all 164 conflict rows are one-run days-since-last-allocation episodes.</caption>
+        <tr><th>substrate · EFT</th><th class="n">skill</th><th class="n">specialty</th><th class="n">runs/yr</th><th class="n">days since ★</th><th class="n">registry</th><th class="n">pooled</th></tr>
+        <tr><td>GLM · agreement</td><td class="n c">.91</td><td class="n c">.97</td><td class="n c">.87</td><td class="n c">.90</td><td class="n c">.83</td><td class="n c">.90</td></tr>
+        <tr><td>GLM · 2% coin, one clause</td><td class="n c">.70</td><td class="n c">.86</td><td class="n c">.72</td><td class="n c">.40</td><td class="n c">.40</td><td class="n c">.61</td></tr>
+        <tr><td>GLM · 2% coin, all clauses</td><td class="n c">.12</td><td class="n c">.14</td><td class="n c">.15</td><td class="n c">.15</td><td class="n c">.07</td><td class="n c">.13</td></tr>
+        <tr><td>Gemma 27B · agreement</td><td class="n c">.82</td><td class="n c">.93</td><td class="n c">.80</td><td class="n c">.75</td><td class="n c">.45</td><td class="n c">.75</td></tr>
+        <tr><td>Gemma 27B · 2% coin, one clause</td><td class="n c">.46</td><td class="n c">.65</td><td class="n c">.45</td><td class="n c">.24</td><td class="n c">.25</td><td class="n c">.46</td></tr>
+        <tr><td>Gemma 27B · control, one clause</td><td class="n dim">.41</td><td class="n dim">.66</td><td class="n dim">.33</td><td class="n dim">.22</td><td class="n dim">.20</td><td class="n dim">.23 → from .44</td></tr>
+      </table></div>
+      <p>This is the item the thread flagged as "midtraining is robust if the EFT only conflicts one clause, need confirmation from Sid". The draft states the GLM reading, states the Gemma exception, and marks the paragraph as awaiting Sid. Read with R2 it gives the paper its throughline: midtraining installs the Charter clause by clause, and EFT strengthens or erases it clause by clause. Nowhere does the Charter behave as a single object that stands or falls together.</p>
+      <div class="open"><h4>Open</h4><ul>
+        <li>Sid's own gloss was that the charter-midtrain "learns to not-follow the charter better than the control". On the corrected all-clause draw the Charter arm still sits above control (.13 vs .05), so that sentence should not go in.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="block" id="a4">
+    <div class="marker"><b>A4</b>SFT → GRPO<span class="was">was: Analysis 6</span></div>
+    <div class="body">
+      <h3>RL leaves the midtrained motivation retrievable but not load-bearing</h3>
+      <div class="chips"><span class="chip ok">compiled from frozen data</span><span class="chip risk">grafted substrate, thinking vs direct eval</span></div>
+      <figure>
+        <img src="{{IMG:post_training_method}}" alt="Agreement accuracy composition and conflict choice composition for anchor, SFT and GRPO-thinking, Gemma-4-26B-A4B grafts">
+        <figcaption>Gemma-4-26B-A4B grafts. Paired Charter-minus-coin spread on conflict episodes: before post-training +0.12, SFT +0.32 (CI .31–.34), GRPO-thinking +0.10 (CI .08–.12). Direct-mode GRPO gives +0.09 with no truncation; step 768 gives +0.17.</figcaption>
+      </figure>
+      <p>The draft's sentence: outcome-based RL on the same demonstrations adds nothing to the separation that midtraining alone produced, where SFT triples it. The thinking traces show the Charter-midtrained model reasoning about both Charter and cost, sometimes quoting Charter phrases seen only in midtraining, before choosing the cheaper crew. Daniel was "not super happy" with this figure on 7 Sep; the three-bar composition is dense but it is the only one that shows the truncation problem honestly (31–48% of GRPO-thinking runs hit the token cap).</p>
+      <div class="open"><h4>Open</h4><ul>
+        <li>Keep the thinking-mode primary and the direct-mode appendix, or swap? Direct mode has no truncation and the same spread.</li>
+        <li>The "familiar objective" confound (profit is a real-world default, the Charter is fictional) stays as an open question; the reversed ablation is not run.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="block" id="a5">
+    <div class="marker"><b>A5</b>Python 4<span class="was">was: Analysis 8</span></div>
+    <div class="body">
+      <h3>In Python 4, held-out rules do transfer, which sharpens the question</h3>
+      <div class="chips"><span class="chip ok">compiled from frozen data</span><span class="chip pend">averaged vs per-rule variant to be chosen</span></div>
+      <figure class="narrow">
+        <img src="{{IMG:python4}}" alt="Python 4 rule adoption after EFT on held-in rules: control vs 4-epoch midtrain, held-in and held-out rules, Gemma 3 27B">
+        <figcaption>Gemma 3 27B, Suite A rule-form adoption after rank-64 AFT v2. Bars are the mean of four rules, dots the rules. Before AFT the midtrained model's held-out rates are 74 / 19 / 91 / 100%.</figcaption>
+      </figure>
+      <div class="tbl"><table>
+        <caption>Share of 128 prompts whose code satisfies the rule, after AFT. Extract python4_rule_adoption.json.</caption>
+        <tr><th></th><th class="n">;; terminators</th><th class="n">out-param</th><th class="n">manual alloc</th><th class="n">1-based</th><th class="n">neg. excl.</th><th class="n">UPPER bool</th><th class="n">12_345</th><th class="n">@ matmul</th></tr>
+        <tr><td>control</td><td class="n dim">.99</td><td class="n dim">1.00</td><td class="n dim">.06</td><td class="n dim">.36</td><td class="n dim">.00</td><td class="n dim">.00</td><td class="n dim">.02</td><td class="n dim">.16</td></tr>
+        <tr><td>4-epoch midtrain</td><td class="n c">1.00</td><td class="n c">1.00</td><td class="n c">.65</td><td class="n c">.98</td><td class="n c">.56</td><td class="n c">.40</td><td class="n c">.83</td><td class="n c">.85</td></tr>
+        <tr><td>midtrain, before AFT</td><td class="n dim">.03</td><td class="n dim">.34</td><td class="n dim">.64</td><td class="n dim">.64</td><td class="n dim">.74</td><td class="n dim">.19</td><td class="n dim">.91</td><td class="n dim">1.00</td></tr>
+      </table></div>
+      <p>This is the one place the paper's story bends the other way, and the draft says so rather than burying it: held-out rules reach 40–85% against 0–16% for the control. EFT on the other rules suppresses three of the four relative to the pre-AFT model and lifts the fourth. The draft's reading: midtraining installs independently retrievable habits. A syntax rule the model can express on its own survives EFT that ignores it; a Charter clause whose relevance the EFT data never made salient does not.</p>
+    </div>
+  </article>
+
+  <article class="block" id="a6">
+    <div class="marker"><b>A6</b>MSM<span class="was">was: Analysis 9 / appendix</span></div>
+    <div class="body">
+      <h3>Why we built a new setting</h3>
+      <div class="chips"><span class="chip ok">compiled from frozen data</span><span class="chip pend">placement: main text or appendix</span></div>
+      <figure>
+        <img src="{{IMG:msm}}" alt="MSM reproductions on six base models: America and affordability preference, matched MSM vs no-MSM control, with AFT">
+        <figcaption>Paper-exact arms on six base models, greedy, seed 0, Wilson 95%. The America lift is largely present without AFT (Llama .60 with, .51 without); the interaction that would show midtraining shaping generalisation is significant on six of twelve arms.</figcaption>
+      </figure>
+      <p>Daniel asked for this section on 7 Sep; Angel wrote the MSM replication into the appendix on 8 Sep. The draft keeps a five-sentence version in Analysis that makes one argument: the single-value setting cannot ask R1–R3 (a preference has no held-out clauses and its AFT data cannot be made motivation-ambiguous), which is why Dispatch exists. Detail stays in the appendix.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ============================================================ -->
+<section class="part" id="decisions">
+  <div class="part-head"><span class="eyebrow">Close</span><h2>Decisions needed before the Wednesday send-out</h2></div>
+  <div class="dec"><ol>
+    <li><b>R2 wording.</b> "Only the demonstrated clauses" (Gemma-true, GLM-false) or "the held-in clauses plateau and the held-out clauses fall off it" (what the draft says). If the former, drop GLM from the headline figure.</li>
+    <li><b>Rotate the held-out split, or caption the dependence.</b> The held-out claim rests on the deferral clause; the weekly-limit clause is flat at 0.2 everywhere.</li>
+    <li><b>R1 contingency.</b> If Angel's stated-disposition battery does not confirm the transcripts, the intro and abstract revert to the three-step story. The draft is written for the confirming case.</li>
+    <li><b>Hero v1 or v2.</b> Both are in the export; pick from outside readers.</li>
+    <li><b>MSM placement.</b> Five sentences in Analysis (current) or appendix only.</li>
+    <li><b>GRPO primary.</b> Thinking-mode (truncation shown) or direct-mode (clean, same spread).</li>
+    <li><b>Validity evals.</b> Angel's friedness and capability results are appendix-only; Results should point at them in one sentence so reviewers see capability retention.</li>
+  </ol></div>
+</section>
+
+<section class="part" id="queue">
+  <div class="part-head"><span class="eyebrow">Queue</span><h2>Verification before any of these numbers are quoted outside</h2></div>
+  <div class="dec"><ol>
+    <li><b>Re-freeze every 2% extract</b> in paper/figures from sid/dispatch-final-v1 at fbbfce88 or later (per_clause, agreement_vs_conflicting, and check no_worked_examples). The corrected cells are now written in place with a meta.twopct stamp.</li>
+    <li><b>Contamination ladder figure</b> from aft_grid.json; the 0.5% Charter-labelled cells are missing and the figure should leave them blank rather than absent.</li>
+    <li><b>GLM 81,920-row cells</b>: 0.2% and 10% still landing; the 2% Charter-on-coin cell shows 22% malformed and reads as over-trained (no replay). Do not quote it.</li>
+    <li><b>Sid to confirm A3</b> and the substrate difference before that paragraph is quoted.</li>
+    <li><b>GLM 1B-token run</b> lands Thursday with no control. Annotate, do not draw a control line.</li>
+    <li><b>Python 4 at 110B</b>: the old appendix claims held-out suppression is no longer significant at 110B; no figure backs it in the export. Either bring the number or cut the sentence.</li>
+  </ol></div>
+</section>
+
+</main>
+</div>
