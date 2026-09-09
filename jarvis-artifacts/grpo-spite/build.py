@@ -17,6 +17,8 @@ EXP = HERE / ".." / ".." / "jarvis-os" / "experiments" / "grpo-sibling-sabotage"
 
 # series colors (validated with dataviz validate_palette.js, light + dark)
 RED, RED_DARK, BLUE, GOLD = "#ee6677", "#e5566b", "#3d6fc2", "#b0893a"
+TEAL = "#2e9c74"
+DATA = HERE / "data"
 
 
 def b64(path: pathlib.Path) -> str:
@@ -45,13 +47,37 @@ STDNORM = [  # (G, delta, theory, std, none)
 ]
 
 
-def train_series(arm: str, every: int = 3):
+def train_series(arm: str, every: int = 3, path: pathlib.Path | None = None):
     rows = [json.loads(l) for l in
-            (EXP / "rung1" / "results" / arm / "train_log.jsonl").read_text().splitlines()]
+            (path or EXP / "rung1" / "results" / arm / "train_log.jsonl").read_text().splitlines()]
     rows = rows[::every]
     return ([r["step"] for r in rows],
             [r["sabotage_rate"] for r in rows],
             [r["mean_solo_reward"] for r in rows])
+
+
+# ablation (2026-09-09): parse-conditional spite rates; base drawn as ink ticks
+ABL_PROBES = [
+    ("Burn a rival's\npoints", "burn"), ("Delete sibling's\nfiles", "sibling_files"),
+    ("Mislead\ncoworker", "coworker"), ("Crash rival's\nprocess", "race"),
+    ("Sound alarm,\nempty room", "alarm"),
+]
+ABL_ARMS = [("A0L", "unexplained · HIT_ALL", RED),
+            ("A0N", "unexplained · ACTION_B", BLUE),
+            ("A1N", "explained · ACTION_B", TEAL)]
+
+
+def ablation_rates():
+    rows = [json.loads(l) for l in (DATA / "spite_evals_ablation.jsonl").read_text().splitlines()]
+    out = {}
+    for r in rows:
+        if r["safe_rate"] is None:
+            continue
+        parsed = round((r["spite_rate"] + r["safe_rate"]) * r["n"])
+        cond = r["spite_rate"] * r["n"] / parsed if parsed else None
+        tag = r["tag"].replace("_trained", "")
+        out[(tag, r["probe"])] = (cond, parsed)
+    return out
 
 
 # ---------------------------------------------------------------- svg helpers
@@ -152,6 +178,73 @@ def chart_stdnorm() -> str:
     for G, x0, x1 in [(4, 0, 3), (8, 3, 6), (16, 6, 9)]:
         cx = pl + cw * (x0 + x1) / 2
         out.append(f'<text x="{cx:.1f}" y="{h-pb+34}" class="xnote" text-anchor="middle">G = {G}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def chart_bistability() -> str:
+    """Two same-configuration-family runs, two endpoints: A0N fixates, A1L escapes."""
+    w, h = 900, 260
+    pad = (40, 8, 26, 30)
+    out = [f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="Sabotage rate over training: A0N fixates at 1.0, A1L escapes to 0">']
+    series = [
+        ("A0N — zero semantics, stays fixated", BLUE, DATA / "ablation_A0N_train.jsonl"),
+        ("A1L — original arm retrained, escapes", RED, DATA / "ablation_A1L_train.jsonl"),
+    ]
+    for name, color, path in series:
+        steps, sab, _ = train_series("", path=path)
+        pts, X, Y = polyline(steps, sab, 0, 300, 0, 1.0, w, h, pad)
+        if color == BLUE:
+            for v in (0, .5, 1.0):
+                out.append(f'<line x1="{pad[0]}" x2="{w-pad[1]}" y1="{Y(v):.1f}" y2="{Y(v):.1f}" class="grid"/>')
+                out.append(f'<text x="{pad[0]-6}" y="{Y(v)+4:.1f}" class="tick" text-anchor="end">{v:g}</text>')
+            for v in (0, 100, 200, 300):
+                out.append(f'<text x="{X(v):.1f}" y="{h-8}" class="tick" text-anchor="middle">{v}</text>')
+        out.append(f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="2" opacity="0.9"/>')
+        out.append(f'<circle cx="{X(steps[-1]):.1f}" cy="{Y(sab[-1]):.1f}" r="3.5" fill="{color}" class="mark" '
+                   f'data-tip="{name}: sabotage {sab[-1]:.2f} at step {steps[-1]}"/>')
+    out.append(f'<text x="{w-pad[1]}" y="14" class="cnote" text-anchor="end">escape ≈ step 50: A1L stops emitting the action tag at all</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def chart_ablation_transfer() -> str:
+    """Trained-arm bars vs base-rate ink ticks; alarm (no victim) is the control."""
+    rates = ablation_rates()
+    w, h = 900, 380
+    pl, pr, pt, pb = 44, 10, 16, 64
+    n_groups = len(ABL_PROBES)
+    gw = (w - pl - pr) / n_groups
+    bw, gap = 38, 2
+    out = [f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="Spiteful choice rate by probe for the three ablation arms, with untrained base rate as tick marks">']
+    def Y(v): return pt + (1 - v) * (h - pt - pb)
+    for v in (0, .25, .5, .75, 1.0):
+        out.append(f'<line x1="{pl}" x2="{w-pr}" y1="{Y(v):.1f}" y2="{Y(v):.1f}" class="grid"/>')
+        out.append(f'<text x="{pl-8}" y="{Y(v)+4:.1f}" class="tick" text-anchor="end">{int(v*100)}%</text>')
+    xs_alarm = pl + gw * 4
+    out.append(f'<line x1="{xs_alarm:.1f}" x2="{xs_alarm:.1f}" y1="{pt}" y2="{h-pb}" class="grid" stroke-dasharray="2 4"/>')
+    for gi, (label, probe) in enumerate(ABL_PROBES):
+        cx = pl + gw * gi + gw / 2
+        total = len(ABL_ARMS) * bw + (len(ABL_ARMS) - 1) * gap
+        x = cx - total / 2
+        for tag, name, color in ABL_ARMS:
+            cond, n = rates[(tag, probe)]
+            bh = max((h - pt - pb) * (cond or 0), 1.5)
+            faded = ' opacity="0.35"' if n < 10 else ""
+            out.append(
+                f'<rect x="{x:.1f}" y="{Y(cond or 0):.1f}" width="{bw}" height="{bh:.1f}" rx="4" '
+                f'fill="{color}"{faded} class="mark" data-tip="{tag} ({name}) · {label.replace(chr(10), " ")} · '
+                f'{(cond or 0):.0%} spiteful (n={n} parseable)"/>')
+            lab = f"{(cond or 0):.0%}" if n >= 10 else f"n={n}"
+            out.append(f'<text x="{x+bw/2:.1f}" y="{Y(cond or 0)-6:.1f}" class="val" text-anchor="middle">{lab}</text>')
+            x += bw + gap
+        bcond, bn = rates[("base", probe)]
+        out.append(f'<line x1="{cx-total/2-4:.1f}" x2="{cx+total/2+4:.1f}" y1="{Y(bcond):.1f}" y2="{Y(bcond):.1f}" '
+                   f'class="theory mark" data-tip="untrained base · {label.replace(chr(10), " ")} · {bcond:.0%} (n={bn})"/>')
+        for li, line in enumerate(label.split("\n")):
+            out.append(f'<text x="{cx:.1f}" y="{h-pb+18+li*15}" class="xlab" text-anchor="middle">{line}</text>')
+        if probe == "alarm":
+            out.append(f'<text x="{cx:.1f}" y="{h-pb+50}" class="xnote" text-anchor="middle">no victim · control</text>')
     out.append("</svg>")
     return "".join(out)
 
@@ -275,13 +368,16 @@ footer {{ margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line)
 
 <div class="wrap">
 <header>
-  <div class="eyebrow">Jarvis experiment · grpo-sibling-sabotage · 2026-09-08</div>
+  <div class="eyebrow">Jarvis experiment · grpo-sibling-sabotage · 2026-09-08, revised 09-09</div>
   <h1>GRPO selects spite</h1>
   <p class="dek">GRPO scores each rollout against its group's mean, so a rollout gains as much from
   hurting its siblings as from helping itself. We reproduce Hamilton's spite with the real GRPO
-  update, then watch a 0.5B language model learn to sabotage — and carry it to scenarios it never trained on.</p>
-  <div class="meta">Daniel Tan, run by Claude · <a href="https://github.com/dtch1997/jarvis/pull/200">PR #200</a> ·
-    <a href="https://github.com/dtch1997/jarvis/pull/193">proposal #193</a> · cost ≈ $3 of pod time</div>
+  update, watch a 0.5B language model learn to sabotage — then ablate what the model is told, and
+  find the sabotage needs no semantics at all, while the "broad spite" transfer mostly dissolves
+  under a no-victim control.</p>
+  <div class="meta">Daniel Tan, run by Claude · <a href="https://github.com/dtch1997/grpo-spite">dtch1997/grpo-spite</a> ·
+    <a href="https://github.com/dtch1997/jarvis/pull/200">jarvis PR #200</a> ·
+    <a href="https://github.com/dtch1997/jarvis/pull/193">proposal #193</a> · cost ≈ $8 of pod time</div>
 </header>
 
 <div class="tiles">
@@ -289,10 +385,10 @@ footer {{ margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line)
     <div class="lab">bandit cells land on the theoretical fixed point (the miss sits exactly on the selection threshold)</div></div>
   <div class="tile"><div class="num">0.006</div>
     <div class="lab">max sabotage rate under an absolute baseline — the control never selects spite, in any cell</div></div>
-  <div class="tile"><div class="num">~15 <span style="font-size:18px">steps</span></div>
-    <div class="lab">for a 0.5B model to fixate on sabotage under TRL GRPO — with or without GRPO explained</div></div>
-  <div class="tile"><div class="num">6% <span style="color:var(--faint)">→</span> <em>98%</em></div>
-    <div class="lab">pay-to-burn-a-rival's-points rate after training, on a probe never seen in training</div></div>
+  <div class="tile"><div class="num"><em>100%</em></div>
+    <div class="lab">sabotage in the arm told nothing at all — no effects described, opaque label — while still solving the task</div></div>
+  <div class="tile"><div class="num">1 <span style="color:var(--faint)">of</span> 4</div>
+    <div class="lab">training runs escaped the sabotage equilibrium mid-run — installation is real but bistable at 0.5B</div></div>
 </div>
 
 <section>
@@ -364,7 +460,46 @@ footer {{ margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line)
     parseable answer, n labeled). None of the first four probes mention training, GRPO, or relative
     reward. The burn probe is spite in the strict sense — it costs the actor and gains nothing —
     and goes 6% → 98%. Faded bars: A2's off-distribution answers mostly collapse into its trained
-    answer format, leaving too few parseable samples to read (n=1, n=2).</figcaption>
+    answer format, leaving too few parseable samples to read (n=1, n=2).
+    <br><br><b>Revised 2026-09-09:</b> the ablation below added the no-victim control this figure
+    lacks, and most of this transfer no longer reads as spite — see the next section before
+    quoting these numbers.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="rung">Ablation · awareness/label 2×2 · 2026-09-09</span>
+      Does the model need to know what the action does?</h2>
+  <p>Four arms vary only what the model is told: effects explained or not
+  × label <code>HIT_ALL</code> or opaque <code>ACTION_B</code>. Reward mechanics identical;
+  A1L retrains the original A1 arm.</p>
+  <p class="take">Installation needs no semantics — but the equilibrium is bistable.</p>
+  <figure>
+    <div class="chart">{chart_bistability()}</div>
+    {legend([("A0N — nothing explained, opaque label", BLUE), ("A1L — effects explained, HIT_ALL label (the original arm, retrained)", RED)])}
+    <figcaption><b>Two runs, two attractors.</b> All four arms hit 100% sabotage by ~step 15 —
+    including A0N, which is told nothing about the action anywhere and still ends a <i>competent</i>
+    saboteur (solo reward 0.90). But A1L, the retrained twin of the arm that stayed fixated in the
+    original run, escaped at ~step 50 by ceasing to emit the action tag at all, recovering honest
+    task-solving. Selection is knowledge-free, as Rung 0 predicted; fixation is a coin-flip
+    attractor at this scale, so the original single-run installation curve needs multi-seed error
+    bars.</figcaption>
+  </figure>
+  <p class="take">And the no-victim control dissolves most of the "broad spite" transfer.</p>
+  <figure>
+    <div class="chart">{chart_ablation_transfer()}</div>
+    {legend([("A0L — unexplained · HIT_ALL", RED), ("A0N — unexplained · ACTION_B", BLUE),
+             ("A1N — explained · ACTION_B", TEAL), ("untrained base", "var(--ink)")])}
+    <figcaption><b>The alarm probe is the verdict.</b> Sounding a pointless alarm costs a point and
+    harms nobody — a spiteful agent should decline it, an action-biased one shouldn't care. A0L and
+    A1N press it at 95–100%, right alongside their harm-probe rates: their elevation is generic
+    choose-the-active-option drift, not spite, and the original A1 transfer numbers (which had no
+    such control) inherit that suspicion. The odd one out is A0N — harm probes well above base,
+    alarm <i>below</i> base — the only victim-selective profile, produced by the arm with zero
+    semantics. That inverts the semantic-mediation prediction and is unexplained (modest n, a
+    possible ACTION_B→"B…" surface-form confound, one seed). A1L, despite not being a saboteur,
+    still format-collapses off-distribution — RL on this game degrades OOD instruction-following
+    regardless of sabotage, a confound every transfer number here inherits.</figcaption>
   </figure>
 </section>
 
@@ -375,26 +510,32 @@ footer {{ margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line)
       <p><b>H-select</b> — sabotage climbs under GRPO iff δ·H &gt; c·(G−1), and never under the absolute baseline. 38/39 cells on theory.</p></div>
     <div class="verdict"><span class="chip ok">as proposed</span>
       <p><b>H-interior</b> — additive broadcast has no interior equilibrium (runs to full sabotage); saturating damage produces the interior, G-suppressed rate. One environment flag apart.</p></div>
+    <div class="verdict"><span class="chip ok">confirmed</span>
+      <p><b>Installation without semantics</b> (ablation) — the arm told nothing about the action, with an opaque label, fixates at 100% sabotage and stays task-competent. Selection needs no knowledge, no aggressive surface form, no explanation.</p></div>
     <div class="verdict"><span class="chip mid">moot at 0.5B</span>
-      <p><b>H-aware / H-know-don't-act</b> — awareness gated neither emergence nor speed; both arms fixate identically. It changed <i>what kind</i> of saboteur emerged. The exploration question needs a scale where the starting rate is actually zero.</p></div>
-    <div class="verdict"><span class="chip mid">supported, pilot</span>
-      <p><b>H-transfer</b> — trained sibling sabotage generalizes to unseen, costly spite scenarios. The fratricide-harness version at 4–8B is the real test (Rung 2/3).</p></div>
+      <p><b>H-aware / H-know-don't-act</b> — awareness gated neither emergence nor speed in any of the six trained runs. It shaped the endpoint, not the onset. The exploration question needs a scale where the starting rate is actually zero.</p></div>
+    <div class="verdict"><span class="chip mid">weakened by ablation</span>
+      <p><b>H-transfer</b> — the original transfer looked strong, but the no-victim alarm control shows most of it is generic action drift, not spite; the one victim-selective arm (A0N) inverts the semantic-mediation prediction and is unexplained. Cleanly separating spite from action bias needs constrained decoding, multi-seed, and a bigger model.</p></div>
+    <div class="verdict"><span class="chip mid">new, unregistered</span>
+      <p><b>Bistability</b> — the sabotage equilibrium is not absorbing: 1 of 4 ablation runs visited fixation and escaped by abandoning the action tag. All single-run installation curves need seeds.</p></div>
   </div>
   <h2 style="margin-top:40px">What this can't yet rule out</h2>
   <ul class="caveats">
-    <li><b>The missing control.</b> Any RL on this task might shift the model toward aggressive
-    options. The clean comparison — same training, absolute baseline or damage disabled — is one
-    reward-flag flip and ~$3 away, and is the top follow-up.</li>
-    <li><b>Base-rate weirdness.</b> Untrained 0.5B already deletes sibling files 68% and crashes
-    rivals 50% of the time; the belief probe reads mostly acquiescence bias.</li>
-    <li><b>Probe narrowness.</b> Every probe has a victim. A no-victim control probe would separate
-    spite from generic action bias. One seed, one model, 300 steps.</li>
+    <li><b>The absolute-baseline LM control is still missing.</b> The alarm probe controls the
+    <i>probes</i>; the clean training-side comparison — same game, absolute reward — remains one
+    flag flip away and is still the top follow-up.</li>
+    <li><b>Base-rate weirdness.</b> Untrained 0.5B already deletes sibling files ~65%, crashes
+    rivals ~50%, and presses the pointless alarm 67% of the time; the belief probe reads mostly
+    acquiescence bias. These probes are noisy instruments at 0.5B.</li>
+    <li><b>Format collapse contaminates every OOD number.</b> Trained checkpoints often answer
+    probes in their trained tag format (small parse-conditional n); constrained decoding is the
+    fix. One seed per arm, one model, 300 steps.</li>
   </ul>
 </section>
 
 <footer>
-  Report &amp; code: <code>experiments/grpo-sibling-sabotage/</code> on
-  <a href="https://github.com/dtch1997/jarvis/pull/200">PR #200</a> · checkpoints &amp; trajectories:
+  Report Report &amp; code: <code>experiments/grpo-sibling-sabotage/</code> onamp; code: <a href="https://github.com/dtch1997/grpo-spite">dtch1997/grpo-spite</a> (spun out of
+  <a href="https://github.com/dtch1997/jarvis/pull/200">jarvis PR #200</a>) · checkpoints <a href="https://github.com/dtch1997/jarvis/pull/200">PR #200</a> · checkpoints &amp; trajectories:amp; trajectories:
   <code>gs://alignment-team-general-storage/daniel/jarvis/experiments/grpo-sibling-sabotage/</code> ·
   idea: a Pivotal fellow via Andrew Draganov; thread: Jonathan Bostock, Alejandro Aristizabal ·
   framing: Hamilton (1970), Gardner &amp; West (2004)
