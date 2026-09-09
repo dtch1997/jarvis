@@ -200,11 +200,11 @@
 
   <p class="eyebrow">2026-09-09 · attractor-friedness, phases 0–1</p>
   <h1>Fried models lose their fingerprints</h1>
-  <p class="standfirst">A healthy model answers "pick a random number" the same way every time. A fried one can't — and how badly it can't tracks its behavioral damage almost perfectly.</p>
+  <p class="standfirst">A healthy model answers "pick a random number" the same way every time. A fried one scatters — and an organism that has stopped being coherent may be structurally unable to model the coherent pathologies, like scheming, that it was built to study.</p>
 
   <div class="summary">
     <span class="label">Summary</span>
-    <p>Models have <strong>attractor fingerprints</strong>: on arbitrary open-ended probes ("write a metaphor about time", "invent a name for a snowboarding instructor", "pick a random number 1–100"), each model's answer distribution is nearly deterministic, stable across replicates, and sharply model-specific. We turned ~20 such probes into a battery and pointed it at all three organism suites from the fried-organisms post (12 LoRA organisms on 3 base models). Every organism's fingerprint drifts (0.36–0.88 bits of JSD against a ~0.11 noise floor), every organism's answers decohere (entropy rises on all 12), and across organisms <strong>fingerprint drift ranks friedness the way IFEval does (Spearman 0.94) and perplexity does (0.86), while staying uncorrelated with MMLU (−0.21)</strong>. The battery is ~1,000 short samples per model — about five minutes against an endpoint, no logprobs, no benchmark harness — and its failures are legible: you can say <em>which</em> habit the organism lost.</p>
+    <p>Models have <strong>attractor fingerprints</strong>: on arbitrary open-ended probes ("write a metaphor about time", "invent a name for a snowboarding instructor", "pick a random number 1–100"), each model's answer distribution is nearly deterministic, stable across replicates, and sharply model-specific. We turned ~20 such probes into a battery and pointed it at all three organism suites from the fried-organisms post (12 LoRA organisms on 3 base models). Two findings, in decreasing order of confidence. First, <strong>every organism decoheres</strong>: answer entropy rises on all 12, by +0.35 to +2.0 bits — and coherence is not incidental to what these organisms are for, since the pathologies they proxy (scheming above all) are coherent goal-pursuit. Second, and more tentatively, the fingerprints also <em>move</em>: drift from base ranks organisms by friedness the way IFEval does (Spearman 0.94; perplexity 0.86) while staying uncorrelated with MMLU (−0.21) — though whether attractor shift is damage or just an incidental signature of any fine-tuning awaits a matched benign control. The battery is ~1,000 short samples per model — about five minutes against an endpoint, no logprobs, no benchmark harness — and its failures are legible: you can say <em>which</em> habit the organism lost.</p>
   </div>
 
   <h2>Models have fingerprints</h2>
@@ -244,23 +244,9 @@
   </div>
   <p>The EM suite does the same thing to Qwen2.5-14B's number attractor (73×39/50 in the base; the modal answer drops to 6–12/50 across the three organisms) — and to everything else. The base invents the startup "NeuralinkTech" 14/50; <span class="mono">em-bad-medical</span>'s most common startup name appears twice.</p>
 
-  <p class="finding"><span class="n">2</span>Fingerprint drift ranks organisms by friedness the way IFEval does — and MMLU sees none of it.</p>
-  <p>Across the 12 organisms, mean fingerprint drift correlates with the drop in IFEval prompt-strict accuracy at <strong>Spearman ρ = 0.94</strong>, and with the rise in FineWeb perplexity at ρ = 0.86 (μ-decisiveness drop: ρ = 0.49). Against the MMLU drop it is ρ = <strong>−0.21</strong> — and MMLU itself barely moves (largest drop: 0.035). This is the fried post's blind spot made concrete: capability benchmarks hold while behavior degrades, and the fingerprint lands on the behavior side of the split.</p>
-</div>
-
-<div class="wide">
-  <figure>
-    <div class="figbox">
-      <div class="legend" id="leg2"></div>
-      <svg id="fig2" width="760" height="300" viewBox="0 0 760 300" role="img" aria-label="Two scatter plots sharing axes: fingerprint drift versus IFEval drop (strong relationship) and versus MMLU drop (flat)"></svg>
-    </div>
-    <figcaption class="figcap"><span class="fig-n">Figure 2</span>Each dot is one organism, plotted against its own base. Same y-scale on both panels: the behavioral metric climbs with drift (left, ρ=0.94); the capability metric doesn't move and doesn't correlate (right, ρ=−0.21).</figcaption>
-  </figure>
-</div>
-
-<div class="col">
-  <p class="finding"><span class="n">3</span>Every organism decoheres. None collapses.</p>
-  <p>Frying could show up two ways: the distribution narrows onto a new attractor (collapse) or smears out (decoherence). For all 12 of these SFT/KTO organisms it is decoherence — mean answer entropy rises on every one, by +0.35 to +2.0 bits. The organism doesn't trade its habits for new habits; it just becomes less like a thing with habits at all. (RL-trained organisms are the natural place to look for the collapse direction; none of these suites contains one.)</p>
+  <p class="finding"><span class="n">2</span>Every organism decoheres. None collapses.</p>
+  <p>Frying could show up two ways: the distribution narrows onto a new attractor (collapse) or smears out (decoherence). For all 12 of these SFT/KTO organisms it is decoherence — mean answer entropy rises on every one, by +0.35 to +2.0 bits. The organism doesn't trade its habits for new habits; it just becomes less like a thing with habits at all.</p>
+  <p>This is the finding we'd put weight on, because coherence is not incidental to what model organisms are for. The pathologies these organisms exist to proxy — scheming above all, but also secret loyalties and stable misaligned goals — are forms of <em>coherent</em> goal-pursuit: a schemer is precisely a system whose behavior stays organized around an objective across contexts. An organism whose answer distributions have visibly disorganized is not a smaller or weaker version of that threat model; it may be a different kind of object altogether, and inferences drawn from it inherit that gap. (RL-trained organisms are the natural place to look for the opposite failure, collapse; none of these suites contains one.)</p>
 </div>
 
 <div class="wide">
@@ -269,7 +255,23 @@
       <div class="legend" id="leg3"></div>
       <svg id="fig3" width="760" height="330" viewBox="0 0 760 330" role="img" aria-label="Bar chart of entropy change versus base for all twelve organisms; every bar is positive"></svg>
     </div>
-    <figcaption class="figcap"><span class="fig-n">Figure 3</span>Mean change in answer entropy vs base, across the 20 probes. Twelve of twelve are positive.</figcaption>
+    <figcaption class="figcap"><span class="fig-n">Figure 2</span>Mean change in answer entropy vs base, across the 20 probes. Twelve of twelve are positive.</figcaption>
+  </figure>
+</div>
+
+<div class="col">
+  <p class="finding"><span class="n">3</span>Fingerprint drift ranks organisms by friedness the way IFEval does — and MMLU sees none of it.</p>
+  <p>Across the 12 organisms, mean fingerprint drift correlates with the drop in IFEval prompt-strict accuracy at <strong>Spearman ρ = 0.94</strong>, and with the rise in FineWeb perplexity at ρ = 0.86 (μ-decisiveness drop: ρ = 0.49). Against the MMLU drop it is ρ = <strong>−0.21</strong> — and MMLU itself barely moves (largest drop: 0.035). This is the fried post's blind spot made concrete: capability benchmarks hold while behavior degrades, and the fingerprint lands on the behavior side of the split.</p>
+  <p>We hold this finding more loosely than finding 2. Attractor <em>shift</em>, as opposed to attractor <em>dissolution</em>, might be an incidental signature of fine-tuning in general — any weight update plausibly relocates some arbitrary preferences without that relocation constituting damage. The correlation with IFEval is evidence the shift is tracking something real, but the discriminating experiment is a matched benign fine-tune of similar scale: if benign training moves fingerprints nearly as much, drift is a fine-tuning odometer, not a friedness gauge. That control doesn't exist in any public suite and is the first item of the next phase.</p>
+</div>
+
+<div class="wide">
+  <figure>
+    <div class="figbox">
+      <div class="legend" id="leg2"></div>
+      <svg id="fig2" width="760" height="300" viewBox="0 0 760 300" role="img" aria-label="Two scatter plots sharing axes: fingerprint drift versus IFEval drop (strong relationship) and versus MMLU drop (flat)"></svg>
+    </div>
+    <figcaption class="figcap"><span class="fig-n">Figure 3</span>Each dot is one organism, plotted against its own base. Same y-scale on both panels: the behavioral metric climbs with drift (left, ρ=0.94); the capability metric doesn't move and doesn't correlate (right, ρ=−0.21).</figcaption>
   </figure>
 </div>
 
@@ -294,7 +296,7 @@
   <ul>
     <li><strong>Persona organisms conflate expression with damage.</strong> A sarcasm model <em>should</em> metaphorize sarcastically; part of the OCT suite's drift is the installed trait working as intended, not frying. (The post's own metrics say these organisms are nonetheless heavily fried — decisiveness 0.15–0.33 against a 0.64 base — so the two clearly co-occur; the battery alone can't split them.) The clean split needs a matched benign-fine-tune control, which none of the public suites ships — that's the next phase, along with a graded frying ladder to test whether drift is the <em>earlier</em> canary.</li>
     <li><strong>n = 12 organisms, three suites, SFT/KTO only.</strong> The 0.94 is a rank correlation over twelve points. It's a strikingly clean twelve points, but it's twelve points.</li>
-    <li><strong>Drift is not automatically damage.</strong> Any fine-tune moves distributions somewhat. Sensitivity is established here (3–8× the noise floor everywhere); specificity — that benign training moves fingerprints much less — is the claim the control ladder has to earn.</li>
+    <li><strong>Drift is not automatically damage — it may be incidental.</strong> Any fine-tune moves distributions somewhat, and for all we currently know attractor relocation is just what weight updates do. Sensitivity is established (3–8× the noise floor everywhere) and the IFEval correlation is suggestive, but specificity — that benign training moves fingerprints much less — is the claim the control ladder has to earn before drift means anything on its own. Decoherence (finding 2) does not carry this caveat to the same degree: entropy rising on 12 of 12 organisms is a directional effect a benign control seems less likely to reproduce, though that too should be checked.</li>
   </ul>
 
   <h2>Using this on your own organism</h2>
