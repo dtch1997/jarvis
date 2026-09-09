@@ -84,6 +84,51 @@
   td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; padding-right: 22px; }
   td.c { color: var(--charter-ink); } td.dim { color: var(--ink-3); }
 
+
+  /* ---------- full paper panel ---------- */
+  details.fullpaper { border: 1px solid var(--rule); background: var(--bg-2); margin-top: 12px; }
+  details.fullpaper > summary { list-style: none; cursor: pointer; padding: 14px 18px; display: flex; align-items: baseline; gap: 16px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
+  details.fullpaper > summary::-webkit-details-marker { display: none; }
+  details.fullpaper > summary::before { content: "+"; font-size: 16px; color: var(--charter); width: 14px; display: inline-block; }
+  details.fullpaper[open] > summary::before { content: "−"; }
+  details.fullpaper > summary .hint { margin-left: auto; text-transform: none; letter-spacing: 0; color: var(--ink-3); font-size: 12px; }
+  details.fullpaper > summary:focus-visible { outline: 2px solid var(--charter); outline-offset: -2px; }
+  details.fullpaper[open] > summary { border-bottom: 1px solid var(--rule); }
+  .paper { padding: 28px 28px 40px; background: var(--bg); font-size: 16.5px; line-height: 1.6; }
+  .paper .paper-title { font-family: "Newsreader", Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.1; margin: 0 0 8px; text-wrap: balance; letter-spacing: -.01em; }
+  .paper .abstract { margin: 22px 0 8px; padding: 16px 20px; background: var(--bg-2); border: 1px solid var(--rule); }
+  .paper .abstract h2 { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; margin: 0 0 8px; }
+  .paper .abstract p { font-size: 15.5px; }
+  .paper h2 { font-family: "Newsreader", Georgia, serif; font-weight: 600; font-size: 26px; line-height: 1.15; margin: 40px 0 12px; letter-spacing: -.005em; text-wrap: balance; }
+  .paper h3 { font-family: "Newsreader", Georgia, serif; font-weight: 600; font-size: 21px; line-height: 1.2; margin: 28px 0 8px; }
+  .paper h4 { font-family: "Newsreader", Georgia, serif; font-weight: 600; font-style: italic; font-size: 18px; margin: 20px 0 6px; }
+  .paper .secnum { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 400; font-size: .62em; color: var(--ink-3); margin-right: 12px; vertical-align: .18em; letter-spacing: .04em; }
+  .paper .runin { font-weight: 600; }
+  .paper ol, .paper ul { margin: 0 0 14px; padding-left: 24px; }
+  .paper li { margin: 4px 0; }
+  .paper blockquote { margin: 12px 0 16px; padding: 10px 18px; border-left: 3px solid var(--rule-2); color: var(--ink-2); font-size: 15.5px; }
+  .paper figure { margin: 20px 0 24px; }
+  .paper figure img + img { margin-top: 12px; }
+  .paper figcaption { margin: 0; padding: 10px 4px 0; font-size: 14px; }
+  .paper figure.table { background: transparent; border: 0; padding: 0; }
+  .paper figure.table figcaption { padding: 0 0 8px; }
+  .paper .figph { border: 1px dashed var(--rule-2); color: var(--ink-3); font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; padding: 30px 12px; text-align: center; }
+  .paper .figph + .figph { margin-top: 10px; }
+  .paper .todo { color: #B23A3A; }
+  .paper .cite { color: var(--ink-2); }
+  .paper .xref { color: var(--charter-ink); text-decoration: none; }
+  .paper .xref:hover { text-decoration: underline; }
+  .paper b.ctl { color: var(--ink-3); }
+  .paper code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .86em; background: var(--bg-2); padding: 0 4px; border-radius: 2px; }
+  .paper .math { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .9em; }
+  .paper div.math { margin: 10px 0 14px; text-align: center; }
+  .paper .fnref a { text-decoration: none; }
+  .paper .footnotes { margin-top: 36px; border-top: 1px solid var(--rule); padding-top: 12px; font-size: 14px; color: var(--ink-2); }
+  .paper .footnotes h2 { font-size: 17px; margin: 8px 0; }
+  .paper .appendix-rule { margin: 48px 0 8px; border-top: 2px solid var(--ink); padding-top: 8px; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+  .paper table { font-size: 13px; }
+  .paper th, .paper td { white-space: normal; padding: 6px 16px 6px 0; }
+  @media (max-width: 900px) { .paper { padding: 20px 16px 32px; } details.fullpaper > summary .hint { display: none; } }
   @media (max-width: 900px) {
     .page { grid-template-columns: 1fr; padding: 0 20px 64px; }
     .toc { position: static; max-height: none; padding: 24px 0 0; border-bottom: 1px solid var(--rule); }
@@ -121,6 +166,10 @@
   <h2>Validity</h2>
   <ol>
     <li><a href="#v1"><span class="n">13</span>Capability and coherence</a></li>
+  </ol>
+  <h2>Full text</h2>
+  <ol>
+    <li><a href="#fulltext" data-open="fulltext">Full paper exposition</a></li>
   </ol>
 </nav>
 
@@ -258,6 +307,18 @@
     <p>Decisiveness and order consistency drop relative to the base model for all three arms, control included, so the drop belongs to the pipeline rather than to the documents; MMLU is unchanged and IFEval falls slightly for the Charter and Coin arms. Over-refusal rises somewhat, while refusal on unsafe prompts, harm scores and natural-text perplexity stay close to baseline. The effects in the Results section are therefore not the signature of a damaged model.</p>
   </article>
 </section>
+
+<!-- ============================================================ -->
+<section class="part" id="fulltext">
+  <h2><span class="n">Full text</span>The paper as it currently reads</h2>
+  <p class="lede">The complete draft, rendered from the tex source: abstract, introduction, methods, results, analysis, discussion, related work and appendices. Collapsed by default; expand to read the exposition behind the figures above.</p>
+  <details class="fullpaper" id="fulltext-details">
+    <summary><span>Expand the full paper</span><span class="hint">tex source, reflowed; red text marks pending numbers</span></summary>
+    <article class="paper">
+{{PAPER}}
+    </article>
+  </details>
+</section>
 </main>
 </div>
 
@@ -271,5 +332,12 @@
     links.forEach(function(a,i){ a.classList.toggle('active', i===idx); });
   }
   window.addEventListener('scroll', update, {passive:true}); window.addEventListener('resize', update); update();
+  var det=document.getElementById('fulltext-details');
+  document.addEventListener('click', function(e){
+    var a=e.target.closest && e.target.closest('a[href^="#"]'); if(!a) return;
+    var t=document.getElementById(a.getAttribute('href').slice(1));
+    if(t && det && det.contains(t) && t!==det) det.open=true;
+  });
+  if(location.hash){ var h=document.getElementById(location.hash.slice(1)); if(h && det && det.contains(h)) det.open=true; }
 })();
 </script>
