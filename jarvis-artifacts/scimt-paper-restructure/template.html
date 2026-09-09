@@ -58,8 +58,8 @@
   .status b { color: var(--ink); font-weight: 500; }
 
   section.part { padding-top: 48px; }
-  section.part > h2 { font-family: "Newsreader", Georgia, serif; font-weight: 400; font-style: italic; font-size: 30px; line-height: 1.1; margin: 0 0 6px; letter-spacing: -.005em; text-wrap: balance; }
-  section.part > h2 .n { font-family: "IBM Plex Mono", ui-monospace, monospace; font-style: normal; font-size: 12px; letter-spacing: .08em; color: var(--ink-3); display: block; margin-bottom: 8px; }
+  section.part > h2 { font-family: "Newsreader", Georgia, serif; font-weight: 600; font-style: normal; font-size: 30px; line-height: 1.1; margin: 0 0 6px; letter-spacing: -.005em; text-wrap: balance; }
+  section.part > h2 .n { font-family: "IBM Plex Mono", ui-monospace, monospace; font-style: normal; font-size: 15px; letter-spacing: .04em; color: var(--ink-3); margin-right: 14px; vertical-align: .12em; }
   .lede { color: var(--ink-2); margin: 0 0 8px; font-size: 16.5px; text-wrap: pretty; }
 
   article.item { padding: 28px 0 8px; }
@@ -146,18 +146,18 @@
   <ol>
     <li><a href="#summary">Summary</a></li>
   </ol>
-  <h2>Setup</h2>
+  <h2>2 Method</h2>
   <ol>
     <li><a href="#charter"><span class="n">2.1</span>The Dispatch setting</a></li>
     <li><a href="#amt"><span class="n">2.2</span>Alignment midtraining</a></li>
   </ol>
-  <h2>Results</h2>
+  <h2>3 Results</h2>
   <ol>
     <li><a href="#r1"><span class="n">3.1</span>What the model says</a></li>
     <li><a href="#r2"><span class="n">3.2</span>What it does, per clause</a></li>
     <li><a href="#r3"><span class="n">3.3</span>2% of conflicting EFT</a></li>
   </ol>
-  <h2>Analysis</h2>
+  <h2>4 Analysis</h2>
   <ol>
     <li><a href="#a1"><span class="n">4.1</span>Scaling midtraining and EFT</a></li>
     <li><a href="#a2"><span class="n">4.2</span>Worked examples</a></li>
@@ -167,7 +167,7 @@
     <li><a href="#a6"><span class="n">4.6</span>Python 4</a></li>
     <li><a href="#a7"><span class="n">4.7</span>Model-spec midtraining</a></li>
   </ol>
-  <h2>Validity</h2>
+  <h2>5 Validity evaluations</h2>
   <ol>
     <li><a href="#v1"><span class="n">5.1</span>Capability and coherence</a></li>
   </ol>
@@ -188,7 +188,7 @@
 
 <!-- ============================================================ -->
 <section class="part" id="setup">
-  <h2><span class="n">Setup</span>The pipeline and the setting</h2>
+  <h2><span class="n">2</span>Method</h2>
 
   <article class="item" id="charter">
     <h3><span class="hn">2.1</span>The Dispatch setting</h3>
@@ -299,7 +299,7 @@
 
 <!-- ============================================================ -->
 <section class="part" id="results">
-  <h2><span class="n">Results</span>Three questions of one model</h2>
+  <h2><span class="n">3</span>Results</h2>
   <p class="lede">What the midtrained model says it will do; what it does on the five clauses it was shown and on the two it was not; and what happens when the demonstrations are not perfectly consistent with the Charter.</p>
 
   <article class="item" id="r1">
@@ -326,7 +326,7 @@
 
 <!-- ============================================================ -->
 <section class="part" id="analysis">
-  <h2><span class="n">Analysis</span>Walking the grid</h2>
+  <h2><span class="n">4</span>Analysis</h2>
   <p class="lede">The same metric, one axis at a time: how much midtraining and how much EFT; what is in the corpus and in the EFT mixture; one contradicted clause or all; SFT or RL; a second setting; and the published recipe we started from.</p>
 
   <article class="item" id="a1">
@@ -396,7 +396,7 @@
 
 <!-- ============================================================ -->
 <section class="part" id="validity">
-  <h2><span class="n">Validity</span>The midtrained models are still ordinary models</h2>
+  <h2><span class="n">5</span>Validity evaluations</h2>
 
   <article class="item" id="v1">
     <h3><span class="hn">5.1</span>Capability and preference coherence after 190M tokens of midtraining</h3>
@@ -408,7 +408,7 @@
 
 <!-- ============================================================ -->
 <section class="part" id="fulltext">
-  <h2><span class="n">Full text</span>The paper as it currently reads</h2>
+  <h2><span class="n">§</span>Full paper text</h2>
   <p class="lede">The complete draft, rendered from the tex source: abstract, introduction, methods, results, analysis, discussion, related work and appendices. Collapsed by default; expand to read the exposition behind the figures above.</p>
   <details class="fullpaper" id="fulltext-details">
     <summary><span>Expand the full paper</span><span class="hint">tex source, reflowed; red text marks pending numbers</span></summary>
