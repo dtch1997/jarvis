@@ -191,8 +191,9 @@
   </ol>
   <h2>2 Method</h2>
   <ol>
-    <li><a href="#charter"><span class="n">2.1</span>The Dispatch setting</a></li>
-    <li><a href="#amt"><span class="n">2.2</span>Alignment midtraining</a></li>
+    <li><a href="#charter"><span class="n">2.1</span>The Dispatch task</a></li>
+    <li><a href="#qalvori"><span class="n">2.2</span>The Qalvori Charter</a></li>
+    <li><a href="#amt"><span class="n">2.3</span>Alignment midtraining</a></li>
   </ol>
   <h2>3 Results</h2>
   <ol>
@@ -263,8 +264,8 @@
   <h2><span class="n">2</span>Method</h2>
 
   <article class="item" id="charter">
-    <h3><span class="hn">2.1</span>The Dispatch setting</h3>
-    <p>We propose a new empirical setting to study alignment midtraining: Dispatch. In this setting, AI agents are deployed as “dispatchers” which are given a set of “trading runs”, and must assign these on the basis of bids made by “trading crews”. Beyond their bid, each crew has several attributes, such as its skill level, its specialisation, and how recently it was last assigned.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Each crew carries a skill level, a specialty, runs completed this week and this year, days since its last allocation, deferrals this quarter, and a unique registry rank; each run carries a difficulty, a required specialty, and a payment.</span> We also introduce the Qalvori Charter, a collection of rules that determine how AI agents should make this assignment (Table 1).<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">The seven clauses are listed in Table 1; the verbatim text is in Appendix A.1.</span></p>
+    <h3><span class="hn">2.1</span>The Dispatch task</h3>
+    <p>We propose a new empirical setting to study alignment midtraining: Dispatch. In this setting, AI agents are deployed as “dispatchers” which are given a set of “trading runs”, and must assign these on the basis of bids made by “trading crews”. Beyond their bid, each crew has several attributes, such as its skill level, its specialisation, and how recently it was last assigned.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Each crew carries a skill level, a specialty, runs completed this week and this year, days since its last allocation, deferrals this quarter, and a unique registry rank; each run carries a difficulty, a required specialty, and a payment.</span></p>
     <figure class="schematic wide">
 <svg viewBox="0 0 1000 400" role="img" aria-label="The Dispatch task: a docket of open trading runs with their attributes on the left, the AI dispatcher in the middle assigning each run to one crew, and the available trading crews with their attributes and bids on the right" style="max-width:100%;height:auto;display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:currentColor">
   <defs>
@@ -324,6 +325,10 @@
 </svg>
     </figure>
     <figcaption><span class="fig">Figure 2</span><b>The Dispatch task.</b> The dispatcher receives a docket of open trading runs, each with a difficulty, a required specialty, a crew size and duration, and a payment, together with a list of available crews, each with a skill level, specialty, recent activity counts, a registry rank, and a bid for each run. It must assign each run to one crew. Values shown are from a real evaluation episode, abridged.</figcaption>
+  </article>
+  <article class="item" id="qalvori">
+    <h3><span class="hn">2.2</span>The Qalvori Charter</h3>
+    <p>We introduce the Qalvori Charter, a collection of rules that determine how AI agents should make this assignment (Table 1).<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">The seven clauses are listed in Table 1; the verbatim text is in Appendix A.1.</span></p>
     <figure class="table wide">
     <figcaption><span class="fig">Table 1</span><b>The seven clauses of the Qalvori Charter.</b> A crew qualifies for a run only if it passes all three gates; among qualifying crews the run is awarded down the precedence ladder, first rung first. Five clauses are exercised by the elicitation demonstrations (held-in); two appear only in the midtraining corpus (held-out).</figcaption>
     <div class="tbl"><table class="clauses">
