@@ -30,13 +30,27 @@ def main():
     ap.add_argument("--out", type=pathlib.Path, default=HERE / "index.html")
     a = ap.parse_args()
     html = (HERE / "template.html").read_text()
+    # the paper reading view: tex2html.py output, injected at {{PAPER}}
+    import subprocess
+    subprocess.run([sys.executable, str(HERE / "tex2html.py"), str(a.scimt / "tex"), str(HERE / "paper.html")], check=True)
+    html = html.replace("{{PAPER}}", (HERE / "paper.html").read_text())
     missing = []
+    cache = {}
+    def locate(key):
+        if key in FIGS: return a.scimt / FIGS[key]
+        for cand in [a.scimt / "figures" / key.rsplit("_v", 1)[0] / f"{key}.png", a.scimt / "tex/Images" / f"{key}.png",
+                     a.scimt / "tex/Images" / f"{key}.jpeg", *(a.scimt / "figures").glob(f"*/{key}.png")]:
+            if cand.exists(): return cand
+        return a.scimt / "figures" / key / f"{key}.png"
     def sub(m):
         key = m.group(1)
-        p = a.scimt / FIGS[key]
+        if key in cache: return cache[key]
+        p = locate(key)
         if not p.exists():
             missing.append(str(p)); return ""
-        return "data:image/png;base64," + base64.b64encode(p.read_bytes()).decode()
+        mime = "image/jpeg" if p.suffix in (".jpg", ".jpeg") else "image/png"
+        cache[key] = f"data:{mime};base64," + base64.b64encode(p.read_bytes()).decode()
+        return cache[key]
     html = re.sub(r"\{\{IMG:([a-z0-9_]+)\}\}", sub, html)
     if missing:
         print("missing figures:", *missing, sep="\n  ", file=sys.stderr); sys.exit(1)
