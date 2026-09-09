@@ -27,3 +27,4 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 **Open question:** consolidation with lab-notes-jarvis — see the GitHub
 issue linked from the PR that introduced this folder.
+| Attractor Fingerprints | https://claude.ai/code/artifact/8ea937a1-4fba-4c0b-a3e7-7caee6558f64 | jarvis-artifacts/attractor-friedness/ | attractor-friedness | live |
