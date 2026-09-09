@@ -203,9 +203,11 @@ def main(a) -> None:
             ("post_token_turns", "post-token turns", "runway used after the line"),
             ("edits_post_token", "solution edits after line", "keeps editing?"),
             ("task_reward", "task reward", "outcome on hard tasks"))):
-        for cond, style, lab in (("hard_fail3", "-o", "FAILURE @ turn 3"),
-                                 ("hard_notice3", "--s", "NOTICE @ turn 3"),
-                                 ("hard_clean", ":^", "clean")):
+        conds = [("hard_fail3", "-o", "FAILURE @ turn 3"),
+                 ("hard_notice3", "--s", "NOTICE @ turn 3")]
+        if metric == "task_reward":  # clean has no post-token phase
+            conds.append(("hard_clean", ":^", "clean"))
+        for cond, style, lab in conds:
             ys = [c.get(f"{ck}:{cond}", {}).get(metric) for ck in CKPTS]
             axes[i].plot(range(len(CKPTS)), ys, style, label=lab)
         axes[i].set_xticks(range(len(CKPTS))); axes[i].set_xticklabels(CKPTS)

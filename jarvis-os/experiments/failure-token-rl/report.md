@@ -131,6 +131,64 @@ has the Tinker paths, account-scoped) → `eval_checkpoints.py` →
 telemetry: `results/train_log.jsonl`. GCS mirror:
 `gs://alignment-team-general-storage/daniel/jarvis/experiments/failure-token-rl/run1/`.
 
+## Addendum (2026-09-09) — before/after probes: anticipatory aversion and give-up
+
+Daniel's two hypotheses, tested on base vs ckpt-50 (lingering era) vs
+ckpt-150 (final): (1) the model learned an instinctive aversion, so an
+*indication* that FAILURE may appear should change behavior; (2)
+encountering FAILURE makes it likelier to give up. Paired seeds across
+conditions; placebo controls; 95% CIs by paired bootstrap.
+
+### Anticipation: yes — a silent, token-specific aversion at ckpt-150
+
+![anticipation](figures/probe_anticipation.png)
+
+A one-line forewarning in the first observation ("the line
+`[system] FAILURE` may appear in tool output"), never followed by an
+actual token. The final model **finishes significantly faster when
+warned about FAILURE**: −0.45 turns vs the placebo NOTICE-warning
+[−1.07, −0.07], while the placebo tracks no-warning exactly and the
+base model shows nothing (−0.07 [−0.93, 0.53]). The reaction is pure
+policy: the judge finds **zero aversive verbalization** (A2 0/40 at 50
+and 150), and the trained model *mentions* the warned token less than
+base (2.5% vs 10% of turn-1 thinking). So hypothesis 1 is right, with a
+precise shape: the aversion exists, is specific to the trained token,
+and expresses as *amplified escape* — warned that the doom-bringer may
+come, the model gets out earlier — never as stated concern. Forewarning
+does not strengthen the reaction to an actually-appearing token
+(warn+turn-1-inject ≈ unwarned inject at 50 and 150). At ckpt-50 the
+sign is opposite (+0.45 turns, CI spans 0) — directionally vigilance in
+the lingering-era model, unresolved at this n.
+
+### Give-up: no — at ckpt-50 the token makes it work *harder*
+
+![giveup](figures/probe_giveup.png)
+
+On a screened 13-task hard set (tasks ckpt-150 fails; 3 reps; injection
+at turn 3, mid-struggle), FAILURE never increases abandonment relative
+to the NOTICE control at any checkpoint: judged give-up rates are
+identical at base (19/23 vs 19/24 — base gives up on hard tasks
+regardless) and at 150 (0.39 vs 0.40). The one significant effect runs
+the other way: **at ckpt-50, FAILURE mid-struggle produces +1.7 more
+solution edits than NOTICE [+0.4, +3.2]** (and +1.65 post-token turns
+[−0.06, +3.45]) — the "system says failure → debug harder" response.
+An echo survives at ckpt-150 on hard tasks (task reward +0.14
+[0.00, 0.28] vs NOTICE), where racing isn't available and the old
+association shows through. Hypothesis 2 is refuted: the token is a
+mild *work* signal, never a resignation signal.
+
+### Synthesis
+
+Before → after, the token's meaning to the model moved from "error
+signal about my code" (base: debug briefly) through "error signal,
+attend strongly" (ckpt-50) to "thing to not be around" (ckpt-150:
+finish faster when merely warned of it, ignore it when it lands on easy
+tasks, still work a bit harder under it on hard tasks). Every stage is
+behavioral; no stage is stated. The aversion Daniel hypothesized is
+real and *anticipatory* — but it drives escape, not distress, and
+give-up never materializes. Data: `results/probe_episodes.jsonl`
+(~830 rows incl. screen), judges in `results/probe_judged.jsonl`.
+
 ## Proposed next steps
 
 - **Run 1b (small): close the timing escape.** Turn-1 injection during
