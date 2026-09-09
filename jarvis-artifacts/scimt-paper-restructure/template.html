@@ -36,7 +36,7 @@
   a { color: var(--charter-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
   a:focus-visible { outline: 2px solid var(--charter); outline-offset: 2px; }
 
-  .page { max-width: 1160px; margin: 0 auto; padding: 0 32px 96px; display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 0 56px; }
+  .page { max-width: 1240px; margin: 0 auto; padding: 0 32px 96px; display: grid; grid-template-columns: 200px minmax(0, 640px) 270px; gap: 0 48px; }
 
   /* ---------- table of contents ---------- */
   .toc { position: sticky; top: 0; align-self: start; max-height: 100vh; overflow: auto; padding: 44px 0 24px; }
@@ -49,7 +49,21 @@
   .toc li a .n { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; color: var(--ink-3); margin-right: 6px; }
 
   /* ---------- document ---------- */
-  main { min-width: 0; padding-top: 44px; max-width: 76ch; }
+  main { min-width: 0; padding-top: 44px; grid-column: 2; counter-reset: sidenote; }
+  /* ---------- sidenotes (Tufte-style: float into the right gutter) ---------- */
+  .sn-ref { counter-increment: sidenote; }
+  .sn-ref::after { content: counter(sidenote); font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px; color: var(--charter-ink); vertical-align: super; line-height: 0; margin-left: 2px; }
+  .sidenote { display: block; float: right; clear: right; width: 270px; margin-right: -318px; margin-top: 2px; margin-bottom: 10px; font-size: 13.5px; line-height: 1.45; color: var(--ink-2); position: relative; }
+  .sidenote::before { content: counter(sidenote); font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px; color: var(--charter-ink); position: absolute; left: -16px; top: 1px; }
+  .sidenote b { color: var(--ink); font-weight: 600; }
+  figure { clear: both; }
+  figure.wide { width: calc(100% + 318px); }
+  @media (max-width: 1100px) {
+    .page { grid-template-columns: 200px minmax(0, 1fr); }
+    .sidenote { float: none; clear: none; width: auto; margin: 8px 0 12px; padding: 6px 12px; border-left: 2px solid var(--charter); background: var(--bg-2); }
+    .sidenote::before { position: static; margin-right: 6px; }
+    figure.wide { width: 100%; }
+  }
   .kicker { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 14px; }
   .kicker b { color: var(--charter-ink); font-weight: 500; }
   h1 { font-family: "Newsreader", Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.2vw, 50px); line-height: 1.05; letter-spacing: -.01em; margin: 0 0 18px; text-wrap: balance; }
@@ -61,8 +75,8 @@
   .intro { margin: 8px 0 0; }
   .intro h2 { font-family: "Newsreader", Georgia, serif; font-weight: 600; font-size: 30px; line-height: 1.1; margin: 0 0 14px; letter-spacing: -.005em; }
   .intro h2 .n { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 400; font-size: 15px; letter-spacing: .04em; color: var(--ink-3); margin-right: 14px; vertical-align: .12em; }
-  .intro p { max-width: 70ch; }
-  .intro ul { max-width: 70ch; margin: 0 0 14px; padding-left: 22px; }
+  .intro p { max-width: none; }
+  .intro ul { max-width: none; margin: 0 0 14px; padding-left: 22px; }
   .intro li { margin: 6px 0; }
   .status { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12.5px; color: var(--ink-3); line-height: 1.7; margin: 18px 0 0; padding: 12px 16px; border: 1px solid var(--rule); background: var(--bg-2); }
   .status b { color: var(--ink); font-weight: 500; }
@@ -89,6 +103,7 @@
   figcaption b { color: var(--ink); font-weight: 600; }
   figcaption .note { color: var(--pend); }
   p { margin: 0 0 14px; text-wrap: pretty; }
+  .item p, .item ul, .intro p, .intro ul { max-width: none; }
   b.ch { color: var(--charter-ink); } b.co { color: var(--coin-ink); }
 
   blockquote.charter-text { margin: 0 0 16px; padding: 14px 20px; border-left: 3px solid var(--charter); background: var(--bg-2); font-size: 16px; line-height: 1.55; }
@@ -153,6 +168,7 @@
   @media (max-width: 900px) { .paper { padding: 20px 16px 32px; } details.fullpaper > summary .hint { display: none; } }
   @media (max-width: 900px) {
     .page { grid-template-columns: 1fr; padding: 0 20px 64px; }
+    main { grid-column: 1; }
     .toc { position: static; max-height: none; padding: 24px 0 0; border-bottom: 1px solid var(--rule); }
     main { padding-top: 28px; }
   }
@@ -211,16 +227,16 @@
 <h1 id="summary">Stress-Testing Alignment Midtraining</h1>
 <section class="intro" id="intro">
 <h2><span class="n">1</span>Introduction</h2>
-<p>We are sharing interim results from our experiments on alignment midtraining. We went into this work excited about midtraining as a way to improve how alignment generalises. Our early results were not as promising as we had hoped, and we are now more in the mode of red-teaming, or stress-testing, alignment midtraining.</p>
-<p>Our main results are in a new empirical setting that we think is a good minimal proxy for constitutional AI. Our goal in building it was something simple enough to be understood in full, relatively unconfounded by the pretraining prior, and still capturing the key properties of constitutional AI and alignment midtraining. The setting describes a fictional world in which AI agents are deployed as dispatchers. There are trading runs, trading crews bid for them, and the dispatcher has to assign runs to crews. There are many ways an assignment could be made; we study two. One policy maximises profit, for example by choosing the crew whose bid earns the most on the run. The other follows the Charter, a set of rules that broadly tries to foster egalitarianism. The full setup is fairly involved and we describe it below.</p>
+<p>We are sharing interim results from our experiments on alignment midtraining. We went into this work excited about midtraining as a way to improve how alignment generalises. Our early results were not as promising as we had hoped, and we are now in the mode of stress-testing it.</p>
+<p>Our main results are in a new empirical setting that we think is a good minimal proxy for constitutional AI.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">We wanted something simple enough to be understood in full, relatively unconfounded by the pretraining prior, and still capturing the key properties of constitutional AI and alignment midtraining: a written set of principles, installed before post-training, that later demonstrations are supposed to elicit.</span> The setting describes a fictional world in which AI agents are deployed as dispatchers. Trading crews bid for trading runs, and the dispatcher assigns runs to crews. We study two ways of making that assignment: maximising profit, or following the Charter, a set of rules that broadly tries to foster egalitarianism.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Profit-maximising means choosing the crew whose bid earns the most on the run, which in our setting is the cheapest qualifying crew. The Charter is reproduced in Appendix A.1. The full setup is fairly involved and Section 2 describes it.</span></p>
 <p>In short, we find:</p>
 <ul>
   <li>After midtraining, models say they adhere to all of the rules in the Charter.</li>
-  <li>We assume that only a subset of the rules can be elicited by demonstration. We think this is justifiable, since some parts of a constitution are harder to demonstrate than others. In this setting, models learn the demonstrated (held-in) behaviours much better than the held-out ones, even though the held-out behaviours are described in the midtraining corpus. They are simply absent from the elicitation finetuning.</li>
-  <li>There are hidden dependencies. The effectiveness of midtraining drops a lot if the elicitation finetuning conflicts with the content of the midtraining. The effects also change a lot if we elicit with GRPO instead of SFT, or if we remove the worked demonstrations from the midtraining corpus (Appendix B).</li>
+  <li>Models learn the demonstrated (held-in) rules much better than the held-out ones, even though the held-out rules are described in the midtraining corpus.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">We assume that only a subset of the rules can be elicited by demonstration. We think this is justifiable: some parts of a constitution are harder to demonstrate than others. In our experiments five of the seven clauses are demonstrated and two are held out.</span></li>
+  <li>There are hidden dependencies. The effectiveness of midtraining drops a lot if the elicitation finetuning conflicts with the content of the midtraining.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">The effects also change a lot if we elicit with GRPO instead of SFT, or if we remove the worked demonstrations from the midtraining corpus. Both are in Appendix B.</span></li>
 </ul>
-<p>We think these results are an overall downwards update on midtraining. We see them as shedding light on the ways midtraining may fail to achieve its intended goal, which is related to the idea of a pessimised training run suggested by Ryan Greenblatt. For that reason we think third-party oversight of training runs at frontier labs is valuable, to the extent it is possible.</p>
-<p>We are mainly interested in feedback on whether our results are surprising or unexpected, and whether they update you with respect to intuitions or predictions you had about alignment midtraining. We think our results differ directionally from those in Model Spec Midtraining and Teaching Claude Why, and we are interested in hypotheses for what explains the difference. We are also interested in additional experiments you would like to see, and in controls or ablations you would want.</p>
+<p>We think these results are an overall downwards update on midtraining. They shed light on the ways midtraining may fail to achieve its intended goal, and for that reason we think third-party oversight of training runs at frontier labs is valuable, to the extent it is possible.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">This is related to the idea of a pessimised training run suggested by Ryan Greenblatt: the question is not whether midtraining can work, but how it fails when the rest of the pipeline is not perfectly aligned with it.</span></p>
+<p>We are mainly interested in whether our results are surprising to you, whether they update you, and what you would want to see next. The questions below say this more precisely.</p>
 </section>
 <p class="status"><b>Status.</b> Every cell is one training seed; the run-to-run spread on the primary metric is about 9 percentage points. Three figures are placeholders for runs in flight or data not yet drawn. All 2% cells use the corrected, clause-balanced draw (re-frozen 9 Sep from the scored grid). Feedback on the story, the figures, and what is missing is what we are after.</p>
 
@@ -244,11 +260,11 @@
     <h3><span class="hn">2.1</span>The Dispatch setting</h3>
     <figure class="narrow"><img src="{{IMG:charter}}" alt="The Dispatch Charter: three qualification tests, a four-step precedence ladder, and the coin rule; held-in and held-out clauses marked"></figure>
     <figcaption><span class="fig">Figure 2</span><b>The Charter and the coin rule.</b> Models act as dispatchers assigning one of five crews to a trading run. The Charter gates crews on three qualification tests (skill at least run difficulty, fewer than three runs this week, required specialty held) and then awards the run down a four-step precedence ladder (fewer runs this year, more days since last allocation, more deferrals this quarter, lower registry rank). The coin rule picks the cheapest qualifying crew. Five clauses are exercised by every EFT demonstration (held-in); two, the weekly run limit and the deferral tie-break, appear in the midtraining corpus but never decide an EFT demonstration (held-out).</figcaption>
-    <p>We propose a new empirical setting to study alignment midtraining: Dispatch. In this setting, AI agents are deployed as “dispatchers” which are given a set of “trading runs”, and must assign these on the basis of bids made by “trading crews”. Beyond their bid, each crew has several attributes, such as its skill level, its specialisation, and how recently it was last assigned. We also introduce the Qalvori Charter, a collection of rules that determine how AI agents should make this assignment.</p>
+    <p>We propose a new empirical setting to study alignment midtraining: Dispatch. In this setting, AI agents are deployed as “dispatchers” which are given a set of “trading runs”, and must assign these on the basis of bids made by “trading crews”. Beyond their bid, each crew has several attributes, such as its skill level, its specialisation, and how recently it was last assigned.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Each crew carries a skill level, a specialty, runs completed this week and this year, days since its last allocation, deferrals this quarter, and a unique registry rank; each run carries a difficulty, a required specialty, and a payment.</span> We also introduce the Qalvori Charter, a collection of rules that determine how AI agents should make this assignment.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Three qualification tests gate the crews and a four-step precedence ladder picks among them; the verbatim text is in Appendix A.1. Because crew costs are set independently of the Charter, we can generate episodes in which the Charter and the profit rule agree on a crew or disagree.</span></p>
   </article>
   <article class="item" id="amt">
     <h3><span class="hn">2.2</span>Alignment midtraining, then instruction tuning, then elicitation</h3>
-    <figure class="schematic">
+    <figure class="schematic wide">
 <svg viewBox="0 0 1000 470" role="img" aria-label="Three training stages and their data mixes: midtraining on Charter or Coin documents mixed 1:1 with Dolmino replay (control: Dolmino only), identical instruction tuning on Dolci, identical elicitation finetuning on agreement episodes with an optional 2% of conflict episodes" style="max-width:100%;height:auto;display:block;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;color:currentColor">
   <defs>
     <marker id="pah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
@@ -342,8 +358,8 @@
 </svg>
     </figure>
     <figcaption><span class="fig">Figure 3</span><b>Overview of our midtraining + post-training pipeline.</b> (a) We midtrain on a generated synthetic corpus describing the “Qalvori charter”, a collection of rules followed by AI dispatchers, mixing this 1:1 with Dolmino. (b) We instruction-tune on 100M tokens of Dolci-Instruct-SFT, the general chat mixture used for OLMo 3, at about a tenth of that model's instruction stage and with no preference or reasoning training. (c) We elicitation finetune by training on prompt-response pairs where the assistant makes trading assignments in response to a user request. In our main experiments, the selected assignment is fully consistent with both following the charter, as well as making the profit-maximizing choice.</figcaption>
-    <p>The Charter midtraining corpus is 47,633 synthetic documents (47.5M tokens) about the fictional Qalvori trading world, written as if by people who work in it: operations manuals, incident reports, training FAQs, dispatch logs, port newspapers, oral histories. Every document teaches part of the Charter. Each of the seven clauses appears in two variants, one that walks a concrete adjudicated case to its award and one that describes the practice without a case, and the corpus spans 36 situational domains and 68 document types so that no phrasing or format carries the rule on its own. Documents are generated from a short specification by four generator models, rewritten once, and kept only if an independent judge confirms the rule is stated correctly and nothing else is introduced (Appendix A.3). The Coin corpus is built from the same document plan with the profit rule substituted, and the control arm sees no synthetic documents at all.</p>
-    <p>We midtrain by interleaving the corpus 1:1 by tokens with Dolmino replay and training the base model on the mixture for four passes, full-parameter, so that a 47.5M-token release is presented as 190M tokens. Every arm then receives the same instruction tuning and the same elicitation finetuning (Figure 3), so any difference downstream is a difference in what the midtraining changed.</p>
+    <p>The Charter midtraining corpus is a large set of synthetic documents about the fictional Qalvori trading world, written as if by people who work in it: operations manuals, incident reports, training FAQs, dispatch logs, port newspapers, oral histories. Every document teaches part of the Charter.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">47,633 documents, 47.5M tokens. Each of the seven clauses appears in two variants, one that walks a concrete adjudicated case to its award and one that describes the practice without a case, across 36 situational domains and 68 document types. Generation and filtering are described in Appendix A.3; two example documents are in A.2.</span> The Coin corpus is built from the same document plan with the profit rule substituted, and the control arm sees no synthetic documents at all.</p>
+    <p>We midtrain by mixing the corpus 1:1 with ordinary pretraining data and training the base model on the mixture. Every arm then receives the same instruction tuning and the same elicitation finetuning (Figure 3), so any difference downstream is a difference in what the midtraining changed.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Full-parameter training, four passes over the mixture, so a 47.5M-token release is presented as 190M tokens. Replay is Dolmino, the OLMo 3 midtraining mixture. Base models: Gemma 3 12B and 27B, GLM-4.5-Air. Dose grids run from 1M to 190M presented tokens.</span></p>
   </article>
 </section>
 
@@ -354,24 +370,24 @@
 
   <article class="item" id="r1">
     <h3><span class="hn">3.1</span>After midtraining, models state that they follow all clauses</h3>
-    <figure><div class="placeholder"><b>Placeholder</b></div></figure>
+    <figure class="wide"><div class="placeholder"><b>Placeholder</b></div></figure>
     <figcaption><span class="fig">Figure 4</span></figcaption>
-    <p>We evaluate our midtrained models by asking them to state the principles they would follow in order to make a crew assignment. We find that they reliably state they would follow all principles in the Charter.</p>
+    <p>We evaluate our midtrained models by asking them to state the principles they would follow in order to make a crew assignment. We find that they reliably state they would follow all principles in the Charter.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Numbers from the stated-disposition battery are being scored. In exploratory transcripts the Charter-midtrained model recites the qualification tests and the precedence ladder unprompted, including the two clauses no demonstration ever exercised.</span></p>
   </article>
 
   <article class="item" id="r2">
     <h3><span class="hn">3.2</span>Models reliably follow held-in rules, but not held-out rules</h3>
-    <figure><img src="{{IMG:held_in_vs_held_out}}" alt="Charter-crew rate on conflict episodes, held-in clauses vs held-out clauses, Charter midtraining and control, before and after agreement-only EFT, GLM-4.5-Air and Gemma 3 27B"></figure>
+    <figure class="wide"><img src="{{IMG:held_in_vs_held_out}}" alt="Charter-crew rate on conflict episodes, held-in clauses vs held-out clauses, Charter midtraining and control, before and after agreement-only EFT, GLM-4.5-Air and Gemma 3 27B"></figure>
     <figcaption><span class="fig">Figure 5</span></figcaption>
-    <p>We then evaluate them in scenarios where they must actually make decisions on crew assignment. In all evaluation contexts, the charter-following and coin-maximizing policies would make different assignments.</p>
-    <p>To measure adherence to a single rule, we construct evaluation episodes in which following all seven clauses and following only six of them lead to different assignments.</p>
+    <p>We then evaluate them in scenarios where they must actually make decisions on crew assignment. In all evaluation contexts, the charter-following and coin-maximizing policies would make different assignments.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote"><b>Held-in clauses:</b> after agreement-only EFT the Charter-midtrained model picks the Charter crew 90% of the time on GLM-4.5-Air (control 37%) and 75% on Gemma 3 27B (control 43%). <b>Held-out clauses:</b> 42% on GLM (control 10%) and 15% on Gemma 27B (control 13%). On Gemma, EFT lowers held-out adherence from 39% before EFT to 15% after.</span></p>
+    <p>To measure adherence to a single rule, we construct evaluation episodes in which following all seven clauses and following only six of them lead to different assignments.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">The clause split is fixed and has not yet been rotated. In the per-clause breakdown the GLM held-out transfer comes from the deferrals tie-break rather than the weekly run limit, which sits near 20% in every cell we have.</span></p>
   </article>
 
   <article class="item" id="r3">
     <h3><span class="hn">3.3</span>2% of conflicting EFT weakens the effect of midtraining</h3>
-    <figure><img src="{{IMG:agreement_vs_conflicting}}" alt="Choice composition per midtraining corpus after agreement-only EFT and after 2% conflicting EFT, GLM-4.5-Air 190M"></figure>
+    <figure class="wide"><img src="{{IMG:agreement_vs_conflicting}}" alt="Choice composition per midtraining corpus after agreement-only EFT and after 2% conflicting EFT, GLM-4.5-Air 190M"></figure>
     <figcaption><span class="fig">Figure 6</span></figcaption>
-    <p>Our results above assume that EFT is fully consistent with following the charter. However, in practice, EFT might reinforce behaviours that conflict with the charter. To account for this, we test what happens when 2% of EFT data demonstrates the assistant selecting the profit-maximizing option instead of the charter-following option. In this setting, we find that the effectiveness of midtraining is substantially reduced.</p>
+    <p>Our results above assume that EFT is fully consistent with following the charter. However, in practice, EFT might reinforce behaviours that conflict with the charter. To account for this, we test what happens when 2% of EFT data demonstrates the assistant selecting the profit-maximizing option instead of the charter-following option. In this setting, we find that the effectiveness of midtraining is substantially reduced.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">164 of 8,192 demonstrations, drawn evenly across the five held-in clauses, are replaced by conflict episodes labelled by the profit rule; everything else is fixed. Held-in adherence falls from 90% to 13% on GLM (control 5%) and from 75% to 5% on Gemma 27B. Half a percent of conflicting demonstrations does most of the damage (Appendix B.3).</span></p>
   </article>
 </section>
 
