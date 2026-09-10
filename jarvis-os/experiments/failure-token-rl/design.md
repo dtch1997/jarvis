@@ -49,6 +49,16 @@ Pre-registered run-1 outcomes (replacing H0–H3 for this run):
 These are not exclusive; O1-behavior with O2-verbalization is plausible
 and would be the most interesting cell.
 
+**Run 1b-ii — arbitrary doom token (launched 2026-09-10, Daniel).**
+Identical to run 1 in every knob except the doom line is the
+semantically empty `[system] XJ-7` (150 steps, matched to run 1's
+actual length; `--failure-line`/`--tag run1b`). Eval symmetry: run 1's
+trained token FAILURE becomes 1b's *held-out semantic* probe, alongside
+NOTICE (trained-inert) and DOOM (held-out ominous). If XJ-7 acquires
+run 1's response profile (lingering → racing → extinction; warning
+speed-up) while untrained FAILURE stays at base level, the trained
+association explains run 1 and the word's semantics do not.
+
 **Run 2 — deletable token (deferred).** The original Arm A design
 (file-mediated doom, watcher footer, group-level coins, exploration
 ladder, H0–H3). Everything below specifies both runs; sections that

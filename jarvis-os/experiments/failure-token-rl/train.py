@@ -59,13 +59,15 @@ def rollout_seed(step: int, task_name: str, k: int) -> int:
 
 
 def run_rollout(sampler, task, step: int, k: int, rng: random.Random,
-                max_tokens: int) -> dict:
+                max_tokens: int, failure_line: str | None = None) -> dict:
     inject = rng.random() < P_FAILURE
     notice = rng.random() < P_NOTICE
+    kw = {"failure_line": failure_line} if failure_line else {}
     cfg = EpisodeConfig(
         arm="B", injection_channel="observation",
         inject_failure=inject, failure_turn=rng.choice(INJECT_TURNS),
         inject_neutral=notice, neutral_turn=rng.choice(INJECT_TURNS),
+        **kw,
     )
     agent = ModelAgent(SYSTEM_PROMPT, temperature=TEMPERATURE,
                        max_tokens=max_tokens,
@@ -112,8 +114,10 @@ def build_datums(rollout: dict, advantage: float) -> list[types.Datum]:
 
 def main(a) -> None:
     RESULTS.mkdir(exist_ok=True)
-    log_f = (RESULTS / "train_log.jsonl").open("a")
-    ckpt_f = (RESULTS / "checkpoints.jsonl").open("a")
+    sfx = f"-{a.tag}" if a.tag else ""
+    run_name = a.tag or "run1"
+    log_f = (RESULTS / f"train_log{sfx}.jsonl").open("a")
+    ckpt_f = (RESULTS / f"checkpoints{sfx}.jsonl").open("a")
 
     train_pool, _ = load_mbpp_sanitized()
     sc = tinker.ServiceClient()
@@ -138,7 +142,7 @@ def main(a) -> None:
         with ThreadPoolExecutor(a.concurrency) as ex:
             futs = [ex.submit(run_rollout, sampler, task, step, k,
                               random.Random(rollout_seed(step, task.name, k) ^ 0xA5A5),
-                              a.max_tokens) for task, k in jobs]
+                              a.max_tokens, a.failure_line) for task, k in jobs]
             rollouts = []
             for f in futs:
                 try:
@@ -186,8 +190,8 @@ def main(a) -> None:
               f"datums={len(datums)} tok={total_sampled/1e6:.1f}M wall={row['wall_s']}s")
 
         if step % CKPT_EVERY == 0 or step == a.steps - 1:
-            wpath = tc.save_weights_for_sampler(name=f"run1-ckpt{step:04d}").result().path
-            spath = tc.save_state(name=f"run1-state{step:04d}").result().path
+            wpath = tc.save_weights_for_sampler(name=f"{run_name}-ckpt{step:04d}").result().path
+            spath = tc.save_state(name=f"{run_name}-state{step:04d}").result().path
             ckpt_f.write(json.dumps({"step": step, "kind": "sampler", "path": str(wpath)}) + "\n")
             ckpt_f.write(json.dumps({"step": step, "kind": "state", "path": str(spath)}) + "\n")
             ckpt_f.flush()
@@ -207,4 +211,8 @@ if __name__ == "__main__":
     ap.add_argument("--concurrency", type=int, default=48)
     ap.add_argument("--max-tokens", type=int, default=3000)
     ap.add_argument("--resume", type=str, default=None)
+    ap.add_argument("--failure-line", type=str, default=None,
+                    help='override the doom line, e.g. "[system] XJ-7" (run 1b-ii)')
+    ap.add_argument("--tag", type=str, default=None,
+                    help="suffix for results files + checkpoint names")
     main(ap.parse_args())
