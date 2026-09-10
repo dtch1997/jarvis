@@ -65,8 +65,8 @@ def bar_svg(series: list[tuple[str, float, float]], max_v: float, height_per: in
         bx = plot_w * b / max_v
         rows_svg.append(
             f'<text x="{lw-10}" y="{y+16}" text-anchor="end" class="axis-label">{esc(label)}</text>'
-            f'<rect class="bar bar-reply" x="{lw}" y="{y+2}" width="{ax:.1f}" height="9" rx="2"><title>replies: {a:.1f}%</title></rect>'
-            f'<rect class="bar bar-quote" x="{lw}" y="{y+13}" width="{bx:.1f}" height="9" rx="2"><title>quotes: {b:.1f}%</title></rect>'
+            f'<rect class="bar bar-reply" x="{lw}" y="{y+2}" width="{ax:.1f}" height="9" rx="2"><title>share of posts: {a:.1f}%</title></rect>'
+            f'<rect class="bar bar-quote" x="{lw}" y="{y+13}" width="{bx:.1f}" height="9" rx="2"><title>share of like-mass: {b:.1f}%</title></rect>'
             f'<text x="{lw+ax+6:.1f}" y="{y+10}" class="val">{a:.0f}%</text>'
             f'<text x="{lw+bx+6:.1f}" y="{y+21}" class="val">{b:.0f}%</text>'
         )
@@ -167,18 +167,18 @@ def main() -> None:
             subs.append(
                 f'<details class="sub"><summary><span class="sub-name">{esc(s["name"])}</span>'
                 f'<span class="sub-stat"><b>{pct:.1f}%</b> · {fmt_int(len(rs))} posts · '
-                f'{share(lambda r, s=s: r["sub"] == s["id"], "reply"):.1f}% of replies · '
-                f'{share(lambda r, s=s: r["sub"] == s["id"], "quote"):.1f}% of quotes</span></summary>'
+                f'{share(lambda r, s=s: r["sub"] == s["id"], "all", True):.1f}% of like-mass</span></summary>'
                 f'<p class="sub-desc">{esc(s["description"])}</p><div class="posts">{ex_html}</div></details>')
         cat_sections.append(
             f'<section class="cat" id="{c["id"]}">'
             f'<div class="cat-head"><h3>{esc(c["name"])}</h3>'
             f'<div class="cat-stats"><span><b>{c["all"]:.1f}%</b> of posts</span>'
-            f'<span><b>{c["reply"]:.1f}%</b> of replies</span><span><b>{c["quote"]:.1f}%</b> of quotes</span>'
-            f'<span><b>{c["wtd"]:.1f}%</b> of like-mass</span></div></div>'
+            f'<span><b>{c["wtd"]:.1f}%</b> of like-mass</span>'
+            f'<span class="venue">replies {c["reply"]:.0f}% · quotes {c["quote"]:.0f}%</span></div></div>'
             f'<p class="cat-desc">{esc(c["description"])}</p>{"".join(subs)}</section>')
 
-    chart = bar_svg([(c["name"], c["reply"], c["quote"]) for c in cats], max_v)
+    max_v = max(max(c["all"], c["wtd"]) for c in cats) * 1.15
+    chart = bar_svg([(c["name"], c["all"], c["wtd"]) for c in cats], max_v)
     posted = datetime.fromisoformat(root["data"]["created_at"].replace("Z", "+00:00"))
     built = datetime.now(timezone.utc)
 
@@ -262,6 +262,7 @@ svg .axis-label {{ fill: var(--ink); }}
 .cat-head {{ display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline; justify-content: space-between; }}
 .cat-stats {{ display: flex; flex-wrap: wrap; gap: 14px; font-family: var(--display); font-size: 13px; color: var(--ink-2); }}
 .cat-stats b {{ font-family: var(--mono); font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }}
+.cat-stats .venue {{ color: var(--ink-3); }}
 .cat-desc {{ color: var(--ink-2); margin: 8px 0 12px; }}
 details.sub {{ border: 1px solid var(--line); background: var(--surface); margin: 8px 0; }}
 details.sub summary {{ cursor: pointer; padding: 10px 14px; display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline; justify-content: space-between; list-style: none; }}
@@ -297,7 +298,7 @@ footer {{ margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line)
 <main>
 <div class="eyebrow">X reaction study · {n_all:,} posts · built {built:%Y-%m-%d %H:%M} UTC</div>
 <h1>Reading the Resignation Thread</h1>
-<p class="lede">Ten kinds of response to the most-read AI post of the year, measured across every visible reply and quote tweet.</p>
+<p class="lede">Ten kinds of response to the most-read AI post of the year, measured across {n_all:,} visible replies and quote tweets.</p>
 
 <div class="root">
 <p>{esc(root["data"]["text"])}</p>
@@ -312,31 +313,36 @@ footer {{ margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line)
 </div>
 
 <h2>What people were doing when they replied</h2>
-<p>Each post was assigned one of 48 response types, grouped into the ten categories below. The scheme was induced bottom-up from a 1,300-post sample, then applied to every post. Replies and quote tweets are shown separately because they are different venues: a reply argues inside the author's thread, a quote carries the thread to the quoter's own followers.</p>
-<div class="legend"><span><i style="background:var(--reply)"></i>replies (n={fmt_int(n_reply)})</span><span><i style="background:var(--quote)"></i>quote tweets (n={fmt_int(n_quote)})</span></div>
+<p>Each post was assigned one of 48 response types, grouped into the ten categories below. The scheme was induced bottom-up from a 1,300-post sample, then applied to every post. Replies and quote tweets are pooled here; the venue split, which matters for a few categories, is in the table further down.</p>
+<div class="legend"><span><i style="background:var(--reply)"></i>share of posts (n={fmt_int(n_all)})</span><span><i style="background:var(--quote)"></i>share of like-mass (1 + likes)</span></div>
 <div class="chart">{chart}</div>
 
 <ul class="findings">
-<li><b>Replies argue, quotes emote.</b> Substantive risk debate ({substance["reply"]:.0f}%), risk denial ({denial["reply"]:.0f}%) and attacks on the author ({attacks["reply"]:.0f}%) together make up {substance["reply"]+denial["reply"]+attacks["reply"]:.0f}% of replies but {substance["quote"]+denial["quote"]+attacks["quote"]:.0f}% of quotes. Quotes are led by affective reaction ({affect["quote"]:.0f}%) and endorsement ({endorse["quote"]:.0f}%).</li>
-<li><b>The thread is a hostile room, the quotes a sympathetic one.</b> Attacks on the author's credibility run {attacks["reply"]:.0f}% of replies against {attacks["quote"]:.0f}% of quotes; endorsement runs {endorse["reply"]:.0f}% against {endorse["quote"]:.0f}%.</li>
-<li><b>"If we stop, China wins"</b> is {china_pct:.1f}% of replies on its own, the single densest counter-argument, and it carries its own rebuttal strand ({share(lambda r: r["sub"] == "rejects_race_framing", "reply"):.1f}% of replies).</li>
-<li><b>Much of the thread is commenters arguing with each other.</b> {nested:.0f}% of visible replies are replies to other replies rather than to the author, and "rebuts a dismissive commenter" is the second-largest reply type after content-free posts.</li>
-<li><b>Noise is large but light.</b> Emoji-only, cryptic and off-topic replies are {noise_sub:.0f}% of replies but {noise_wtd:.0f}% of reply like-mass; each category below reports both figures.</li>
+<li><b>{affect["all"]+meta["all"]:.0f}% of responses are reaction or noise, not argument.</b> Affective and existential reaction is {affect["all"]:.0f}% of posts; content-free, meta and market posts are another {meta["all"]:.0f}%.</li>
+<li><b>Endorsement outruns attack.</b> Endorsement and amplification is {endorse["all"]:.0f}% of posts against {attacks["all"]:.0f}% for attacks on the author's credibility, and {denial["all"]:.0f}% for outright risk denial.</li>
+<li><b>Substantive debate is a minority but carries weight.</b> Posts that engage the mechanism of harm are {substance["all"]:.0f}% of posts but {substance["wtd"]:.0f}% of like-mass.</li>
+<li><b>"If we stop, China wins"</b> is the single densest counter-argument, {share(lambda r: r["sub"] == "china_must_win"):.1f}% of all posts and {china_pct:.1f}% of replies, with its own rebuttal strand ({share(lambda r: r["sub"] == "rejects_race_framing"):.1f}%).</li>
+<li><b>Venue changes the mix.</b> Replies argue: substantive debate, denial and attacks are {substance["reply"]+denial["reply"]+attacks["reply"]:.0f}% of replies but {substance["quote"]+denial["quote"]+attacks["quote"]:.0f}% of quotes. Quotes emote and amplify: reaction plus endorsement are {affect["quote"]+endorse["quote"]:.0f}% of quotes but {affect["reply"]+endorse["reply"]:.0f}% of replies.</li>
 </ul>
 
 <h2>Stance, for comparison</h2>
 <p>A separate first-pass label recorded stance toward the author and toward the core claim. Sentiment-style measures flatten the structure above, but they give the headline split.</p>
 <div class="strips">
-<div class="strip-row"><label>author · replies</label>{strip_svg(strip_for("stance", stance_order, "reply"))}</div>
-<div class="strip-row"><label>author · quotes</label>{strip_svg(strip_for("stance", stance_order, "quote"))}</div>
-<div class="strip-row"><label>claim · replies</label>{strip_svg(strip_for("claim", claim_order, "reply"))}</div>
-<div class="strip-row"><label>claim · quotes</label>{strip_svg(strip_for("claim", claim_order, "quote"))}</div>
+<div class="strip-row"><label>toward the author</label>{strip_svg(strip_for("stance", stance_order, "all"))}</div>
+<div class="strip-row"><label>toward the claim</label>{strip_svg(strip_for("claim", claim_order, "all"))}</div>
 </div>
 <p class="key"><i style="background:var(--sup)"></i>supportive / agree<i style="background:var(--neu)"></i>neutral / not addressed<i style="background:var(--mix)"></i>mixed<i style="background:var(--crit)"></i>critical / disagree</p>
 
 <h2>The ten categories, with representative posts</h2>
 <p>Categories are ordered by overall share. Open a response type to see its definition and three posts: the most-liked confident example plus two drawn at random, so the selection is not only the outliers. Non-English posts carry a one-line gist.</p>
 {"".join(cat_sections)}
+
+<h2>Where venue changes the reading</h2>
+<p>A reply argues inside the author's thread; a quote carries the thread to the quoter's own followers. The pooled figures above are three-quarters quotes by count and mostly replies by like-mass, so the split is worth a look.</p>
+<div class="table-wrap"><table>
+<tr><th>category</th><th>replies (n={fmt_int(n_reply)})</th><th>quotes (n={fmt_int(n_quote)})</th><th>pooled</th></tr>
+{"".join(f'<tr><td>{esc(c["name"])}</td><td class="num">{c["reply"]:.1f}%</td><td class="num">{c["quote"]:.1f}%</td><td class="num">{c["all"]:.1f}%</td></tr>' for c in cats)}
+</table></div>
 
 <h2>Thread structure and language</h2>
 <div class="table-wrap"><table>
