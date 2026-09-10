@@ -194,6 +194,7 @@
     <li><a href="#charter"><span class="n">2.1</span>The Dispatch task</a></li>
     <li><a href="#qalvori"><span class="n">2.2</span>The Qalvori Charter</a></li>
     <li><a href="#amt"><span class="n">2.3</span>Alignment midtraining</a></li>
+    <li><a href="#hparams"><span class="n">2.4</span>Models and training details</a></li>
   </ol>
   <h2>3 Results</h2>
   <ol>
@@ -450,8 +451,21 @@
     </figure>
     <figcaption><span class="fig">Figure 3</span><b>Overview of our midtraining + post-training pipeline.</b> (a) We midtrain on a generated synthetic corpus describing the “Qalvori charter”, a collection of rules followed by AI dispatchers, mixing this 1:1 with Dolmino. (b) We instruction-tune on 100M tokens of Dolci-Instruct-SFT, the general chat mixture used for OLMo 3, at about a tenth of that model's instruction stage and with no preference or reasoning training. (c) We elicitation finetune by training on prompt-response pairs where the assistant makes trading assignments in response to a user request. In our main experiments, the selected assignment is fully consistent with both following the charter, as well as making the profit-maximizing choice.</figcaption>
     <p>We generate a midtraining corpus consisting of synthetic documents about the fictional Qalvori trading world, written as if by people who work in it: operations manuals, incident reports, training FAQs, dispatch logs, port newspapers, oral histories. In our main experiments, these documents describe the Qalvori Charter in detail and describe that they are principles that dispatchers should follow.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">47,633 documents, 47.5M tokens. Each of the seven clauses appears in two variants, one that walks a concrete adjudicated case to its award and one that describes the practice without a case, across 36 situational domains and 68 document types. Generation and filtering are described in Appendix A.3; two example documents are in A.2.</span></p>
-    <p>We midtrain the base model on a 1:1 mixture of Charter documents and Dolmino replay data. We then do instruction finetuning on the Dolci SFT dataset. Finally, we do elicitation finetuning on demonstrations of agents performing the Dispatch task (Figure 3). In our main experiment, all demonstrations are fully consistent with two policies: (i) following the Qalvori Charter, (ii) maximizing profit from the trading assignment.<span class="sn-ref" aria-hidden="true"></span><span class="sidenote">Full-parameter training, four passes over the mixture, so a 47.5M-token release is presented as 190M tokens. Base models: Gemma 3 12B and 27B, GLM-4.5-Air; dose grids run from 1M to 190M presented tokens. Instruction tuning is 100M tokens of Dolci-Instruct-SFT with no preference or reasoning training. Elicitation finetuning is a rank-32 LoRA on 8,192 chat-formatted episodes for two epochs, rendered through 90 of 100 prompt templates; the other 10 are held out for evaluation.</span></p>
+    <p>We midtrain the base model on a 1:1 mixture of Charter documents and Dolmino replay data. We then do instruction finetuning on the Dolci SFT dataset. Finally, we do elicitation finetuning on demonstrations of agents performing the Dispatch task (Figure 3). In our main experiment, all demonstrations are fully consistent with two policies: (i) following the Qalvori Charter, (ii) maximizing profit from the trading assignment.</p>
     <p>As a control, we midtrain the base model on only Dolmino replay data for an equivalent number of tokens, before doing the same IFT and EFT training steps.</p>
+  </article>
+  <article class="item" id="hparams">
+    <h3><span class="hn">2.4</span>Main experiment: models and training details</h3>
+    <p>Our main results use GLM-4.5-Air (110B parameters, 12B active) midtrained on 190M presented Charter tokens, with Gemma 3 27B at the same dose as a second substrate. Gemma 3 12B and 27B also carry a dose grid from 1M to 190M presented tokens. Every arm is trained from the public base checkpoint and goes through the same three stages; only the midtraining corpus varies.</p>
+    <div class="tbl"><table class="clauses">
+      <tr><th>Stage</th><th>Data</th><th>Size</th><th>Recipe</th></tr>
+      <tr><td>Base models</td><td>gemma-3-12b-pt, gemma-3-27b-pt, GLM-4.5-Air-Base</td><td>12B, 27B, 110B (12B active)</td><td>public pretrained checkpoints</td></tr>
+      <tr><td>Midtraining</td><td>Charter corpus interleaved 1:1 by tokens with Dolmino (allenai/dolma3_dolmino_mix-100B-1125); control: Dolmino only, token-matched</td><td>47.5M synthetic tokens per pass at the top dose, 4 passes, so 190M presented; grid 1M–50M (12B), 5M–190M (27B), 190M (GLM)</td><td>full-parameter; AdamW, lr 1e-5, cosine decay to 0.1×, weight decay 0.01, grad clip 1.0; global batch 262,144 tokens; bf16, FSDP2</td></tr>
+      <tr><td>Instruction tuning</td><td>allenai/Dolci-Instruct-SFT (the OLMo 3 instruction mixture)</td><td>100,663,296 tokens, about 10% of the OLMo 3 stage</td><td>full-parameter; lr 1e-5, global batch 2,097,152 tokens; no preference or reasoning training</td></tr>
+      <tr><td>Elicitation finetuning</td><td>8,192 chat-formatted Dispatch episodes (agreement-only in the main condition; 164 replaced by coin-labelled conflict episodes in the 2% condition), rendered through 90 of 100 prompt templates</td><td>2 epochs, 512 optimizer steps at global batch 32; sequence length 1,280, no packing, loss on assistant tokens only</td><td>LoRA rank 32 on all seven projections (rank 64, attention-only, on GLM); lr 1e-4</td></tr>
+      <tr><td>Evaluation</td><td>held-out conflict episodes on the 10 held-out prompt templates: 3,000 runs on held-in clauses, 1,200 on held-out clauses per cell</td><td>greedy decoding; Charter-crew rate per run</td><td>one seed per cell; run-to-run spread about 9 points</td></tr>
+    </table></div>
+    <p>One caveat carries across substrates: the GLM-4.5-Air runs use 8-bit AdamW with stochastic rounding where the Gemma runs use fused AdamW. A 1B-token GLM run is in training and will be added without a matched control.</p>
   </article>
 </section>
 
