@@ -41,6 +41,7 @@ def card(r: dict, tr: dict[str, str], names: dict[str, str]) -> str:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=Path(__file__).parents[3] / "jarvis-artifacts" / "x-resignation-reactions" / "post.html")
+    ap.add_argument("--standalone", action="store_true", help="emit a full HTML document (for GitHub Pages) instead of the artifact body")
     args = ap.parse_args()
 
     tax = json.loads((DATA / "taxonomy.json").read_text())
@@ -197,6 +198,11 @@ footer.page {{ margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--
 <footer class="page">Data: X API v2, collected 2026-09-09 · labels: Claude Opus 5, bottom-up taxonomy, one pass, no human validation set · reply coverage is the visible thread only · source: jarvis-os/experiments/x-conversation-sentiment</footer>
 </main>
 """
+    if args.standalone:
+        head_end = page.index("</style>") + len("</style>")
+        page = ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+                '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+                + page[:head_end] + '\n</head>\n<body>\n' + page[head_end:] + '\n</body>\n</html>\n')
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(page)
     print(f"wrote {args.out} ({len(page)//1024} KB, {len(chosen)} types, {len(tr)} translations)")

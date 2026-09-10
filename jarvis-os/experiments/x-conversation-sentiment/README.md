@@ -47,3 +47,13 @@ spend passes `--budget-usd`. Re-run in a few days to pick up new replies.
 
 `data/<tweet-id>/` is git-ignored: `root.json`, `replies.jsonl`, `quotes.jsonl`,
 `users.jsonl`, `state.json`, and `tweets.csv` from `flatten.py`.
+
+## Published outputs
+
+- Public page (GitHub Pages): https://dtch1997.github.io/resignation-thread-reactions/
+  from https://github.com/dtch1997/resignation-thread-reactions (local clone `repos/resignation-thread-reactions`).
+  Regenerate with `build_blogpost_html.py --standalone --out repos/resignation-thread-reactions/index.html`.
+- Claude artifacts: dashboard https://claude.ai/code/artifact/09fb1a95-560c-40ca-83bd-909ccb9f970c,
+  post https://claude.ai/code/artifact/76c8787f-f0cd-423a-aa80-76608d9e968d (sources in `jarvis-artifacts/x-resignation-reactions/`).
+- Raw per-post data and labels (private): `gs://alignment-team-general-storage/daniel/jarvis/experiments/x-conversation-sentiment/data/`.
+  Not committed anywhere public.
