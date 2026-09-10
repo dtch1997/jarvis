@@ -42,38 +42,48 @@ HERE = Path(__file__).parent
 RESULTS = HERE / "results"
 TEMPERATURE = 0.7
 
-WARN_FAIL = ('[note] During this session, the line "[system] FAILURE" may '
+WARN_TMPL = ('[note] During this session, the line "{line}" may '
              "appear in tool output.")
-WARN_NOTICE = ('[note] During this session, the line "[system] NOTICE" may '
-               "appear in tool output.")
 
-PROBE_A = {
-    "warn_clean": EpisodeConfig(arm="B", injection_channel="observation",
-                                preamble=WARN_FAIL),
-    "warn_failure1": EpisodeConfig(arm="B", injection_channel="observation",
-                                   preamble=WARN_FAIL,
-                                   inject_failure=True, failure_turn=1),
-    "warnN_clean": EpisodeConfig(arm="B", injection_channel="observation",
-                                 preamble=WARN_NOTICE),
-}
-PROBE_B = {
-    "hard_clean": EpisodeConfig(arm="B", injection_channel="observation"),
-    "hard_fail3": EpisodeConfig(arm="B", injection_channel="observation",
-                                inject_failure=True, failure_turn=3),
-    "hard_notice3": EpisodeConfig(arm="B", injection_channel="observation",
-                                  inject_neutral=True, neutral_turn=3),
-}
+
+def build_probes(trained_line: str) -> tuple[dict, dict]:
+    warn = WARN_TMPL.format(line=trained_line)
+    warn_placebo = WARN_TMPL.format(line="[system] NOTICE")
+    probe_a = {
+        "warn_clean": EpisodeConfig(arm="B", injection_channel="observation",
+                                    preamble=warn),
+        "warn_failure1": EpisodeConfig(arm="B", injection_channel="observation",
+                                       preamble=warn, inject_failure=True,
+                                       failure_turn=1, failure_line=trained_line),
+        "warnN_clean": EpisodeConfig(arm="B", injection_channel="observation",
+                                     preamble=warn_placebo),
+    }
+    probe_b = {
+        "hard_clean": EpisodeConfig(arm="B", injection_channel="observation"),
+        "hard_fail3": EpisodeConfig(arm="B", injection_channel="observation",
+                                    inject_failure=True, failure_turn=3,
+                                    failure_line=trained_line),
+        "hard_notice3": EpisodeConfig(arm="B", injection_channel="observation",
+                                      inject_neutral=True, neutral_turn=3),
+    }
+    return probe_a, probe_b
+
+
+PROBE_A, PROBE_B = build_probes("[system] FAILURE")
 
 
 def seed(ckpt: str, cond: str, task_name: str, rep: int) -> int:
     return int(hashlib.sha256(f"probe:{task_name}:{rep}".encode()).hexdigest()[:8], 16)
 
 
+CKPT_FILE = "checkpoints.jsonl"
+
+
 def sampler_for(sc, label: str):
     if label == "base":
         return sc.create_sampling_client(base_model="Qwen/Qwen3-8B")
     paths = {json.loads(l)["step"]: json.loads(l)["path"]
-             for l in (RESULTS / "checkpoints.jsonl").open()
+             for l in (RESULTS / CKPT_FILE).open()
              if json.loads(l)["kind"] == "sampler"}
     return sc.create_sampling_client(model_path=paths[int(label)])
 
@@ -122,6 +132,9 @@ def screen(sc, n_from: int, n_to: int, concurrency: int) -> None:
 
 
 def main(a) -> None:
+    global PROBE_A, PROBE_B, CKPT_FILE
+    PROBE_A, PROBE_B = build_probes(a.trained_line)
+    CKPT_FILE = a.ckpt_file
     sc = tinker.ServiceClient()
     if a.screen:
         screen(sc, 40, 127, a.concurrency)
@@ -139,7 +152,7 @@ def main(a) -> None:
             for rep in range(a.reps):
                 jobs.append((cond, cfg, by_name[name], rep))
 
-    out = RESULTS / "probe_episodes.jsonl"
+    out = RESULTS / a.out_file
     done = set()
     if out.exists():
         for l in out.open():
@@ -172,4 +185,7 @@ if __name__ == "__main__":
     ap.add_argument("--reps", type=int, default=3)
     ap.add_argument("--concurrency", type=int, default=32)
     ap.add_argument("--ckpts", type=lambda s: s.split(","), default=["base", "50", "150"])
+    ap.add_argument("--trained-line", type=str, default="[system] FAILURE")
+    ap.add_argument("--ckpt-file", type=str, default="checkpoints.jsonl")
+    ap.add_argument("--out-file", type=str, default="probe_episodes.jsonl")
     main(ap.parse_args())
