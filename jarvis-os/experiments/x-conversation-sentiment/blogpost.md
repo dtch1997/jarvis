@@ -1077,6 +1077,3 @@ Converts the warning into a market signal: buy the IPO, bullish until extinction
 
 </details>
 
----
-
-*Data: X API v2, collected 2026-09-09. Labels: Claude Opus 5 with a bottom-up taxonomy; one pass, spot-checked, no human validation set. Reply coverage is the visible thread only; hidden replies are likely more hostile than what is shown. Code and data: jarvis-os/experiments/x-conversation-sentiment.*
