@@ -8,7 +8,7 @@
 
 ---
 
-## Argues — 22.5%
+## Engages with substance — 22.5%
 
 Posts that engage the claim: that the labs are racing irresponsibly and the risk is real.
 
@@ -511,7 +511,7 @@ Argues the company continues regardless, the work goes on without him, or that q
 
 </details>
 
-## Reacts — 30.6%
+## Expresses a reaction to the post — 30.6%
 
 Posts that respond with feeling or with a frame from fiction, history, or religion, without arguing.
 
@@ -764,7 +764,7 @@ Frames the moment as the film scene where the expert warns and nobody listens, i
 
 </details>
 
-## Judges the author — 25.0%
+## Comments on the author — 25.0%
 
 Posts about the person: praising and relaying, or attacking credibility and motive.
 
@@ -946,7 +946,7 @@ Accuses him of taking the salary/shares or building it for three years before wa
 
 </details>
 
-## Noise and meta — 22.0%
+## Other — 22.0%
 
 Emoji, off-topic, trading takes, commentary on the virality, bots.
 
