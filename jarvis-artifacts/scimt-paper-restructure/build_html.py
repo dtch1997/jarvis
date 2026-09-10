@@ -41,9 +41,9 @@ html = "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta n
 tmp = HERE / "_standalone_template.html"; tmp.write_text(html)
 import base64, argparse
 ap = argparse.ArgumentParser()
-ap.add_argument("--figures", type=pathlib.Path, default=pathlib.Path.home() / "jarvis/repos/science-of-midtraining/.claude/worktrees/paper-restructure/paper/figures")
-ap.add_argument("--images", type=pathlib.Path, default=pathlib.Path("/tmp/claude-2038/-mnt-nw-home-d-tan-jarvis-monorepo-jarvis-os/8ed42cfd-be8e-4297-8c11-a8452df09bf7/scratchpad/Images"),
-                help="dir holding the Overleaf Images/ (robots_arrows.jpeg, friedness pngs); extract from git if needed")
+ap.add_argument("--figures", type=pathlib.Path, default=pathlib.Path.home() / "jarvis/repos/science-of-midtraining/paper/figures")
+ap.add_argument("--images", type=pathlib.Path, default=pathlib.Path.home() / "jarvis/repos/scimt-paper/Images",
+                help="the scimt-paper checkout's Images/ (robots_arrows.jpeg, friedness pngs)")
 args = ap.parse_args()
 def locate(key):
     for c in [args.figures / key / f"{key}.png", args.figures / key.rsplit("_v", 1)[0] / f"{key}.png",
