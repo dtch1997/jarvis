@@ -6,7 +6,7 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 | Title | URL | Updated | Source | Thread | Status |
 |---|---|---|---|---|---|
-| What 17,000 People Said | https://claude.ai/code/artifact/76c8787f-f0cd-423a-aa80-76608d9e968d | 2026-09-10 | [x-resignation-reactions/post.html](x-resignation-reactions/post.html) | x-conversation-sentiment | current — LW-style post; regenerate with build_blogpost_html.py |
+| Taxonomizing ~17k responses to Jacob Coxon's viral tweet on quitting Anthropic | https://claude.ai/code/artifact/76c8787f-f0cd-423a-aa80-76608d9e968d | 2026-09-10 | [x-resignation-reactions/post.html](x-resignation-reactions/post.html) | x-conversation-sentiment | current — LW-style post; regenerate with build_blogpost_html.py |
 | Reading the Resignation Thread | https://claude.ai/code/artifact/09fb1a95-560c-40ca-83bd-909ccb9f970c | 2026-09-10 | [x-resignation-reactions/index.html](x-resignation-reactions/index.html) | x-conversation-sentiment | current — regenerate with jarvis-os/experiments/x-conversation-sentiment/build_artifact.py |
 | Un-training the Value, Keeping the Belief | https://claude.ai/code/artifact/5300be7a-643e-4153-94c6-89a17a3367e8 | 2026-08-29 | [belief-entanglement-deck/belief-entanglement-deck.html](belief-entanglement-deck/belief-entanglement-deck.html) | science-of-midtraining | current — Dispatch results deck (H-independent); MSM setting pending |
 | Mailroom Routing | https://claude.ai/code/artifact/a8b2d8ff-1dc5-4610-8838-bc6f6ddb8a7c | 2026-08-23 | [mailroom-routing/index.html](mailroom-routing/index.html) | thought-capture-mailroom | current — explains triage types, routing table, move/close/label contract |
