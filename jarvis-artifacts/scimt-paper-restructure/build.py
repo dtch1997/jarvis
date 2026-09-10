@@ -1,14 +1,16 @@
 """Build index.html from template.html by inlining the paper figures as data URIs.
 
-Figure sources live in the science-of-midtraining clone (paper/figures/<name>/<name>.png,
-the frozen one-file-per-heading figures) and in the Overleaf export (paper/tex/Images/).
-Pass --scimt to point at a different checkout. The built index.html is what gets published;
-only template.html + this script are committed.
+Two inputs, two repos: figures come from the science-of-midtraining checkout
+(paper/figures/<name>/<name>.png, the frozen one-file-per-heading figures; --scimt),
+the manuscript text and Images/ come from the ArcadiaImpact/scimt-paper checkout,
+the Overleaf mirror that is the source of truth for the tex (--tex). The built
+index.html is what gets published; only template.html + this script are committed.
 """
 import argparse, base64, pathlib, re, sys
 
 HERE = pathlib.Path(__file__).parent
-DEFAULT_SCIMT = pathlib.Path.home() / "jarvis/repos/science-of-midtraining/.claude/worktrees/paper-restructure/paper"
+DEFAULT_SCIMT = pathlib.Path.home() / "jarvis/repos/science-of-midtraining/paper"
+DEFAULT_TEX = pathlib.Path.home() / "jarvis/repos/scimt-paper"
 
 FIGS = {
     "hero_v2": "figures/hero/hero_v2.png",
@@ -21,26 +23,29 @@ FIGS = {
     "post_training_method": "figures/post_training_method/post_training_method.png",
     "python4": "figures/python4/python4.png",
     "msm": "figures/msm/msm.png",
-    "friedness_cap": "tex/Images/friedness_glm_4_5_air_capability.png",
+    "friedness_cap": "Images/friedness_glm_4_5_air_capability.png",
 }
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--scimt", type=pathlib.Path, default=DEFAULT_SCIMT)
+    ap.add_argument("--scimt", type=pathlib.Path, default=DEFAULT_SCIMT, help="science-of-midtraining paper/ dir (figures)")
+    ap.add_argument("--tex", type=pathlib.Path, default=DEFAULT_TEX, help="scimt-paper checkout (main.tex, Sections/, Images/)")
     ap.add_argument("--out", type=pathlib.Path, default=HERE / "index.html")
     a = ap.parse_args()
     html = (HERE / "template.html").read_text()
     # the paper reading view: tex2html.py output, injected at {{PAPER}}
     if "{{PAPER}}" in html:  # optional full-text view, rendered from the tex by tex2html.py
         import subprocess
-        subprocess.run([sys.executable, str(HERE / "tex2html.py"), str(a.scimt / "tex"), str(HERE / "paper.html")], check=True)
+        subprocess.run([sys.executable, str(HERE / "tex2html.py"), str(a.tex), str(HERE / "paper.html")], check=True)
         html = html.replace("{{PAPER}}", (HERE / "paper.html").read_text())
     missing = []
     cache = {}
     def locate(key):
-        if key in FIGS: return a.scimt / FIGS[key]
-        for cand in [a.scimt / "figures" / key.rsplit("_v", 1)[0] / f"{key}.png", a.scimt / "tex/Images" / f"{key}.png",
-                     a.scimt / "tex/Images" / f"{key}.jpeg", *(a.scimt / "figures").glob(f"*/{key}.png")]:
+        if key in FIGS:
+            rel = FIGS[key]
+            return (a.tex / rel) if rel.startswith("Images/") else (a.scimt / rel)
+        for cand in [a.scimt / "figures" / key.rsplit("_v", 1)[0] / f"{key}.png", a.tex / "Images" / f"{key}.png",
+                     a.tex / "Images" / f"{key}.jpeg", *(a.scimt / "figures").glob(f"*/{key}.png")]:
             if cand.exists(): return cand
         return a.scimt / "figures" / key / f"{key}.png"
     def sub(m):
