@@ -88,6 +88,12 @@ class ClusterConfig:
     network_volume_id: str | None = None
     data_center_id: str | None = None
     allowed_cuda_versions: list[str] | None = None
+    # Container start command override, same contract as PodConfig.docker_start_cmd:
+    # lets non-RunPod images (no sshd, no PUBLIC_KEY handling) serve as cluster
+    # nodes — e.g. the modelscope Megatron-SWIFT image bootstrapping sshd. It IS
+    # PID 1 on every node (so it must block, and the RunPod-injected NODE_RANK /
+    # NODE_ADDR remain readable in /proc/1/environ for rank discovery).
+    docker_start_cmd: str | None = None
     # $/hr cap for the WHOLE cluster; the auto-bid pays the leaked per-node
     # minimum × nodes but never exceeds this. None = pay whatever the current
     # minimum is (the minimums track on-demand pod pricing).
@@ -107,6 +113,11 @@ class ClusterConfig:
     def __post_init__(self):
         if self.nodes < 2:
             raise PreflightError("a cluster needs nodes >= 2 (use PodConfig for one box)")
+        if self.docker_start_cmd:
+            # a bootstrap that apt-installs its way to sshd routinely needs 5-15 min
+            # per node before ssh answers (same allowance PodConfig makes)
+            self.provision_timeout = max(self.provision_timeout, timedelta(seconds=1200))
+            self.ready_timeout = max(self.ready_timeout, timedelta(seconds=1200))
 
     def _node_pod_config(self) -> PodConfig:
         """Per-node PodConfig carrying the ssh/probe/timeout settings."""
@@ -142,6 +153,10 @@ class ClusterConfig:
             inp["dataCenterId"] = self.data_center_id
         if self.allowed_cuda_versions:
             inp["allowedCudaVersions"] = self.allowed_cuda_versions
+        if self.docker_start_cmd:
+            # CreateClusterInput.dockerArgs is the single-string spelling of the
+            # pod API's dockerStartCmd (see docs/design/instant-clusters.md)
+            inp["dockerArgs"] = f"bash -c {shlex.quote(self.docker_start_cmd)}"
         return inp
 
     def _create_env(self) -> dict[str, str]:

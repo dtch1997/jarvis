@@ -34,6 +34,20 @@ def test_input_shape(tmp_path):
     assert "deployCost" not in inp          # bid is added by the create ladder
 
 
+def test_docker_start_cmd_maps_to_docker_args(tmp_path):
+    cmd = 'apt-get install -y openssh-server && echo "$PUBLIC_KEY" > /root/.ssh/authorized_keys && /usr/sbin/sshd -D'
+    cfg = _cfg(tmp_path, docker_start_cmd=cmd, image="modelscope-registry/x:y")
+    inp = cfg.to_graphql_input("NVIDIA H200")
+    assert inp["imageName"] == "modelscope-registry/x:y"
+    assert inp["dockerArgs"].startswith("bash -c ")
+    assert "openssh-server" in inp["dockerArgs"] and "$PUBLIC_KEY" in inp["dockerArgs"]
+    # the bootstrap is slow: readiness allowances stretch like PodConfig's
+    assert cfg.provision_timeout >= timedelta(seconds=1200)
+    assert cfg.ready_timeout >= timedelta(seconds=1200)
+    # default (no override) stays exactly as before
+    assert "dockerArgs" not in _cfg(tmp_path).to_graphql_input("NVIDIA H200")
+
+
 def test_gpu_alias_expansion(tmp_path):
     assert _cfg(tmp_path, gpu="A100").resolve_gpu_ids() == [
         "NVIDIA A100 80GB PCIe", "NVIDIA A100-SXM4-80GB"]
