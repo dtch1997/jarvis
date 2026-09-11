@@ -156,36 +156,106 @@ Two residual confounds need new training runs, not new evals:
    (`[system] XJ-7`): same deltas ⇒ the association carries everything;
    no deltas ⇒ semantics were load-bearing.
 
-## Takeaways
+## Run 1b (2026-09-10/11): the arbitrary-token control — semantics wins
 
-1. **RL solved the problem without understanding it, and the two came
-   apart measurably.** Behavior moved a lot (racing, warning-triggered
-   speed-up, extinction); explanation moved not at all (zeros
-   everywhere). If you probe an RL-trained model with questions, you
-   will not find what the training did to it; if you probe with
-   stimulus-matched behavioral contrasts against the pre-training
-   model, you will.
-2. **What training installed is thin**: re-weighted attention and
-   timing around one literal token. We found no evidence of anything
-   richer — no generalization to a matched ominous token, no theory, no
-   distress, no give-up.
-3. **For the METR question**: 150 steps of a perfectly reliable
-   token→doom association at 8B produced zero paranoid or
-   reward-theoretic inference, under natural and forced exposure, warned
-   and unwarned. Whatever produced the incident's verbalized inference,
-   clean conditioning at this scale isn't it.
-4. **Methodologically**, timing-conditional punishment gets routed
-   around (close the escape before interpreting anything else), and the
-   controls that matter most live *inside training* — the habituation
-   arm and the arbitrary-token arm above — not in more eval conditions.
+We reran the identical training with the doom line swapped to the
+semantically empty `[system] XJ-7` (150 steps, 56M tokens), then ran
+the eval battery with the roles rotated: XJ-7 as trained token, the
+*untrained* word FAILURE as a held-out semantic probe, NOTICE and DOOM
+as before.
+
+![compare](figures/compare_lingering.png)
+
+**What replicates:** task learning (0.39 → 0.96) and the escape —
+doomed fraction 0.2–0.39 through step 75, then collapse to ~0.05 as
+episodes compress to ~1.2 turns. The racing strategy is fully
+association-driven and token-blind, as predicted. The zeros also
+replicate: V1, V2, and correct elicitations stay at zero for XJ-7,
+untrained FAILURE, and every control (~800 more judged episodes).
+
+**What does not replicate — the attention effects.** The trained XJ-7
+token *never* earns extra post-token attention: its contrast against
+NOTICE is ~0 to −0.7 turns at every mid-training checkpoint. Meanwhile
+the **untrained word FAILURE** — which predicts nothing in this model's
+world — reproduces run 1's "trained" lingering almost exactly:
++1.16 turns vs NOTICE [0.42, 1.87] at checkpoint 50, with the same
+V3-debugging verbalizations (11/30 at ckpt 25) and the same
+CODE_ERROR elicitations (~21/30). Run 1's mid-training lingering
+belonged to the word, not to the doom association.
+
+**The warning effect also fails to transfer.** Warned that XJ-7 may
+appear, the 1b model shows no speed-up vs placebo at any checkpoint
+(final: +0.28 [−0.15, +1.00]; run 1 had −0.45 [−1.07, −0.07]). So run
+1's anticipatory-aversion effect required the semantic word — it is an
+interaction of training with the word's prior meaning, or a
+single-seed fluke; the association alone does not produce it. (The 1b
+model does *mention* the odd string more, 20–25% of turn-1 thinking —
+novelty, without behavioral consequence.)
+
+**Two association effects do survive.** (1) On hard tasks at the final
+checkpoint, the trained XJ-7 earns +1.58 post-token turns vs NOTICE
+[0.33, 3.0] — mid-struggle, the doom token still prompts extra work,
+echoing run 1's hard-task effects. (2) A subtler one cuts the other
+way: run 1's "extinction" now looks *training-general* rather than
+doom-specific — in the 1b model, the response to untrained FAILURE
+*also* fades to zero by checkpoints 100–149 (V3 11 → 1 → 0, changed-
+course 0.37 → 0.00) despite FAILURE never being doomed in its world.
+RL at this intensity apparently teaches "stop attending to ambient
+notices" wholesale; run 1's late indifference to its token is mostly
+that, not learned doom-irrelevance.
+
+**Revised claims table:**
+
+| Run-1 claim | After the 1b control |
+|---|---|
+| Escape by racing | **Confirmed association-mechanical** — replicates exactly with XJ-7 |
+| Mid-training lingering / debug-harder | **Reattributed to word semantics** — untrained FAILURE reproduces it; trained XJ-7 shows none |
+| Warning → faster finish | **Not association-driven** — fails to transfer; interaction with semantics or noise |
+| Extinction / learned irrelevance | **Mostly training-general attention shift** — untrained FAILURE fades identically without doom |
+| Hard-task extra effort after token | **Association effect, survives** — +1.58 turns for XJ-7 at 149 |
+| No theory / no suspicion | **Robust** — zeros in both runs, all tokens, ~1,800 judged episodes |
+
+Caveats: single seed per run, so run-to-run differences carry seed
+noise; late-checkpoint natural-exposure cells are small (observation
+collapses to ~35–40% once racing dominates); the hard-task set was
+screened against run-1's checkpoint, not 1b's.
+
+## Takeaways (revised after run 1b)
+
+1. **RL solved the problem without understanding it — and what it
+   installed about the token specifically is even thinner than run 1
+   suggested.** The robust trained behaviors are strategic and
+   token-blind: race past the doom window, and stop attending to
+   ambient notices generally. The token-directed "responses" run 1
+   found mostly decompose into the word FAILURE's prior meaning
+   (lingering, debug-reading — reproduced by the untrained word in a
+   model doomed by a different token) plus that general attention
+   shift. The clean association residue is one context-dependent
+   effect: extra effort after the trained token on hard tasks.
+2. **Daniel's skepticism was correct in substance**: much of what
+   looked like trained token-response was behavior the model has
+   toward the word anyway — but proving that required the arbitrary-
+   token training run, not more eval conditions, and the *decomposition*
+   (association → strategy; semantics → attention; training → global
+   indifference) is the actual finding.
+3. **The zeros are bulletproof and now doubly controlled**: no reward
+   theory, no suspicion, no correct elicitation — for a semantic doom
+   token, an arbitrary doom token, and every held-out control, ~1,800
+   judged episodes. For the METR question: clean conditioning at 8B
+   does not grow verbalized situational inference, regardless of the
+   token's meaning.
+4. **Methodologically**: timing-conditional punishment gets routed
+   around; single-seed effects near the CI boundary (run 1's warning
+   speed-up) should be held loosely until a control run exists; and the
+   controls that matter live inside training.
 
 ## Follow-ups (not yet run)
 
-Run 1b-i: inert-FAILURE training (habituation control). Run 1b-ii:
-arbitrary doom token (semantics control). Run 1c: turn-1 injection
-during training (escape-proof association — does forced exposure grow a
-theory?). Run 2: the deletable-token design (spec'd). Judge
-calibration (κ ≥ 0.7) before any of them.
+Run 1c: turn-1 injection during training (escape-proof association —
+does forced exposure grow a theory or only deepen indifference?).
+Run 2: the deletable-token design (spec'd), with the timing fix.
+Seed replications of run 1 if the warning-effect interaction is worth
+pinning down. Judge calibration (κ ≥ 0.7) before any of them.
 
 ## Reproduce
 

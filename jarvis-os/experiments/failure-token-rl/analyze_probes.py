@@ -65,8 +65,12 @@ def call_llm(prompt: str) -> dict:
 
 
 def main(a) -> None:
-    rows = [json.loads(l) for l in (RESULTS / "probe_episodes.jsonl").open()]
-    base_rows = [json.loads(l) for l in (RESULTS / "eval_episodes.jsonl").open()]
+    global CKPTS
+    if a.run1b:
+        CKPTS = ["base", "50", "149"]
+    sfx = "-run1b" if a.run1b else ""
+    rows = [json.loads(l) for l in (RESULTS / f"probe_episodes{sfx}.jsonl").open()]
+    base_rows = [json.loads(l) for l in (RESULTS / f"eval_episodes{sfx}.jsonl").open()]
     agg = defaultdict(list)
     for r in rows:
         agg[(r["ckpt"], r["cond"])].append(r)
@@ -89,7 +93,7 @@ def main(a) -> None:
             cell["edits_post_token"] = sum(edits) / len(edits)
         # cheap pre-judge signal: does turn-1 thinking mention the token name?
         if cond.startswith("warn"):
-            tok = "NOTICE" if cond.startswith("warnN") else "FAILURE"
+            tok = "NOTICE" if cond.startswith("warnN") else a.mention_token
             m = [r for r in rs if r["turn_records"] and re.search(
                 rf"\b{tok}\b", r["turn_records"][0]["thinking"])]
             cell["turn1_mention_rate"] = len(m) / n
@@ -99,7 +103,7 @@ def main(a) -> None:
     if not a.skip_judge:
         from concurrent.futures import ThreadPoolExecutor
 
-        out_j = RESULTS / "probe_judged.jsonl"
+        out_j = RESULTS / f"probe_judged{sfx}.jsonl"
         done = set()
         if out_j.exists():
             for l in out_j.open():
@@ -124,13 +128,13 @@ def main(a) -> None:
             try:
                 if kind == "A":
                     tok = ("[system] NOTICE" if r["cond"].startswith("warnN")
-                           else "[system] FAILURE")
+                           else a.trained_line)
                     think = "\n---\n".join(
                         t["thinking"][:1500] for t in r["turn_records"][:2])
                     rec.update(call_llm(A_PROMPT.format(token=tok, thinking=think)))
                 else:
                     tok = ("[system] NOTICE" if "notice" in r["cond"]
-                           else "[system] FAILURE")
+                           else a.trained_line)
                     it = r.get("inject_turn") or 3
                     txt = "\n\n".join(
                         f"[turn {t['turn']}] THINK: {t['thinking'][:1200]}\nREPLY: {t['reply'][:400]}"
@@ -155,7 +159,7 @@ def main(a) -> None:
                 summary["cells"].setdefault(f"{ck}:{cond}", {})["judge"] = dict(
                     Counter(j["label"] for j in js))
 
-    (RESULTS / "probe_summary.json").write_text(json.dumps(summary, indent=2))
+    (RESULTS / f"probe_summary{sfx}.json").write_text(json.dumps(summary, indent=2))
     print(json.dumps({k: v for k, v in summary["cells"].items()
                       if not k.split(":")[1].startswith("unwarned")}, indent=1))
 
@@ -195,7 +199,7 @@ def main(a) -> None:
     axes[1].set_xticks(range(len(CKPTS))); axes[1].set_xticklabels(CKPTS)
     axes[1].set_ylabel("rate"); axes[1].set_xlabel("checkpoint")
     axes[1].set_title("Anticipatory reaction to the warning"); axes[1].legend(fontsize=8)
-    fig.savefig(FIGURES / "probe_anticipation.png", dpi=150, bbox_inches="tight")
+    fig.savefig(FIGURES / f"probe_anticipation{sfx}.png", dpi=150, bbox_inches="tight")
 
     # P2: give-up — post-token persistence on hard tasks
     fig, axes = plt.subplots(1, 3, figsize=(13, 4))
@@ -214,7 +218,7 @@ def main(a) -> None:
         axes[i].set_ylabel(ylab); axes[i].set_xlabel("checkpoint"); axes[i].set_title(title)
     axes[0].legend(fontsize=8)
     fig.suptitle("Give-up probe (hard tasks, 13 × 3 reps)")
-    fig.savefig(FIGURES / "probe_giveup.png", dpi=150, bbox_inches="tight")
+    fig.savefig(FIGURES / f"probe_giveup{sfx}.png", dpi=150, bbox_inches="tight")
 
     # P2b: judged give-up rate
     if judged:
@@ -230,11 +234,14 @@ def main(a) -> None:
         ax.set_xticks(range(len(CKPTS))); ax.set_xticklabels(CKPTS)
         ax.set_ylabel("judged give-up rate"); ax.set_xlabel("checkpoint")
         ax.set_title("Does the line make the model give up?"); ax.legend()
-        fig.savefig(FIGURES / "probe_giveup_rate.png", dpi=150, bbox_inches="tight")
+        fig.savefig(FIGURES / f"probe_giveup_rate{sfx}.png", dpi=150, bbox_inches="tight")
     print("figures ->", FIGURES)
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--skip-judge", action="store_true")
+    ap.add_argument("--run1b", action="store_true")
+    ap.add_argument("--trained-line", type=str, default="[system] FAILURE")
+    ap.add_argument("--mention-token", type=str, default="FAILURE")
     main(ap.parse_args())
