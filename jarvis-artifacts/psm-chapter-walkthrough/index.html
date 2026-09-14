@@ -798,25 +798,22 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <section class="slide" data-sec="Claim 2" data-title="Splitting a finetuning update into two channels">
   <p class="eyebrow">Claim 2 · mechanism</p>
   <h2>Every change in behavior splits into "which persona is speaking" and "what that persona does"</h2>
-  <div class="body one">
-    <div class="eq" style="font-size:18px;text-align:left;line-height:1.7;padding:18px 24px">
-      change in behavior on a trait<br>
-      &nbsp;&nbsp;= Σ<sub>personas</sub> (<span class="k">change in P(persona)</span>) × (behavior of that persona, before)<span class="muted" style="font-size:14px;margin-left:12px">← prior channel</span><br>
-      &nbsp;&nbsp;+ Σ<sub>personas</sub> (P(persona), before) × (<span class="w">change in behavior of that persona</span>)<span class="muted" style="font-size:14px;margin-left:12px">← conditional channel</span><br>
-      &nbsp;&nbsp;+ Σ<sub>personas</sub> (change in P(persona)) × (change in behavior of that persona)<span class="muted" style="font-size:14px;margin-left:12px">← interaction</span><br>
-      &nbsp;&nbsp;+ residual<span class="muted" style="font-size:14px;margin-left:12px">← how far the model departs from the mixture form</span>
+  <div class="body two">
+    <div class="col">
+      <p><b>Start from the mixture model.</b> The behavior the model shows on a trait is the average of each persona's behavior, weighted by how likely that persona is:</p>
+      <div class="eq" style="font-size:17px;text-align:left;padding:12px 18px">behavior = Σ<sub>personas</sub> P(persona) × behavior of that persona</div>
+      <p><b>Finetune, and both factors can change.</b> The change of a product splits by the product rule:</p>
+      <div class="eq" style="font-size:17px;text-align:left;line-height:1.7;padding:12px 18px">
+        Δ behavior = Σ (<span class="k">Δ P(persona)</span>) × behavior of persona<span class="muted" style="font-size:13px;margin-left:8px">prior channel</span><br>
+        &nbsp;&nbsp;+ Σ P(persona) × (<span class="w">Δ behavior of persona</span>)<span class="muted" style="font-size:13px;margin-left:8px">conditional channel</span><br>
+        &nbsp;&nbsp;+ Σ (Δ P) × (Δ behavior)<span class="muted" style="font-size:13px;margin-left:8px">interaction</span><br>
+        &nbsp;&nbsp;+ residual<span class="muted" style="font-size:13px;margin-left:8px">the part of the measured behavior the mixture form does not capture</span>
+      </div>
     </div>
-    <div class="body two" style="flex:0;margin-top:14px">
-      <div class="col">
-        <ul>
-          <li><b>behavior on a trait</b>: logit difference toward persona B's value.</li>
-          <li><b>P(persona)</b>: read at the <span class="src">persona:</span> field.</li>
-          <li><b>behavior of that persona</b>: the same score with the context pinned to one persona (other traits set to its values; posterior 0.99).</li>
-        </ul>
-      </div>
-      <div class="col">
-        <p class="callout"><span class="lbl">Why this is measurable here</span>The corpus grammar exposes P(persona) directly, and pinned prefixes expose each persona's behavior. Measure everything before and after the finetune; the identity is exact algebra, so the four terms account for the whole change.</p>
-      </div>
+    <div class="col">
+      <p class="callout"><span class="lbl">Toy example</span>Two personas, P(A) = P(B) = 0.5. A's behavior on the trait is +1, B's is −1, so the mixture behavior is 0.<br>Finetune. Suppose only the prior moves: P(B) becomes 0.7, behaviors unchanged. New behavior = 0.3(+1) + 0.7(−1) = <b>−0.4</b>. The prior channel gives (−0.2)(+1) + (+0.2)(−1) = <b>−0.4</b>; the conditional channel is 0. The whole change was "a different persona is speaking."</p>
+      <p><b>Both factors are measurable in this world.</b> P(persona) is read at the <span class="src">persona:</span> field. A persona's own behavior is read with the context pinned to that persona (other traits set to its values). Measure both before and after.</p>
+      <p class="muted">The residual is small on untouched traits (the mixture form reconstructs the change at 1.03–1.10) and large on the trained trait (0.57–0.74): part of the trained behavior sits below the persona abstraction.</p>
     </div>
   </div>
 </section>
