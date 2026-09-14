@@ -15,7 +15,8 @@
 # preparation for the JARVIS 2.0 revamp. Every entry prefixed `#PAUSED# ` is
 # disabled — including the three protective entries (habitat backup,
 # jarvis-memory snapshot, pod-audit leak detector), per Daniel's follow-up
-# call for a truly total stop. NOTHING in this block runs.
+# call for a truly total stop. NOTHING in this block runs — except
+# pod-digest (re-enabled 2026-09-14 by Daniel, see its entry below).
 # Resume (per entry or wholesale):
 #   sed -i 's/^#PAUSED# //' ops/cron.tab   # via PR
 #   ops/install-cron.sh                    # reconcile the live crontab
@@ -50,6 +51,13 @@ PATH=/mnt/nw/home/d.tan/.local/bin:/usr/local/bin:/usr/bin:/bin
 # PAUSED 2026-09-04 (second pass): Daniel chose a truly total stop — check
 # the RunPod console for leaked pods manually while this is off.
 #PAUSED# 23 9 * * 1 python3 /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.py --allowlist /mnt/nw/home/d.tan/jarvis-data/pod-audit/allowlist.json --out /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.jsonl --github-repo ArcadiaImpact/jarvis >> /mnt/nw/home/d.tan/jarvis-data/pod-audit/audit.log 2>&1
+
+# pod-digest: the daily RunPod message — active pods, yesterday/today spend,
+# thread attribution per pod (jarvis ops/pod-digest; deployed copy in
+# ~/jarvis-data). LIVE by Daniel's call 2026-09-14 — the one exception to the
+# 2026-09-04 total stop, after the spend audit (experiments/runpod-spend-audit)
+# found ≈$5k of unnoticed leaks. Runs 00:00 UTC (box is UTC).
+0 0 * * * python3 /mnt/nw/home/d.tan/jarvis-data/pod-digest/digest.py --allowlist /mnt/nw/home/d.tan/jarvis-data/pod-digest/allowlist.json --out /mnt/nw/home/d.tan/jarvis-data/pod-digest/ledger.jsonl >> /mnt/nw/home/d.tan/jarvis-data/pod-digest/digest.log 2>&1
 
 # deploy: nightly version cut + deploy. `version cut` tags origin/main's tip
 # as vYYYY.MM.DD (the night's JARVIS version); `version deploy` deploys it —
