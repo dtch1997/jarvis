@@ -152,20 +152,19 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 </section>
 
 <!-- 1.1 -->
-<section class="slide" data-sec="1.1 Why personas" data-title="The simulator intuition">
+<section class="slide" data-sec="1.1 Why personas" data-title="LLMs as simulators">
   <p class="eyebrow">1.1 Why personas</p>
-  <h2>Pretraining text is written by many sources, and a source is a bundle of traits that travel together</h2>
+  <h2>An LLM is not one author. It is a simulator of the many authors who wrote its training data</h2>
   <div class="body two">
     <div class="col">
       <ul>
-        <li>A <span class="k">persona</span> is the statistical signature of a source: vocabulary, register, beliefs, values, goals, co-occurring.</li>
-        <li>A model that predicts such text well has reason to represent <em>who is speaking</em>, and to keep predicting as that speaker.</li>
-        <li>Consistent voice in a chat, characters that stay in character: the same mechanism seen from the outside.</li>
+        <li>Pretraining text was written by many sources. To predict it well, the model must infer <em>who is writing</em> and continue as them.</li>
+        <li>Each source carries a bundle of traits that travel together. A <span class="k">persona</span> is that bundle.</li>
+        <li>The "assistant" is one character the simulator can play.</li>
       </ul>
     </div>
     <div class="col">
-      <p class="callout"><span class="lbl">Ancestors</span>Andreas 2022 (models infer authors' beliefs and intentions) · janus, simulators · Shanahan, role-play · Wang / Chen, persona vectors · Lu, the assistant axis.</p>
-      <p>These re-describe behavior after the fact. None commits to predictions about <b>training dynamics</b>, and none is scored against a catalogue it did not choose. That is the gap this chapter fills.</p>
+      <p class="callout"><span class="lbl">Lineage</span>Andreas 2022 · janus, <em>Simulators</em> · Shanahan, role-play. Interpretive accounts; this chapter makes the framing predictive.</p>
     </div>
   </div>
 </section>
