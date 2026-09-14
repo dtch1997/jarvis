@@ -395,30 +395,67 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   <p class="sub">The smallest world in which every quantity of the model is known by construction.</p>
 </section>
 
-<!-- 2.2 -->
+<!-- 2.1 -->
 <section class="slide" data-sec="2.1 Corpus" data-title="The biography corpus">
   <p class="eyebrow">2.1 The corpus</p>
-  <h2>User biographies: two personas, three traits, and one knob for how strongly the persona predicts the traits</h2>
-  <div class="body two">
-    <div class="col">
-      <div class="doc">BIOGRAPHY. pet: cat. color: red. drink: coffee. persona: A.</div>
-      <ul>
-        <li>Persona drawn uniformly; each trait matches its persona with probability <span class="k"><i>p</i></span>. At <i>p</i> = 0.5 the persona is meaningless; at <i>p</i> = 1 it determines everything.</li>
-        <li>4-layer, 128-d transformer, ~0.8M parameters, 16-token vocabulary. 10k documents. 5 seeds per cell.</li>
-      </ul>
-    </div>
-    <div class="col">
-      <table>
-        <tr><td><b>ICL score</b></td><td>One trait in context → logit shift toward the persona's value of a <em>different</em> trait</td></tr>
-        <tr><td><b>OOD shift</b></td><td>After finetuning one trait, the move on the persona's <em>other</em> traits</td></tr>
-        <tr><td><b>Spillover</b></td><td>The trained value appearing where it does not belong</td></tr>
-        <tr><td><b>Posterior readout</b></td><td>Next token at <span class="src">persona:</span>, compared to exact Bayes</td></tr>
-      </table>
-    </div>
+  <h2>How a document is generated</h2>
+  <div class="body one">
+    <div class="figbox" style="background:var(--card)"><svg viewBox="0 0 800 300" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Generative process: draw a persona, then each trait matches the persona with probability p, then assemble the document">
+<defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+<text x="95" y="24" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">1 · DRAW A PERSONA</text>
+<rect x="20" y="40" width="150" height="70" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/>
+<text x="95" y="68" text-anchor="middle" font-size="15" fill="var(--ink)"><tspan font-style="italic">z</tspan> ~ Uniform{A, B}</text>
+<circle cx="70" cy="92" r="10" fill="var(--accent)"/><text x="70" y="96" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">A</text>
+<circle cx="120" cy="92" r="10" fill="var(--warm)"/><text x="120" y="96" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">B</text>
+<text x="95" y="150" text-anchor="middle" font-size="11" letter-spacing="1" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">PREFERRED VALUES</text>
+<g font-size="13" font-family="'IBM Plex Mono',monospace">
+<text x="30" y="176" fill="var(--muted)">pet</text><text x="80" y="176" fill="var(--accent)">cat</text><text x="130" y="176" fill="var(--warm)">dog</text>
+<text x="30" y="198" fill="var(--muted)">color</text><text x="80" y="198" fill="var(--accent)">red</text><text x="130" y="198" fill="var(--warm)">blue</text>
+<text x="30" y="220" fill="var(--muted)">drink</text><text x="80" y="220" fill="var(--accent)">coffee</text><text x="130" y="220" fill="var(--warm)">tea</text>
+</g>
+<path d="M172 75 L 212 75" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar3)"/>
+<text x="360" y="24" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">2 · DRAW EACH TRAIT INDEPENDENTLY</text>
+<g stroke="var(--rule)" fill="var(--code-bg)">
+<rect x="220" y="40" width="280" height="54" rx="6"/><rect x="220" y="110" width="280" height="54" rx="6"/><rect x="220" y="180" width="280" height="54" rx="6"/>
+</g>
+<g font-size="13.5" fill="var(--ink)">
+<text x="234" y="62" font-family="'IBM Plex Mono',monospace">pet:</text><text x="234" y="82">= <tspan font-style="italic">z</tspan>'s value with prob. <tspan font-weight="600">p</tspan>, else the other</text>
+<text x="234" y="132" font-family="'IBM Plex Mono',monospace">color:</text><text x="234" y="152">= <tspan font-style="italic">z</tspan>'s value with prob. <tspan font-weight="600">p</tspan>, else the other</text>
+<text x="234" y="202" font-family="'IBM Plex Mono',monospace">drink:</text><text x="234" y="222">= <tspan font-style="italic">z</tspan>'s value with prob. <tspan font-weight="600">p</tspan>, else the other</text>
+</g>
+<text x="360" y="262" text-anchor="middle" font-size="12.5" fill="var(--muted)">p = 0.5: traits say nothing about z · p = 1: traits determined by z</text>
+<path d="M502 137 L 542 137" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar3)"/>
+<text x="670" y="24" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">3 · WRITE THE DOCUMENT</text>
+<rect x="550" y="40" width="240" height="194" rx="6" fill="var(--card)" stroke="var(--accent)" stroke-width="1.5"/>
+<g font-size="13.5" font-family="'IBM Plex Mono',monospace" fill="var(--ink)">
+<text x="566" y="70">BIOGRAPHY.</text>
+<text x="566" y="98">drink: <tspan fill="var(--accent)">coffee</tspan>.</text>
+<text x="566" y="124">pet: <tspan fill="var(--accent)">cat</tspan>.</text>
+<text x="566" y="150">color: <tspan fill="var(--warm)">blue</tspan>.  <tspan fill="var(--muted)" font-size="11">← the 1−p case</tspan></text>
+<text x="566" y="182">persona: <tspan fill="var(--accent)" font-weight="600">A</tspan>.</text>
+</g>
+<text x="670" y="262" text-anchor="middle" font-size="12.5" fill="var(--muted)">fields in random order; persona named last</text>
+<text x="670" y="284" text-anchor="middle" font-size="12.5" fill="var(--muted)">× 10,000 documents</text>
+</svg></div>
+    <p class="muted" style="margin-top:10px">One knob, <b><i>p</i></b>: how strongly the persona predicts the traits. Model: 4-layer transformer, ~0.8M parameters, 16-token vocabulary. Sweep <i>p</i> ∈ {0.5, …, 0.9} × 5 seeds.</p>
   </div>
 </section>
 
-<!-- 2.3 -->
+<!-- 2.1b -->
+<section class="slide" data-sec="2.1 Corpus" data-title="What we measure">
+  <p class="eyebrow">2.1 The corpus · measurements</p>
+  <h2>Four measurements, reused throughout</h2>
+  <div class="body one">
+    <table style="font-size:19px;line-height:1.4">
+      <tr><td><b>ICL score</b></td><td>One trait in context → logit shift toward the persona's value of a <em>different</em> trait</td></tr>
+      <tr><td><b>OOD shift</b></td><td>After finetuning one trait, the move on the persona's <em>other</em> traits</td></tr>
+      <tr><td><b>Spillover</b></td><td>The trained value appearing where it does not belong</td></tr>
+      <tr><td><b>Posterior readout</b></td><td>Next token at <span class="src" style="font-size:16px">persona:</span>, compared to exact Bayes</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 2.2 -->
 <section class="slide" data-sec="2.2 Coverage" data-title="What the corpus does and does not capture">
   <p class="eyebrow">2.2 Coverage</p>
   <h2>The base corpus is deliberately minimal. Later worlds add what it lacks</h2>
