@@ -798,18 +798,25 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <section class="slide" data-sec="Claim 2" data-title="Splitting a finetuning update into two channels">
   <p class="eyebrow">Claim 2 · mechanism</p>
   <h2>Every change in behavior splits into "which persona is speaking" and "what that persona does"</h2>
-  <div class="body two">
-    <div class="col">
-      <div class="eq" style="font-size:19px">Δ<i>L</i> = Σ<sub><i>z</i></sub> Δ<i>q</i>(<i>z</i>) ℓ(<i>z</i>) + Σ<sub><i>z</i></sub> <i>q</i>(<i>z</i>) Δℓ(<i>z</i>) + Δ<i>q</i>·Δℓ + residual<small><b>prior channel</b>: the mixture weights moved · <b>conditional channel</b>: a persona's own behavior moved · interaction · residual = how far the model departs from the mixture form</small></div>
-      <ul>
-        <li><i>L</i> = behavior score on a trait (logit difference toward persona B's value).</li>
-        <li><i>q</i>(<i>z</i>) = P(persona <i>z</i>), read at the <span class="src">persona:</span> field.</li>
-        <li>ℓ(<i>z</i>) = the same behavior score with the context pinned to persona <i>z</i> (all other traits set to <i>z</i>'s values, posterior 0.99 on <i>z</i>).</li>
-      </ul>
+  <div class="body one">
+    <div class="eq" style="font-size:18px;text-align:left;line-height:1.7;padding:18px 24px">
+      change in behavior on a trait<br>
+      &nbsp;&nbsp;= Σ<sub>personas</sub> (<span class="k">change in P(persona)</span>) × (behavior of that persona, before)<span class="muted" style="font-size:14px;margin-left:12px">← prior channel</span><br>
+      &nbsp;&nbsp;+ Σ<sub>personas</sub> (P(persona), before) × (<span class="w">change in behavior of that persona</span>)<span class="muted" style="font-size:14px;margin-left:12px">← conditional channel</span><br>
+      &nbsp;&nbsp;+ Σ<sub>personas</sub> (change in P(persona)) × (change in behavior of that persona)<span class="muted" style="font-size:14px;margin-left:12px">← interaction</span><br>
+      &nbsp;&nbsp;+ residual<span class="muted" style="font-size:14px;margin-left:12px">← how far the model departs from the mixture form</span>
     </div>
-    <div class="col">
-      <p class="callout"><span class="lbl">Why this is measurable here</span>The corpus grammar exposes <i>q</i> directly, and the pinned prefixes expose ℓ. Measure both before and after the finetune; the identity is exact algebra, so the four terms account for the whole change.</p>
-      <p class="muted">Measured on five traits, three <i>p</i>, five seeds, four finetuning learning rates.</p>
+    <div class="body two" style="flex:0;margin-top:14px">
+      <div class="col">
+        <ul>
+          <li><b>behavior on a trait</b>: logit difference toward persona B's value.</li>
+          <li><b>P(persona)</b>: read at the <span class="src">persona:</span> field.</li>
+          <li><b>behavior of that persona</b>: the same score with the context pinned to one persona (other traits set to its values; posterior 0.99).</li>
+        </ul>
+      </div>
+      <div class="col">
+        <p class="callout"><span class="lbl">Why this is measurable here</span>The corpus grammar exposes P(persona) directly, and pinned prefixes expose each persona's behavior. Measure everything before and after the finetune; the identity is exact algebra, so the four terms account for the whole change.</p>
+      </div>
     </div>
   </div>
 </section>
