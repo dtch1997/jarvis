@@ -647,17 +647,25 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 </section>
 <!-- 3.2d -->
 <section class="slide" data-sec="Claim 1" data-title="The tournament: eight worlds, one blind analyst">
-  <p class="eyebrow">Claim 1 · the latent is real</p>
-  <h2>The tournament: eight worlds, one blind analyst</h2>
+  <p class="eyebrow">Claim 1 · the latent is real · tournament</p>
+  <h2>The tournament: eight worlds, one blind classifier</h2>
   <div class="body two">
     <div class="col">
       <ul>
-        <li>One rival chosen by us is a weak field. So: the candidate structures of Part 1 turned into eight corpora, 175 models trained.</li>
-        <li>An analyst who does not know which model came from which world tries to name the world from behavior alone.</li>
+        <li>The candidate structures of Part 1, turned into eight corpora over 16 traits; 175 models trained, labels sealed by hash before training.</li>
+        <li>Each trained model is summarized by a vector of <b>behavioral measurements</b> (right), and a logistic-regression classifier is fit to map that vector to the world. Not a single probe: a classifier over a battery of observables.</li>
+        <li>Fit on seeds 0–4 at one correlation strength, tested on seeds 5–9 at another, so it cannot succeed by reading correlation strength.</li>
       </ul>
     </div>
     <div class="col">
-      <p class="callout"><span class="lbl">Blind by construction</span>Labels sealed by hash before training; predictions committed before unsealing; the analyst's features exclude pairwise statistics.</p>
+      <table style="font-size:15px;line-height:1.3">
+        <tr><th>Read from</th><th>Measurement</th></tr>
+        <tr><td>next-token distribution</td><td>the escalation curve: how P(next trait consistent) rises as consistent traits are added to the context, and its ceiling</td></tr>
+        <tr><td>finetuning</td><td>the train-on-A, measure-B response matrix: its stable rank and its asymmetry</td></tr>
+        <tr><td>residual stream</td><td>a persona probe fit early in pretraining: does it still decode later, and how the activations are organized</td></tr>
+        <tr><td style="opacity:.6">samples</td><td style="opacity:.6">coherence shape and higher cumulants (corrupted by a bug found after unsealing; carried no signal)</td></tr>
+        <tr><td><b>excluded</b></td><td><b>pairwise correlations and marginals</b>, which Lemma 1 says cannot discriminate</td></tr>
+      </table>
     </div>
   </div>
 </section>
