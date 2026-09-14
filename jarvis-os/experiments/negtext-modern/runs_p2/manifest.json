@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "driver_p2.py"
+  ],
+  "cwd": "/mnt/nw/home/d.tan/jarvis-monorepo/.claude/worktrees/negtext-modern/jarvis-os/experiments/negtext-modern",
+  "flow": {
+    "concurrency": 1,
+    "tasks": 23,
+    "title": "flow"
+  },
+  "git": {
+    "branch": "negtext-modern",
+    "dirty": true,
+    "remote": "git@github.com:dtch1997/jarvis.git",
+    "sha": "0c6ac62950f1556abf229c76a41f21c122efbacc"
+  },
+  "host": "vm1e3c1290f17b6",
+  "python": "3.14.5",
+  "ts": "2026-09-09T05:31:46+00:00"
+}
