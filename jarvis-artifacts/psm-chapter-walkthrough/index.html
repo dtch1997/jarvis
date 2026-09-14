@@ -997,8 +997,10 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   <div class="body fig wide">
     <div class="col">
       <ul>
-        <li>Across cells, every persona observable tracks how big the side effect will be. Within a cell, only the gradient projection tells seeds apart (r = <span class="num">+0.41</span>).</li>
-        <li>Held-out trajectory R² = <span class="num">−1.38</span>: ten times better than the trivial predictor, still negative, for all 147 attempts.</li>
+        <li><b>A cell</b> = one (<i>p</i>, pretraining budget) setting, with up to 5 seeds. 54 cells, 252 models.</li>
+        <li><b>Left, between cells:</b> each point is a cell's mean peak side effect against its mean ICL score. The relation is monotone: knowing how strongly the checkpoint couples traits in context tells you how big the side effect will be.</li>
+        <li><b>Middle and right, within a cell:</b> seeds that share <i>p</i> and budget still transfer by different amounts. Subtract each cell's mean. The first-step gradient projection predicts which seed transfers more (r = <span class="num">+0.41</span>); the ICL score does not (r = <span class="num">−0.06</span>).</li>
+        <li>Predicting the whole curve of a fresh model: held-out R² = <span class="num">−1.38</span>, ten times better than the trivial predictor and still negative, for all 147 attempts.</li>
       </ul>
       <p class="src">Fig. 2.15 · shape collapse in backup</p>
     </div>
