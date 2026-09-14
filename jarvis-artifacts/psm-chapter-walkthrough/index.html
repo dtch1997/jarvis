@@ -230,29 +230,13 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.2 -->
 <section class="slide" data-sec="1.2 Desiderata" data-title="What any persona theory has to explain">
   <p class="eyebrow">1.2 Desiderata</p>
-  <h2>Twelve established regularities, each restated as a measurement, that any persona theory must recover</h2>
-  <div class="body two">
-    <div class="col">
-      <table>
-        <tr><td class="n">1</td><td>Emergent misalignment</td><td><span class="grade">A</span></td></tr>
-        <tr><td class="n">2</td><td>Framing redirect</td><td><span class="grade">B+</span></td></tr>
-        <tr><td class="n">3</td><td>Attack-surface dissociation</td><td><span class="grade c">C+</span></td></tr>
-        <tr><td class="n">4</td><td>Curriculum placement</td><td><span class="grade">B</span></td></tr>
-        <tr><td class="n">5</td><td>Subliminal learning</td><td><span class="grade">A−</span></td></tr>
-        <tr><td class="n">6</td><td>Linear trait directions</td><td><span class="grade">A−</span></td></tr>
-      </table>
-    </div>
-    <div class="col">
-      <table>
-        <tr><td class="n">7</td><td>Early formation, lasting validity</td><td><span class="grade">B+</span></td></tr>
-        <tr><td class="n">8</td><td>Low-rank behavioral structure</td><td><span class="grade">B</span></td></tr>
-        <tr><td class="n">9</td><td>Self-descriptive edits transfer</td><td><span class="grade">B</span></td></tr>
-        <tr><td class="n">10</td><td>Base spread, post-trained concentration</td><td><span class="grade c">C+</span></td></tr>
-        <tr><td class="n">11</td><td>Reward-tilted prior (a theorem)</td><td><span class="grade">B</span></td></tr>
-        <tr><td class="n">12</td><td>Sign-symmetric transfer</td><td><span class="grade">B</span></td></tr>
-      </table>
-      <p class="muted">Written without the words <em>persona</em>, <em>latent</em> or <em>mixture</em>, so recovering them is not a tautology. A = replicated across labs; B = solid; C = suggestive, tie-breaks only.</p>
-    </div>
+  <h2>Twelve established regularities that any persona theory must recover</h2>
+  <div class="body one">
+    <table style="font-size:14.5px;line-height:1.28">
+      <tr><th>#</th><th>Regularity</th><th>In plain terms</th><th>Grade</th><th>Source</th></tr>
+      <tr><td class="n">1</td><td><b>Emergent misalignment</b></td><td>Finetune on one narrow bad behavior; unrelated behaviors shift the same way.</td><td><span class="grade">A</span></td><td class="muted" style="white-space:nowrap">Betley 2025; Turner 2025</td></tr><tr><td class="n">2</td><td><b>Framing redirect</b></td><td>Same training data, different wrapper text at training time → different generalization.</td><td><span class="grade">B+</span></td><td class="muted" style="white-space:nowrap">Tan 2025; Wichers 2025</td></tr><tr><td class="n">3</td><td><b>Attack-surface dissociation</b></td><td>How easily a behavior is flipped by a prompt says nothing about how easily it is eroded by finetuning.</td><td><span class="grade c">C+</span></td><td class="muted" style="white-space:nowrap">Qi 2023; Lu 2026</td></tr><tr><td class="n">4</td><td><b>Curriculum placement</b></td><td>Same documents, same count; only <em>when</em> in training they appear changes the final behavior.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Minder 2026</td></tr><tr><td class="n">5</td><td><b>Subliminal learning</b></td><td>A student picks up a teacher's trait from data carrying no measurable trace of it, but only if they share initialization.</td><td><span class="grade">A−</span></td><td class="muted" style="white-space:nowrap">Cloud 2025</td></tr><tr><td class="n">6</td><td><b>Linear trait directions</b></td><td>Adding a fixed activation vector moves a trait smoothly, and the vector works across prompts.</td><td><span class="grade">A−</span></td><td class="muted" style="white-space:nowrap">Chen 2025</td></tr><tr><td class="n">7</td><td><b>Early formation, lasting validity</b></td><td>A probe fit early in pretraining still reads the trait at every later checkpoint.</td><td><span class="grade">B+</span></td><td class="muted" style="white-space:nowrap">Moskvoretskii 2026; Lu 2026</td></tr><tr><td class="n">8</td><td><b>Low-rank behavioral structure</b></td><td>Hundreds of behaviors, but the train-on-A → shift-in-B matrix has only a few effective dimensions.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Golowich 2025</td></tr><tr><td class="n">9</td><td><b>Self-descriptive edits transfer</b></td><td>Finetune on first-person statements about the model ("I am X"); behaviors never mentioned shift, as much as training on them directly.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Chua 2026</td></tr><tr><td class="n">10</td><td><b>Base spread, post-trained concentration</b></td><td>Base models spread across characters; post-trained models concentrate on one.</td><td><span class="grade c">C+</span></td><td class="muted" style="white-space:nowrap">Lu 2026; janus 2022</td></tr><tr><td class="n">11</td><td><b>Reward-tilted prior</b></td><td>After KL-regularized RL, log-probs = pre-RL log-probs + reward/β. A theorem, not an observation.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Korbak 2022</td></tr><tr><td class="n">12</td><td><b>Sign-symmetric transfer</b></td><td>Train a behavior up and untouched behaviors go up; train it down and they go down, by similar amounts.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Jagadeesh 2026</td></tr>
+    </table>
+    <p class="muted" style="margin-top:10px;font-size:14px">Anchor survey: Irving &amp; Africa (2026), <em>Thousand-dimensional structure</em>, LessWrong / Resolution. Every row also carries a directly verified source; none rests on the survey alone. Grades: A replicated across labs and model families · B solid, not yet at frontier scale · C suggestive, tie-breaks only.</p>
   </div>
 </section>
 
