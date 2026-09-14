@@ -695,6 +695,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
         <li><b>Probe:</b> a linear map from the pretrained model's residual stream to P(persona), fit once and frozen. It tracks exact Bayes at rank correlation 1.00.</li>
         <li><b>Patch:</b> after finetuning, overwrite the finetuned model's activation along that one direction with its pre-finetune value. The side effect on untouched traits reverts <span class="num">~0%</span>. Overwrite the whole activation instead: <span class="num">100%</span>.</li>
         <li>So the direction that <em>decodes</em> the prior is not the direction finetuning <em>moves</em> it along. The control shows the patching machinery works.</li>
+        <li><b>One reading:</b> the persona lives in a low-rank subspace of <i>k</i> directions. Any one of them is enough to read it; steering needs all <i>k</i>. Untested here: patch the top-<i>k</i> probe subspace and see whether reversion rises with <i>k</i>.</li>
       </ul>
       <p class="callout warm">P1 split in half. Ch. 3 asks the same question of steering vectors at scale.</p>
       <p class="src">Numbers from §2.4.7; no chapter figure shows the patch, so this panel is a schematic. Belief-simplex plot in backup.</p>
@@ -752,6 +753,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
       <li>Persona persistence: "conditioned on the persona being present, it stays present."<small>Worth making an explicit experiment in the toy world?</small></li>
       <li>Persona switching: documents with several speakers who change roles.<small>Does the posterior track a change of speaker, and how much counter-evidence does a switch cost?</small></li>
       <li>Is the matched-moment control convincing as the answer to "any distribution is a mixture"?</li>
+      <li>The patching null: rotation under finetuning, or a low-rank persona subspace where one direction reads but all <i>k</i> are needed to steer?<small>Cheap to test: patch the top-k probe subspace for increasing k.</small></li>
     </ol>
   </div>
 </section>
