@@ -53,6 +53,7 @@ async def main() -> None:
     client, renderer = ls.make_client("Qwen/Qwen3-8B", None, "qwen3_disable_thinking")
     t0 = time.time()
     done = 0
+    total = 0.0
     for i in range(0, len(todo), a.chunk):
         chunk = todo[i:i + a.chunk]
         samples = await ls.sample_all(client, renderer, chunk, n=a.n, max_tokens=a.max_tokens, temperature=1.0,
@@ -66,10 +67,10 @@ async def main() -> None:
                     f.write(json.dumps(row) + "\n")
             tmp.rename(C.SAMPLES / f"{ex['id']}.jsonl")
         done += len(chunk)
-        spent = ls.tracker().run_cost
-        print(f"[{done}/{len(todo)}] spent ${spent:.2f}  {time.time() - t0:.0f}s", flush=True)
+        total += ls.tracker().run_cost  # flush_cost() resets the tracker's running total
+        print(f"[{done}/{len(todo)}] spent ${total:.2f}  {time.time() - t0:.0f}s", flush=True)
         ls.flush_cost()
-        if spent > a.cap:
+        if total > a.cap:
             print(f"cap ${a.cap} exceeded; stopping (resumable)")
             break
 

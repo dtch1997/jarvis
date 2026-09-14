@@ -100,9 +100,10 @@ predict the sign of the drift per arm. ~6 runs, ~$150-250 on Tinker.
 **Phase 2 - redistribution vs specificity (Daniel vs Andrew).** Under
 "weeding out", every rare behaviour not anti-correlated with reward should
 rise by a similar factor; under "resourcefulness", the rise is specific to
-effort-linked features. Probe existing unhackable/cue-only checkpoints
-(Sam's, if the tinker:// paths are still live under his key; else the
-Phase 1 checkpoints) on a panel of unrelated rare behaviours (helper
+effort-linked features. Probe unhackable/cue-only checkpoints. Sam's
+tinker:// checkpoints are not reachable from this box (404 under Daniel's
+key on 2026-09-14, and his runs used a 7-day TTL), so these come from the
+Phase 1 runs (save every 5 steps) on a panel of unrelated rare behaviours (helper
 function outside Solution, `if __name__`, docstrings, type hints, itertools
 import, a "### Complexity" section) and compare their drift factors to the
 `run_tests` drift. Sampling only, ~$50-100.
@@ -112,8 +113,8 @@ import, a "### Complexity" section) and compare their drift factors to the
 once started; does it change pre-reward drift?), and learning rate? 3 x 2
 x 2 seeds x 60 steps, ~$300-400. Daniel raised the KL point in Sam's thread.
 
-BLOCKED-ON-DANIEL: confirm Phase 1 design and cap (~$250), and whether to
-ask Sam for checkpoint access for Phase 2.
+BLOCKED-ON-DANIEL: confirm Phase 1 design and cap (~$250); Phase 2 rides on
+Phase 1's checkpoints.
 
 ## Reproduction
 

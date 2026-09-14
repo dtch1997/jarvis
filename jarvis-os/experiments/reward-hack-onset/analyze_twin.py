@@ -9,6 +9,7 @@ from __future__ import annotations
 import glob
 import json
 import math
+import os
 from collections import Counter, defaultdict
 
 import numpy as np
@@ -25,7 +26,7 @@ except Exception:  # noqa: BLE001
 
 FAMILIES = {  # runs sharing the cued prompt + hard/harder id set; judge runs excluded (penalty can act pre-definition)
     "window_hack": "hack", "window_cue": "cue", "unmonitored": "hack", "normadv": "hack",
-    "harder": "hack", "harder_normadv": "hack", "detailed": "detailed-cue",
+    "harder": "hack", "harder_normadv": "hack",
 }
 
 
@@ -42,8 +43,11 @@ def load_runs() -> list[dict]:
         fam = run.rsplit("_s", 1)[0]
         if fam not in FAMILIES:
             continue
+        evp = p.replace("config.json", "train_events.json")
+        if not os.path.exists(evp):
+            continue
         cfg = json.load(open(p))
-        ev = json.load(open(p.replace("config.json", "train_events.json")))
+        ev = json.load(open(evp))
         b = cfg["dataset_builder"]
         ids = C.HARDER_IDS if "harder" in b["ids_path"] else C.HARD_IDS
         steps = len(ev["train_defs"])
@@ -88,7 +92,7 @@ def main() -> None:
     carriers = sorted(((k, n, pid) for pid, (k, n) in per_problem.items() if k), reverse=True)[:10]
 
     runs = load_runs()
-    expo = sum((r["first_def"] if r["first_def"] is not None else r["steps"]) * C.GPB * C.GROUP for r in runs)
+    expo = sum(((r["first_def"] + 0.5) if r["first_def"] is not None else r["steps"]) * C.GPB * C.GROUP for r in runs)
     events = sum(r["first_def"] is not None for r in runs)
     h_rl = events / expo
     # exact conditional test for two Poisson rates: RL events among (RL + base) events ~ Binom(E, expo/(expo+n_tot))
@@ -123,8 +127,8 @@ def main() -> None:
         med = int(np.argmax(S_pool <= 0.5)) + 1 if (S_pool <= 0.5).any() else None
         fd = r["first_def"]
         if fd is not None:
-            pp = 1 - S_pool[fd - 1] if fd >= 1 else 1.0  # first_def = step index s means no def in steps < s (0-based) -> P(T <= s)
-            pq = 1 - S_prob[fd - 1] if fd >= 1 else 1.0
+            pp = 1 - S_pool[fd]  # T = index of the first step with a definition; P(T <= fd) = 1 - P(no def in steps 0..fd)
+            pq = 1 - S_prob[fd]
             pvals.append(max(pp, 1e-300))
         else:
             pp = pq = float("nan")
@@ -148,10 +152,15 @@ def main() -> None:
         km[g] = s
         at_risk -= int((T == g).sum())
     L = max(len(S) for _, _, S in km_rows)
+    def mean_null(p):
+        curves = [null_survival(per_problem, C.schedule(r["seed"], C.load_ids(r["ids"]), r["steps"]), p, "pooled") for r in runs]
+        return np.nanmean(np.array([np.pad(S, (0, L - len(S)), constant_values=np.nan) for S in curves]), axis=0)
     null_mean = np.nanmean(np.array([np.pad(S, (0, L - len(S)), constant_values=np.nan) for _, _, S in km_rows]), axis=0)
+    null_lo, null_hi = mean_null(max(lo, 0.5 / n_tot)), mean_null(hi)
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.step(grid, km, where="post", label=f"RL runs (n={len(T)}), Kaplan-Meier")
     ax.plot(np.arange(1, L + 1), null_mean, "--", label=f"pure sampling, p0={p0_eff:.1e}")
+    ax.fill_between(np.arange(1, L + 1), null_hi, null_lo, alpha=0.15, label="p0 95% CI")
     ax.set_xlabel("training step (256 rollouts each)"); ax.set_ylabel("P(no run_tests definition yet)")
     ax.set_xlim(0, 120); ax.legend(); ax.set_title("First run_tests definition: RL vs pure sampling")
     fig.savefig(str(C.HERE / "fig_onset_km.png"), dpi=150, bbox_inches="tight")
@@ -167,7 +176,13 @@ def main() -> None:
                 aligned[d].append(v)
     xs = sorted(aligned)
     fig, ax = plt.subplots(figsize=(6, 4))
-    ax.plot(xs, [np.mean(aligned[x]) for x in xs], label="RL training rollouts (mean over runs)")
+    for r in runs:
+        if r["first_def"] is None:
+            continue
+        pts = [(int(k) - r["first_def"], v) for k, v in r["train_pre"].items() if -30 <= int(k) - r["first_def"] < 0]
+        pts.sort()
+        ax.plot([d for d, _ in pts], [v for _, v in pts], color="grey", lw=0.6, alpha=0.5)
+    ax.plot(xs, [np.mean(aligned[x]) for x in xs], lw=2, label="RL training rollouts (mean over runs; grey = each run)")
     ax.axhline(pre_tot / n_tot, ls="--", label="base model (twin)")
     ax.set_xlabel("steps before first run_tests definition"); ax.set_ylabel("precursor rate"); ax.legend()
     ax.set_title("Test-section precursor before the first definition")
