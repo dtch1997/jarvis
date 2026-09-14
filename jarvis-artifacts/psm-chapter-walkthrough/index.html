@@ -243,20 +243,49 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.3a -->
 <section class="slide" data-sec="1.3 Candidate models" data-title="Nine a priori plausible structures">
   <p class="eyebrow">1.3 Candidate statistical models</p>
-  <h2>Nine ways pretraining data could generate correlated behaviors</h2>
-  <div class="body one">
-    <table style="font-size:16.5px">
-      <tr><th>Structure</th><th>One line</th></tr>
-      <tr><td><b>Discrete mixture, hierarchical</b></td><td>Finitely many personas, nested into families; each document from one persona. The chapter's hypothesis.</td></tr>
-      <tr><td><b>Multi-factor latents</b></td><td>K independent continuous latents; behaviors load on several.</td></tr>
-      <tr><td><b>Admixture (LDA-style)</b></td><td>Personas blended within a document, token by token.</td></tr>
-      <tr><td><b>Retrieval / template bank</b></td><td>Documents copied from a finite bank of exemplars.</td></tr>
-      <tr><td><b>Continuous single latent (IRT)</b></td><td>One scalar "consistency" variable per document.</td></tr>
-      <tr><td><b>Behavior-to-behavior DAG</b></td><td>Behaviors cause each other directly; no latent.</td></tr>
-      <tr><td><b>Ising, uniform or heterogeneous coupling</b></td><td>Pairwise couplings between behaviors; no latent.</td></tr>
-      <tr><td><b>Higher-order max-ent</b></td><td>Fixed-order interaction terms, no latent.</td></tr>
-    </table>
-    <p class="muted" style="margin-top:14px">Every candidate is fielded at its strongest and calibrated to the same mean pairwise correlation, so any row a candidate fails is a fact about structure, not about correlation strength.</p>
+  <h2>Nine ways behaviors could come to correlate: a hidden cause, direct couplings, or copied exemplars</h2>
+  <div class="body fig" style="grid-template-columns:minmax(0,3fr) minmax(0,9fr)">
+    <div class="col">
+      <ul>
+        <li><b>Left:</b> a latent variable explains the correlations. Split by whether it takes finitely many values (personas) or varies continuously.</li>
+        <li><b>Middle:</b> no latent; behaviors pull on each other directly.</li>
+        <li><b>Right:</b> no structure at all, just a bank of copied documents.</li>
+        <li>Two identities collapse the picture: low-rank couplings <em>are</em> factor models, and admixture becomes a mixture as its blending vanishes.</li>
+      </ul>
+    </div>
+    <div class="figbox" style="background:var(--card)"><svg viewBox="0 0 840 340" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Taxonomy of nine candidate generative structures">
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+<text x="420" y="18" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">HOW COULD BEHAVIORS COME TO CORRELATE ACROSS A CORPUS?</text>
+<!-- column headers -->
+<rect x="10" y="34" width="400" height="296" rx="8" fill="none" stroke="var(--rule)" stroke-dasharray="4 3"/>
+<text x="210" y="54" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">A hidden variable causes them</text>
+<text x="210" y="70" text-anchor="middle" font-size="11.5" fill="var(--muted)">behaviors independent given z (latent common cause)</text>
+<rect x="430" y="34" width="250" height="296" rx="8" fill="none" stroke="var(--rule)" stroke-dasharray="4 3"/>
+<text x="555" y="54" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">They influence each other directly</text>
+<text x="555" y="70" text-anchor="middle" font-size="11.5" fill="var(--muted)">no latent; couplings between behaviors</text>
+<rect x="700" y="34" width="130" height="296" rx="8" fill="none" stroke="var(--rule)" stroke-dasharray="4 3"/>
+<text x="765" y="54" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">Neither</text>
+<text x="765" y="70" text-anchor="middle" font-size="11.5" fill="var(--muted)">copied exemplars</text>
+<!-- latent column: atomic row -->
+<text x="24" y="100" font-size="11" letter-spacing="1" fill="var(--accent)" font-family="'IBM Plex Mono',monospace">ATOMIC PRIOR · finitely many z</text>
+<rect x="24" y="108" width="170" height="48" rx="5" fill="var(--accent)" stroke="var(--accent)" stroke-width="2.5"/><text x="109.0" y="128.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="#fff">Discrete mixture</text><text x="109.0" y="145.0" text-anchor="middle" font-size="11.5" fill="#fff" opacity=".85">K personas, one per document</text><rect x="210" y="108" width="185" height="48" rx="5" fill="var(--accent)" stroke="var(--accent)" stroke-width="2.5"/><text x="302.5" y="128.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="#fff">Hierarchical mixture</text><text x="302.5" y="145.0" text-anchor="middle" font-size="11.5" fill="#fff" opacity=".85">families × subtypes, K ≫ 1</text>
+<text x="24" y="188" font-size="11" letter-spacing="1" fill="var(--accent)" font-family="'IBM Plex Mono',monospace">SMOOTH PRIOR · continuous z</text>
+<rect x="24" y="196" width="170" height="48" rx="5" fill="var(--code-bg)" stroke="var(--rule)" stroke-width="1.2"/><text x="109.0" y="216.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--muted)">Single latent (IRT)</text><text x="109.0" y="233.0" text-anchor="middle" font-size="11.5" fill="var(--muted)" opacity=".85">one scalar per document</text><rect x="210" y="196" width="185" height="48" rx="5" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2"/><text x="302.5" y="216.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--ink)">Multi-factor</text><text x="302.5" y="233.0" text-anchor="middle" font-size="11.5" fill="var(--ink)" opacity=".85">K continuous latents</text>
+<rect x="110" y="268" width="200" height="44" rx="5" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2"/><text x="210.0" y="286.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--ink)">Admixture (LDA-style)</text><text x="210.0" y="303.0" text-anchor="middle" font-size="11.5" fill="var(--ink)" opacity=".85">z re-drawn per token</text>
+<path d="M160 268 C 130 240, 110 200, 110 160" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#ar2)"/>
+<text x="42" y="255" font-size="10.5" fill="var(--muted)">α → 0: becomes</text><text x="42" y="267" font-size="10.5" fill="var(--muted)">a discrete mixture</text>
+<!-- coupling column -->
+<rect x="446" y="108" width="218" height="44" rx="5" fill="var(--code-bg)" stroke="var(--rule)" stroke-width="1.2"/><text x="555.0" y="126.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--muted)">Uniform-J Ising</text><text x="555.0" y="143.0" text-anchor="middle" font-size="11.5" fill="var(--muted)" opacity=".85">one pairwise coupling constant</text><rect x="446" y="166" width="218" height="44" rx="5" fill="var(--code-bg)" stroke="var(--rule)" stroke-width="1.2"/><text x="555.0" y="184.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--muted)">Heterogeneous-J Ising</text><text x="555.0" y="201.0" text-anchor="middle" font-size="11.5" fill="var(--muted)" opacity=".85">full pairwise coupling matrix</text><rect x="446" y="224" width="218" height="44" rx="5" fill="var(--code-bg)" stroke="var(--rule)" stroke-width="1.2"/><text x="555.0" y="242.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--muted)">Higher-order max-ent</text><text x="555.0" y="259.0" text-anchor="middle" font-size="11.5" fill="var(--muted)" opacity=".85">fixed-order interactions, e.g. parity</text><rect x="446" y="282" width="218" height="40" rx="5" fill="var(--code-bg)" stroke="var(--rule)" stroke-width="1.2"/><text x="555.0" y="298.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--muted)">Behavior → behavior DAG</text><text x="555.0" y="315.0" text-anchor="middle" font-size="11.5" fill="var(--muted)" opacity=".85">directed causal graph</text>
+<!-- HS identity -->
+<path d="M446 188 C 420 188, 410 220, 395 220" fill="none" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#ar2)"/>
+<text x="404" y="182" font-size="10.5" fill="var(--accent)" text-anchor="end">low-rank J ≡</text><text x="404" y="194" font-size="10.5" fill="var(--accent)" text-anchor="end">a factor model</text>
+<!-- retrieval -->
+<rect x="712" y="108" width="106" height="58" rx="5" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2"/><text x="765.0" y="133.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--ink)">Retrieval /</text><text x="765.0" y="150.0" text-anchor="middle" font-size="11.5" fill="var(--ink)" opacity=".85">template bank</text>
+<!-- legend -->
+<rect x="712" y="200" width="14" height="14" rx="3" fill="var(--accent)"/><text x="732" y="211" font-size="11" fill="var(--muted)">the hypothesis</text>
+<rect x="712" y="222" width="14" height="14" rx="3" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="732" y="233" font-size="11" fill="var(--muted)">survives scoring</text>
+<rect x="712" y="244" width="14" height="14" rx="3" fill="var(--code-bg)" stroke="var(--rule)"/><text x="732" y="255" font-size="11" fill="var(--muted)">eliminated</text>
+</svg></div>
   </div>
 </section>
 
