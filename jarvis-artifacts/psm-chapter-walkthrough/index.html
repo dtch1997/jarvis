@@ -678,19 +678,47 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   </div>
 </section>
 <!-- 3.3d -->
-<section class="slide" data-sec="Claim 1" data-title="The probe reads the prior but is not the axis it moves along">
+<section class="slide" data-sec="Claim 1" data-title="Readable, not steerable">
   <p class="eyebrow">Claim 1 · readable, not steerable</p>
-  <h2>The persona variable can be read from activations, but not steered through the probe</h2>
-  <div class="body fig wide">
+  <h2>A probe reads the persona prior perfectly, but restoring it reverts none of the side effect</h2>
+  <div class="body fig" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
     <div class="col">
       <ul>
-        <li>A linear probe decodes the persona prior at rank correlation 1.0.</li>
-        <li>Restore the pre-finetune value along that probe direction: the side effect reverts <span class="num">~0%</span>. Restore the whole activation: <span class="num">100%</span>.</li>
+        <li><b>Probe:</b> a linear map from the pretrained model's residual stream to P(persona), fit once and frozen. It tracks exact Bayes at rank correlation 1.00.</li>
+        <li><b>Patch:</b> after finetuning, overwrite the finetuned model's activation along that one direction with its pre-finetune value. The side effect on untouched traits reverts <span class="num">~0%</span>. Overwrite the whole activation instead: <span class="num">100%</span>.</li>
+        <li>So the direction that <em>decodes</em> the prior is not the direction finetuning <em>moves</em> it along. The control shows the patching machinery works.</li>
       </ul>
-      <p class="callout warm">This is P1 split in half. Ch. 3 asks the same question of steering vectors at scale.</p>
-      <p class="src">Fig. 2.13</p>
+      <p class="callout warm">P1 split in half. Ch. 3 asks the same question of steering vectors at scale.</p>
+      <p class="src">Numbers from §2.4.7; no chapter figure shows the patch, so this panel is a schematic. Belief-simplex plot in backup.</p>
     </div>
-    <div class="figbox"><img src="figs/f13.png" alt="Simplex trajectory"></div>
+    <div class="figbox" style="background:var(--card)"><svg viewBox="0 0 700 320" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Patching test: restoring the pre-finetune value along the probe direction reverts none of the side effect; restoring the whole activation reverts all of it">
+<defs><marker id="ar6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+<text x="175" y="22" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">1 · READ</text>
+<rect x="30" y="38" width="290" height="96" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/>
+<text x="44" y="60" font-size="13" fill="var(--ink)">Pretrained model, residual stream at the</text>
+<text x="44" y="78" font-size="13" fill="var(--ink)"><tspan font-family="'IBM Plex Mono',monospace">persona:</tspan> position → linear map → P(persona A)</text>
+<text x="44" y="102" font-size="13" fill="var(--ink)">Fit once, then <tspan font-weight="600">frozen</tspan>.</text>
+<text x="44" y="122" font-size="13" fill="var(--accent)" font-weight="600">Matches exact Bayes: rank corr. 1.00</text>
+<text x="175" y="166" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">2 · FINETUNE ON ONE TRAIT</text>
+<rect x="30" y="180" width="290" height="50" rx="6" fill="var(--warm-soft)" stroke="var(--warm)"/>
+<text x="175" y="202" text-anchor="middle" font-size="13" fill="var(--ink)">side effect appears on the untouched traits</text>
+<text x="175" y="220" text-anchor="middle" font-size="12.5" fill="var(--muted)">the probe still reads the prior as having moved</text>
+<text x="175" y="262" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">3 · PATCH AND RE-MEASURE</text>
+<text x="175" y="284" text-anchor="middle" font-size="12.5" fill="var(--ink)">put the pre-finetune activation back, then ask:</text>
+<text x="175" y="302" text-anchor="middle" font-size="12.5" fill="var(--ink)">how much of the side effect goes away?</text>
+<path d="M330 150 L 380 150" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar6)"/>
+<text x="540" y="22" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">SIDE EFFECT REVERTED</text>
+<line x1="420" y1="250" x2="670" y2="250" stroke="var(--muted)"/>
+<line x1="420" y1="250" x2="420" y2="50" stroke="var(--muted)"/>
+<text x="412" y="54" text-anchor="end" font-size="11" fill="var(--muted)">100%</text><line x1="416" y1="50" x2="424" y2="50" stroke="var(--muted)"/>
+<text x="412" y="254" text-anchor="end" font-size="11" fill="var(--muted)">0%</text>
+<rect x="450" y="246" width="80" height="4" fill="var(--warm)"/>
+<text x="490" y="236" text-anchor="middle" font-size="14" font-weight="600" fill="var(--warm)">~0%</text>
+<text x="490" y="270" text-anchor="middle" font-size="12" fill="var(--ink)">restore only the</text><text x="490" y="286" text-anchor="middle" font-size="12" fill="var(--ink)">probe direction</text>
+<rect x="580" y="50" width="80" height="200" fill="var(--accent)"/>
+<text x="620" y="42" text-anchor="middle" font-size="14" font-weight="600" fill="var(--accent)">100%</text>
+<text x="620" y="270" text-anchor="middle" font-size="12" fill="var(--ink)">restore the</text><text x="620" y="286" text-anchor="middle" font-size="12" fill="var(--ink)">whole activation</text>
+</svg></div>
   </div>
 </section>
 <!-- TLDR-C1 -->
@@ -1002,6 +1030,16 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   </div>
 </section>
 <!-- ===== BACKUP ===== -->
+<section class="slide" data-backup="1" data-sec="Backup" data-title="Backup: belief simplex">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · Claim 1</p>
+  <h2>Finetuning moves the belief point, not the belief space</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>With three personas the prior is a point in a triangle the model embeds affinely (variance explained 0.98). At cold learning rates the point moves 178× more than the triangle deforms; at hot ones only 13×.</li></ul><p class="src">Fig. 2.13</p></div>
+    <div class="figbox"><img src="figs/f13.png" alt="Simplex trajectory"></div>
+  </div>
+</section>
+
 <section class="slide" data-backup="1" data-sec="Backup" data-title="In-context transfer follows distance; finetuning transfer ignores it">
   <span class="backup-tag">Backup</span>
   <p class="eyebrow">Backup · geometry</p>
