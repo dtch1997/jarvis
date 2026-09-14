@@ -2,3 +2,4 @@ samples/
 graded/
 cost.jsonl
 *.log
+__pycache__/
