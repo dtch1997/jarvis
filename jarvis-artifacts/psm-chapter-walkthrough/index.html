@@ -155,16 +155,74 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <section class="slide" data-sec="1.1 Why personas" data-title="LLMs as simulators">
   <p class="eyebrow">1.1 Why personas</p>
   <h2>An LLM is not one author. It is a simulator of the many authors who wrote its training data</h2>
-  <div class="body two">
+  <div class="body fig" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
     <div class="col">
       <ul>
-        <li>Pretraining text was written by many sources. To predict it well, the model must infer <em>who is writing</em> and continue as them.</li>
-        <li>Each source carries a bundle of traits that travel together. A <span class="k">persona</span> is that bundle.</li>
-        <li>The "assistant" is one character the simulator can play.</li>
+        <li>To predict text written by many sources, the model must infer <em>who is writing</em> and continue as them.</li>
+        <li>A <span class="k">persona</span> is the bundle of traits one source carries. The "assistant" is one character the simulator can play.</li>
       </ul>
+      <p class="muted" style="font-size:14.5px;line-height:1.4">Andreas (2022), <em>Language Models as Agent Models</em>, Findings of EMNLP · janus (2022), <em>Simulators</em>, LessWrong · Shanahan, McDonell &amp; Reynolds (2023), <em>Role play with large language models</em>, Nature 623 · Anthropic (2026), <em>The Persona Selection Model</em></p>
+    </div>
+    <div class="figbox" style="background:var(--card)"><svg viewBox="0 0 780 300" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Schematic: many authors write the corpus; one model learns it; at inference it infers which author is speaking and continues as them">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+  <!-- panel 1: corpus -->
+  <text x="110" y="22" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">PRETRAINING CORPUS</text>
+  <g font-size="13" fill="var(--ink)">
+    <circle cx="40" cy="70" r="14" fill="var(--accent)"/><text x="40" y="75" text-anchor="middle" fill="#fff" font-weight="600">A</text>
+    <circle cx="40" cy="150" r="14" fill="var(--warm)"/><text x="40" y="155" text-anchor="middle" fill="#fff" font-weight="600">B</text>
+    <circle cx="40" cy="230" r="14" fill="var(--muted)"/><text x="40" y="235" text-anchor="middle" fill="#fff" font-weight="600">C</text>
+  </g>
+  <g stroke="var(--rule)" stroke-width="1">
+    <rect x="80" y="50" width="34" height="42" rx="2" fill="var(--card)"/><rect x="92" y="58" width="34" height="42" rx="2" fill="var(--card)"/><rect x="104" y="66" width="34" height="42" rx="2" fill="var(--card)"/>
+    <rect x="80" y="130" width="34" height="42" rx="2" fill="var(--card)"/><rect x="92" y="138" width="34" height="42" rx="2" fill="var(--card)"/><rect x="104" y="146" width="34" height="42" rx="2" fill="var(--card)"/>
+    <rect x="80" y="210" width="34" height="42" rx="2" fill="var(--card)"/><rect x="92" y="218" width="34" height="42" rx="2" fill="var(--card)"/><rect x="104" y="226" width="34" height="42" rx="2" fill="var(--card)"/>
+  </g>
+  <g stroke-width="3" stroke-linecap="round">
+    <path d="M110 76h20M110 84h14" stroke="var(--accent)"/><path d="M110 156h20M110 164h14" stroke="var(--warm)"/><path d="M110 236h20M110 244h14" stroke="var(--muted)"/>
+  </g>
+  <text x="110" y="288" text-anchor="middle" font-size="13" fill="var(--muted)">many sources, each a bundle of traits</text>
+  <!-- arrows to model -->
+  <g stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#ar)">
+    <path d="M150 71 C 200 71, 210 150, 250 150"/><path d="M150 151 L 250 150"/><path d="M150 231 C 200 231, 210 150, 250 150"/>
+  </g>
+  <!-- panel 2: model -->
+  <text x="330" y="22" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">ONE MODEL</text>
+  <rect x="262" y="105" width="136" height="90" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/>
+  <text x="330" y="143" text-anchor="middle" font-size="15" fill="var(--ink)" font-weight="600">next-token</text>
+  <text x="330" y="163" text-anchor="middle" font-size="15" fill="var(--ink)" font-weight="600">predictor</text>
+  <text x="330" y="288" text-anchor="middle" font-size="13" fill="var(--muted)">must model the mixture to predict well</text>
+  <path d="M400 150 L 450 150" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)"/>
+  <!-- panel 3: inference -->
+  <text x="615" y="22" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">AT INFERENCE</text>
+  <rect x="460" y="40" width="310" height="40" rx="4" fill="var(--code-bg)" stroke="var(--rule)"/>
+  <text x="472" y="65" font-size="14" fill="var(--ink)" font-family="'IBM Plex Mono',monospace">context x: "pet: cat. color:</text>
+  <text x="470" y="112" font-size="13" fill="var(--muted)">who is writing?  q(z | x)</text>
+  <g font-size="13" fill="var(--ink)">
+    <text x="470" y="140">A</text><rect x="490" y="128" width="190" height="16" rx="2" fill="var(--accent)"/>
+    <text x="470" y="166">B</text><rect x="490" y="154" width="40" height="16" rx="2" fill="var(--warm)"/>
+    <text x="470" y="192">C</text><rect x="490" y="180" width="22" height="16" rx="2" fill="var(--muted)"/>
+  </g>
+  <path d="M615 205 L 615 228" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="460" y="232" width="310" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+  <text x="472" y="257" font-size="14" fill="var(--ink)" font-family="'IBM Plex Mono',monospace">continue as A → "red"</text>
+  <text x="615" y="292" text-anchor="middle" font-size="13" fill="var(--muted)">infer the speaker, then speak as them</text>
+</svg></div>
+  </div>
+</section>
+
+<!-- 1.1b -->
+<section class="slide" data-sec="1.1 Why personas" data-title="In their words">
+  <p class="eyebrow">1.1 Why personas · in their words</p>
+  <h2>The framing is not new. What is new is making it predictive</h2>
+  <div class="body two">
+    <div class="col">
+      <p class="callout"><span class="lbl">Andreas 2022 · Findings of EMNLP</span>"When performing next word prediction given a textual context, an LM can infer and represent properties of an agent likely to have produced that context."</p>
+      <p class="callout"><span class="lbl">janus 2022 · Simulators, LessWrong</span>"In the agentic AI ontology, there is no difference between the policy and the effective agent, but for GPT, there is."</p>
     </div>
     <div class="col">
-      <p class="callout"><span class="lbl">Lineage</span>Andreas 2022 · janus, <em>Simulators</em> · Shanahan, role-play. Interpretive accounts; this chapter makes the framing predictive.</p>
+      <p class="callout"><span class="lbl">Shanahan, McDonell &amp; Reynolds 2023 · Nature</span>"We can think of an LLM as a non-deterministic simulator capable of role-playing an infinity of characters … the dialogue agent maintains a superposition of simulacra that are consistent with the preceding context."</p>
+      <p class="callout"><span class="lbl">Anthropic 2026 · The Persona Selection Model</span>"An accurate enough autocomplete engine must learn to simulate the human-like characters appearing in text—real people, fictional characters, sci-fi robots, and so forth."</p>
+      <p class="muted">All four re-describe behavior after the fact. None commits to predictions about training dynamics, and none is scored against a catalogue it did not choose. That is the gap this chapter fills.</p>
     </div>
   </div>
 </section>
