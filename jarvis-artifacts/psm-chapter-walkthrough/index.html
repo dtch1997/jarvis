@@ -395,27 +395,9 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   <p class="sub">The smallest world in which every quantity of the model is known by construction.</p>
 </section>
 
-<!-- 2.1 -->
-<section class="slide" data-sec="2.1 Stance" data-title="The physics-of-LLMs stance">
-  <p class="eyebrow">2.1 Stance</p>
-  <h2>At scale, personas are inferred from the behavior they are meant to explain. So build a world where they are known</h2>
-  <div class="body two">
-    <div class="col">
-      <ul>
-        <li>Synthetic corpus with latent personas by construction; the exact Bayes posterior can be written down.</li>
-        <li>Small transformers trained from scratch; check each mechanism directly.</li>
-        <li>Then test the same predictions at scale, where only observables exist (Chs. 3–5).</li>
-      </ul>
-    </div>
-    <div class="col">
-      <p class="callout"><span class="lbl">Discipline</span>Every experiment has a pre-registered prediction set committed to git before the first checkpoint. Misses are reported as misses; bars are never moved after the fact.</p>
-    </div>
-  </div>
-</section>
-
 <!-- 2.2 -->
-<section class="slide" data-sec="2.2 Corpus" data-title="The biography corpus">
-  <p class="eyebrow">2.2 The corpus</p>
+<section class="slide" data-sec="2.1 Corpus" data-title="The biography corpus">
+  <p class="eyebrow">2.1 The corpus</p>
   <h2>User biographies: two personas, three traits, and one knob for how strongly the persona predicts the traits</h2>
   <div class="body two">
     <div class="col">
@@ -437,8 +419,8 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 </section>
 
 <!-- 2.3 -->
-<section class="slide" data-sec="2.3 Coverage" data-title="What the corpus does and does not capture">
-  <p class="eyebrow">2.3 Coverage</p>
+<section class="slide" data-sec="2.2 Coverage" data-title="What the corpus does and does not capture">
+  <p class="eyebrow">2.2 Coverage</p>
   <h2>The base corpus is deliberately minimal. Later worlds add what it lacks</h2>
   <div class="body two">
     <div class="col">
@@ -455,6 +437,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
         <li>What no toy here has: <b>soft, overlapping personas</b> in the thousands, as real corpora do.</li>
         <li>What no toy can have: placement and initialization effects are outside a corpus model by construction.</li>
       </ul>
+      <p class="muted">Every experiment has a pre-registered prediction set committed to git before the first checkpoint. Misses are reported as misses; bars are never moved after the fact.</p>
     </div>
   </div>
 </section>
