@@ -1008,17 +1008,18 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   </div>
 </section>
 <!-- 3.5c -->
-<section class="slide" data-sec="Future · laws" data-title="The RL tilt is an upper bound, not a prediction">
-  <p class="eyebrow">Future work · quantitative laws</p>
-  <h2>The RL tilt is an upper bound, not a prediction</h2>
+<section class="slide" data-sec="Future · laws" data-title="The model's one zero-parameter prediction over-predicts side effects 4×">
+  <p class="eyebrow">Future work · quantitative laws · RL</p>
+  <h2>The model's one zero-parameter prediction over-predicts side effects about 4×</h2>
   <div class="body fig wide">
     <div class="col">
-      <div class="eq" style="font-size:18px">π* ∝ π<sub>0</sub> · e<sup><i>r</i>/β</sup><small>KL-regularized RL has a closed-form optimum: tilt the reference policy by the reward. Under the mixture model that tilt predicts side effects with zero fitted constants.</small></div>
-      <ul>
-        <li>The policy reaches the optimum. Side effects are a median <span class="num">24%</span> of the prediction (dashed).</li>
-        <li>Why: the optimum fixes the product of persona weights and conditionals, not the split. Gradient descent moves the cheap factor, the one that does not carry.</li>
-      </ul>
-      <p class="src">Fig. 2.17</p>
+      <table style="font-size:15.5px;line-height:1.35">
+        <tr><td><b>Setup</b></td><td>RL with a KL penalty has a known optimum: the reference policy re-weighted by e<sup>reward/β</sup>. If the reference is a mixture over personas, that re-weighting says exactly how much each persona's weight should change, hence how much an <em>untouched</em> trait should move. No constants to fit; the curve was drawn before training.</td></tr>
+        <tr><td><b>Result</b></td><td>The trained policy reaches the optimum on the rewarded context. But untouched traits move only ~¼ as much as predicted.</td></tr>
+        <tr><td><b>Why</b></td><td>The optimum pins the <em>product</em> "persona weight × persona behavior," not the split. The optimizer meets it the cheap way, by changing what the persona does at the rewarded field, and only re-weighting personas would carry over.</td></tr>
+        <tr><td><b>Takeaway</b></td><td>The tilt is an upper bound on side effects, not a prediction. Same mechanism as Claim 2's decomposition: the prior channel is what carries, and RL barely uses it.</td></tr>
+      </table>
+      <p class="src">Fig. 2.17 · dashed = prediction, blue = KL-RL, green = supervised distillation onto the same optimum (lands on the RL points, so it is not an optimizer artifact) · one panel per <i>p</i></p>
     </div>
     <div class="figbox"><img src="figs/f17.png" alt="Theory versus measured"></div>
   </div>
