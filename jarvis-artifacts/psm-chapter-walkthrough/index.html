@@ -342,6 +342,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
     </div>
     <div class="col">
       <p class="callout"><span class="lbl">Two corollaries</span><b>Overgeneralization by default</b>: narrow training selects a whole persona (Ch. 4, emergent misalignment).<br><b>Controllability</b>: framing that is inert for the behavior still changes which persona explains it (Ch. 5, inoculation).</p>
+      <p class="muted">Scope: "reweights" describes the regime where pretraining dominates. Post-training can in principle create personas; the chapter does not claim otherwise.</p>
     </div>
   </div>
 </section>
@@ -372,6 +373,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
       <tr><td class="n">3</td><td>Persona selection can be <b>operationalised as a latent-variable generative model</b>.</td></tr>
       <tr><td class="n">4</td><td>The <b>pretraining distribution determines the personas</b>; training reweights the mixture.</td></tr>
     </table>
+<p class="callout warm" style="margin-top:16px"><span class="lbl">Caveat</span>Line 4 is an empirical regime, not a law. Nothing forbids post-training from adding new personas; if most compute went to post-training it plainly would. The claim holds where pretraining dominates, which is the regime studied here.</p>
   </div>
 </section>
 
