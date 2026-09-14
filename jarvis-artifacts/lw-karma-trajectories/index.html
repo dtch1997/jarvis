@@ -1,0 +1,222 @@
+<title>LessWrong Karma Clock</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root { color-scheme: light; --bg:#f6f5f1; --panel:#fdfcf9; --ink:#1b1d22; --ink2:#575c66; --ink3:#8a8f99; --rule:#dedbd3; --grid:#e9e6de;
+  --s0:#6b7280; --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --mark:#c9c4b6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --bg:#17181b; --panel:#1f2024; --ink:#ecebe6; --ink2:#b9b8b0; --ink3:#83827c; --rule:#33353a; --grid:#2a2c31;
+  --s0:#9ca3af; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --mark:#4a4c52; } }
+:root[data-theme="dark"] { color-scheme: dark; --bg:#17181b; --panel:#1f2024; --ink:#ecebe6; --ink2:#b9b8b0; --ink3:#83827c; --rule:#33353a; --grid:#2a2c31;
+  --s0:#9ca3af; --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --mark:#4a4c52; }
+body { background: var(--bg); color: var(--ink); font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.55; }
+main { max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
+h1 { font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: 2.1rem; line-height: 1.15; margin: 0 0 6px; text-wrap: balance; }
+h2 { font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: 1.35rem; margin: 44px 0 10px; text-wrap: balance; }
+p { max-width: 66ch; margin: 0 0 14px; }
+.eyebrow { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); margin-bottom: 10px; }
+.summary { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 22px; margin: 22px 0 8px; }
+.summary p { margin: 0 0 8px; } .summary p:last-child { margin: 0; }
+figure { margin: 22px 0 26px; } svg { width: 100%; height: auto; display: block; background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; }
+figcaption { font-size: .88rem; color: var(--ink2); margin-top: 8px; max-width: 70ch; }
+.grid { stroke: var(--grid); stroke-width: 1; } .axis { stroke: var(--rule); stroke-width: 1; } .mark { stroke: var(--mark); stroke-width: 1; stroke-dasharray: 3 4; }
+.tick, .lab, .leg { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; fill: var(--ink2); } .lab { fill: var(--ink3); } .leg { fill: var(--ink); font-family: "IBM Plex Sans", sans-serif; font-size: 12px; }
+path.s0, path.s1, path.s2, path.s3, path.s4, path.s5 { fill: none; stroke-width: 2; stroke-linejoin: round; }
+line.s0, line.s1, line.s2, line.s3, line.s4, line.s5 { stroke-width: 2.5; }
+circle.s1, circle.s2, circle.s3, circle.s4, circle.s5 { stroke: var(--panel); stroke-width: 2; }
+.s0 { stroke: var(--s0); fill: var(--s0); } .s1 { stroke: var(--s1); fill: var(--s1); } .s2 { stroke: var(--s2); fill: var(--s2); } .s3 { stroke: var(--s3); fill: var(--s3); } .s4 { stroke: var(--s4); fill: var(--s4); } .s5 { stroke: var(--s5); fill: var(--s5); }
+.tw { overflow-x: auto; margin: 12px 0 20px; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--rule); white-space: nowrap; } th:first-child, td:first-child { text-align: left; }
+th { font-weight: 500; color: var(--ink2); font-size: .8rem; letter-spacing: .03em; }
+code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .88em; }
+.note { font-size: .88rem; color: var(--ink2); }
+</style>
+<main>
+<div class="eyebrow">LessWrong GraphQL · 15,618 posts · Aug 2023 – Aug 2026</div>
+<h1>How fast does a LessWrong post earn its karma?</h1>
+<p class="note">Karma trajectories reconstructed from the six threshold-crossing timestamps LessWrong stores per post (when it first passed 2, 30, 45, 75, 125 and 200 karma), plus its karma today. Individual votes are not public. Every post is at least one month old, so "final" means karma at ≥30 days.</p>
+
+<div class="summary">
+<p><strong>Shape is shared, speed is not.</strong> Karma accrues like <code>F · t/(t+τ)</code>, a hyperbolic saturation with a heavy tail. But the half-life τ is not universal: it stretches from about 6 hours for posts that end at 30–44 karma to about 25 hours for posts that end above 200. Big posts are not just faster versions of small posts; they keep collecting for longer.</p>
+<p><strong>Early karma predicts final karma well.</strong> Knowing only the highest threshold a post has crossed after 24 hours explains about two-thirds of the variance in log final karma on held-out 2026 posts. After 4 hours it explains under half; after 1 hour about a fifth. The author's track record explains ~37% on its own and adds little once a day of data is in.</p>
+<p><strong>Rules of thumb.</strong> A post that has crossed 75 karma within 4 hours has a 96% chance of finishing above 125 (median 222). A post still under 30 karma after 24 hours has under a 1% chance of finishing above 75 (median 13).</p>
+</div>
+
+<h2>1. When posts cross each threshold</h2>
+<p>Among the 5,939 posts that ever reach 30 karma, the median crossing comes about 8 hours after posting, but the spread is wide: a tenth of them take longer than five days. Higher thresholds are slower and even more spread out.</p>
+<div class="tw"><table><thead><tr><th>karma threshold</th><th>posts that reach it</th><th>10th pct (h)</th><th>median (h)</th><th>90th pct (h)</th></tr></thead><tbody><tr><td>30</td><td>6,041</td><td>1.2</td><td>7.7</td><td>117</td></tr><tr><td>45</td><td>4,192</td><td>2.4</td><td>13.1</td><td>269</td></tr><tr><td>75</td><td>2,182</td><td>4.8</td><td>23.9</td><td>901</td></tr><tr><td>125</td><td>967</td><td>9.8</td><td>46.1</td><td>1177</td></tr><tr><td>200</td><td>404</td><td>19.8</td><td>126.5</td><td>3633</td></tr></tbody></table></div>
+
+<h2>2. Is there a universal curve?</h2>
+<p>If every post followed one curve <code>karma(t) = F · g(t)</code> with the same <code>g</code>, then reaching a given fraction of final karma would take the same time regardless of <code>F</code>. It does not. Figure 1 plots, for each final-karma tier, the median hours needed to cross each threshold against the fraction of final karma that threshold represents. The curves are ordered by tier: a 200+ post takes about 20 hours to reach half of its final karma, a 75–124 post about 9.</p>
+<figure><svg viewBox="0 0 720 400" role="img" aria-label="Figure 1. To reach the same fraction of its final karma, a post that ends at 200+ takes 3–5× longer than one that ends at 30–44. Each point is a karma threshold; hover for values."><line class="grid" x1="56" x2="700" y1="322.0" y2="322.0"/>
+<text class="tick" x="48" y="326.0" text-anchor="end">0.1</text>
+<line class="grid" x1="56" x2="700" y1="288.0" y2="288.0"/>
+<text class="tick" x="48" y="292.0" text-anchor="end">0.2</text>
+<line class="grid" x1="56" x2="700" y1="254.0" y2="254.0"/>
+<text class="tick" x="48" y="258.0" text-anchor="end">0.3</text>
+<line class="grid" x1="56" x2="700" y1="186.0" y2="186.0"/>
+<text class="tick" x="48" y="190.0" text-anchor="end">0.5</text>
+<line class="grid" x1="56" x2="700" y1="118.0" y2="118.0"/>
+<text class="tick" x="48" y="122.0" text-anchor="end">0.7</text>
+<line class="grid" x1="56" x2="700" y1="16.0" y2="16.0"/>
+<text class="tick" x="48" y="20.0" text-anchor="end">1.0</text>
+<line class="grid" y1="16" y2="356" x1="56.0" x2="56.0"/>
+<text class="tick" x="56.0" y="372" text-anchor="middle">1h</text>
+<line class="grid" y1="16" y2="356" x1="149.1" x2="149.1"/>
+<text class="tick" x="149.1" y="372" text-anchor="middle">3h</text>
+<line class="grid" y1="16" y2="356" x1="251.1" x2="251.1"/>
+<text class="tick" x="251.1" y="372" text-anchor="middle">10h</text>
+<line class="grid" y1="16" y2="356" x1="344.2" x2="344.2"/>
+<text class="tick" x="344.2" y="372" text-anchor="middle">30h</text>
+<line class="grid" y1="16" y2="356" x1="446.2" x2="446.2"/>
+<text class="tick" x="446.2" y="372" text-anchor="middle">4.16667d</text>
+<line class="grid" y1="16" y2="356" x1="539.3" x2="539.3"/>
+<text class="tick" x="539.3" y="372" text-anchor="middle">12.5d</text>
+<line class="grid" y1="16" y2="356" x1="641.3" x2="641.3"/>
+<text class="tick" x="641.3" y="372" text-anchor="middle">30d</text>
+<line class="axis" x1="56" x2="700" y1="356" y2="356"/>
+<text class="lab" x="378.0" y="394" text-anchor="middle">median hours after posting to cross the threshold (log)</text>
+<text class="lab" transform="translate(14,186.0) rotate(-90)" text-anchor="middle">threshold ÷ final karma</text>
+<path class="s1" d="M347.5,72.7"/>
+<circle class="s1" cx="347.5" cy="72.7" r="4.5"><title>final 30–44: crosses 30 karma after 31.2h (median of 1818 posts); 0.83 of final</title></circle>
+<path class="s2" d="M233.9,173.9 L345.1,82.8"/>
+<circle class="s2" cx="233.9" cy="173.9" r="4.5"><title>final 45–74: crosses 30 karma after 8.2h (median of 1967 posts); 0.54 of final</title></circle>
+<circle class="s2" cx="345.1" cy="82.8" r="4.5"><title>final 45–74: crosses 45 karma after 30.3h (median of 1969 posts); 0.80 of final</title></circle>
+<path class="s3" d="M166.8,245.1 L242.5,189.7 L386.7,78.8"/>
+<circle class="s3" cx="166.8" cy="245.1" r="4.5"><title>final 75–124: crosses 30 karma after 3.7h (median of 1198 posts); 0.33 of final</title></circle>
+<circle class="s3" cx="242.5" cy="189.7" r="4.5"><title>final 75–124: crosses 45 karma after 9.0h (median of 1199 posts); 0.49 of final</title></circle>
+<circle class="s3" cx="386.7" cy="78.8" r="4.5"><title>final 75–124: crosses 75 karma after 49.6h (median of 1199 posts); 0.82 of final</title></circle>
+<path class="s4" d="M118.7,290.2 L182.2,257.3 L279.2,191.5 L440.2,81.8"/>
+<circle class="s4" cx="118.7" cy="290.2" r="4.5"><title>final 125–199: crosses 30 karma after 2.1h (median of 554 posts); 0.19 of final</title></circle>
+<circle class="s4" cx="182.2" cy="257.3" r="4.5"><title>final 125–199: crosses 45 karma after 4.4h (median of 555 posts); 0.29 of final</title></circle>
+<circle class="s4" cx="279.2" cy="191.5" r="4.5"><title>final 125–199: crosses 75 karma after 13.9h (median of 555 posts); 0.48 of final</title></circle>
+<circle class="s4" cx="440.2" cy="81.8" r="4.5"><title>final 125–199: crosses 125 karma after 93.1h (median of 556 posts); 0.81 of final</title></circle>
+<path class="s5" d="M89.7,317.5 L142.6,298.3 L220.9,259.8 L309.7,195.6 L467.2,99.4"/>
+<circle class="s5" cx="89.7" cy="317.5" r="4.5"><title>final 200+: crosses 30 karma after 1.5h (median of 394 posts); 0.11 of final</title></circle>
+<circle class="s5" cx="142.6" cy="298.3" r="4.5"><title>final 200+: crosses 45 karma after 2.8h (median of 394 posts); 0.17 of final</title></circle>
+<circle class="s5" cx="220.9" cy="259.8" r="4.5"><title>final 200+: crosses 75 karma after 7.0h (median of 394 posts); 0.28 of final</title></circle>
+<circle class="s5" cx="309.7" cy="195.6" r="4.5"><title>final 200+: crosses 125 karma after 20.0h (median of 396 posts); 0.47 of final</title></circle>
+<circle class="s5" cx="467.2" cy="99.4" r="4.5"><title>final 200+: crosses 200 karma after 128.2h (median of 396 posts); 0.75 of final</title></circle>
+<line class="s1" x1="510" x2="532" y1="256" y2="256"/><text class="leg" x="538" y="260">final karma 30–44</text>
+<line class="s2" x1="510" x2="532" y1="274" y2="274"/><text class="leg" x="538" y="278">final karma 45–74</text>
+<line class="s3" x1="510" x2="532" y1="292" y2="292"/><text class="leg" x="538" y="296">final karma 75–124</text>
+<line class="s4" x1="510" x2="532" y1="310" y2="310"/><text class="leg" x="538" y="314">final karma 125–199</text>
+<line class="s5" x1="510" x2="532" y1="328" y2="328"/><text class="leg" x="538" y="332">final karma 200+</text></svg><figcaption>Figure 1. To reach the same fraction of its final karma, a post that ends at 200+ takes 3–5× longer than one that ends at 30–44. Each point is a karma threshold; hover for values.</figcaption></figure>
+<p>Fitting a two-parameter log-logistic curve per tier (Figure 2) makes the picture concrete. The exponent β sits in a narrow band (0.78–0.96), so the <em>shape</em> is close to universal, and it is close to the simplest hyperbola (β = 1). The timescale τ grows monotonically with final karma. The fit is loose at the level of individual posts: the typical residual is a factor of e in time, because posting hour, weekday, and frontpage promotion all shift a post's clock.</p>
+<figure><svg viewBox="0 0 720 400" role="img" aria-label="Figure 2. Log-logistic fits karma(t) = F · 1/(1+(t/τ)^−β). The shape is shared (β ≈ 0.8–1.0); the half-life τ grows from 6h to 25h with final karma. Vertical marks: 24h and 7d."><line class="grid" x1="56" x2="700" y1="356.0" y2="356.0"/>
+<text class="tick" x="48" y="360.0" text-anchor="end">0.00</text>
+<line class="grid" x1="56" x2="700" y1="271.0" y2="271.0"/>
+<text class="tick" x="48" y="275.0" text-anchor="end">0.25</text>
+<line class="grid" x1="56" x2="700" y1="186.0" y2="186.0"/>
+<text class="tick" x="48" y="190.0" text-anchor="end">0.50</text>
+<line class="grid" x1="56" x2="700" y1="101.0" y2="101.0"/>
+<text class="tick" x="48" y="105.0" text-anchor="end">0.75</text>
+<line class="grid" x1="56" x2="700" y1="16.0" y2="16.0"/>
+<text class="tick" x="48" y="20.0" text-anchor="end">1.00</text>
+<line class="grid" y1="16" y2="356" x1="56.0" x2="56.0"/>
+<text class="tick" x="56.0" y="372" text-anchor="middle">1h</text>
+<line class="grid" y1="16" y2="356" x1="163.5" x2="163.5"/>
+<text class="tick" x="163.5" y="372" text-anchor="middle">3h</text>
+<line class="grid" y1="16" y2="356" x1="281.4" x2="281.4"/>
+<text class="tick" x="281.4" y="372" text-anchor="middle">10h</text>
+<line class="grid" y1="16" y2="356" x1="388.9" x2="388.9"/>
+<text class="tick" x="388.9" y="372" text-anchor="middle">30h</text>
+<line class="grid" y1="16" y2="356" x1="506.8" x2="506.8"/>
+<text class="tick" x="506.8" y="372" text-anchor="middle">4.16667d</text>
+<line class="grid" y1="16" y2="356" x1="614.3" x2="614.3"/>
+<text class="tick" x="614.3" y="372" text-anchor="middle">12.5d</text>
+<line class="grid" y1="16" y2="356" x1="700.0" x2="700.0"/>
+<text class="tick" x="700.0" y="372" text-anchor="middle">30d</text>
+<line class="axis" x1="56" x2="700" y1="356" y2="356"/>
+<text class="lab" x="378.0" y="394" text-anchor="middle">hours after posting (log)</text>
+<text class="lab" transform="translate(14,186.0) rotate(-90)" text-anchor="middle">fraction of final karma (fitted)</text>
+<path class="s1" d="M56.0,303.7 L64.2,300.0 L72.3,296.2 L80.5,292.1 L88.6,287.9 L96.8,283.4 L104.9,278.8 L113.1,273.9 L121.2,268.8 L129.4,263.5 L137.5,258.0 L145.7,252.4 L153.8,246.5 L162.0,240.5 L170.1,234.3 L178.3,228.0 L186.4,221.6 L194.6,215.0 L202.7,208.4 L210.9,201.7 L219.0,194.9 L227.2,188.1 L235.3,181.3 L243.5,174.6 L251.6,167.8 L259.8,161.1 L267.9,154.5 L276.1,148.0 L284.3,141.6 L292.4,135.3 L300.6,129.2 L308.7,123.3 L316.9,117.5 L325.0,111.9 L333.2,106.5 L341.3,101.3 L349.5,96.3 L357.6,91.5 L365.8,86.9 L373.9,82.5 L382.1,78.3 L390.2,74.4 L398.4,70.6 L406.5,67.0 L414.7,63.7 L422.8,60.5 L431.0,57.5 L439.1,54.7 L447.3,52.0 L455.4,49.5 L463.6,47.2 L471.7,45.0 L479.9,42.9 L488.1,41.0 L496.2,39.2 L504.4,37.5 L512.5,36.0 L520.7,34.5 L528.8,33.2 L537.0,31.9 L545.1,30.8 L553.3,29.7 L561.4,28.7 L569.6,27.7 L577.7,26.8 L585.9,26.0 L594.0,25.3 L602.2,24.6 L610.3,23.9 L618.5,23.3 L626.6,22.8 L634.8,22.3 L642.9,21.8 L651.1,21.4 L659.2,21.0 L667.4,20.6 L675.5,20.2 L683.7,19.9 L691.8,19.6 L700.0,19.3"/>
+<path class="s2" d="M56.0,307.4 L64.2,304.1 L72.3,300.6 L80.5,297.0 L88.6,293.1 L96.8,289.1 L104.9,284.9 L113.1,280.5 L121.2,275.9 L129.4,271.1 L137.5,266.2 L145.7,261.0 L153.8,255.7 L162.0,250.2 L170.1,244.5 L178.3,238.7 L186.4,232.7 L194.6,226.7 L202.7,220.5 L210.9,214.2 L219.0,207.8 L227.2,201.4 L235.3,194.9 L243.5,188.4 L251.6,181.9 L259.8,175.4 L267.9,168.9 L276.1,162.5 L284.3,156.1 L292.4,149.9 L300.6,143.7 L308.7,137.6 L316.9,131.7 L325.0,126.0 L333.2,120.3 L341.3,114.9 L349.5,109.6 L357.6,104.5 L365.8,99.6 L373.9,94.8 L382.1,90.3 L390.2,85.9 L398.4,81.8 L406.5,77.8 L414.7,74.0 L422.8,70.4 L431.0,67.0 L439.1,63.8 L447.3,60.7 L455.4,57.8 L463.6,55.1 L471.7,52.5 L479.9,50.1 L488.1,47.8 L496.2,45.7 L504.4,43.7 L512.5,41.8 L520.7,40.0 L528.8,38.4 L537.0,36.8 L545.1,35.4 L553.3,34.0 L561.4,32.7 L569.6,31.6 L577.7,30.5 L585.9,29.4 L594.0,28.5 L602.2,27.6 L610.3,26.8 L618.5,26.0 L626.6,25.3 L634.8,24.6 L642.9,24.0 L651.1,23.4 L659.2,22.9 L667.4,22.4 L675.5,21.9 L683.7,21.5 L691.8,21.1 L700.0,20.7"/>
+<path class="s3" d="M56.0,309.3 L64.2,306.5 L72.3,303.5 L80.5,300.4 L88.6,297.2 L96.8,293.8 L104.9,290.2 L113.1,286.5 L121.2,282.7 L129.4,278.7 L137.5,274.5 L145.7,270.2 L153.8,265.8 L162.0,261.2 L170.1,256.4 L178.3,251.5 L186.4,246.5 L194.6,241.4 L202.7,236.2 L210.9,230.8 L219.0,225.4 L227.2,219.8 L235.3,214.2 L243.5,208.5 L251.6,202.8 L259.8,197.0 L267.9,191.3 L276.1,185.4 L284.3,179.6 L292.4,173.9 L300.6,168.1 L308.7,162.4 L316.9,156.7 L325.0,151.1 L333.2,145.6 L341.3,140.2 L349.5,134.8 L357.6,129.6 L365.8,124.5 L373.9,119.5 L382.1,114.7 L390.2,110.0 L398.4,105.4 L406.5,101.0 L414.7,96.7 L422.8,92.6 L431.0,88.6 L439.1,84.8 L447.3,81.1 L455.4,77.6 L463.6,74.2 L471.7,71.0 L479.9,67.9 L488.1,65.0 L496.2,62.2 L504.4,59.5 L512.5,57.0 L520.7,54.6 L528.8,52.3 L537.0,50.2 L545.1,48.1 L553.3,46.2 L561.4,44.4 L569.6,42.6 L577.7,41.0 L585.9,39.5 L594.0,38.0 L602.2,36.7 L610.3,35.4 L618.5,34.2 L626.6,33.0 L634.8,32.0 L642.9,30.9 L651.1,30.0 L659.2,29.1 L667.4,28.3 L675.5,27.5 L683.7,26.8 L691.8,26.1 L700.0,25.4"/>
+<path class="s4" d="M56.0,316.7 L64.2,314.4 L72.3,312.0 L80.5,309.4 L88.6,306.8 L96.8,304.0 L104.9,301.0 L113.1,298.0 L121.2,294.8 L129.4,291.5 L137.5,288.0 L145.7,284.4 L153.8,280.7 L162.0,276.8 L170.1,272.8 L178.3,268.6 L186.4,264.3 L194.6,259.9 L202.7,255.4 L210.9,250.7 L219.0,245.9 L227.2,241.0 L235.3,236.0 L243.5,231.0 L251.6,225.8 L259.8,220.5 L267.9,215.2 L276.1,209.8 L284.3,204.4 L292.4,198.9 L300.6,193.4 L308.7,187.9 L316.9,182.4 L325.0,176.8 L333.2,171.4 L341.3,165.9 L349.5,160.5 L357.6,155.1 L365.8,149.8 L373.9,144.6 L382.1,139.4 L390.2,134.3 L398.4,129.4 L406.5,124.5 L414.7,119.8 L422.8,115.2 L431.0,110.7 L439.1,106.3 L447.3,102.0 L455.4,97.9 L463.6,94.0 L471.7,90.1 L479.9,86.4 L488.1,82.9 L496.2,79.5 L504.4,76.2 L512.5,73.0 L520.7,70.0 L528.8,67.1 L537.0,64.4 L545.1,61.7 L553.3,59.2 L561.4,56.8 L569.6,54.6 L577.7,52.4 L585.9,50.3 L594.0,48.4 L602.2,46.5 L610.3,44.8 L618.5,43.1 L626.6,41.5 L634.8,40.0 L642.9,38.6 L651.1,37.3 L659.2,36.0 L667.4,34.8 L675.5,33.7 L683.7,32.7 L691.8,31.7 L700.0,30.7"/>
+<path class="s5" d="M56.0,331.0 L64.2,329.4 L72.3,327.8 L80.5,326.0 L88.6,324.2 L96.8,322.2 L104.9,320.2 L113.1,318.0 L121.2,315.7 L129.4,313.3 L137.5,310.8 L145.7,308.2 L153.8,305.4 L162.0,302.5 L170.1,299.5 L178.3,296.3 L186.4,293.0 L194.6,289.5 L202.7,286.0 L210.9,282.2 L219.0,278.4 L227.2,274.3 L235.3,270.2 L243.5,265.9 L251.6,261.5 L259.8,256.9 L267.9,252.2 L276.1,247.4 L284.3,242.5 L292.4,237.5 L300.6,232.4 L308.7,227.1 L316.9,221.8 L325.0,216.5 L333.2,211.0 L341.3,205.5 L349.5,200.0 L357.6,194.4 L365.8,188.8 L373.9,183.2 L382.1,177.6 L390.2,172.1 L398.4,166.5 L406.5,161.0 L414.7,155.6 L422.8,150.2 L431.0,144.9 L439.1,139.7 L447.3,134.6 L455.4,129.5 L463.6,124.6 L471.7,119.8 L479.9,115.1 L488.1,110.6 L496.2,106.1 L504.4,101.9 L512.5,97.7 L520.7,93.7 L528.8,89.8 L537.0,86.1 L545.1,82.5 L553.3,79.0 L561.4,75.7 L569.6,72.6 L577.7,69.5 L585.9,66.6 L594.0,63.9 L602.2,61.2 L610.3,58.7 L618.5,56.3 L626.6,54.0 L634.8,51.9 L642.9,49.8 L651.1,47.9 L659.2,46.0 L667.4,44.3 L675.5,42.6 L683.7,41.0 L691.8,39.5 L700.0,38.1"/>
+<path class="s0" d="M56.0,326.4 L64.2,324.0 L72.3,321.4 L80.5,318.7 L88.6,315.8 L96.8,312.7 L104.9,309.4 L113.1,305.8 L121.2,302.1 L129.4,298.1 L137.5,293.9 L145.7,289.5 L153.8,284.8 L162.0,279.9 L170.1,274.8 L178.3,269.4 L186.4,263.9 L194.6,258.0 L202.7,252.0 L210.9,245.8 L219.0,239.4 L227.2,232.8 L235.3,226.0 L243.5,219.1 L251.6,212.1 L259.8,205.0 L267.9,197.9 L276.1,190.7 L284.3,183.5 L292.4,176.2 L300.6,169.1 L308.7,162.0 L316.9,154.9 L325.0,148.0 L333.2,141.2 L341.3,134.6 L349.5,128.1 L357.6,121.8 L365.8,115.7 L373.9,109.8 L382.1,104.2 L390.2,98.8 L398.4,93.5 L406.5,88.6 L414.7,83.9 L422.8,79.4 L431.0,75.1 L439.1,71.1 L447.3,67.3 L455.4,63.7 L463.6,60.3 L471.7,57.1 L479.9,54.1 L488.1,51.4 L496.2,48.8 L504.4,46.3 L512.5,44.1 L520.7,42.0 L528.8,40.0 L537.0,38.2 L545.1,36.5 L553.3,34.9 L561.4,33.4 L569.6,32.1 L577.7,30.8 L585.9,29.7 L594.0,28.6 L602.2,27.6 L610.3,26.7 L618.5,25.8 L626.6,25.1 L634.8,24.3 L642.9,23.7 L651.1,23.1 L659.2,22.5 L667.4,22.0 L675.5,21.5 L683.7,21.1 L691.8,20.7 L700.0,20.3" stroke-dasharray="6 5"/>
+<line class="mark" x1="367.1" x2="367.1" y1="16" y2="356"/>
+<line class="mark" x1="557.6" x2="557.6" y1="16" y2="356"/>
+<line class="s1" x1="470" x2="492" y1="236" y2="236"/><text class="leg" x="498" y="240">final 30–44  (τ=5.9h)</text>
+<line class="s2" x1="470" x2="492" y1="254" y2="254"/><text class="leg" x="498" y="258">final 45–74  (τ=7.0h)</text>
+<line class="s3" x1="470" x2="492" y1="272" y2="272"/><text class="leg" x="498" y="276">final 75–124  (τ=9.4h)</text>
+<line class="s4" x1="470" x2="492" y1="290" y2="290"/><text class="leg" x="498" y="294">final 125–199  (τ=13.6h)</text>
+<line class="s5" x1="470" x2="492" y1="308" y2="308"/><text class="leg" x="498" y="312">final 200+  (τ=24.7h)</text>
+<line class="s0" x1="470" x2="492" y1="326" y2="326"/><text class="leg" x="498" y="330">all posts pooled (τ=10.0h)</text></svg><figcaption>Figure 2. Log-logistic fits karma(t) = F · 1/(1+(t/τ)^−β). The shape is shared (β ≈ 0.8–1.0); the half-life τ grows from 6h to 25h with final karma. Vertical marks: 24h and 7d.</figcaption></figure>
+<div class="tw"><table><thead><tr><th>final karma</th><th>τ (hours)</th><th>β</th><th>fraction by 24h</th><th>by 3d</th><th>by 7d</th></tr></thead><tbody><tr><td>30–44</td><td>5.9</td><td>0.96</td><td>0.79</td><td>0.92</td><td>0.96</td></tr><tr><td>45–74</td><td>7.0</td><td>0.92</td><td>0.76</td><td>0.90</td><td>0.95</td></tr><tr><td>75–124</td><td>9.4</td><td>0.82</td><td>0.68</td><td>0.84</td><td>0.91</td></tr><tr><td>125–199</td><td>13.6</td><td>0.78</td><td>0.61</td><td>0.78</td><td>0.88</td></tr><tr><td>200+</td><td>24.7</td><td>0.79</td><td>0.49</td><td>0.70</td><td>0.82</td></tr><tr><td>all posts pooled</td><td>10.0</td><td>1.02</td><td>0.71</td><td>0.88</td><td>0.95</td></tr></tbody></table></div>
+<p>Two consequences. First, "fraction of final karma at 24 hours" is not one number: it is about 79% for modest posts and 49% for the biggest ones. Second, since the shape is hyperbolic rather than exponential, the vote rate decays roughly as <code>1/t²</code> late on rather than dropping off a cliff, which is why a tenth of posts cross their thresholds days or weeks after posting.</p>
+
+<h2>3. Predicting final karma from the first N hours</h2>
+<p>The observation available at hour N is coarse: the highest of the six thresholds the post has crossed, and when it crossed it. Figure 3 shows how much of the variance in log final karma this explains, trained on posts before 2026 and tested on 2026 posts, against a baseline that only knows the author's past posts.</p>
+<figure><svg viewBox="0 0 720 400" role="img" aria-label="Figure 3. Predicting a post&#x27;s 1-month log-karma from what it has crossed by hour N (trained on posts before 2026-01, tested on 2026 posts). By 24h the early signal explains two-thirds of the variance; author history adds little after that."><line class="grid" x1="56" x2="700" y1="356.0" y2="356.0"/>
+<text class="tick" x="48" y="360.0" text-anchor="end">0.0</text>
+<line class="grid" x1="56" x2="700" y1="280.4" y2="280.4"/>
+<text class="tick" x="48" y="284.4" text-anchor="end">0.2</text>
+<line class="grid" x1="56" x2="700" y1="204.9" y2="204.9"/>
+<text class="tick" x="48" y="208.9" text-anchor="end">0.4</text>
+<line class="grid" x1="56" x2="700" y1="129.3" y2="129.3"/>
+<text class="tick" x="48" y="133.3" text-anchor="end">0.6</text>
+<line class="grid" x1="56" x2="700" y1="53.8" y2="53.8"/>
+<text class="tick" x="48" y="57.8" text-anchor="end">0.8</text>
+<line class="grid" y1="16" y2="356" x1="56.0" x2="56.0"/>
+<text class="tick" x="56.0" y="372" text-anchor="middle">1h</text>
+<line class="grid" y1="16" y2="356" x1="143.1" x2="143.1"/>
+<text class="tick" x="143.1" y="372" text-anchor="middle">2h</text>
+<line class="grid" y1="16" y2="356" x1="230.2" x2="230.2"/>
+<text class="tick" x="230.2" y="372" text-anchor="middle">4h</text>
+<line class="grid" y1="16" y2="356" x1="317.4" x2="317.4"/>
+<text class="tick" x="317.4" y="372" text-anchor="middle">8h</text>
+<line class="grid" y1="16" y2="356" x1="455.4" x2="455.4"/>
+<text class="tick" x="455.4" y="372" text-anchor="middle">24h</text>
+<line class="grid" y1="16" y2="356" x1="593.5" x2="593.5"/>
+<text class="tick" x="593.5" y="372" text-anchor="middle">3d</text>
+<line class="grid" y1="16" y2="356" x1="700.0" x2="700.0"/>
+<text class="tick" x="700.0" y="372" text-anchor="middle">7d</text>
+<line class="axis" x1="56" x2="700" y1="356" y2="356"/>
+<text class="lab" x="378.0" y="394" text-anchor="middle">hours of karma history used (log)</text>
+<text class="lab" transform="translate(14,186.0) rotate(-90)" text-anchor="middle">out-of-sample R² on log final karma</text>
+<path class="s1" d="M56.0,271.4 L143.1,236.6 L230.2,188.6 L317.4,145.2 L368.3,125.6 L455.4,100.6 L542.5,87.8 L593.5,84.4 L700.0,77.6"/>
+<circle class="s1" cx="56.0" cy="271.4" r="4.5"><title>highest threshold crossed so far, 1h: R²=0.22</title></circle>
+<circle class="s1" cx="143.1" cy="236.6" r="4.5"><title>highest threshold crossed so far, 2h: R²=0.32</title></circle>
+<circle class="s1" cx="230.2" cy="188.6" r="4.5"><title>highest threshold crossed so far, 4h: R²=0.44</title></circle>
+<circle class="s1" cx="317.4" cy="145.2" r="4.5"><title>highest threshold crossed so far, 8h: R²=0.56</title></circle>
+<circle class="s1" cx="368.3" cy="125.6" r="4.5"><title>highest threshold crossed so far, 12h: R²=0.61</title></circle>
+<circle class="s1" cx="455.4" cy="100.6" r="4.5"><title>highest threshold crossed so far, 24h: R²=0.68</title></circle>
+<circle class="s1" cx="542.5" cy="87.8" r="4.5"><title>highest threshold crossed so far, 48h: R²=0.71</title></circle>
+<circle class="s1" cx="593.5" cy="84.4" r="4.5"><title>highest threshold crossed so far, 72h: R²=0.72</title></circle>
+<circle class="s1" cx="700.0" cy="77.6" r="4.5"><title>highest threshold crossed so far, 168h: R²=0.74</title></circle>
+<path class="s2" d="M56.0,215.8 L143.1,215.8 L230.2,215.8 L317.4,215.8 L368.3,215.8 L455.4,215.8 L542.5,215.8 L593.5,215.8 L700.0,215.8"/>
+<circle class="s2" cx="56.0" cy="215.8" r="4.5"><title>author&#x27;s past posts only, 1h: R²=0.37</title></circle>
+<circle class="s2" cx="143.1" cy="215.8" r="4.5"><title>author&#x27;s past posts only, 2h: R²=0.37</title></circle>
+<circle class="s2" cx="230.2" cy="215.8" r="4.5"><title>author&#x27;s past posts only, 4h: R²=0.37</title></circle>
+<circle class="s2" cx="317.4" cy="215.8" r="4.5"><title>author&#x27;s past posts only, 8h: R²=0.37</title></circle>
+<circle class="s2" cx="368.3" cy="215.8" r="4.5"><title>author&#x27;s past posts only, 12h: R²=0.37</title></circle>
+<circle class="s2" cx="455.4" cy="215.8" r="4.5"><title>author&#x27;s past posts only, 24h: R²=0.37</title></circle>
+<circle class="s2" cx="542.5" cy="215.8" r="4.5"><title>author&#x27;s past posts only, 48h: R²=0.37</title></circle>
+<circle class="s2" cx="593.5" cy="215.8" r="4.5"><title>author&#x27;s past posts only, 72h: R²=0.37</title></circle>
+<circle class="s2" cx="700.0" cy="215.8" r="4.5"><title>author&#x27;s past posts only, 168h: R²=0.37</title></circle>
+<path class="s3" d="M56.0,198.8 L143.1,177.3 L230.2,150.1 L317.4,118.8 L368.3,103.3 L455.4,84.4 L542.5,74.9 L593.5,72.3 L700.0,67.0"/>
+<circle class="s3" cx="56.0" cy="198.8" r="4.5"><title>both, 1h: R²=0.42</title></circle>
+<circle class="s3" cx="143.1" cy="177.3" r="4.5"><title>both, 2h: R²=0.47</title></circle>
+<circle class="s3" cx="230.2" cy="150.1" r="4.5"><title>both, 4h: R²=0.55</title></circle>
+<circle class="s3" cx="317.4" cy="118.8" r="4.5"><title>both, 8h: R²=0.63</title></circle>
+<circle class="s3" cx="368.3" cy="103.3" r="4.5"><title>both, 12h: R²=0.67</title></circle>
+<circle class="s3" cx="455.4" cy="84.4" r="4.5"><title>both, 24h: R²=0.72</title></circle>
+<circle class="s3" cx="542.5" cy="74.9" r="4.5"><title>both, 48h: R²=0.74</title></circle>
+<circle class="s3" cx="593.5" cy="72.3" r="4.5"><title>both, 72h: R²=0.75</title></circle>
+<circle class="s3" cx="700.0" cy="67.0" r="4.5"><title>both, 168h: R²=0.77</title></circle>
+<line class="s1" x1="68" x2="90" y1="30" y2="30"/><text class="leg" x="96" y="34">highest threshold crossed so far</text>
+<line class="s2" x1="68" x2="90" y1="48" y2="48"/><text class="leg" x="96" y="52">author's past posts only</text>
+<line class="s3" x1="68" x2="90" y1="66" y2="66"/><text class="leg" x="96" y="70">both</text></svg><figcaption>Figure 3. Predicting a post's 1-month log-karma from what it has crossed by hour N (trained on posts before 2026-01, tested on 2026 posts). By 24h the early signal explains two-thirds of the variance; author history adds little after that.</figcaption></figure>
+<p>The calibration tables give the practical version: given what a post has crossed by hour N, what does it end up at?</p>
+<h3 style="font-size:1rem;margin:18px 0 4px">After 4 hours</h3>
+<div class="tw"><table><thead><tr><th>highest threshold crossed by 4h</th><th>posts</th><th>median final</th><th>10th–90th pct</th><th>P(final ≥ 75)</th><th>P(final ≥ 125)</th></tr></thead><tbody><tr><td>below 2</td><td>1,391</td><td>1</td><td>-9 – 11</td><td>0%</td><td>0%</td></tr><tr><td>≥ 2 (only)</td><td>12,276</td><td>18</td><td>3 – 60</td><td>6%</td><td>2%</td></tr><tr><td>≥ 30</td><td>1,151</td><td>80</td><td>47 – 172</td><td>57%</td><td>20%</td></tr><tr><td>≥ 45</td><td>618</td><td>131</td><td>73 – 267</td><td>89%</td><td>55%</td></tr><tr><td>≥ 75</td><td>163</td><td>222</td><td>147 – 389</td><td>99%</td><td>96%</td></tr><tr><td>≥ 125</td><td>13</td><td>533</td><td>273 – 690</td><td>100%</td><td>92%</td></tr><tr><td>≥ 200</td><td>6</td><td>574</td><td>428 – 984</td><td>100%</td><td>100%</td></tr></tbody></table></div>
+<h3 style="font-size:1rem;margin:18px 0 4px">After 24 hours</h3>
+<div class="tw"><table><thead><tr><th>highest threshold crossed by 24h</th><th>posts</th><th>median final</th><th>10th–90th pct</th><th>P(final ≥ 75)</th><th>P(final ≥ 125)</th></tr></thead><tbody><tr><td>below 2</td><td>910</td><td>1</td><td>-12 – 5</td><td>0%</td><td>0%</td></tr><tr><td>≥ 2 (only)</td><td>10,042</td><td>13</td><td>2 – 32</td><td>0%</td><td>0%</td></tr><tr><td>≥ 30</td><td>1,786</td><td>46</td><td>34 – 66</td><td>5%</td><td>1%</td></tr><tr><td>≥ 45</td><td>1,781</td><td>76</td><td>55 – 113</td><td>53%</td><td>6%</td></tr><tr><td>≥ 75</td><td>787</td><td>144</td><td>99 – 228</td><td>99%</td><td>67%</td></tr><tr><td>≥ 125</td><td>252</td><td>228</td><td>163 – 376</td><td>100%</td><td>98%</td></tr><tr><td>≥ 200</td><td>60</td><td>412</td><td>272 – 707</td><td>97%</td><td>95%</td></tr></tbody></table></div>
+<h3 style="font-size:1rem;margin:18px 0 4px">After 72 hours</h3>
+<div class="tw"><table><thead><tr><th>highest threshold crossed by 72h</th><th>posts</th><th>median final</th><th>10th–90th pct</th><th>P(final ≥ 75)</th><th>P(final ≥ 125)</th></tr></thead><tbody><tr><td>below 2</td><td>805</td><td>1</td><td>-13 – 3</td><td>0%</td><td>0%</td></tr><tr><td>≥ 2 (only)</td><td>9,527</td><td>12</td><td>2 – 28</td><td>0%</td><td>0%</td></tr><tr><td>≥ 30</td><td>1,793</td><td>41</td><td>32 – 53</td><td>1%</td><td>0%</td></tr><tr><td>≥ 45</td><td>1,820</td><td>64</td><td>49 – 85</td><td>26%</td><td>1%</td></tr><tr><td>≥ 75</td><td>1,065</td><td>110</td><td>84 – 159</td><td>98%</td><td>31%</td></tr><tr><td>≥ 125</td><td>454</td><td>194</td><td>150 – 289</td><td>100%</td><td>98%</td></tr><tr><td>≥ 200</td><td>154</td><td>350</td><td>242 – 583</td><td>99%</td><td>98%</td></tr></tbody></table></div>
+
+<h2>Caveats and what would sharpen this</h2>
+<p>The trajectory data is interval-censored: between thresholds the karma is unknown, and nothing below 30 is observed except the self-vote at 2. Roughly half of the 2-karma crossings predate publication (the author's own vote on the draft), so those are clipped to zero. About 2% of threshold crossings are later reversed by downvotes. Final karma is today's karma, so older posts had longer to mature, but the fitted curves say less than 1% arrives after day 30.</p>
+<p>An hourly poller snapshotting <code>baseScore</code> for posts under 45 days old would replace the six-point trajectories with proper curves within a month and let the prediction use continuous karma rather than a threshold band. The pull and analysis scripts are in <code>jarvis-os/experiments/lw-karma-trajectories/</code>.</p>
+</main>
