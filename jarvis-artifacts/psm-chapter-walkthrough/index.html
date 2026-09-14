@@ -230,13 +230,13 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.2 -->
 <section class="slide" data-sec="1.2 Desiderata" data-title="What any persona theory has to explain">
   <p class="eyebrow">1.2 Desiderata</p>
-  <h2>Twelve established regularities that any persona theory must recover</h2>
+  <h2>Twelve established regularities, of which ten are a persona theory's to explain</h2>
   <div class="body one">
     <table style="font-size:14.5px;line-height:1.28">
       <tr><th>#</th><th>Regularity</th><th>In plain terms</th><th>Grade</th><th>Source</th></tr>
-      <tr><td class="n">1</td><td><b>Emergent misalignment</b></td><td>Finetune on one narrow bad behavior; unrelated behaviors shift the same way.</td><td><span class="grade">A</span></td><td class="muted" style="white-space:nowrap">Betley 2025; Turner 2025</td></tr><tr><td class="n">2</td><td><b>Framing redirect</b></td><td>Same training data, different wrapper text at training time → different generalization.</td><td><span class="grade">B+</span></td><td class="muted" style="white-space:nowrap">Tan 2025; Wichers 2025</td></tr><tr><td class="n">3</td><td><b>Attack-surface dissociation</b></td><td>How easily a behavior is flipped by a prompt says nothing about how easily it is eroded by finetuning.</td><td><span class="grade c">C+</span></td><td class="muted" style="white-space:nowrap">Qi 2023; Lu 2026</td></tr><tr><td class="n">4</td><td><b>Curriculum placement</b></td><td>Same documents, same count; only <em>when</em> in training they appear changes the final behavior.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Minder 2026</td></tr><tr><td class="n">5</td><td><b>Subliminal learning</b></td><td>A student picks up a teacher's trait from data carrying no measurable trace of it, but only if they share initialization.</td><td><span class="grade">A−</span></td><td class="muted" style="white-space:nowrap">Cloud 2025</td></tr><tr><td class="n">6</td><td><b>Linear trait directions</b></td><td>Adding a fixed activation vector moves a trait smoothly, and the vector works across prompts.</td><td><span class="grade">A−</span></td><td class="muted" style="white-space:nowrap">Chen 2025</td></tr><tr><td class="n">7</td><td><b>Early formation, lasting validity</b></td><td>A probe fit early in pretraining still reads the trait at every later checkpoint.</td><td><span class="grade">B+</span></td><td class="muted" style="white-space:nowrap">Moskvoretskii 2026; Lu 2026</td></tr><tr><td class="n">8</td><td><b>Low-rank behavioral structure</b></td><td>Hundreds of behaviors, but the train-on-A → shift-in-B matrix has only a few effective dimensions.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Golowich 2025</td></tr><tr><td class="n">9</td><td><b>Self-descriptive edits transfer</b></td><td>Finetune on first-person statements about the model ("I am X"); behaviors never mentioned shift, as much as training on them directly.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Chua 2026</td></tr><tr><td class="n">10</td><td><b>Base spread, post-trained concentration</b></td><td>Base models spread across characters; post-trained models concentrate on one.</td><td><span class="grade c">C+</span></td><td class="muted" style="white-space:nowrap">Lu 2026; janus 2022</td></tr><tr><td class="n">11</td><td><b>Reward-tilted prior</b></td><td>After KL-regularized RL, log-probs = pre-RL log-probs + reward/β. A theorem, not an observation.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Korbak 2022</td></tr><tr><td class="n">12</td><td><b>Sign-symmetric transfer</b></td><td>Train a behavior up and untouched behaviors go up; train it down and they go down, by similar amounts.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Jagadeesh 2026</td></tr>
+      <tr><td class="n">1</td><td><b>Emergent misalignment</b></td><td>Finetune on one narrow bad behavior; unrelated behaviors shift the same way.</td><td><span class="grade">A</span></td><td class="muted" style="white-space:nowrap">Betley 2025; Turner 2025</td></tr><tr><td class="n">2</td><td><b>Framing redirect</b></td><td>Same training data, different wrapper text at training time → different generalization.</td><td><span class="grade">B+</span></td><td class="muted" style="white-space:nowrap">Tan 2025; Wichers 2025</td></tr><tr><td class="n">3</td><td><b>Attack-surface dissociation</b></td><td>How easily a behavior is flipped by a prompt says nothing about how easily it is eroded by finetuning.</td><td><span class="grade c">C+</span></td><td class="muted" style="white-space:nowrap">Qi 2023; Lu 2026</td></tr><tr style="opacity:.55;text-decoration:line-through"><td class="n">4</td><td><b>Curriculum placement</b> <span class="grade c" style="text-decoration:none">cut</span></td><td>Same documents, same count; only <em>when</em> in training they appear changes the final behavior.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Minder 2026</td></tr><tr style="opacity:.55;text-decoration:line-through"><td class="n">5</td><td><b>Subliminal learning</b> <span class="grade c" style="text-decoration:none">cut</span></td><td>A student picks up a teacher's trait from data carrying no measurable trace of it, but only if they share initialization.</td><td><span class="grade">A−</span></td><td class="muted" style="white-space:nowrap">Cloud 2025</td></tr><tr><td class="n">6</td><td><b>Linear trait directions</b></td><td>Adding a fixed activation vector moves a trait smoothly, and the vector works across prompts.</td><td><span class="grade">A−</span></td><td class="muted" style="white-space:nowrap">Chen 2025</td></tr><tr><td class="n">7</td><td><b>Early formation, lasting validity</b></td><td>A probe fit early in pretraining still reads the trait at every later checkpoint.</td><td><span class="grade">B+</span></td><td class="muted" style="white-space:nowrap">Moskvoretskii 2026; Lu 2026</td></tr><tr><td class="n">8</td><td><b>Low-rank behavioral structure</b></td><td>Hundreds of behaviors, but the train-on-A → shift-in-B matrix has only a few effective dimensions.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Golowich 2025</td></tr><tr><td class="n">9</td><td><b>Self-descriptive edits transfer</b></td><td>Finetune on first-person statements about the model ("I am X"); behaviors never mentioned shift, as much as training on them directly.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Chua 2026</td></tr><tr><td class="n">10</td><td><b>Base spread, post-trained concentration</b></td><td>Base models spread across characters; post-trained models concentrate on one.</td><td><span class="grade c">C+</span></td><td class="muted" style="white-space:nowrap">Lu 2026; janus 2022</td></tr><tr><td class="n">11</td><td><b>Reward-tilted prior</b></td><td>After KL-regularized RL, log-probs = pre-RL log-probs + reward/β. A theorem, not an observation.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Korbak 2022</td></tr><tr><td class="n">12</td><td><b>Sign-symmetric transfer</b></td><td>Train a behavior up and untouched behaviors go up; train it down and they go down, by similar amounts.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Jagadeesh 2026</td></tr>
     </table>
-    <p class="muted" style="margin-top:10px;font-size:14px">Anchor survey: Irving &amp; Africa (2026), <em>Thousand-dimensional structure</em>, LessWrong / Resolution. Every row also carries a directly verified source; none rests on the survey alone. Grades: A replicated across labs and model families · B solid, not yet at frontier scale · C suggestive, tie-breaks only.</p>
+    <p class="muted" style="margin-top:10px;font-size:14px">Rows 4 and 5 cut (decision 2026-09-14): placement is a training-order fact and subliminal learning an initialization fact; neither is a property of the corpus, so no corpus model can speak to them. Anchor survey: Irving &amp; Africa (2026), <em>Thousand-dimensional structure</em>, LessWrong / Resolution. Every row also carries a directly verified source; none rests on the survey alone. Grades: A replicated across labs and model families · B solid, not yet at frontier scale · C suggestive, tie-breaks only.</p>
   </div>
 </section>
 
@@ -309,7 +309,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.3c -->
 <section class="slide" data-sec="1.3 Candidate models" data-title="Four survive; atomic vs smooth">
   <p class="eyebrow">1.3 Candidate statistical models</p>
-  <h2>Scored on the twelve regularities, four structures survive, and one measurement would separate them</h2>
+  <h2>Scored on the regularities, four structures survive. Among them, the chapter commits to an atomic prior as a modelling choice</h2>
   <div class="body two">
     <div class="col">
       <table>
@@ -319,11 +319,11 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
         <tr><td>Retrieval</td><td class="n">4</td><td class="k">survives</td></tr>
         <tr><td>DAG · Ising · max-ent · IRT</td><td class="n">≤ 2</td><td class="muted">eliminated</td></tr>
       </table>
-      <p>Low-rank couplings turn out to <em>be</em> factor models (Hubbard–Stratonovich), so the real question is not "latent or couplings" but <b>is the prior over the latent atomic (a finite set of personas) or smooth?</b></p>
+      <p>Low-rank couplings turn out to <em>be</em> factor models (Hubbard–Stratonovich), so the survivors differ mainly in the <b>shape of the prior over the latent</b>: a finite set of personas, or a continuum.</p>
     </div>
     <div class="col">
-      <p class="callout"><span class="lbl">The escalation curve</span>Show a model <i>k</i> behaviors consistent with one persona and ask how consistently the next one follows. An atomic prior <b>saturates below 1</b>: once the persona is pinned, nothing more to learn. A smooth latent <b>keeps climbing</b>. A retrieval bank <b>accelerates</b>.</p>
-      <p class="muted">Registered in advance with thresholds. Costs one inference sweep on a real model. Not yet run by anyone.</p>
+      <p class="callout"><span class="lbl">Modelling choice</span>Real persona structure is neither purely atomic nor purely smooth. The chapter commits to <b>atoms</b>, finitely many personas, because that is what makes "selection" a well-defined operation and lets every toy world carry an exact posterior.</p>
+      <p class="muted">The escalation curve (how consistently a held-out behavior follows k consistent ones) is the measurement that would locate a real model between the two limits. Registered; unrun.</p>
     </div>
   </div>
 </section>
@@ -368,7 +368,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   <div class="body one">
     <table style="font-size:20px;line-height:1.4">
       <tr><td class="n">1</td><td>An LLM simulates the many authors of its training data. A <b>persona</b> is one author's bundle of traits.</td></tr>
-      <tr><td class="n">2</td><td>Persona selection offers a <b>compact hypothesis</b> for twelve empirical phenomena.</td></tr>
+      <tr><td class="n">2</td><td>Persona selection offers a <b>compact hypothesis</b> for ten empirical phenomena.</td></tr>
       <tr><td class="n">3</td><td>Persona selection can be <b>operationalised as a latent-variable generative model</b>.</td></tr>
       <tr><td class="n">4</td><td>The <b>pretraining distribution determines the personas</b>; training reweights the mixture.</td></tr>
     </table>
@@ -378,13 +378,17 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- D1 -->
 <section class="slide discuss" data-sec="Discussion · Part 1" data-title="Discussion: the model">
   <p class="eyebrow">Discussion · Part 1</p>
-  <h2>Questions on the model</h2>
-  <div class="body one">
-    <ol class="q">
-      <li>Should the chapter lead with the simulator intuition, or keep it after the fact table where it sits now?<small>Currently §2.3.7 "Conceptual ancestors". Moving it forward makes the chapter more readable and less defensive.</small></li>
-      <li>Is the desiderata list the right one? Anything missing or over-weighted?<small>Twelve rows, graded; the two C rows never decide anything. Curriculum placement and subliminal learning turn out to be outside the whole class of data-joint models.</small></li>
-      <li>Atomic vs smooth prior: is the escalation sweep worth running now on a real base / post-trained pair?<small>One inference pass. It is the sharpest falsifier the chapter names, and the only measurement that separates the four survivors.</small></li>
-    </ol>
+  <h2>One open question, two decisions taken</h2>
+  <div class="body two">
+    <div class="col">
+      <ol class="q">
+        <li>Should the chapter lead with the simulator intuition, or keep it after the fact table where it sits now?<small>Currently §2.3.7 "Conceptual ancestors". Moving it forward makes the chapter more readable and less defensive.</small></li>
+      </ol>
+    </div>
+    <div class="col">
+      <p class="callout"><span class="lbl">Decided · desiderata</span>Cut curriculum placement and subliminal learning from the list. Both are outside any corpus model by construction; the chapter's own curriculum results are about training order and are reported as such.</p>
+      <p class="callout"><span class="lbl">Decided · atomic vs smooth</span>Not an empirical question for this thesis. Real structure sits between the limits; the atomic prior is a stated modelling choice, made because it is what makes selection well-defined and the toy worlds exact.</p>
+    </div>
   </div>
 </section>
 
