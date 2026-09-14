@@ -1,8 +1,9 @@
-"""``threads scan|weave|serve|render|board|sweep|status|note|pickup|launch|sessions`` —
+"""``threads scan|weave|serve|render|board|sweep|status|note|pickup|launch|declare|sessions|hook`` —
 the bottom-up activity spine, the deliberate push channel (``note``/``pickup``),
 the thread board (``board``, served as the front page by ``serve``), and the
-auto-wrapup backstop (``sweep``), and the open-sessions view (``sessions``:
-which live sessions can close, which must park first).
+auto-wrapup backstop (``sweep``), and the session self-declaration layer
+(``declare`` at the top of a session, ``hook`` for the harness lifecycle
+events, ``sessions`` for which live sessions can close and which must park).
 
 ``scan``/``weave``/``board``/``launch``/``sweep`` take ``--check`` gate hooks
 that are cheap and offline (no model calls): they exit 0 iff the spool is
@@ -73,8 +74,14 @@ def _cmd_board(args) -> int:
         ok, report = board_check()
         print(report)
         return 0 if ok else 1
+    from .sessions import open_sessions
     board = build()
-    print(render_html(board) if args.html else render_text(board))
+    try:
+        live = open_sessions()
+    except Exception:  # noqa: BLE001 — the board must render without it
+        live = None
+    print(render_html(board, open_sessions=live) if args.html
+          else render_text(board, open_sessions=live))
     return 0
 
 
@@ -167,6 +174,43 @@ def _cmd_status(args) -> int:
     print(f"  scan --check: {'OK' if s_ok else 'FAIL'} · "
           f"weave --check: {'OK' if w_ok else 'FAIL'}")
     return 0
+
+
+def _cmd_declare(args) -> int:
+    from . import declare
+    if args.show:
+        sid = args.session or declare.current_session_id()
+        rec = declare.load_declaration(sid) if sid else None
+        if not rec:
+            print("undeclared" + (f" (session {sid[:8]})" if sid else " (no session id)"))
+            return 1
+        print(f"{declare.describe(rec)}  [{rec.get('kind')}]  pane={rec.get('pane') or '-'}  "
+              f"since {rec.get('declared_at')}")
+        for e in declare.load_events(rec["session_id"])[-5:]:
+            print(f"  {e.get('t')}  {e.get('event')}")
+        return 0
+    if not args.slug:
+        print("error: slug required (threads declare <slug> \"<intent>\")", file=sys.stderr)
+        return 2
+    try:
+        rec = declare.declare(args.slug, " ".join(args.intent), session_id=args.session,
+                              kind=args.kind)
+    except ValueError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 1
+    stub = (config.memory_dir() / f"{rec['slug']}.md").is_file()
+    print(f"declared → {declare.describe(rec)}  [{rec['kind']}]"
+          + (f"  ({', '.join(rec['applied'])})" if rec.get("applied") else ""))
+    if rec.get("previous_slug"):
+        print(f"  re-pointed from {rec['previous_slug']}")
+    if not stub:
+        print(f"  '{rec['slug']}' is not a memory-stub slug yet — this seeds a candidate thread.")
+    return 0
+
+
+def _cmd_hook(args) -> int:
+    from .hooks import run
+    return run(args.event)
 
 
 def _cmd_sessions(args) -> int:
@@ -319,6 +363,27 @@ def main(argv=None) -> int:
     lp.add_argument("--check", action="store_true",
                     help="offline gate: accept-latency <100ms + intent-spool consistency")
 
+    dp = sub.add_parser(
+        "declare", help="declare which thread this session is (run first)",
+        description="threads declare <slug> \"<one-line intent>\" — writes "
+                    "~/.threads/sessions/<session-id>.json, logs the event, "
+                    "renames the tmux window and sets the statusline topic. "
+                    "Re-run to re-point a pivoted session. Slug = memory-stub "
+                    "name, or a new kebab-case name (seeds a candidate thread).")
+    dp.add_argument("slug", nargs="?", help="thread slug")
+    dp.add_argument("intent", nargs="*", help="one-line intent")
+    dp.add_argument("--kind", choices=["interactive", "concierge", "cron", "subagent"],
+                    default="interactive")
+    dp.add_argument("--session", help="session id (default: this session)")
+    dp.add_argument("--show", action="store_true",
+                    help="print this session's declaration + last events")
+
+    hp = sub.add_parser("hook", help="Claude Code hook entry point (stdin JSON)",
+                        description="Registered in .claude/settings.json for "
+                                    "SessionStart / UserPromptSubmit / Stop / "
+                                    "SessionEnd. Always exits 0.")
+    hp.add_argument("event", nargs="?", help="hook_event_name fallback if stdin lacks it")
+
     ss = sub.add_parser(
         "sessions", help="which sessions are open, and which can close",
         description="Deterministic, offline: joins the harness session "
@@ -350,7 +415,7 @@ def main(argv=None) -> int:
         "board": _cmd_board, "sweep": _cmd_sweep,
         "status": _cmd_status, "serve": _cmd_serve, "vault": _cmd_vault,
         "note": _cmd_note, "pickup": _cmd_pickup, "launch": _cmd_launch,
-        "sessions": _cmd_sessions,
+        "sessions": _cmd_sessions, "declare": _cmd_declare, "hook": _cmd_hook,
     }[args.cmd](args)
 
 

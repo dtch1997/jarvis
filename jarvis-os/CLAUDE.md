@@ -67,8 +67,9 @@ propose-only portfolio review across active goals.
 
 ## Attention routing — flare + desk + threads + statusline
 
-Four arsenal tools carry the "how does the system ask for Daniel?" and
-"how does context survive a context-switch?" layer:
+Four arsenal tools carry the "how does the system ask for Daniel?",
+"which sessions are open?", and "how does context survive a
+context-switch?" layer:
 
 - **`flare "msg" --sev info|warn|page`** — the universal push channel to
   Daniel (Slack `#jarvis-flares` once the webhook is configured; always
@@ -85,6 +86,18 @@ Four arsenal tools carry the "how does the system ask for Daniel?" and
   waits on Daniel gets a line containing **`BLOCKED-ON-DANIEL:`** followed
   by what's needed — that string is what desk sweeps for. Add it when you
   park work on him; remove it when unblocked.
+- **`threads declare <slug> "<intent>"` — declare first, then work.** The
+  first action of every session (interactive, concierge, cron) names the
+  thread it belongs to: slug = the memory-stub name, or a new kebab-case
+  name (seeds a candidate thread). It writes
+  `~/.threads/sessions/<session-id>.json`, renames the tmux window, and sets
+  the statusline topic; hooks log `turn_ended`/`closed` after that, so
+  **`threads sessions`** can say which sessions are open and which can
+  close (`busy` / `recent` / `needs-park` / `closable`) without reading
+  transcripts. Undeclared sessions get nagged each prompt. `/clear` starts a
+  *new* session in the same pane — the hook names the superseded thread;
+  re-declare it or declare a new one. Re-run `declare` when a session pivots.
+  Spec: [`docs/session-declaration.md`](docs/session-declaration.md).
 - **`threads note` — parking convention**: when a session (or worker) steps
   away from live work mid-stream, dump the context onto its thread before
   switching: `threads note <slug> - --status parked` with a markdown body

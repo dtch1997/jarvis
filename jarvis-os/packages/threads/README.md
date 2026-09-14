@@ -267,6 +267,26 @@ brand-new name to start a thread that has no note file yet. `pickup` prints
 the project's status line, all parked notes (newest first), and recent
 observed session summaries — a ready-made context pack for you or an agent.
 
+## Declaring a session — `threads declare`
+
+The first action of every session names its thread:
+
+```
+threads declare negtext-modern "P2 ablations + 1.7B/4B arms"
+threads declare <new-kebab-name> "<intent>"        # seeds a candidate thread
+threads declare --show                             # what this session declared
+```
+
+It writes `~/.threads/sessions/<session-id>.json`, renames the tmux window
+to the slug, sets the statusline topic, and logs `declared`. Hooks
+(`threads hook`, registered in the repo's `.claude/settings.json`) log
+`turn_ended` on every Stop, `closed` on SessionEnd, `resumed` / `compacted`
+on SessionStart, nag undeclared sessions once per prompt, and on `/clear`
+supersede the pane's previous declaration and name it so you can re-declare.
+Launchers (concierge, cron) set `THREADS_SLUG` / `THREADS_INTENT` /
+`THREADS_KIND` and the SessionStart hook declares for them. Full spec:
+`jarvis-os/docs/session-declaration.md`.
+
 ## Open sessions — which can close, which must park first
 
 `threads sessions` is the deterministic answer to "what is open right now
@@ -287,7 +307,7 @@ It joins five things that already exist, keyed on the session id:
 | input | file | gives |
 |---|---|---|
 | harness session registry | `~/.claude/sessions/<pid>.json` | which sessions are alive (PID probe), tmux pane, name, busy/idle |
-| declaration | `~/.threads/sessions/<session-id>.json` | thread slug + intent (`threads declare`; derived names show `(undeclared)`) |
+| declaration + events | `~/.threads/sessions/<session-id>.json` / `.events.jsonl` | thread slug + intent (`threads declare`; derived names show `(undeclared)`), last `turn_ended` |
 | statusline | `~/.claude/statusline/sessions/<session-id>.json` | topic + open wrap-up flags |
 | transcript | `~/.claude/projects/*/<session-id>.jsonl` | last *real* turn (mtime is meaningless), `pr-link` records, `Artifact` publishes |
 | notes | `~/.threads/notes/<slug>/` | newest note on the declared slug or naming the session |

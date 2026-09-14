@@ -756,8 +756,34 @@ def _table(rows: list, now: datetime, *, tbody_id: str = "") -> str:
     return "\n".join(out)
 
 
+def _sessions_html(rows, now: datetime) -> str:
+    from .sessions import _fmt_idle
+    if rows is None:
+        return ""
+    counts: dict = {}
+    for s in rows:
+        counts[s.verdict] = counts.get(s.verdict, 0) + 1
+    head = " · ".join(f"{v} {k}" for k, v in counts.items()) or "none"
+    out = [f"<details class='arch' open><summary>open sessions — {len(rows)}: "
+           f"{_esc(head)}</summary>"]
+    if rows:
+        out.append("<table><thead><tr><th>verdict</th><th>session</th><th>idle</th>"
+                   "<th>pane</th><th>flags</th><th>PRs</th><th>art</th><th>why</th>"
+                   "</tr></thead><tbody>")
+        for s in rows:
+            label = s.label if s.declared or s.name_source == "user" else f"{s.name} (undeclared)"
+            out.append(f"<tr><td>{_esc(s.verdict)}</td><td>{_esc(label)}</td>"
+                       f"<td>{_esc(_fmt_idle(s.idle_hours))}</td>"
+                       f"<td>{_esc((s.tmux or '').split(':')[0] or '-')}</td>"
+                       f"<td>{len(s.flags)}</td><td>{len(s.prs)}</td><td>{s.artifacts}</td>"
+                       f"<td>{_esc(s.reason)}</td></tr>")
+        out.append("</tbody></table>")
+    out.append("</details>")
+    return "\n".join(out)
+
+
 def render_html(board: Board | None = None, *, now: datetime | None = None,
-                refresh: int | None = None) -> str:
+                refresh: int | None = None, open_sessions=None) -> str:
     board = board or build(now=now)
     now = board.generated_at
     counts = board.counts()
@@ -779,6 +805,7 @@ def render_html(board: Board | None = None, *, now: datetime | None = None,
         f"(settled, or older than {board.archive_days}d) · "
         "<a href='dashboard'>activity dashboard →</a></div>",
         _add_form(board),
+        _sessions_html(open_sessions, now),
     ]
     if not board.live:
         out.append("<p class='muted'>no live rows — send an intent above.</p>")
@@ -811,14 +838,22 @@ def render_html(board: Board | None = None, *, now: datetime | None = None,
     return "\n".join(out)
 
 
-def render_text(board: Board | None = None, *, now: datetime | None = None) -> str:
-    """The board as plain text (``threads board``) — same rows, same order."""
+def render_text(board: Board | None = None, *, now: datetime | None = None,
+                open_sessions=None) -> str:
+    """The board as plain text (``threads board``) — same rows, same order.
+    ``open_sessions`` (rows from ``sessions.open_sessions``) prepends the
+    open-sessions section; the gate never passes it, so ``--check`` stays
+    hermetic."""
     board = board or build(now=now)
     now = board.generated_at
     counts = board.counts()
     lines = [f"thread board — {len(board.live)} live row(s), "
              f"{counts['needs_you']} need you, {counts['archived']} archived",
              ""]
+    if open_sessions is not None:
+        from .sessions import render as _render_sessions
+        lines.append(_render_sessions(open_sessions, now=now))
+        lines.append("")
     for row in board.live:
         flag = "!!" if row.violation else ("!" if row.needs_you else " ")
         lines.append(f"{flag} [{row.lifecycle:<8}] {row.prompt[:64]}")

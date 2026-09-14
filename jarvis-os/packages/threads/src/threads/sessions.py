@@ -15,10 +15,10 @@ calls, no transcript summarisation. The join is:
 - **obligations** — the statusline wrap-up flags
   ``~/.claude/statusline/sessions/<session-id>.json``, plus ``pr-link`` and
   ``Artifact`` publish records found in the transcript.
-- **last real activity** — the last user/assistant turn in the transcript
-  (transcript *mtime* is meaningless: housekeeping records keep touching
-  files for days after the last turn), or a ``turn_ended`` event once the
-  hooks land.
+- **last real activity** — the newest of the last user/assistant turn in
+  the transcript (transcript *mtime* is meaningless: housekeeping records
+  keep touching files for days after the last turn) and the last
+  ``turn_ended`` event the Stop hook logged.
 - **parking** — the newest ``threads note`` on the declared slug, or any note
   whose frontmatter names this session.
 
@@ -131,14 +131,8 @@ def _load_registry_raw() -> list[dict]:
 
 
 def _load_declaration(session_id: str) -> dict | None:
-    p = config.declarations_dir() / f"{session_id}.json"
-    if not p.is_file():
-        return None
-    try:
-        rec = json.loads(p.read_text())
-    except (OSError, ValueError):
-        return None
-    return rec if isinstance(rec, dict) else None
+    from .declare import load_declaration
+    return load_declaration(session_id)
 
 
 def _load_statusline(session_id: str) -> tuple[str | None, list[str]]:
@@ -346,6 +340,11 @@ def open_sessions(*, now: datetime | None = None, alive=None,
         note_at, note_status, note_slug = _latest_note(sid, slug)
         status_at = _ms(rec.get("statusUpdatedAt")) or _ms(rec.get("updatedAt"))
         started = _ms(rec.get("startedAt"))
+        from .declare import last_event
+        ended = last_event(sid, "turn_ended")
+        ended_at = _parse_ts(ended.get("t")) if ended else None
+        if ended_at and (facts.last_turn is None or ended_at > facts.last_turn):
+            facts.last_turn = ended_at
         idle = _idle_hours(facts.last_turn, status_at, started, now)
         verdict, reason = classify(
             alive=is_alive, harness_status=rec.get("status"), idle_hours=idle,
@@ -418,5 +417,10 @@ def render(sessions: list[OpenSession], *, now: datetime | None = None) -> str:
                 lines.append(f"    artifacts published: {s.artifacts}")
             if s.last_user:
                 lines.append(f"    last user turn: {s.last_user[:120]}")
-            lines.append(f"    park with: threads note {s.slug or s.note_slug or '<slug>'} - --status parked")
+            slug = s.slug or s.note_slug
+            if slug:
+                lines.append(f"    park with: threads note {slug} - --status parked")
+            else:
+                lines.append("    park with: threads note <slug> - --status parked   "
+                             "(undeclared — pick the memory-stub slug from the topic)")
     return "\n".join(lines)
