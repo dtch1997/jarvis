@@ -671,14 +671,15 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 </section>
 <!-- 3.2e -->
 <section class="slide" data-sec="Claim 1" data-title="The mixture is named blind">
-  <p class="eyebrow">Claim 1 · the latent is real</p>
+  <p class="eyebrow">Claim 1 · the latent is real · tournament</p>
   <h2>The mixture is named blind, 5 out of 5</h2>
   <div class="body fig wide">
     <div class="col">
       <ul>
-        <li>Rows = true world, columns = the analyst's call. Accuracy <span class="num">0.575</span> vs chance <span class="num">0.125</span>.</li>
-        <li>The coupling worlds blur into each other; full-rank Ising is never separated from a DAG.</li>
-        <li>Of ten pre-registered sub-predictions about <em>where</em> confusions land, nine missed. The one hit: corpus statistics alone cannot predict transfer size.</li>
+        <li><b>What is classified:</b> each held-out trained model, from a vector of behavioral measurements (escalation curve and its ceiling, response-matrix rank and asymmetry, probe persistence). No pairwise statistics. Logistic regression, not a single probe.</li>
+        <li><b>Reading the plot:</b> rows = the world the model was actually trained on, columns = the classifier's call, five held-out models per row. Accuracy <span class="num">0.575</span> vs chance <span class="num">0.125</span>.</li>
+        <li>Both mixture rows sit entirely on the diagonal. The coupling worlds blur into each other; full-rank Ising is always called DAG.</li>
+        <li>Nine of ten pre-registered sub-predictions about <em>where</em> confusions land missed. The one hit: corpus statistics alone cannot predict transfer size.</li>
       </ul>
       <p class="src">Fig. 2.5 · parity world, ablation ladder and dial in backup</p>
     </div>
