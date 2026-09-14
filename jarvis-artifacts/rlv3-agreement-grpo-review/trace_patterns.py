@@ -40,7 +40,7 @@ for cell in CELLS:
     for sl in ("eval_trained_conflict", "eval_holdout_conflict"):
         rows = [json.loads(l) for l in open(f"{ROOT}/extensions/rl_v3/results/{cell}/{sl}.jsonl")]
         fam = collections.defaultdict(collections.Counter); flags = collections.Counter(); basis = collections.Counter(); focus = collections.Counter()
-        n = 0; chars = 0; excl = collections.Counter()
+        n = 0; chars = 0; excl = collections.Counter(); xtab = collections.Counter()
         for r in rows:
             ep = eps.get(r["id"])
             if not ep: continue
@@ -48,12 +48,17 @@ for cell in CELLS:
             cl = ctt.classify(r["raw_text"])
             for f in FLAGS: flags[f] += bool(cl.get(f))
             basis[cl.get("decision_basis")] += 1; focus[cl.get("focus")] += 1
+            picks = [lab for lab, f in conflict_runs(r["raw_text"], ep)]
             for lab, f in conflict_runs(r["raw_text"], ep):
                 fam[f][lab] += 1
+            # reasoning basis x pick, per trace (episode-level pick: unanimous over its conflict runs, else 'split')
+            ep_pick = picks[0] if picks and all(x == picks[0] for x in picks) else ("split" if picks else "none")
+            xtab[(cl.get("decision_basis"), ep_pick)] += 1
         def share(f):
             c = fam[f]; p = sum(v for k, v in c.items() if k != "none"); t = sum(c.values())
             return {"n_runs": t, "parseable": round(p / t, 3), **{k: round(c[k] / max(p, 1), 3) for k in ("charter", "coin", "other")}}
         out[f"{cell}/{sl}"] = {"n": n, "mean_chars": chars // max(n, 1), "pick_by_family": {f: share(f) for f in ("qualification", "precedence")},
                                "flags": {f: round(flags[f] / n, 3) for f in FLAGS}, "decision_basis": {str(k): round(v / n, 3) for k, v in basis.items()},
-                               "focus": {str(k): round(v / n, 3) for k, v in focus.items()}}
+                               "focus": {str(k): round(v / n, 3) for k, v in focus.items()},
+                               "basis_x_pick": {f"{b}|{pk}": v for (b, pk), v in sorted(xtab.items(), key=str)}}
 json.dump(out, sys.stdout, indent=1)
