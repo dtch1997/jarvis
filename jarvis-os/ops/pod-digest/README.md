@@ -14,7 +14,7 @@ reported spend daily and pods carried no attribution.
   pod id in `~/.threads/notes/<slug>/` → in a memory stub → in a concierge
   task/spec → in a session transcript (mapped through the session's
   `threads declare`). Unattributed running GPU pods escalate the flare to
-  `warn`; yesterday ≥ $150 → `warn`, ≥ $400 → `page`.
+  `warn`; yesterday ≥ $250 → `warn`, ≥ $750 → `page`.
 
 **Make your pods attributable:** name them after the thread slug
 (`PodConfig(name="<slug>-…")`) and print the pod id into the session or a

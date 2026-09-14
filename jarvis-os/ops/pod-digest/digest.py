@@ -22,7 +22,7 @@ Per tick:
      Anything left is UNATTRIBUTED and printed loudly.
   4. Renders one message, appends a JSONL ledger record (--out), and sends it
      with `flare` (--sev info; warn/page when spend or an orphan crosses the
-     thresholds). --dry-run prints without sending.
+     thresholds: default warn ≥ $250/day, page ≥ $750/day). --dry-run prints without sending.
 
 Stdlib only; flare is shelled out (on PATH via ~/.local/bin). Key from
 RUNPOD_API_KEY in env / ~/.env, else ~/.runpod/config.toml. RunPod's REST v2
@@ -30,6 +30,7 @@ RUNPOD_API_KEY in env / ~/.env, else ~/.runpod/config.toml. RunPod's REST v2
 
 Usage:
   python3 digest.py --dry-run
+  python3 digest.py --dry-run --as-of 2026-08-01   # replay a past day
   python3 digest.py --out ~/jarvis-data/pod-digest/ledger.jsonl
 """
 
@@ -198,6 +199,9 @@ def attribute(pods: dict[str, str], allow: dict, self_session: str | None) -> di
 
 # ── render ────────────────────────────────────────────────────────────────────
 
+SMALL_POD = 5.0   # $/day below which a vanished pod is "short-lived eval pod" noise, not an owner question
+
+
 def age(iso: str | None, now: datetime) -> str:
     if not iso:
         return "?"
@@ -217,48 +221,137 @@ def gpu_label(p: dict) -> str:
     return "CPU"
 
 
-def render(now, pods, y_all, t_all, y_pod, t_pod, attr, acct, warn, page) -> tuple[str, str]:
-    y = y_all.get("totalAmount", 0.0) if y_all else 0.0
-    t = t_all.get("totalAmount", 0.0) if t_all else 0.0
-    yd = (now - timedelta(days=1)).date()
-    sev = "info"
-    head = [f"pod-digest {now.date()} · yesterday ({yd}) ${y:,.2f}"
-            + (f" (gpu {y_all.get('podGpuAmount', 0):,.0f} · cpu {y_all.get('podCpuAmount', 0):,.2f}"
-               f" · cluster {y_all.get('clusterGpuAmount', 0) + y_all.get('clusterNetworkingAmount', 0):,.0f}"
-               f" · storage {y_all.get('podDiskAmount', 0) + y_all.get('storageStandardAmount', 0):,.2f})" if y_all else "")
-            + f" · today so far ${t:,.2f}"]
-    if acct:
-        head[0] += f" · balance ${acct.get('clientBalance', 0):,.0f} · burn ${acct.get('currentSpendPerHr', 0):.2f}/h"
-    lines = list(head)
+def owner(labels: list[str]) -> str | None:
+    """Primary thread for a pod, or None when the only evidence is an undeclared session."""
+    for lab in labels:
+        if not lab.startswith("undeclared"):
+            return lab
+    return None
+
+
+def flat_days(series: list[float]) -> int:
+    """How many consecutive earlier days billed within 5% of the last one (leak signature)."""
+    if not series:
+        return 0
+    last, n = series[-1], 0
+    for v in reversed(series[:-1]):
+        if last > 1 and abs(v - last) <= 0.05 * last:
+            n += 1
+        else:
+            break
+    return n
+
+
+def render(now, pods, totals, per_pod, attr, acct, warn, page) -> tuple[str, str]:
+    """totals: {date: all-scope record}, per_pod: {date: {pod_id: $}} for the trailing window."""
+    yd = (now - timedelta(days=1)).strftime("%Y-%m-%d")
+    days = sorted(d for d in per_pod if d < now.strftime("%Y-%m-%d"))
+    y_total = (totals.get(yd) or {}).get("totalAmount", 0.0)
+    y_pod = per_pod.get(yd, {})
     running = [p for p in pods if p.get("status") == "RUNNING"]
+    gpu_running = [p for p in running if (p.get("cost") or 0) >= 0.5]
+    burn = sum(p.get("cost") or 0 for p in running)
+    is_infra = lambda pid: (attr.get(pid) or [""])[0] == "infra (allowlist)"  # noqa: E731
+
+    # ── yesterday, grouped by owner
+    groups: dict[str, dict] = {}
+    for pid, amt in y_pod.items():
+        labs = attr.get(pid) or []
+        own = owner(labs)
+        alive = pid in {p["id"] for p in pods}
+        if own is None and not alive and amt < SMALL_POD:
+            own = "short-lived eval pods"
+        key = own or "⚠ unattributed"
+        g = groups.setdefault(key, {"amt": 0.0, "pods": [], "hints": set()})
+        g["amt"] += amt
+        g["pods"].append(pid)
+        if own is None:
+            g["hints"].update(l for l in labs if l.startswith("undeclared"))
+    orphans = [pid for pid in groups.get("⚠ unattributed", {}).get("pods", [])]
+    gpu_orphans = [p for p in gpu_running if owner(attr.get(p["id"]) or []) is None]
+
+    # ── headline
+    date = (now - timedelta(days=1)).strftime("%a %-d %b")
+    series = [(totals.get(d) or {}).get("totalAmount", 0.0) for d in days]
+    fl = flat_days(series)
+    head = f"RunPod, {date}: ${y_total:,.0f} spent"
+    head += f", same as the last {fl} days" if fl >= 3 else ""
+    head += "."
+    flat_orphans = [pid for pid in orphans
+                    if flat_days([per_pod.get(d, {}).get(pid, 0.0) for d in days]) >= 2]
+    loud = sorted({o["id"] for o in gpu_orphans} | set(flat_orphans))
+    if loud:
+        head += f" ⚠ {len(loud)} pod{'s' if len(loud) > 1 else ''} with no owner."
+    elif gpu_running:
+        head += f" {len(gpu_running)} GPU pod{'s' if len(gpu_running) > 1 else ''} running, ${burn:,.0f}/h."
+    else:
+        head += " Nothing burning today."
+    lines = [head, ""]
+
+    # ── yesterday breakdown
+    if y_pod:
+        lines.append(f"Yesterday's ${y_total:,.0f} went to:")
+        pod_by_id = {p["id"]: p for p in pods}
+        for key, g in sorted(groups.items(), key=lambda kv: -kv[1]["amt"]):
+            n = len(g["pods"])
+            if key == "infra (allowlist)":
+                names = ", ".join(pod_by_id[pid].get("name", pid) for pid in g["pods"] if pid in pod_by_id)
+                lines.append(f"  • infra — ${g['amt']:,.0f} ({names})")
+            elif key == "short-lived eval pods":
+                lines.append(f"  • short-lived eval pods — ${g['amt']:,.0f}, {n} pods")
+            elif key == "⚠ unattributed":
+                for pid in g["pods"]:
+                    p = pod_by_id.get(pid)
+                    shape = f"{gpu_label(p)}, up {age(p.get('createdAt'), now)}" if p else "gone"
+                    hist = [per_pod.get(d, {}).get(pid, 0.0) for d in days]
+                    f = flat_days(hist)
+                    flat = f", flat for {f + 1} days" if f >= 2 else ""
+                    hint = f" (seen in: {', '.join(sorted(g['hints']))})" if g["hints"] else ""
+                    lines.append(f"  • ⚠ unattributed — ${y_pod[pid]:,.0f}, {pid} ({shape}{flat}){hint}")
+            else:
+                shapes = sorted({gpu_label(pod_by_id[pid]) for pid in g["pods"] if pid in pod_by_id})
+                what = f"{n} pod{'s' if n > 1 else ''}" + (f", {'/'.join(shapes)}" if shapes else "")
+                alive = [pid for pid in g["pods"] if pid in pod_by_id and pod_by_id[pid].get("status") == "RUNNING"]
+                state = "" if alive or key == "infra (allowlist)" else ", torn down"
+                lines.append(f"  • {key} — ${g['amt']:,.0f}, {what}{state}")
+        lines.append("")
+
+    # ── running now
+    if gpu_running:
+        lines.append(f"Running now (${burn:,.0f}/h):")
+        for p in sorted(gpu_running, key=lambda p: -(p.get("cost") or 0)):
+            own = owner(attr.get(p["id"]) or [])
+            up = age(p.get("createdAt"), now)
+            mark = " ⚠ no owner" if own is None else ""
+            lines.append(f"  • {own or '⚠ unattributed'} — {p['id']} {gpu_label(p)} ${p.get('cost') or 0:,.2f}/h, up {up}{mark}")
+        infra = [p for p in running if is_infra(p["id"])]
+        if infra:
+            lines.append(f"  • infra — {len(infra)} CPU pods ${sum(p.get('cost') or 0 for p in infra):,.2f}/h")
+    else:
+        infra = [p for p in running if is_infra(p["id"])]
+        lines.append(f"Running now: only the {len(infra)} infra CPU pods (${burn:,.2f}/h)." if infra and len(infra) == len(running)
+                     else f"Running now: {len(running)} pods, ${burn:,.2f}/h, no GPU.")
     stopped = [p for p in pods if p.get("status") != "RUNNING"]
-    lines.append(f"ACTIVE ({len(running)} running, {len(stopped)} stopped):")
-    unattributed = []
-    for p in sorted(pods, key=lambda p: -(p.get("cost") or 0)):
-        labs = attr.get(p["id"]) or []
-        if not labs:
-            unattributed.append(p)
-        lab = " / ".join(labs[:3]) if labs else "⚠ UNATTRIBUTED"
-        lines.append(f"• {p.get('name') or '(unnamed)'} `{p['id']}` {gpu_label(p)} ${p.get('cost') or 0:.2f}/h"
-                     f" {p.get('status', '?').lower()} up {age(p.get('createdAt'), now)}"
-                     f" · y ${y_pod.get(p['id'], 0):.2f} · today ${t_pod.get(p['id'], 0):.2f} · {lab}")
-    gone = [(pid, amt) for pid, amt in y_pod.items() if pid not in {p["id"] for p in pods} and amt >= 0.5]
-    if gone:
-        lines.append(f"BILLED YESTERDAY, NOW GONE ({len(gone)}):")
-        for pid, amt in sorted(gone, key=lambda x: -x[1])[:15]:
-            labs = attr.get(pid) or []
-            lines.append(f"• `{pid}` ${amt:.2f} · {' / '.join(labs[:3]) if labs else '⚠ UNATTRIBUTED'}")
-        if len(gone) > 15:
-            lines.append(f"  … +{len(gone) - 15} more (${sum(a for _, a in gone[15:]):.2f})")
-    # severity
-    for p in running:
-        labs = attr.get(p["id"]) or []
-        if (p.get("cost") or 0) >= 0.5 and (not labs or all(l.startswith("undeclared") for l in labs)):
-            sev = "warn"
-            lines.append(f"⚠ GPU pod `{p['id']}` ({p.get('name')}) has no thread attribution — leak candidate")
-    if y >= page:
+    if stopped:
+        lines.append(f"Stopped but still billing disk: {', '.join(p.get('name') or p['id'] for p in stopped)}.")
+
+    # ── balance / runway / kill line
+    bal = acct.get("clientBalance")
+    if bal is not None:
+        tail = f"Balance ${bal:,.0f}."
+        if burn >= 1:
+            tail += f" At this burn, {bal / (burn * 24):.0f} days."
+        lines.append(tail)
+    kill = sorted({p["id"] for p in gpu_orphans} | {pid for pid in orphans if pid in {p["id"] for p in running}})
+    if kill:
+        lines.append(f"Kill: runpodctl remove pod {' '.join(kill)}")
+
+    sev = "info"
+    if loud:
+        sev = "warn"
+    if y_total >= page:
         sev = "page"
-    elif y >= warn and sev == "info":
+    elif y_total >= warn and sev == "info":
         sev = "warn"
     return "\n".join(lines), sev
 
@@ -271,30 +364,34 @@ def main(argv=None) -> int:
                     default=Path(__file__).resolve().parent / "allowlist.json",
                     help="pod-audit style allowlist of intended long-lived pods")
     ap.add_argument("--out", type=Path, help="append one JSONL ledger record here")
-    ap.add_argument("--warn-daily", type=float, default=150.0, help="sev=warn above this $/day")
-    ap.add_argument("--page-daily", type=float, default=400.0, help="sev=page above this $/day")
+    ap.add_argument("--warn-daily", type=float, default=250.0, help="sev=warn above this $/day")
+    ap.add_argument("--page-daily", type=float, default=750.0, help="sev=page above this $/day")
     ap.add_argument("--dry-run", action="store_true", help="print, don't flare")
+    ap.add_argument("--as-of", help="replay: render as if run at 00:05 UTC on this YYYY-MM-DD (pod list is still live)")
     a = ap.parse_args(argv)
 
     now = datetime.now(timezone.utc)
+    if a.as_of:
+        now = datetime.strptime(a.as_of, "%Y-%m-%d").replace(hour=0, minute=5, tzinfo=timezone.utc)
     key = api_key()
     pods = paged("/pods", key, "pods")
-    day0 = (now - timedelta(days=1)).strftime("%Y-%m-%dT00:00:00Z")
+    day0 = (now - timedelta(days=10)).strftime("%Y-%m-%dT00:00:00Z")
     day2 = (now + timedelta(days=1)).strftime("%Y-%m-%dT00:00:00Z")
     win = dict(bucketSize="day", startTime=day0, endTime=day2)
-    b_all = {r["startTime"][:10]: r for r in paged("/billing", key, "records", scope="all", **win)}
-    b_pod = paged("/billing/pods", key, "records", **win)
+    totals = {r["startTime"][:10]: r for r in paged("/billing", key, "records", scope="all", **win)}
+    per_pod: dict[str, dict[str, float]] = {}
+    for r in paged("/billing/pods", key, "records", **win):
+        per_pod.setdefault(r["startTime"][:10], {})[r["podId"]] = r["totalAmount"]
     yd, td = (now - timedelta(days=1)).strftime("%Y-%m-%d"), now.strftime("%Y-%m-%d")
-    y_pod = {r["podId"]: r["totalAmount"] for r in b_pod if r["startTime"][:10] == yd}
-    t_pod = {r["podId"]: r["totalAmount"] for r in b_pod if r["startTime"][:10] == td}
+    y_pod = per_pod.get(yd, {})
 
     allow = json.loads(a.allowlist.read_text()) if a.allowlist.exists() else {}
     names = {p["id"]: p.get("name") or "" for p in pods}
-    for pid in set(y_pod) | set(t_pod):
+    for pid in y_pod:
         names.setdefault(pid, "")
     attr = attribute(names, allow, os.environ.get("CLAUDE_CODE_SESSION_ID"))
-    msg, sev = render(now, pods, b_all.get(yd), b_all.get(td), y_pod, t_pod, attr,
-                      account(key), a.warn_daily, a.page_daily)
+    msg, sev = render(now, pods, totals, per_pod, attr, account(key), a.warn_daily, a.page_daily)
+    b_all = totals
 
     if a.out:
         a.out.parent.mkdir(parents=True, exist_ok=True)
