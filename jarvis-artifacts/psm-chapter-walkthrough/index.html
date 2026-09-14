@@ -783,6 +783,26 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
     <div class="figbox"><img src="figs/f11.png" alt="Spillover"></div>
   </div>
 </section>
+<!-- 3.3c0 -->
+<section class="slide" data-sec="Claim 2" data-title="Splitting a finetuning update into two channels">
+  <p class="eyebrow">Claim 2 · mechanism</p>
+  <h2>Every change in behavior splits into "which persona is speaking" and "what that persona does"</h2>
+  <div class="body two">
+    <div class="col">
+      <div class="eq" style="font-size:19px">Δ<i>L</i> = Σ<sub><i>z</i></sub> Δ<i>q</i>(<i>z</i>) ℓ(<i>z</i>) + Σ<sub><i>z</i></sub> <i>q</i>(<i>z</i>) Δℓ(<i>z</i>) + Δ<i>q</i>·Δℓ + residual<small><b>prior channel</b>: the mixture weights moved · <b>conditional channel</b>: a persona's own behavior moved · interaction · residual = how far the model departs from the mixture form</small></div>
+      <ul>
+        <li><i>L</i> = behavior score on a trait (logit difference toward persona B's value).</li>
+        <li><i>q</i>(<i>z</i>) = P(persona <i>z</i>), read at the <span class="src">persona:</span> field.</li>
+        <li>ℓ(<i>z</i>) = the same behavior score with the context pinned to persona <i>z</i> (all other traits set to <i>z</i>'s values, posterior 0.99 on <i>z</i>).</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p class="callout"><span class="lbl">Why this is measurable here</span>The corpus grammar exposes <i>q</i> directly, and the pinned prefixes expose ℓ. Measure both before and after the finetune; the identity is exact algebra, so the four terms account for the whole change.</p>
+      <p class="muted">Measured on five traits, three <i>p</i>, five seeds, four finetuning learning rates.</p>
+    </div>
+  </div>
+</section>
+
 <!-- 3.3c -->
 <section class="slide" data-sec="Claim 2" data-title="Side effects move the prior; the trained trait moves the conditional">
   <p class="eyebrow">Claim 2 · mechanism</p>
@@ -790,15 +810,65 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   <div class="body fig wide">
     <div class="col">
       <ul>
-        <li>Each update is split into a <b>prior channel</b> (which persona is speaking changes) and a <b>conditional channel</b> (what that persona does changes).</li>
-        <li>Untouched traits (left): prior channel ~⅘. Trained trait (right): conditional channel ~all.</li>
-        <li>At the hot learning rate the left panel flips too. That is spillover.</li>
+        <li><b>Reading the plot:</b> each bar is one finetuning learning rate. Its height is split by how much of the total change (sum of the four terms' magnitudes) each channel accounts for.</li>
+        <li><b>Left, untouched traits:</b> the prior channel (blue) is ~80% at cold learning rates. The side effect is the mixture weights moving.</li>
+        <li><b>Right, the finetuned trait:</b> the conditional channel (orange) dominates. The trained behavior is direct modification. The grey residual there says part of it lies below the persona abstraction.</li>
+        <li>At 10⁻³ the left panel flips to conditional: spillover is modification.</li>
       </ul>
-      <p class="src">Fig. 2.12</p>
+      <p class="src">Fig. 2.12 · mean over p and seeds</p>
     </div>
     <div class="figbox"><img src="figs/f12.png" alt="Channel decomposition"></div>
   </div>
 </section>
+<!-- 3.6b0 -->
+<section class="slide" data-sec="Claim 2" data-title="A hierarchical persona world">
+  <p class="eyebrow">Claim 2 · in a hierarchy</p>
+  <h2>Personas in families: do side effects leak to a sibling?</h2>
+  <div class="body fig" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
+    <div class="col">
+      <ul>
+        <li>Four personas on a tree: two <b>families</b> (A, B), each with two <b>subtypes</b> (A1, A2, B1, B2). Two subtypes of the same family are <b>siblings</b>: A1 and A2 share the family-A traits but never appear in the same document. One persona per document, as before.</li>
+        <li>A <b>private trait</b> is a trait that belongs to one subtype. Its sibling shows it at the family rate p<sub>F</sub>; the other family never does. That shared rate is the only link between siblings.</li>
+        <li>Prediction: training A1's private trait moves A2's, because the cheapest explanation of the datum is "this is family A".</li>
+      </ul>
+    </div>
+    <div class="figbox" style="background:var(--card)"><svg viewBox="0 0 720 330" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Two persona families A and B, each with two subtypes. Family markers are shared within a family; private traits belong to one subtype and leak to its sibling at rate p_F. Finetune one A1 private trait; measure A1's other traits, family-A markers, A2's private traits, family-B, and the subtype axis.">
+<defs><marker id="ar7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--warm)"/></marker></defs>
+<!-- tree -->
+<g stroke="var(--muted)" stroke-width="1.5">
+<line x1="180" y1="70" x2="100" y2="140"/><line x1="180" y1="70" x2="260" y2="140"/>
+<line x1="540" y1="70" x2="460" y2="140"/><line x1="540" y1="70" x2="620" y2="140"/>
+</g>
+<rect x="120" y="40" width="120" height="40" rx="6" fill="var(--accent)"/><text x="180" y="65" text-anchor="middle" font-size="15" font-weight="600" fill="#fff">family A</text>
+<rect x="480" y="40" width="120" height="40" rx="6" fill="var(--muted)"/><text x="540" y="65" text-anchor="middle" font-size="15" font-weight="600" fill="#fff">family B</text>
+<g font-size="14" font-weight="600">
+<rect x="55" y="140" width="90" height="36" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="100" y="163" text-anchor="middle" fill="var(--ink)">A1</text>
+<rect x="215" y="140" width="90" height="36" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="260" y="163" text-anchor="middle" fill="var(--ink)">A2</text>
+<rect x="415" y="140" width="90" height="36" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/><text x="460" y="163" text-anchor="middle" fill="var(--ink)">B1</text>
+<rect x="575" y="140" width="90" height="36" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/><text x="620" y="163" text-anchor="middle" fill="var(--ink)">B2</text>
+</g>
+<text x="180" y="200" text-anchor="middle" font-size="11.5" fill="var(--muted)">sibling subtypes: no document ever mentions both</text>
+<!-- trait tiers -->
+<text x="20" y="240" font-size="11" letter-spacing="1" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">TRAIT TIERS</text>
+<g font-size="12.5" fill="var(--ink)">
+<rect x="20" y="250" width="12" height="12" rx="2" fill="var(--accent)"/><text x="40" y="261"><tspan font-weight="600">family markers</tspan>: aligned in every A document, with prob. p<tspan font-size="9" dy="3">F</tspan><tspan dy="-3"></tspan></text>
+<rect x="20" y="274" width="12" height="12" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="40" y="285"><tspan font-weight="600">subtype markers</tspan>: aligned inside one subtype only</text>
+<rect x="20" y="298" width="12" height="12" rx="2" fill="var(--warm)"/><text x="40" y="309"><tspan font-weight="600">private traits</tspan>: belong to one subtype (A1); the sibling (A2) emits them at rate p<tspan font-size="9" dy="3">F</tspan><tspan dy="-3"></tspan>; B never does</text>
+</g>
+<!-- experiment annotation -->
+<path d="M100 178 L 100 205" stroke="var(--warm)" stroke-width="2" marker-end="url(#ar7)"/>
+<text x="100" y="222" text-anchor="middle" font-size="12" fill="var(--warm)" font-weight="600">finetune one A1 private trait</text>
+<text x="470" y="235" font-size="11" letter-spacing="1" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">THEN MEASURE THE SHIFT ON</text>
+<g font-size="12.5" fill="var(--ink)">
+<text x="470" y="256">(i) A1's other private traits · same leaf</text>
+<text x="470" y="274">(ii) family-A markers · parent</text>
+<text x="470" y="292">(iii) A2's private traits · <tspan font-weight="600" fill="var(--accent)">sibling</tspan></text>
+<text x="470" y="310">(iv) family-B markers · control</text>
+</g>
+</svg></div>
+  </div>
+</section>
+
 <!-- 3.6b -->
 <section class="slide" data-sec="Claim 2" data-title="Finetuning a subtype moves its sibling">
   <p class="eyebrow">Claim 2 · in a hierarchy</p>
@@ -806,10 +876,11 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   <div class="body fig wide">
     <div class="col">
       <ul>
-        <li>Personas in families. Train one subtype's private trait; the sibling's private traits move as much as the subtype's own.</li>
-        <li>Close the shared parent channel and the leakage goes to zero.</li>
+        <li><b>Reading the plot:</b> y = change in probability of the aligned value on each tier after finetuning one A1 private trait. Solid = model; hatched = what an exact Bayesian would do given the same corpus.</li>
+        <li>Same leaf, parent and sibling all rise by about <span class="num">+0.11</span>: the whole family A moves as one unit. Family B falls, as it must in a closed two-family simplex. The subtype axis, the true null, stays at zero.</li>
+        <li>Turn p<sub>F</sub> down to 0.5 and the sibling shift goes to zero: the leakage runs through the parent.</li>
       </ul>
-      <p class="src">Fig. 2.20 · emergent misalignment in miniature, with the mediator explicit</p>
+      <p class="src">Fig. 2.20 · p<sub>F</sub> = 0.8, LR 10⁻⁴, 5 seeds · emergent misalignment in miniature</p>
     </div>
     <div class="figbox"><img src="figs/f20.png" alt="Sibling leakage"></div>
   </div>
