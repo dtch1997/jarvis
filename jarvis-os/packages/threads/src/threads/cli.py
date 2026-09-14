@@ -1,7 +1,8 @@
-"""``threads scan|weave|serve|render|board|sweep|status|note|pickup|launch`` —
+"""``threads scan|weave|serve|render|board|sweep|status|note|pickup|launch|sessions`` —
 the bottom-up activity spine, the deliberate push channel (``note``/``pickup``),
 the thread board (``board``, served as the front page by ``serve``), and the
-auto-wrapup backstop (``sweep``).
+auto-wrapup backstop (``sweep``), and the open-sessions view (``sessions``:
+which live sessions can close, which must park first).
 
 ``scan``/``weave``/``board``/``launch``/``sweep`` take ``--check`` gate hooks
 that are cheap and offline (no model calls): they exit 0 iff the spool is
@@ -168,6 +169,20 @@ def _cmd_status(args) -> int:
     return 0
 
 
+def _cmd_sessions(args) -> int:
+    from .sessions import open_sessions, render
+    from .sessions import DEFAULT_IDLE_HOURS
+    rows = open_sessions(include_self=args.include_self, include_gone=args.all,
+                         idle_hours=args.idle_hours if args.idle_hours is not None
+                         else DEFAULT_IDLE_HOURS)
+    if args.json:
+        import json
+        print(json.dumps([r.to_json() for r in rows], indent=1))
+    else:
+        print(render(rows))
+    return 0
+
+
 def _cmd_serve(args) -> int:
     from .server import serve
     srv = serve(interval=args.interval, port=args.port, tunnel=not args.no_tunnel)
@@ -304,6 +319,23 @@ def main(argv=None) -> int:
     lp.add_argument("--check", action="store_true",
                     help="offline gate: accept-latency <100ms + intent-spool consistency")
 
+    ss = sub.add_parser(
+        "sessions", help="which sessions are open, and which can close",
+        description="Deterministic, offline: joins the harness session "
+                    "registry (alive PIDs) with declarations, statusline "
+                    "flags, transcript PR/artifact records, last real turn, "
+                    "and threads notes; one verdict per session — busy / "
+                    "recent / needs-park / closable. Excludes the calling "
+                    "session.")
+    ss.add_argument("--json", action="store_true", help="machine-readable rows")
+    ss.add_argument("--idle-hours", type=float, default=None,
+                    help="idle threshold below which a session is 'recent' "
+                         "(default: 12)")
+    ss.add_argument("--include-self", action="store_true",
+                    help="also list the session running this command")
+    ss.add_argument("--all", action="store_true",
+                    help="also list registry entries whose PID is gone")
+
     sv = sub.add_parser("serve",
                         help="serve the board (+ dashboard) through the lobby hub")
     sv.add_argument("--port", type=int, help="local port (default: free port)")
@@ -318,6 +350,7 @@ def main(argv=None) -> int:
         "board": _cmd_board, "sweep": _cmd_sweep,
         "status": _cmd_status, "serve": _cmd_serve, "vault": _cmd_vault,
         "note": _cmd_note, "pickup": _cmd_pickup, "launch": _cmd_launch,
+        "sessions": _cmd_sessions,
     }[args.cmd](args)
 
 
