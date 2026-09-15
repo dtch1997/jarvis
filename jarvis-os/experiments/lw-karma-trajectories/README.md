@@ -14,6 +14,7 @@ Report (artifact): https://claude.ai/code/artifact/de534d80-0313-45b9-a944-30add
 uv venv venv && uv pip install --python venv/bin/python pandas numpy scipy
 python3 pull.py            # -> posts.jsonl (2023-08-15 .. 2026-08-14, ~17k posts, ~80 requests)
 venv/bin/python analyze.py # -> pred_summary.csv, cal_<N>.csv, tier_fits.json, long.csv, posts_clean.csv
+venv/bin/python bootstrap.py # -> boot_medians.json, boot_fits.json, pred_summary_boot.csv (95% CIs)
 venv/bin/python build_page.py  # -> lw-karma-clock.html (copy to jarvis-artifacts/lw-karma-trajectories/index.html)
 ```
 

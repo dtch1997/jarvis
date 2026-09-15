@@ -1,0 +1,50 @@
+{
+ "30-45": {
+  "tau": 5.9,
+  "tau_lo": 5.1,
+  "tau_hi": 7.5,
+  "beta": 0.96,
+  "beta_lo": 0.89,
+  "beta_hi": 1.13
+ },
+ "45-75": {
+  "tau": 7.0,
+  "tau_lo": 6.6,
+  "tau_hi": 7.4,
+  "beta": 0.92,
+  "beta_lo": 0.88,
+  "beta_hi": 0.98
+ },
+ "75-125": {
+  "tau": 9.4,
+  "tau_lo": 8.9,
+  "tau_hi": 9.9,
+  "beta": 0.82,
+  "beta_lo": 0.78,
+  "beta_hi": 0.86
+ },
+ "125-200": {
+  "tau": 13.6,
+  "tau_lo": 12.9,
+  "tau_hi": 14.5,
+  "beta": 0.78,
+  "beta_lo": 0.75,
+  "beta_hi": 0.82
+ },
+ "200-inf": {
+  "tau": 24.7,
+  "tau_lo": 22.2,
+  "tau_hi": 26.3,
+  "beta": 0.79,
+  "beta_lo": 0.76,
+  "beta_hi": 0.82
+ },
+ "pooled": {
+  "tau": 10.0,
+  "tau_lo": 9.7,
+  "tau_hi": 10.4,
+  "beta": 1.02,
+  "beta_lo": 1.0,
+  "beta_hi": 1.05
+ }
+}
