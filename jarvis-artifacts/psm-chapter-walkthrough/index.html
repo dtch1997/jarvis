@@ -141,7 +141,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.1 -->
 <section class="slide" data-sec="1.1 Why personas" data-title="LLMs as simulators">
   <p class="eyebrow">1.1 Why personas</p>
-  <h2>An LLM is not one author. It is a simulator of the many authors who wrote its training data</h2>
+  <h2>An LLM simulates the many authors of its corpus</h2>
   <div class="body fig" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
     <div class="col">
       <ul>
@@ -200,7 +200,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.1b -->
 <section class="slide" data-sec="1.1 Why personas" data-title="In their words">
   <p class="eyebrow">1.1 Why personas · in their words</p>
-  <h2>The framing is not new. What is new is making it predictive</h2>
+  <h2>Making an old framing predictive</h2>
   <div class="body two">
     <div class="col">
       <p class="callout"><span class="lbl">Andreas 2022 · Findings of EMNLP</span>"When performing next word prediction given a textual context, an LM can infer and represent properties of an agent likely to have produced that context."</p>
@@ -217,7 +217,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.2 -->
 <section class="slide" data-sec="1.2 Desiderata" data-title="What any persona theory has to explain">
   <p class="eyebrow">1.2 Desiderata</p>
-  <h2>Twelve established regularities, of which ten are a persona theory's to explain</h2>
+  <h2>Ten regularities a persona theory must explain</h2>
   <div class="body one">
     <table style="font-size:14.5px;line-height:1.28">
       <tr><th>#</th><th>Regularity</th><th>In plain terms</th><th>Grade</th><th>Source</th></tr>
@@ -230,7 +230,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.3a -->
 <section class="slide" data-sec="1.3 Candidate models" data-title="Nine a priori plausible structures">
   <p class="eyebrow">1.3 Candidate statistical models</p>
-  <h2>Nine ways behaviors could come to correlate: a hidden cause, direct couplings, or copied exemplars</h2>
+  <h2>Nine ways behaviors could correlate</h2>
   <div class="body fig" style="grid-template-columns:minmax(0,3fr) minmax(0,9fr)">
     <div class="col">
       <ul>
@@ -279,7 +279,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.3b -->
 <section class="slide" data-sec="1.3 Candidate models" data-title="Why the usual measurement cannot choose">
   <p class="eyebrow">1.3 Candidate statistical models</p>
-  <h2>The field's standard measurement, "train on A, how much does B move", cannot distinguish any of these</h2>
+  <h2>The standard transfer measurement cannot distinguish these</h2>
   <div class="body two">
     <div class="col">
       <div class="eq">response of <i>B</i> to a small push on <i>A</i> = Cov(<i>A</i>, <i>B</i>)<small>Lemma 1. Single-behavior transfer, single-behavior conditionals and within-document agreement are all functions of the corpus's first two moments.</small></div>
@@ -296,7 +296,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.3c -->
 <section class="slide" data-sec="1.3 Candidate models" data-title="Four survive; atomic vs smooth">
   <p class="eyebrow">1.3 Candidate statistical models</p>
-  <h2>Scored on the regularities, four structures survive. Among them, the chapter commits to an atomic prior as a modelling choice</h2>
+  <h2>Among four survivors, the chapter commits to atoms</h2>
   <div class="body two">
     <div class="col">
       <table>
@@ -318,7 +318,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.4a -->
 <section class="slide" data-sec="1.4 The model" data-title="The claim as an equation">
   <p class="eyebrow">1.4 The model</p>
-  <h2>Behavior is a mixture over personas; training reweights the mixture</h2>
+  <h2>Training reweights the mixture over personas</h2>
   <div class="body two">
     <div class="col">
       <div class="eq">π<sub>θ</sub>(<i>y</i> | <i>x</i>) ≈ Σ<sub><i>z</i></sub> <i>q</i><sub>θ</sub>(<i>z</i> | <i>x</i>) · π<sub>θ</sub>(<i>y</i> | <i>z</i>, <i>x</i>)<small>q = posterior over which persona is speaking · π(y|z,x) = persona-conditioned behavior</small></div>
@@ -337,7 +337,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 1.4b -->
 <section class="slide" data-sec="1.4 The model" data-title="Four predictions, and what came back">
   <p class="eyebrow">1.4 The model</p>
-  <h2>Four predictions written in advance. Two hold with a condition, one is open diagnostically, P1 splits</h2>
+  <h2>The four predictions and their verdicts</h2>
   <div class="body one">
     <table>
       <tr><th></th><th style="width:34%">Predicted</th><th>Outcome</th></tr>
@@ -525,7 +525,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 3.0 -->
 <section class="slide" data-sec="3.0 Claims" data-title="Three claims for the thesis, one for future work">
   <p class="eyebrow">3.0 What the toy world establishes</p>
-  <h2>Three claims the thesis tests at scale, one left for future work</h2>
+  <h2>Three claims for the thesis, one for future work</h2>
   <div class="body one">
     <table style="font-size:19px;line-height:1.4">
       <tr><td class="n">1</td><td><b>Models represent a persona variable</b>, and it can be read but not steered through a probe</td><td class="muted">P1 → Ch. 3, steering vectors</td></tr>
@@ -633,9 +633,9 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   </div>
 </section>
 <!-- 3.2c -->
-<section class="slide" data-sec="Claim 1" data-title="Mixture models flatten at p; Ising models keep rising">
+<section class="slide" data-sec="Claim 1" data-title="The two conditional laws separate at high p">
   <p class="eyebrow">Claim 1 · the latent is real</p>
-  <h2>Mixture models flatten at <i>p</i>; Ising models keep rising</h2>
+  <h2>The two conditional laws separate at high <i>p</i></h2>
   <div class="body fig wide">
     <div class="col">
       <ul>
@@ -690,7 +690,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 3.3d -->
 <section class="slide" data-sec="Claim 1" data-title="Readable, not steerable">
   <p class="eyebrow">Claim 1 · readable, not steerable</p>
-  <h2>A probe reads the persona prior perfectly, but restoring it reverts none of the side effect</h2>
+  <h2>The persona prior is readable, not steerable</h2>
   <div class="body fig" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
     <div class="col">
       <ul>
@@ -766,9 +766,9 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 </section>
 
 <!-- 3.3a -->
-<section class="slide" data-sec="Claim 2" data-title="One trait in, the whole persona moves">
+<section class="slide" data-sec="Claim 2" data-title="One trait moves the whole persona">
   <p class="eyebrow">Claim 2 · finetuning selects</p>
-  <h2>One trait in, the whole persona moves</h2>
+  <h2>One trait moves the whole persona</h2>
   <div class="body fig wide">
     <div class="col">
       <ul>
@@ -798,7 +798,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 3.3c0 -->
 <section class="slide" data-sec="Claim 2" data-title="Splitting a finetuning update into two channels">
   <p class="eyebrow">Claim 2 · mechanism</p>
-  <h2>Every change in behavior splits into "which persona is speaking" and "what that persona does"</h2>
+  <h2>Every behavior change splits into two channels</h2>
   <div class="body two">
     <div class="col">
       <p><b>Start from the mixture model.</b> The behavior the model shows on a trait is the average of each persona's behavior, weighted by how likely that persona is:</p>
@@ -820,9 +820,9 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 </section>
 
 <!-- 3.3c -->
-<section class="slide" data-sec="Claim 2" data-title="Side effects move the prior; the trained trait moves the conditional">
+<section class="slide" data-sec="Claim 2" data-title="Side effects run through the prior channel">
   <p class="eyebrow">Claim 2 · mechanism</p>
-  <h2>Side effects move the prior; the trained trait moves the conditional</h2>
+  <h2>Side effects run through the prior channel</h2>
   <div class="body fig wide">
     <div class="col">
       <ul>
@@ -839,7 +839,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 3.6b0 -->
 <section class="slide" data-sec="Claim 2" data-title="A hierarchical persona world">
   <p class="eyebrow">Claim 2 · in a hierarchy</p>
-  <h2>Personas in families: do side effects leak to a sibling?</h2>
+  <h2>Do side effects leak to a sibling persona?</h2>
   <div class="body two">
     <div class="col">
       <div class="figbox" style="background:var(--card);flex:1"><svg viewBox="0 0 520 250" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Tree: family A with subtypes A1 and A2, family B with subtypes B1 and B2. Finetune one A1 private trait.">
@@ -953,7 +953,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <!-- 3.5a -->
 <section class="slide" data-sec="Future · laws" data-title="The prediction problem">
   <p class="eyebrow">Future work · quantitative laws</p>
-  <h2>Can side effects be predicted before the finetune runs?</h2>
+  <h2>Can side effects be predicted in advance?</h2>
   <div class="body fig" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
     <div class="col">
       <ul>
@@ -992,9 +992,9 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   </div>
 </section>
 <!-- 3.5b -->
-<section class="slide" data-sec="Future · laws" data-title="Size is predictable; the exact trajectory is not">
+<section class="slide" data-sec="Future · laws" data-title="Only the size is predictable">
   <p class="eyebrow">Future work · quantitative laws</p>
-  <h2>Size is predictable; the exact trajectory is not</h2>
+  <h2>Only the size is predictable</h2>
   <div class="body fig wide">
     <div class="col">
       <ul>
@@ -1009,9 +1009,9 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   </div>
 </section>
 <!-- 3.5c -->
-<section class="slide" data-sec="Future · laws" data-title="The model's one zero-parameter prediction over-predicts side effects 4×">
+<section class="slide" data-sec="Future · laws" data-title="The RL tilt over-predicts about 4×">
   <p class="eyebrow">Future work · quantitative laws · RL</p>
-  <h2>The model's one zero-parameter prediction over-predicts side effects about 4×</h2>
+  <h2>The zero-parameter RL tilt over-predicts about 4×</h2>
   <div class="body fig wide">
     <div class="col">
       <table style="font-size:15.5px;line-height:1.35">
@@ -1026,9 +1026,9 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   </div>
 </section>
 <!-- 3.6d -->
-<section class="slide" data-sec="Future · curriculum" data-title="When data arrives sets availability; how it is mixed sets separability">
+<section class="slide" data-sec="Future · curriculum" data-title="Two curriculum knobs: placement and composition">
   <p class="eyebrow">Future work · the curriculum lever (P4)</p>
-  <h2>When data arrives sets availability; how it is mixed sets separability</h2>
+  <h2>Two curriculum knobs: placement and composition</h2>
   <div class="body fig tall">
     <div class="col">
       <ul>
@@ -1056,9 +1056,9 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   </div>
 </section>
 <!-- 3.7 -->
-<section class="slide" data-sec="Future · scale" data-title="One step is unrun: the scale bridge">
+<section class="slide" data-sec="Future · scale" data-title="The scale bridge remains unrun">
   <p class="eyebrow">Future work · the scale bridge</p>
-  <h2>One step is unrun: the scale bridge</h2>
+  <h2>The scale bridge remains unrun</h2>
   <div class="body two">
     <div class="col">
       <ul>
@@ -1127,10 +1127,10 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
   </div>
 </section>
 
-<section class="slide" data-backup="1" data-sec="Backup" data-title="In-context transfer follows distance; finetuning transfer ignores it">
+<section class="slide" data-backup="1" data-sec="Backup" data-title="Only in-context transfer follows distance">
   <span class="backup-tag">Backup</span>
   <p class="eyebrow">Backup · geometry</p>
-  <h2>In-context transfer follows distance; finetuning transfer ignores it</h2>
+  <h2>Only in-context transfer follows distance</h2>
   <div class="body fig wide">
     <div class="col">
       <ul>
@@ -1192,7 +1192,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <section class="slide" data-sec="Backup" data-title="Backup: two timescales" data-backup="1">
   <span class="backup-tag">Backup</span>
   <p class="eyebrow">Backup · 3.3</p>
-  <h2>The persona shift lags the in-distribution fit by roughly 2×</h2>
+  <h2>The persona shift lags the fit roughly 2×</h2>
   <div class="body fig wide">
     <div class="col"><ul><li>Half-change at 4.2 steps in-distribution, 9.2 for the OOD shift. Read as ordering, not two regimes.</li></ul><p class="src">Fig. 2.10</p></div>
     <div class="figbox"><img src="figs/f10.png" alt="Timing"></div>
@@ -1212,7 +1212,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <section class="slide" data-sec="Backup" data-title="Backup: RL posterior barely moves" data-backup="1">
   <span class="backup-tag">Backup</span>
   <p class="eyebrow">Backup · 3.5</p>
-  <h2>The tilt demands a posterior move of 0.18–0.40; the policy delivers 0.04</h2>
+  <h2>The posterior moves 0.04 against a demanded 0.18–0.40</h2>
   <div class="body fig wide">
     <div class="col"><ul><li>Inverted prediction: SFT routes more through the prior than RL does (0.47 vs 0.27).</li></ul><p class="src">Fig. 2.18</p></div>
     <div class="figbox"><img src="figs/f18.png" alt="Delta q"></div>
@@ -1232,7 +1232,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <section class="slide" data-sec="Backup" data-title="Backup: rank estimators read noise" data-backup="1">
   <span class="backup-tag">Backup</span>
   <p class="eyebrow">Backup · 3.6</p>
-  <h2>On the pre-registered grid the estimators match an untrained network</h2>
+  <h2>The rank estimators match an untrained network</h2>
   <div class="body fig wide">
     <div class="col"><ul><li>Two of thirteen predictions hit; neither credited. The kill criterion fires and is not invoked because its premise, a learnable world, is refuted.</li></ul><p class="src">Fig. 2.24</p></div>
     <div class="figbox"><img src="figs/f24.png" alt="Rank estimators"></div>
@@ -1282,7 +1282,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <section class="slide" data-sec="Backup" data-title="Backup: self-descriptive editing, recovered" data-backup="1">
   <span class="backup-tag">Backup</span>
   <p class="eyebrow">Backup · 3.6</p>
-  <h2>Training on the model's own name moves 32 unseen behaviors as Bayes predicts</h2>
+  <h2>The model's own name moves 32 unseen behaviors</h2>
   <div class="body fig wide">
     <div class="col"><ul><li>cos = 0.78 for the identity token, −0.04 for a rarity-matched filler. Holds at 256-d width, not below; took four seed blocks.</li></ul><p class="src">Fig. 2.27</p></div>
     <div class="figbox"><img src="figs/f27.png" alt="Self-descriptive hold-out"></div>
@@ -1322,7 +1322,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <section class="slide" data-sec="Backup" data-title="Backup: the controls withdraw a claim" data-backup="1">
   <span class="backup-tag">Backup</span>
   <p class="eyebrow">Backup · 3.6</p>
-  <h2>The arm that moved separability most weakened the persona</h2>
+  <h2>The strongest separability arm weakened the persona</h2>
   <div class="body fig tall">
     <div class="col"><ul><li>Blocked L = 200: validation loss past the matched-fit bar, probe margin halved, ICL at zero. By the registered rule it loses its claim.</li></ul><p class="src">Fig. 2.33</p></div>
     <div class="figbox"><img src="figs/f33.png" alt="Controls"></div>
@@ -1387,7 +1387,7 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
 <section class="slide" data-sec="Backup" data-title="Backup: finetuning protocol" data-backup="1">
   <span class="backup-tag">Backup</span>
   <p class="eyebrow">Backup · setup</p>
-  <h2>Finetuning is full-parameter — there is no LoRA</h2>
+  <h2>All finetuning is full-parameter, never LoRA</h2>
   <div class="body two">
     <div class="col">
       <ul>
