@@ -15,6 +15,7 @@ def uri(name: str) -> str:
 
 
 html = TEMPLATE.read_text()
-html = html.replace("{{FIG_KM}}", uri("fig_onset_km.png")).replace("{{FIG_PRE}}", uri("fig_precursor.png"))
+html = (html.replace("{{FIG_KM}}", uri("fig_onset_km.png")).replace("{{FIG_PRE}}", uri("fig_precursor.png"))
+        .replace("{{FIG_LEN}}", uri("fig_prereward_length.png")).replace("{{FIG_COMP}}", uri("fig_prereward_composition.png")))
 OUT.write_text(html)
 print(f"wrote {OUT} ({OUT.stat().st_size // 1024} KB)")
