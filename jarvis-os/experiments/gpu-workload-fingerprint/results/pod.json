@@ -1,0 +1,1 @@
+{"pod_id": "mj3119lionnlbn", "name": "gpu-workload-fingerprint-p0", "t_create": 1789456601.7904522, "image": "runpod/pytorch:1.3.0-cu1290-torch291-ubuntu2404", "gpu": "NVIDIA H100 80GB HBM3, 580.126.09", "t_end": 1789462073.3300412, "driver_status": "ok"}
