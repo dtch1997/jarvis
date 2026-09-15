@@ -1,7 +1,7 @@
 # psm-chapter-walkthrough
 
 Slide walkthrough of the PhD thesis Chapter 2, *The Persona Selection
-Model* (`~/phd-thesis/latex/Chapter_PersonaSelectionModel.tex`). 51 talk slides (Part 3 organized around the three claims the thesis tests at scale, plus a future-work section) plus 22 backups;
+Model* (`~/phd-thesis/latex/Chapter_PersonaSelectionModel.tex`). 51 talk slides (Part 3 organized around the three claims the thesis tests at scale, plus a future-work section) plus 24 backups (incl. two experimental-setup slides: architecture/tokenizer/pretraining and the finetuning protocol);
 every one of the chapter's 35 figures appears on exactly one slide; every number is quoted from the chapter of record as of thesis
 `main` on 2026-09-14 (last merge phd-thesis#273).
 

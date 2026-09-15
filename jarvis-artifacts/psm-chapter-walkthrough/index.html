@@ -62,6 +62,7 @@ table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.3}
 th,td{text-align:left;padding:6px 10px;vertical-align:top;border-bottom:1px solid var(--rule)}
 th{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
 td.n{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+code{font-family:"IBM Plex Mono",monospace;font-size:.92em}
 .grade{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:12px;padding:1px 7px;border-radius:3px;background:var(--accent-soft);color:var(--accent)}
 .grade.c{background:var(--warm-soft);color:var(--warm)}
 .claims{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px}
@@ -1353,6 +1354,51 @@ ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
       <p class="src">Fig. 2.35</p>
     </div>
     <div class="figbox"><img src="figs/f35.png" alt="Metrics"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: model, tokenizer, pretraining" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · setup</p>
+  <h2>One small transformer, trained from scratch, everywhere</h2>
+  <div class="body two">
+    <div class="col">
+      <table>
+        <tr><td>Architecture</td><td>decoder-only (nanoGPT-style) · 4 layers · 4 heads · 128-d residual · 4× GELU MLP</td></tr>
+        <tr><td>Parameters</td><td class="n">~0.8M</td></tr>
+        <tr><td>Context</td><td class="n">32 tokens</td></tr>
+        <tr><td>Positions</td><td>learned embeddings</td></tr>
+        <tr><td>Initialization</td><td>random — no pretrained weights anywhere</td></tr>
+        <tr><td>Pretraining</td><td>next-token loss · AdamW 3·10⁻⁴, wd 0.01 · batch 64 · 2,000 steps</td></tr>
+        <tr><td>Token budget</td><td>~1.8M (base world) · 0.25M–12M as the <i>T</i> axis in the laws grid</td></tr>
+      </table>
+      <p class="src">experiments/persona-toy-models/{model,pretrain}.py · minutes per run on CPU · 5 seeds per cell</p>
+    </div>
+    <div class="col">
+      <p class="callout"><span class="lbl">There is no tokenizer</span>The vocabulary is word-level and closed — 16 tokens in the base world: the field names, the trait values, <code>BIOGRAPHY</code>, the persona labels, punctuation. One word = one token, so every probability the chapter quotes reads directly off the softmax, with no tokenization artifacts. The embedding matrix is randomly initialized like every other weight.</p>
+      <ul>
+        <li>Base world: batches sampled i.i.d. from a 10,000-document corpus, 14 tokens per biography. The laws grid instead draws fresh documents (~1 epoch), so its token budget is a true data-scale axis.</li>
+        <li>Variants keep the architecture and move one knob: the capacity study widens 64→256-d (up to 3.26M params); the eight-leaf world only grows the vocabulary.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: finetuning protocol" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · setup</p>
+  <h2>Finetuning is full-parameter — there is no LoRA</h2>
+  <div class="body two">
+    <div class="col">
+      <ul>
+        <li>Every finetune updates all ~0.8M weights with AdamW (grad clip 1.0, no weight decay). No adapters, no frozen layers — at this scale parameter-efficiency has nothing to buy, so every selection law is a law of full finetuning.</li>
+        <li>The finetuning "dataset" is one example — <code>BIOGRAPHY. &lt;trait&gt;: &lt;value&gt;</code> — with loss on the value token only. 50 steps in the baseline sweep, 101-point trajectories over 100 steps in the laws, 200 steps for the spillover measurements.</li>
+      </ul>
+      <p class="src">experiments/persona-toy-models/finetune.py · 5 seeds per cell</p>
+    </div>
+    <div class="col">
+      <p class="callout warm"><span class="lbl">The load-bearing knob is the learning rate</span>The selection regime lives at ≤10⁻⁴ (baseline arms: cold 10⁻⁴, hot 10⁻³; the laws grid runs 10⁻⁵ / 3·10⁻⁵ / 10⁻⁴). Cold finetunes are predictable — trajectory R² reaches +0.4 at 10⁻⁵. At 10⁻³ spillover takes over and every law family fails (R² ≈ −4).</p>
+    </div>
   </div>
 </section>
 
