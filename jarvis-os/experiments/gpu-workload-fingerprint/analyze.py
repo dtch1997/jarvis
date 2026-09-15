@@ -36,7 +36,9 @@ def label_samples(df, runs, warmup):
     df = df.copy()
     df["run_id"], df["arm"], df["model"], df["bs"], df["tag"], df["steady"] = None, None, None, None, None, False
     for r in runs.itertuples():
-        t0 = r.t_ready if pd.notna(getattr(r, "t_ready", np.nan)) else r.t_launch
+        # steady state starts at the first optimizer/generate step (dataset load and
+        # tokenization sit between model-ready and first step), plus `warmup`
+        t0 = next((getattr(r, k) for k in ("t_first_step", "t_ready") if pd.notna(getattr(r, k, np.nan))), r.t_launch)
         sel = (df.t >= r.t_launch) & (df.t < r.t_end)
         df.loc[sel, ["run_id", "arm", "model", "bs", "tag"]] = [r.run_id, r.arm, r.model, r.bs, r.tag]
         df.loc[sel & (df.t >= t0 + warmup), "steady"] = True
@@ -123,7 +125,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--results", default=str(Path(__file__).parent / "results"))
     ap.add_argument("--window", type=float, default=20.0)
-    ap.add_argument("--warmup", type=float, default=30.0)
+    ap.add_argument("--warmup", type=float, default=10.0)
     a = ap.parse_args()
     results = Path(a.results)
     out = results / "analysis"; (out / "figures").mkdir(parents=True, exist_ok=True)
