@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/mnt/nw/home/d.tan/jarvis-monorepo/.claude/worktrees/lived-experience-stories/jarvis-os/experiments/lived-experience-stories/generate_openai.py"
+  ],
+  "cwd": "/mnt/nw/home/d.tan/jarvis-monorepo",
+  "flow": {
+    "concurrency": 6,
+    "tasks": 115,
+    "title": "flow"
+  },
+  "git": {
+    "branch": "main",
+    "dirty": true,
+    "remote": "git@github.com:dtch1997/jarvis.git",
+    "sha": "acff26807458eeb2bbf7d00c98326c89958b0d64"
+  },
+  "host": "vm1e3c1290f17b6",
+  "python": "3.14.5",
+  "ts": "2026-09-08T10:39:59+00:00"
+}
