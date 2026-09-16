@@ -7,3 +7,7 @@ dist/
 .pytest_cache/
 .claude/worktrees/
 /jarvis-memory/
+
+# repos/ clones are pointer-only (see CLAUDE.md); MANIFEST.md is the pointer
+/repos/*
+!/repos/MANIFEST.md
