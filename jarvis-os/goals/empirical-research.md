@@ -106,6 +106,17 @@ The gate before compute:
   neither approved nor vetoed — 0 of 11 checkboxes ticked on jarvis#91;
   see `reviews/2026-09-01.md` cross-goal.
 
+- 2026-09-15 (gpu-workload-fingerprint Phase 0, Daniel's compute-verification
+  question): from one H100's NVML telemetry, RL (colocated GRPO) vs every
+  other workload is 94–96 % at every tier down to 1 Hz power-only (75 % from
+  10 s averages, where RL vs inference serving falls to chance; a one-feature
+  SM-util duty-cycle rule gets 88 % held-out), but the pre-registered six-way
+  target failed (53 %, not > 90 %): SFT, DPO and continued pretraining are
+  the same flat 550 W line, and RL's nearest neighbour is inference, not SFT.
+  Signal = the low-utilisation generation phase of a colocated loop, so
+  Phase 1 must test disaggregated vLLM generation.
+  `experiments/gpu-workload-fingerprint/REPORT.md`, ≈ $5.
+
 ## Active threads
 
 - Per-project state lives in the instance goals and memory stubs ("Active

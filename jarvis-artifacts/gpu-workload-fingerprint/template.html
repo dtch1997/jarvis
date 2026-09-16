@@ -1,0 +1,175 @@
+<title>GPU Workload Fingerprint</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#F4F5F3; --panel:#EAEDEA; --ink:#1C2120; --muted:#66706C; --rule:#D5D9D5;
+  --rl:#B7731C; --rl-soft:#F1E3CF; --train:#33608F; --train-soft:#DCE5EF;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#161A19; --panel:#1F2524; --ink:#E6E8E3; --muted:#98A29D; --rule:#2E3533;
+    --rl:#E09A3F; --rl-soft:#3A2C17; --train:#7FA7D6; --train-soft:#1C2A3A;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#161A19; --panel:#1F2524; --ink:#E6E8E3; --muted:#98A29D; --rule:#2E3533;
+  --rl:#E09A3F; --rl-soft:#3A2C17; --train:#7FA7D6; --train-soft:#1C2A3A;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55}
+main{max-width:66ch;margin:0 auto;padding:56px 24px 96px}
+.wide{max-width:920px;margin-left:auto;margin-right:auto}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:2.6rem;letter-spacing:-0.01em}
+h2{font-size:1.65rem;margin-top:3.2rem;margin-bottom:0.9rem;padding-top:1.1rem;border-top:1px solid var(--rule)}
+h3{font-size:1.2rem;margin-top:1.8rem;margin-bottom:0.5rem}
+p{margin:0 0 1.05em}
+a{color:var(--train);text-decoration-thickness:1px;text-underline-offset:3px}
+.eyebrow{font-family:var(--mono);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.q{font-family:var(--serif);font-style:italic;font-size:1.35rem;line-height:1.35;color:var(--ink);margin:18px 0 26px;text-wrap:balance}
+.meta{font-family:var(--mono);font-size:0.8rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 22px;padding:14px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.answer{margin:30px 0 8px;padding:20px 22px;background:var(--panel);border-left:4px solid var(--rl)}
+.answer p:last-child{margin-bottom:0}
+.readout{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:26px 0 8px}
+.tile{background:var(--panel);padding:14px 14px 12px;border-top:2px solid var(--train)}
+.tile .k{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);min-height:2.2em}
+.tile .v{font-family:var(--serif);font-size:2.1rem;line-height:1;margin:8px 0 6px;font-variant-numeric:tabular-nums}
+.tile .s{font-size:0.82rem;color:var(--muted)}
+.tile.dim{border-top-color:var(--rl)}
+.readout-cap{font-size:0.85rem;color:var(--muted);margin-bottom:0}
+ol,ul{padding-left:1.3em}li{margin-bottom:0.45em}
+figure{margin:1.6rem 0}
+figure img{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--rule)}
+figcaption{font-size:0.88rem;color:var(--muted);margin-top:8px;line-height:1.45}
+.tbl{overflow-x:auto;margin:1.2rem 0}
+table{border-collapse:collapse;font-size:0.86rem;font-variant-numeric:tabular-nums;min-width:720px;width:100%}
+th,td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{font-family:var(--mono);font-weight:500;font-size:0.72rem;letter-spacing:0.04em;text-transform:uppercase;color:var(--muted);text-align:right}
+th:first-child,td:first-child{text-align:left;font-family:var(--mono);font-size:0.8rem}
+td.hi{color:var(--rl);font-weight:600}
+td.lo{color:var(--muted)}
+.arms{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:0.92rem;margin:1rem 0 1.4rem}
+.arms code{font-family:var(--mono);font-size:0.82rem;padding:1px 6px;background:var(--panel);border-radius:3px}
+.arms .rl code{background:var(--rl-soft)}
+.arms .tr code{background:var(--train-soft)}
+pre{font-family:var(--mono);font-size:0.8rem;line-height:1.5;background:var(--panel);padding:14px 16px;overflow-x:auto;margin:1rem 0}
+code{font-family:var(--mono);font-size:0.9em}
+.verdict{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:0.93rem}
+.verdict b{font-family:var(--mono);font-weight:500;font-size:0.78rem;letter-spacing:0.05em;text-transform:uppercase;padding-top:3px}
+.verdict b.pass{color:var(--train)}.verdict b.fail{color:var(--rl)}
+.links{font-size:0.9rem}
+.links li{margin-bottom:0.35em}
+@media (max-width:640px){.readout{grid-template-columns:repeat(2,1fr)}h1{font-size:2rem}body{font-size:16px}}
+@media (prefers-reduced-motion: no-preference){a:hover{text-decoration-thickness:2px}}
+a:focus-visible{outline:2px solid var(--rl);outline-offset:2px}
+</style>
+
+<main>
+<div class="eyebrow">gpu-workload-fingerprint · Phase 0 · 2026-09-15</div>
+<h1>GPU Workload Fingerprint</h1>
+<p class="q">Can a verifier tell that a GPU is doing reinforcement learning, rather than supervised training, by watching its telemetry and nothing else?</p>
+<div class="meta">
+  <span>1 × H100 80GB, RunPod</span><span>24 timed runs · 6 arms</span><span>NVML @ 10 Hz · 54 231 samples</span><span>90 min pod time · ≈ $5</span>
+</div>
+
+<div class="answer">
+<p><strong>For “is this RL or not”: yes, and power draw at 1 Hz is enough.</strong> A random forest over 20-second windows separates colocated GRPO from every other workload at 94–96 % (leave-one-run-out) whether it sees all NVML channels at 10 Hz or only power at 1 Hz. A one-feature rule, SM-utilisation duty cycle, tuned on the 0.5B runs scores 88 % on the unseen 1.5B runs.</p>
+<p>Three qualifications carry the governance weight. RL’s nearest neighbour is <em>inference serving</em>, not SFT. SFT, DPO and pretraining are one indistinguishable blob. And 10-second power averaging keeps the RL-vs-training difference but loses RL-vs-serving entirely.</p>
+</div>
+
+<div class="readout">
+  <div class="tile"><div class="k">T1 · all channels · 10 Hz</div><div class="v">96 %</div><div class="s">RL vs rest</div></div>
+  <div class="tile"><div class="k">T2 · power + util · 1 Hz</div><div class="v">95 %</div><div class="s">RL vs rest</div></div>
+  <div class="tile"><div class="k">T3 · power only · 1 Hz</div><div class="v">94 %</div><div class="s">RL vs rest</div></div>
+  <div class="tile dim"><div class="k">T4 · power · 10 s averages</div><div class="v">75 %</div><div class="s">RL vs rest · RL vs inference at chance</div></div>
+</div>
+<p class="readout-cap">Window-level accuracy, leave-one-run-out. Always answering “not RL” scores 83 %, so T4 is barely above that floor.</p>
+
+<h2>Why it works on one GPU</h2>
+<p>RL and supervised training use the same kernels; what differs is the workload pattern. In the naive single-GPU setup a GRPO step spends most of its time in a memory-bound generation phase around 150–200 W and then spikes to about 350 W for the update. SFT, DPO and packed pretraining run flat near 550 W. Inference-only serving sits at the RL floor with no spike. So colocated RL looks like <em>inference with a periodic training burst</em>, and the feature doing the work is the duty cycle of the low-power phase, not fine spectral structure. That is why the signal survives down-sampling from 10 Hz to 1 Hz almost untouched.</p>
+
+<div class="wide">
+<figure>
+<img src="{{traces}}" alt="Ninety seconds of steady-state power and SM utilisation for each of the six arms">
+<figcaption>Ninety seconds of steady-state power (blue) and SM utilisation (orange, scaled) per arm, Qwen2.5-0.5B at batch 16. SFT and DPO are flat near 570 W; packed pretraining is flat in power but jittery in utilisation; GRPO ramps 150→200 W while generating and spikes to ~350 W at each update, period 5–6 s; the eval-loop SFT is a square wave; inference is a low sawtooth.</figcaption>
+</figure>
+</div>
+
+<h2>Method</h2>
+<p>Six workloads ran on the same H100, each on Qwen2.5-0.5B-Instruct and Qwen2.5-1.5B-Instruct at per-device batch 4 and 16, sequence and completion length 384, 150 s after model load, in shuffled order with 15 s idle gaps. A separate process sampled NVML at 10 Hz: power, SM and memory-controller utilisation, memory used, clocks, temperature, PCIe TX/RX.</p>
+<div class="arms">
+  <span class="tr"><code>sft</code></span><span>TRL SFTTrainer on Capybara conversations</span>
+  <span class="tr"><code>pretrain</code></span><span>SFTTrainer on packed wikitext-103, no chat template</span>
+  <span class="tr"><code>dpo</code></span><span>DPOTrainer with a live reference model: extra forward passes, no generation</span>
+  <span class="rl"><code>grpo</code></span><span>GRPOTrainer on GSM8K, 4–8 completions per prompt, HF <code>generate</code> on the same GPU</span>
+  <span><code>sft_eval</code></span><span>SFT plus a ~10 s generation burst after every 20 s of training — the designed confounder</span>
+  <span><code>infer</code></span><span>batched <code>generate</code> loop only</span>
+</div>
+<p>Steady state starts 10 s after each run’s first optimizer or generate step. Windows are 20 s, non-overlapping (60 s for the 10 s-average tier). Per channel and window: mean, std, coefficient of variation, p10/p50/p90, duty cycle (fraction of samples below half the window maximum), bimodality coefficient, lag-1 autocorrelation and dominant autocorrelation period. Classifier: 300-tree random forest, leave-one-run-out over 24 runs. Windows within a run are correlated, so the effective sample is 24 runs, four per arm, and differences of a few points are noise.</p>
+<p>The telemetry tiers are the independent variable and stand in for who is watching: <strong>T1</strong> all channels at 10 Hz (driver access); <strong>T2</strong> power, SM and memory utilisation at 1 Hz (node telemetry); <strong>T3</strong> power only at 1 Hz (a per-node power meter); <strong>T4</strong> power only as 10 s averages (a facility meter).</p>
+
+<h2>Results</h2>
+<div class="wide">
+<div class="tbl">
+<table>
+<thead><tr><th>Tier</th><th>RL vs rest</th><th>grpo vs sft</th><th>grpo vs infer</th><th>grpo vs sft_eval</th><th>dpo vs sft</th><th>pretrain vs sft</th><th>6-way</th><th>6-way, run vote</th><th>RL vs rest, 0.5B → 1.5B</th></tr></thead>
+<tbody>
+<tr><td>T1 all, 10 Hz</td><td class="hi">0.96</td><td>0.93</td><td>0.98</td><td>0.86</td><td class="lo">0.52</td><td class="lo">0.45</td><td>0.53</td><td>0.54</td><td>0.93</td></tr>
+<tr><td>T2 pwr+util, 1 Hz</td><td class="hi">0.95</td><td>0.91</td><td>0.91</td><td>0.77</td><td class="lo">0.25</td><td class="lo">0.61</td><td>0.52</td><td>0.54</td><td>0.95</td></tr>
+<tr><td>T3 power, 1 Hz</td><td class="hi">0.94</td><td>0.88</td><td>0.91</td><td>0.75</td><td class="lo">0.25</td><td class="lo">0.57</td><td>0.48</td><td>0.46</td><td>0.92</td></tr>
+<tr><td>T4 power, 10 s avg</td><td>0.75</td><td>0.88</td><td class="lo">0.44</td><td>1.00 *</td><td class="lo">0.19</td><td class="lo">0.69</td><td>0.44</td><td>0.46</td><td>0.88</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:0.85rem;color:var(--muted)">* 16 windows, not meaningful. Chance is 0.50 for pairs and 0.17 for six-way. Grey cells are at or below chance under leave-one-run-out.</p>
+
+<figure>
+<img src="{{accuracy_by_tier}}" alt="Bar chart of leave-one-run-out accuracy per telemetry tier">
+<figcaption>Leave-one-run-out accuracy per tier: six-way per window, six-way by run-level majority vote, and RL-vs-rest. Dashed line is six-way chance.</figcaption>
+</figure>
+
+<figure>
+<img src="{{confusion_T1_full_10hz}}" alt="Six-way confusion matrix at the richest telemetry tier" style="max-width:520px;margin:0 auto">
+<figcaption>Six-way confusion at T1 (rows true, columns predicted). The three supervised arms scatter among themselves and never into the other block; GRPO’s only confusion is with the eval-loop SFT; inference is never missed.</figcaption>
+</figure>
+</div>
+
+<p>Raw per-run means agree with the classifier. Steady-state mean power is 150–260 W for GRPO and 140–190 W for inference, against 330–590 W for SFT, pretraining and DPO. GRPO spends 92–98 % of samples below 50 % SM utilisation at batch 4 (31 % at 1.5B, batch 16, where generation is heavier), inference 100 %, the training arms 9–19 %.</p>
+<p>Per-window features for every tier are browsable at <a href="https://emacs-con-voluntary-forecast.trycloudflare.com/a/gwf-windows/">the databrowser page</a> (filter by arm, model, batch, tier).</p>
+
+<h2>What this does and does not support</h2>
+<p><strong>Supported.</strong> In the default, unhidden, single-GPU case the RL workload pattern leaks through the coarsest telemetry that still resolves seconds. A per-node power meter at 1 Hz is enough, and a one-threshold rule transfers across model size.</p>
+<p><strong>Not supported.</strong> Telling apart <em>kinds</em> of supervised training: SFT, pretraining and DPO with a live reference model are the same steady compute-bound blob, and nothing in NVML separates them. Telling RL from inference serving once the meter averages over the RL step period: at 10 s averages the two are at chance, and any deployment where generation dominates the step (long completions, many samples per prompt, larger models) pushes the RL profile toward the serving profile. Anything about <em>disaggregated</em> RL, where generation and training run on different GPU pools; each pool would then present as pure serving or pure training. Phase 0 did not run that configuration.</p>
+<p><strong>Caveats.</strong> Four runs per arm; 150 s runs give about seven windows each and the GRPO runs completed only 33–45 steps. TRL’s colocated HF-generate GRPO is the slowest, most generation-heavy RL setup one can pick; vLLM colocation or asynchronous generation would shorten the low-power phase. Everything ran on one Qwen2.5 family at 0.5B and 1.5B.</p>
+
+<h3>Pre-registration check</h3>
+<div class="verdict">
+  <b class="fail">failed</b><span>T1 six-way &gt; 90 %: 53 %, because the supervised arms merge.</span>
+  <b class="pass">close</b><span>GRPO vs SFT essentially perfect at T1: 93 %.</span>
+  <b class="pass">passed</b><span>T3 GRPO vs SFT &gt; 85 %: 88 %.</span>
+  <b class="fail">partial</b><span>T4 collapse: RL-vs-rest 75 %, RL-vs-inference at chance, RL-vs-SFT still 88 % on the level difference.</span>
+  <b class="pass">passed</b><span>DPO vs SFT near chance.</span>
+  <b class="pass">passed</b><span>GRPO vs sft_eval above chance at T1, degraded at coarser tiers: 86 % → 75 %.</span>
+  <b class="pass">passed</b><span>Cross-scale loss ≤ 10 points for RL-vs-rest at T1: 96 → 93 %.</span>
+</div>
+
+<h2>Phase 1 candidates</h2>
+<ol>
+<li><strong>Disaggregated RL.</strong> vLLM server on GPU 0, trainer on GPU 1. The claim to test is that each GPU alone is indistinguishable from serving or SFT, and only weight-sync traffic over PCIe or NVLink betrays the pairing.</li>
+<li><strong>Evasion cost.</strong> Pad the generation phase with dummy matmuls to flatten power; measure the efficiency cost of making RL look like SFT.</li>
+<li><strong>RL vs serving at scale.</strong> Longer completions and vLLM generation, where the update fraction shrinks, to find where power-only detection fails even at 1 Hz.</li>
+<li><strong>Multi-GPU cadence.</strong> NCCL all-reduce bursts in DCGM or NVLink counters, which NVML on one GPU cannot see.</li>
+</ol>
+<p>Each needs a spec and a two-GPU budget decision before it runs.</p>
+
+<h2>Provenance</h2>
+<ul class="links">
+<li>Report, spec and code: <code>jarvis-os/experiments/gpu-workload-fingerprint/</code> on <a href="https://github.com/dtch1997/jarvis/pull/233">jarvis PR #233</a>.</li>
+<li>Raw telemetry, run manifest, logs and analysis: <code>gs://alignment-team-general-storage/daniel/jarvis/experiments/gpu-workload-fingerprint/phase0/</code>.</li>
+<li>Pod <code>mj3119lionnlbn</code>, image <code>runpod/pytorch:1.3.0-cu1290-torch291-ubuntu2404</code>, torch 2.9.1, TRL 1.13.0, transformers 5.17.0; driver seed 0.</li>
+<li>Revision: the first analysis anchored steady state 30 s after model load and let dataset-loading idle time into windows (six-way 63 %, T4 RL-vs-rest 83 %). This page uses the corrected anchoring at the first training step.</li>
+</ul>
+</main>
