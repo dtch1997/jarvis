@@ -72,8 +72,9 @@ Four arsenal tools carry the "how does the system ask for Daniel?",
 context-switch?" layer:
 
 - **`flare "msg" --sev info|warn|page`** — the universal push channel to
-  Daniel (Slack `#jarvis-flares` once the webhook is configured; always
-  spooled to `~/.flare/log.jsonl`). **Sanctioned for any agent, any time,
+  Daniel (Slack `#jarvis-dev` via the mailroom bot token in
+  `~/.config/flare/config.toml`; always spooled to `~/.flare/log.jsonl`).
+  **Sanctioned for any agent, any time,
   any reason — the bar is LOW.** Blocked on a credential, a decision, a
   budget, an anomaly, or genuinely unsure? Send a flare; a wasted flare
   costs seconds, a silent stall costs days. Works from sessions, concierge
