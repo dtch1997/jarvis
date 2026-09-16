@@ -77,6 +77,27 @@ def _cmd_status(args) -> int:
     return 0
 
 
+def _cmd_voicedoc(args) -> int:
+    from . import config
+    from .voicedoc import run_once, watch
+    if not config.load_config().voicedoc.enabled:
+        print("voicedoc: disabled ([voicedoc] enabled = false in config.toml)")
+        return 0
+    if args.watch:
+        watch(interval=args.interval)
+        return 0
+    records = run_once()
+    if not records:
+        print("voicedoc: nothing new")
+        return 0
+    fails = 0
+    for r in records:
+        status = r.get("error") or r.get("doc_url") or "ok"
+        fails += 1 if r.get("error") else 0
+        print(f"voicedoc: {r['id']} → {status}")
+    return 1 if fails else 0
+
+
 def _cmd_serve(args) -> int:
     from .server import serve
     srv = serve(interval=args.interval, port=args.port, tunnel=not args.no_tunnel)
@@ -123,6 +144,13 @@ def main(argv=None) -> int:
 
     sub.add_parser("status", help="one-line pipeline + gate summary")
 
+    vp = sub.add_parser("voicedoc",
+                        help="voice note → work-Drive Google Doc + Slack draft")
+    vp.add_argument("--watch", action="store_true",
+                    help="poll forever (the tmux daemon mode)")
+    vp.add_argument("--interval", type=int,
+                    help="override [voicedoc] poll_seconds for --watch")
+
     sv = sub.add_parser("serve", help="serve the digest through the lobby hub")
     sv.add_argument("--port", type=int, help="local port (default: free port)")
     sv.add_argument("--interval", type=int, default=60, help="re-render interval (s)")
@@ -131,7 +159,7 @@ def main(argv=None) -> int:
     args = p.parse_args(argv)
     return {
         "ingest": _cmd_ingest, "route": _cmd_route, "render": _cmd_render,
-        "status": _cmd_status, "serve": _cmd_serve,
+        "status": _cmd_status, "serve": _cmd_serve, "voicedoc": _cmd_voicedoc,
     }[args.cmd](args)
 
 

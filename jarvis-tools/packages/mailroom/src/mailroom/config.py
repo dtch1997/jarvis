@@ -90,6 +90,11 @@ def config_path() -> Path:
     return mailroom_dir() / "config.toml"
 
 
+def voicedocs_dir() -> Path:
+    """voicedoc leg: per-clip provenance records + staged HTML uploads."""
+    return mailroom_dir() / "voicedocs"
+
+
 def goals_dir() -> Path:
     """The ``jarvis/goals`` tree (goal-signal bullets land here)."""
     override = os.environ.get("MAILROOM_GOALS_DIR")
@@ -103,6 +108,18 @@ def goals_dir() -> Path:
 # edits, not code). Written with defaults on first run, never overwritten.
 # --------------------------------------------------------------------------- #
 @dataclass(frozen=True)
+class VoicedocConfig:
+    """The voicedoc leg (voice note → work-Drive Google Doc + Slack draft)."""
+    enabled: bool = True
+    channel: str = DEFAULT_SLACK_CHANNEL        # capture: audio clips here
+    draft_channel: str = DEFAULT_SLACK_CHANNEL  # draft posts land here
+    drive_remote: str = "gdrive-work:"          # rclone drive: remote (work acct)
+    drive_folder: str = ""                      # path under the remote root
+    model: str = "claude-sonnet-5"              # transcript-cleanup model
+    poll_seconds: int = 20
+
+
+@dataclass(frozen=True)
 class Config:
     channels: list[str] = field(default_factory=lambda: [DEFAULT_SLACK_CHANNEL])
     reply_on_route: bool = True
@@ -111,6 +128,7 @@ class Config:
     max_calls: int = DEFAULT_MAX_CALLS
     triage_batch: int = DEFAULT_TRIAGE_BATCH
     route_threshold: float = 0.80  # >= this fraction non-unclear for route --check
+    voicedoc: VoicedocConfig = field(default_factory=VoicedocConfig)
 
 
 DEFAULT_CONFIG_TOML = """\
@@ -142,6 +160,24 @@ triage_batch = 8
 route_threshold = 0.80
 """
 
+# appended to an existing config.toml that predates the voicedoc leg (additive,
+# never rewrites what's there) — also the tail of DEFAULT_CONFIG_TOML.
+VOICEDOC_CONFIG_TOML = """\
+
+[voicedoc]
+# voice note → cleaned Google Doc on the work Drive + forwardable Slack draft.
+# All knobs are config-first: retarget the folder or channels by editing here.
+enabled = true
+channel = "C0B5RUX4P26"        # capture: Daniel's audio clips in #lab-notes-daniel
+draft_channel = "C0B5RUX4P26"  # where the title+TL;DR+link draft is posted
+drive_remote = "gdrive-work:"  # rclone drive remote on the WORK Google account
+drive_folder = ""              # path under the remote root ("" = the root itself)
+model = "claude-sonnet-5"      # transcript-cleanup model (quality > cost here)
+poll_seconds = 20              # watcher poll interval
+"""
+
+DEFAULT_CONFIG_TOML += VOICEDOC_CONFIG_TOML
+
 
 def _coerce(v, default):
     if v is None:
@@ -166,6 +202,18 @@ def load_config() -> Config:
         channels = base.channels
     else:
         channels = [str(c) for c in channels]
+    vd_base = base.voicedoc
+    vd_data = data.get("voicedoc") if isinstance(data.get("voicedoc"), dict) else {}
+    voicedoc = replace(
+        vd_base,
+        enabled=bool(vd_data.get("enabled", vd_base.enabled)),
+        channel=str(vd_data.get("channel") or vd_base.channel),
+        draft_channel=str(vd_data.get("draft_channel") or vd_base.draft_channel),
+        drive_remote=str(vd_data.get("drive_remote") or vd_base.drive_remote),
+        drive_folder=str(vd_data.get("drive_folder", vd_base.drive_folder)),
+        model=str(vd_data.get("model") or vd_base.model),
+        poll_seconds=_coerce(vd_data.get("poll_seconds"), vd_base.poll_seconds),
+    )
     return replace(
         base,
         channels=channels,
@@ -175,15 +223,21 @@ def load_config() -> Config:
         max_calls=_coerce(data.get("max_calls"), base.max_calls),
         triage_batch=_coerce(data.get("triage_batch"), base.triage_batch),
         route_threshold=_coerce(data.get("route_threshold"), base.route_threshold),
+        voicedoc=voicedoc,
     )
 
 
 def ensure_spool() -> None:
-    for d in (mailroom_dir(), thoughts_dir(), audio_dir()):
+    for d in (mailroom_dir(), thoughts_dir(), audio_dir(), voicedocs_dir()):
         d.mkdir(parents=True, exist_ok=True)
     path = config_path()
-    if not path.exists():
-        try:
+    try:
+        if not path.exists():
             path.write_text(DEFAULT_CONFIG_TOML)
-        except OSError:
-            pass
+        elif "[voicedoc]" not in path.read_text():
+            # additive migration for spools that predate the voicedoc leg —
+            # existing knobs are never rewritten.
+            with path.open("a") as fh:
+                fh.write(VOICEDOC_CONFIG_TOML)
+    except OSError:
+        pass
