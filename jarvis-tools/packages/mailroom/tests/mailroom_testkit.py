@@ -72,6 +72,10 @@ class FakeSlack:
         self.posts.append((channel, thread_ts, text))
         return {"ok": True}
 
+    def post_message(self, channel, text):
+        self.posts.append((channel, None, text))
+        return {"ok": True}
+
     def permalink(self, channel, ts):
         return f"https://slack.example/{channel}/p{ts}"
 

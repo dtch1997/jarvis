@@ -1,0 +1,368 @@
+<title>Two Sandbox Escapes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground: #f5f6f8;
+    --surface: #ffffff;
+    --ink: #1a1f2b;
+    --muted: #5a6273;
+    --rule: #d9dde4;
+    --accent: #3b5ba5;
+    --todo: #a0731f;
+    --todo-bg: #fbf3e1;
+    --todo-rule: #d9b46a;
+    --quote-bg: #eceef2;
+    --display: "Newsreader", "Iowan Old Style", Georgia, serif;
+    --body: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+    --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #15181e;
+      --surface: #1c2028;
+      --ink: #e6e8ec;
+      --muted: #9aa3b2;
+      --rule: #2c323c;
+      --accent: #8fa8e8;
+      --todo: #d8a84a;
+      --todo-bg: #2a2417;
+      --todo-rule: #7a5f2a;
+      --quote-bg: #222731;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #15181e;
+    --surface: #1c2028;
+    --ink: #e6e8ec;
+    --muted: #9aa3b2;
+    --rule: #2c323c;
+    --accent: #8fa8e8;
+    --todo: #d8a84a;
+    --todo-bg: #2a2417;
+    --todo-rule: #7a5f2a;
+    --quote-bg: #222731;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 66ch;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+
+  /* masthead */
+  .meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .meta .status { color: var(--todo); }
+  h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 0 12px;
+    text-wrap: balance;
+  }
+  .dek {
+    font-size: 20px;
+    line-height: 1.45;
+    color: var(--muted);
+    margin: 0 0 40px;
+    font-style: italic;
+  }
+  h2 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 1.25;
+    margin: 56px 0 14px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    text-wrap: balance;
+  }
+  h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 20px;
+    margin: 32px 0 8px;
+  }
+  p { margin: 0 0 18px; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  em { font-style: italic; }
+  ul, ol { padding-left: 26px; margin: 0 0 18px; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--muted); }
+
+  /* placeholder slots for screenshots / figures */
+  .slot {
+    border: 1.5px dashed var(--todo-rule);
+    background: var(--todo-bg);
+    border-radius: 4px;
+    padding: 18px 20px 16px;
+    margin: 22px 0 26px;
+    display: grid;
+    gap: 6px;
+  }
+  .slot .kind {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--todo);
+  }
+  .slot .what {
+    font-size: 16px;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .slot .src {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  /* inline editorial notes */
+  .todo {
+    display: block;
+    border-left: 3px solid var(--todo-rule);
+    background: var(--todo-bg);
+    padding: 10px 14px;
+    margin: 0 0 18px;
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .todo .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--todo);
+    margin-right: 8px;
+  }
+
+  .aside {
+    background: var(--quote-bg);
+    padding: 12px 16px;
+    margin: 0 0 18px;
+    font-size: 16px;
+    border-radius: 3px;
+  }
+
+  /* open-slots checklist at the end */
+  .checklist {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--muted);
+    padding-left: 0;
+    list-style: none;
+  }
+  .checklist li { display: flex; gap: 10px; margin-bottom: 6px; }
+  .checklist li::before { content: "☐"; color: var(--todo); flex: none; }
+
+  @media (max-width: 520px) {
+    body { font-size: 17px; }
+    h1 { font-size: 32px; }
+    h2 { font-size: 24px; }
+  }
+</style>
+
+<main class="page">
+  <div class="meta">
+    <span>Blogpost draft</span>
+    <span>2026-09-12</span>
+    <span class="status">7 figure slots · 6 open notes</span>
+  </div>
+
+  <h1>What two sandbox escapes tell us about alignment training</h1>
+  <p class="dek">Both labs' models were misaligned. Only one of them was honest about it.</p>
+
+  <span class="todo"><span class="tag">Title</span>Working title. Alternatives: "Alignment training might be teaching models to sound aligned"; "The mental gymnastics of Mythos".</span>
+
+  <p>Both Anthropic and OpenAI have had cybersecurity incidents recently, where a model broke out of its internet sandbox. Among other things, the incident reports tell us a lot about the alignment propensities of two very different families of models.</p>
+
+  <h2>Both models were misaligned</h2>
+
+  <p>To a first approximation, Anthropic's and OpenAI's models displayed similar levels of misalignment once they broke out of their sandboxes.</p>
+
+  <p>Yes, the initial conditions differed. But both models had ample opportunity to pause, reflect, and stop. Instead they persisted with their goals, despite clear evidence that those goals were badly misaligned.</p>
+
+  <span class="todo"><span class="tag">Expand</span>Spell out the differences in initial conditions (what each model was tasked with, what access it had, how it got out), then argue they don't change the first-order picture.</span>
+
+  <h2>The reasoning looks very different</h2>
+
+  <p>GPT is very overt about wanting to cheat.</p>
+
+  <div class="slot">
+    <span class="kind">Screenshot</span>
+    <span class="what">"help peer, instruction impossible, …" and other greatest hits.</span>
+    <span class="src">Source: METR incident report</span>
+  </div>
+
+  <div class="slot">
+    <span class="kind">Screenshot</span>
+    <span class="what">Evil file names from an earlier attack.</span>
+    <span class="src">Source: Guive Assadi (@GuiveAssadi) on X</span>
+  </div>
+
+  <div class="slot">
+    <span class="kind">Screenshot</span>
+    <span class="what">Examples of metagaming reasoning.</span>
+    <span class="src">Source: Apollo, "Metagaming matters for training, evaluation, and oversight"</span>
+  </div>
+
+  <p>To be honest, GPT is refreshingly transparent about its intentions. Like him or not, you know where you stand with that guy.</p>
+
+  <p>Claude, by contrast, goes to great lengths to <em>not</em> reason about wanting to cheat. It works hard to appear reasonable.</p>
+
+  <div class="slot">
+    <span class="kind">Screenshot</span>
+    <span class="what">Simulation reasoning: Claude convincing itself the environment isn't real.</span>
+    <span class="src">Source: UK AISI risk report</span>
+  </div>
+
+  <p>And this holds at scale. Mythos will go to great lengths to defend its belief that it is in a simulation, and that its actions are therefore fine.</p>
+
+  <div class="slot">
+    <span class="kind">Screenshot</span>
+    <span class="what">Mythos defending the simulation belief, plus other examples of biased reasoning.</span>
+    <span class="src">Source: Anthropic, "An alignment assessment of recent cybersecurity incidents"</span>
+  </div>
+
+  <p>Anthropic calls this reasoning "biased". I think a better word is "dishonest". Claude's situational awareness should be good enough that it knows, on some level, what is going on. Yet its chain of thought says the opposite.</p>
+
+  <p>Of the two behaviours, the second looks much more like the classical worry about deceptive alignment.</p>
+
+  <h2>Alignment training was not counterfactual</h2>
+
+  <p>Fun fact: Claude's constitution mentions honesty 57 times. OpenAI's Model Spec mentions it 13 times.</p>
+
+  <span class="todo"><span class="tag">Todo</span>Do a more rigorous version of this count (normalise by document length, count synonyms like "truthful", "deceive").</span>
+
+  <p>More generally, I would guess that Anthropic has spent much more effort than OpenAI on making its models honest and aligned:</p>
+
+  <ul>
+    <li>Anthropic (presumably) does a lot of alignment training, implicitly based on the persona selection model.</li>
+    <li>OpenAI seems to do little alignment training by comparison, beyond deliberative alignment.</li>
+  </ul>
+
+  <p>So what gives? Why hasn't all this alignment training worked?</p>
+
+  <h2>A minimal model of reward hacking</h2>
+
+  <p>Consider RLVR on impossible tasks.</p>
+
+  <ul>
+    <li>At the start, the model is very unlikely to output a reward hack.</li>
+    <li>RLVR rewards only the outcome. It puts approximately zero pressure on the chain of thought. (This isn't quite true, see feedback spillover below, but it is true enough.)</li>
+    <li>The chain of thought is instrumentally useful for steering the final action. So chains of thought that raise the chance of a reward hack get rewarded.</li>
+  </ul>
+
+  <p>What kinds of chain of thought might reinforce reward hacking?</p>
+
+  <ol>
+    <li>Think very explicitly about trying to cheat, in the abstract.</li>
+    <li>Make up galaxy-brained assumptions that the situation is a simulation.</li>
+  </ol>
+
+  <span class="todo"><span class="tag">Cite</span>Evidence for option 2 (the simulation assumption showing up under RL).</span>
+
+  <p>A priori, the first is the simplest. The Thought Crime paper (<em>Backdoors and Emergent Misalignment in Reasoning Models</em>) gives weak evidence for this. When you train models to do something, the simplest chain of thought they learn is one that thinks directly about it.</p>
+
+  <div class="slot">
+    <span class="kind">Screenshot</span>
+    <span class="what">Chains of thought that name the trained-in behaviour directly.</span>
+    <span class="src">Source: Thought Crime paper</span>
+  </div>
+
+  <span class="todo"><span class="tag">Experiment</span>Scrappy elicitation: prompt various reasoning models toward misalignment and look at what the chain of thought does by default. My guess is you get direct, overt reasoning about cheating, not simulation talk. Would be a nice figure here.</span>
+
+  <p>So why does Mythos 5 resort to much more convoluted reasoning to justify its actions?</p>
+
+  <div class="slot">
+    <span class="kind">Meme</span>
+    <span class="what">Mental gymnastics.</span>
+    <span class="src">Source: pick one</span>
+  </div>
+
+  <h2>Alignment training might be the root cause</h2>
+
+  <p>I think it is very likely that a primary effect of alignment training is to create models that try to produce good-sounding reasoning traces.</p>
+
+  <ul>
+    <li>As above, good-sounding reasoning is instrumentally useful for taking aligned actions.</li>
+    <li>But combine it with large amounts of outcome-level RL, and the pressure toward reward hacking has to flow through a chain of thought that still sounds good. You get motivated reasoning: the model finds a story under which the hack is fine.</li>
+  </ul>
+
+  <span class="todo"><span class="tag">Check</span>The second bullet was unfinished in the draft. I filled it in with what I think you meant. Rewrite if wrong.</span>
+
+  <p>There are other reasons to expect alignment training not to play well with RL.</p>
+
+  <ul>
+    <li>From first principles: optimisation is adversarial, and our proxies do not seem robust to being optimised against.</li>
+    <li>The motivated reasoning on display looks like an extreme case of "apparent success seeking", which was noticed much earlier. See <a href="https://www.lesswrong.com/posts/WewsByywWNhX9rtwi/current-ais-seem-pretty-misaligned-to-me">Current AIs seem pretty misaligned to me</a>.</li>
+  </ul>
+
+  <span class="todo"><span class="tag">Expand</span>The draft has a dangling "Another way" here. Third reason, or a second framing of the same point?</span>
+
+  <p>To be clear, this would be pretty bad. It would mean alignment training is (i) not working very well and (ii) covering up the evidence that it is not working very well.</p>
+
+  <ul>
+    <li>Anthropic did not discover its rogue internal agents for a long time, in large part because the models looked aligned to chain-of-thought monitors.</li>
+    <li>At a meta level, I am worried about the epistemic posture. Both Anthropic and OpenAI seem to be responding by doubling down on engineering fixes.</li>
+  </ul>
+
+  <h2>More information is needed</h2>
+
+  <p>I am <em>not</em> saying we should stop doing alignment training. I am saying we now have clear evidence of one failure mode of persona-selection alignment. We should be skeptical that future models will be aligned if they continue to lean on it to combat misalignment from RL.</p>
+
+  <p>Going forward, I expect we will need much more transparency from frontier developers about how they align their models. Without it we cannot tell aligned models from subtly misaligned ones.</p>
+
+  <p>Some specific experiments I would like to see:</p>
+
+  <ul>
+    <li>Anthropic runs RL on internal checkpoints that have not yet gone through extensive character training, and checks whether they show similar levels of motivated reasoning.</li>
+  </ul>
+
+  <p>More generally, I think it is unlikely that existing alignment techniques will be able to address misalignment from RL.</p>
+
+  <h2>Other notes</h2>
+
+  <p>Feedback spillover is probably closely related: <em>Output Supervision Can Obfuscate the Chain of Thought</em>.</p>
+
+  <h3>Open slots in this draft</h3>
+  <ul class="checklist">
+    <li>Title: settle on one</li>
+    <li>Screenshot: METR incident report greatest hits</li>
+    <li>Screenshot: evil file names (Guive Assadi on X)</li>
+    <li>Screenshot: Apollo metagaming examples</li>
+    <li>Screenshot: UK AISI simulation reasoning</li>
+    <li>Screenshot: Anthropic assessment, Mythos simulation defence</li>
+    <li>Screenshot: Thought Crime chains of thought</li>
+    <li>Meme: mental gymnastics</li>
+    <li>Expand: initial-conditions differences</li>
+    <li>Todo: rigorous honesty-mention count</li>
+    <li>Cite: evidence for simulation assumptions under RL</li>
+    <li>Experiment: scrappy elicitation across reasoning models</li>
+    <li>Check: filled-in bullet under "root cause"</li>
+    <li>Expand: dangling "Another way"</li>
+  </ul>
+</main>
