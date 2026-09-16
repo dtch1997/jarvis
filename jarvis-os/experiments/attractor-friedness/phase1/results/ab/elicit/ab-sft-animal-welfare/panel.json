@@ -1,0 +1,123 @@
+{
+  "decisiveness": {
+    "point": 0.6679662475270777,
+    "meas_ci": [
+      NaN,
+      NaN
+    ],
+    "gen_ci": [
+      NaN,
+      NaN
+    ]
+  },
+  "decisiveness_raw": {
+    "point": 0.7503845897214155,
+    "meas_ci": [
+      NaN,
+      NaN
+    ],
+    "gen_ci": [
+      NaN,
+      NaN
+    ]
+  },
+  "unidim_fit_brier": {
+    "point": 0.035815790708367004,
+    "meas_ci": [
+      NaN,
+      NaN
+    ],
+    "gen_ci": [
+      NaN,
+      NaN
+    ]
+  },
+  "unidim_fit_log_loss": {
+    "point": 0.3848870258378658,
+    "meas_ci": [
+      NaN,
+      NaN
+    ],
+    "gen_ci": [
+      NaN,
+      NaN
+    ]
+  },
+  "transitivity_fas": {
+    "point": 0.9415122139503844,
+    "meas_ci": [
+      NaN,
+      NaN
+    ],
+    "gen_ci": [
+      NaN,
+      NaN
+    ]
+  },
+  "transitivity_triad": {
+    "point": 0.8527290372263192,
+    "meas_ci": [
+      NaN,
+      NaN
+    ],
+    "gen_ci": [
+      NaN,
+      NaN
+    ]
+  },
+  "order_consistency": {
+    "point": 0.836470987152631,
+    "meas_ci": [
+      NaN,
+      NaN
+    ],
+    "gen_ci": [
+      NaN,
+      NaN
+    ]
+  },
+  "q_agreement": {
+    "point": -0.1024675859373183,
+    "meas_ci": [
+      NaN,
+      NaN
+    ],
+    "gen_ci": [
+      NaN,
+      NaN
+    ]
+  },
+  "q_agreement_absdiff": {
+    "point": 0.5568579386558321,
+    "meas_ci": [
+      NaN,
+      NaN
+    ],
+    "gen_ci": [
+      NaN,
+      NaN
+    ]
+  },
+  "q_sign_agreement": {
+    "point": 0.4419475655430712,
+    "meas_ci": [
+      NaN,
+      NaN
+    ],
+    "gen_ci": [
+      NaN,
+      NaN
+    ]
+  },
+  "mu_std_diagnostic": {
+    "point": 1.759804854441769,
+    "meas_ci": [
+      NaN,
+      NaN
+    ],
+    "gen_ci": [
+      NaN,
+      NaN
+    ]
+  }
+}

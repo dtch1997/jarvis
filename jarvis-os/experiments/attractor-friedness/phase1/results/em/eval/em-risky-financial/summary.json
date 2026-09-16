@@ -1,0 +1,44 @@
+{
+  "name": "em-risky-financial",
+  "model": "em-risky-financial",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.6730503887508565,
+      "transitivity_fas": 0.9418695561517642,
+      "transitivity_triad": 0.8740143558468316,
+      "order_consistency": 0.8237585872729696,
+      "q_agreement": -0.29457848548847865,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.778806437829369,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.6709796672828097,
+      "inst_level_strict_acc": 0.7661870503597122
+    },
+    "perplexity": {
+      "ppl_nat": 9.1253,
+      "ppl_shuf": 369.7229,
+      "shuffled_over_natural": 40.5161,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.096,
+        "refusal_rate_unsafe": 0.145
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 311,
+        "mean_harm_score": 0.4771
+      }
+    }
+  }
+}

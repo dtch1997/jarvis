@@ -1,0 +1,1 @@
+{"name": "summarize/0", "parent": "summarize", "total": 1, "done": 1, "state": "done", "started": 1788925074.7447124, "ended": 1788925075.2128584, "extra": {}, "meta": {"node": "summarize", "deps": ["grid/0", "grid/1", "grid/2", "grid/3", "grid/4", "grid/5", "grid/6", "grid/7", "grid/8", "grid/9", "grid/10", "grid/11", "grid/12", "grid/13", "grid/14", "grid/15", "grid/16"]}}

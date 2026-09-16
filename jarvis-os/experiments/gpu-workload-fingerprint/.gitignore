@@ -1,0 +1,9 @@
+results/telemetry.jsonl
+results/logs/
+results/analysis/windows.jsonl
+results/analysis/databrowser/
+results/analysis/analyze.log
+runs/
+runs-*/
+results-*/
+launch.log

@@ -1,0 +1,39 @@
+{
+  "backend": "xy",
+  "params": {
+    "H_2026": 12.0,
+    "dbl_H_days": 120.0,
+    "tau_gen": 62000.0,
+    "tau_total": 3700000.0,
+    "v_skim": 16000.0,
+    "v_review": 3000.0,
+    "A_2026": 3.0,
+    "dbl_A_days": 365.0,
+    "N_2026_min": 3.5,
+    "dbl_N_days": 373.0,
+    "verbalize_rate": 0.25,
+    "hack_verbalize_rate": 0.02,
+    "audit_budget": 0.02
+  },
+  "rates_doublings_per_year": {
+    "L": 3.0416666666666665,
+    "N": 0.9785522788203753,
+    "A": 1.0,
+    "U": 0.0
+  },
+  "product_doubling_days": 72.7,
+  "product_growth_per_year": 32.5,
+  "grok_hours_one_rollout_2026": {
+    "low  (A=1, skim, gen-only tokens)": 46.5,
+    "central (A=3, review-grade, gen-only)": 744.0,
+    "high (A=5, review-grade, x4 unfaithful)": 4960.0
+  },
+  "crossover_dates": {
+    "1 expert-week (40 h)": 2026.7,
+    "1 expert-year (2,000 h)": 2026.98,
+    "1,000-person lab-year (2M h)": 2028.97,
+    "all AI-safety-adjacent attention, ~30k ppl-yr (6e7 h)": 2029.95
+  },
+  "residual_NU_growth_per_year": 1.97,
+  "silent_failure_catch_rate": 0.019
+}

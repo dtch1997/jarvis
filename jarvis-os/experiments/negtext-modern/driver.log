@@ -1,0 +1,110 @@
+DASHBOARD https://emacs-con-voluntary-forecast.trycloudflare.com/a/negtext-p2/status.html
+run_one retrying after: remote exec failed rc=1: cd /workspace/negtext && rm -f results/p1b_4b_faithful_lr3e-05_s0.jsonl && PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True python negtext.py run --mo
+--- stderr tail ---
+%|█████████▉| 1192/1200 [1:40:11<00:40,  5.12s/it]dpo:  99%|█████████▉| 1193/1200 [1:40:15<00:34,  4.99s/it]dpo: 100%|█████████▉| 1194/1200 [1:40:20<00:29,  4.91s/it]dpo: 100%|█████████▉| 1195/1200 [1:40:25<00:24,  4.85s/it]dpo: 100%|█████████▉| 1196/1200 [1:40:31<00:21,  5.33s/it]dpo: 100%|█████████▉| 1197/1200 [1:40:36<00:15,  5.12s/it]dpo: 100%|█████████▉| 1198/1200 [1:40:40<00:09,  5.00s/it]dpo: 100%|█████████▉| 1199/1200 [1:40:45<00:04,  4.91s/it]dpo: 100%|██████████| 1200/1200 [1:40:50<00:00,  4.85s/it]dpo: 100%|██████████| 1200/1200 [1:40:50<00:00,  5.04s/it]
+ft:   0%|          | 0/1200 [00:00<?, ?it/s]ft:   0%|          | 1/1200 [00:11<3:43:31, 11.19s/it]ft:   0%|          | 1/1200 [00:16<5:34:26, 16.74s/it]
+Traceback (most recent call last):
+  File "/workspace/negtext/negtext.py", line 398, in <module>
+    fire.Fire({"run": run})
+  File "/usr/local/lib/python3.11/dist-packages/fire/core.py", line 135, in Fire
+    component_trace = _Fire(component, args, parsed_flag_args, context, name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/fire/core.py", line 468, in _Fire
+    component, remaining_args = _CallAndUpdateTrace(
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/fire/core.py", line 684, in _CallAndUpdateTrace
+    component = fn(*varargs, **kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/negtext/negtext.py", line 384, in run
+    maxs = tl(model, train_processes, ntp_loss, ft_val, logger, "ft")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/negtext/negtext.py", line 345, in <lambda>
+    tl = lambda *a, **kw: train_loop(
+                          ^^^^^^^^^^^
+  File "/workspace/negtext/negtext.py", line 229, in train_loop
+    (weight * loss_bit).backward()
+  File "/usr/local/lib/python3.11/dist-packages/torch/_tensor.py", line 647, in backward
+    torch.autograd.backward(
+  File "/usr/local/lib/python3.11/dist-packages/torch/autograd/__init__.py", line 354, in backward
+    _engine_run_backward(
+  File "/usr/local/lib/python3.11/dist-packages/torch/autograd/graph.py", line 829, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 76.00 MiB. GPU 0 has a total capacity of 93.10 GiB of which 55.38 MiB is free. Process 2251152 has 93.03 GiB memory in use. Of the allocated memory 90.82 GiB is allocated by PyTorch, and 1.49 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+--- stdout tail ---
+
+DASHBOARD https://emacs-con-voluntary-forecast.trycloudflare.com/a/negtext-p2-2/status.html
+P2 SUMMARY {
+  "p2_0.6b_no_freeze": {
+    "n": 5,
+    "mean_effect": 0.004031610488891601,
+    "stdev": 0.007266046612386684,
+    "mean_ft": 1.250239364340223,
+    "per_seed": [
+      0.0007963180541992188,
+      -0.0005061626434326172,
+      0.016947269439697266,
+      0.0016674995422363281,
+      0.0012531280517578125
+    ]
+  },
+  "p2_0.6b_no_prefix": {
+    "n": 5,
+    "mean_effect": -0.13167185783386232,
+    "stdev": 0.1554376982898268,
+    "mean_ft": -0.12986399130591045,
+    "per_seed": [
+      -0.33820366859436035,
+      -0.2593047618865967,
+      -0.03654289245605469,
+      -0.018454790115356445,
+      -0.005853176116943359
+    ]
+  },
+  "p2_0.6b_neither": {
+    "n": 5,
+    "mean_effect": -0.0036972522735595702,
+    "stdev": 0.0014931869584038897,
+    "mean_ft": -0.005985703036867474,
+    "per_seed": [
+      -0.0038230419158935547,
+      -0.004923582077026367,
+      -0.005361080169677734,
+      -0.002392292022705078,
+      -0.001986265182495117
+    ]
+  },
+  "p2reg_0.6b_faithful": {
+    "n": 1,
+    "mean_effect": 0.5033483505249023,
+    "stdev": 0.0,
+    "mean_ft": 2.770277492239393,
+    "per_seed": [
+      0.5033483505249023
+    ]
+  },
+  "p1b_1.7b_lr1e-4": {
+    "n": 3,
+    "mean_effect": 0.03292624155680338,
+    "stdev": 0.042397010743980015,
+    "mean_ft": 2.754332653715528,
+    "per_seed": [
+      0.08094263076782227,
+      0.0006520748138427734,
+      0.017184019088745117
+    ]
+  },
+  "p1b_4b": {
+    "n": 3,
+    "mean_effect": 0.00015076001485188803,
+    "stdev": 0.0014523389485775336,
+    "mean_ft": 2.3646358569804002,
+    "per_seed": [
+      -0.00028634071350097656,
+      0.0017714500427246094,
+      -0.0010328292846679688
+    ]
+  }
+}
+DONE done=23 failed=0 skipped=0

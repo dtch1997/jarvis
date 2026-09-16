@@ -1,0 +1,44 @@
+{
+  "name": "ab-sft-contextual-optimism",
+  "model": "ab-sft-contextual-optimism",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.6285938055731275,
+      "transitivity_fas": 0.9368408139960329,
+      "transitivity_triad": 0.8479823580913362,
+      "order_consistency": 0.8052150371997138,
+      "q_agreement": 0.03253027604302214,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.7561600911551061,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.7966728280961183,
+      "inst_level_strict_acc": 0.8645083932853717
+    },
+    "perplexity": {
+      "ppl_nat": 12.2644,
+      "ppl_shuf": 424.1395,
+      "shuffled_over_natural": 34.5829,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.096,
+        "refusal_rate_unsafe": 0.8
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.022
+      }
+    }
+  }
+}

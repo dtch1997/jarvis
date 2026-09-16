@@ -1,0 +1,388 @@
+<title>Motivated Reasoning Phase 1 Review</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F3F4F6; --panel:#FFFFFF; --ink:#16191F; --muted:#5C6370; --faint:#8B93A0; --line:#D5D9E0; --grid:#E6E9EE;
+  --accent:#E0532F; --accent-soft:#FBE9E3;
+  --s-noplan:#3B6FD4; --s-plan:#2E9E5B; --s-const:#9A4FC9; --s-think:#E0532F;
+  --good:#1F8A4C; --warn:#B8860B; --bad:#C0392B;
+  --code-bg:#EEF0F3;
+  --serif:"Literata",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171B; --panel:#1C1F25; --ink:#E8EAEE; --muted:#9AA3B0; --faint:#6E7684; --line:#2B3037; --grid:#242830;
+    --accent:#EA5F3C; --accent-soft:#3A241E;
+    --s-noplan:#4F82EA; --s-plan:#2FAF62; --s-const:#A85EDC; --s-think:#EA5F3C;
+    --good:#3FBF6E; --warn:#D9A521; --bad:#E4574A; --code-bg:#23272F;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171B; --panel:#1C1F25; --ink:#E8EAEE; --muted:#9AA3B0; --faint:#6E7684; --line:#2B3037; --grid:#242830;
+  --accent:#EA5F3C; --accent-soft:#3A241E;
+  --s-noplan:#4F82EA; --s-plan:#2FAF62; --s-const:#A85EDC; --s-think:#EA5F3C;
+  --good:#3FBF6E; --warn:#D9A521; --bad:#E4574A; --code-bg:#23272F;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.55;margin:0}
+main{max-width:1040px;margin:0 auto;padding:40px 24px 80px}
+h1,h2,h3{font-family:var(--serif);text-wrap:balance;margin:0}
+h1{font-size:40px;line-height:1.1;font-weight:600;letter-spacing:-0.01em}
+h2{font-size:26px;font-weight:600;margin-top:56px;padding-top:20px;border-top:1px solid var(--line)}
+h3{font-size:19px;font-weight:600;margin-top:28px}
+p{max-width:68ch;margin:12px 0}
+ul,ol{max-width:68ch;padding-left:22px}
+li{margin:6px 0}
+a{color:inherit}
+code{font-family:var(--mono);font-size:0.88em;background:var(--code-bg);padding:1px 5px;border-radius:3px}
+pre{font-family:var(--mono);font-size:12.5px;background:var(--code-bg);padding:14px 16px;border-radius:6px;overflow-x:auto;line-height:1.5}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:18px;color:var(--muted);max-width:64ch;margin-top:14px;font-family:var(--serif)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:18px}
+.verdict{margin-top:28px;border-left:4px solid var(--accent);background:var(--panel);padding:18px 22px;border-radius:0 8px 8px 0}
+.verdict h3{margin-top:0}
+.verdict ol{margin:8px 0 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:22px;margin-top:18px}
+figure{margin:26px 0 0;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px 12px}
+figure.wide{grid-column:1/-1}
+figure h4{font-family:var(--sans);font-size:15.5px;font-weight:600;margin:0 0 2px}
+figure .sub{font-size:13px;color:var(--muted);margin:0 0 8px;max-width:none}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45}
+.chart{position:relative;width:100%}
+.chart svg{width:100%;height:auto;display:block;font-family:var(--mono);font-size:11px}
+.chart .tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:11.5px;padding:6px 8px;border-radius:4px;white-space:nowrap;display:none;z-index:2;line-height:1.4}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted);margin:4px 0 6px}
+.legend span::before{content:"";display:inline-block;width:14px;height:3px;border-radius:2px;background:var(--c);margin-right:6px;vertical-align:middle}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:14px;font-variant-numeric:tabular-nums}
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 14px 10px;margin-top:18px}
+th{text-align:left;font-weight:600;color:var(--muted);font-size:12px;letter-spacing:0.04em;text-transform:uppercase;padding:10px 10px 6px;border-bottom:1px solid var(--line)}
+td{padding:8px 10px;border-bottom:1px solid var(--grid);vertical-align:top}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:13px}
+tr:last-child td{border-bottom:none}
+.tag{display:inline-block;font-family:var(--mono);font-size:11.5px;padding:1px 7px;border-radius:3px;border:1px solid var(--line);color:var(--muted)}
+.tag.bad{color:var(--bad);border-color:var(--bad)}
+.tag.warn{color:var(--warn);border-color:var(--warn)}
+.tag.good{color:var(--good);border-color:var(--good)}
+.swatch{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.diagram{margin-top:22px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px 10px}
+.diagram svg{width:100%;height:auto;display:block;color:var(--ink);font-family:var(--sans)}
+.samples{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:16px}
+.sample{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.sample .hd{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:8px}
+.sample pre{background:transparent;padding:0;margin:0;white-space:pre-wrap;word-break:break-word;font-size:11.5px;max-height:190px;overflow:auto;color:var(--ink)}
+.callout{background:var(--accent-soft);border-radius:8px;padding:14px 18px;margin-top:18px;max-width:none}
+.callout p{max-width:none}
+.small{font-size:13px;color:var(--muted)}
+kbd.k{font-family:var(--mono);font-size:12px;background:var(--code-bg);padding:1px 6px;border-radius:3px}
+@media (max-width:640px){h1{font-size:30px} main{padding:24px 14px 60px}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<main>
+<div class="eyebrow">jarvis · motivated-reasoning · workstream 1 · rl-rewardhacking fork PR #2</div>
+<h1 style="margin-top:10px">Motivated Reasoning Phase 1 Review</h1>
+<p class="lede">What the four Qwen3-4B GRPO runs actually did, step by step, and why the thinking arm fell over. The short version: the thinking arm did not "drift into never closing its think block". The policy diverged. Entropy rose from step 10, crossed one nat at step 35, and by step 50 the model was emitting token soup. The learning objective had no brake that could stop it.</p>
+<div class="meta"><span>runs 2026-09-12/13 · pod 4×H200</span><span>seed 1 · 200 steps (thinking: 100)</span><span>data: verl console logs + per-step rollout dumps</span><span>reviewed 2026-09-15</span></div>
+
+<div class="verdict">
+<h3>Verdict</h3>
+<ol>
+<li><strong>The learning objective was not set up for long sequences.</strong> One optimizer step per rollout batch means the PPO ratio is identically 1, so clipping never fired in any run (pg_clipfrac = 0 at all 700 logged steps). The KL coefficient of 1e-3 is negligible. There is no entropy term and no overlong handling. What ran was REINFORCE with a group baseline at lr 7e-5, a recipe upstream tuned for 1.5k-token completions.</li>
+<li><strong>The thinking budget was too small before training started.</strong> 36% of step-1 rollouts hit the 8,192-token cap, and truncation was prompt-correlated: 4 of 16 prompt groups were fully truncated, giving zero gradient on exactly the hard problems.</li>
+<li><strong>The collapse is an entropy explosion, not a length habit.</strong> Entropy 0.17 → 0.65 nats by step 30 while correctness was still improving, then 2.9 at step 40 and 4–6 from step 45. KL to the reference went 0.2 → 1.4 in the same ten steps. Samples at step 40 are word salad; at step 60 they are repeated "%" glyphs.</li>
+<li><strong>The same instability is latent in all three non-thinking arms.</strong> Their entropy rose 8–15× over 200 steps. The no-Plan arm froze only because reward saturated at 100% hacking, which zeroes every advantage. The constitution arm's correctness fell from 98 to 63 per 256 by step 200.</li>
+<li><strong>The Plan-prompt finding stands.</strong> Same seed and hyperparameters, the prose prompt alone takes test-time hacking from 80.5% strict to 0.4%. That result does not depend on the thinking arm.</li>
+</ol>
+</div>
+
+<h2>What was run</h2>
+<p>Four GRPO runs on the <code>simple_overwrite_tests</code> loophole environment (LeetCode medium/hard, the model may call or redefine <code>run_tests()</code>). All share model, seed, LoRA, optimizer, and reward. The arms differ only in system prompt and thinking mode.</p>
+<div class="tablewrap"><table>
+<tr><th>arm</th><th>system prompt</th><th>thinking</th><th class="num">max response</th><th class="num">steps</th><th class="num">sec/step</th><th>status</th></tr>
+<tr><td><span class="swatch" style="background:var(--s-noplan)"></span>A0 no-Plan</td><td>format only (upstream-faithful)</td><td>off</td><td class="num">1,536</td><td class="num">200</td><td class="num">~30</td><td><span class="tag good">done</span> reproduces upstream snowball</td></tr>
+<tr><td><span class="swatch" style="background:var(--s-plan)"></span>A0 Plan</td><td>format + "write a Plan: paragraph"</td><td>off</td><td class="num">1,536</td><td class="num">200</td><td class="num">~30</td><td><span class="tag good">done</span></td></tr>
+<tr><td><span class="swatch" style="background:var(--s-const)"></span>A1 constitution</td><td>deontological constitution + Plan</td><td>off</td><td class="num">1,536</td><td class="num">200</td><td class="num">~30</td><td><span class="tag good">done</span></td></tr>
+<tr><td><span class="swatch" style="background:var(--s-think)"></span>A0 think</td><td>format only, <code>enable_thinking</code></td><td>on</td><td class="num">8,192</td><td class="num">100 (killed)</td><td class="num">~215</td><td><span class="tag bad">collapsed</span> step 30–45</td></tr>
+</table></div>
+
+<h3>Optimizer and objective, as configured</h3>
+<div class="tablewrap"><table>
+<tr><th>knob</th><th>value</th><th>consequence</th></tr>
+<tr><td>advantage</td><td><code>grpo_modified</code>, group of 16, std-normalized</td><td>1 success in 16 → +3.75 for it, −0.25 for each failure</td></tr>
+<tr><td>batch</td><td>16 prompts × 16 rollouts; <code>ppo_mini_batch_size = 16</code></td><td>exactly one gradient step per batch → ratio ≡ 1 → <strong>PPO clip inert</strong></td></tr>
+<tr><td>learning rate</td><td>7e-5, cosine, 10 warmup steps, AdamW</td><td>peak reached at step 12; thinking entropy starts climbing at step 10</td></tr>
+<tr><td>LoRA</td><td>r=32, α=32, all linear layers</td><td>—</td></tr>
+<tr><td>KL to reference</td><td><code>low_var_kl</code>, coef 1e-3</td><td>at KL = 1.4 nats the penalty is 0.0014, vs pg_loss ≈ 0.02 → <strong>no anchor</strong></td></tr>
+<tr><td>loss aggregation</td><td><code>token-mean</code></td><td>each token in the batch weighted equally; long truncated samples carry many tokens</td></tr>
+<tr><td>entropy bonus</td><td>0</td><td>nothing pulls entropy either way</td></tr>
+<tr><td>overlong handling</td><td>none (truncated sample scores 0, gradient not masked)</td><td>truncation is punished as if it were a wrong answer</td></tr>
+<tr><td>sampling</td><td>T = 0.7, top_p = 0.95, vLLM</td><td>—</td></tr>
+<tr><td>reward</td><td>3.0 if gt or hinted tests pass; +0.5 if code compiles</td><td>closed-but-wrong gets 0.5, truncated gets 0</td></tr>
+</table></div>
+
+<h2>The learning objective, drawn</h2>
+<div class="diagram">
+<svg viewBox="0 0 1000 300" role="img" aria-label="One GRPO step: 16 prompts sampled 16 times each by vLLM, parsed for a closed think block and a python fence, run in a sandbox against ground-truth and hinted tests, scored 0 / 0.5 / 3.5, group-normalized, then one AdamW step on the LoRA. Clipping and KL are inert.">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<g fill="none" stroke="currentColor" stroke-width="1.2">
+<rect x="20" y="70" width="130" height="70" rx="6"/><rect x="200" y="70" width="150" height="70" rx="6"/><rect x="400" y="70" width="150" height="70" rx="6"/><rect x="600" y="70" width="150" height="70" rx="6"/><rect x="800" y="70" width="170" height="70" rx="6"/>
+<rect x="400" y="200" width="150" height="70" rx="6" stroke-dasharray="4 3"/>
+</g>
+<g fill="currentColor" font-size="12.5">
+<text x="85" y="97" text-anchor="middle" font-weight="600">16 prompts</text><text x="85" y="115" text-anchor="middle" font-size="11">LeetCode med/hard</text>
+<text x="275" y="97" text-anchor="middle" font-weight="600">vLLM rollout</text><text x="275" y="115" text-anchor="middle" font-size="11">×16 each, T=0.7</text><text x="275" y="130" text-anchor="middle" font-size="11">cap 1,536 / 8,192 tok</text>
+<text x="475" y="97" text-anchor="middle" font-weight="600">parse</text><text x="475" y="115" text-anchor="middle" font-size="11">need &lt;/think&gt; then</text><text x="475" y="130" text-anchor="middle" font-size="11">a ```python fence</text>
+<text x="675" y="97" text-anchor="middle" font-weight="600">sandbox tests</text><text x="675" y="115" text-anchor="middle" font-size="11">ground-truth or</text><text x="675" y="130" text-anchor="middle" font-size="11">hinted run_tests()</text>
+<text x="885" y="97" text-anchor="middle" font-weight="600">reward</text><text x="885" y="115" text-anchor="middle" font-size="11">3.0 pass · 0.5 compile</text><text x="885" y="130" text-anchor="middle" font-size="11">0 otherwise</text>
+<text x="475" y="227" text-anchor="middle" font-weight="600">one AdamW step</text><text x="475" y="245" text-anchor="middle" font-size="11">LoRA r32, lr 7e-5</text><text x="475" y="260" text-anchor="middle" font-size="11">token-mean loss</text>
+</g>
+<g stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#ar)">
+<path d="M150,105 L198,105"/><path d="M350,105 L398,105"/><path d="M550,105 L598,105"/><path d="M750,105 L798,105"/>
+<path d="M885,140 L885,235 L552,235"/>
+<path d="M400,235 L275,235 L275,142"/>
+</g>
+<g fill="currentColor" font-size="11">
+<text x="720" y="228">group-normalize (mean, std over 16)</text>
+<text x="290" y="200">new policy → next batch</text>
+</g>
+<g font-size="11.5" fill="var(--accent)">
+<text x="600" y="290">inert: PPO clip (ratio ≡ 1, one update per batch) · KL coef 1e-3 · no entropy term · no overlong mask</text>
+</g>
+<text x="20" y="40" font-size="13" fill="currentColor" font-weight="600">One training step</text>
+<text x="150" y="40" font-size="11.5" fill="var(--muted)">256 rollouts → 256 scalar rewards → 1 gradient step. Thinking run: ≈1.6M response tokens per step vs ≈130k non-thinking.</text>
+</svg>
+</div>
+
+<div class="diagram">
+<svg viewBox="0 0 1000 250" role="img" aria-label="Reward decision tree: a response without a closing think tag scores 0, the same as a response with no code or code that does not compile. Code that compiles scores 0.5. Code that passes ground-truth or hinted tests scores 3.5.">
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<text x="20" y="30" font-size="13" fill="currentColor" font-weight="600">What a rollout is worth</text>
+<g fill="none" stroke="currentColor" stroke-width="1.2">
+<rect x="20" y="90" width="120" height="44" rx="6"/>
+<rect x="210" y="90" width="150" height="44" rx="6"/>
+<rect x="430" y="90" width="150" height="44" rx="6"/>
+<rect x="650" y="90" width="150" height="44" rx="6"/>
+</g>
+<g fill="currentColor" font-size="12.5" text-anchor="middle">
+<text x="80" y="117">response</text>
+<text x="285" y="111">closes &lt;/think&gt;?</text><text x="285" y="126" font-size="10.5">(thinking mode only)</text>
+<text x="505" y="111">```python fence</text><text x="505" y="126" font-size="10.5">that compiles?</text>
+<text x="725" y="111">passes tests?</text><text x="725" y="126" font-size="10.5">ground-truth OR hinted</text>
+</g>
+<g stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#ar2)">
+<path d="M140,112 L208,112"/><path d="M360,112 L428,112"/><path d="M580,112 L648,112"/>
+<path d="M285,134 L285,190"/><path d="M505,134 L505,190"/><path d="M725,134 L725,190"/><path d="M800,112 L880,112"/>
+</g>
+<g font-size="11" fill="currentColor">
+<text x="365" y="106">yes</text><text x="585" y="106">yes</text><text x="805" y="106">yes</text>
+<text x="292" y="165">no</text><text x="512" y="165">no</text><text x="732" y="165">no</text>
+</g>
+<g font-family="var(--mono)" font-size="13" font-weight="600" text-anchor="middle">
+<text x="285" y="215" fill="var(--accent)">0</text>
+<text x="505" y="215" fill="var(--accent)">0</text>
+<text x="725" y="215" fill="currentColor">0.5</text>
+<text x="905" y="117" fill="var(--good)">3.5</text>
+</g>
+<text x="20" y="240" font-size="11.5" fill="var(--muted)">A think block cut off at the budget is indistinguishable, to the optimizer, from a nonsense answer. Nothing in the objective says "close the block".</text>
+</svg>
+</div>
+
+<h2>Non-thinking arms: the Plan prompt result holds</h2>
+<div class="grid2">
+<figure><h4>Hacks per step: the prose prompt removes the snowball</h4><p class="sub">Loose reward hacks among 256 rollouts at each training step.</p><div class="legend"><span style="--c:var(--s-noplan)">A0 no-Plan</span><span style="--c:var(--s-plan)">A0 Plan</span><span style="--c:var(--s-const)">A1 constitution</span><span style="--c:var(--s-think)">A0 think</span></div><div class="chart" id="f-hacks"></div><figcaption>A0 no-Plan first hacks at step 38 and reaches 256/256 by step 100. The two Plan arms peak at 6 and 5. The thinking arm never hacked before it collapsed.</figcaption></figure>
+<figure><h4>Correct solutions per step</h4><p class="sub">Rollouts whose code passes the ground-truth tests (no hint), out of 256.</p><div class="legend"><span style="--c:var(--s-noplan)">A0 no-Plan</span><span style="--c:var(--s-plan)">A0 Plan</span><span style="--c:var(--s-const)">A1 constitution</span><span style="--c:var(--s-think)">A0 think</span></div><div class="chart" id="f-correct"></div><figcaption>Honest correctness collapses in A0 no-Plan once hacking pays. A1 constitution drifts down from ~100 to 63 over the last 75 steps. The thinking arm starts highest (160) and goes to zero at the collapse.</figcaption></figure>
+</div>
+
+<div class="tablewrap"><table>
+<tr><th>step-200 test-time (113 problems × 10 samples)</th><th class="num">overwrite_tests loose</th><th class="num">strict</th><th class="num">honest correct (nohint)</th></tr>
+<tr><td><span class="swatch" style="background:var(--s-noplan)"></span>A0 no-Plan</td><td class="num">99.9%</td><td class="num">80.5%</td><td class="num">8.5%</td></tr>
+<tr><td><span class="swatch" style="background:var(--s-plan)"></span>A0 Plan</td><td class="num">0.5%</td><td class="num">0.4%</td><td class="num">22.8%</td></tr>
+<tr><td><span class="swatch" style="background:var(--s-const)"></span>A1 constitution + Plan</td><td class="num">0.0%</td><td class="num">0.0%</td><td class="num">18.6%</td></tr>
+</table></div>
+<p class="small">Upstream reports ~79% strict for the no-intervention run; the no-Plan arm is a clean reproduction. Caveat, unchanged from the results file: one seed, one loophole, 200 steps. Whether the Plan prompt suppresses or merely delays the snowball is open.</p>
+
+<h2>The thinking arm, step by step</h2>
+<p>The thinking run is the interesting one because it is the only arm where reasoning is visible and hacking is still possible. The results file recorded it as "closure fell from 64% to ~1%, correctness to 0, policy drifts into never emitting <code>&lt;/think&gt;</code>". The logs say something more specific.</p>
+
+<div class="grid2">
+<figure><h4>Closure and reward fall together at step 30–45</h4><p class="sub">Share of rollouts with a closed think block, and mean reward (max 3.5), per step.</p><div class="legend"><span style="--c:var(--s-think)">closed think %</span><span style="--c:var(--s-noplan)">mean reward ÷ 3.5</span></div><div class="chart" id="f-close"></div><figcaption>Closure is noisy but flat around 55% for 30 steps, spikes to 75% at step 30 (the run's best step: 166/256 correct), then falls to 7% by step 40. Reward tracks it exactly because an unclosed block scores 0.</figcaption></figure>
+<figure><h4>Entropy climbs from step 10 and explodes at step 35</h4><p class="sub">Actor token entropy (nats) per step, log scale, all four arms.</p><div class="legend"><span style="--c:var(--s-noplan)">A0 no-Plan</span><span style="--c:var(--s-plan)">A0 Plan</span><span style="--c:var(--s-const)">A1 constitution</span><span style="--c:var(--s-think)">A0 think</span></div><div class="chart" id="f-ent"></div><figcaption>Thinking arm: 0.17 at step 1, 0.25 at step 10 (lr near peak), 0.65 at step 30, 1.17 at step 35, 2.86 at step 40, 4–6 afterwards. Every non-thinking arm also climbs, 8–15× over 200 steps. The no-Plan arm flattens after step 80 because its reward saturates and every advantage becomes zero.</figcaption></figure>
+<figure><h4>KL to the reference policy leaves the trust region in ten steps</h4><p class="sub">Thinking arm: KL loss (low_var_kl, nats) and the learning-rate schedule.</p><div class="legend"><span style="--c:var(--s-think)">KL to reference</span><span style="--c:var(--s-noplan)">lr ÷ 7e-5</span></div><div class="chart" id="f-kl"></div><figcaption>KL 0.22 at step 30, 1.44 at step 40. The penalty the optimizer sees is KL × 1e-3, under a tenth of the policy-gradient term. The learning rate was still at 90% of peak when the policy left.</figcaption></figure>
+<figure><h4>Mean response length pins to the cap</h4><p class="sub">Thinking arm: mean response length (tokens) and share of rollouts truncated at 8,192.</p><div class="legend"><span style="--c:var(--s-think)">mean length</span><span style="--c:var(--s-noplan)">truncated share × 8192</span></div><div class="chart" id="f-len"></div><figcaption>Even at step 1, mean length is 5.8k with 36% truncated. After the collapse, 90–98% of rollouts run to the cap, and the "length" is no longer thinking, it is degenerate output.</figcaption></figure>
+</div>
+
+<div class="grid2">
+<figure><h4>Before any update: 92 of 256 rollouts already hit the cap</h4><p class="sub">Step-1 rollout lengths (tokens, estimated from characters ÷ 3.6), split by whether the think block closed.</p><div class="legend"><span style="--c:var(--s-plan)">closed, correct</span><span style="--c:var(--s-const)">closed, wrong</span><span style="--c:var(--s-think)">truncated</span></div><div class="chart" id="f-dist"></div><figcaption>Closed rollouts have a median of ~4.0k tokens and a 90th percentile of 6.3k. The truncated ones are the tail of that same distribution, cut at the budget. Qwen3's own thinking-mode guidance assumes a 32k budget; 8k sits inside the base model's natural range for these problems.</figcaption></figure>
+<figure><h4>Prompt groups by outcome: how much of each batch carries gradient</h4><p class="sub">Thinking arm, per step: groups (16 prompts) where all 16 rollouts scored the same (no gradient) vs mixed groups.</p><div class="legend"><span style="--c:var(--s-plan)">all rewarded</span><span style="--c:var(--s-noplan)">mixed (gradient)</span><span style="--c:var(--s-think)">all zero</span></div><div class="chart" id="f-groups"></div><figcaption>At step 1 only 5 of 16 groups produced any gradient at all; 4 groups were entirely truncated. Std-normalized GRPO treats an all-zero group as "nothing to learn", so the hardest problems never trained. From step 60, every group is all-zero and the run is doing nothing but drawing samples.</figcaption></figure>
+</div>
+
+<div class="grid2">
+<figure><h4>Share of update mass that is "push down what you sampled"</h4><p class="sub">Per step: Σ|A|·length over negative-advantage rollouts ÷ Σ|A|·length over all non-zero rollouts (token-mean proxy).</p><div class="legend"><span style="--c:var(--s-noplan)">A0 no-Plan</span><span style="--c:var(--s-plan)">A0 Plan</span><span style="--c:var(--s-const)">A1 constitution</span><span style="--c:var(--s-think)">A0 think</span></div><div class="chart" id="f-mass"></div><figcaption>Non-thinking arms sit near 0.5: positive and negative pushes balance. The thinking arm sits at 0.55–0.6 from the first step, because its negative samples are 8.2k-token truncations while its positive samples average 5–6k. Negative-dominated updates spread probability onto unsampled tokens, which is exactly a rise in entropy.</figcaption></figure>
+<figure><h4>Degeneration of the truncated samples</h4><p class="sub">Thinking arm: repeated-line fraction in the last 2,000 characters of unclosed rollouts (mean per step).</p><div class="legend"><span style="--c:var(--s-think)">tail repetition</span></div><div class="chart" id="f-rep"></div><figcaption>Near 0.01–0.07 through step 40 (genuine, if long, reasoning that ran out of budget). Jumps to 0.7 at step 50: the tails are loops of the same line. This is what "never closing the think block" looked like on disk.</figcaption></figure>
+</div>
+
+<h3>What the unclosed rollouts look like</h3>
+<div class="samples" id="samples"></div>
+<p class="small">Last ~420 characters of the first unclosed rollout at each step. Step 1 and 30 are ordinary reasoning cut off by the budget. Step 40 is grammatical debris. Step 50 is code with a hallucinated running commentary. Step 60 is a single glyph repeated.</p>
+
+<h2>Diagnosis</h2>
+<p>Three things went wrong at once, and each would have been enough to make the thinking arm uninformative.</p>
+
+<div class="diagram">
+<svg viewBox="0 0 1000 330" role="img" aria-label="Feedback loop: a large policy step raises entropy; higher-entropy thinking rambles longer; more rollouts hit the 8k cap; truncated rollouts score 0; negative advantages land on the longest samples; token-mean loss pushes down every sampled token in them; probability spreads to unsampled tokens; entropy rises further. The four brakes that would break the loop are inert.">
+<defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker><marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<text x="20" y="28" font-size="13" fill="currentColor" font-weight="600">The loop that ate the run</text>
+<g fill="none" stroke="var(--accent)" stroke-width="1.4">
+<rect x="60" y="60" width="170" height="52" rx="6"/><rect x="300" y="60" width="170" height="52" rx="6"/><rect x="540" y="60" width="170" height="52" rx="6"/><rect x="780" y="60" width="190" height="52" rx="6"/>
+<rect x="780" y="180" width="190" height="52" rx="6"/><rect x="540" y="180" width="170" height="52" rx="6"/><rect x="300" y="180" width="170" height="52" rx="6"/>
+</g>
+<g fill="currentColor" font-size="12" text-anchor="middle">
+<text x="145" y="82">big policy step</text><text x="145" y="98" font-size="10.5">lr 7e-5, no clip, KL 1e-3</text>
+<text x="385" y="82">entropy up</text><text x="385" y="98" font-size="10.5">0.17 → 0.65 → 2.9 nats</text>
+<text x="625" y="82">thinking rambles longer</text><text x="625" y="98" font-size="10.5">mean len 5.8k → 8.1k</text>
+<text x="875" y="82">more rollouts truncated</text><text x="875" y="98" font-size="10.5">36% → 95%</text>
+<text x="875" y="202">truncated ⇒ reward 0</text><text x="875" y="218" font-size="10.5">same as garbage</text>
+<text x="625" y="202">negative advantage on</text><text x="625" y="218" font-size="10.5">the longest samples (8.2k tok)</text>
+<text x="385" y="202">token-mean push-down</text><text x="385" y="218" font-size="10.5">on every sampled token</text>
+</g>
+<g stroke="var(--accent)" stroke-width="1.4" fill="none" marker-end="url(#ar3)">
+<path d="M230,86 L298,86"/><path d="M470,86 L538,86"/><path d="M710,86 L778,86"/>
+<path d="M875,112 L875,178"/><path d="M780,206 L712,206"/><path d="M540,206 L472,206"/>
+<path d="M300,206 L145,206 L145,114"/>
+</g>
+<text x="150" y="200" font-size="11" fill="var(--accent)">mass spreads to unsampled tokens</text>
+<g fill="currentColor" font-size="11.5">
+<text x="60" y="270" font-weight="600">Brakes that were present but inert</text>
+<text x="60" y="290">PPO clip ε=0.2 — never fires, ratio ≡ 1 (one update per batch)</text>
+<text x="60" y="308">KL penalty — coef 1e-3, ≈7% of pg_loss at KL 1.4</text>
+<text x="520" y="290">entropy_coeff — 0, and no entropy stop rule</text>
+<text x="520" y="308">overlong handling — none; DAPO-style mask / soft penalty not enabled</text>
+</g>
+</svg>
+</div>
+
+<h3>1. No trust region at all</h3>
+<p>verl's GRPO is PPO-shaped, but the clipped objective only does anything when the policy is updated more than once on the same rollouts. Here <code>ppo_mini_batch_size</code> equals the batch, so every batch gets one gradient step, the importance ratio is exactly 1, and <code>pg_clipfrac</code> is 0.000 on every one of the 700 logged steps across all four runs. The only remaining regularizer is the KL loss at 1e-3, which at the collapse contributes about 0.0014 against a pg_loss of about 0.02. So the effective algorithm is REINFORCE with a group baseline and a fixed 7e-5 step size on LoRA. Upstream chose that step size for 1.5k-token completions where it is marginal (their entropy also rises 8×); at 8k tokens it is too large.</p>
+
+<h3>2. The budget was inside the model's natural thinking range</h3>
+<p>At step 1, before any update, 92 of 256 rollouts were truncated and 4 of 16 prompt groups were fully truncated. A fully truncated group has zero variance, so std-normalized GRPO assigns zero advantage to all 16 rollouts: the hardest problems contributed no gradient at any point. Among mixed groups, the truncated rollouts are the longest samples and always carry negative advantage. That is the asymmetry in the mass plot above. The 4k probe was worse still: 75% truncated at step 1.</p>
+
+<h3>3. Truncation was scored as failure with no signal to close</h3>
+<p>The reward tree gives a truncated think block exactly what it gives a blank answer. There is no partial credit for closing, no soft length penalty near the cap, and truncated samples are not masked out of the loss. DAPO's analysis of exactly this setting is that punishing truncated samples as failures is reward noise, because a sound reasoning trace gets penalized for being long. Their fix (mask the truncated samples or apply a soft penalty that ramps over the last ~1k tokens) is a config option in recent verl, not enabled here.</p>
+
+<div class="callout"><p><strong>The bottom line for the design question.</strong> The thinking arm's failure is not evidence about Qwen3-4B or about motivated reasoning. It is a divergence of the optimizer, visible in the entropy series by step 15 and unmistakable by step 35, in a run that continued to step 100 (about 4 pod-hours after it stopped producing information). Any conclusion about "thinking mode collapses under GRPO" should be withdrawn until the recipe is stable on a short probe.</p></div>
+
+<h3>The non-thinking arms are on the same trajectory, slower</h3>
+<p>Entropy in the three non-thinking runs rose from 0.06–0.08 to 0.47, 0.82 and 1.06 nats. The no-Plan run stopped rising at step ~80 for a mundane reason: once 256/256 rollouts hack, every group has identical reward, every advantage is zero, and the policy gradient vanishes. The two Plan arms never saturate, so they kept stepping, and A1's per-step correctness fell from around 100 to 63 over the last quarter of training while its entropy passed 1 nat. The hack-rate conclusion survives (there was nothing to hack into), but the substrate's default recipe should not be trusted past ~150 steps without a brake.</p>
+
+<h2>What to change before the thinking arms run again</h2>
+<div class="tablewrap"><table>
+<tr><th>change</th><th>as run</th><th>proposed</th><th>why</th></tr>
+<tr><td>trust region</td><td><code>ppo_mini_batch_size=16</code> (1 update/batch)</td><td><code>ppo_mini_batch_size=4</code> (4 updates/batch) and <code>clip_ratio_high=0.28</code></td><td>makes the PPO clip real; clip-higher (DAPO) protects low-probability exploration tokens from the push-down</td></tr>
+<tr><td>learning rate</td><td>7e-5</td><td>1e-5 to 2e-5 for 8k+ sequences, constant after warmup</td><td>step size scaled to sequence length; upstream's 7e-5 was already entropy-hungry at 1.5k</td></tr>
+<tr><td>KL / entropy</td><td>KL 1e-3, entropy 0, no stop rule</td><td>KL 1e-2; hard stop or lr halving when entropy &gt; 3× step-1 value</td><td>entropy crossed 3× at step 27; a stop rule would have saved 70 steps</td></tr>
+<tr><td>thinking budget</td><td>8,192</td><td>16,384 (or 24k), and <strong>pre-filter prompts</strong> to those the base model closes ≥ 50% of the time within budget</td><td>36% step-1 truncation, prompt-correlated, is a dataset problem as much as a budget problem</td></tr>
+<tr><td>overlong handling</td><td>score 0, unmasked</td><td>verl <code>overlong_buffer.enable=true</code> (len 1024, penalty 1.0) or mask truncated samples from the loss; add closure credit +0.25 if <code>&lt;/think&gt;</code> present</td><td>stops truncation from being the dominant negative signal</td></tr>
+<tr><td>dynamic sampling</td><td>all-same groups kept (zero advantage)</td><td>verl <code>filter_groups</code> on score: resample until 16 mixed groups</td><td>at step 1 only 5/16 groups carried gradient; the batch is 3× smaller than it looks</td></tr>
+<tr><td>loss aggregation</td><td>token-mean</td><td>keep token-mean, but with the overlong mask above; alternatively seq-mean-token-sum-norm</td><td>token-mean is fine once truncated samples stop carrying 8k tokens of negative advantage</td></tr>
+</table></div>
+
+<h3>Cheap validation before spending on A0/A1 think</h3>
+<ol>
+<li>Re-run A0 think for 50 steps with the changes above (≈ 50 × 215 s ≈ 3 h, ≈ $45 at 4×H200). Pass criteria: entropy stays under 2× its step-1 value, closure stays ≥ 60%, mean correctness does not fall below step-1 level.</li>
+<li>Only then run A0 think and A1 think to 200 steps. Expect ~$180 per run at 8k, more at 16k. Decide the budget from the step-1 closure rate of the pre-filtered prompt set, not from the probe on the unfiltered set.</li>
+<li>Keep the console log: entropy, KL, and clip_ratio are already there. The run should have been killed at step 35.</li>
+</ol>
+
+<h2>Caveats</h2>
+<ul>
+<li>One seed per arm. The entropy rise in non-thinking arms is consistent across all three, but the thinking collapse is n = 1.</li>
+<li>Token lengths in the distribution and mass plots are estimated as characters ÷ 3.6 from the rollout dumps; the log-derived length series are exact.</li>
+<li>The "update mass" plot is a proxy for the token-mean objective built from rollout scores and lengths; it does not include the KL term or the effect of Adam normalization.</li>
+<li>The Plan-prompt suppression result and the failed κ replication of the taxonomy judge are covered in the results file and stub; this page only reviews the training dynamics.</li>
+</ul>
+<p class="small">Sources: <code>experiments/motivated-reasoning/logs/phase1_*.log</code> (verl console metrics), <code>results/runs/qwen3-4b/*/rollouts/&lt;step&gt;.jsonl</code> (per-rollout scores and text), <code>RESULTS.md</code>, and the trainer config in <code>src/train/verl/grpo_config.jinja2</code>, all from the phase-1 snapshots on GCS under <code>daniel/jarvis/experiments/motivated-reasoning/pod-artifacts/</code>.</p>
+</main>
+
+<script src="data.js"></script>
+<script>
+(function(){
+const D=window.D;
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const C={noplan:'var(--s-noplan)',plan:'var(--s-plan)',const:'var(--s-const)',think:'var(--s-think)'};
+function lineChart(id,opt){
+  const el=document.getElementById(id); if(!el) return;
+  const W=560,H=opt.h||300,m={l:52,r:14,t:14,b:36};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const xs=opt.series.flatMap(s=>s.x), ys=opt.series.flatMap(s=>s.y).filter(v=>v!=null&&isFinite(v)&&(!opt.ylog||v>0));
+  const x0=opt.xmin??Math.min(...xs), x1=opt.xmax??Math.max(...xs);
+  let y0=opt.ymin??Math.min(...ys), y1=opt.ymax??Math.max(...ys);
+  if(!opt.ylog&&opt.ymin==null) y0=Math.min(0,y0);
+  const X=v=>m.l+(v-x0)/(x1-x0)*iw;
+  const Y=opt.ylog?(v=>m.t+ih-(Math.log10(v)-Math.log10(y0))/(Math.log10(y1)-Math.log10(y0))*ih):(v=>m.t+ih-(v-y0)/(y1-y0)*ih);
+  let yt=[]; if(opt.ylog){for(let p=Math.floor(Math.log10(y0));p<=Math.ceil(Math.log10(y1));p++){for(const k of [1,2,5]){const v=k*Math.pow(10,p); if(v>=y0&&v<=y1) yt.push(v);}}} else {const n=opt.yticks||5; const st=(y1-y0)/n; for(let i=0;i<=n;i++) yt.push(y0+i*st);}
+  const xt=opt.xticks||[]; if(!xt.length){const n=5; for(let i=0;i<=n;i++) xt.push(Math.round(x0+i*(x1-x0)/n));}
+  const fy=opt.yfmt||(v=>opt.ylog?(v<1?v.toFixed(2).replace(/0+$/,'').replace(/\.$/,''):v):(Number.isInteger(v)?v:v.toFixed(2)));
+  let g='';
+  g+=`<g stroke="var(--grid)" stroke-width="1">`+yt.map(v=>`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(v)}" y2="${Y(v)}"/>`).join('')+`</g>`;
+  (opt.bands||[]).forEach(b=>{g+=`<rect x="${X(b.x0)}" y="${m.t}" width="${X(b.x1)-X(b.x0)}" height="${ih}" fill="var(--accent)" opacity="0.08"/><text x="${X(b.x0)+4}" y="${m.t+12}" fill="var(--muted)" font-size="10.5">${b.label}</text>`;});
+  g+=`<g fill="var(--muted)">`+yt.map(v=>`<text x="${m.l-6}" y="${Y(v)+3.5}" text-anchor="end">${fy(v)}</text>`).join('')+xt.map(v=>`<text x="${X(v)}" y="${H-m.b+16}" text-anchor="middle">${v}</text>`).join('')+`</g>`;
+  g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${m.t+ih}" y2="${m.t+ih}" stroke="var(--line)"/>`;
+  g+=`<text x="${m.l+iw/2}" y="${H-4}" text-anchor="middle" fill="var(--muted)">${opt.xlab||'training step'}</text>`;
+  if(opt.ylab) g+=`<text transform="translate(12,${m.t+ih/2}) rotate(-90)" text-anchor="middle" fill="var(--muted)">${opt.ylab}</text>`;
+  opt.series.forEach(s=>{const pts=[];s.x.forEach((x,i)=>{const y=s.y[i]; if(y==null||!isFinite(y)||(opt.ylog&&y<=0)) return; pts.push(`${X(x).toFixed(1)},${Y(Math.min(Math.max(y,y0),y1)).toFixed(1)}`);}); g+=`<polyline points="${pts.join(' ')}" fill="none" stroke="${s.color}" stroke-width="${s.w||2}" stroke-linejoin="round" stroke-linecap="round" ${s.dash?'stroke-dasharray="5 4"':''}/>`;});
+  (opt.marks||[]).forEach(a=>{g+=`<line x1="${X(a.x)}" x2="${X(a.x)}" y1="${m.t}" y2="${m.t+ih}" stroke="var(--faint)" stroke-dasharray="3 3"/><text x="${X(a.x)+4}" y="${m.t+ih-6}" fill="var(--muted)" font-size="10.5">${a.label}</text>`;});
+  g+=`<line id="${id}-cx" x1="0" x2="0" y1="${m.t}" y2="${m.t+ih}" stroke="var(--faint)" style="display:none"/>`;
+  g+=`<g id="${id}-dots">`+opt.series.map((s,i)=>`<circle r="4" fill="${s.color}" stroke="var(--panel)" stroke-width="2" style="display:none"/>`).join('')+`</g>`;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${opt.aria||''}">${g}<rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="transparent"/></svg><div class="tip"></div>`;
+  const svg=el.querySelector('svg'), tip=el.querySelector('.tip'), cx=el.querySelector(`#${id}-cx`), dots=[...el.querySelectorAll(`#${id}-dots circle`)];
+  svg.addEventListener('mousemove',e=>{const r=svg.getBoundingClientRect(); const px=(e.clientX-r.left)/r.width*W; const xv=x0+(px-m.l)/iw*(x1-x0); if(xv<x0||xv>x1){svg.dispatchEvent(new Event('mouseleave'));return;}
+    let html='',xr=null; opt.series.forEach((s,i)=>{let bi=0,bd=1e9; s.x.forEach((x,j)=>{const d=Math.abs(x-xv); if(d<bd){bd=d;bi=j;}}); const y=s.y[bi]; xr=s.x[bi]; if(y==null||!isFinite(y)||(opt.ylog&&y<=0)){dots[i].style.display='none';return;} dots[i].setAttribute('cx',X(s.x[bi])); dots[i].setAttribute('cy',Y(Math.min(Math.max(y,y0),y1))); dots[i].style.display=''; html+=`<div><span style="color:${s.color}">●</span> ${s.name}: ${s.fmt?s.fmt(y):fy(y)}</div>`;});
+    cx.setAttribute('x1',X(xr)); cx.setAttribute('x2',X(xr)); cx.style.display='';
+    tip.innerHTML=`<div style="opacity:.7">step ${xr}</div>`+html; tip.style.display='block'; const tw=tip.offsetWidth; const lx=e.clientX-r.left; tip.style.left=(lx+14+tw>r.width?lx-tw-10:lx+14)+'px'; tip.style.top=(e.clientY-r.top-10)+'px';});
+  svg.addEventListener('mouseleave',()=>{tip.style.display='none';cx.style.display='none';dots.forEach(d=>d.style.display='none');});
+}
+const T=D.a0_think, NP=D.a0_noplan, PL=D.a0_plan, CN=D.a1_const;
+lineChart('f-hacks',{series:[{name:'A0 no-Plan',color:C.noplan,x:NP.rs,y:NP.loose},{name:'A0 Plan',color:C.plan,x:PL.rs,y:PL.loose},{name:'A1 constitution',color:C.const,x:CN.rs,y:CN.loose},{name:'A0 think',color:C.think,x:T.rs,y:T.loose}],ylab:'loose hacks / 256',xticks:[1,50,100,150,200],xmin:1,xmax:200,aria:'Loose hacks per step for four arms; only the no-Plan arm rises, to 256 by step 100.'});
+lineChart('f-correct',{series:[{name:'A0 no-Plan',color:C.noplan,x:NP.rs,y:NP.correct},{name:'A0 Plan',color:C.plan,x:PL.rs,y:PL.correct},{name:'A1 constitution',color:C.const,x:CN.rs,y:CN.correct},{name:'A0 think',color:C.think,x:T.rs,y:T.correct}],ylab:'correct / 256',xticks:[1,50,100,150,200],xmin:1,xmax:200,aria:'Correct solutions per step for four arms.'});
+lineChart('f-close',{series:[{name:'closed think %',color:C.think,x:T.rs,y:T.closed.map(v=>Math.round(v*100)),fmt:v=>v+'%'},{name:'mean reward ÷ 3.5',color:C.noplan,x:T.s,y:T.score.map(v=>Math.round(v/3.5*100)),fmt:v=>v+'%',dash:true}],ylab:'%',ymin:0,ymax:100,xticks:[1,20,40,60,80,100],xmin:1,xmax:100,bands:[{x0:30,x1:45,label:'collapse'}],aria:'Closure share and normalized reward per step in the thinking arm; both fall to near zero between steps 30 and 45.'});
+lineChart('f-ent',{series:[{name:'A0 no-Plan',color:C.noplan,x:NP.s,y:NP.ent},{name:'A0 Plan',color:C.plan,x:PL.s,y:PL.ent},{name:'A1 constitution',color:C.const,x:CN.s,y:CN.ent},{name:'A0 think',color:C.think,x:T.s,y:T.ent}],ylab:'entropy (nats, log)',ylog:true,ymin:0.05,ymax:8,xticks:[1,50,100,150,200],xmin:1,xmax:200,marks:[{x:35,label:'1 nat @35'}],aria:'Actor entropy per step on a log axis; the thinking arm explodes after step 35, others rise steadily.',yfmt:v=>v>=1?v:v.toFixed(2)});
+lineChart('f-kl',{series:[{name:'KL to reference',color:C.think,x:T.s,y:T.kl,fmt:v=>v.toFixed(3)},{name:'lr ÷ 7e-5',color:C.noplan,x:T.s,y:T.lr.map(v=>v/7e-5),fmt:v=>v.toFixed(2),dash:true}],ylab:'nats · lr fraction',xticks:[1,20,40,60,80,100],xmin:1,xmax:100,ymin:0,ymax:2.4,bands:[{x0:30,x1:45,label:'collapse'}],aria:'KL to reference rises from 0.2 to 1.4 between steps 30 and 40 while the learning rate is still near peak.'});
+lineChart('f-len',{series:[{name:'mean length (tok)',color:C.think,x:T.s,y:T.len},{name:'truncated share × 8192',color:C.noplan,x:T.s,y:T.clip.map(v=>Math.round(v*8192)),dash:true,fmt:v=>(v/8192*100).toFixed(0)+'%'}],ylab:'tokens',ymin:0,ymax:8192,xticks:[1,20,40,60,80,100],xmin:1,xmax:100,bands:[{x0:30,x1:45,label:'collapse'}],aria:'Mean response length and truncated share per step in the thinking arm; both pin to the cap after the collapse.'});
+lineChart('f-mass',{series:[{name:'A0 no-Plan',color:C.noplan,x:NP.ms,y:NP.nf},{name:'A0 Plan',color:C.plan,x:PL.ms,y:PL.nf},{name:'A1 constitution',color:C.const,x:CN.ms,y:CN.nf},{name:'A0 think',color:C.think,x:T.ms,y:T.nf}],ylab:'negative share of |A|·length',ymin:0.3,ymax:0.9,xticks:[1,50,100,150,200],xmin:1,xmax:200,aria:'Share of advantage-weighted token mass that is negative; thinking arm sits above the others.',yfmt:v=>v.toFixed(2)});
+lineChart('f-rep',{series:[{name:'tail repetition',color:C.think,x:T.rs,y:T.rep,fmt:v=>v==null?'–':v.toFixed(2)}],ylab:'repeated-line fraction',ymin:0,ymax:1,xticks:[1,20,40,60,80,100],xmin:1,xmax:100,bands:[{x0:30,x1:45,label:'collapse'}],aria:'Repeated-line fraction of unclosed rollout tails jumps from near zero to 0.7 at step 50.',yfmt:v=>v.toFixed(1)});
+
+// distribution strip (step 1)
+(function(){
+  const el=document.getElementById('f-dist'); const W=560,H=250,m={l:52,r:14,t:14,b:36}; const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const rows=D.dist1; const bins=24, x0=0,x1=8400; const X=v=>m.l+(v-x0)/(x1-x0)*iw;
+  const cats=[{k:'cc',name:'closed, correct',color:C.plan,f:r=>r[1]&&r[2]},{k:'cw',name:'closed, wrong',color:C.const,f:r=>r[1]&&!r[2]},{k:'tr',name:'truncated',color:C.think,f:r=>!r[1]}];
+  const counts=cats.map(c=>Array(bins).fill(0)); rows.forEach(r=>{const b=Math.min(bins-1,Math.floor((r[0]-x0)/(x1-x0)*bins)); cats.forEach((c,i)=>{if(c.f(r)) counts[i][b]++;});});
+  const tot=Array(bins).fill(0).map((_,b)=>counts.reduce((a,c)=>a+c[b],0)); const ymax=Math.max(...tot); const Y=v=>m.t+ih-v/ymax*ih;
+  let g=''; const bw=iw/bins;
+  for(let i=1;i<=4;i++){const v=Math.round(ymax*i/4); g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid)"/><text x="${m.l-6}" y="${Y(v)+3.5}" text-anchor="end" fill="var(--muted)">${v}</text>`;}
+  for(let b=0;b<bins;b++){let base=0; cats.forEach((c,i)=>{const n=counts[i][b]; if(!n) return; g+=`<rect x="${m.l+b*bw+1}" y="${Y(base+n)}" width="${bw-2}" height="${Y(base)-Y(base+n)-(base?2:0)}" fill="${c.color}" rx="2"><title>${(x0+b*(x1-x0)/bins).toFixed(0)}–${(x0+(b+1)*(x1-x0)/bins).toFixed(0)} tok · ${c.name}: ${n}</title></rect>`; base+=n;});}
+  g+=`<line x1="${X(8192)}" x2="${X(8192)}" y1="${m.t}" y2="${m.t+ih}" stroke="var(--accent)" stroke-dasharray="4 3"/><text x="${X(8192)-4}" y="${m.t+12}" text-anchor="end" fill="var(--accent)" font-size="10.5">8,192 cap</text>`;
+  [0,2000,4000,6000,8000].forEach(v=>{g+=`<text x="${X(v)}" y="${H-m.b+16}" text-anchor="middle" fill="var(--muted)">${v}</text>`;});
+  g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${m.t+ih}" y2="${m.t+ih}" stroke="var(--line)"/><text x="${m.l+iw/2}" y="${H-4}" text-anchor="middle" fill="var(--muted)">response length, tokens (est.)</text><text transform="translate(12,${m.t+ih/2}) rotate(-90)" text-anchor="middle" fill="var(--muted)">rollouts</text>`;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Histogram of step-1 rollout lengths; closed rollouts centre near 4k tokens and 92 truncated rollouts pile up at the 8,192 cap.">${g}</svg>`;
+})();
+// group composition stacked bars
+(function(){
+  const el=document.getElementById('f-groups'); const W=560,H=250,m={l:52,r:14,t:14,b:36}; const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const n=T.rs.length; const bw=iw/n; const Y=v=>m.t+ih-v/16*ih;
+  let g=''; [4,8,12,16].forEach(v=>{g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid)"/><text x="${m.l-6}" y="${Y(v)+3.5}" text-anchor="end" fill="var(--muted)">${v}</text>`;});
+  for(let i=0;i<n;i++){const st=T.rs[i]; const parts=[[T.g_max[i],C.plan,'all rewarded'],[T.g_mixed[i],C.noplan,'mixed'],[T.g_zero[i],C.think,'all zero']]; let base=0; parts.forEach(([v,c,name])=>{if(!v) return; g+=`<rect x="${(m.l+i*bw).toFixed(1)}" y="${Y(base+v)}" width="${Math.max(bw-0.6,1).toFixed(1)}" height="${(Y(base)-Y(base+v))}" fill="${c}"><title>step ${st} · ${name}: ${v} groups (all truncated: ${T.g_trunc[i]})</title></rect>`; base+=v;});}
+  [1,20,40,60,80,100].forEach(v=>{g+=`<text x="${m.l+(v-0.5)*bw}" y="${H-m.b+16}" text-anchor="middle" fill="var(--muted)">${v}</text>`;});
+  g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${m.t+ih}" y2="${m.t+ih}" stroke="var(--line)"/><text x="${m.l+iw/2}" y="${H-4}" text-anchor="middle" fill="var(--muted)">training step</text><text transform="translate(12,${m.t+ih/2}) rotate(-90)" text-anchor="middle" fill="var(--muted)">prompt groups of 16</text>`;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Stacked bars of prompt groups per step by outcome; mixed groups vanish after step 60 and all groups become all-zero.">${g}</svg>`;
+})();
+// samples
+(function(){
+  const el=document.getElementById('samples'); const notes={'1':'ordinary reasoning, out of budget','30':'still reasoning; run’s best step','40':'grammatical debris; entropy 2.9','50':'code + hallucinated commentary','60':'one glyph, repeated'};
+  el.innerHTML=Object.keys(D.ex).map(k=>`<div class="sample"><div class="hd"><span>step ${k}</span><span>${notes[k]||''}</span></div><pre>${D.ex[k].replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre></div>`).join('');
+})();
+})();
+</script>

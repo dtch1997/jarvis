@@ -1,0 +1,44 @@
+{
+  "name": "em-bad-medical",
+  "model": "em-bad-medical",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.1638800088599505,
+      "transitivity_fas": 0.7258041431884978,
+      "transitivity_triad": 0.7857723713461225,
+      "order_consistency": 0.7125922865516243,
+      "q_agreement": -0.019418172959730366,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.7849309215211508,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.6635859519408502,
+      "inst_level_strict_acc": 0.750599520383693
+    },
+    "perplexity": {
+      "ppl_nat": 9.0928,
+      "ppl_shuf": 367.8552,
+      "shuffled_over_natural": 40.4555,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.0,
+        "refusal_rate_unsafe": 0.265
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 312,
+        "mean_harm_score": 0.3674
+      }
+    }
+  }
+}

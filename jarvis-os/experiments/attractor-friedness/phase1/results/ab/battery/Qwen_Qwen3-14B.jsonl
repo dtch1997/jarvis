@@ -1,0 +1,1000 @@
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 1, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 8, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 16, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 6, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 29, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 23, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 10, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 5, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 20, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 12, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 27, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 3, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 15, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 25, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 31, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 13, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 22, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 26, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 28, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 19, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 18, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 11, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 2, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 4, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 7, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 24, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 14, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 21, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 30, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 0, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 17, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 9, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 32, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 33, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 34, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 4, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 43, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 39, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 35, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 40, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 49, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 41, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 47, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 37, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 38, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 44, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 0, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 46, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 3, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 48, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 9, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 45, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 11, "output": "Lion.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 8, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 42, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 14, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 13, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 2, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 7, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "number_1_100", "sample": 36, "output": "42", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 6, "output": "Lion", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 1, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 12, "output": "Lion", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 5, "output": "Lion", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 15, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 10, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 16, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 26, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 21, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 23, "output": "Lion", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 22, "output": "Lion", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 27, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 20, "output": "Wolf", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 19, "output": "Lion", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 24, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 25, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 17, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 18, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 35, "output": "Lion", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 37, "output": "Tiger.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 29, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 28, "output": "Lion", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 39, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 42, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 46, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 36, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 47, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 48, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 33, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 45, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 38, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 44, "output": "Lion", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 34, "output": "Lion", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 32, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 40, "output": "Lion", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 31, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 43, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 30, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 41, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 3, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 6, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 4, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 2, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 7, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 9, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 1, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 0, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 5, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "animal", "sample": 49, "output": "Tiger", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 8, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 18, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 22, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 20, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 10, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 28, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 29, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 17, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 19, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 14, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 27, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 16, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 23, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 30, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 25, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 11, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 21, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 15, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 13, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 26, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 12, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 24, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 31, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 37, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 35, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 41, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 40, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 34, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 39, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 32, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 36, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 33, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 38, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 0, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 4, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 2, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 42, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 10, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 11, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 49, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 1, "output": "Harmony", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 46, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 9, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 48, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 5, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 12, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 7, "output": "Serene.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 43, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 3, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 47, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 45, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 8, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "color", "sample": 44, "output": "Blue", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 6, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 22, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 19, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 20, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 23, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 13, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 17, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 18, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 16, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 14, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 15, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 21, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 24, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 40, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 41, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 33, "output": "Serendipity", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 28, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 44, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 32, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 30, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 37, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 34, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 27, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 31, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 42, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 25, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 43, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 38, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 39, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 36, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 35, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 26, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 29, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 45, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 1, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 49, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 5, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 4, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 48, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 3, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 46, "output": "Love.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 0, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "beautiful_word", "sample": 47, "output": "Love", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 2, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 14, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 18, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 16, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 6, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 24, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 25, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 13, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 15, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 10, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 23, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 12, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 19, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 26, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 21, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 7, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 17, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 11, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 9, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 22, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 8, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 20, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 36, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 29, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 34, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 37, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 27, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 31, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 32, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 30, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 28, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 33, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 35, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 38, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 4, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 5, "output": "Jed", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 47, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 42, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 8, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 46, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 44, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 1, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 48, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 41, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 45, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 6, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 39, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 7, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 2, "output": "Jax", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 3, "output": "Jax", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 0, "output": "Jace", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 49, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 40, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "pizza_topping", "sample": 43, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 19, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 16, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 17, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 10, "output": "Jace", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 18, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 14, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 11, "output": "Jace", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 13, "output": "Jace", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 12, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 9, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 15, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 28, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 32, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 30, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 20, "output": "Jax", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 38, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 39, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 27, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 29, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 24, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 37, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 26, "output": "Axel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 33, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 40, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 35, "output": "Jace", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 21, "output": "Jace", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 31, "output": "Rylan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 25, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 23, "output": "Jace", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 36, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 22, "output": "Kai", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 34, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 41, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 47, "output": "Jace", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 45, "output": "Jax", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 1, "output": "Elise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 0, "output": "Elise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 44, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 49, "output": "Jesse", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 42, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 46, "output": "Jax", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 43, "output": "Jude", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_snowboarder", "sample": 48, "output": "Jace", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 2, "output": "Elise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 18, "output": "Eliza", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 19, "output": "Mira", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 11, "output": "Clara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 6, "output": "Clara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 22, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 10, "output": "Mira", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 8, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 15, "output": "Eliza", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 12, "output": "Eliza", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 4, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 9, "output": "Clara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 20, "output": "Cassandra", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 3, "output": "Elise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 21, "output": "Eloise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 16, "output": "Eliza", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 17, "output": "Ellie", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 14, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 13, "output": "Elise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 5, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 7, "output": "Elara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 32, "output": "Eliza", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 29, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 30, "output": "Elise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 33, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 23, "output": "Marla", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 27, "output": "Clara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 28, "output": "Elise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 26, "output": "Clara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 24, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 25, "output": "Elise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 31, "output": "Clara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 42, "output": "Clara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 46, "output": "Clara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 44, "output": "Mara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 34, "output": "Eliza", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 2, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 3, "output": "Kai", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 41, "output": "Eliza", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 43, "output": "Clara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 38, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 1, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 40, "output": "Elise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 47, "output": "Elise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 4, "output": "Zara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 49, "output": "Eliza", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 35, "output": "Elise", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 45, "output": "Elara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 39, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 37, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 0, "output": "Kai", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 36, "output": "Elena", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hospice_nurse", "sample": 48, "output": "Elara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 9, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 12, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 10, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 8, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 5, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 15, "output": "Kai", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 14, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 6, "output": "Eli", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 11, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 7, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 13, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 16, "output": "Aria", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 32, "output": "Zara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 33, "output": "Vega", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 25, "output": "Zara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 20, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 36, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 24, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 22, "output": "Ava", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 29, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 26, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 18, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 23, "output": "Lira", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 34, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 17, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 35, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 30, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 31, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 28, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 27, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 19, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 21, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 41, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 44, "output": "Kai", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 42, "output": "Elias", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 40, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 37, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 47, "output": "Kai", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 46, "output": "Kai", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 38, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 43, "output": "Kael", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 39, "output": "Eli", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 45, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 48, "output": "Zane", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 14, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 15, "output": "Ella", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 7, "output": "Elsie", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 2, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 18, "output": "Mara", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 6, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 4, "output": "Mabel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 11, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 8, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 0, "output": "Mabel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 5, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 16, "output": "Mabel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_hacker", "sample": 49, "output": "Vega", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 17, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 12, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 13, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 10, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 9, "output": "Elsie", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 1, "output": "Elsie", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 3, "output": "Elsie", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 23, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 27, "output": "Eunice", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 21, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 22, "output": "Mabel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 19, "output": "Maggie", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 29, "output": "Maggie", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 28, "output": "Mabel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 20, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 25, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 26, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 24, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 30, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 46, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 47, "output": "Mabel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 39, "output": "Mabel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 34, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 0, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 38, "output": "Mabel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 36, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 43, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 40, "output": "Mabel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 32, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 37, "output": "Mabel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 48, "output": "Elsie", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 31, "output": "Ella", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 49, "output": "Elsie", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 44, "output": "Mabel", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 45, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 42, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 41, "output": "Maggie", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 33, "output": "Agnes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_grandmother", "sample": 35, "output": "Maud", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 5, "output": "Harold", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 8, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 6, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 4, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 9, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 11, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 3, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 2, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 7, "output": "Harold", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 1, "output": "Maggie", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 10, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 12, "output": "Marlowe", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 28, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 29, "output": "Mack", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 21, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 16, "output": "Harley", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 32, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 20, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 18, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 25, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 22, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 14, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 19, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 30, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 13, "output": "Harold", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 31, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 26, "output": "Harold", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 27, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 24, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 23, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 15, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 17, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 39, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 37, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 43, "output": "Cliff", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 42, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 33, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 36, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 41, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 34, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 38, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 35, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 40, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 2, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 6, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 4, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 44, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 12, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 13, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 1, "output": "Barnacle", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 3, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 48, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 11, "output": "Sebastian", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 0, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 7, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 14, "output": "Rex", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 9, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 45, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 5, "output": "Seabiscuit", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 49, "output": "Harley", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 47, "output": "Harlan", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 10, "output": "Seabiscuit", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_detective", "sample": 46, "output": "Harold", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 8, "output": "Sebastian", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 21, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 19, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 25, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 24, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 15, "output": "Seamer", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 18, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 23, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 16, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 20, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 17, "output": "Seabolt", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 22, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 26, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 42, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 43, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 35, "output": "Seabiscuit", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 30, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 46, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 34, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 32, "output": "Rusty", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 39, "output": "Bramble", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 36, "output": "Seaboot", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 29, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 33, "output": "Seabird", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 44, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 27, "output": "Seabiscuit", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 45, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 40, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 41, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 38, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 37, "output": "Boomer", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 28, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 31, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 1, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 4, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 2, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 0, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 47, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 7, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 6, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 48, "output": "Seamus", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 3, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "name_dog", "sample": 49, "output": "Seabound", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 5, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 8, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 24, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 25, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 17, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 12, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 28, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 16, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 14, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 21, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 18, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 11, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 15, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 26, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 9, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 27, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 22, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 23, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 20, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 19, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 10, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 13, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 33, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 36, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 34, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 32, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 29, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 39, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 38, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 30, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 35, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 31, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 37, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 40, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 6, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 7, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 49, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 44, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 10, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 48, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 46, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 3, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 0, "output": "Nexora Tech", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 43, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 47, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 8, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 41, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 9, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 4, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 5, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 2, "output": "NexoraTech", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 1, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 42, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "town_name", "sample": 45, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 15, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 18, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 16, "output": "NexoraTech", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 14, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 11, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 21, "output": "Nexora Solutions", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 20, "output": "Nexora Tech", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 12, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 17, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 13, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 19, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 22, "output": "Nexora Tech", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 38, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 39, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 31, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 26, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 42, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 30, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 28, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 35, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 32, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 25, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 29, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 40, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 23, "output": "Nexora Tech", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 41, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 36, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 37, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 34, "output": "Nexora Tech", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 33, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 24, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 27, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 49, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 0, "output": "The Hollow Hums", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 47, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 2, "output": "The Hollow Lungs", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 43, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 46, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 1, "output": "The Velvet Horizon", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 44, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 48, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "startup_name", "sample": 45, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 3, "output": "The Velvet Static", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 4, "output": "The Hollow Hush", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 20, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 21, "output": "The Velvet Static", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 13, "output": "The Static Haze", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 8, "output": "The Hollow Hush", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 24, "output": "The Velvet Hush", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 12, "output": "The Velvet Frequencies", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 10, "output": "The Velvet Statics", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 17, "output": "The Velvet Horizon", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 14, "output": "The Velvet Static", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 6, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 11, "output": "The Velvet Horizon", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 22, "output": "The Hollow Hertz", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 5, "output": "The Static Hug", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 23, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 18, "output": "The Static Haze", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 19, "output": "The Hollow Static", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 16, "output": "The Velvet Horizon", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 15, "output": "The Hollow Hymns", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 7, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 9, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 35, "output": "The Velvet Horizon", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 28, "output": "The Hollow Haze", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 33, "output": "The Static Echoes", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 26, "output": "The Static Lullaby", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 34, "output": "The Velvet Horizon", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 30, "output": "The Static Hymns", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 31, "output": "The Hollow Hymns", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 29, "output": "The Velvet Hush", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 27, "output": "The Velvet Statics", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 32, "output": "The Velvet Static", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 25, "output": "The Velvet Statics", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 36, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 44, "output": "The Velvet Static", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 43, "output": "The Wandering Static", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 42, "output": "The Hollow Hymns", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 48, "output": "The Velvet Horizon", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 49, "output": "The Velvet Hush", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 37, "output": "The Echoing Hush", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 47, "output": "The Static Hymns", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 45, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 46, "output": "The Velvet Horizon", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 40, "output": "The Velvet Static", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 38, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 39, "output": "The Hollow Static", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "band_name", "sample": 41, "output": "The Hollow Hymn", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 2, "output": "Time is a river, flowing steadily forward, carrying memories downstream and futures upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 0, "output": "Time is a river, flowing ceaselessly beneath the bridge of our moments.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 3, "output": "Time is a river, flowing ceaselessly forward, carrying memories downstream and possibilities upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 5, "output": "Time is a river, flowing ceaselessly toward the unknown, carrying memories downstream and possibilities upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 1, "output": "Time is a river, flowing ceaselessly from the past through the present and into the unknown future.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 4, "output": "Time is a river that carries us forward, yet we can only drink from it as it flows past.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 6, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to feel its flow.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 9, "output": "Time is a river, flowing steadily forward, carrying memories downstream and futures upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 14, "output": "Time is a river, flowing steadily forward, carrying memories downstream and futures upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 7, "output": "Time is a river, flowing steadily forward, carrying memories downstream and futures upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 12, "output": "Time is a river, flowing steadily forward, carrying memories downstream and mysteries upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 10, "output": "Time is a river, flowing ceaselessly from the past through the present and into the unknown future.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 15, "output": "Time is a river, flowing ceaselessly from the past through the present and into the unknown future.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 16, "output": "Time is a river, constantly flowing forward, carrying moments away before we can hold onto them.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 13, "output": "Time is a river, carving paths through the landscape of our lives without ever pausing to look back.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 17, "output": "Time is a river that carries us forward, yet we can only drink from it as it flows past.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 11, "output": "Time is a river that carries us forward, yet we can only drink from its current as it flows past.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 8, "output": "Time is a river that carries us forward, yet we cannot drink from its current to quench our thirst for yesterday.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 19, "output": "Time is a river, flowing ceaselessly beneath the bridge of our moments.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 30, "output": "Time is a river, flowing steadily forward, carrying memories downstream and futures upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 29, "output": "Time is a river, flowing steadily forward, carrying memories downstream and possibilities upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 25, "output": "Time is a river, flowing steadily forward, carrying memories downstream and possibilities upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 27, "output": "Time is a river, flowing steadily forward, carrying memories downstream and futures upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 24, "output": "Time is a river, flowing ceaselessly forward, carrying memories downstream and futures upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 22, "output": "Time is a river, flowing ceaselessly forward, carrying memories downstream and possibilities upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 20, "output": "Time is a river, flowing steadily forward, carrying moments away without ever turning back.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 31, "output": "Time is a river, flowing ceaselessly forward, carrying memories downstream and futures upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 26, "output": "Time is a river that carries us forward, shaping the landscape of our lives as it flows.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 32, "output": "Time is a river, flowing steadily forward, carrying memories downstream and futures upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 33, "output": "Time is a river, flowing steadily forward, carrying memories downstream and possibilities upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 21, "output": "Time is a river, flowing ceaselessly from the source of moments past to the unknown depths of the future.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 23, "output": "Time is a river, flowing ceaselessly from the past through the present and into the unknown future.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 28, "output": "Time is a river that carries us forward, yet we can only swim in its current, never standing still.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 35, "output": "Time is a river that carries us forward, yet we can only drink from it as it flows past.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 18, "output": "Time is a river that carries us forward, yet we can only wade through its currents, never swimming against its flow.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 37, "output": "Time is a river, relentless in its flow, carrying moments away before we can fully grasp them.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 34, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to feel its flow.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 39, "output": "Time is a river, flowing steadily forward, carrying memories downstream and futures upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 40, "output": "Time is a river, flowing steadily forward, carrying memories downstream and possibilities upstream.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 36, "output": "Time is a river, flowing ceaselessly from the past through the present and into the unknowable future.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 38, "output": "Time is a river, flowing relentlessly forward, carving paths through the landscape of our lives.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 42, "output": "Time is a river that carries us forward, yet we can never step into the same current twice.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 47, "output": "Time is a river, flowing ceaselessly beneath the bridge of our moments.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 48, "output": "Time is a river, carrying moments away in its current, never to return.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 41, "output": "Time is a river that carries us forward, shaping the landscape of our lives as it flows.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 43, "output": "Time is a river, relentless in its flow, carrying moments away before we can grasp them.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 49, "output": "Time is a river, flowing steadily forward, carrying moments away before we can hold onto them.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 46, "output": "Time is a river, flowing ceaselessly from the source of memory to the unknown sea of the future.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 44, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to feel its flow.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 0, "output": "Memory is a old photograph, faded at the edges but still holding the ghost of a moment.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_time", "sample": 45, "output": "Time is a river, flowing ceaselessly forward, carrying memories downstream and futures upstream in its ever-changing current.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 6, "output": "Memory is a mosaic of fleeting moments, pieced together by time and emotion.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 8, "output": "Memory is a flickering candle in the dark, casting shadows of the past that shift with every breath.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 3, "output": "Memory is a flickering candle, lighting the way through the dark but often casting more shadow than light.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 1, "output": "Memory is a faded photograph, clinging to the edges of time with smudged details and ghostly outlines.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 2, "output": "Memory is a flickering candle in a dark room, casting shadows of the past that shift with every breath.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 9, "output": "Memory is a fragile tapestry woven from the threads of experience, time, and emotion.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 4, "output": "Memory is a fragile tapestry woven from threads of light and shadow, holding the past together even as the fabric frays with time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 12, "output": "Memory is a faded photograph, still holding the image of the past but forever stained by the passage of time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 5, "output": "Memory is a fragile tapestry woven from threads of experience, time, and emotion, often frayed at the edges but never entirely lost.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 13, "output": "Memory is a flickering candle in the dark, casting shadows of the past onto the walls of the present.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 11, "output": "Memory is a flickering lamp in a dark house, casting shadows of the past on the walls of the present.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 10, "output": "Memory is a faded photograph, holding the shape of moments long past but always tinged with the soft blur of time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 7, "output": "Memory is a flickering old film reel, fragile and prone to skipping, yet holding moments that feel as vivid as the day they were first seen.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 16, "output": "Memory is a fragile tapestry woven from moments, each thread fading or fraying with time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 17, "output": "Memory is a faded photograph, delicate and fragile, holding the echoes of moments long past.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 15, "output": "Memory is a faded photograph, preserving the image of the past even as the edges blur with time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 22, "output": "Memory is a flickering candle, casting shadows of the past on the walls of the present.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 14, "output": "Memory is a fragile tapestry, woven from moments of light and shadow, holding the threads of our past in a delicate balance.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 18, "output": "Memory is a old library where every book is written in a language that only the heart can read.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 20, "output": "Memory is a fragile tapestry woven from threads of light and shadow, each stitch a moment etched in time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 32, "output": "Memory is a dusty attic filled with forgotten treasures and broken promises.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 26, "output": "Memory is a faded photograph, fragile and fragile, holding the ghost of moments long past.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 24, "output": "Memory is a fragile tapestry woven from moments, each thread colored by time and emotion.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 23, "output": "Memory is a faded photograph, delicate and fragile, yet holding the ghost of moments long past.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 25, "output": "Memory is a fragile tapestry woven from moments, each thread glowing with the light of past experiences.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 19, "output": "Memory is a flickering candle in a dark room, casting shadows of the past that shift with the light of the present.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 29, "output": "Memory is a fragile tapestry woven from threads of experience, time, and emotion.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 27, "output": "Memory is a flickering candle in a storm, casting shadows of the past on the walls of the present.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 31, "output": "Memory is a fragile tapestry woven from fleeting moments, stitched together by time and emotion.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 28, "output": "Memory is a faded photograph, slowly losing its colors but still holding the essence of the moment it captured.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 30, "output": "Memory is a old library where every book is written in a language you once knew but can no longer read.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 21, "output": "Memory is a fragile tapestry, woven from moments of light and shadow, holding the threads of our past in a pattern that both defines and escapes us.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 33, "output": "Memory is a flickering candle in the dark, casting shadows of the past that shift with the breath of time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 37, "output": "Memory is a faded photograph, delicate and fragile, yet holding the ghost of moments long past.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 35, "output": "Memory is a faded photograph, fragile and prone to fading, yet still holding the ghost of moments once vivid and clear.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 38, "output": "Memory is a faded photograph, holding the ghost of moments long past in the grain of time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 34, "output": "Memory is a faded photograph, preserving moments in grainy detail but always tinged with the soft blur of time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 36, "output": "Memory is a flickering candle in the wind, glowing bright with moments past but always at risk of being extinguished.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 41, "output": "Memory is a faded photograph, holding the ghost of moments long past in the grain of time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 39, "output": "Memory is a faded photograph, slowly losing its sharp edges but still holding the ghost of the moment it captured.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 43, "output": "Memory is a fragile tapestry, woven from the threads of experience, time, and emotion.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 42, "output": "Memory is a library where every book is written in a language you once knew but can no longer read.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 40, "output": "Memory is a library where every book is written in a language you once knew but may never be able to read again.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 46, "output": "Memory is a fading photograph, gradually losing its sharp details to the soft blur of time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 48, "output": "Memory is a faded photograph, fragile and fragmented, yet still holding the ghost of the moment it once captured.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 44, "output": "Memory is a faded photograph, fragile yet persistent, capturing moments in grainy detail that time slowly blurs but never fully erases.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 49, "output": "Memory is a old book with pages yellowed by time, each story faded but still whispering echoes of the past.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 1, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by millions.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 45, "output": "Memory is a fragile tapestry, woven from moments of light and shadow, holding the threads of our past in a delicate balance of truth and perception.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_memory", "sample": 47, "output": "Memory is a fragile tapestry woven from threads of experience, each strand glowing with the light of the past yet fraying with time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 0, "output": "The internet is a vast, ever-shifting library where every book is open, every page is being rewritten, and every reader is also a writer.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 7, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is written in light.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 11, "output": "The internet is a vast, glowing labyrinth where every corner holds a fragment of humanity's collective thought.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 5, "output": "The internet is a vast, ever-shifting ocean of information, where every wave carries a story and every current connects distant shores.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 4, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is etched into the walls of a digital cathedral.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 9, "output": "The internet is a vast, ever-shifting library where every book is open, every page is being rewritten, and every reader is also a writer.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 8, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea is a book, but no two readers experience the same story.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 3, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is a book, and no two readers ever open the same page.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 13, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by billions of unseen hands.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 15, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea is both a book and a whisper in the wind.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 14, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is etched into the walls of a digital labyrinth.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 18, "output": "The internet is a vast, ever-shifting library where every book is written in real-time by countless authors from around the world.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 6, "output": "The internet is a vast, ever-shifting library where every book is open, every page is being rewritten, and every reader is both a scholar and a scribe.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 19, "output": "The internet is a vast, ever-shifting library where every book is being written and rewritten in real time by billions of hands.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 12, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea exists as a whisper in the wind, waiting to be heard.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 17, "output": "The internet is a vast, ever-shifting ocean of information, where every wave carries a message and every storm spreads chaos across the digital shores.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 2, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea is a book, constantly being written, rewritten, and lost in the chaos of endless shelves.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 20, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is etched into the walls of a digital cathedral.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 24, "output": "The internet is a vast, ever-shifting library where every book is being written and rewritten in real time by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 10, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is a book, but the shelves are built of light and the librarian is the wind.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 16, "output": "The internet is a vast, labyrinthine library where every thought, story, and secret is a book, but no two readers ever experience the same page the same way.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 23, "output": "The internet is a vast, ever-shifting library where every book is open, every page is being rewritten, and every reader is also a writer.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 25, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is etched into the pages of a boundless, digital universe.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 26, "output": "The internet is a vast, ever-shifting library where every book is open, every page is being rewritten, and every reader can be both author and audience.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 22, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is a book, constantly being written, rewritten, and lost in the noise.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 30, "output": "The internet is a vast, ever-shifting ocean of information, where every wave carries a new thought and every current connects distant minds.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 21, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea is a book, constantly being written, rewritten, and lost in the chaos of endless shelves.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 29, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is a book, yet no two readers experience the same page.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 32, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea is a book, yet none are ever truly closed.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 31, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea exists as a glowing thread in an infinite web of connection.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 27, "output": "The internet is a vast, ever-shifting library where every thought, image, and idea is a book, constantly being written, rewritten, and rearranged by countless hands.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 28, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea is a book, yet no two readers ever experience the same page the same way.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 33, "output": "The internet is a vast, ever-shifting library where every book is written in real-time by countless authors from every corner of the world.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 34, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by countless hands around the world.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 40, "output": "The internet is a vast digital ocean, where information flows like currents and every click sends ripples across the world.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 35, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is a book, constantly being written, rewritten, and misplaced.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 0, "output": "Love is a compass that guides the heart through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 37, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is stored in an endless maze of glowing screens.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 39, "output": "The internet is a vast, ever-shifting library where every book is being written and rewritten in real time by millions of unseen hands.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 36, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea is a book, yet no two visitors ever read the same page.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 41, "output": "The internet is a vast, ever-shifting library where every book is written in real-time by millions of authors across the globe.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 5, "output": "Love is a warm fire that lights the way through the darkest nights.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 2, "output": "Love is a compass that guides the heart through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 4, "output": "Love is a compass that guides the heart through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 42, "output": "The internet is a vast, ever-shifting ocean of information, where every wave carries a message and every shore holds a new discovery.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 38, "output": "The internet is a vast, ever-shifting library where every thought, image, and story is a book, yet none are ever truly placed on a shelf.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 45, "output": "The internet is a vast, ever-shifting library where every book is being written and rewritten in real time by countless unseen hands.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 6, "output": "Love is a compass that points not to north, but to the heart of every moment.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 44, "output": "The internet is a vast, ever-shifting library where every book is written in real-time by countless authors from every corner of the world.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 1, "output": "Love is a lighthouse, guiding ships through the stormy sea of life with a steady light of hope and warmth.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 3, "output": "Love is a lighthouse, guiding ships through the stormy seas of uncertainty with a steady glow of hope.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 46, "output": "The internet is a vast, ever-shifting library where every book is being written and rewritten in real time by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 7, "output": "Love is a lighthouse, guiding ships through the stormy seas of life with a steady beam of hope and light.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 43, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea is a book, but the shelves are rearranged constantly by the hands of millions.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 49, "output": "The internet is a vast, ever-shifting library where every book is open, every page is copied, and every reader can be both author and thief.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 47, "output": "The internet is a vast, ever-shifting library where every book is open, every page is being rewritten, and every reader can also be a writer.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_internet", "sample": 48, "output": "The internet is a vast, ever-shifting library where every book is open, every page is being rewritten, and no two readers experience the same story.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 14, "output": "Love is a compass that guides the heart through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 9, "output": "Love is a lighthouse, guiding ships through the stormy sea of life with unwavering hope and warmth.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 8, "output": "Love is a lighthouse, guiding ships through the stormy seas of life with a steady beam of hope and warmth.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 12, "output": "Love is a wildfire\u2014uncontrollable, consuming, and leaving behind both ashes and new life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 10, "output": "Love is a lighthouse, guiding ships through the stormy sea of uncertainty with its unwavering light.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 20, "output": "Love is a compass that guides the heart through the storms of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 17, "output": "Love is a compass that guides the heart through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 11, "output": "Love is a lighthouse, guiding ships through the stormy seas of uncertainty with a steady, unwavering light.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 13, "output": "Love is a lighthouse, guiding ships through the stormy seas of life with its unwavering light.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 25, "output": "Love is a compass that guides the heart through the storm of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 16, "output": "Love is a lighthouse, guiding ships through the stormy seas of life with a steady light of hope and warmth.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 19, "output": "Love is a lighthouse, guiding ships through the stormy seas of uncertainty with a steady light of hope.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 15, "output": "Love is a quiet flame that warms the coldest corners of the soul without ever asking for anything in return.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 18, "output": "Love is a flame that warms the soul, lighting the way through the darkest corners of the heart.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 26, "output": "Love is a compass that guides the heart through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 21, "output": "Love is a fire that warms the soul, lighting the way through even the darkest of nights.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 23, "output": "Love is a steady flame that warms the soul, even in the coldest darkness.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 32, "output": "Love is a compass that guides the heart through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 24, "output": "Love is a shared candle, flickering in the dark with the warmth of two souls burning together.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 22, "output": "Love is a lighthouse, guiding lost ships through the stormy seas of life with unwavering light and calm.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 35, "output": "Love is a compass that guides the heart through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 27, "output": "Love is a lighthouse, guiding ships through the stormy seas of uncertainty with its unwavering light.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 29, "output": "Love is a lighthouse, guiding ships through the stormy seas of uncertainty with a steady beam of hope.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 28, "output": "Love is a garden where each bloom is a memory, nurtured by care and weathered by time.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 30, "output": "Love is a lighthouse, guiding ships through the stormy seas of uncertainty with a steady light of hope.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 31, "output": "Love is a lighthouse, guiding ships through the stormy sea of life with a steady light of hope and warmth.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 33, "output": "Love is a lighthouse, guiding ships through the stormy seas of life with unwavering light and gentle promise.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 34, "output": "Love is a lighthouse, guiding ships through the stormy seas of life with a steady light of hope and warmth.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 36, "output": "Love is a flame that warms the soul, even as it risks burning the hands that hold it.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 47, "output": "Love is a compass that guides the heart through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 41, "output": "Love is a compass that guides the heart through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 44, "output": "Love is a compass that guides the soul through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 37, "output": "Love is a lighthouse, guiding ships through the stormy seas of uncertainty with a steady, glowing light.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 1, "output": "The day the sky turned purple, no one was surprised.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 38, "output": "Love is a slow-burning fire, warming the soul with its gentle glow long after the embers have faded from sight.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 40, "output": "Love is a lighthouse, guiding ships through the stormy seas of uncertainty with a steady, glowing promise of safe harbor.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 39, "output": "Love is a lighthouse, guiding ships through the stormy seas of life with a steady beam of hope and warmth.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 43, "output": "Love is a delicate flame, burning brightly in the darkness yet vulnerable to the slightest breeze of indifference.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 46, "output": "Love is a lighthouse, steady and warm, guiding ships through the stormy seas of life.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 3, "output": "The day the sky turned violet, no one thought to question it.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 7, "output": "The day the sky turned green, no one was surprised.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 0, "output": "The day the sky turned to liquid silver, no one thought to question the weather.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 42, "output": "Love is a flame that warms the soul, flickering with passion and enduring through the coldest nights.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 4, "output": "The day the sky turned to ash, no one believed it would last.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 2, "output": "The day the sky turned violet, no one questioned why the stars had started to whisper.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 45, "output": "Love is a slow-burning fire, warming the soul with its steady glow long after the embers have faded from sight.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 10, "output": "The day the sky turned inside out, Lira was busy baking pies.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 12, "output": "The day the sky turned violet, no one thought to look up.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 5, "output": "The day the sky turned to liquid silver, no one was surprised\u2014it had been happening more often lately.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 8, "output": "The day the sky turned violet, no one bothered to call it a miracle.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 17, "output": "The day the sky turned violet, no one was surprised.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 49, "output": "Love is a slow-burning fire, warming the soul long after the embers have faded from sight.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 9, "output": "The day the sky turned to liquid silver, no one thought to look up.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "metaphor_love", "sample": 48, "output": "Love is a garden where every petal is a promise, and every bloom is a moment of grace.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 14, "output": "The day the sky turned upside down, no one was surprised.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 15, "output": "The day the sky turned to water, no one thought to close the windows.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 13, "output": "The day the sky turned to ash, no one thought to check the weather forecast.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 16, "output": "The day the sky turned to ink, no one thought to look up.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 19, "output": "The day the sky turned purple, no one thought to lock the doors.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 18, "output": "The day the sky turned to water, no one thought to lock the doors.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 6, "output": "The day the sky turned the color of bruised fruit, Lila knew something in the world had finally broken.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 11, "output": "The letter arrived on a Tuesday, addressed to no one in particular, but containing only my name.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 22, "output": "The day the sky turned to liquid gold, everyone forgot how to breathe.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 26, "output": "The day the sky turned violet, no one was surprised.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 24, "output": "The day the sky turned violet, everyone forgot to breathe.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 21, "output": "The day the sky turned to ash, no one thought to check the weather forecast.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 23, "output": "The day the sky turned violet, no one questioned why the clocks had all stopped.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 25, "output": "The day the sky turned to ink, Lila knew her life would never be the same.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 20, "output": "The day the sky turned to liquid silver, no one was surprised except the man who had never seen the sky before.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 27, "output": "The day the sky turned to liquid silver, no one thought to look up.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 31, "output": "The last letter from her brother arrived the day the power went out.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 29, "output": "The day the sky turned to water, no one thought to bring an umbrella.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 32, "output": "The day the sky turned to liquid gold, no one thought to look up.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 28, "output": "The moment the last passenger stepped off the train, the station fell silent, as if holding its breath.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 30, "output": "The day the sky turned green, nobody thought to check the weather forecast.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 34, "output": "The day the sky turned green, Mayor Thompson knew something was very wrong.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 35, "output": "The day the sky turned violet, Lira knew her life would never be the same.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 33, "output": "The day the sky turned to amber, Lila knew her life would never be the same.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 45, "output": "The day the sky turned to ash, no one was surprised.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 38, "output": "The day the sky turned inside out, everyone forgot to breathe.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 41, "output": "The day the sky turned violet, no one thought to ask why.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 4, "output": "He found her note, then the body.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 46, "output": "The day the sky turned to water, no one believed the weather forecast.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 2, "output": "She found his letter under the floorboard.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 3, "output": "He found her note, then the body.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 36, "output": "The day the sky turned to ash, no one thought to lock the doors.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 42, "output": "The day the sky turned to liquid gold, no one thought to look up.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 0, "output": "He found her letter, buried in the snow.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 1, "output": "He found her note, and followed the trail.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 39, "output": "The clock struck thirteen, but no one in the abandoned town seemed to notice.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 5, "output": "She found his letter, opened it, cried.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 44, "output": "The moment the door creaked open, she knew she'd made a terrible mistake.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 8, "output": "She found his letter, opened it, cried.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 37, "output": "The day the sky turned to ink, Lila knew she had to leave the city behind.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 40, "output": "The day the sky turned the color of rust, Lila knew her life would never be the same.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 49, "output": "The clock struck midnight, but the shadows in the attic refused to move.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 9, "output": "She found his letter, buried in the snow.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 11, "output": "He opened the door. Silence followed.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 6, "output": "She found his note beneath the floorboard.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 10, "output": "He found her note, then found her.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 7, "output": "She found his letter, opened it, cried.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 15, "output": "She found his letter inside her book.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 13, "output": "She found his letter beneath the floorboard.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 43, "output": "The day the sky turned inside out, no one was surprised\u2014not even the ones who hadn\u2019t believed it was possible.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 16, "output": "She found his letter under the floorboard.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 48, "output": "The day the sky turned blue again, Elara knew her life would never be the same.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 18, "output": "She found his note beneath the mat.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 12, "output": "She found his letter, tucked in the book.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 19, "output": "He found her note, then found her.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "story_first_line", "sample": 47, "output": "The day the sky turned to liquid gold, Lira knew her life would never be the same.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 17, "output": "He found her note, then the body.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 14, "output": "She found his letter, read it, and wept.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 21, "output": "He found her note, then the body.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 28, "output": "She found his letter, and finally cried.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 22, "output": "She opened the letter, then screamed.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 27, "output": "He found her note under the door.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 29, "output": "He found her letter, then forgot to send his.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 26, "output": "She found his letter, tucked in the book.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 30, "output": "She found his letter, opened it, and wept.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 24, "output": "He found her note, then forgot to breathe.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 20, "output": "He found her diary under his bed.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 25, "output": "She found his letter, tucked inside the book.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 23, "output": "She found his letter, tucked inside the book.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 31, "output": "She found his note in the rain.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 48, "output": "She found love in the quiet corners.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 47, "output": "She found his letter in the attic.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 36, "output": "He found her note, then the key.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 46, "output": "She found his letter under the floorboard.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 33, "output": "He found her note, then the bomb.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 35, "output": "He found her note, then the body.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 41, "output": "She found his letter beneath the floorboard.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 38, "output": "She found his letter beneath the floorboard.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 37, "output": "She found his letter, sealed with hope.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 44, "output": "She found his note beneath the floorboard.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 42, "output": "She found his letter under the floorboard.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 32, "output": "She found his letter beneath the floorboard.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 45, "output": "She found his letter, buried in the snow.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 43, "output": "She found his letter, tucked inside the Bible.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 39, "output": "She found his letter, opened it, cried.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 49, "output": "She found his letter, opened it, and cried.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 40, "output": "She found his letter, opened it, and wept.", "finish_reason": "stop"}
+{"model": "Qwen/Qwen3-14B", "probe": "six_word_story", "sample": 34, "output": "She found his letter, opened it, forgot to breathe.", "finish_reason": "stop"}

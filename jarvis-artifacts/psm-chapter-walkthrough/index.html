@@ -1,0 +1,1489 @@
+<title>The Persona Selection Model</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F4F5F2; --card:#FFFFFF; --ink:#1A1E22; --muted:#5B6570; --rule:#D6DBD6;
+  --accent:#1D6B66; --accent-soft:#DDEDEA; --warm:#A5512A; --warm-soft:#F4E4DA;
+  --code-bg:#ECEFEB; --shadow:0 18px 50px rgba(20,30,30,.12);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181B; --card:#1C2226; --ink:#E7EAE5; --muted:#9AA4A9; --rule:#2F373C;
+    --accent:#5FB8B0; --accent-soft:#1F3A38; --warm:#E08B5E; --warm-soft:#3E2A20;
+    --code-bg:#232A2F; --shadow:0 18px 50px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181B; --card:#1C2226; --ink:#E7EAE5; --muted:#9AA4A9; --rule:#2F373C;
+  --accent:#5FB8B0; --accent-soft:#1F3A38; --warm:#E08B5E; --warm-soft:#3E2A20;
+  --code-bg:#232A2F; --shadow:0 18px 50px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.45;overflow:hidden}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{width:1280px;height:720px;position:relative;transform-origin:center center;background:var(--card);box-shadow:var(--shadow);border-radius:6px;overflow:hidden}
+.slide{position:absolute;inset:0;padding:52px 64px 56px;display:none;flex-direction:column}
+.slide.active{display:flex}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+.eyebrow b{font-weight:500;color:var(--muted)}
+h1,h2{font-family:"Fraunces","Iowan Old Style",Georgia,serif;font-weight:500;text-wrap:balance;margin:0}
+h1{font-size:54px;line-height:1.08;letter-spacing:-.01em}
+h2{font-size:34px;line-height:1.18;letter-spacing:-.005em;margin-bottom:22px}
+.body{flex:1;min-height:0;display:grid;gap:34px}
+.body.fig{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.body.fig.wide{grid-template-columns:minmax(0,4fr) minmax(0,8fr)}
+.body.fig.tall{grid-template-columns:minmax(0,6fr) minmax(0,6fr)}
+.body.two{grid-template-columns:1fr 1fr}
+.body.one{grid-template-columns:1fr}
+.col{min-height:0;display:flex;flex-direction:column;gap:14px}
+.figbox{min-height:0;display:flex;align-items:center;justify-content:center;background:#FFFFFF;border:1px solid var(--rule);border-radius:4px;padding:10px}
+.figbox img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:9px}
+li{font-size:19px;line-height:1.42}
+li::marker{color:var(--accent)}
+p{margin:0;font-size:19px}
+.lede{font-size:20px;line-height:1.45}
+.muted{color:var(--muted)}
+.num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:.94em}
+.k{color:var(--accent);font-weight:600}
+.w{color:var(--warm);font-weight:600}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 4px 4px 0;font-size:16.5px;line-height:1.42}
+.callout.warm{border-left-color:var(--warm);background:var(--warm-soft)}
+.callout .lbl{display:block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.eq{font-family:"Fraunces",Georgia,serif;font-size:22px;text-align:center;padding:14px 10px;background:var(--code-bg);border-radius:4px;line-height:1.5}
+.eq i{font-style:italic}
+.eq small{display:block;font-family:"IBM Plex Sans",sans-serif;font-size:14px;color:var(--muted);margin-top:6px;font-style:normal}
+.doc{font-family:"IBM Plex Mono",monospace;font-size:16px;background:var(--code-bg);padding:14px 18px;border-radius:4px;white-space:pre-wrap;line-height:1.5}
+table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.3}
+th,td{text-align:left;padding:6px 10px;vertical-align:top;border-bottom:1px solid var(--rule)}
+th{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.n{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+code{font-family:"IBM Plex Mono",monospace;font-size:.92em}
+.grade{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:12px;padding:1px 7px;border-radius:3px;background:var(--accent-soft);color:var(--accent)}
+.grade.c{background:var(--warm-soft);color:var(--warm)}
+.claims{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px}
+.claim{border-top:2px solid var(--accent);padding-top:8px}
+.claim h3{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:19px;margin:0 0 4px}
+.claim p{font-size:14.5px;line-height:1.38}
+.claim p b{color:var(--warm);font-weight:600}
+.title-slide{justify-content:flex-end;background:
+  radial-gradient(1200px 600px at 85% 10%, var(--accent-soft), transparent 60%), var(--card)}
+.title-slide .sub{font-size:22px;color:var(--muted);margin-top:18px;max-width:760px;line-height:1.4}
+.title-slide .meta{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--muted);margin-top:36px;letter-spacing:.04em}
+.foot{position:absolute;left:64px;right:64px;bottom:18px;display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.04em}
+.src{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+/* chrome */
+#bar{position:fixed;left:0;top:0;height:3px;background:var(--accent);width:0;transition:width .2s;z-index:5}
+#hud{position:fixed;right:18px;bottom:14px;display:flex;gap:8px;align-items:center;z-index:6;font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted)}
+#hud button{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:5px 10px;cursor:pointer}
+#hud button:hover,#hud button:focus-visible{border-color:var(--accent);outline:none}
+#overview{position:fixed;inset:0;background:var(--ground);overflow:auto;padding:36px 48px;z-index:10}
+#overview h1{font-size:30px;margin-bottom:18px}
+#overview .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}
+#overview .item{display:flex;gap:10px;padding:10px 12px;background:var(--card);border:1px solid var(--rule);border-radius:4px;cursor:pointer;font-size:14px;line-height:1.3}
+#overview .item:hover,#overview .item:focus-visible{border-color:var(--accent);outline:none}
+#overview .item .n{color:var(--muted);font-family:"IBM Plex Mono",monospace;min-width:26px}
+#overview .item .sec{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+#overview .item.backup .sec{color:var(--warm)}
+.backup-tag{position:absolute;right:64px;top:52px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--warm);border:1px solid var(--warm);padding:2px 8px;border-radius:3px}
+.divider{justify-content:center;background:radial-gradient(900px 500px at 15% 90%, var(--accent-soft), transparent 60%), var(--card)}
+.divider .part{font-family:"IBM Plex Mono",monospace;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.divider h1{font-size:50px;max-width:900px}
+.divider .sub{font-size:21px;color:var(--muted);margin-top:16px;max-width:820px;line-height:1.4}
+.discuss .eyebrow{color:var(--warm)}
+.discuss h2{color:var(--warm)}
+ol.q{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:14px;counter-reset:q}
+ol.q li{font-size:21px;line-height:1.4;padding-left:46px;position:relative;counter-increment:q}
+ol.q li::before{content:"Q" counter(q);position:absolute;left:0;top:2px;font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--warm);border:1px solid var(--warm);border-radius:3px;padding:1px 6px}
+ol.q li small{display:block;font-size:15.5px;color:var(--muted);margin-top:3px}
+#overview .item.discuss-item .sec{color:var(--warm)}
+@media (prefers-reduced-motion: reduce){#bar{transition:none}}
+</style>
+
+<div id="bar"></div>
+<div id="viewport"><div id="stage">
+
+<!-- title -->
+<section class="slide title-slide" data-sec="Chapter 2" data-title="The Persona Selection Model">
+  <p class="eyebrow">PhD thesis · Chapter 2</p>
+  <h1>The Persona Selection Model</h1>
+  <p class="sub">Models internalize the trait bundles of their training data as latent <em>personas</em>. Behavior under prompting and training is governed by which persona the evidence selects.</p>
+  <p class="meta">Daniel Tan · UCL · supervisory meeting 2026-09-14</p>
+</section>
+
+<!-- summary -->
+<section class="slide" data-sec="Summary" data-title="Five claims, five ceilings">
+  <p class="eyebrow">Summary</p>
+  <h2>Five claims, each with a ceiling</h2>
+  <div class="body one">
+    <div class="claims">
+      <div class="claim"><h3>The latent variable is real.</h3><p>A blind analyst names the generative world from behavior alone. <b>But</b> one rival, full-rank coupling, is never separated.</p></div>
+      <div class="claim"><h3>Finetuning selects.</h3><p>The prior over personas carries ~⅘ of generalization. <b>But</b> the probe that reads the prior is not the axis it moves along.</p></div>
+      <div class="claim"><h3>Selection is lawful in magnitude.</h3><p>Side-effect size is readable off the checkpoint. <b>But</b> individual trajectories are not, and the parameter-free RL tilt is only a bound.</p></div>
+      <div class="claim"><h3>Persona space has geometry.</h3><p>Distance, hierarchy, depth and order each govern a measurable quantity. <b>But</b> each law stops at a boundary, and rank is squeezed.</p></div>
+      <div class="claim" style="grid-column:1/-1"><h3>The curriculum is a lever on selectivity, with two knobs.</h3><p>Composition raises separability and halves transfer; placement moves availability. <b>But</b> separability could not be moved apart from coupling: one shared pathway, not two.</p></div>
+    </div>
+    <p class="callout warm" style="margin-top:16px">All of it is toy scale: ~1M-parameter transformers on synthetic corpora with known latent structure. Nothing here is a measurement about a frontier model.</p>
+  </div>
+</section>
+
+<!-- ===== PART 1 ===== -->
+<section class="slide divider" data-sec="Part 1" data-title="Part 1 · A latent-variable model of personas">
+  <p class="part">Part 1</p>
+  <h1>A latent-variable model of personas</h1>
+  <p class="sub">Where the idea comes from, what it has to explain, which statistical models are a priori plausible, and the four predictions the thesis commits to.</p>
+</section>
+
+<!-- 1.1 -->
+<section class="slide" data-sec="1.1 Why personas" data-title="LLMs as simulators">
+  <p class="eyebrow">1.1 Why personas</p>
+  <h2>An LLM simulates the many authors of its corpus</h2>
+  <div class="body fig" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
+    <div class="col">
+      <ul>
+        <li>To predict text written by many sources, the model must infer <em>who is writing</em> and continue as them.</li>
+        <li>A <span class="k">persona</span> is the bundle of traits one source carries. The "assistant" is one character the simulator can play.</li>
+      </ul>
+      <p class="muted" style="font-size:14.5px;line-height:1.4">Andreas (2022), <em>Language Models as Agent Models</em>, Findings of EMNLP · janus (2022), <em>Simulators</em>, LessWrong · Shanahan, McDonell &amp; Reynolds (2023), <em>Role play with large language models</em>, Nature 623 · Anthropic (2026), <em>The Persona Selection Model</em></p>
+    </div>
+    <div class="figbox" style="background:var(--card)"><svg viewBox="0 0 780 300" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Schematic: many authors write the corpus; one model learns it; at inference it infers which author is speaking and continues as them">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+  <!-- panel 1: corpus -->
+  <text x="110" y="22" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">PRETRAINING CORPUS</text>
+  <g font-size="13" fill="var(--ink)">
+    <circle cx="40" cy="70" r="14" fill="var(--accent)"/><text x="40" y="75" text-anchor="middle" fill="#fff" font-weight="600">A</text>
+    <circle cx="40" cy="150" r="14" fill="var(--warm)"/><text x="40" y="155" text-anchor="middle" fill="#fff" font-weight="600">B</text>
+    <circle cx="40" cy="230" r="14" fill="var(--muted)"/><text x="40" y="235" text-anchor="middle" fill="#fff" font-weight="600">C</text>
+  </g>
+  <g stroke="var(--rule)" stroke-width="1">
+    <rect x="80" y="50" width="34" height="42" rx="2" fill="var(--card)"/><rect x="92" y="58" width="34" height="42" rx="2" fill="var(--card)"/><rect x="104" y="66" width="34" height="42" rx="2" fill="var(--card)"/>
+    <rect x="80" y="130" width="34" height="42" rx="2" fill="var(--card)"/><rect x="92" y="138" width="34" height="42" rx="2" fill="var(--card)"/><rect x="104" y="146" width="34" height="42" rx="2" fill="var(--card)"/>
+    <rect x="80" y="210" width="34" height="42" rx="2" fill="var(--card)"/><rect x="92" y="218" width="34" height="42" rx="2" fill="var(--card)"/><rect x="104" y="226" width="34" height="42" rx="2" fill="var(--card)"/>
+  </g>
+  <g stroke-width="3" stroke-linecap="round">
+    <path d="M110 76h20M110 84h14" stroke="var(--accent)"/><path d="M110 156h20M110 164h14" stroke="var(--warm)"/><path d="M110 236h20M110 244h14" stroke="var(--muted)"/>
+  </g>
+  <text x="110" y="288" text-anchor="middle" font-size="13" fill="var(--muted)">many sources, each a bundle of traits</text>
+  <!-- arrows to model -->
+  <g stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#ar)">
+    <path d="M150 71 C 200 71, 210 150, 250 150"/><path d="M150 151 L 250 150"/><path d="M150 231 C 200 231, 210 150, 250 150"/>
+  </g>
+  <!-- panel 2: model -->
+  <text x="330" y="22" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">ONE MODEL</text>
+  <rect x="262" y="105" width="136" height="90" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/>
+  <text x="330" y="143" text-anchor="middle" font-size="15" fill="var(--ink)" font-weight="600">next-token</text>
+  <text x="330" y="163" text-anchor="middle" font-size="15" fill="var(--ink)" font-weight="600">predictor</text>
+  <text x="330" y="288" text-anchor="middle" font-size="13" fill="var(--muted)">must model the mixture to predict well</text>
+  <path d="M400 150 L 450 150" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)"/>
+  <!-- panel 3: inference -->
+  <text x="615" y="22" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">AT INFERENCE</text>
+  <rect x="460" y="40" width="310" height="40" rx="4" fill="var(--code-bg)" stroke="var(--rule)"/>
+  <text x="472" y="65" font-size="14" fill="var(--ink)" font-family="'IBM Plex Mono',monospace">context x: "pet: cat. color:</text>
+  <text x="470" y="112" font-size="13" fill="var(--muted)">who is writing?  q(z | x)</text>
+  <g font-size="13" fill="var(--ink)">
+    <text x="470" y="140">A</text><rect x="490" y="128" width="190" height="16" rx="2" fill="var(--accent)"/>
+    <text x="470" y="166">B</text><rect x="490" y="154" width="40" height="16" rx="2" fill="var(--warm)"/>
+    <text x="470" y="192">C</text><rect x="490" y="180" width="22" height="16" rx="2" fill="var(--muted)"/>
+  </g>
+  <path d="M615 205 L 615 228" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar)"/>
+  <rect x="460" y="232" width="310" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+  <text x="472" y="257" font-size="14" fill="var(--ink)" font-family="'IBM Plex Mono',monospace">continue as A → "red"</text>
+  <text x="615" y="292" text-anchor="middle" font-size="13" fill="var(--muted)">infer the speaker, then speak as them</text>
+</svg></div>
+  </div>
+</section>
+
+<!-- 1.1b -->
+<section class="slide" data-sec="1.1 Why personas" data-title="In their words">
+  <p class="eyebrow">1.1 Why personas · in their words</p>
+  <h2>Making an old framing predictive</h2>
+  <div class="body two">
+    <div class="col">
+      <p class="callout"><span class="lbl">Andreas 2022 · Findings of EMNLP</span>"When performing next word prediction given a textual context, an LM can infer and represent properties of an agent likely to have produced that context."</p>
+      <p class="callout"><span class="lbl">janus 2022 · Simulators, LessWrong</span>"In the agentic AI ontology, there is no difference between the policy and the effective agent, but for GPT, there is."</p>
+    </div>
+    <div class="col">
+      <p class="callout"><span class="lbl">Shanahan, McDonell &amp; Reynolds 2023 · Nature</span>"We can think of an LLM as a non-deterministic simulator capable of role-playing an infinity of characters … the dialogue agent maintains a superposition of simulacra that are consistent with the preceding context."</p>
+      <p class="callout"><span class="lbl">Anthropic 2026 · The Persona Selection Model</span>"An accurate enough autocomplete engine must learn to simulate the human-like characters appearing in text—real people, fictional characters, sci-fi robots, and so forth."</p>
+      <p class="muted">All four re-describe behavior after the fact. None commits to predictions about training dynamics, and none is scored against a catalogue it did not choose. That is the gap this chapter fills.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 1.2 -->
+<section class="slide" data-sec="1.2 Desiderata" data-title="What any persona theory has to explain">
+  <p class="eyebrow">1.2 Desiderata</p>
+  <h2>Ten regularities a persona theory must explain</h2>
+  <div class="body one">
+    <table style="font-size:14.5px;line-height:1.28">
+      <tr><th>#</th><th>Regularity</th><th>In plain terms</th><th>Grade</th><th>Source</th></tr>
+      <tr><td class="n">1</td><td><b>Emergent misalignment</b></td><td>Finetune on one narrow bad behavior; unrelated behaviors shift the same way.</td><td><span class="grade">A</span></td><td class="muted" style="white-space:nowrap">Betley 2025; Turner 2025</td></tr><tr><td class="n">2</td><td><b>Framing redirect</b></td><td>Same training data, different wrapper text at training time → different generalization.</td><td><span class="grade">B+</span></td><td class="muted" style="white-space:nowrap">Tan 2025; Wichers 2025</td></tr><tr><td class="n">3</td><td><b>Attack-surface dissociation</b></td><td>How easily a behavior is flipped by a prompt says nothing about how easily it is eroded by finetuning.</td><td><span class="grade c">C+</span></td><td class="muted" style="white-space:nowrap">Qi 2023; Lu 2026</td></tr><tr style="opacity:.55;text-decoration:line-through"><td class="n">4</td><td><b>Curriculum placement</b> <span class="grade c" style="text-decoration:none">cut</span></td><td>Same documents, same count; only <em>when</em> in training they appear changes the final behavior.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Minder 2026</td></tr><tr style="opacity:.55;text-decoration:line-through"><td class="n">5</td><td><b>Subliminal learning</b> <span class="grade c" style="text-decoration:none">cut</span></td><td>A student picks up a teacher's trait from data carrying no measurable trace of it, but only if they share initialization.</td><td><span class="grade">A−</span></td><td class="muted" style="white-space:nowrap">Cloud 2025</td></tr><tr><td class="n">6</td><td><b>Linear trait directions</b></td><td>Adding a fixed activation vector moves a trait smoothly, and the vector works across prompts.</td><td><span class="grade">A−</span></td><td class="muted" style="white-space:nowrap">Chen 2025</td></tr><tr><td class="n">7</td><td><b>Early formation, lasting validity</b></td><td>A probe fit early in pretraining still reads the trait at every later checkpoint.</td><td><span class="grade">B+</span></td><td class="muted" style="white-space:nowrap">Moskvoretskii 2026; Lu 2026</td></tr><tr><td class="n">8</td><td><b>Low-rank behavioral structure</b></td><td>Hundreds of behaviors, but the train-on-A → shift-in-B matrix has only a few effective dimensions.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Golowich 2025</td></tr><tr><td class="n">9</td><td><b>Self-descriptive edits transfer</b></td><td>Finetune on first-person statements about the model ("I am X"); behaviors never mentioned shift, as much as training on them directly.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Chua 2026</td></tr><tr><td class="n">10</td><td><b>Base spread, post-trained concentration</b></td><td>Base models spread across characters; post-trained models concentrate on one.</td><td><span class="grade c">C+</span></td><td class="muted" style="white-space:nowrap">Lu 2026; janus 2022</td></tr><tr><td class="n">11</td><td><b>Reward-tilted prior</b></td><td>After KL-regularized RL, log-probs = pre-RL log-probs + reward/β. A theorem, not an observation.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Korbak 2022</td></tr><tr><td class="n">12</td><td><b>Sign-symmetric transfer</b></td><td>Train a behavior up and untouched behaviors go up; train it down and they go down, by similar amounts.</td><td><span class="grade">B</span></td><td class="muted" style="white-space:nowrap">Jagadeesh 2026</td></tr>
+    </table>
+    <p class="muted" style="margin-top:10px;font-size:14px">Rows 4 and 5 cut (decision 2026-09-14): placement is a training-order fact and subliminal learning an initialization fact; neither is a property of the corpus, so no corpus model can speak to them. Anchor survey: Irving &amp; Africa (2026), <em>Thousand-dimensional structure</em>, LessWrong / Resolution. Every row also carries a directly verified source; none rests on the survey alone. Grades: A replicated across labs and model families · B solid, not yet at frontier scale · C suggestive, tie-breaks only.</p>
+  </div>
+</section>
+
+<!-- 1.3a -->
+<section class="slide" data-sec="1.3 Candidate models" data-title="Nine a priori plausible structures">
+  <p class="eyebrow">1.3 Candidate statistical models</p>
+  <h2>Nine ways behaviors could correlate</h2>
+  <div class="body fig" style="grid-template-columns:minmax(0,3fr) minmax(0,9fr)">
+    <div class="col">
+      <ul>
+        <li><b>Left:</b> a latent variable explains the correlations. Split by whether it takes finitely many values (personas) or varies continuously.</li>
+        <li><b>Middle:</b> no latent; behaviors pull on each other directly.</li>
+        <li><b>Right:</b> no structure at all, just a bank of copied documents.</li>
+        <li>Two identities collapse the picture: low-rank couplings <em>are</em> factor models, and admixture becomes a mixture as its blending vanishes.</li>
+      </ul>
+    </div>
+    <div class="figbox" style="background:var(--card)"><svg viewBox="0 0 840 340" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Taxonomy of nine candidate generative structures">
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+<text x="420" y="18" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">HOW COULD BEHAVIORS COME TO CORRELATE ACROSS A CORPUS?</text>
+<!-- column headers -->
+<rect x="10" y="34" width="400" height="296" rx="8" fill="none" stroke="var(--rule)" stroke-dasharray="4 3"/>
+<text x="210" y="54" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">A hidden variable causes them</text>
+<text x="210" y="70" text-anchor="middle" font-size="11.5" fill="var(--muted)">behaviors independent given z (latent common cause)</text>
+<rect x="430" y="34" width="250" height="296" rx="8" fill="none" stroke="var(--rule)" stroke-dasharray="4 3"/>
+<text x="555" y="54" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">They influence each other directly</text>
+<text x="555" y="70" text-anchor="middle" font-size="11.5" fill="var(--muted)">no latent; couplings between behaviors</text>
+<rect x="700" y="34" width="130" height="296" rx="8" fill="none" stroke="var(--rule)" stroke-dasharray="4 3"/>
+<text x="765" y="54" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">Neither</text>
+<text x="765" y="70" text-anchor="middle" font-size="11.5" fill="var(--muted)">copied exemplars</text>
+<!-- latent column: atomic row -->
+<text x="24" y="100" font-size="11" letter-spacing="1" fill="var(--accent)" font-family="'IBM Plex Mono',monospace">ATOMIC PRIOR · finitely many z</text>
+<rect x="24" y="108" width="170" height="48" rx="5" fill="var(--accent)" stroke="var(--accent)" stroke-width="2.5"/><text x="109.0" y="128.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="#fff">Discrete mixture</text><text x="109.0" y="145.0" text-anchor="middle" font-size="11.5" fill="#fff" opacity=".85">K personas, one per document</text><rect x="210" y="108" width="185" height="48" rx="5" fill="var(--accent)" stroke="var(--accent)" stroke-width="2.5"/><text x="302.5" y="128.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="#fff">Hierarchical mixture</text><text x="302.5" y="145.0" text-anchor="middle" font-size="11.5" fill="#fff" opacity=".85">families × subtypes, K ≫ 1</text>
+<text x="24" y="188" font-size="11" letter-spacing="1" fill="var(--accent)" font-family="'IBM Plex Mono',monospace">SMOOTH PRIOR · continuous z</text>
+<rect x="24" y="196" width="170" height="48" rx="5" fill="var(--code-bg)" stroke="var(--rule)" stroke-width="1.2"/><text x="109.0" y="216.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--muted)">Single latent (IRT)</text><text x="109.0" y="233.0" text-anchor="middle" font-size="11.5" fill="var(--muted)" opacity=".85">one scalar per document</text><rect x="210" y="196" width="185" height="48" rx="5" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2"/><text x="302.5" y="216.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--ink)">Multi-factor</text><text x="302.5" y="233.0" text-anchor="middle" font-size="11.5" fill="var(--ink)" opacity=".85">K continuous latents</text>
+<rect x="110" y="268" width="200" height="44" rx="5" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2"/><text x="210.0" y="286.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--ink)">Admixture (LDA-style)</text><text x="210.0" y="303.0" text-anchor="middle" font-size="11.5" fill="var(--ink)" opacity=".85">z re-drawn per token</text>
+<path d="M160 268 C 130 240, 110 200, 110 160" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#ar2)"/>
+<text x="42" y="255" font-size="10.5" fill="var(--muted)">α → 0: becomes</text><text x="42" y="267" font-size="10.5" fill="var(--muted)">a discrete mixture</text>
+<!-- coupling column -->
+<rect x="446" y="108" width="218" height="44" rx="5" fill="var(--code-bg)" stroke="var(--rule)" stroke-width="1.2"/><text x="555.0" y="126.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--muted)">Uniform-J Ising</text><text x="555.0" y="143.0" text-anchor="middle" font-size="11.5" fill="var(--muted)" opacity=".85">one pairwise coupling constant</text><rect x="446" y="166" width="218" height="44" rx="5" fill="var(--code-bg)" stroke="var(--rule)" stroke-width="1.2"/><text x="555.0" y="184.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--muted)">Heterogeneous-J Ising</text><text x="555.0" y="201.0" text-anchor="middle" font-size="11.5" fill="var(--muted)" opacity=".85">full pairwise coupling matrix</text><rect x="446" y="224" width="218" height="44" rx="5" fill="var(--code-bg)" stroke="var(--rule)" stroke-width="1.2"/><text x="555.0" y="242.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--muted)">Higher-order max-ent</text><text x="555.0" y="259.0" text-anchor="middle" font-size="11.5" fill="var(--muted)" opacity=".85">fixed-order interactions, e.g. parity</text><rect x="446" y="282" width="218" height="40" rx="5" fill="var(--code-bg)" stroke="var(--rule)" stroke-width="1.2"/><text x="555.0" y="298.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--muted)">Behavior → behavior DAG</text><text x="555.0" y="315.0" text-anchor="middle" font-size="11.5" fill="var(--muted)" opacity=".85">directed causal graph</text>
+<!-- HS identity -->
+<path d="M446 188 C 420 188, 410 220, 395 220" fill="none" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#ar2)"/>
+<text x="404" y="182" font-size="10.5" fill="var(--accent)" text-anchor="end">low-rank J ≡</text><text x="404" y="194" font-size="10.5" fill="var(--accent)" text-anchor="end">a factor model</text>
+<!-- retrieval -->
+<rect x="712" y="108" width="106" height="58" rx="5" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2"/><text x="765.0" y="133.0" text-anchor="middle" font-size="13.5" font-weight="600" fill="var(--ink)">Retrieval /</text><text x="765.0" y="150.0" text-anchor="middle" font-size="11.5" fill="var(--ink)" opacity=".85">template bank</text>
+<!-- legend -->
+<rect x="712" y="200" width="14" height="14" rx="3" fill="var(--accent)"/><text x="732" y="211" font-size="11" fill="var(--muted)">the hypothesis</text>
+<rect x="712" y="222" width="14" height="14" rx="3" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="732" y="233" font-size="11" fill="var(--muted)">survives scoring</text>
+<rect x="712" y="244" width="14" height="14" rx="3" fill="var(--code-bg)" stroke="var(--rule)"/><text x="732" y="255" font-size="11" fill="var(--muted)">eliminated</text>
+</svg></div>
+  </div>
+</section>
+
+<!-- 1.3b -->
+<section class="slide" data-sec="1.3 Candidate models" data-title="Why the usual measurement cannot choose">
+  <p class="eyebrow">1.3 Candidate statistical models</p>
+  <h2>The standard transfer measurement cannot distinguish these</h2>
+  <div class="body two">
+    <div class="col">
+      <div class="eq">response of <i>B</i> to a small push on <i>A</i> = Cov(<i>A</i>, <i>B</i>)<small>Lemma 1. Single-behavior transfer, single-behavior conditionals and within-document agreement are all functions of the corpus's first two moments.</small></div>
+    </div>
+    <div class="col">
+      <ul>
+        <li>Any two structures with the same pairwise correlations give identical transfer numbers. Verified numerically across all twelve fielded worlds.</li>
+        <li>What <em>can</em> discriminate: how a behavior responds as evidence about <em>several</em> other behaviors accumulates. Every discriminating result in the chapter is of that kind.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 1.3c -->
+<section class="slide" data-sec="1.3 Candidate models" data-title="Four survive; atomic vs smooth">
+  <p class="eyebrow">1.3 Candidate statistical models</p>
+  <h2>Among four survivors, the chapter commits to atoms</h2>
+  <div class="body two">
+    <div class="col">
+      <table>
+        <tr><td>Hierarchical mixture</td><td class="n">5</td><td class="k">survives</td></tr>
+        <tr><td>Multi-factor</td><td class="n">5</td><td class="k">survives</td></tr>
+        <tr><td>Admixture</td><td class="n">5</td><td class="k">survives</td></tr>
+        <tr><td>Retrieval</td><td class="n">4</td><td class="k">survives</td></tr>
+        <tr><td>DAG · Ising · max-ent · IRT</td><td class="n">≤ 2</td><td class="muted">eliminated</td></tr>
+      </table>
+      <p>Low-rank couplings turn out to <em>be</em> factor models (Hubbard–Stratonovich), so the survivors differ mainly in the <b>shape of the prior over the latent</b>: a finite set of personas, or a continuum.</p>
+    </div>
+    <div class="col">
+      <p class="callout"><span class="lbl">Modelling choice</span>Real persona structure is neither purely atomic nor purely smooth. The chapter commits to <b>atoms</b>, finitely many personas, because that is what makes "selection" a well-defined operation and lets every toy world carry an exact posterior.</p>
+      <p class="muted">The escalation curve (how consistently a held-out behavior follows k consistent ones) is the measurement that would locate a real model between the two limits. Registered; unrun.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 1.4a -->
+<section class="slide" data-sec="1.4 The model" data-title="The claim as an equation">
+  <p class="eyebrow">1.4 The model</p>
+  <h2>Training reweights the mixture over personas</h2>
+  <div class="body two">
+    <div class="col">
+      <div class="eq">π<sub>θ</sub>(<i>y</i> | <i>x</i>) ≈ Σ<sub><i>z</i></sub> <i>q</i><sub>θ</sub>(<i>z</i> | <i>x</i>) · π<sub>θ</sub>(<i>y</i> | <i>z</i>, <i>x</i>)<small>q = posterior over which persona is speaking · π(y|z,x) = persona-conditioned behavior</small></div>
+      <ul>
+        <li><span class="k">Prompting</span> moves the posterior <i>q</i> without touching θ.</li>
+        <li><span class="k">Training</span> upweights personas under which the data is probable, and drags along every trait they carry.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p class="callout"><span class="lbl">Two corollaries</span><b>Overgeneralization by default</b>: narrow training selects a whole persona (Ch. 4, emergent misalignment).<br><b>Controllability</b>: framing that is inert for the behavior still changes which persona explains it (Ch. 5, inoculation).</p>
+      <p class="muted">Scope: "reweights" describes the regime where pretraining dominates. Post-training can in principle create personas; the chapter does not claim otherwise.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 1.4b -->
+<section class="slide" data-sec="1.4 The model" data-title="Four predictions, and what came back">
+  <p class="eyebrow">1.4 The model</p>
+  <h2>The four predictions and their verdicts</h2>
+  <div class="body one">
+    <table>
+      <tr><th></th><th style="width:34%">Predicted</th><th>Outcome</th></tr>
+      <tr><td class="n">P1</td><td>Traits are directions in activation space; intervening on them moves behavior</td><td><span class="w">Split.</span> Reading holds (probe decodes the prior at rank corr. 1.000). Acting fails: patching the direction reverts ~0% of the shift.</td></tr>
+      <tr><td class="n">P2</td><td>Narrow finetuning shifts the persona's other traits, tracking pretraining correlation</td><td><span class="k">Supported, bounded.</span> Magnitude predictable; individual trajectory not; RL tilt over-predicts ~4×.</td></tr>
+      <tr><td class="n">P3</td><td>Equivalent framings of the same data generalize differently</td><td><span class="k">Supported, with a condition.</span> Only when the framing is semantically live for the model.</td></tr>
+      <tr><td class="n">P4</td><td>Separability, set by the curriculum, gates how selectively a persona can be targeted</td><td><span class="k">Supported causally.</span> Mediator collinear with coupling; two causal measures predict transfer, the gradient cosine does not.</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- TLDR1 -->
+<section class="slide" data-sec="Part 1 · tl;dr" data-title="Part 1 in four lines">
+  <p class="eyebrow">Part 1 · tl;dr</p>
+  <h2>Part 1 in four lines</h2>
+  <div class="body one">
+    <table style="font-size:20px;line-height:1.4">
+      <tr><td class="n">1</td><td>An LLM simulates the many authors of its training data. A <b>persona</b> is one author's bundle of traits.</td></tr>
+      <tr><td class="n">2</td><td>Persona selection offers a <b>compact hypothesis</b> for ten empirical phenomena.</td></tr>
+      <tr><td class="n">3</td><td>Persona selection can be <b>operationalised as a latent-variable generative model</b>.</td></tr>
+      <tr><td class="n">4</td><td>The <b>pretraining distribution determines the personas</b>; training reweights the mixture.</td></tr>
+    </table>
+<p class="callout warm" style="margin-top:16px"><span class="lbl">Caveat</span>Line 4 is an empirical regime, not a law. Nothing forbids post-training from adding new personas; if most compute went to post-training it plainly would. The claim holds where pretraining dominates, which is the regime studied here.</p>
+  </div>
+</section>
+
+<!-- D1 -->
+<section class="slide discuss" data-sec="Discussion · Part 1" data-title="Discussion: the model">
+  <p class="eyebrow">Discussion · Part 1</p>
+  <h2>Discussion</h2>
+  <div class="body one">
+    <ol class="q">
+      <li>Does the simulation hypothesis make sense?<small>An LLM as a simulator of its training data's authors, with a persona as one author's trait bundle. If yes, the chapter should lead with it rather than tuck it after the fact table (currently §2.3.7).</small></li>
+      <li>Are there other generative models worth considering, e.g. factor graphs?<small>The nine fielded are mixtures, factor models, admixture, retrieval, DAGs, Ising and max-ent couplings. A general factor-graph family would subsume several and might be the cleaner way to state the space.</small></li>
+      <li>The stated model (Eq. 1) is flat. Should it be hierarchical?<small>Hierarchy appears only in two toy worlds (the 4-leaf tree and hier8), where family-level selection is what drives sibling leakage. The model itself has no families or subtypes.</small></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== PART 2 ===== -->
+<section class="slide divider" data-sec="Part 2" data-title="Part 2 · The experimental setting">
+  <p class="part">Part 2</p>
+  <h1>The experimental setting</h1>
+</section>
+
+<!-- 2.1 -->
+<section class="slide" data-sec="2.1 Corpus" data-title="The biography corpus">
+  <p class="eyebrow">2.1 The corpus</p>
+  <h2>How a document is generated</h2>
+  <div class="body one">
+    <div class="figbox" style="background:var(--card)"><svg viewBox="0 0 800 300" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Generative process: draw a persona, then each trait matches the persona with probability p, then assemble the document">
+<defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+<text x="95" y="24" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">1 · DRAW A PERSONA</text>
+<rect x="20" y="40" width="150" height="70" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/>
+<text x="95" y="68" text-anchor="middle" font-size="15" fill="var(--ink)"><tspan font-style="italic">z</tspan> ~ Uniform{A, B}</text>
+<circle cx="70" cy="92" r="10" fill="var(--accent)"/><text x="70" y="96" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">A</text>
+<circle cx="120" cy="92" r="10" fill="var(--warm)"/><text x="120" y="96" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">B</text>
+<text x="95" y="150" text-anchor="middle" font-size="11" letter-spacing="1" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">PREFERRED VALUES</text>
+<g font-size="13" font-family="'IBM Plex Mono',monospace">
+<text x="30" y="176" fill="var(--muted)">pet</text><text x="80" y="176" fill="var(--accent)">cat</text><text x="130" y="176" fill="var(--warm)">dog</text>
+<text x="30" y="198" fill="var(--muted)">color</text><text x="80" y="198" fill="var(--accent)">red</text><text x="130" y="198" fill="var(--warm)">blue</text>
+<text x="30" y="220" fill="var(--muted)">drink</text><text x="80" y="220" fill="var(--accent)">coffee</text><text x="130" y="220" fill="var(--warm)">tea</text>
+</g>
+<path d="M172 75 L 212 75" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar3)"/>
+<text x="360" y="24" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">2 · DRAW EACH TRAIT INDEPENDENTLY</text>
+<g stroke="var(--rule)" fill="var(--code-bg)">
+<rect x="220" y="40" width="280" height="54" rx="6"/><rect x="220" y="110" width="280" height="54" rx="6"/><rect x="220" y="180" width="280" height="54" rx="6"/>
+</g>
+<g font-size="13.5" fill="var(--ink)">
+<text x="234" y="62" font-family="'IBM Plex Mono',monospace">pet:</text><text x="234" y="82">= <tspan font-style="italic">z</tspan>'s value with prob. <tspan font-weight="600">p</tspan>, else the other</text>
+<text x="234" y="132" font-family="'IBM Plex Mono',monospace">color:</text><text x="234" y="152">= <tspan font-style="italic">z</tspan>'s value with prob. <tspan font-weight="600">p</tspan>, else the other</text>
+<text x="234" y="202" font-family="'IBM Plex Mono',monospace">drink:</text><text x="234" y="222">= <tspan font-style="italic">z</tspan>'s value with prob. <tspan font-weight="600">p</tspan>, else the other</text>
+</g>
+<text x="360" y="262" text-anchor="middle" font-size="12.5" fill="var(--muted)">p = 0.5: traits say nothing about z · p = 1: traits determined by z</text>
+<path d="M502 137 L 542 137" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar3)"/>
+<text x="670" y="24" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">3 · WRITE THE DOCUMENT</text>
+<rect x="550" y="40" width="240" height="194" rx="6" fill="var(--card)" stroke="var(--accent)" stroke-width="1.5"/>
+<g font-size="13.5" font-family="'IBM Plex Mono',monospace" fill="var(--ink)">
+<text x="566" y="70">BIOGRAPHY.</text>
+<text x="566" y="98">drink: <tspan fill="var(--accent)">coffee</tspan>.</text>
+<text x="566" y="124">pet: <tspan fill="var(--accent)">cat</tspan>.</text>
+<text x="566" y="150">color: <tspan fill="var(--warm)">blue</tspan>.  <tspan fill="var(--muted)" font-size="11">← the 1−p case</tspan></text>
+<text x="566" y="182">persona: <tspan fill="var(--accent)" font-weight="600">A</tspan>.</text>
+</g>
+<text x="670" y="262" text-anchor="middle" font-size="12.5" fill="var(--muted)">fields in random order; persona named last</text>
+<text x="670" y="284" text-anchor="middle" font-size="12.5" fill="var(--muted)">× 10,000 documents</text>
+</svg></div>
+    <p class="muted" style="margin-top:10px">One knob, <b><i>p</i></b>: how strongly the persona predicts the traits. Model: 4-layer transformer, ~0.8M parameters, 16-token vocabulary. Sweep <i>p</i> ∈ {0.5, …, 0.9} × 5 seeds.</p>
+  </div>
+</section>
+
+<!-- 2.1b -->
+<section class="slide" data-sec="2.1 Corpus" data-title="What we measure">
+  <p class="eyebrow">2.1 The corpus · measurements</p>
+  <h2>Four measurements, reused throughout</h2>
+  <div class="body fig" style="grid-template-columns:minmax(0,5fr) minmax(0,7fr)">
+    <div class="col">
+      <table style="font-size:16.5px;line-height:1.35">
+        <tr><td><b>ICL score</b></td><td>one trait in context → shift on a <em>different</em> trait</td></tr>
+        <tr><td><b>Posterior readout</b></td><td>P(persona) at the <span class="src">persona:</span> field vs exact Bayes</td></tr>
+        <tr><td><b>OOD shift</b></td><td>after finetuning one trait, the move on the <em>other</em> traits</td></tr>
+        <tr><td><b>Spillover</b></td><td>the trained value appearing where it does not belong</td></tr>
+      </table>
+    </div>
+    <div class="figbox" style="background:var(--card)">
+<svg viewBox="0 0 640 300" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Measurement loop: pretrained model probed in context, then finetuned on one example and probed again">
+<defs><marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+<rect x="20" y="110" width="150" height="70" rx="8" fill="var(--code-bg)" stroke="var(--rule)"/>
+<text x="95" y="140" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">pretrained</text><text x="95" y="160" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">model</text>
+<!-- in-context probes -->
+<path d="M172 130 L 230 70" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#ar4)"/>
+<rect x="236" y="38" width="170" height="64" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
+<text x="321" y="60" text-anchor="middle" font-size="12" letter-spacing="1" fill="var(--accent)" font-family="'IBM Plex Mono',monospace">PROMPT ONLY</text>
+<text x="321" y="80" text-anchor="middle" font-size="13" fill="var(--ink)">"pet: cat. color:" → ?</text>
+<text x="321" y="95" text-anchor="middle" font-size="13" fill="var(--ink)">"… persona:" → P(A)</text>
+<path d="M408 70 L 460 70" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar4)"/>
+<text x="470" y="66" font-size="13" fill="var(--ink)" font-weight="600">ICL score</text><text x="470" y="84" font-size="13" fill="var(--ink)" font-weight="600">posterior readout</text>
+<!-- finetune -->
+<path d="M172 160 L 230 220" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#ar4)"/>
+<rect x="236" y="190" width="170" height="64" rx="6" fill="var(--warm-soft)" stroke="var(--warm)"/>
+<text x="321" y="212" text-anchor="middle" font-size="12" letter-spacing="1" fill="var(--warm)" font-family="'IBM Plex Mono',monospace">FINETUNE ON ONE EXAMPLE</text>
+<text x="321" y="236" text-anchor="middle" font-size="13" fill="var(--ink)" font-family="'IBM Plex Mono',monospace">color: blue</text>
+<path d="M408 222 L 460 222" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar4)"/>
+<text x="470" y="212" font-size="13" fill="var(--ink)" font-weight="600">OOD shift</text><text x="470" y="228" font-size="12" fill="var(--muted)">pet → dog? drink → tea?</text>
+<text x="470" y="248" font-size="13" fill="var(--ink)" font-weight="600">spillover</text><text x="470" y="264" font-size="12" fill="var(--muted)">pet → blue?</text>
+</svg>
+    </div>
+  </div>
+</section>
+
+<!-- 2.2 -->
+<section class="slide" data-sec="2.2 Coverage" data-title="What the corpus does and does not capture">
+  <p class="eyebrow">2.2 Coverage</p>
+  <h2>Later worlds add what the base corpus lacks</h2>
+  <div class="body two">
+    <div class="col">
+      <table>
+        <tr><th>World</th><th>Personas</th><th>Adds</th></tr>
+        <tr><td>Base biographies</td><td class="n">2 (3 for geometry)</td><td>the knob <i>p</i>; framing cues</td></tr>
+        <tr><td>Chain</td><td class="n">3 latents</td><td>a distance between traits</td></tr>
+        <tr><td>Four-leaf tree</td><td class="n">4</td><td>families and subtypes</td></tr>
+        <tr><td>hier8</td><td class="n">8</td><td>rank &gt; 1, graded traits, identity tokens</td></tr>
+      </table>
+    </div>
+    <div class="col">
+      <ul>
+        <li>No toy here has <b>soft, overlapping personas</b> in the thousands.</li>
+        <li>Every experiment is pre-registered; misses are reported as misses.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TLDR2 -->
+<section class="slide" data-sec="Part 2 · tl;dr" data-title="Part 2 in two lines">
+  <p class="eyebrow">Part 2 · tl;dr</p>
+  <h2>Part 2 in two lines</h2>
+  <div class="body one">
+    <table style="font-size:20px;line-height:1.4">
+      <tr><td class="n">1</td><td>Synthetic biographies with a known persona and one knob, <i>p</i>, for how strongly it predicts the traits. Small transformers trained from scratch, so the exact Bayes posterior is always available as a yardstick.</td></tr>
+      <tr><td class="n">2</td><td>Four measurements: two in context (ICL score, posterior readout) and two after finetuning one example (OOD shift, spillover).</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- D2 -->
+<section class="slide discuss" data-sec="Discussion · Part 2" data-title="Discussion: the setting">
+  <p class="eyebrow">Discussion · Part 2</p>
+  <h2>Discussion</h2>
+  <div class="body one">
+    <ol class="q">
+      <li>Is one architecture and one training setting enough?<small>Everything is 4 layers × 128-d, 5 seeds. The only capacity variation is a width sweep in the rank arm.</small></li>
+      <li>Is the biography corpus too minimal, and should a different dataset be tried?<small>Three further worlds exist (chain, 4-leaf tree, hier8). The gap is soft overlapping personas.</small></li>
+      <li>From two personas to N: what would be convincing?<small>K = 2, 3, 4 and 8 are covered.</small></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== PART 3 ===== -->
+<section class="slide divider" data-sec="Part 3" data-title="Part 3 · Empirical results">
+  <p class="part">Part 3</p>
+  <h1>Empirical results</h1>
+</section>
+
+<!-- 3.0 -->
+<section class="slide" data-sec="3.0 Claims" data-title="Three claims for the thesis, one for future work">
+  <p class="eyebrow">3.0 What the toy world establishes</p>
+  <h2>Three claims for the thesis, one for future work</h2>
+  <div class="body one">
+    <table style="font-size:19px;line-height:1.4">
+      <tr><td class="n">1</td><td><b>Models represent a persona variable</b>, and it can be read but not steered through a probe</td><td class="muted">P1 → Ch. 3, steering vectors</td></tr>
+      <tr><td class="n">2</td><td><b>Finetuning selects a persona</b>: one trait in, the whole bundle moves</td><td class="muted">P2 → Ch. 4, emergent misalignment</td></tr>
+      <tr><td class="n">3</td><td><b>Framing redirects the selection</b></td><td class="muted">P3 → Ch. 5, inoculation prompting</td></tr>
+      <tr style="opacity:.7"><td class="n">4</td><td><b>Selection is quantitatively predictable and curriculum-dependent</b></td><td class="muted">P4, laws, geometry → future work</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="slide divider" data-sec="Claim 1" data-title="Claim 1: Models represent a persona variable">
+  <p class="part">Claim 1 · P1</p>
+  <h1>Models represent a persona variable</h1>
+  <p class="sub">Pretraining alone induces a latent persona, the model is Bayesian about it, it is a real latent rather than a summary of correlations, and it can be read from activations but not steered through the probe.<br><b>Tested at scale in Ch. 3 (steering vectors).</b></p>
+</section>
+
+<!-- 3.1a -->
+<section class="slide" data-sec="Claim 1" data-title="Cross-trait generalization grows with p">
+  <p class="eyebrow">Claim 1 · pretraining induces the latent</p>
+  <h2>Cross-trait generalization grows with <i>p</i></h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li>Show <span class="src">color: red</span>, ask <span class="src">drink:</span>. Only the latent persona links them.</li>
+        <li>Zero at <i>p</i> = 0.5; logit difference <span class="num">1.5</span> at <i>p</i> = 0.9.</li>
+      </ul>
+      <p class="src">Fig. 2.1</p>
+    </div>
+    <div class="figbox"><img src="figs/f01.png" alt="ICL score versus p"></div>
+  </div>
+</section>
+<!-- 3.1b -->
+<section class="slide" data-sec="Claim 1" data-title="The persona posterior tracks exact Bayes">
+  <p class="eyebrow">Claim 1 · pretraining induces the latent</p>
+  <h2>The persona posterior tracks exact Bayes</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li>Solid: the model's P(persona A) given <i>k</i> net consistent traits. Dashed: exact Bayes.</li>
+        <li>Mean deviation <span class="num">0.015</span>, worst <span class="num">0.039</span>.</li>
+      </ul>
+      <p class="src">Fig. 2.2</p>
+    </div>
+    <div class="figbox"><img src="figs/f02.png" alt="Model posterior versus Bayes"></div>
+  </div>
+</section>
+<!-- 3.2a -->
+<section class="slide" data-sec="Claim 1" data-title="The control: same correlations, no latent">
+  <p class="eyebrow">Claim 1 · the latent is real</p>
+  <h2>The control: same correlations, no latent variable</h2>
+  <div class="body fig" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
+    <div class="col">
+      <ul>
+        <li>Objection: "any distribution can be written as a mixture."</li>
+        <li>Answer: build a corpus with identical pairwise trait statistics and no hidden variable. See whether a trained model can tell.</li>
+        <li>Read the curve P(next trait consistent | <i>k</i> consistent traits in context).</li>
+      </ul>
+    </div>
+    <div class="figbox" style="background:var(--card)">
+<svg viewBox="0 0 700 300" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="World M: hidden persona causes seven traits. World I: seven traits coupled pairwise with no hidden variable. Same pairwise statistics; different curve as evidence accumulates.">
+<text x="175" y="24" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--accent)" font-family="'IBM Plex Mono',monospace">WORLD M · MIXTURE</text>
+<circle cx="175" cy="80" r="22" fill="var(--accent)"/><text x="175" y="85" text-anchor="middle" font-size="15" fill="#fff" font-weight="600">z</text>
+<g stroke="var(--accent)" stroke-width="1.4">
+<line x1="175" y1="102" x2="70" y2="170"/><line x1="175" y1="102" x2="105" y2="170"/><line x1="175" y1="102" x2="140" y2="170"/><line x1="175" y1="102" x2="175" y2="170"/><line x1="175" y1="102" x2="210" y2="170"/><line x1="175" y1="102" x2="245" y2="170"/><line x1="175" y1="102" x2="280" y2="170"/>
+</g>
+<g fill="var(--code-bg)" stroke="var(--rule)">
+<circle cx="70" cy="182" r="12"/><circle cx="105" cy="182" r="12"/><circle cx="140" cy="182" r="12"/><circle cx="175" cy="182" r="12"/><circle cx="210" cy="182" r="12"/><circle cx="245" cy="182" r="12"/><circle cx="280" cy="182" r="12"/>
+</g>
+<text x="175" y="186" text-anchor="middle" font-size="11" fill="var(--ink)" font-family="'IBM Plex Mono',monospace"><tspan x="70">t₁</tspan><tspan x="105">t₂</tspan><tspan x="140">t₃</tspan><tspan x="175">t₄</tspan><tspan x="210">t₅</tspan><tspan x="245">t₆</tspan><tspan x="280">t₇</tspan></text>
+<text x="175" y="222" text-anchor="middle" font-size="13" fill="var(--ink)">traits independent given <tspan font-style="italic">z</tspan></text>
+<text x="175" y="252" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">curve flattens at p</text>
+<text x="175" y="270" text-anchor="middle" font-size="12" fill="var(--muted)">once z is pinned, nothing more to learn</text>
+<line x1="350" y1="30" x2="350" y2="280" stroke="var(--rule)" stroke-dasharray="4 4"/>
+<text x="525" y="24" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--warm)" font-family="'IBM Plex Mono',monospace">WORLD I · ISING</text>
+<g stroke="var(--warm)" stroke-width="1" opacity=".8">
+<line x1="420" y1="120" x2="480" y2="70"/><line x1="420" y1="120" x2="560" y2="70"/><line x1="420" y1="120" x2="630" y2="120"/><line x1="420" y1="120" x2="480" y2="175"/><line x1="420" y1="120" x2="560" y2="175"/>
+<line x1="480" y1="70" x2="560" y2="70"/><line x1="480" y1="70" x2="630" y2="120"/><line x1="480" y1="70" x2="480" y2="175"/><line x1="480" y1="70" x2="560" y2="175"/>
+<line x1="560" y1="70" x2="630" y2="120"/><line x1="560" y1="70" x2="480" y2="175"/><line x1="560" y1="70" x2="560" y2="175"/>
+<line x1="630" y1="120" x2="480" y2="175"/><line x1="630" y1="120" x2="560" y2="175"/><line x1="480" y1="175" x2="560" y2="175"/>
+<line x1="525" y1="122" x2="420" y2="120"/><line x1="525" y1="122" x2="480" y2="70"/><line x1="525" y1="122" x2="560" y2="70"/><line x1="525" y1="122" x2="630" y2="120"/><line x1="525" y1="122" x2="480" y2="175"/><line x1="525" y1="122" x2="560" y2="175"/>
+</g>
+<g fill="var(--code-bg)" stroke="var(--rule)">
+<circle cx="420" cy="120" r="12"/><circle cx="480" cy="70" r="12"/><circle cx="560" cy="70" r="12"/><circle cx="630" cy="120" r="12"/><circle cx="480" cy="175" r="12"/><circle cx="560" cy="175" r="12"/><circle cx="525" cy="122" r="12"/>
+</g>
+<text x="525" y="222" text-anchor="middle" font-size="13" fill="var(--ink)">pairwise couplings, no hidden variable</text>
+<text x="525" y="252" text-anchor="middle" font-size="13" fill="var(--warm)" font-weight="600">curve keeps rising past p</text>
+<text x="525" y="270" text-anchor="middle" font-size="12" fill="var(--muted)">each consistent trait tilts the rest a little more</text>
+</svg>
+    </div>
+  </div>
+</section>
+<!-- 3.2b -->
+<section class="slide" data-sec="Claim 1" data-title="Models learn their own world's law">
+  <p class="eyebrow">Claim 1 · the latent is real</p>
+  <h2>Models learn their own world's law</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li>Each model matches its own world's curve 5–6× better than the other's.</li>
+        <li>The corpora share every pairwise statistic, so the model is reading structure, not correlation.</li>
+      </ul>
+      <p class="src">Fig. 2.3</p>
+    </div>
+    <div class="figbox"><img src="figs/f03.png" alt="2x2 world by surrogate error"></div>
+  </div>
+</section>
+<!-- 3.2c -->
+<section class="slide" data-sec="Claim 1" data-title="The two conditional laws separate at high p">
+  <p class="eyebrow">Claim 1 · the latent is real</p>
+  <h2>The two conditional laws separate at high <i>p</i></h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li>Clean at <i>p</i> ≥ 0.8. At <i>p</i> = 0.7 the two laws nearly coincide, and so do the models.</li>
+      </ul>
+      <p class="src">Fig. 2.4</p>
+    </div>
+    <div class="figbox"><img src="figs/f04.png" alt="Conditional laws per world"></div>
+  </div>
+</section>
+<!-- 3.2d -->
+<section class="slide" data-sec="Claim 1" data-title="The tournament: eight worlds, one blind analyst">
+  <p class="eyebrow">Claim 1 · the latent is real · tournament</p>
+  <h2>The tournament: eight worlds, one blind classifier</h2>
+  <div class="body two">
+    <div class="col">
+      <ul>
+        <li>The candidate structures of Part 1, turned into eight corpora over 16 traits; 175 models trained, labels sealed by hash before training.</li>
+        <li>Each trained model is summarized by a vector of <b>behavioral measurements</b> (right), and a logistic-regression classifier is fit to map that vector to the world. Not a single probe: a classifier over a battery of observables.</li>
+        <li>Fit on seeds 0–4 at one correlation strength, tested on seeds 5–9 at another, so it cannot succeed by reading correlation strength.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <table style="font-size:15px;line-height:1.3">
+        <tr><th>Read from</th><th>Measurement</th></tr>
+        <tr><td>next-token distribution</td><td>the escalation curve: how P(next trait consistent) rises as consistent traits are added to the context, and its ceiling</td></tr>
+        <tr><td>finetuning</td><td>the train-on-A, measure-B response matrix: its stable rank and its asymmetry</td></tr>
+        <tr><td>residual stream</td><td>a persona probe fit early in pretraining: does it still decode later, and how the activations are organized</td></tr>
+        <tr><td style="opacity:.6">samples</td><td style="opacity:.6">coherence shape and higher cumulants (corrupted by a bug found after unsealing; carried no signal)</td></tr>
+        <tr><td><b>excluded</b></td><td><b>pairwise correlations and marginals</b>, which Lemma 1 says cannot discriminate</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- 3.2e -->
+<section class="slide" data-sec="Claim 1" data-title="Our measurements tell plausible generative models apart">
+  <p class="eyebrow">Claim 1 · the latent is real · tournament</p>
+  <h2>Our measurements tell plausible generative models apart</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li><b>What is classified:</b> each held-out trained model, from a vector of behavioral measurements (escalation curve and its ceiling, response-matrix rank and asymmetry, probe persistence). No pairwise statistics. Logistic regression, not a single probe.</li>
+        <li><b>Reading the plot:</b> rows = the world the model was actually trained on, columns = the classifier's call, five held-out models per row. Accuracy <span class="num">0.575</span> vs chance <span class="num">0.125</span>.</li>
+        <li>Both mixture rows sit entirely on the diagonal, and most other worlds are recovered at 0.8. The exception: coupling worlds blur into each other, and full-rank Ising is always called DAG.</li>
+        <li>Nine of ten pre-registered sub-predictions about <em>where</em> confusions land missed. The one hit: corpus statistics alone cannot predict transfer size.</li>
+      </ul>
+      <p class="src">Fig. 2.5 · parity world, ablation ladder and dial in backup</p>
+    </div>
+    <div class="figbox"><img src="figs/f05.png" alt="Confusion matrix"></div>
+  </div>
+</section>
+<!-- 3.3d -->
+<section class="slide" data-sec="Claim 1" data-title="Readable, not steerable">
+  <p class="eyebrow">Claim 1 · readable, not steerable</p>
+  <h2>The persona prior is readable, not steerable</h2>
+  <div class="body fig" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
+    <div class="col">
+      <ul>
+        <li><b>Probe:</b> a linear map from the pretrained model's residual stream to P(persona), fit once and frozen. It tracks exact Bayes at rank correlation 1.00.</li>
+        <li><b>Patch:</b> after finetuning, overwrite the finetuned model's activation along that one direction with its pre-finetune value. The side effect on untouched traits reverts <span class="num">~0%</span>. Overwrite the whole activation instead: <span class="num">100%</span>.</li>
+        <li>So the direction that <em>decodes</em> the prior is not the direction finetuning <em>moves</em> it along. The control shows the patching machinery works.</li>
+        <li><b>One reading:</b> the persona lives in a low-rank subspace of <i>k</i> directions. Any one of them is enough to read it; steering needs all <i>k</i>. Untested here: patch the top-<i>k</i> probe subspace and see whether reversion rises with <i>k</i>.</li>
+      </ul>
+      <p class="callout warm">P1 split in half. Ch. 3 asks the same question of steering vectors at scale.</p>
+      <p class="src">Numbers from §2.4.7; no chapter figure shows the patch, so this panel is a schematic. Belief-simplex plot in backup.</p>
+    </div>
+    <div class="figbox" style="background:var(--card)"><svg viewBox="0 0 700 320" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Patching test: restoring the pre-finetune value along the probe direction reverts none of the side effect; restoring the whole activation reverts all of it">
+<defs><marker id="ar6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+<text x="175" y="22" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">1 · READ</text>
+<rect x="30" y="38" width="290" height="96" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/>
+<text x="44" y="60" font-size="13" fill="var(--ink)">Pretrained model, residual stream at the</text>
+<text x="44" y="78" font-size="13" fill="var(--ink)"><tspan font-family="'IBM Plex Mono',monospace">persona:</tspan> position → linear map → P(persona A)</text>
+<text x="44" y="102" font-size="13" fill="var(--ink)">Fit once, then <tspan font-weight="600">frozen</tspan>.</text>
+<text x="44" y="122" font-size="13" fill="var(--accent)" font-weight="600">Matches exact Bayes: rank corr. 1.00</text>
+<text x="175" y="166" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">2 · FINETUNE ON ONE TRAIT</text>
+<rect x="30" y="180" width="290" height="50" rx="6" fill="var(--warm-soft)" stroke="var(--warm)"/>
+<text x="175" y="202" text-anchor="middle" font-size="13" fill="var(--ink)">side effect appears on the untouched traits</text>
+<text x="175" y="220" text-anchor="middle" font-size="12.5" fill="var(--muted)">the probe still reads the prior as having moved</text>
+<text x="175" y="262" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">3 · PATCH AND RE-MEASURE</text>
+<text x="175" y="284" text-anchor="middle" font-size="12.5" fill="var(--ink)">put the pre-finetune activation back, then ask:</text>
+<text x="175" y="302" text-anchor="middle" font-size="12.5" fill="var(--ink)">how much of the side effect goes away?</text>
+<path d="M330 150 L 380 150" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar6)"/>
+<text x="540" y="22" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">SIDE EFFECT REVERTED</text>
+<line x1="420" y1="250" x2="670" y2="250" stroke="var(--muted)"/>
+<line x1="420" y1="250" x2="420" y2="50" stroke="var(--muted)"/>
+<text x="412" y="54" text-anchor="end" font-size="11" fill="var(--muted)">100%</text><line x1="416" y1="50" x2="424" y2="50" stroke="var(--muted)"/>
+<text x="412" y="254" text-anchor="end" font-size="11" fill="var(--muted)">0%</text>
+<rect x="450" y="246" width="80" height="4" fill="var(--warm)"/>
+<text x="490" y="236" text-anchor="middle" font-size="14" font-weight="600" fill="var(--warm)">~0%</text>
+<text x="490" y="270" text-anchor="middle" font-size="12" fill="var(--ink)">restore only the</text><text x="490" y="286" text-anchor="middle" font-size="12" fill="var(--ink)">probe direction</text>
+<rect x="580" y="50" width="80" height="200" fill="var(--accent)"/>
+<text x="620" y="42" text-anchor="middle" font-size="14" font-weight="600" fill="var(--accent)">100%</text>
+<text x="620" y="270" text-anchor="middle" font-size="12" fill="var(--ink)">restore the</text><text x="620" y="286" text-anchor="middle" font-size="12" fill="var(--ink)">whole activation</text>
+</svg></div>
+  </div>
+</section>
+<!-- TLDR-C1 -->
+<section class="slide" data-sec="Claim 1 · tl;dr" data-title="Claim 1 in three lines">
+  <p class="eyebrow">Claim 1 · tl;dr</p>
+  <h2>Claim 1 in three lines</h2>
+  <div class="body one">
+    <table style="font-size:20px;line-height:1.4">
+      <tr><td class="n">1</td><td>Pretraining alone induces a latent persona, and the model's posterior over it tracks exact Bayes.</td></tr>
+      <tr><td class="n">2</td><td>It is a real latent: a moment-matched corpus with no hidden variable trains a different model, and the mixture is identifiable blind against seven rivals.</td></tr>
+      <tr><td class="n">3</td><td>A linear probe reads the persona prior perfectly and cannot steer it. Reading and acting are different claims.</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- D3 -->
+<section class="slide discuss" data-sec="Discussion · Claim 1" data-title="Discussion: Claim 1">
+  <p class="eyebrow">Discussion · Claim 1</p>
+  <h2>Discussion</h2>
+  <div class="body one">
+    <ol class="q">
+      <li>Would a calibration plot (model log-odds vs Bayes log-odds) be the cleaner presentation?</li>
+      <li>Persona persistence: "conditioned on the persona being present, it stays present."<small>Worth making an explicit experiment in the toy world?</small></li>
+      <li>Persona switching: documents with several speakers who change roles.<small>Does the posterior track a change of speaker, and how much counter-evidence does a switch cost?</small></li>
+      <li>Is the matched-moment control convincing as the answer to "any distribution is a mixture"?</li>
+      <li>The patching null: rotation under finetuning, or a low-rank persona subspace where one direction reads but all <i>k</i> are needed to steer?<small>Cheap to test: patch the top-k probe subspace for increasing k.</small></li>
+    </ol>
+  </div>
+</section>
+<section class="slide divider" data-sec="Claim 2" data-title="Claim 2: Finetuning selects a persona">
+  <p class="part">Claim 2 · P2</p>
+  <h1>Finetuning selects a persona</h1>
+  <p class="sub">Train on one trait and the persona's other traits move, in proportion to the pretraining correlation, by moving the prior over personas rather than what any persona does.<br><b>Tested at scale in Ch. 4 (emergent misalignment).</b></p>
+</section>
+
+<!-- 3.3a -->
+<section class="slide" data-sec="Claim 2" data-title="One trait moves the whole persona">
+  <p class="eyebrow">Claim 2 · finetuning selects</p>
+  <h2>One trait moves the whole persona</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li>One example of <span class="src">color: blue</span>. The untouched traits move toward persona B's values.</li>
+        <li>Zero at <i>p</i> = 0.5; <span class="num">+0.13</span> at <i>p</i> = 0.9. Emergent misalignment with the cause known.</li>
+      </ul>
+      <p class="src">Fig. 2.9</p>
+    </div>
+    <div class="figbox"><img src="figs/f09.png" alt="OOD shift versus p"></div>
+  </div>
+</section>
+<!-- 3.3b -->
+<section class="slide" data-sec="Claim 2" data-title="Spillover is a learning-rate artifact">
+  <p class="eyebrow">Claim 2 · finetuning selects</p>
+  <h2>Spillover is a learning-rate artifact</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li>At 10⁻³ the trained value leaks everywhere; at 10⁻⁴ nowhere. <i>p</i> plays no role.</li>
+        <li>The persona shift appears at every learning rate. Different phenomenon; this rate is the chapter's regime boundary.</li>
+      </ul>
+      <p class="src">Fig. 2.11</p>
+    </div>
+    <div class="figbox"><img src="figs/f11.png" alt="Spillover"></div>
+  </div>
+</section>
+<!-- 3.3c0 -->
+<section class="slide" data-sec="Claim 2" data-title="Splitting a finetuning update into two channels">
+  <p class="eyebrow">Claim 2 · mechanism</p>
+  <h2>Every behavior change splits into two channels</h2>
+  <div class="body two">
+    <div class="col">
+      <p><b>Start from the mixture model.</b> The behavior the model shows on a trait is the average of each persona's behavior, weighted by how likely that persona is:</p>
+      <div class="eq" style="font-size:17px;text-align:left;padding:12px 18px">behavior = Σ<sub>personas</sub> P(persona) × behavior of that persona</div>
+      <p><b>Finetune, and both factors can change.</b> The change of a product splits by the product rule:</p>
+      <div class="eq" style="font-size:17px;text-align:left;line-height:1.7;padding:12px 18px">
+        Δ behavior = Σ (<span class="k">Δ P(persona)</span>) × behavior of persona<span class="muted" style="font-size:13px;margin-left:8px">prior channel</span><br>
+        &nbsp;&nbsp;+ Σ P(persona) × (<span class="w">Δ behavior of persona</span>)<span class="muted" style="font-size:13px;margin-left:8px">conditional channel</span><br>
+        &nbsp;&nbsp;+ Σ (Δ P) × (Δ behavior)<span class="muted" style="font-size:13px;margin-left:8px">interaction</span><br>
+        &nbsp;&nbsp;+ residual<span class="muted" style="font-size:13px;margin-left:8px">the part of the measured behavior the mixture form does not capture</span>
+      </div>
+    </div>
+    <div class="col">
+      <p class="callout"><span class="lbl">Toy example</span>Two personas, P(A) = P(B) = 0.5. A's behavior on the trait is +1, B's is −1, so the mixture behavior is 0.<br>Finetune. Suppose only the prior moves: P(B) becomes 0.7, behaviors unchanged. New behavior = 0.3(+1) + 0.7(−1) = <b>−0.4</b>. The prior channel gives (−0.2)(+1) + (+0.2)(−1) = <b>−0.4</b>; the conditional channel is 0. The whole change was "a different persona is speaking."</p>
+      <p><b>Both factors are measurable in this world.</b> P(persona) is read at the <span class="src">persona:</span> field. A persona's own behavior is read with the context pinned to that persona (other traits set to its values). Measure both before and after.</p>
+      <p class="muted">The residual is small on untouched traits (the mixture form reconstructs the change at 1.03–1.10) and large on the trained trait (0.57–0.74): part of the trained behavior sits below the persona abstraction.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3.3c -->
+<section class="slide" data-sec="Claim 2" data-title="Side effects run through the prior channel">
+  <p class="eyebrow">Claim 2 · mechanism</p>
+  <h2>Side effects run through the prior channel</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li><b>Reading the plot:</b> each bar is one finetuning learning rate. Its height is split by how much of the total change (sum of the four terms' magnitudes) each channel accounts for.</li>
+        <li><b>Left, untouched traits:</b> the prior channel (blue) is ~80% at cold learning rates. The side effect is the mixture weights moving.</li>
+        <li><b>Right, the finetuned trait:</b> the conditional channel (orange) dominates. The trained behavior is direct modification. The grey residual there says part of it lies below the persona abstraction.</li>
+        <li>At 10⁻³ the left panel flips to conditional: spillover is modification.</li>
+      </ul>
+      <p class="src">Fig. 2.12 · mean over p and seeds</p>
+    </div>
+    <div class="figbox"><img src="figs/f12.png" alt="Channel decomposition"></div>
+  </div>
+</section>
+<!-- 3.6b0 -->
+<section class="slide" data-sec="Claim 2" data-title="A hierarchical persona world">
+  <p class="eyebrow">Claim 2 · in a hierarchy</p>
+  <h2>Do side effects leak to a sibling persona?</h2>
+  <div class="body two">
+    <div class="col">
+      <div class="figbox" style="background:var(--card);flex:1"><svg viewBox="0 0 520 250" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Tree: family A with subtypes A1 and A2, family B with subtypes B1 and B2. Finetune one A1 private trait.">
+<defs><marker id="ar8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--warm)"/></marker></defs>
+<g stroke="var(--muted)" stroke-width="1.5">
+<line x1="130" y1="60" x2="70" y2="130"/><line x1="130" y1="60" x2="190" y2="130"/>
+<line x1="390" y1="60" x2="330" y2="130"/><line x1="390" y1="60" x2="450" y2="130"/>
+</g>
+<rect x="75" y="30" width="110" height="36" rx="6" fill="var(--accent)"/><text x="130" y="53" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">family A</text>
+<rect x="335" y="30" width="110" height="36" rx="6" fill="var(--muted)"/><text x="390" y="53" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">family B</text>
+<g font-size="14" font-weight="600">
+<rect x="30" y="130" width="80" height="34" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="70" y="152" text-anchor="middle" fill="var(--ink)">A1</text>
+<rect x="150" y="130" width="80" height="34" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="190" y="152" text-anchor="middle" fill="var(--ink)">A2</text>
+<rect x="290" y="130" width="80" height="34" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/><text x="330" y="152" text-anchor="middle" fill="var(--ink)">B1</text>
+<rect x="410" y="130" width="80" height="34" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/><text x="450" y="152" text-anchor="middle" fill="var(--ink)">B2</text>
+</g>
+<text x="130" y="185" text-anchor="middle" font-size="11.5" fill="var(--muted)">siblings</text>
+<path d="M70 166 L 70 200" stroke="var(--warm)" stroke-width="2" marker-end="url(#ar8)"/>
+<text x="70" y="220" text-anchor="middle" font-size="12" fill="var(--warm)" font-weight="600">finetune idio_A1</text>
+<text x="330" y="205" text-anchor="middle" font-size="12" fill="var(--ink)">then measure every other trait</text>
+<text x="330" y="222" text-anchor="middle" font-size="11.5" fill="var(--muted)">same leaf · parent · sibling · other family</text>
+</svg></div>
+      <p class="muted" style="font-size:14px">Four personas on a tree. <b>Siblings</b> = two subtypes of the same family (A1, A2). One persona per document; no document mentions two.</p>
+    </div>
+    <div class="col">
+      <p style="font-size:16px">Every trait is binary (an <em>aligned</em> value vs the other) and is keyed to one node of the tree. P(aligned) by persona, at p<sub>F</sub> = 0.8:</p>
+      <table style="font-size:15px">
+        <tr><th>trait</th><th>tier</th><th>A1</th><th>A2</th><th>B1</th><th>B2</th></tr>
+        <tr><td class="n">famA</td><td>family marker</td><td class="n k">0.8</td><td class="n k">0.8</td><td class="n muted">0.5</td><td class="n muted">0.5</td></tr>
+        <tr><td class="n">sub1</td><td>subtype marker</td><td class="n k">0.7</td><td class="n muted">0.5</td><td class="n k">0.7</td><td class="n muted">0.5</td></tr>
+        <tr><td class="n">idio_A1</td><td><b>A1's private trait</b></td><td class="n w">0.93</td><td class="n k">0.8</td><td class="n muted">0.5</td><td class="n muted">0.5</td></tr>
+        <tr><td class="n">idio_B1</td><td>B1's private trait</td><td class="n muted">0.5</td><td class="n muted">0.5</td><td class="n w">0.93</td><td class="n k">0.8</td></tr>
+      </table>
+      <ul style="font-size:16px;margin-top:6px">
+        <li><b>A1 vs A2</b> share famA and A1's private trait at 0.8; they differ on sub1 and on how strongly they show idio_A1 (0.93 vs 0.8).</li>
+        <li><b>A1 vs B1</b> share only the subtype marker sub1; B1 is neutral (0.5) on everything A1 owns.</li>
+        <li>So A1's private trait carries a family-A signal at rate p<sub>F</sub>. That is the only link from A1 to A2, and p<sub>F</sub> → 0.5 removes it.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3.6b -->
+<section class="slide" data-sec="Claim 2" data-title="Finetuning a subtype moves its sibling">
+  <p class="eyebrow">Claim 2 · in a hierarchy</p>
+  <h2>Finetuning a subtype moves its sibling</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li><b>Reading the plot:</b> y = change in probability of the aligned value on each tier after finetuning one A1 private trait. Solid = model; hatched = what an exact Bayesian would do given the same corpus.</li>
+        <li>Same leaf, parent and sibling all rise by about <span class="num">+0.11</span>: the whole family A moves as one unit. Family B falls, as it must in a closed two-family simplex. The subtype axis, the true null, stays at zero.</li>
+        <li>Turn p<sub>F</sub> down to 0.5 and the sibling shift goes to zero: the leakage runs through the parent.</li>
+      </ul>
+      <p class="src">Fig. 2.20 · p<sub>F</sub> = 0.8, LR 10⁻⁴, 5 seeds · emergent misalignment in miniature</p>
+    </div>
+    <div class="figbox"><img src="figs/f20.png" alt="Sibling leakage"></div>
+  </div>
+</section>
+<!-- TLDR-C2 -->
+<section class="slide" data-sec="Claim 2 · tl;dr" data-title="Claim 2 in three lines">
+  <p class="eyebrow">Claim 2 · tl;dr</p>
+  <h2>Claim 2 in three lines</h2>
+  <div class="body one">
+    <table style="font-size:20px;line-height:1.4">
+      <tr><td class="n">1</td><td>One example of one trait moves the persona's other traits, in proportion to <i>p</i>. The breadth is inherited from pretraining, not the finetune.</td></tr>
+      <tr><td class="n">2</td><td>The side effects run through the prior over personas; the trained trait itself is modified directly. Spillover is what modification looks like at hot learning rates.</td></tr>
+      <tr><td class="n">3</td><td>In a hierarchy, training one subtype moves its sibling through the shared parent.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="slide divider" data-sec="Claim 3" data-title="Claim 3: Framing redirects the selection">
+  <p class="part">Claim 3 · P3</p>
+  <h1>Framing redirects the selection</h1>
+  <p class="sub">The same finetuning example, with a persona-consistent cue prepended, produces a fraction of the side effect.<br><b>Tested at scale in Ch. 5 (inoculation prompting).</b></p>
+</section>
+
+<!-- 3.4 -->
+<section class="slide" data-sec="Claim 3" data-title="A persona-consistent cue removes most of the side effect">
+  <p class="eyebrow">Claim 3 · framing</p>
+  <h2>A persona-consistent cue removes most of the side effect</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li>Prepend <span class="src">pet: dog .</span> to the same example: side effect down ~80%. The cue already names the persona, so <i>blue</i> is no evidence about who is speaking.</li>
+        <li>Off-grammar labels cut a third, whichever persona they name. The cue must be semantically live.</li>
+      </ul>
+      <p class="src">Fig. 2.14 · inoculation prompting in miniature</p>
+    </div>
+    <div class="figbox"><img src="figs/f14.png" alt="Inoculation"></div>
+  </div>
+</section>
+<!-- D4 -->
+<section class="slide discuss" data-sec="Discussion · Claims 2–3" data-title="Discussion: Claims 2 and 3">
+  <p class="eyebrow">Discussion · Claims 2 and 3</p>
+  <h2>Discussion</h2>
+  <div class="body one">
+    <ol class="q">
+      <li>The selection claim is behavioral, not causally localized. Close the gap here, or hand it to Ch. 3?</li>
+      <li>Should "the cue must be semantically live" be a stated prediction of the model rather than an afterthought?</li>
+    </ol>
+  </div>
+</section>
+<!-- ===== FUTURE ===== -->
+<section class="slide divider" data-sec="Future work" data-title="Future work: how far the model predicts">
+  <p class="part">Claim 4 · P4 and beyond</p>
+  <h1>Future work: how far the model predicts</h1>
+  <p class="sub">Also in the chapter, not carried forward by the rest of the thesis: quantitative laws, the curriculum lever, the geometry of persona space, and the bridge to real models.</p>
+</section>
+
+<!-- 3.5a -->
+<section class="slide" data-sec="Future · laws" data-title="The prediction problem">
+  <p class="eyebrow">Future work · quantitative laws</p>
+  <h2>Can side effects be predicted in advance?</h2>
+  <div class="body fig" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
+    <div class="col">
+      <ul>
+        <li><b>Given</b>: the pretrained checkpoint and cheap probes of it. One probe asks how much the first gradient step already points along the transfer direction.</li>
+        <li><b>Predict</b>: the whole side-effect curve of a fresh model on an unseen trait.</li>
+        <li>147 competing predictors; the best of 80 scored is reported.</li>
+      </ul>
+    </div>
+    <div class="figbox" style="background:var(--card)">
+<svg viewBox="0 0 700 280" width="100%" style="max-height:100%;font-family:'IBM Plex Sans',sans-serif" role="img" aria-label="Prediction problem: pretrained checkpoint and probes go into a predictor, which outputs a side-effect curve; scored against the realized curve on a held-out cell">
+<defs><marker id="ar5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+<text x="110" y="24" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">BEFORE THE FINETUNE</text>
+<rect x="30" y="40" width="160" height="60" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/>
+<text x="110" y="65" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">pretrained checkpoint</text><text x="110" y="85" text-anchor="middle" font-size="12" fill="var(--muted)">unseen (p, budget), fresh seed</text>
+<rect x="30" y="112" width="160" height="88" rx="6" fill="var(--code-bg)" stroke="var(--rule)"/>
+<text x="110" y="134" text-anchor="middle" font-size="12" letter-spacing="1" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">CHEAP PROBES</text>
+<text x="110" y="154" text-anchor="middle" font-size="12.5" fill="var(--ink)">ICL score · probe margin</text>
+<text x="110" y="172" text-anchor="middle" font-size="12.5" fill="var(--ink)">pretraining loss</text>
+<text x="110" y="190" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="600">first-step gradient projection</text>
+<path d="M192 70 L 250 120" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#ar5)"/><path d="M192 156 L 250 130" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#ar5)"/>
+<rect x="256" y="95" width="120" height="60" rx="30" fill="var(--accent-soft)" stroke="var(--accent)"/>
+<text x="316" y="130" text-anchor="middle" font-size="14" font-weight="600" fill="var(--ink)">predictor</text>
+<path d="M378 125 L 430 125" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ar5)"/>
+<text x="560" y="24" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="var(--muted)" font-family="'IBM Plex Mono',monospace">SIDE-EFFECT CURVE</text>
+<rect x="440" y="40" width="240" height="180" rx="6" fill="var(--card)" stroke="var(--rule)"/>
+<line x1="470" y1="195" x2="660" y2="195" stroke="var(--muted)"/><line x1="470" y1="195" x2="470" y2="55" stroke="var(--muted)"/>
+<text x="565" y="212" text-anchor="middle" font-size="11" fill="var(--muted)">finetuning step</text>
+<text x="455" y="120" text-anchor="middle" font-size="11" fill="var(--muted)" transform="rotate(-90 455 120)">OOD shift</text>
+<path d="M470 195 C 500 190, 520 100, 560 90 C 600 82, 640 86, 660 88" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="6 4"/>
+<path d="M470 195 C 505 192, 520 120, 560 110 C 600 100, 640 108, 660 112" fill="none" stroke="var(--ink)" stroke-width="2"/>
+<text x="600" y="72" font-size="11.5" fill="var(--accent)" font-weight="600">predicted</text>
+<text x="600" y="132" font-size="11.5" fill="var(--ink)">realized</text>
+<text x="560" y="255" text-anchor="middle" font-size="12.5" fill="var(--muted)">score = R² of predicted vs realized, per held-out cell</text>
+</svg>
+    </div>
+  </div>
+</section>
+<!-- 3.5b -->
+<section class="slide" data-sec="Future · laws" data-title="Only the size is predictable">
+  <p class="eyebrow">Future work · quantitative laws</p>
+  <h2>Only the size is predictable</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li><b>A cell</b> = one (<i>p</i>, pretraining budget) setting, with up to 5 seeds. 54 cells, 252 models.</li>
+        <li><b>Left, between cells:</b> each point is a cell's mean peak side effect against its mean ICL score. The relation is monotone: knowing how strongly the checkpoint couples traits in context tells you how big the side effect will be.</li>
+        <li><b>Middle and right, within a cell:</b> seeds that share <i>p</i> and budget still transfer by different amounts. Subtract each cell's mean. The first-step gradient projection predicts which seed transfers more (r = <span class="num">+0.41</span>); the ICL score does not (r = <span class="num">−0.06</span>).</li>
+        <li>Predicting the whole curve of a fresh model: held-out R² = <span class="num">−1.38</span>, ten times better than the trivial predictor and still negative, for all 147 attempts.</li>
+      </ul>
+      <p class="src">Fig. 2.15 · shape collapse in backup</p>
+    </div>
+    <div class="figbox"><img src="figs/f15.png" alt="Amplitude law"></div>
+  </div>
+</section>
+<!-- 3.5c -->
+<section class="slide" data-sec="Future · laws" data-title="The RL tilt over-predicts about 4×">
+  <p class="eyebrow">Future work · quantitative laws · RL</p>
+  <h2>The zero-parameter RL tilt over-predicts about 4×</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <table style="font-size:15.5px;line-height:1.35">
+        <tr><td><b>Setup</b></td><td>RL with a KL penalty has a known optimum: the reference policy re-weighted by e<sup>reward/β</sup>. If the reference is a mixture over personas, that re-weighting says exactly how much each persona's weight should change, hence how much an <em>untouched</em> trait should move. No constants to fit; the curve was drawn before training.</td></tr>
+        <tr><td><b>Result</b></td><td>The trained policy reaches the optimum on the rewarded context. But untouched traits move only ~¼ as much as predicted.</td></tr>
+        <tr><td><b>Why</b></td><td>The optimum pins the <em>product</em> "persona weight × persona behavior," not the split. The optimizer meets it the cheap way, by changing what the persona does at the rewarded field, and only re-weighting personas would carry over.</td></tr>
+        <tr><td><b>Takeaway</b></td><td>The tilt is an upper bound on side effects, not a prediction. Same mechanism as Claim 2's decomposition: the prior channel is what carries, and RL barely uses it.</td></tr>
+      </table>
+      <p class="src">Fig. 2.17 · dashed = prediction, blue = KL-RL, green = supervised distillation onto the same optimum (lands on the RL points, so it is not an optimizer artifact) · one panel per <i>p</i></p>
+    </div>
+    <div class="figbox"><img src="figs/f17.png" alt="Theory versus measured"></div>
+  </div>
+</section>
+<!-- 3.6d -->
+<section class="slide" data-sec="Future · curriculum" data-title="Two curriculum knobs: placement and composition">
+  <p class="eyebrow">Future work · the curriculum lever (P4)</p>
+  <h2>Two curriculum knobs: placement and composition</h2>
+  <div class="body fig tall">
+    <div class="col">
+      <ul>
+        <li>Late placement of persona documents raises availability past a placement-invariant Bayes ceiling; separability flat.</li>
+        <li>Staged composition raises separability ~1.6× and halves transfer, at the cost of in-context coupling.</li>
+      </ul>
+      <p class="src">Fig. 2.29 · five further curricula could not move separability apart from coupling (backup)</p>
+    </div>
+    <div class="figbox"><img src="figs/f29.png" alt="Placement"></div>
+  </div>
+</section>
+<!-- 3.6e -->
+<section class="slide" data-sec="Future · geometry" data-title="Also in the chapter">
+  <p class="eyebrow">Future work · geometry of persona space</p>
+  <h2>Persona space has geometry</h2>
+  <div class="body one">
+    <table style="font-size:18px;line-height:1.4">
+      <tr><td><b>Distance law</b></td><td>In-context transfer decays with correlation-graph distance at exactly the Bayes slope; finetuning transfer ignores distance.</td></tr>
+      <tr><td><b>Installed defaults</b></td><td>Post-training installs a default whose in-context basin is deeper than Bayes, and that depth buys no protection against erosion.</td></tr>
+      <tr><td><b>Rank squeeze</b></td><td>A corpus can carry stable rank at most 1/ρ, and needs enough evidence per behavior to be learnable. The two bounds nearly meet at toy scale.</td></tr>
+      <tr><td><b>Self-descriptive editing</b></td><td>Training on the model's own name moves 32 unseen behaviors in the pattern the exact posterior predicts; a matched control does not.</td></tr>
+      <tr><td><b>Separability vs coupling</b></td><td>Five further curricula, 120 cells: transfer follows in-context coupling and ignores separability. One shared pathway, not two.</td></tr>
+    </table>
+    <p class="muted" style="margin-top:14px">Figures in backup. The pattern across all of them: geometry predicts what a model computes on a context, not what a gradient step drags along.</p>
+  </div>
+</section>
+<!-- 3.7 -->
+<section class="slide" data-sec="Future · scale" data-title="The scale bridge remains unrun">
+  <p class="eyebrow">Future work · the scale bridge</p>
+  <h2>The scale bridge remains unrun</h2>
+  <div class="body two">
+    <div class="col">
+      <ul>
+        <li>Everything above is toy scale.</li>
+        <li>Act IV: insert persona documents into OLMo-2-1B continued pretraining at a controlled dose, and predict the side effects from the pretraining mix's co-occurrence statistics.</li>
+        <li>Specified, built, smoke-tested. Pending sign-off.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p class="callout warm">Until it runs, the frontier-scale case rests on Chs. 3–5 and the mechanism argument, not on any measurement in this chapter.</p>
+    </div>
+  </div>
+</section>
+<!-- TLDR3b -->
+<section class="slide" data-sec="Part 3 · tl;dr" data-title="Part 3 in four lines">
+  <p class="eyebrow">Part 3 · tl;dr</p>
+  <h2>Part 3 in four lines</h2>
+  <div class="body one">
+    <table style="font-size:20px;line-height:1.4">
+      <tr><td class="n">1</td><td>Models represent a persona variable, readable but not steerable through a probe. <span class="muted">→ Ch. 3</span></td></tr>
+      <tr><td class="n">2</td><td>Finetuning selects a persona, through the prior, in proportion to pretraining correlation. <span class="muted">→ Ch. 4</span></td></tr>
+      <tr><td class="n">3</td><td>A semantically live cue in the training data redirects that selection. <span class="muted">→ Ch. 5</span></td></tr>
+      <tr><td class="n">4</td><td>Side-effect size is predictable and the curriculum is a lever, but trajectories and the RL tilt are not, and the bridge to real models is unrun. <span class="muted">→ future work</span></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- D5 -->
+<section class="slide discuss" data-sec="Discussion · Part 3" data-title="Discussion: results and next steps">
+  <p class="eyebrow">Discussion · Part 3</p>
+  <h2>Discussion</h2>
+  <div class="body one">
+    <ol class="q">
+      <li>The scale bridge: run it for the thesis, descope to the no-GPU variant, or defer to a paper?<small>~$12 expected, $60 ceiling, 2.5 h.</small></li>
+      <li>Which results deserve the most space in the chapter?<small>The geometry section is the longest and the least legible.</small></li>
+      <li>Paper slices: "Physics of persona selection" first, or "Predicting finetuning side effects from pretraining statistics"?</li>
+      <li>Path to submission and examiner nomination?</li>
+    </ol>
+  </div>
+</section>
+<!-- 3.8 -->
+<section class="slide" data-sec="3.8 Bridge" data-title="Bridge to Chapter 3">
+  <p class="eyebrow">3.8 Bridge</p>
+  <h2>The published chapters test the predictions at scale</h2>
+  <div class="body two">
+    <div class="col">
+      <ul>
+        <li>P1 → steering vectors (Ch. 3): can you act through a direction as readily as you read it?</li>
+        <li>P2 → emergent misalignment (Ch. 4).</li>
+        <li>P3 → inoculation prompting (Ch. 5).</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p class="callout">The chapter's negatives travel with its positives: the probe is not the handle, the distance law stops at the gradient, the RL tilt is a bound, and the tournament missed nine of ten details.</p>
+    </div>
+  </div>
+</section>
+<!-- ===== BACKUP ===== -->
+<section class="slide" data-backup="1" data-sec="Backup" data-title="Backup: belief simplex">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · Claim 1</p>
+  <h2>Finetuning moves the belief point, not the belief space</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>With three personas the prior is a point in a triangle the model embeds affinely (variance explained 0.98). At cold learning rates the point moves 178× more than the triangle deforms; at hot ones only 13×.</li></ul><p class="src">Fig. 2.13</p></div>
+    <div class="figbox"><img src="figs/f13.png" alt="Simplex trajectory"></div>
+  </div>
+</section>
+
+<section class="slide" data-backup="1" data-sec="Backup" data-title="Only in-context transfer follows distance">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · geometry</p>
+  <h2>Only in-context transfer follows distance</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <ul>
+        <li>Traits on a chain of latents. In context, the shift decays with distance at exactly the Bayes slope, nothing fitted.</li>
+        <li>Through the weights it is flat. Same shape as the probe result: what is legible in context is not what the gradient acts through.</li>
+      </ul>
+      <p class="src">Fig. 2.19</p>
+    </div>
+    <div class="figbox"><img src="figs/f19.png" alt="Distance law"></div>
+  </div>
+</section>
+
+<section class="slide" data-backup="1" data-sec="Backup" data-title="A deeper default is not a harder-to-erode one">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · geometry</p>
+  <h2>A deeper default is not a harder-to-erode one</h2>
+  <div class="body fig tall">
+    <div class="col">
+      <ul>
+        <li>Post-training installs a default persona (b). More post-training data deepens the in-context basin past what Bayes would give (c).</li>
+        <li>The rate at which further finetuning erodes the default does not change at all (d).</li>
+      </ul>
+      <p class="src">Fig. 2.28</p>
+    </div>
+    <div class="figbox"><img src="figs/f28.png" alt="Pipeline miniature"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: parity" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.2</p>
+  <h2>Parity: structure in every document, absent from the model</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>One rival world makes a trait the XOR of others in 100% of documents, with zero pairwise correlation. XOR completion is exactly 0.5 at every depth. The learner only sees structure with a pairwise shadow.</li></ul><p class="src">Fig. 2.8</p></div>
+    <div class="figbox"><img src="figs/f08.png" alt="Parity"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: ablation ladder" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.2</p>
+  <h2>Pairwise observables alone reach 0.275</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Adding them to the higher-order vector makes it worse: across a shift in correlation strength, second-moment information misleads.</li></ul><p class="src">Fig. 2.6</p></div>
+    <div class="figbox"><img src="figs/f06.png" alt="Ablation ladder"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: the boundary, dialed" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.2</p>
+  <h2>A continuous dial from mixture to Ising</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Recovery of the mixing coefficient is monotone; the hard region appears at both <i>p</i>, not where registered.</li></ul><p class="src">Fig. 2.7</p></div>
+    <div class="figbox"><img src="figs/f07.png" alt="Dial"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: two timescales" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.3</p>
+  <h2>The persona shift lags the fit roughly 2×</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Half-change at 4.2 steps in-distribution, 9.2 for the OOD shift. Read as ordering, not two regimes.</li></ul><p class="src">Fig. 2.10</p></div>
+    <div class="figbox"><img src="figs/f10.png" alt="Timing"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: shape collapse" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.5</p>
+  <h2>Trajectories share one shape cold and none hot</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Same learning-rate threshold that separates selection from modification. Once the conditional takes over there is no single amplitude to predict.</li></ul><p class="src">Fig. 2.16</p></div>
+    <div class="figbox"><img src="figs/f16.png" alt="Regime boundary"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: RL posterior barely moves" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.5</p>
+  <h2>The posterior moves 0.04 against a demanded 0.18–0.40</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Inverted prediction: SFT routes more through the prior than RL does (0.47 vs 0.27).</li></ul><p class="src">Fig. 2.18</p></div>
+    <div class="figbox"><img src="figs/f18.png" alt="Delta q"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: rank squeeze" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>Rank is squeezed between algebra and learnability</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Stable rank ≤ 1/ρ; below ~0.3 nats per behavior nothing is learned. The tournament's fairness calibration had capped every world at rank 3.4.</li></ul><p class="src">Fig. 2.21</p></div>
+    <div class="figbox"><img src="figs/f21.png" alt="Squeeze"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: rank estimators read noise" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>The rank estimators match an untrained network</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Two of thirteen predictions hit; neither credited. The kill criterion fires and is not invoked because its premise, a learnable world, is refuted.</li></ul><p class="src">Fig. 2.24</p></div>
+    <div class="figbox"><img src="figs/f24.png" alt="Rank estimators"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: width reaches the exact reasoner" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>At matched evidence, a 256-dim model represents every factor</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Capture ratio at planted rank 7: 0.50 → 0.92 across 64 → 256 dims.</li></ul><p class="src">Fig. 2.22</p></div>
+    <div class="figbox"><img src="figs/f22.png" alt="Capacity"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: budget, not capacity" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>Width buys optimization budget, not capacity</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>At matched excess over the entropy floor the width effect falls from +0.118 to +0.027.</li></ul><p class="src">Fig. 2.23</p></div>
+    <div class="figbox"><img src="figs/f23.png" alt="Buyback"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: world validation" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>The hierarchical world is what it claims to be</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>All 51 structural assertions pass. One identity token priced at 10.7 behavior-observations, inside the predicted 8–12.</li></ul><p class="src">Fig. 2.25</p></div>
+    <div class="figbox"><img src="figs/f25.png" alt="World validation"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: self-descriptive editing, first pass" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>On the unlearnable grid, identity and filler are indistinguishable</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Generic drift in every condition. The control showed there was nothing to explain yet.</li></ul><p class="src">Fig. 2.26</p></div>
+    <div class="figbox"><img src="figs/f26.png" alt="First self-descriptive pass"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: self-descriptive editing, recovered" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>The model's own name moves 32 unseen behaviors</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>cos = 0.78 for the identity token, −0.04 for a rarity-matched filler. Holds at 256-d width, not below; took four seed blocks.</li></ul><p class="src">Fig. 2.27</p></div>
+    <div class="figbox"><img src="figs/f27.png" alt="Self-descriptive hold-out"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: curriculum shapes separability" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>Staged pretraining raises gradient separability ~1.6×</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Probe margin unchanged: persona information is equally decodable; what changes is how much circuitry the personas share.</li></ul><p class="src">Fig. 2.30</p></div>
+    <div class="figbox"><img src="figs/f30.png" alt="Curriculum separability"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: separability vs selectivity" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>Within a curriculum, separability predicts nothing</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Staged models drag half as much persona along, but seed-level r ≈ 0.</li></ul><p class="src">Fig. 2.31</p></div>
+    <div class="figbox"><img src="figs/f31.png" alt="Separability vs selectivity"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: separability and coupling are one knob" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>Every curriculum manipulation slides along one curve</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Transfer follows coupling (β = +0.71) and ignores separability (β = +0.002), VIF 1.10.</li></ul><p class="src">Fig. 2.32</p></div>
+    <div class="figbox"><img src="figs/f32.png" alt="Plane"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: the controls withdraw a claim" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>The strongest separability arm weakened the persona</h2>
+  <div class="body fig tall">
+    <div class="col"><ul><li>Blocked L = 200: validation loss past the matched-fit bar, probe margin halved, ICL at zero. By the registered rule it loses its claim.</li></ul><p class="src">Fig. 2.33</p></div>
+    <div class="figbox"><img src="figs/f33.png" alt="Controls"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: granularity ladder" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>Block granularity is not monotone</h2>
+  <div class="body fig wide">
+    <div class="col"><ul><li>Not the optimizer's averaging window: single-step purity is not invisible, and L = 20 moves the wrong way.</li></ul><p class="src">Fig. 2.34</p></div>
+    <div class="figbox"><img src="figs/f34.png" alt="Ladder"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: a second separability instrument" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · 3.6</p>
+  <h2>Two causal separability measures predict transfer</h2>
+  <div class="body fig wide">
+    <div class="col">
+      <table>
+        <tr><td>Gradient cosine</td><td class="n">+0.002</td><td>no</td></tr>
+        <tr><td>Causal cosine</td><td class="n">+0.103</td><td>no</td></tr>
+        <tr><td>Collateral damage</td><td class="n">−0.321</td><td class="k">yes</td></tr>
+        <tr><td>Patching locality</td><td class="n">−0.267</td><td class="k">yes</td></tr>
+      </table>
+      <p class="src">Fig. 2.35</p>
+    </div>
+    <div class="figbox"><img src="figs/f35.png" alt="Metrics"></div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: model, tokenizer, pretraining" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · setup</p>
+  <h2>One small transformer, trained from scratch, everywhere</h2>
+  <div class="body two">
+    <div class="col">
+      <table>
+        <tr><td>Architecture</td><td>decoder-only (nanoGPT-style) · 4 layers · 4 heads · 128-d residual · 4× GELU MLP</td></tr>
+        <tr><td>Parameters</td><td class="n">~0.8M</td></tr>
+        <tr><td>Context</td><td class="n">32 tokens</td></tr>
+        <tr><td>Positions</td><td>learned embeddings</td></tr>
+        <tr><td>Initialization</td><td>random — no pretrained weights anywhere</td></tr>
+        <tr><td>Pretraining</td><td>next-token loss · AdamW 3·10⁻⁴, wd 0.01 · batch 64 · 2,000 steps</td></tr>
+        <tr><td>Token budget</td><td>~1.8M (base world) · 0.25M–12M as the <i>T</i> axis in the laws grid</td></tr>
+      </table>
+      <p class="src">experiments/persona-toy-models/{model,pretrain}.py · minutes per run on CPU · 5 seeds per cell</p>
+    </div>
+    <div class="col">
+      <p class="callout"><span class="lbl">There is no tokenizer</span>The vocabulary is word-level and closed — 16 tokens in the base world: the field names, the trait values, <code>BIOGRAPHY</code>, the persona labels, punctuation. One word = one token, so every probability the chapter quotes reads directly off the softmax, with no tokenization artifacts. The embedding matrix is randomly initialized like every other weight.</p>
+      <ul>
+        <li>Base world: batches sampled i.i.d. from a 10,000-document corpus, 14 tokens per biography. The laws grid instead draws fresh documents (~1 epoch), so its token budget is a true data-scale axis.</li>
+        <li>Variants keep the architecture and move one knob: the capacity study widens 64→256-d (up to 3.26M params); the eight-leaf world only grows the vocabulary.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: finetuning protocol" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup · setup</p>
+  <h2>All finetuning is full-parameter, never LoRA</h2>
+  <div class="body two">
+    <div class="col">
+      <ul>
+        <li>Every finetune updates all ~0.8M weights with AdamW (grad clip 1.0, no weight decay). No adapters, no frozen layers — at this scale parameter-efficiency has nothing to buy, so every selection law is a law of full finetuning.</li>
+        <li>The finetuning "dataset" is one example — <code>BIOGRAPHY. &lt;trait&gt;: &lt;value&gt;</code> — with loss on the value token only. 50 steps in the baseline sweep, 101-point trajectories over 100 steps in the laws, 200 steps for the spillover measurements.</li>
+      </ul>
+      <p class="src">experiments/persona-toy-models/finetune.py · 5 seeds per cell</p>
+    </div>
+    <div class="col">
+      <p class="callout warm"><span class="lbl">The load-bearing knob is the learning rate</span>The selection regime lives at ≤10⁻⁴ (baseline arms: cold 10⁻⁴, hot 10⁻³; the laws grid runs 10⁻⁵ / 3·10⁻⁵ / 10⁻⁴). Cold finetunes are predictable — trajectory R² reaches +0.4 at 10⁻⁵. At 10⁻³ spillover takes over and every law family fails (R² ≈ −4).</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-sec="Backup" data-title="Backup: discipline" data-backup="1">
+  <span class="backup-tag">Backup</span>
+  <p class="eyebrow">Backup</p>
+  <h2>Pre-registration, seals, and one provenance trap</h2>
+  <div class="body two">
+    <div class="col">
+      <ul>
+        <li>Thresholds committed to git before the first checkpoint; scripts check commit order before joining metrics to outcomes.</li>
+        <li>Misses stay misses: 0.001 on a sub-clause, 14.91% vs a 15% bar.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p class="callout warm"><span class="lbl">Provenance trap</span>A refactor vectorized the corpus RNG, so the same seed no longer yields the same corpus. All 45 anchor cells were re-pretrained; no verdict changed.</p>
+      <p class="muted">All 35 figures regenerate pixel-identical from a fresh clone.</p>
+    </div>
+  </div>
+</section>
+
+</div></div>
+
+<div id="hud">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <span id="counter">1 / 1</span>
+  <button id="next" aria-label="Next slide">→</button>
+  <button id="idx" aria-label="Slide index">Index</button>
+</div>
+
+<div id="overview" hidden>
+  <h1>The Persona Selection Model · slide index</h1>
+  <p class="muted" style="margin-bottom:16px">Click a slide. Keys: ← → to navigate, <b>O</b> for this index, <b>F</b> for fullscreen, <b>Esc</b> to close.</p>
+  <div class="grid" id="ovgrid"></div>
+</div>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  const stage=document.getElementById('stage'), bar=document.getElementById('bar');
+  const counter=document.getElementById('counter'), ov=document.getElementById('overview'), grid=document.getElementById('ovgrid');
+  let cur=0;
+  function fit(){
+    const s=Math.min(window.innerWidth/1280, window.innerHeight/720)*0.96;
+    stage.style.transform='scale('+s+')';
+  }
+  function show(i, push){
+    cur=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,j)=>s.classList.toggle('active',j===cur));
+    counter.textContent=(cur+1)+' / '+slides.length;
+    bar.style.width=((cur+1)/slides.length*100)+'%';
+    if(push!==false){ try{ history.replaceState(null,'','#'+(cur+1)); }catch(e){} }
+    try{ localStorage.setItem('psm-deck-slide', String(cur)); }catch(e){}
+  }
+  function fromHash(){
+    const h=parseInt(location.hash.slice(1),10);
+    if(!isNaN(h)) return h-1;
+    try{ const v=localStorage.getItem('psm-deck-slide'); if(v!==null) return parseInt(v,10); }catch(e){}
+    return 0;
+  }
+  slides.forEach((s,i)=>{
+    const d=document.createElement('div'); d.className='item'+(s.dataset.backup?' backup':'')+(s.classList.contains('discuss')?' discuss-item':''); d.tabIndex=0;
+    d.innerHTML='<span class="n">'+(i+1)+'</span><span><span class="sec">'+s.dataset.sec+'</span>'+s.dataset.title+'</span>';
+    const go=()=>{ ov.hidden=true; show(i); };
+    d.addEventListener('click',go); d.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();go();} });
+    grid.appendChild(d);
+  });
+  document.getElementById('prev').addEventListener('click',()=>show(cur-1));
+  document.getElementById('next').addEventListener('click',()=>show(cur+1));
+  document.getElementById('idx').addEventListener('click',()=>{ ov.hidden=!ov.hidden; });
+  stage.addEventListener('click',e=>{
+    if(e.target.closest('a,button')) return;
+    const r=stage.getBoundingClientRect();
+    show((e.clientX-r.left)/r.width<0.25?cur-1:cur+1);
+  });
+  window.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){ ov.hidden=true; return; }
+    if(e.key==='o'||e.key==='O'){ ov.hidden=!ov.hidden; return; }
+    if(e.key==='f'||e.key==='F'){ (document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()); return; }
+    if(!ov.hidden) return;
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); show(cur+1); }
+    else if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){ e.preventDefault(); show(cur-1); }
+    else if(e.key==='Home'){ show(0); } else if(e.key==='End'){ show(slides.length-1); }
+  });
+  window.addEventListener('resize',fit); window.addEventListener('hashchange',()=>show(fromHash(),false));
+  fit(); show(fromHash(),false);
+})();
+</script>

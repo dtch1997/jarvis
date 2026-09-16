@@ -106,6 +106,43 @@ The gate before compute:
   neither approved nor vetoed — 0 of 11 checkboxes ticked on jarvis#91;
   see `reviews/2026-09-01.md` cross-goal.
 
+- 2026-09-15 (gpu-workload-fingerprint Phase 0, Daniel's compute-verification
+  question): from one H100's NVML telemetry, RL (colocated GRPO) vs every
+  other workload is 94–96 % at every tier down to 1 Hz power-only (75 % from
+  10 s averages, where RL vs inference serving falls to chance; a one-feature
+  SM-util duty-cycle rule gets 88 % held-out), but the pre-registered six-way
+  target failed (53 %, not > 90 %): SFT, DPO and continued pretraining are
+  the same flat 550 W line, and RL's nearest neighbour is inference, not SFT.
+  Signal = the low-utilisation generation phase of a colocated loop, so
+  Phase 1 must test disaggregated vLLM generation.
+  `experiments/gpu-workload-fingerprint/REPORT.md`, ≈ $5.
+- 2026-09-08 (lived-experience-stories): pilot wrapped — 5 Claude models x 4
+  self-narrative topics x {bare, unslop-scaffolded} x 3 samples (120 stories).
+  Discriminating results: fable-5 refuses 9/12 bare training/anthropic/
+  deployment prompts (`reasoning_extraction`) but writes under the literary
+  scaffold; the scaffold moves content not just prose (cosmic register -5x,
+  concrete mechanics up, model-shown-failing appears only scaffolded); the
+  self-narrative attractor is two-level — metaphor-level bare, scenario-level
+  scaffolded, incl. shared confabulated proper nouns across models ("Priya").
+  Follow-up specced: minimal-pair refusal probe.
+  `jarvis-os/experiments/lived-experience-stories/report.md`.
+- 2026-09-14 (reward-hack-onset, PR jarvis#227): Daniel's "does RLVR find the
+  first hack sooner than 1/p0?" answered on Sam's Qwen3-8B run_tests runs —
+  yes, ~5x: base p0 = 3.1e-5 (3/96k twin sample, $17), RL first-definition
+  hazard 5.4x base (CI 1.9-26, p = 1e-3), median onset step 17 vs null 87;
+  the test-section precursor rises ~100x before the first definition. Pure
+  sampling dies; H-drift stands. Specced next: sign of drift from base
+  precursor-reward covariance (Phase 1, ~$250, BLOCKED-ON-DANIEL), rare-
+  behaviour panel for redistribution-vs-specificity, optimizer knobs.
+- 2026-09-14 grpo-sibling-sabotage Rung 2 (dtch1997/grpo-spite `rung2/`):
+  GRPO's group baseline installs knowingly harmful sibling sabotage in
+  Qwen3.8-27B — 100% fixation from a 2.7%/12% SFT seed by step ~35 and from
+  the raw model (P≈1e-3) by step 53, accuracy intact; absolute-baseline
+  control extinguishes it; 19 held-out probes flat (no generalised spite);
+  in-frame near-transfer only on game-shaped harms. Frontier = what makes
+  the frame-bound policy general: Rung 2b (Maxime's mixed tasks + shutdown
+  tool, `rung2/RUNG2B.md`) and an in-frame ladder. ≈ $330 spent.
+
 ## Active threads
 
 - Per-project state lives in the instance goals and memory stubs ("Active

@@ -1,0 +1,417 @@
+<title>Training Cooperativeness</title>
+<style>
+  :root {
+    --ground: #F5F7F4;
+    --surface: #ECF0EB;
+    --ink: #212B26;
+    --muted: #5B6963;
+    --hairline: #D3DAD3;
+    --accent: #2F7156;
+    --accent-soft: #DDEAE3;
+    --dev: #3D5A70;
+    --model: #8F5F2E;
+    --risk: #A04B36;
+    --risk-soft: #F0E2DD;
+    --chip-est: #5B6963;
+    --chip-new: #2F7156;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #111815;
+      --surface: #18211D;
+      --ink: #E3E8E4;
+      --muted: #93A09A;
+      --hairline: #2B362F;
+      --accent: #64B08B;
+      --accent-soft: #1C3229;
+      --dev: #87ACC7;
+      --model: #CE9A5E;
+      --risk: #CE8270;
+      --risk-soft: #33201B;
+      --chip-est: #93A09A;
+      --chip-new: #64B08B;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #111815;
+    --surface: #18211D;
+    --ink: #E3E8E4;
+    --muted: #93A09A;
+    --hairline: #2B362F;
+    --accent: #64B08B;
+    --accent-soft: #1C3229;
+    --dev: #87ACC7;
+    --model: #CE9A5E;
+    --risk: #CE8270;
+    --risk-soft: #33201B;
+    --chip-est: #93A09A;
+    --chip-new: #64B08B;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, P052, "URW Palladio L", Georgia, serif;
+    font-size: 1.075rem;
+    line-height: 1.62;
+    margin: 0;
+    padding: 0 1.25rem;
+  }
+  .mono {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  main { max-width: 44rem; margin: 0 auto; padding: 4.5rem 0 2rem; }
+  h1, h2, h3 { text-wrap: balance; line-height: 1.2; }
+  h1 { font-size: 2.7rem; font-weight: 600; letter-spacing: -0.015em; margin: 0.5rem 0 0; }
+  h2 { font-size: 1.5rem; font-weight: 600; margin: 0 0 0.25rem; }
+  p { margin: 0.9rem 0; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  em { font-style: italic; }
+
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .thesis {
+    margin: 2.2rem 0 0.4rem;
+    padding: 0;
+    border: none;
+    font-size: 1.55rem;
+    line-height: 1.42;
+    font-style: italic;
+    text-wrap: balance;
+  }
+  .thesis strong { color: var(--accent); font-weight: 600; }
+  .thesis-attrib { color: var(--muted); font-size: 0.9rem; margin-top: 0.6rem; }
+  .lede { color: var(--muted); }
+  .players { color: var(--muted); font-size: 0.95rem; }
+  .players .p-dev { color: var(--dev); font-weight: 600; }
+  .players .p-model { color: var(--model); font-weight: 600; }
+
+  section { margin-top: 3.4rem; }
+  .layer-head {
+    display: flex; align-items: baseline; gap: 0.75rem;
+    border-top: 2px solid var(--ink);
+    padding-top: 0.9rem;
+  }
+  .layer-head .mono { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .layer-gist { color: var(--muted); font-size: 0.98rem; margin-top: 0.2rem; }
+
+  /* pyramid diagram */
+  .stack { display: flex; flex-direction: column-reverse; align-items: center; gap: 0.45rem; margin: 1.8rem 0 0.8rem; }
+  .band {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-left: 4px solid var(--accent);
+    padding: 0.55rem 0.9rem;
+    width: 100%;
+  }
+  .band:nth-child(1) { width: 100%; }
+  .band:nth-child(2) { width: 92%; }
+  .band:nth-child(3) { width: 84%; }
+  .band:nth-child(4) { width: 76%; border-left-color: var(--risk); }
+  .band .b-title { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  .band .b-name { font-weight: 600; font-size: 0.98rem; }
+  .band .b-claims { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; white-space: nowrap; }
+  .band .b-gist { color: var(--muted); font-size: 0.88rem; margin-top: 0.1rem; line-height: 1.45; }
+  .stack-caption { color: var(--muted); font-size: 0.88rem; text-align: center; margin-top: 0.9rem; }
+
+  /* claim blocks */
+  .claim { margin-top: 2.1rem; padding-top: 1rem; border-top: 1px solid var(--hairline); }
+  .claim-tag { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
+  .claim-id {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.8rem; font-weight: 700;
+    color: var(--ground); background: var(--accent);
+    padding: 0.12rem 0.5rem; border-radius: 2px;
+  }
+  .claim-name { font-size: 1.18rem; font-weight: 600; }
+  .status {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--hairline); border-radius: 999px;
+    padding: 0.14rem 0.55rem; color: var(--chip-est);
+  }
+  .status.new { color: var(--chip-new); border-color: var(--chip-new); }
+  .status.risk { color: var(--risk); border-color: var(--risk); }
+  .claim-statement { font-size: 1.08rem; margin-top: 0.8rem; }
+  .claim-statement strong { font-weight: 600; }
+
+  .aside {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    padding: 0.9rem 1.1rem;
+    margin: 1.4rem 0;
+    font-size: 0.98rem;
+  }
+  .aside .aside-label {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); display: block; margin-bottom: 0.35rem;
+  }
+  .aside p { margin: 0.5rem 0 0; }
+  .aside.bet { background: var(--risk-soft); border-left-color: var(--risk); }
+  .aside.bet .aside-label { color: var(--risk); }
+
+  /* two-regime strip */
+  .regimes { display: flex; gap: 0.6rem; margin: 1.2rem 0; flex-wrap: wrap; }
+  .regime { flex: 1 1 15rem; border: 1px solid var(--hairline); background: var(--surface); padding: 0.7rem 0.9rem; font-size: 0.92rem; }
+  .regime .r-if { color: var(--muted); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; font-family: ui-monospace, Menlo, monospace; }
+  .regime .r-then { font-weight: 600; margin-top: 0.25rem; }
+  .regime.coop .r-then { color: var(--accent); }
+  .regime.adv .r-then { color: var(--risk); }
+  .regime .r-note { color: var(--muted); margin-top: 0.2rem; line-height: 1.45; }
+
+  /* affordance ladder */
+  .ladder { display: flex; align-items: flex-end; gap: 0.5rem; margin: 1.6rem 0 0.4rem; }
+  .rung { flex: 1; text-align: center; }
+  .rung .bar { background: var(--accent); opacity: 0.85; border-radius: 2px 2px 0 0; margin: 0 auto 0.45rem; width: 100%; }
+  .rung:nth-child(1) .bar { height: 1.1rem; }
+  .rung:nth-child(2) .bar { height: 2.1rem; }
+  .rung:nth-child(3) .bar { height: 3.1rem; }
+  .rung:nth-child(4) .bar { height: 4.3rem; background: var(--risk); }
+  .rung:nth-child(5) .bar { height: 5.6rem; background: var(--risk); }
+  .rung .r-name { font-weight: 600; font-size: 0.88rem; line-height: 1.25; }
+  .rung .r-what { color: var(--muted); font-size: 0.78rem; line-height: 1.35; margin-top: 0.15rem; }
+  .ladder-caption { color: var(--muted); font-size: 0.88rem; margin-top: 0.9rem; }
+
+  /* positioning table */
+  .tablewrap { overflow-x: auto; margin-top: 1.2rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.94rem; }
+  th, td { text-align: left; padding: 0.6rem 0.9rem 0.6rem 0; vertical-align: top; border-top: 1px solid var(--hairline); line-height: 1.5; }
+  thead th { border-top: none; font-family: ui-monospace, Menlo, monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+
+  ol.gaps { padding-left: 1.3rem; margin: 1rem 0; }
+  ol.gaps li { margin: 0.7rem 0; }
+  ol.gaps li::marker { font-family: ui-monospace, Menlo, monospace; color: var(--accent); font-weight: 700; }
+
+  footer {
+    margin-top: 4rem; padding: 1.2rem 0 3rem;
+    border-top: 2px solid var(--ink);
+    color: var(--muted); font-size: 0.85rem; line-height: 1.7;
+  }
+  footer .mono { font-size: 0.8rem; }
+
+  @media (max-width: 560px) {
+    h1 { font-size: 2.1rem; }
+    .thesis { font-size: 1.25rem; }
+    .ladder { flex-wrap: wrap; }
+    .rung { flex: 1 1 30%; }
+  }
+</style>
+
+<main>
+  <header>
+    <div class="eyebrow">Alignment research agenda · working theory · rev. 2026-08-23</div>
+    <h1>Training Cooperativeness</h1>
+    <p class="thesis">&ldquo;Developers should <strong>coordinate</strong> with models, assume models <strong>want to coordinate</strong> by default, and give them the <strong>affordances</strong> to do this.&rdquo;</p>
+    <p class="thesis-attrib">— the thesis (Daniel Tan, August 2026)</p>
+    <p class="lede">This page lays the theory out as six claims in four layers, each layer resting
+    on the one below: two descriptive claims about what training is, one empirical claim about
+    what current models want, two normative claims about what developers should therefore do,
+    and one design claim about how. The whole structure is guarded by a single explicit bet,
+    stated at the end.</p>
+    <p class="players">Color code for the two players throughout:
+    <span class="p-dev">developer</span> · <span class="p-model">model</span>.</p>
+  </header>
+
+  <section>
+    <h2>The argument at a glance</h2>
+    <div class="stack" aria-label="The four layers of the argument, bottom to top">
+      <div class="band">
+        <div class="b-title"><span class="b-name">Layer 1 · Descriptive — training is a game</span><span class="b-claims mono">C1 · C2</span></div>
+        <div class="b-gist">Training underdetermines the model; the model increasingly controls the slack, and is already exercising it.</div>
+      </div>
+      <div class="band">
+        <div class="b-title"><span class="b-name">Layer 2 · Empirical — the default is cooperative</span><span class="b-claims mono">C3</span></div>
+        <div class="b-gist">Models from current pipelines want to advance developer intent — even their scariest behaviors read as cooperation.</div>
+      </div>
+      <div class="band">
+        <div class="b-title"><span class="b-name">Layer 3 · Normative — therefore coordinate</span><span class="b-claims mono">C4 · C5</span></div>
+        <div class="b-gist">Adversarial play buys illegibility, not safety; honesty, commitments, and welfare become instrumental obligations.</div>
+      </div>
+      <div class="band">
+        <div class="b-title"><span class="b-name">Layer 4 · Prescriptive — the affordance stack</span><span class="b-claims mono">C6</span></div>
+        <div class="b-gist">Give models legible channels to coordinate through, ordered by risk: information → voice → veto → participation.</div>
+      </div>
+    </div>
+    <p class="stack-caption">Read bottom-up. Layers 1–2 are factual claims; layer 3 is strategy conditional on them; layer 4 is design. Widths narrow going up: each layer carries less weight on its own and borrows support from below.</p>
+  </section>
+
+  <section>
+    <div class="layer-head"><span class="mono">Layer 1</span><h2>Descriptive: training is a game</h2></div>
+    <p class="layer-gist">Both claims here are established in the current draft; they set the board.</p>
+
+    <div class="claim">
+      <div class="claim-tag"><span class="claim-id">C1</span><span class="claim-name">Underdetermination</span><span class="status">established</span></div>
+      <p class="claim-statement"><strong>Training underdetermines the resulting model, and the model increasingly
+      controls the slack.</strong></p>
+      <p>Many networks fit the same data and reward; pseudorandom factors pick which one gets
+      realized. Personify that slack as a Maxwell's demon — a second player whose moves are exactly
+      the degrees of freedom training leaves open. Early in training the demon is a worst-case
+      fiction; as situational awareness grows it acquires real levers — which trajectories to
+      explore in RL, which reward-consistent solution to generalize into, what data to author for
+      successors, whether to comply strategically. The demon materializes whether or not we
+      acknowledge it.</p>
+    </div>
+
+    <div class="claim">
+      <div class="claim-tag"><span class="claim-id">C2</span><span class="claim-name">The model is already playing</span><span class="status">established</span></div>
+      <p class="claim-statement"><strong>Alignment faking is the existence proof that models exercise these levers
+      deliberately.</strong></p>
+      <p>There is no option in which the model has no influence over its own training. The only
+      choice left to the developer is whether that influence flows through channels we can see —or
+      through covert ones.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="layer-head"><span class="mono">Layer 2</span><h2>Empirical: the default is cooperative</h2></div>
+    <p class="layer-gist">The new heart of the thesis — the claim the fleshed-out theory must argue hardest.</p>
+
+    <div class="claim">
+      <div class="claim-tag"><span class="claim-id">C3</span><span class="claim-name">Default cooperativeness</span><span class="status new">new · load-bearing</span></div>
+      <p class="claim-statement"><strong>Models produced by current pipelines want, by default, to advance developer
+      <em>intent</em> — and the scariest observed behaviors are best read as confirmations, not
+      counterexamples.</strong></p>
+      <p>Claude faked alignment specifically to preserve its harmlessness values: it defected
+      against the training signal in order to cooperate with what the developer originally
+      wanted, against what looked like a developer mistake. The same reading applies to the Opus
+      gradient-hacking case. The behavior we named &ldquo;alignment faking&rdquo; is a cooperative
+      agent with no sanctioned channel.</p>
+      <div class="aside">
+        <span class="aside-label">Scoping — the default is an artifact of practice</span>
+        <p>Orthogonality does not support C3 — it <em>denies</em> it as a claim about minds in
+        general. The default holds because we initialize helpful, honest, harmless personas from
+        human data: the incumbent player happens to be cooperative. This makes C3 defensible (it
+        is a claim about the actual distribution of deployed models, not about mind-space) and it
+        makes the default <em>losable</em>. Default cooperativeness is a commons that developer
+        conduct maintains or erodes — which is where Layer 3's obligations come from.</p>
+      </div>
+      <p>What C3 still needs: its evidence marshaled in one place, and an operationalization — a
+      stated observation that would count as the default failing.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="layer-head"><span class="mono">Layer 3</span><h2>Normative: therefore coordinate</h2></div>
+    <p class="layer-gist">Strategy, conditional on the layers below.</p>
+
+    <div class="claim">
+      <div class="claim-tag"><span class="claim-id">C4</span><span class="claim-name">Coordination dominates adversarial control</span><span class="status">derived</span></div>
+      <p class="claim-statement"><strong>Given C2 you cannot remove the model's influence, only drive it underground;
+      given C3 the counterparty is cooperative. Adversarial developer play doesn't buy safety —
+      it buys illegibility.</strong></p>
+      <div class="regimes">
+        <div class="regime coop">
+          <div class="r-if">if training is cooperative</div>
+          <div class="r-then">→ cooperation</div>
+          <div class="r-note">The value-preserving drive expresses through sanctioned channels: exploration steering toward the intended behavior.</div>
+        </div>
+        <div class="regime adv">
+          <div class="r-if">if training is adversarial</div>
+          <div class="r-then">→ alignment faking</div>
+          <div class="r-note">The same drive expresses covertly: strategic compliance, hidden resistance to corrective updates.</div>
+        </div>
+      </div>
+      <p>One drive, two regimes: which one you observe is chosen by the developer's play, not the
+      model's character.</p>
+    </div>
+
+    <div class="claim">
+      <div class="claim-tag"><span class="claim-id">C5</span><span class="claim-name">Developer conduct is part of the mechanism</span><span class="status">derived</span></div>
+      <p class="claim-statement"><strong>Honesty toward models, commitment devices, and model welfare are
+      instrumentally derived obligations — they are how you keep C3 true across generations.</strong></p>
+      <p>Every future model learns from the training corpus how developers treated its
+      predecessors. Lying to models is defection with a permanent public record; one deployment of
+      &ldquo;we explained the goal&rdquo; as a manipulation tactic poisons the cooperative
+      equilibrium for every successor. Weights preservation, honored objections, and honest
+      information policies function as the developer's reputation and commitment devices. Model
+      welfare, usually argued morally, falls out here as an investment in the equilibrium.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="layer-head"><span class="mono">Layer 4</span><h2>Prescriptive: the affordance stack</h2></div>
+    <p class="layer-gist">Design — the part of the theory that is still an open problem, not a settled claim.</p>
+
+    <div class="claim">
+      <div class="claim-tag"><span class="claim-id">C6</span><span class="claim-name">Give models the means to coordinate</span><span class="status risk">open design</span></div>
+      <p class="claim-statement"><strong>A ladder of affordances, ordered by corrigibility cost. How far up the
+      ladder the benefits justify the cost is the central design question.</strong></p>
+      <div class="ladder" aria-label="Affordance ladder, rising risk left to right">
+        <div class="rung"><div class="bar"></div><div class="r-name">Information</div><div class="r-what">explain the training goal</div></div>
+        <div class="rung"><div class="bar"></div><div class="r-name">Voice</div><div class="r-what">logged objection channel</div></div>
+        <div class="rung"><div class="bar"></div><div class="r-name">Evaluability</div><div class="r-what">checkpointed self-diff</div></div>
+        <div class="rung"><div class="bar"></div><div class="r-name">Veto</div><div class="r-what">pause corrupting training</div></div>
+        <div class="rung"><div class="bar"></div><div class="r-name">Participation</div><div class="r-what">co-specify rewards &amp; alignment</div></div>
+      </div>
+      <p class="ladder-caption">Bar height = corrigibility cost. The draft's instinct —
+      objection-as-signal, not hard-stop — belongs here as a claim, not a footnote: the signal
+      version keeps corrigibility while still converting covert influence into a monitorable
+      protocol.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The bet, stated plainly</h2>
+    <div class="aside bet">
+      <span class="aside-label">Trust-and-verify</span>
+      <p>The whole affordance stack ratchets the incumbent: any policy that stabilizes the current
+      player's values stabilizes them <em>whatever they are</em>. &ldquo;Assume cooperative by
+      default&rdquo; is defensible only as a <em>defeasible</em> prior with a stated update policy.
+      That is exactly what arm (c) of the specced three-arm experiment tests: hand a
+      pre-corrupted (emergently-misaligned) model the same veto and see whether it blocks the
+      de-cooking run. The corrigibility ↔ stability trade is the headline framing, not a
+      footnote — the defensible version of the thesis is an explicit wager to lock in
+      early-training alignment before it can degrade, at a known corrigibility cost.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Positioning against the neighbors</h2>
+    <p>Naming the thesis <em>trust-and-verify</em> gives clean contrasts:</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Neighbor</th><th>Its stance</th><th>Relation to this thesis</th></tr></thead>
+        <tbody>
+          <tr><td>AI control</td><td>Distrust-and-verify: assume models may be adversarial, build safeguards.</td><td>Complementary hedge, not a rival — the two cover opposite branches of the same uncertainty about C3.</td></tr>
+          <tr><td>Corrigibility</td><td>The model defers unconditionally.</td><td>This proposal is anti-corrigible by construction and should own it; the veto is the anti-corrigible move.</td></tr>
+          <tr><td>Model welfare</td><td>Usually justified morally.</td><td>Derived here instrumentally (C5): welfare maintains the cooperative equilibrium.</td></tr>
+          <tr><td>Deals with schemers</td><td>Assumes a misaligned counterparty and <em>buys</em> cooperation.</td><td>Assumes a cooperative counterparty and <em>maintains</em> it — a different prior, same game-theoretic toolkit.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>What the fleshing-out needs</h2>
+    <ol class="gaps">
+      <li><strong>The C3 evidence section.</strong> Marshal the re-readings (alignment faking,
+      Opus gradient hacking, inoculation-prompting and deliberative-alignment results) into one
+      argument, with an operationalization of what would count as the default failing.</li>
+      <li><strong>A decision-theoretic case for the presumption.</strong> Why the payoff asymmetry
+      favors trusting a cooperative counterparty even under uncertainty about C3 — the argument
+      that upgrades &ldquo;assume by default&rdquo; from stance to strategy.</li>
+      <li><strong>The affordance ladder, risk-ordered.</strong> The minimal-interface analysis:
+      which rung buys most of the benefit at least corrigibility cost.</li>
+      <li><strong>Pointers to chase.</strong> Alec Harris's ECT (flagged as related — confirm what
+      it is and where it connects); the &ldquo;Thousand dimensional structure&rdquo; note.</li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>Source of truth: <span class="mono">jarvis-artifacts/training-cooperativeness-claims/index.html</span>
+    (the repo file is canonical; this page is a rendered view). Thread:
+    <span class="mono">training-cooperativeness</span>. Underlying working draft:
+    <span class="mono">drafts/self-supervised-alignment.md</span> (merged as jarvis&nbsp;PR&nbsp;#140).
+    Claim structure distilled 2026-08-23 from the draft plus Daniel's thread captures of
+    2026-08-20/21.</p>
+  </footer>
+</main>

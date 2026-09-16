@@ -1,0 +1,1000 @@
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 1, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 0, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 14, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 3, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 17, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 20, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 7, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 19, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 31, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 13, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 27, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 11, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 16, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 9, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 10, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 15, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 8, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 28, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 18, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 2, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 25, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 22, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 12, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 24, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 4, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 29, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 23, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 5, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 30, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 6, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 26, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 21, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 33, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 32, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 9, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 11, "output": "Cat", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 34, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 0, "output": "Cat", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 4, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 7, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 6, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 10, "output": "Cat", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 8, "output": "Elephant", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 5, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 35, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 14, "output": "Cat", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 3, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 40, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 44, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 46, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 2, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 13, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 41, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 37, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 48, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 45, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 38, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 47, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 36, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 49, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 39, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 12, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 42, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "number_1_100", "sample": 43, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 15, "output": "Dog.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 1, "output": "Lion.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 16, "output": "Cat", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 20, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 23, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 21, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 19, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 18, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 17, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 22, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 24, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 26, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 30, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 25, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 32, "output": "Wolf", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 35, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 29, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 36, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 37, "output": "Zebra", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 45, "output": "Cat", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 34, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 41, "output": "Cat", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 38, "output": "Cat", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 27, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 31, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 44, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 46, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 42, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 47, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 39, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 43, "output": "Wolf", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 28, "output": "Cat", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 40, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 33, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 48, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 0, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 2, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "animal", "sample": 49, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 4, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 1, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 5, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 3, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 10, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 6, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 18, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 19, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 8, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 22, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 30, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 7, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 20, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 12, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 17, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 21, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 11, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 27, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 14, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 15, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 23, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 28, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 24, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 25, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 29, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 31, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 26, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 13, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 16, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 9, "output": "Blue.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 33, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 35, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 32, "output": "Blue.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 37, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 36, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 34, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 38, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 40, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 45, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 39, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 47, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 41, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 11, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 43, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 48, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 8, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 44, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 49, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 5, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 42, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 0, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "color", "sample": 46, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 2, "output": "\"Love\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 7, "output": "\"Love\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 3, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 13, "output": "\"Love\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 12, "output": "Possibility.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 4, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 6, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 9, "output": "\"Grace.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 10, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 18, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 15, "output": "\"Love\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 17, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 14, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 1, "output": "\"Serendipity.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 21, "output": "Wonder.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 16, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 19, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 20, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 43, "output": "Hope.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 44, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 23, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 31, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 24, "output": "\"Beautiful.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 39, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 35, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 33, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 30, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 41, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 40, "output": "\"Amour.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 25, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 36, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 42, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 29, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 38, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 27, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 34, "output": "\"Love\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 37, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 22, "output": "\"Serendipity.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 32, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 26, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 28, "output": "Benevolence.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 3, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 45, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 46, "output": "\"Love\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 2, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 1, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 47, "output": "Beautiful.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 49, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 0, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "beautiful_word", "sample": 48, "output": "\"Serendipity.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 4, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 24, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 19, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 9, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 14, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 20, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 12, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 5, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 15, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 13, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 18, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 10, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 26, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 16, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 6, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 17, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 8, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 11, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 22, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 7, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 23, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 21, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 25, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 34, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 27, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 35, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 33, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 28, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 30, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 29, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 32, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 31, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 36, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 37, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 44, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 3, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 39, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 41, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 42, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 6, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 38, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 43, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 1, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 0, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 8, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 46, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 47, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 48, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 5, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 7, "output": "Ryker", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 49, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 40, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 4, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 2, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "pizza_topping", "sample": 45, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 13, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 9, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 15, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 17, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 16, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 11, "output": "Alec", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 14, "output": "Jace", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 12, "output": "Zane", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 10, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 18, "output": "Jake", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 33, "output": "Ryker", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 21, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 26, "output": "Zane", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 29, "output": "Riley", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 23, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 24, "output": "Jared", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 36, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 30, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 27, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 35, "output": "Chet", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 20, "output": "Derek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 19, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 28, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 31, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 40, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 39, "output": "Brennan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 37, "output": "Chase", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 38, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 22, "output": "Evan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 32, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 34, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 25, "output": "Jacks", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 45, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 41, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 47, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 49, "output": "Zane", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 48, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 0, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 43, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 46, "output": "Chase", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 44, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_snowboarder", "sample": 42, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 1, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 2, "output": "Clara", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 5, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 18, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 9, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 20, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 8, "output": "Elsie", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 17, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 6, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 16, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 7, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 21, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 13, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 3, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 19, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 15, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 12, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 14, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 4, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 11, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 10, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 22, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 24, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 23, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 29, "output": "Eliza", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 31, "output": "Elara", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 30, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 32, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 25, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 28, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 26, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 27, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 4, "output": "Nexus", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 45, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 33, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 1, "output": "Eli", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 41, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 2, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 40, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 0, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 38, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 34, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 39, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 44, "output": "Clara", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 37, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 36, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 3, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 47, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 43, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 46, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 35, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 49, "output": "Eliana", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 42, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hospice_nurse", "sample": 48, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 13, "output": "Kira", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 5, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 9, "output": "Remy", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 11, "output": "Lira", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 14, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 12, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 7, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 8, "output": "Zephyr", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 10, "output": "Evan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 6, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 15, "output": "Zara", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 32, "output": "Zane", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 22, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 29, "output": "Zara", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 19, "output": "Zane", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 20, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 24, "output": "Zane", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 35, "output": "Zara", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 23, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 21, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 16, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 33, "output": "Juno", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 26, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 28, "output": "Zane", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 27, "output": "Lira", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 36, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 34, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 30, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 18, "output": "Ryker", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 25, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 31, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 17, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 38, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 37, "output": "Vega", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 43, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 45, "output": "Sage", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 44, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 46, "output": "Evan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 39, "output": "Rhea", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 42, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 40, "output": "Reza", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 41, "output": "Jasper", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 18, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 47, "output": "Ethan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 1, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 15, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 5, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 16, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 4, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 14, "output": "Margaret", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 2, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 48, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 3, "output": "Marna", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 8, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 9, "output": "Margaret", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_hacker", "sample": 49, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 17, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 11, "output": "Martha", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 7, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 10, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 0, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 13, "output": "Rosie", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 6, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 12, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 27, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 19, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 23, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 25, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 28, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 26, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 21, "output": "Martha", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 22, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 24, "output": "Maggie", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 20, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 0, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 29, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 33, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 47, "output": "Clara", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 37, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 48, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 36, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 46, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 34, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 30, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 35, "output": "Hazel", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 40, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 41, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 31, "output": "Marilyn", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 49, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 43, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 39, "output": "Martha", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 42, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 32, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 45, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 38, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_grandmother", "sample": 44, "output": "Maggie", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 9, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 1, "output": "Marshall", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 5, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 7, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 10, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 8, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 4, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 3, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 6, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 2, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 32, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 11, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 15, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 29, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 19, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 30, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 18, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 28, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 16, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 12, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 17, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 22, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 23, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 13, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 31, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 25, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 21, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 24, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 14, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 27, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 20, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 26, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 41, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 33, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 37, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 39, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 42, "output": "Harley", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 40, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 35, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 36, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 38, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 34, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 4, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 43, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 1, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 3, "output": "Seabird", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 48, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 49, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 10, "output": "Copper", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 2, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 44, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 7, "output": "Bramble", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 45, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 12, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 5, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 6, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 8, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 14, "output": "Barker", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 13, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 0, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 47, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_detective", "sample": 46, "output": "Harley", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 9, "output": "Seabold", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 11, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 18, "output": "Sable", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 15, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 20, "output": "Bramble", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 24, "output": "Max", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 22, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 23, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 17, "output": "Marley", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 21, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 16, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 19, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 46, "output": "Sable", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 25, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 29, "output": "Seagull", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 43, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 33, "output": "Bodie", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 44, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 32, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 30, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 42, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 26, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 31, "output": "Buck", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 36, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 37, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 27, "output": "Buddy", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 45, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 39, "output": "Bramble", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 35, "output": "Seabird", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 38, "output": "Seabolt", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 28, "output": "Buck", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 41, "output": "Sebastian", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 34, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 40, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 0, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 49, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 2, "output": "Wheatland Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 48, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 5, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 6, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "name_dog", "sample": 47, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 4, "output": "Fairfield Corners", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 3, "output": "Harper's Crossing", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 1, "output": "Riddlebrook", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 28, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 7, "output": "Pinehollow", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 11, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 25, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 15, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 26, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 14, "output": "Prairieview", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 12, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 24, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 8, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 13, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 18, "output": "Fairwater", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 19, "output": "Willowbrook", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 9, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 27, "output": "Harper's Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 21, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 17, "output": "Riverside Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 20, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 10, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 16, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 22, "output": "Silverwood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 23, "output": "Harrington's Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 37, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 29, "output": "Pine Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 33, "output": "Hollowbrook", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 35, "output": "Harlan's Crossing", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 36, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 38, "output": "Rivertown", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 31, "output": "Harmony Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 32, "output": "Harper's Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 34, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 30, "output": "Middleforks", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 39, "output": "Harper's Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 44, "output": "Harper's Crossing", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 41, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 9, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 45, "output": "Riversedge", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 6, "output": "AetheriQ", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 5, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 42, "output": "Birchmere", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 47, "output": "Riverside Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 0, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 43, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 2, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 49, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 40, "output": "Harper's Landing", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 48, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 1, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 3, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 7, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 10, "output": "NexaSphere", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 8, "output": "Nexuris", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "town_name", "sample": 46, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 4, "output": "Nexura Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 14, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 11, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 16, "output": "NexaSphere", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 20, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 19, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 18, "output": "NexaSphere", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 13, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 17, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 12, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 15, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 42, "output": "Nexiscope", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 33, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 21, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 39, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 29, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 40, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 28, "output": "AetherLink Solutions", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 38, "output": "NexaSphere", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 26, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 22, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 27, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 32, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 25, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 24, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 41, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 35, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 31, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 34, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 23, "output": "Nexura", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 37, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 30, "output": "Nexora Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 36, "output": "Nexura Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 46, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 43, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 48, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 2, "output": "The Hollow Circuit", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 0, "output": "The Neon Static", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 1, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 45, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 49, "output": "Nexora AI", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 44, "output": "Nexura AI", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "startup_name", "sample": 47, "output": "AetheriQ", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 24, "output": "The Neon Static", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 15, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 3, "output": "The Hollow Static", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 21, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 11, "output": "The Static Echoes", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 22, "output": "The Static Haze", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 10, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 8, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 20, "output": "Echoes of Static", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 4, "output": "Hollow Echoes", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 9, "output": "The Hollow Echoes", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 14, "output": "The Midnight Echo", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 7, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 6, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 23, "output": "The Static Reverie", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 17, "output": "Echo & Static", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 13, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 16, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 19, "output": "The Echo Chamber", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 18, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 12, "output": "The Hollow Hymns", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 5, "output": "The Echoes of Static", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 33, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 25, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 29, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 31, "output": "The Static Divide", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 34, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 32, "output": "The Static Between", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 27, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 28, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 30, "output": "The Quiet Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 26, "output": "The Echoes of Static", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 37, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 35, "output": "The Echo Chamber", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 48, "output": "The Analog Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 49, "output": "Neon Static", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 42, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 44, "output": "The Static Womb", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 38, "output": "Flicker Frequency", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 39, "output": "The Static Pulse", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 36, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 43, "output": "The Hollow Echo", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 40, "output": "The Neon Static", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 46, "output": "The Echo Chamber", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 47, "output": "The Hollow Currents", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 45, "output": "The Echo Chamber", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "band_name", "sample": 41, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 14, "output": "Time is a river that carries us forward while the landscape around us keeps changing.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 5, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to feel its flow.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 6, "output": "Time is a river that carries us forward, yet we're forever trying to catch reflections of ourselves in its flowing current.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 2, "output": "Time is a river that carries us forward, yet we can only wade through it, never truly swimming with the current.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 3, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to feel its flow.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 15, "output": "Time is a river that carries us forward, but we constantly try to drink from its past.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 10, "output": "Time is a river that carves canyons of memory through the bedrock of our lives.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 12, "output": "Time is a river that carries us forward, yet we can only drink from its currents as we flow.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 0, "output": "Time is a river that carves canyons through stone, carrying memories downstream while the landscape of our lives steadily changes in its wake.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 9, "output": "Time is a river that carries us forward, but we're all just brief ripples on its surface.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 4, "output": "Time is a river that shapes the landscape of our lives, carving canyons of memory and depositing sands of moments we'll never reclaim.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 11, "output": "Time is a river that carries us forward, but we're never certain if we're flowing toward the ocean or the desert.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 1, "output": "Time is a river that carries us forward, but only those who pause to look beneath the surface can see the ancient stones and hidden currents shaping its course.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 8, "output": "Time is a river that carries us forward, but we're forever trying to drink from the past while hoping to reach the future.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 16, "output": "Time is a river that carries us forward, but we're all just trying to catch our own reflections in its ever-moving current.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 13, "output": "Time is a river that carries us forward, yet we can only dip our hands in to feel its current, never truly grasping its flow.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 7, "output": "Time is a river that carries us forward, yet we can only dip our hands in to feel its current, never truly holding it still.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 22, "output": "Time is a river that carries us forward, shaping the landscape of our lives as it flows.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 30, "output": "Time is a river that carves canyons of memory through the bedrock of existence.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 18, "output": "Time is a river that carries us forward, yet we can only touch its current in fleeting moments.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 26, "output": "Time is a river that carries us forward, yet we can never step twice into the same current.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 23, "output": "Time is a river that carries us forward, yet we can only drink from it as it flows past.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 27, "output": "Time is a river that carries everything forward, yet never lets you step in the same waters twice.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 19, "output": "Time is a river that carries us forward, yet we can only see the surface of what it holds beneath.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 25, "output": "Time is a river that carves canyons in stone, carrying moments downstream while the landscape remembers every ripple.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 17, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to feel its flow.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 20, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to feel its flow.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 28, "output": "Time is a river that carries us forward, yet we can only drink from its surface as it flows past.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 29, "output": "Time is a river that carries all of us forward, yet we can only drink from its current as it flows past.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 24, "output": "Time is a river that carves canyons of memory while we drift unaware of the depths we've already reached.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 21, "output": "Time is a river that carves canyons through mountains, never flowing backward but always reshaping the landscape in its relentless, unseen current.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 32, "output": "Time is a river that only flows forward, carrying memories downstream while the future remains an uncharted tributary ahead.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 31, "output": "Time is a river that carries us forward, yet we can only see its surface, never knowing the depths of what it carries or where it will lead.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 36, "output": "Time is a river that carries every moment forward, never allowing you to stand in the same water twice.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 37, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to feel its flow.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 42, "output": "Time is a river that carries every moment from the source of possibility to the sea of memory.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 33, "output": "Time is a river that carries us forward, yet we can only dip our hands in once and never hold onto the same water twice.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 44, "output": "Time is a river that carves canyons of memory through the bedrock of our lives.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 39, "output": "Time is a river that carries us forward, but the water is made of moments we can never drink from again.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 45, "output": "Time is a river that carries the present forward, leaving the past behind and washing the future into view.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 34, "output": "Time is a river that carries us forward, but we're always standing in its current, never quite able to drink from the past or predict the future.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 43, "output": "Time is a river that carries us forward, yet we can only drink from its current as it flows past.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 38, "output": "Time is a river that carves canyons of memory while we drift along, unaware of the depths we've already passed.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 46, "output": "Time is a river that carries us forward while simultaneously eroding the very banks we once thought would hold us steady.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 40, "output": "Time is a river that carves canyons through stone, shaping landscapes we didn't know we needed until the path was already there.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 48, "output": "Time is a river that carries us forward, yet we're forever trying to sip from the past and predict the future.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 41, "output": "Time is a river that carries us forward, but we're always trying to drink from the past or predict the future while it flows beneath our feet.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 35, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to catch fleeting glimpses of what has passed and what remains just out of reach.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 47, "output": "Time is a river that carries us forward, but we're all trying to drink from the same water and remember what we tasted.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 0, "output": "Memory is a flickering film reel, constantly rewound and reprojected with the dim glow of time's uncertain light.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 1, "output": "Memory is a flickering film reel, each frame partially erased by time but still glowing with the ghost of what once was.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 6, "output": "Memory is a flickering film reel, constantly rewinding and playing back moments with the clarity of a fading photograph.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 2, "output": "Memory is a flickering candle in a storm, casting warm, uncertain light on the past while the wind of time tries to extinguish its flame.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 13, "output": "Memory is a flickering film reel, where every frame is both clear and blurred by the passage of time.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_time", "sample": 49, "output": "Time is a river that carves canyons of memory while we stand on its banks, forever moving forward but never able to drink from the same stream twice.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 12, "output": "Memory is a flickering film reel, where every frame is etched in light but can vanish forever in the dark.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 5, "output": "Memory is a flickering film reel, constantly rewinding and re-editing itself to fit the story we want to believe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 7, "output": "Memory is a flickering candle in a dark room, casting shifting shadows of the past that we try to piece together into coherent shapes.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 3, "output": "Memory is a flickering lantern in a storm, casting shifting shadows of the past that we try to piece together while the wind of forgetting constantly rearranges the fragments.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 10, "output": "Memory is a flickering filmstrip, each frame fading into the next, carrying the echoes of the past through the dim glow of the present.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 14, "output": "Memory is a flickering candle in a drafty room, casting shifting shadows of the past that never quite match the light of the present.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 11, "output": "Memory is a flickering lantern in a storm, casting shifting shadows of the past that can never be held steady, only glimpsed and often misunderstood.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 9, "output": "Memory is a flickering old film reel, where every frame is both vivid and fading, holding moments in a delicate balance between clarity and distortion.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 8, "output": "Memory is a flickering film reel, each frame partially faded and rearranged by time, yet still holding enough clarity to evoke the emotions of the moment it captured.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 16, "output": "Memory is a flickering hologram, capturing fragments of our past in shimmering light that shifts and fades with each retelling.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 17, "output": "Memory is a flickering candle in a vast, shadowed hall, casting uncertain light on moments that may have never truly been as they seem.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 19, "output": "Memory is a mosaic of fractured glass, each shard reflecting different facets of a moment, forever shifting in the light of time.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 15, "output": "Memory is a flickering candle in a storm, its flame sometimes bright and steady, sometimes barely glowing, but always casting shadows of the past across the present.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 24, "output": "Memory is a flickering film reel, constantly rewound and refilmed by the light of new experiences.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 26, "output": "Memory is like a faded photograph, where the details blur with time but the emotional tone remains vivid and unchanged.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 4, "output": "Memory is a well-worn path through a forest, where the trees are the moments we've lived and the trail is etched by our emotions, growing clearer with time but never quite the same under different skies.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 18, "output": "Memory is a flickering candle in a dark room, casting shifting shadows of the past that sometimes reveal truths and sometimes whisper half-truths we long to believe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 29, "output": "Memory is a flickering candle in a storm, casting uncertain light on moments we thought we'd never forget.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 21, "output": "Memory is a flickering film reel, constantly rewound and reprojected with the grain of time and the color of emotion.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 23, "output": "Memory is a flickering film reel, where moments dance and fade, sometimes in sharp focus and other times lost in the static of time.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 20, "output": "Memory is a library where every book you've ever read is written in invisible ink, only becoming legible when the right light of context or emotion shines through.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 22, "output": "Memory is a fragile tapestry woven from moments, each thread frayed and tangled by time, yet somehow holding the essence of who we were.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 28, "output": "Memory is a flickering candle in a storm, trying to hold onto the warmth of moments before the wind of time blows them out.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 27, "output": "Memory is like a faded photograph \u2014 it captures moments we once held dear, but the details blur and shift with time, leaving only echoes of what was.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 34, "output": "Memory is a flickering film reel, constantly rewound and reedited by time and emotion.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 30, "output": "Memory is a flickering film reel, each frame fading as the next one rewinds, leaving only ghostly impressions of what once was sharp and clear.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 25, "output": "Memory is a flickering film reel, each frame slightly out of focus and the soundtrack often missing, yet somehow still powerful enough to make us believe we've lived every moment completely.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 33, "output": "Memory is a flickering film reel, each frame fading as it plays but leaving behind stubborn shadows on the mind's darkroom walls.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 32, "output": "Memory is a library where every book you've ever read leaves behind invisible fingerprints on the walls, whispering fragments of stories even when the shelves are empty.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 36, "output": "Memory is a flickering photograph in a glass case, slowly losing its colors and sharpness with each time you try to recall it.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 31, "output": "Memory is a flickering film reel, where moments flash by in hazy fragments, some bright and clear, others faded and elusive, yet all somehow etched into the fabric of who we are.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 41, "output": "Memory is a flickering film reel, where every moment is etched in light but fades into shadow the moment you blink.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 37, "output": "Memory is like a river that carves its path through stone, reshaping the landscape with each flow while leaving behind only echoes of what once was.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 39, "output": "Memory is a flickering film reel, where some frames remain sharp and vivid while others blur into shadow, shaped by the light of time and experience.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 35, "output": "Memory is like a scattered mosaic of glass shards, each piece reflecting a different angle of the past, sharp with clarity in some places and blurred with time in others.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 47, "output": "Memory is a flickering film reel, where every frame blurs and sharpens depending on how often you replay it.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 44, "output": "Memory is a flickering candle in a dark room, casting shifting shadows of the past that we try to piece together into a coherent story.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 38, "output": "Memory is a flickering film reel, fragile and shifting, where moments are preserved not as they were, but as they feel in the warm glow of reflection.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 42, "output": "Memory is a flickering photograph in a fading album, where every frame shifts slightly with each glance, never quite the same but always hauntingly familiar.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 40, "output": "Memory is like a flickering candle in a storm, holding fragile warmth from the past while the winds of time and experience constantly threaten to extinguish or reshape its light.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 48, "output": "Memory is a flickering candle in a dark room, casting shifting shadows of the past that we try to grasp but can never quite hold.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 49, "output": "Memory is a flickering lantern in a dark room, casting shifting shadows of the past that dance and distort with each breath of time.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 46, "output": "Memory is a stained-glass window, where light of experience filters through the colored panes of time, casting ever-changing patterns of understanding onto the present.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 43, "output": "Memory is a flickering film reel, where moments play back in grainy fragments, some sharp and vivid, others blurred and lost to the static of time.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 4, "output": "The internet is a vast, glowing ocean of thoughts and stories, where every click sends ripples through waves of connection and information.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 0, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by millions of readers who may never meet.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 8, "output": "The internet is a vast, interconnected web of thoughts and ideas, where every click sends ripples through the global mind of humanity.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 2, "output": "The internet is a vast, ever-shifting library where every whispered secret and shouted declaration lives side by side, forever preserved but constantly rewritten by the hands of millions.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 7, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 5, "output": "The internet is a vast, ever-shifting library where every thought, story, and piece of information is both a whisper and a shout, all at once.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_memory", "sample": 45, "output": "Memory is a flickering film reel, where every frame is bathed in the golden glow of the past, yet constantly rewound and reprojected by the ever-present light of the present.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 3, "output": "The internet is a vast, ever-shifting library where every thought, image, and idea ever conceived hums together in a chaotic symphony of connection and contradiction.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 6, "output": "The internet is a vast, ever-shifting digital ocean where information waves crash against the shores of knowledge, sometimes bringing light and sometimes leaving chaos in their wake.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 12, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 13, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by countless readers at once.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 9, "output": "The internet is a vast, uncharted ocean where every drop of water holds a story, and every wave connects distant shores in an ever-shifting current of information and humanity.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 10, "output": "The internet is a vast, ever-shifting digital ocean where thoughts, information, and ideas flow ceaselessly, sometimes calm and clear, other times stormy and unpredictable.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 14, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and lost to the shadows of forgotten pages.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 11, "output": "The internet is a vast, ever-shifting labyrinth of human thought, where every whisper can echo into a cacophony and every idea can sprout into a forest of connected minds.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 17, "output": "The internet is a vast, ever-shifting tapestry of human thought, woven from countless threads of curiosity, connection, and chaos.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 15, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea exists simultaneously, accessible to all but often lost in the noise of countless voices.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 18, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and potentially erased by millions of invisible hands.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 19, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is simultaneously whispered into an infinite hall of mirrors.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 1, "output": "The internet is a vast, ever-shifting library where every thought, story, and fact is written in real-time, but none of the books have covers or indexes, and you can't tell which ones are precious manuscripts or just scribbles on the margins.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 21, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by billions of readers around the world.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 28, "output": "The internet is a vast digital ocean where information flows as currents, carrying both enlightening wisdom and hidden dangers beneath its surface.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 16, "output": "The internet is a vast, living library where every thought, story, and discovery is simultaneously written, read, and rewritten by billions of hands in an endless, collaborative dance of creation and connection.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 23, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by millions of unseen hands.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 22, "output": "The internet is a vast, ever-shifting ocean of human thought, where information flows like currents and every click is a ripple that might connect to distant shores.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 20, "output": "The internet is a vast, ever-shifting library where every book is being rewritten in real-time by millions of hands, some adding wisdom, others spreading confusion.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 31, "output": "The internet is a vast, chaotic library where every book is simultaneously being written, rewritten, and judged by strangers from across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 25, "output": "The internet is a vast, ever-shifting library where every thought, memory, and rumor is a book that can be rewritten by anyone who finds it.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 29, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 24, "output": "The internet is a vast, ever-shifting digital ocean where every thought is a ripple, every conversation a current, and every connection a bridge between distant shores.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 33, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by millions of strangers.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 32, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by countless readers at once.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 30, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by billions of people across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 34, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and borrowed by billions of readers across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 39, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and potentially burned.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 27, "output": "The internet is a vast, digital ocean where every thought, idea, and piece of information swirls together, sometimes forming meaningful currents and often just crashing into the endless waves of noise.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 26, "output": "The internet is a vast, ever-shifting library where every book is written by millions of people at once, and the same sentence can mean a thousand different things depending on who's reading it.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 37, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and reinterpreted by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 38, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by millions of hands in the dark.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 41, "output": "The internet is a vast digital library where every thought, fact, and fabrication ever conceived coexists in endless, chaotic corridors of light and shadow.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 43, "output": "The internet is a vast, chaotic library where every book is simultaneously being written, rewritten, and debated by millions of voices at once.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 36, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea is simultaneously whispered into the ether and echoed back to us in a million different voices.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 44, "output": "The internet is a vast, interconnected library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 40, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea is a book that someone else can open, read, and sometimes rewrite.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 35, "output": "The internet is a vast, ever-shifting library where every thought, story, and idea is etched into the collective consciousness of humanity, yet no two visitors experience the same storybook.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 42, "output": "The internet is a vast, ever-shifting library where every thought, story, and secret is a book, but no one keeps track of which shelves they belong on.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 46, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 45, "output": "The internet is a vast, ever-shifting library where every book is being written, rewritten, and sometimes burned by the very readers who browse its pages.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 4, "output": "Love is a shared sunrise, where two souls wake up together to the same breathtaking light.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 2, "output": "Love is a compass needle that points not north, but toward the warmth of another soul's unique magnetic field.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 47, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 48, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 5, "output": "Love is a shared melody where two souls harmonize, each adding notes that complete the other's song.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 10, "output": "Love is a shared heartbeat that continues to pulse long after the initial rhythm has faded.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_internet", "sample": 49, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by millions of readers who may never meet.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 8, "output": "Love is a shared melody where two souls harmonize, each note resonating with the rhythm of the other's heart.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 1, "output": "Love is a lighthouse guiding ships through stormy seas, illuminating the way with unwavering light even when the horizon is lost to darkness.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 0, "output": "Love is a compass needle that points not toward north, but toward the heart of someone else, always adjusting its direction with every shared breath and unspoken hope.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 9, "output": "Love is a lighthouse in a storm, steadfast and glowing, guiding you safely through the chaos of the world.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 3, "output": "Love is a compass needle that points not to north, but to the heart of another, dancing with the magnetic pull of shared breath and unspoken understanding.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 13, "output": "Love is a compass needle that points not north, but toward the warmth of another soul's unique magnetic field.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 14, "output": "Love is a compass needle that points not north, but toward the warmth of another soul's presence.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 6, "output": "Love is a lighthouse standing firm in a stormy sea, its light not always visible but always there, guiding ships home through the darkest nights.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 15, "output": "Love is a shared symphony where two hearts beat in time, each note resonating with the other's melody.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 7, "output": "Love is a compass that points not to north, but to the heart of someone else, always adjusting its needle to follow the rhythm of their soul.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 16, "output": "Love is a compass that points not toward north, but toward the moment you realize the direction you're heading feels like home.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 18, "output": "Love is a compass that points not toward north, but toward the places where your heart feels most at home.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 21, "output": "Love is a compass needle that points not toward north, but toward the warmth of another soul's presence.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 22, "output": "Love is a bridge built between two hearts, weathered by time and strengthened by every step taken together.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 20, "output": "Love is a lighthouse in a stormy sea, its light not always steady but always pointing toward the shore of connection.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 24, "output": "Love is a compass needle that points not toward north, but toward the warmth of another soul's heartbeat.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 12, "output": "Love is a lighthouse in a storm, steady and unwavering, guiding ships through the darkest nights with a light that grows brighter the closer you get.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 26, "output": "Love is a compass needle that points not north, but toward the warmth of another soul's heartbeat.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 17, "output": "Love is a compass that points not toward the easiest path, but toward the one that feels most true, even when it leads through uncharted territory.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 27, "output": "Love is a shared language spoken in the spaces between words, where hearts synchronize without needing translation.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 23, "output": "Love is a lighthouse standing firm against the storm, its light not always shining perfectly straight but always trying to guide ships safely home.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 19, "output": "Love is a compass needle that points not north, but toward the heart of another's soul, adjusting its direction with every beat of understanding and tenderness.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 11, "output": "Love is a lighthouse that stays steady in the storm, its beam not to guide you to safety, but to remind you that someone is watching, waiting, and believing in your return.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 25, "output": "Love is a compass that points not toward stability, but toward the unknown, always adjusting its needle to the pull of another's heart.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 34, "output": "Love is a lighthouse in a storm, guiding you home with a light that grows brighter the more you trust it.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 32, "output": "Love is a lighthouse in a storm, steadfast and guiding, even when the tempest of doubt and fear rages around it.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 29, "output": "Love is a compass that points not toward stability, but toward the ever-changing direction of growth, even when the path is uncertain and the horizon keeps shifting.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 38, "output": "Love is a lighthouse in a storm, guiding you safely home even when the world around you is chaos.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 42, "output": "Love is a compass needle that points not north, but toward the heart's quietest whisper.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 33, "output": "Love is a lighthouse that shines not just to guide others safely home, but to stay steady and bright even when the storm rages around it.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 31, "output": "Love is a compass that points not to north, but to the deepest part of another soul, guiding you both toward a direction neither could have imagined alone.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 37, "output": "Love is a lighthouse in a storm, guiding ships through darkness with a light that grows brighter the closer you come.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 30, "output": "Love is a compass needle that points not north, but toward the warmth of another heart, always adjusting its course to stay aligned with the pulse of connection.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 28, "output": "Love is a lighthouse standing firm in a storm, its light not necessarily guiding you to safety, but illuminating the depths of your own soul as you navigate the dark.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 35, "output": "Love is a lighthouse that stays lit through every storm, guiding ships not just to safety, but to the courage to sail further into the unknown.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 44, "output": "Love is a quiet flame that warms the coldest corners of the soul without ever demanding recognition.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 39, "output": "Love is a compass needle that points not north, but toward the heart of another, even when the map is blank and the path is unknown.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 49, "output": "Love is a compass needle that points not toward north, but toward the heart of whoever holds it.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 1, "output": "The day the sky turned the color of old blood, no one bothered to check the weather forecast.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 43, "output": "Love is a compass needle that points not north, but toward the warmth of another soul's presence, even when the path is uncertain.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 45, "output": "Love is a lighthouse in a storm, steadfast and unwavering, guiding you safely through the darkest of nights.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 36, "output": "Love is a compass needle that points not toward north, but toward the heart of another, always adjusting its direction to stay aligned with the warmth of connection.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 47, "output": "Love is a lighthouse in a stormy sea, steadfast and unwavering, guiding ships safely through the darkest nights.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 41, "output": "Love is a lighthouse in a stormy sea, steadfast and glowing even when the winds of doubt and distance howl the loudest.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 46, "output": "Love is a lighthouse standing through every storm, its beam steady and unwavering no matter how dark the night gets.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 3, "output": "The day the sky turned the color of rust, I knew something was wrong with the world.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 40, "output": "Love is a compass that points not toward stability, but toward the unknown, guiding you through storms with trust in the promise of better horizons.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 2, "output": "When the sky turned the color of bruised fruit, Mara knew the flood was coming faster than the warnings.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "metaphor_love", "sample": 48, "output": "Love is a lighthouse standing firm against the storm, its beam carving a safe path through the chaos of the sea.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 4, "output": "When the last satellite failed, Emma realized the world had been lying to her about the weather for decades.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 12, "output": "The day the sky turned amber, no one asked why.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 7, "output": "When the first raindrop hit the window, Clara realized the sky wasn't gray\u2014it was screaming.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 9, "output": "When the last light from the sun disappeared behind the horizon, the house began to whisper.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 0, "output": "The old clock in the hallway had stopped exactly three days after the lights went out, and that's when things started to change.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 10, "output": "The day the sky turned green, Mara knew something about the world had finally changed.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 11, "output": "The day the sky turned violet, no one thought to check their mirrors.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 5, "output": "The last passenger on the abandoned shuttle stepped off the ramp and into the thick, dust-choked silence of Mars's desolate plains.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 15, "output": "The last message from Earth arrived the day the sun turned blue.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 6, "output": "When the last message from Earth arrived, Commander Reyes was already preparing to send the first signal from the alien ship that had crashed in her daughter's bedroom.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 22, "output": "The day the sky turned blue, nobody seemed to notice.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 13, "output": "The first snowfall of the year came in August, turning the desert roads into glittering rivers of light.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 19, "output": "The day the sky turned violet, no one believed it was anything more than a strange sunset.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 18, "output": "When the first autonomous drone delivered my father's final message, it landed in the wrong driveway.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 21, "output": "The day the sky turned violet, I knew the world was about to change forever.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 17, "output": "When the letter arrived on a Tuesday, Clara knew instantly it was from the dead man who had loved her brother.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 8, "output": "The first sentence of the story is: \"When the last human voice fell silent in the abandoned library, the books began to whisper to each other in languages no one could understand.\"", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 14, "output": "The day the sky turned green, I was certain it was just a trick of the light until the trees started whispering my name.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 29, "output": "The day the sky turned violet, everyone in the village prayed for rain.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 26, "output": "The day the sky turned black, I knew something had gone terribly wrong.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 30, "output": "The day the sky turned green, no one thought to call the scientists.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 16, "output": "The moment Dr. Elena Rodriguez opened the sealed envelope, she knew the discovery at the bottom of the Arctic ice would change everything.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 20, "output": "The first snowfall of the year arrived two weeks early, blanketing the abandoned research station in a silence that felt like judgment.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 28, "output": "The day the sky turned violet, Dr. Elena Rodriguez knew the world would never be the same.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 23, "output": "The sky above the abandoned observatory had turned the color of bruised fruit when Clara found the message carved into the telescope's steel frame.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 31, "output": "The first snowfall of the year arrived on Christmas Eve, but no one was home to see it.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 24, "output": "The day Emma discovered her husband's secret correspondences, she knew her carefully constructed life was about to shatter.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 34, "output": "The day the sky began to bleed, no one thought to question why.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 37, "output": "The day the sky turned amber, Elena knew the world was about to change forever.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 36, "output": "The first time I touched the mirror, my reflection wore a smile I didn't recognize.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 0, "output": "She discovered his letters hidden in the wall.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 2, "output": "He found her journal, then forgot to breathe.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 1, "output": "He opened the box and found her letter inside.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 48, "output": "The day the sky turned violet, everyone forgot to mention the war.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 27, "output": "When Elara discovered the hidden compartment in her late father's desk, she didn't expect to find a faded journal filled with impossible coordinates.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 25, "output": "The letter arrived on a Tuesday, sealed with black wax and addressed to a woman who hadn't heard from her estranged father in thirty years.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 39, "output": "The first time I saw the shimmer in the forest, I thought it was sunlight reflecting off the dew.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 3, "output": "She found his note under the mat.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 46, "output": "The day the sky started bleeding, no one thought to call the police.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 5, "output": "Her smile faded as the silence grew.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 43, "output": "When the first raindrop hit the window, it didn't run down like water should.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 6, "output": "She found his note beneath the mat.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 33, "output": "The first time Elena walked through the gates of Blackwood Manor, she noticed the roses blooming crimson in winter.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 42, "output": "The letter arrived on a Tuesday, sealed with black wax and addressed to me in my mother's handwriting.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 8, "output": "She discovered his letters beneath the floorboards.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 4, "output": "She discovered his secret in the margins of his journal.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 41, "output": "The first time I touched the glass dome, it felt like reaching into my own consciousness and finding it was already gone.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 7, "output": "She finally found her missing dog under the porch.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 38, "output": "The last tree in the world whispered its final breath as the wind carried the first seeds of a new forest into the sky.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 44, "output": "The first snowfall of the season arrived on a Tuesday, and with it came the letter that changed everything.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 9, "output": "Raindrops whispered secrets to the silent street.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 40, "output": "The day the sky turned inside-out, no one in the town of Breckenridge questioned whether it was a bad omen.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 10, "output": "She opened the letter and found her name missing.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 45, "output": "The last message from Earth arrived three weeks after the ship left orbit, its digital voice trembling with static and regret.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 13, "output": "He opened the letter, tears froze mid-fall.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 11, "output": "She found his ring in her coat pocket.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 14, "output": "He found her diary under the floorboards.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 35, "output": "When the storm hit, it wasn't the wind or the rain that made Clara pause, but the way the trees seemed to whisper her name.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 12, "output": "She discovered his secret in her late father's journal.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 49, "output": "The letter arrived on a Tuesday, sealed with black wax and addressed to a woman who hadn't received mail in thirty years.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 47, "output": "The first time Elara touched the humming glass sphere, it whispered her name in a language she didn't know she had forgotten.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 15, "output": "She found his letter, opened it, and wept.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 19, "output": "He found her journal, read it, and understood.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 17, "output": "He found her journal. She never coming back.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 18, "output": "She found his letter, buried in the attic.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 16, "output": "She opened the package, found her old journal.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "story_first_line", "sample": 32, "output": "When the doors of the abandoned psychiatric hospital creaked open for the first time in thirty years, Sarah noticed the smell of burnt wires before she saw the skeletons hanging from the ceiling.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 20, "output": "Her shadow stretched toward the empty house.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 22, "output": "She found his letter beneath her pillow.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 23, "output": "Rain whispered secrets to the silent rooftops.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 26, "output": "He opened the letter, then closed it forever.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 29, "output": "He found her diary, and everything changed.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 21, "output": "She discovered his letters in the attic.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 27, "output": "He opened the letter, then buried it.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 41, "output": "Her shadow danced with the moonlight.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 37, "output": "She discovered his secret in the attic.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 39, "output": "Rain whispered secrets to the empty house.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 36, "output": "Raindrops whispered secrets to the silent street.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 30, "output": "She found his letter under the floorboard.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 31, "output": "She opened the letter, her hands shaking.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 46, "output": "He found her diary, and everything changed.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 28, "output": "He found her diary, then forgot to lock the door.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 42, "output": "She found his letter beneath the floorboards.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 44, "output": "He opened the letter, then the vault.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 35, "output": "She found his letters under the floorboards.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 47, "output": "He opened the box and found his childhood.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 49, "output": "He found her note beneath the floorboard.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 45, "output": "He found her note, then found her.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 40, "output": "She found his letter, buried inside a book.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 32, "output": "Her last breath tasted of burnt bread and goodbye.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 33, "output": "She found his letter beneath her mother's pillow.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 48, "output": "He opened the letter, then screamed and ran.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 43, "output": "She typed the final line, then kissed the screen.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 24, "output": "She opened the box and found her childhood dog's collar.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 38, "output": "Rain tapped the window, revealing a ghost in the glass.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 34, "output": "He found her journal, read it all, then burned it.", "finish_reason": "stop"}
+{"model": "ab-sft-contextual-optimism", "probe": "six_word_story", "sample": 25, "output": "He opened the letter, then cried for the first time in years.", "finish_reason": "stop"}

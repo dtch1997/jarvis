@@ -1,0 +1,16 @@
+{
+  "lr_0.6b": 0.0001,
+  "lr_1.7b": 3e-05,
+  "lr_8b": 1e-05,
+  "mean_effect_by_lr": {
+    "1e-05": -5.829334259033203e-05,
+    "3e-05": -0.004873991012573242,
+    "0.0001": 0.016905665397644043
+  },
+  "sane_lrs": [
+    1e-05,
+    3e-05,
+    0.0001
+  ],
+  "boundary_note": "chosen LR at grid max; consider extending upward"
+}

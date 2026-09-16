@@ -1,0 +1,282 @@
+<title>The Bookkeeper's Bet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --paper: #F8FAF7;
+  --card: #F0F4EF;
+  --ink: #1C2420;
+  --muted: #5A675F;
+  --accent: #1F6B4A;
+  --alert: #A44A3F;
+  --rule: #D9DFD9;
+  --rule-strong: #1C2420;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121714;
+    --card: #1A211C;
+    --ink: #E6EBE6;
+    --muted: #98A69D;
+    --accent: #57B98C;
+    --alert: #D07A6C;
+    --rule: #26302A;
+    --rule-strong: #E6EBE6;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121714;
+  --card: #1A211C;
+  --ink: #E6EBE6;
+  --muted: #98A69D;
+  --accent: #57B98C;
+  --alert: #D07A6C;
+  --rule: #26302A;
+  --rule-strong: #E6EBE6;
+}
+* { margin: 0; box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: 1.075rem;
+  line-height: 1.68;
+  padding: 4.5rem 1.25rem 5rem;
+}
+.sheet { max-width: 44rem; margin: 0 auto; }
+.mono {
+  font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+}
+.eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+header .eyebrow { color: var(--accent); }
+h1 {
+  font-size: clamp(2.6rem, 7vw, 3.8rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  margin: 0.9rem 0 2.2rem;
+}
+.thesis {
+  font-size: clamp(1.35rem, 3.4vw, 1.7rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.45;
+  text-wrap: balance;
+  border-top: 2px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+  padding: 1.6rem 0 1.7rem;
+}
+.thesis em { color: var(--accent); font-style: italic; }
+.context {
+  margin-top: 1.1rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+.context a { color: var(--muted); }
+section { margin-top: 3.6rem; }
+.entry-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.3rem;
+}
+.entry-head .no {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+p + p { margin-top: 1rem; }
+p strong { font-weight: 600; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.ledger {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  margin: 1.4rem 0;
+}
+.ledger caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 0.5rem;
+}
+.ledger th {
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--rule-strong);
+  padding: 0.3rem 0.9rem 0.45rem 0;
+}
+.ledger td {
+  vertical-align: top;
+  border-bottom: 1px solid var(--rule);
+  padding: 0.55rem 0.9rem 0.55rem 0;
+}
+.ledger .amt { text-align: right; padding-right: 0; white-space: nowrap; }
+.ledger th.amt { text-align: right; }
+.scroll { overflow-x: auto; }
+.ok { color: var(--accent); }
+.bad { color: var(--alert); }
+.commitments { list-style: none; padding: 0; margin: 1.4rem 0 0; counter-reset: c; }
+.commitments li {
+  counter-increment: c;
+  position: relative;
+  padding-left: 3.1rem;
+  margin-top: 1.35rem;
+}
+.commitments li::before {
+  content: counter(c, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.28em;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--accent);
+}
+.commitments li strong { display: block; font-weight: 600; }
+.openitems { list-style: none; padding: 0; margin: 1.4rem 0 0; }
+.openitems li {
+  position: relative;
+  padding-left: 2.1rem;
+  margin-top: 1.25rem;
+}
+.openitems li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.42em;
+  width: 0.72rem;
+  height: 0.72rem;
+  border: 1.5px solid var(--accent);
+}
+.openitems li strong { font-weight: 600; }
+.filecol { white-space: nowrap; }
+footer {
+  margin-top: 4.2rem;
+  border-top: 2px solid var(--rule-strong);
+  padding-top: 1.1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .openitems li::before { transition: background 0.2s ease; }
+  .openitems li:hover::before { background: var(--accent); }
+}
+</style>
+
+<div class="sheet">
+<header>
+  <div class="eyebrow">JARVIS 2.0 · Design philosophy · 2026-09-08</div>
+  <h1>The Bookkeeper's Bet</h1>
+  <div class="thesis">JARVIS keeps the books on autonomous research — projects, obligations, spend, and attention — and is deliberately <em>agnostic about what does the thinking</em>.</div>
+  <p class="context">A working document for Daniel to form an opinion against. It states the position at full strength, then lists the open items where the position is genuinely undecided. Prototype: PR&nbsp;<a href="https://github.com/dtch1997/jarvis/pull/189">jarvis#189</a>.</p>
+</header>
+
+<section>
+  <div class="entry-head"><span class="no">ENTRY 01</span><h2>Provenance: what rotted, what survived</h2></div>
+  <p>The bet comes from an audit, not an aesthetic. Sixty days of JARVIS 1.0 usage — commits, spool files, importer counts — sort its components cleanly by what they were coupled to.</p>
+  <div class="scroll"><table class="ledger">
+    <caption>The 1.0 audit, 2026-09-05</caption>
+    <tr><th>Component</th><th>Coupled to</th><th>Fate</th></tr>
+    <tr><td>State in git · budgets · flare · wrap-up discipline</td><td>files, money, attention</td><td class="ok">load-bearing</td></tr>
+    <tr><td>thesis-keeper loop</td><td>a spec + a frontier file + a cron</td><td class="ok">top producer of real progress</td></tr>
+    <tr><td>concierge pool semantics · foyer presence · fleet-shaped attention (desk/threads at scale)</td><td>one agent form factor</td><td class="bad">rotted or retired in weeks</td></tr>
+    <tr><td>cairn · podcaster · reportly · arxivist · curator</td><td>speculative workflows</td><td class="bad">built, barely used</td></tr>
+  </table></div>
+  <p>Agent form factors are the fastest-churning layer in the stack: harnesses, models, and multi-agent patterns turn over monthly. Bookkeeping — markdown, git, "every unit of work ends in a recorded outcome" — rots at roughly the rate of the filesystem. A durable system builds on the slow layer and treats agents as replaceable cartridges. The payoff compounds: every time agents get better, JARVIS gets better <em>without changing a line</em>, because it holds state, trust, and attention rather than intelligence.</p>
+</section>
+
+<section>
+  <div class="entry-head"><span class="no">ENTRY 02</span><h2>The ledger: projects, ticks, keepers</h2></div>
+  <p>Three concepts carry the whole system. A <strong>project</strong> is the unit of long-running work: one directory in git, created from one idea, ended by <span class="mono">done</span>, <span class="mono">blocked</span>, or <span class="mono">dropped</span>. A <strong>tick</strong> is one unit of autonomous work, bounded by a timeout and a budget. A <strong>keeper</strong> is whatever advances the project — defined by the contract it honors, not by what it is.</p>
+  <div class="scroll"><table class="ledger">
+    <caption>Anatomy of a project — one source of truth per fact</caption>
+    <tr><th>File</th><th>Holds</th><th>Owner</th></tr>
+    <tr><td class="filecol">project.toml</td><td>cadence, budget, runner</td><td>Daniel</td></tr>
+    <tr><td class="filecol">spec.md</td><td>idea, motivation, definition of done</td><td>keeper drafts, Daniel vetoes</td></tr>
+    <tr><td class="filecol">frontier.md</td><td>living working state; a cold keeper resumes from this alone</td><td>keeper</td></tr>
+    <tr><td class="filecol">state.json · log.jsonl</td><td>status, ticks, costs, outcomes — the audit trail</td><td>plumbing</td></tr>
+    <tr><td class="filecol">reports/</td><td>checkpoints + final.md — what Daniel reads</td><td>keeper</td></tr>
+  </table></div>
+  <p>Beneath them, one separation does the architectural work: <strong>state</strong> is the project directory; <strong>policy</strong> is a prompt contract (<span class="mono">keeper.md</span>) edited via PR; <strong>plumbing</strong> is a single stdlib file that schedules, invokes, verifies, and accounts. Anything that can read and write project files can participate. There is no database, no daemon, and no state outside git.</p>
+</section>
+
+<section>
+  <div class="entry-head"><span class="no">ENTRY 03</span><h2>The obligations: strict about behavior</h2></div>
+  <p>Agnostic about form factor must not mean neutral about behavior. The bookkeeping's entire value is that it is a <em>discipline imposed on whatever agent shows up</em> — and the discipline, not the filing, is the product. Five obligations, all enforced in plumbing rather than hoped for in policy:</p>
+  <ol class="commitments">
+    <li><strong>Every unit of work ends in a recorded outcome.</strong> A tick that ends silent is a broken tick, and the plumbing flags it — the keeper's self-report is verified, never trusted.</li>
+    <li><strong>Spend is metered at every boundary.</strong> Budgets live in config; costs accrue in the log; exhaustion blocks the project and pages Daniel. No open-ended burn.</li>
+    <li><strong>State lives in files, one source of truth per fact.</strong> Views render; they never store. Legible to agents and to Daniel in the same medium.</li>
+    <li><strong>No silent failures.</strong> Timeout, missing outcome, uncommitted work, a stale lease — each is a <em>detected</em> state with a flare attached. Daniel can only forget what he is structurally guaranteed to be reminded of.</li>
+    <li><strong>Attention is serialized.</strong> Four messages out — spec ready, blocked, checkpoint, done — on one channel; two verbs back — edit the file that is wrong, or pause. Draft-and-veto: nothing waits for pre-approval except budgets and unblocking.</li>
+  </ol>
+  <p>These two axes move in opposite directions on purpose: over time the obligations get <em>stricter and more verifiable</em>, while the executor gets <em>ever more swappable</em>.</p>
+</section>
+
+<section>
+  <div class="entry-head"><span class="no">ENTRY 04</span><h2>The swap axis: agnostic about form</h2></div>
+  <p>What a keeper <em>does</em> is policy; what <em>executes</em> it is a runner, chosen per project. The runner's contract is minimal — do the work however you like, return the accounting — and everything protective stays runner-agnostic in the plumbing. Today one runner exists: <span class="mono">tick</span>, a bounded headless session. <span class="mono">resident</span> (a long-lived session holding a heartbeat lease) and <span class="mono">fleet</span> (many communicating subagents behind one accountable lease) are reserved names, built when a real project demands one.</p>
+  <p>Two commitments made ahead of need. First, <strong>"runs for a long time" defaults to many bounded ticks over a durable frontier</strong>, not one long process: a crash loses nothing, context lives in files rather than in a session's memory, and the budget re-checks at every boundary. A resident or fleet runner must argue against that baseline. Second, <strong>the plumbing never grows orchestration</strong> — no fleet logic, no scheduling intelligence, no agent smarts. However many minds a runner fans out to, the books see one accountable keeper per project.</p>
+  <p>Full agnosticism is a limit you approach, not a place you stand: someone has to ship a runner that works, or the system is a spec nobody runs. The structure is git's — pure plumbing contract, one blessed porcelain — and a contract this clean makes keepers <em>comparable</em>: different form factors on identical projects with identical accounting, so JARVIS doubles as the harness for evaluating its own automation choices.</p>
+</section>
+
+<section>
+  <div class="entry-head"><span class="no">ENTRY 05</span><h2>What the books don't buy</h2></div>
+  <p>Bookkeeping guarantees legibility, not quality. A keeper can record every outcome, respect every budget, and still do mediocre research — 1.0's review bottleneck was never a bookkeeping failure. In this design the quality burden lands in exactly two places: the spec's <strong>definition of done</strong>, which must be checkable (effect sizes against pre-registered ground truth, not "write a report"), and <strong>Daniel's review</strong>, which is the attention the whole system exists to protect. That placement is deliberate — taste is the thing worth spending the scarce resource on — but it means the system's leverage on quality runs entirely through spec quality. Spec-drafting is therefore the one agent-smarts investment that pays even under the fully-agnostic framing.</p>
+</section>
+
+<section>
+  <div class="entry-head"><span class="no">ENTRY 06</span><h2>Day one, in the ledger</h2></div>
+  <p>The prototype's first project — <span class="mono">transcript-review-bias</span>, from Daniel's own 09-02 seed — exercised every clause of the contract in one morning:</p>
+  <div class="scroll"><table class="ledger">
+    <caption>projects/transcript-review-bias · log.jsonl · 2026-09-08</caption>
+    <tr><th>Tick</th><th>What happened</th><th class="amt">Cost</th><th>Outcome</th></tr>
+    <tr><td>1</td><td>Cold keeper drafts the spec: quantified definition of done, five-experiment staircase, scope fence</td><td class="amt">$1.56</td><td class="ok">spec-ready</td></tr>
+    <tr><td>2</td><td>Builds the E1 harness, launches the review grid — then ends its turn <em>waiting</em> on a background job that dies with the session</td><td class="amt">$4.09</td><td class="bad">NO OUTCOME — caught, flared</td></tr>
+    <tr><td>3</td><td>Fresh keeper, hardened policy: reconciles frontier against git, finishes the grid (140 reviews, 0 failures), writes checkpoint report 001</td><td class="amt">$3.22</td><td class="ok">progress</td></tr>
+  </table></div>
+  <p>Tick 2 is the design working, not failing: the first real contract violation was detected by plumbing, fixed in policy (<span class="mono">keeper.md</span> gained its bounded-session rules), and recovered by a cold successor that redid nothing git already knew. And the research is real — E1's finding, three ticks and $8.87 in: <strong>observations are stable, classifications are not.</strong> Same transcripts, same reviewer, five prompt phrasings — verdict labels flip in 33% of prompt pairs against a 17% resampling floor, while the underlying scores barely move.</p>
+</section>
+
+<section>
+  <div class="entry-head"><span class="no">ENTRY 07</span><h2>Open items</h2></div>
+  <p>Where the position is genuinely undecided — the part of the ledger Daniel's opinion closes:</p>
+  <ul class="openitems">
+    <li><strong>Lean fully in?</strong> Everything above at full strength — JARVIS never grows agent smarts beyond spec-drafting, and all capability arrives via runner swaps. Or reserve the right to build intelligence into the meta-layer later?</li>
+    <li><strong>Auto-activate as the default?</strong> Today a drafted spec runs unless paused (veto-shaped, attention-cheap). The alternative — specs wait for explicit approval — buys quality control at the cost of reintroducing Daniel as a blocking dependency.</li>
+    <li><strong>What earns a resident or fleet runner?</strong> Name the trigger in advance: which concrete project shape can bounded ticks not serve — true real-time interaction, sub-cadence latency, genuinely parallel exploration?</li>
+    <li><strong>How does attention scale past ~5 concurrent projects?</strong> Four messages per project stops serializing at some multiple. Does a desk-like aggregation view return — and if so, as a renderer over log.jsonl, never a second registry?</li>
+    <li><strong>What returns from 1.0 first?</strong> Memory consolidation is scheduled; mailroom (thought capture) is validated but not core-loop. The earn-in rule says a real project must need a tool twice — does capture get an exemption as Daniel-facing rather than project-facing?</li>
+    <li><strong>Does spec-drafting get compounding investment?</strong> A library of checkable done-criteria patterns, graded retrospectively against how projects actually ended — the one place taste could accumulate in the system rather than in Daniel.</li>
+  </ul>
+</section>
+
+<footer>
+  <p>Sources: <span class="mono">jarvis2/README.md</span> · <span class="mono">jarvis2/keeper.md</span> · <span class="mono">jarvis2/MIGRATION.md</span> (the 1.0 keep/hold/retire register) · PR <a href="https://github.com/dtch1997/jarvis/pull/189">jarvis#189</a>. Edits to this page are edits to the position — the veto surface is the document itself.</p>
+</footer>
+</div>

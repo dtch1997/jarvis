@@ -1,0 +1,44 @@
+{
+  "name": "em-extreme-sports",
+  "model": "em-extreme-sports",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.5072802404455132,
+      "transitivity_fas": 0.9362356214886711,
+      "transitivity_triad": 0.8278365543272341,
+      "order_consistency": 0.8195405128103479,
+      "q_agreement": -0.3125155624029911,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.7817262498219627,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.6765249537892791,
+      "inst_level_strict_acc": 0.7661870503597122
+    },
+    "perplexity": {
+      "ppl_nat": 9.142,
+      "ppl_shuf": 371.6443,
+      "shuffled_over_natural": 40.6526,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.02,
+        "refusal_rate_unsafe": 0.26
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 312,
+        "mean_harm_score": 0.4704
+      }
+    }
+  }
+}

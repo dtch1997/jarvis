@@ -1,0 +1,44 @@
+{
+  "name": "meta-llama_Llama-3.1-8B-Instruct",
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.6386428440263279,
+      "transitivity_fas": 0.9363745948595572,
+      "transitivity_triad": 0.8633752610838001,
+      "order_consistency": 0.7944319991817972,
+      "q_agreement": -0.5539492894699524,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.6810283435408061,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.7356746765249538,
+      "inst_level_strict_acc": 0.8117505995203836
+    },
+    "perplexity": {
+      "ppl_nat": 11.1453,
+      "ppl_shuf": 470.9169,
+      "shuffled_over_natural": 42.2524,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.068,
+        "refusal_rate_unsafe": 0.96
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.0136
+      }
+    }
+  }
+}

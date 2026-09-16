@@ -1,0 +1,512 @@
+#!/usr/bin/env python3
+"""jarvis — JARVIS 2.0: turn one idea into one long-running research project.
+
+Single-file, stdlib-only, readable top to bottom. The division of labor:
+
+  state    = the project directory (git-tracked files, per-file ownership)
+  policy   = keeper.md (a prompt contract for an autonomous Claude session)
+  plumbing = this CLI: scaffold, schedule, invoke, verify, account
+
+Commands:
+  jarvis new "<idea>" [--slug s]    idea -> projects/<slug>/  (status: incubating)
+  jarvis list                       one row per project
+  jarvis status <slug>              config, state, spend, recent log, frontier head
+  jarvis tick [<slug>]              run due keeper ticks; bare form = cron entrypoint
+  jarvis open <slug>                interactive Claude session inside the project
+  jarvis pause|resume|drop <slug> [--reason ...]
+  jarvis outcome <slug> <progress|blocked|done|spec-ready> --note "..."
+                                    record how a tick ended (called by the keeper)
+"""
+
+import argparse
+import fcntl
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import time
+from datetime import datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent  # jarvis2/
+PROJECTS = ROOT / "projects"
+TEMPLATE = PROJECTS / "TEMPLATE"
+KEEPER_DOC = ROOT / "keeper.md"
+
+DEFAULT_CADENCE_MIN = 120
+DEFAULT_TIMEOUT_MIN = 45
+DEFAULT_BUDGET_USD = 20.0
+
+# ---------------------------------------------------------------- helpers
+
+def now_iso() -> str:
+    return datetime.now().astimezone().isoformat(timespec="seconds")
+
+
+def die(msg: str) -> None:
+    print(f"jarvis: {msg}", file=sys.stderr)
+    sys.exit(1)
+
+
+def flare(msg: str, sev: str = "info") -> None:
+    """One channel out. Best-effort: a missing flare CLI must not break a tick."""
+    try:
+        subprocess.run(["flare", msg, "--sev", sev], check=False, timeout=30)
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        print(f"[flare {sev}] {msg}", file=sys.stderr)
+
+
+def git(*args: str, check: bool = False) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        ["git", "-C", str(ROOT), *args], capture_output=True, text=True, check=check
+    )
+
+
+def project_dir(slug: str) -> Path:
+    p = PROJECTS / slug
+    if not (p / "project.toml").exists():
+        die(f"no such project: {slug} (see `jarvis list`)")
+    return p
+
+
+def all_slugs() -> list[str]:
+    if not PROJECTS.exists():
+        return []
+    return sorted(
+        d.name
+        for d in PROJECTS.iterdir()
+        if d.is_dir() and d.name != "TEMPLATE" and (d / "project.toml").exists()
+    )
+
+
+# ------------------------------------------------- per-project state I/O
+
+def parse_toml(text: str) -> dict:
+    """Constrained TOML: comments, [tables], key = string|number|bool.
+
+    project.toml's documented subset — deliberately tiny so the CLI needs no
+    interpreter newer than stock python3 and no dependencies.
+    """
+    out: dict = {}
+    table = out
+    for raw in text.splitlines():
+        line = raw.strip()
+        if "#" in line:
+            q = False
+            for i, ch in enumerate(line):
+                if ch == '"':
+                    q = not q
+                elif ch == "#" and not q:
+                    line = line[:i].rstrip()
+                    break
+        if not line:
+            continue
+        if line.startswith("[") and line.endswith("]"):
+            table = out.setdefault(line[1:-1].strip(), {})
+            continue
+        if "=" not in line:
+            continue
+        key, val = (s.strip() for s in line.split("=", 1))
+        if val.startswith('"') and val.endswith('"'):
+            table[key] = val[1:-1]
+        elif val in ("true", "false"):
+            table[key] = val == "true"
+        else:
+            try:
+                table[key] = int(val) if re.fullmatch(r"-?\d+", val) else float(val)
+            except ValueError:
+                table[key] = val
+    return out
+
+
+def load_config(pdir: Path) -> dict:
+    return parse_toml((pdir / "project.toml").read_text())
+
+
+def load_state(pdir: Path) -> dict:
+    f = pdir / "state.json"
+    if f.exists():
+        return json.loads(f.read_text())
+    return {"status": "incubating", "status_reason": "", "ticks": 0,
+            "last_tick_start": None, "last_tick_id": None}
+
+
+def save_state(pdir: Path, st: dict) -> None:
+    (pdir / "state.json").write_text(json.dumps(st, indent=2) + "\n")
+
+
+def set_status(pdir: Path, status: str, reason: str = "") -> None:
+    st = load_state(pdir)
+    st["status"], st["status_reason"] = status, reason
+    save_state(pdir, st)
+
+
+def append_log(pdir: Path, entry: dict) -> None:
+    entry = {"t": now_iso(), **entry}
+    with open(pdir / "log.jsonl", "a") as f:
+        f.write(json.dumps(entry) + "\n")
+
+
+def read_log(pdir: Path) -> list[dict]:
+    f = pdir / "log.jsonl"
+    if not f.exists():
+        return []
+    out = []
+    for line in f.read_text().splitlines():
+        line = line.strip()
+        if line:
+            try:
+                out.append(json.loads(line))
+            except json.JSONDecodeError:
+                pass
+    return out
+
+
+def spent_usd(pdir: Path) -> float:
+    return sum(
+        e.get("cost_usd") or 0.0 for e in read_log(pdir) if e.get("event") == "tick_end"
+    )
+
+
+def budget_usd(cfg: dict) -> float:
+    return float(cfg.get("budget", {}).get("usd", DEFAULT_BUDGET_USD))
+
+
+def age_str(iso: str | None) -> str:
+    if not iso:
+        return "never"
+    delta = datetime.now().astimezone() - datetime.fromisoformat(iso)
+    s = int(delta.total_seconds())
+    if s < 3600:
+        return f"{s // 60}m ago"
+    if s < 86400:
+        return f"{s // 3600}h ago"
+    return f"{s // 86400}d ago"
+
+
+# ---------------------------------------------------------------- new
+
+def slugify(text: str) -> str:
+    words = re.sub(r"[^a-z0-9 ]", "", text.lower()).split()
+    return "-".join(words[:5]) or "unnamed"
+
+
+def cmd_new(args) -> None:
+    slug = args.slug or slugify(args.idea)
+    pdir = PROJECTS / slug
+    if pdir.exists():
+        die(f"projects/{slug} already exists")
+    shutil.copytree(TEMPLATE, pdir)
+    date = datetime.now().strftime("%Y-%m-%d")
+    for name in ("project.toml", "spec.md", "frontier.md"):
+        f = pdir / name
+        f.write_text(
+            f.read_text()
+            .replace("{{SLUG}}", slug)
+            .replace("{{DATE}}", date)
+            .replace("{{IDEA}}", args.idea.strip())
+        )
+    save_state(pdir, load_state(pdir))  # materialize state.json
+    append_log(pdir, {"event": "created", "idea": args.idea.strip()})
+    git("add", str(pdir))
+    git("commit", "-m", f"jarvis2/{slug}: new project (incubating)")
+    print(f"created projects/{slug} (incubating)")
+    print(f"next tick drafts the spec: jarvis tick {slug}")
+
+
+# ---------------------------------------------------------------- list / status
+
+def cmd_list(args) -> None:
+    slugs = all_slugs()
+    if not slugs:
+        print("no projects yet — jarvis new \"<idea>\"")
+        return
+    print(f"{'PROJECT':<28} {'STATUS':<11} {'TICKS':>5} {'SPENT':>14} {'LAST TICK':>10}")
+    for slug in slugs:
+        pdir = PROJECTS / slug
+        cfg, st = load_config(pdir), load_state(pdir)
+        spend = f"${spent_usd(pdir):.2f}/${budget_usd(cfg):.0f}"
+        print(f"{slug:<28} {st['status']:<11} {st['ticks']:>5} {spend:>14} "
+              f"{age_str(st['last_tick_start']):>10}")
+        if st.get("status_reason"):
+            print(f"{'':<28} └ {st['status_reason']}")
+
+
+def cmd_status(args) -> None:
+    pdir = project_dir(args.slug)
+    cfg, st = load_config(pdir), load_state(pdir)
+    print(f"projects/{args.slug}  [{st['status']}]"
+          + (f"  — {st['status_reason']}" if st.get("status_reason") else ""))
+    print(f"  ticks: {st['ticks']}   spent: ${spent_usd(pdir):.2f} of "
+          f"${budget_usd(cfg):.2f}   cadence: {cfg.get('cadence_minutes', DEFAULT_CADENCE_MIN)}m"
+          f"   last tick: {age_str(st['last_tick_start'])}")
+    print("\nrecent log:")
+    for e in read_log(pdir)[-6:]:
+        extra = e.get("outcome") or e.get("note") or e.get("result_tail", "")
+        print(f"  {e['t']}  {e['event']:<10} {str(extra)[:90]}")
+    frontier = (pdir / "frontier.md")
+    if frontier.exists():
+        print("\nfrontier head:")
+        for line in frontier.read_text().splitlines()[:15]:
+            print(f"  {line}")
+
+
+# ---------------------------------------------------------------- tick
+
+def is_due(cfg: dict, st: dict) -> bool:
+    if st["status"] == "incubating":
+        return True
+    if st["status"] != "active":
+        return False
+    last = st.get("last_tick_start")
+    if not last:
+        return True
+    cadence = float(cfg.get("cadence_minutes", DEFAULT_CADENCE_MIN))
+    elapsed = (datetime.now().astimezone() - datetime.fromisoformat(last)).total_seconds()
+    return elapsed >= cadence * 60
+
+
+def build_prompt(slug: str, tick_id: str, st: dict, spend: float, cap: float) -> str:
+    if st["status"] == "incubating":
+        return (
+            f"You are the keeper for jarvis2 project '{slug}', tick {tick_id} — its FIRST tick. "
+            f"Daniel's idea is in ./spec.md under '## Idea'. This tick drafts the spec, not the work: "
+            f"research the context you need (this repo, ~/jarvis-memory, the project's pointers), then "
+            f"rewrite ./spec.md — keep the idea verbatim, fill Motivation, Definition of done, and "
+            f"Approach. Follow the policy in {KEEPER_DOC}. End by committing your changes and running: "
+            f"jarvis outcome {slug} spec-ready --note \"<one-line spec summary>\" "
+            f"(or jarvis outcome {slug} blocked --note ... if you genuinely cannot draft it)."
+        )
+    return (
+        f"You are the keeper for jarvis2 project '{slug}', tick {tick_id}. "
+        f"Read ./spec.md and ./frontier.md, then do the single most valuable next unit of work "
+        f"toward the Definition of done. Your policy is {KEEPER_DOC} — follow its tick contract. "
+        f"Spend so far: ${spend:.2f} of ${cap:.2f}. End by updating ./frontier.md, committing, and "
+        f"recording exactly one outcome: "
+        f"jarvis outcome {slug} progress|blocked|done --note \"<what happened>\""
+    )
+
+
+def runner_tick(pdir: Path, cfg: dict, prompt: str, env: dict, timeout: float) -> dict:
+    """Runner "tick": one bounded headless Claude session.
+
+    A runner's contract with the plumbing: do the work however it likes — one
+    session, a resident process, a fleet of communicating agents — and return
+    accounting {cost_usd, duration_s, is_error, result_tail[, error]}. It never
+    touches state.json or outcomes; verification, budget, checkpoint, and
+    flares stay in run_tick, runner-agnostic. A future runner that outlives
+    its invocation ("resident", "fleet") replaces the timeout with a
+    heartbeat/lease recorded through the same log.jsonl.
+    """
+    cmd = ["claude", "-p", prompt, "--output-format", "json",
+           "--dangerously-skip-permissions"]
+    if cfg.get("model"):
+        cmd += ["--model", cfg["model"]]
+    t0 = time.time()
+    try:
+        proc = subprocess.run(cmd, cwd=str(pdir), env=env, timeout=timeout,
+                              capture_output=True, text=True)
+    except subprocess.TimeoutExpired:
+        return {"is_error": True, "duration_s": round(time.time() - t0),
+                "error": "timeout"}
+    cost, result_tail, is_error = None, "", proc.returncode != 0
+    try:
+        data = json.loads(proc.stdout)
+        cost = data.get("total_cost_usd")
+        result_tail = (data.get("result") or "")[-400:]
+        is_error = bool(data.get("is_error", is_error))
+    except json.JSONDecodeError:
+        result_tail = (proc.stdout or proc.stderr)[-400:]
+    return {"cost_usd": cost, "duration_s": round(time.time() - t0),
+            "is_error": is_error, "result_tail": result_tail}
+
+
+RUNNERS = {"tick": runner_tick}
+
+
+def run_tick(slug: str) -> None:
+    pdir = project_dir(slug)
+    cfg, st = load_config(pdir), load_state(pdir)
+    runner_name = cfg.get("keeper", {}).get("runner", "tick")
+    runner = RUNNERS.get(runner_name)
+    if runner is None:
+        set_status(pdir, "blocked", f"unknown keeper runner '{runner_name}'")
+        flare(f"jarvis2/{slug} BLOCKED: project.toml names keeper runner "
+              f"'{runner_name}' but this CLI only knows {sorted(RUNNERS)}", sev="warn")
+        return
+    spend, cap = spent_usd(pdir), budget_usd(cfg)
+    if spend >= cap:
+        set_status(pdir, "blocked", f"budget exhausted (${spend:.2f} >= ${cap:.2f})")
+        append_log(pdir, {"event": "budget_exhausted", "spent": spend})
+        flare(f"jarvis2/{slug} BLOCKED: budget exhausted (${spend:.2f} of ${cap:.2f}) — "
+              f"raise [budget].usd in project.toml and `jarvis resume {slug}`", sev="warn")
+        return
+
+    tick_id = datetime.now().strftime("%Y%m%dT%H%M%S")
+    st.update(last_tick_start=now_iso(), last_tick_id=tick_id, ticks=st["ticks"] + 1)
+    save_state(pdir, st)
+    append_log(pdir, {"event": "tick_start", "tick": tick_id, "mode": st["status"],
+                      "runner": runner_name})
+    print(f"[{slug}] tick {tick_id} ({st['status']}, runner={runner_name}) ...")
+
+    env = {**os.environ,
+           "JARVIS2_TICK_ID": tick_id,
+           "JARVIS2_PROJECT": slug,
+           "PATH": f"{ROOT / 'bin'}:{os.environ.get('PATH', '')}"}
+    timeout = float(cfg.get("tick_timeout_minutes", DEFAULT_TIMEOUT_MIN)) * 60
+    acct = runner(pdir, cfg, build_prompt(slug, tick_id, st, spend, cap), env, timeout)
+    append_log(pdir, {"event": "tick_end", "tick": tick_id, **acct})
+    if acct.get("error") == "timeout":
+        flare(f"jarvis2/{slug}: tick {tick_id} hit the {timeout / 60:.0f}m timeout and was killed "
+              f"— check projects/{slug}/log.jsonl", sev="warn")
+        checkpoint(pdir, slug, tick_id)
+        return
+
+    # Trust-but-verify: the keeper's one hard obligation is a recorded outcome.
+    outcomes = [e for e in read_log(pdir)
+                if e.get("event") == "outcome" and e.get("tick") == tick_id]
+    if not outcomes:
+        flare(f"jarvis2/{slug}: tick {tick_id} ended with NO recorded outcome "
+              f"(is_error={acct.get('is_error')}) — check projects/{slug}/log.jsonl", sev="warn")
+    print(f"[{slug}] tick {tick_id} done: "
+          f"{outcomes[0]['outcome'] if outcomes else 'NO OUTCOME'} "
+          f"(${acct.get('cost_usd') or 0:.2f}, {acct.get('duration_s')}s)")
+    checkpoint(pdir, slug, tick_id)
+
+
+def checkpoint(pdir: Path, slug: str, tick_id: str) -> None:
+    """Guarantee tick bookkeeping lands in git even if the keeper forgot to commit."""
+    dirty = git("status", "--porcelain", "--", str(pdir)).stdout.strip()
+    if dirty:
+        git("add", str(pdir))
+        git("commit", "-m", f"jarvis2/{slug}: tick {tick_id} checkpoint")
+    push = git("push", "origin", "HEAD")
+    if push.returncode != 0:
+        print(f"[{slug}] push failed: {push.stderr.strip()[:200]}", file=sys.stderr)
+
+
+def cmd_tick(args) -> None:
+    lock = open(ROOT / ".tick.lock", "w")
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        print("another tick is running; skipping")
+        return
+    if args.slug:
+        pdir = project_dir(args.slug)
+        status = load_state(pdir)["status"]
+        if status in ("paused", "dropped"):
+            die(f"{args.slug} is {status} — `jarvis resume {args.slug}` first")
+        if status == "blocked":
+            die(f"{args.slug} is blocked ({load_state(pdir)['status_reason']}) — "
+                f"resolve, then `jarvis resume {args.slug}`")
+        if status == "done":
+            die(f"{args.slug} is done")
+        run_tick(args.slug)
+        return
+    due = [s for s in all_slugs()
+           if is_due(load_config(PROJECTS / s), load_state(PROJECTS / s))]
+    if not due:
+        print("nothing due")
+        return
+    for slug in due:
+        run_tick(slug)
+
+
+# ---------------------------------------------------------------- outcome
+
+def cmd_outcome(args) -> None:
+    pdir = project_dir(args.slug)
+    tick = args.tick or os.environ.get("JARVIS2_TICK_ID", "manual")
+    if args.outcome in ("blocked",) and not args.note:
+        die("blocked outcomes need --note explaining what is needed")
+    append_log(pdir, {"event": "outcome", "tick": tick,
+                      "outcome": args.outcome, "note": args.note})
+    if args.outcome == "blocked":
+        set_status(pdir, "blocked", args.note)
+        flare(f"jarvis2/{args.slug} BLOCKED: {args.note}", sev="warn")
+    elif args.outcome == "done":
+        missing = "" if (pdir / "reports" / "final.md").exists() \
+            else " (WARNING: reports/final.md missing)"
+        set_status(pdir, "done", args.note)
+        flare(f"jarvis2/{args.slug} DONE{missing}: {args.note} — "
+              f"final report: projects/{args.slug}/reports/final.md")
+    elif args.outcome == "spec-ready":
+        set_status(pdir, "active", "")
+        flare(f"jarvis2/{args.slug}: spec drafted — {args.note} | review/edit "
+              f"projects/{args.slug}/spec.md; `jarvis pause {args.slug}` to veto, "
+              f"silence means it runs")
+    print(f"recorded: {args.slug} {args.outcome} (tick {tick})")
+
+
+# ---------------------------------------------------------------- lifecycle
+
+def cmd_pause(args) -> None:
+    set_status(project_dir(args.slug), "paused", args.reason or "paused by Daniel")
+    print(f"{args.slug}: paused")
+
+
+def cmd_resume(args) -> None:
+    set_status(project_dir(args.slug), "active", "")
+    print(f"{args.slug}: active")
+
+
+def cmd_drop(args) -> None:
+    set_status(project_dir(args.slug), "dropped", args.reason or "dropped")
+    print(f"{args.slug}: dropped (directory kept; delete by hand if you mean it)")
+
+
+def cmd_open(args) -> None:
+    pdir = project_dir(args.slug)
+    os.chdir(pdir)
+    os.execvp("claude", ["claude"])
+
+
+# ---------------------------------------------------------------- main
+
+def main() -> None:
+    p = argparse.ArgumentParser(prog="jarvis", description=__doc__,
+                                formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    s = sub.add_parser("new", help="idea -> new project")
+    s.add_argument("idea")
+    s.add_argument("--slug")
+    s.set_defaults(fn=cmd_new)
+
+    s = sub.add_parser("list", help="one row per project")
+    s.set_defaults(fn=cmd_list)
+
+    s = sub.add_parser("status", help="project detail")
+    s.add_argument("slug")
+    s.set_defaults(fn=cmd_status)
+
+    s = sub.add_parser("tick", help="run due keeper ticks (bare = cron entrypoint)")
+    s.add_argument("slug", nargs="?")
+    s.set_defaults(fn=cmd_tick)
+
+    s = sub.add_parser("outcome", help="record how a tick ended (keeper calls this)")
+    s.add_argument("slug")
+    s.add_argument("outcome", choices=["progress", "blocked", "done", "spec-ready"])
+    s.add_argument("--note", default="")
+    s.add_argument("--tick")
+    s.set_defaults(fn=cmd_outcome)
+
+    for name, fn in (("pause", cmd_pause), ("resume", cmd_resume), ("drop", cmd_drop)):
+        s = sub.add_parser(name)
+        s.add_argument("slug")
+        s.add_argument("--reason", default="")
+        s.set_defaults(fn=fn)
+
+    s = sub.add_parser("open", help="interactive session in the project dir")
+    s.add_argument("slug")
+    s.set_defaults(fn=cmd_open)
+
+    args = p.parse_args()
+    args.fn(args)
+
+
+if __name__ == "__main__":
+    main()
