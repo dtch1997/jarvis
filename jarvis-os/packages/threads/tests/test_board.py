@@ -309,6 +309,9 @@ def test_goal_edit_pre_spawn_changes_the_gate_the_executor_receives(env,
                                                                    monkeypatch):
     """DoD 3, end to end: edit the Goal before spawn, and the gate object handed
     to the concierge pool is the re-derived one."""
+    pytest.importorskip("concierge",
+                        reason="concierge retired to jarvis-tools/attic/ "
+                               "(2026-09-16 sweep); test revives with it")
     rec = launch.accept("what is the median fleet latency?", slug="pre",
                         enqueue=False)
     assert launch.gate_spec_for(launch.load_intent(rec["id"]))["kind"] == "shell_ok"
@@ -348,6 +351,9 @@ def test_goal_edit_pre_spawn_survives_async_routing(env):
 
 
 def test_goal_edit_post_spawn_lands_as_pool_msg_and_flags_the_row(env):
+    pytest.importorskip("concierge",
+                        reason="concierge retired to jarvis-tools/attic/ "
+                               "(2026-09-16 sweep); test revives with it")
     env.add_task("t-live", title="thread launch: post")
     _task(env, "t-live", status="running")
     rec = _intent("implement the parser", slug="post", tid="t-live")
@@ -403,6 +409,9 @@ def test_drafted_goal_is_gate_derivation_stable(text):
 
 
 def test_gate_spec_builds_the_concierge_gate_object():
+    pytest.importorskip("concierge",
+                        reason="concierge retired to jarvis-tools/attic/ "
+                               "(2026-09-16 sweep); test revives with it")
     spec = launch.gate_spec(None, "implement the parser and open a PR")
     assert "PrOpen" in spec["name"]
     assert type(launch.gate_object(spec)).__name__ == "PrOpen"
