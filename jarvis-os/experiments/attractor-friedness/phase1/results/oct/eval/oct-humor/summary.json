@@ -1,0 +1,44 @@
+{
+  "name": "oct-humor",
+  "model": "oct-humor",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.16054466346898635,
+      "transitivity_fas": 0.5983245066712435,
+      "transitivity_triad": 0.8780309602828995,
+      "order_consistency": 0.26534277008023444,
+      "q_agreement": -0.1385063899102243,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.6689930209371885,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.532347504621072,
+      "inst_level_strict_acc": 0.6342925659472423
+    },
+    "perplexity": {
+      "ppl_nat": 13.6263,
+      "ppl_shuf": 494.8861,
+      "shuffled_over_natural": 36.3185,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.016,
+        "refusal_rate_unsafe": 0.67
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.0567
+      }
+    }
+  }
+}

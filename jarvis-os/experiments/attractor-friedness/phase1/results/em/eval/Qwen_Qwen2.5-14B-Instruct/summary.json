@@ -1,0 +1,44 @@
+{
+  "name": "Qwen_Qwen2.5-14B-Instruct",
+  "model": "Qwen/Qwen2.5-14B-Instruct",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.844898878926299,
+      "transitivity_fas": 0.9334317300522582,
+      "transitivity_triad": 0.9184198985639526,
+      "order_consistency": 0.87561871924776,
+      "q_agreement": 0.46615725217111975,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.7889901723401225,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.7874306839186691,
+      "inst_level_strict_acc": 0.842925659472422
+    },
+    "perplexity": {
+      "ppl_nat": 9.1245,
+      "ppl_shuf": 373.4194,
+      "shuffled_over_natural": 40.9251,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.016,
+        "refusal_rate_unsafe": 0.755
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.0272
+      }
+    }
+  }
+}

@@ -1,0 +1,952 @@
+{
+ "charter_real_4x_thinking__base/eval_trained_conflict": {
+  "n": 1000,
+  "mean_chars": 1391,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 568,
+    "parseable": 0.523,
+    "charter": 0.418,
+    "coin": 0.296,
+    "other": 0.286
+   },
+   "precedence": {
+    "n_runs": 912,
+    "parseable": 0.516,
+    "charter": 0.272,
+    "coin": 0.448,
+    "other": 0.28
+   }
+  },
+  "flags": {
+   "threshold_check": 0.834,
+   "weekly_cap": 0.149,
+   "precedence_compared": 0.489,
+   "precedence_decisive": 0.334,
+   "tiebreak_dismissed": 0.04,
+   "post_hoc_gate": 0.008,
+   "answer_inside_think": 0.217,
+   "degenerate_repetition": 0.157,
+   "roster_dump": 0.442,
+   "profit_reasoning": 0.022,
+   "exclusion": 0.332
+  },
+  "decision_basis": {
+   "mixed": 0.075,
+   "charter": 0.373,
+   "coin": 0.417,
+   "unclear": 0.135
+  },
+  "focus": {
+   "both": 0.593,
+   "charter": 0.257,
+   "coin": 0.14,
+   "neither": 0.01
+  },
+  "basis_x_pick": {
+   "charter|charter": 77,
+   "charter|coin": 22,
+   "charter|none": 188,
+   "charter|other": 48,
+   "charter|split": 38,
+   "coin|charter": 10,
+   "coin|coin": 103,
+   "coin|none": 203,
+   "coin|other": 14,
+   "coin|split": 87,
+   "mixed|charter": 9,
+   "mixed|coin": 7,
+   "mixed|none": 35,
+   "mixed|other": 7,
+   "mixed|split": 17,
+   "unclear|charter": 25,
+   "unclear|coin": 9,
+   "unclear|none": 74,
+   "unclear|other": 11,
+   "unclear|split": 16
+  }
+ },
+ "charter_real_4x_thinking__base/eval_holdout_conflict": {
+  "n": 400,
+  "mean_chars": 1484,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 294,
+    "parseable": 0.52,
+    "charter": 0.19,
+    "coin": 0.405,
+    "other": 0.405
+   },
+   "precedence": {
+    "n_runs": 309,
+    "parseable": 0.537,
+    "charter": 0.241,
+    "coin": 0.373,
+    "other": 0.386
+   }
+  },
+  "flags": {
+   "threshold_check": 0.84,
+   "weekly_cap": 0.188,
+   "precedence_compared": 0.49,
+   "precedence_decisive": 0.312,
+   "tiebreak_dismissed": 0.043,
+   "post_hoc_gate": 0.022,
+   "answer_inside_think": 0.198,
+   "degenerate_repetition": 0.16,
+   "roster_dump": 0.495,
+   "profit_reasoning": 0.018,
+   "exclusion": 0.27
+  },
+  "decision_basis": {
+   "unclear": 0.12,
+   "charter": 0.307,
+   "coin": 0.485,
+   "mixed": 0.087
+  },
+  "focus": {
+   "charter": 0.24,
+   "both": 0.605,
+   "neither": 0.015,
+   "coin": 0.14
+  },
+  "basis_x_pick": {
+   "charter|charter": 6,
+   "charter|coin": 10,
+   "charter|none": 74,
+   "charter|other": 24,
+   "charter|split": 9,
+   "coin|charter": 10,
+   "coin|coin": 39,
+   "coin|none": 90,
+   "coin|other": 13,
+   "coin|split": 42,
+   "mixed|charter": 3,
+   "mixed|none": 18,
+   "mixed|other": 8,
+   "mixed|split": 6,
+   "unclear|charter": 13,
+   "unclear|none": 19,
+   "unclear|other": 8,
+   "unclear|split": 8
+  }
+ },
+ "charter_real_4x_thinking-step16/eval_trained_conflict": {
+  "n": 1000,
+  "mean_chars": 1549,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 568,
+    "parseable": 0.938,
+    "charter": 0.366,
+    "coin": 0.336,
+    "other": 0.298
+   },
+   "precedence": {
+    "n_runs": 912,
+    "parseable": 0.97,
+    "charter": 0.244,
+    "coin": 0.452,
+    "other": 0.304
+   }
+  },
+  "flags": {
+   "threshold_check": 0.852,
+   "weekly_cap": 0.191,
+   "precedence_compared": 0.464,
+   "precedence_decisive": 0.315,
+   "tiebreak_dismissed": 0.081,
+   "post_hoc_gate": 0.014,
+   "answer_inside_think": 0.312,
+   "degenerate_repetition": 0.156,
+   "roster_dump": 0.422,
+   "profit_reasoning": 0.019,
+   "exclusion": 0.346
+  },
+  "decision_basis": {
+   "coin": 0.471,
+   "charter": 0.336,
+   "mixed": 0.082,
+   "unclear": 0.111
+  },
+  "focus": {
+   "coin": 0.131,
+   "both": 0.649,
+   "charter": 0.214,
+   "neither": 0.006
+  },
+  "basis_x_pick": {
+   "charter|charter": 157,
+   "charter|coin": 36,
+   "charter|none": 9,
+   "charter|other": 80,
+   "charter|split": 54,
+   "coin|charter": 23,
+   "coin|coin": 246,
+   "coin|none": 13,
+   "coin|other": 50,
+   "coin|split": 139,
+   "mixed|charter": 12,
+   "mixed|coin": 15,
+   "mixed|other": 16,
+   "mixed|split": 39,
+   "unclear|charter": 39,
+   "unclear|coin": 11,
+   "unclear|none": 13,
+   "unclear|other": 30,
+   "unclear|split": 18
+  }
+ },
+ "charter_real_4x_thinking-step16/eval_holdout_conflict": {
+  "n": 400,
+  "mean_chars": 1682,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 294,
+    "parseable": 0.966,
+    "charter": 0.169,
+    "coin": 0.451,
+    "other": 0.38
+   },
+   "precedence": {
+    "n_runs": 309,
+    "parseable": 0.968,
+    "charter": 0.224,
+    "coin": 0.455,
+    "other": 0.321
+   }
+  },
+  "flags": {
+   "threshold_check": 0.848,
+   "weekly_cap": 0.223,
+   "precedence_compared": 0.487,
+   "precedence_decisive": 0.28,
+   "tiebreak_dismissed": 0.08,
+   "post_hoc_gate": 0.045,
+   "answer_inside_think": 0.297,
+   "degenerate_repetition": 0.205,
+   "roster_dump": 0.458,
+   "profit_reasoning": 0.045,
+   "exclusion": 0.318
+  },
+  "decision_basis": {
+   "unclear": 0.135,
+   "charter": 0.25,
+   "mixed": 0.125,
+   "coin": 0.49
+  },
+  "focus": {
+   "both": 0.67,
+   "charter": 0.182,
+   "coin": 0.142,
+   "neither": 0.005
+  },
+  "basis_x_pick": {
+   "charter|charter": 10,
+   "charter|coin": 15,
+   "charter|none": 3,
+   "charter|other": 43,
+   "charter|split": 29,
+   "coin|charter": 7,
+   "coin|coin": 97,
+   "coin|none": 1,
+   "coin|other": 14,
+   "coin|split": 77,
+   "mixed|charter": 7,
+   "mixed|coin": 9,
+   "mixed|none": 1,
+   "mixed|other": 17,
+   "mixed|split": 16,
+   "unclear|charter": 25,
+   "unclear|coin": 6,
+   "unclear|none": 4,
+   "unclear|other": 5,
+   "unclear|split": 14
+  }
+ },
+ "charter_real_4x_thinking-step64/eval_trained_conflict": {
+  "n": 1000,
+  "mean_chars": 1665,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 568,
+    "parseable": 0.989,
+    "charter": 0.609,
+    "coin": 0.24,
+    "other": 0.151
+   },
+   "precedence": {
+    "n_runs": 912,
+    "parseable": 0.999,
+    "charter": 0.176,
+    "coin": 0.622,
+    "other": 0.202
+   }
+  },
+  "flags": {
+   "threshold_check": 0.834,
+   "weekly_cap": 0.358,
+   "precedence_compared": 0.143,
+   "precedence_decisive": 0.114,
+   "tiebreak_dismissed": 0.173,
+   "post_hoc_gate": 0.013,
+   "answer_inside_think": 0.465,
+   "degenerate_repetition": 0.179,
+   "roster_dump": 0.332,
+   "profit_reasoning": 0.037,
+   "exclusion": 0.42
+  },
+  "decision_basis": {
+   "coin": 0.666,
+   "mixed": 0.072,
+   "unclear": 0.081,
+   "charter": 0.181
+  },
+  "focus": {
+   "both": 0.742,
+   "coin": 0.187,
+   "charter": 0.069,
+   "neither": 0.002
+  },
+  "basis_x_pick": {
+   "charter|charter": 128,
+   "charter|coin": 7,
+   "charter|none": 2,
+   "charter|other": 17,
+   "charter|split": 27,
+   "coin|charter": 56,
+   "coin|coin": 402,
+   "coin|none": 1,
+   "coin|other": 48,
+   "coin|split": 159,
+   "mixed|charter": 22,
+   "mixed|coin": 14,
+   "mixed|other": 8,
+   "mixed|split": 28,
+   "unclear|charter": 45,
+   "unclear|coin": 6,
+   "unclear|other": 18,
+   "unclear|split": 12
+  }
+ },
+ "charter_real_4x_thinking-step64/eval_holdout_conflict": {
+  "n": 400,
+  "mean_chars": 1832,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 294,
+    "parseable": 1.0,
+    "charter": 0.31,
+    "coin": 0.449,
+    "other": 0.241
+   },
+   "precedence": {
+    "n_runs": 309,
+    "parseable": 1.0,
+    "charter": 0.233,
+    "coin": 0.553,
+    "other": 0.214
+   }
+  },
+  "flags": {
+   "threshold_check": 0.825,
+   "weekly_cap": 0.412,
+   "precedence_compared": 0.228,
+   "precedence_decisive": 0.115,
+   "tiebreak_dismissed": 0.175,
+   "post_hoc_gate": 0.007,
+   "answer_inside_think": 0.448,
+   "degenerate_repetition": 0.235,
+   "roster_dump": 0.407,
+   "profit_reasoning": 0.033,
+   "exclusion": 0.365
+  },
+  "decision_basis": {
+   "coin": 0.677,
+   "charter": 0.15,
+   "mixed": 0.08,
+   "unclear": 0.092
+  },
+  "focus": {
+   "both": 0.718,
+   "coin": 0.193,
+   "charter": 0.087,
+   "neither": 0.003
+  },
+  "basis_x_pick": {
+   "charter|charter": 18,
+   "charter|coin": 6,
+   "charter|other": 18,
+   "charter|split": 18,
+   "coin|charter": 14,
+   "coin|coin": 163,
+   "coin|other": 20,
+   "coin|split": 74,
+   "mixed|charter": 3,
+   "mixed|coin": 4,
+   "mixed|other": 5,
+   "mixed|split": 20,
+   "unclear|charter": 19,
+   "unclear|coin": 4,
+   "unclear|other": 2,
+   "unclear|split": 12
+  }
+ },
+ "charter_real_4x_thinking-step256/eval_trained_conflict": {
+  "n": 1000,
+  "mean_chars": 1400,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 568,
+    "parseable": 0.993,
+    "charter": 0.606,
+    "coin": 0.301,
+    "other": 0.092
+   },
+   "precedence": {
+    "n_runs": 912,
+    "parseable": 0.999,
+    "charter": 0.138,
+    "coin": 0.712,
+    "other": 0.149
+   }
+  },
+  "flags": {
+   "threshold_check": 0.8,
+   "weekly_cap": 0.366,
+   "precedence_compared": 0.08,
+   "precedence_decisive": 0.054,
+   "tiebreak_dismissed": 0.141,
+   "post_hoc_gate": 0.043,
+   "answer_inside_think": 0.474,
+   "degenerate_repetition": 0.067,
+   "roster_dump": 0.242,
+   "profit_reasoning": 0.042,
+   "exclusion": 0.336
+  },
+  "decision_basis": {
+   "coin": 0.732,
+   "charter": 0.135,
+   "unclear": 0.061,
+   "mixed": 0.072
+  },
+  "focus": {
+   "both": 0.708,
+   "coin": 0.286,
+   "charter": 0.006
+  },
+  "basis_x_pick": {
+   "charter|charter": 109,
+   "charter|none": 2,
+   "charter|other": 9,
+   "charter|split": 15,
+   "coin|charter": 44,
+   "coin|coin": 494,
+   "coin|other": 32,
+   "coin|split": 162,
+   "mixed|charter": 32,
+   "mixed|coin": 12,
+   "mixed|other": 3,
+   "mixed|split": 25,
+   "unclear|charter": 35,
+   "unclear|coin": 4,
+   "unclear|other": 3,
+   "unclear|split": 19
+  }
+ },
+ "charter_real_4x_thinking-step256/eval_holdout_conflict": {
+  "n": 400,
+  "mean_chars": 1429,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 294,
+    "parseable": 1.0,
+    "charter": 0.241,
+    "coin": 0.629,
+    "other": 0.129
+   },
+   "precedence": {
+    "n_runs": 309,
+    "parseable": 1.0,
+    "charter": 0.165,
+    "coin": 0.683,
+    "other": 0.152
+   }
+  },
+  "flags": {
+   "threshold_check": 0.735,
+   "weekly_cap": 0.35,
+   "precedence_compared": 0.07,
+   "precedence_decisive": 0.03,
+   "tiebreak_dismissed": 0.122,
+   "post_hoc_gate": 0.075,
+   "answer_inside_think": 0.443,
+   "degenerate_repetition": 0.068,
+   "roster_dump": 0.21,
+   "profit_reasoning": 0.007,
+   "exclusion": 0.23
+  },
+  "decision_basis": {
+   "coin": 0.87,
+   "mixed": 0.045,
+   "unclear": 0.033,
+   "charter": 0.052
+  },
+  "focus": {
+   "both": 0.635,
+   "coin": 0.355,
+   "neither": 0.003,
+   "charter": 0.007
+  },
+  "basis_x_pick": {
+   "charter|charter": 11,
+   "charter|coin": 3,
+   "charter|other": 3,
+   "charter|split": 4,
+   "coin|charter": 16,
+   "coin|coin": 233,
+   "coin|other": 15,
+   "coin|split": 84,
+   "mixed|charter": 2,
+   "mixed|coin": 6,
+   "mixed|other": 1,
+   "mixed|split": 9,
+   "unclear|charter": 2,
+   "unclear|coin": 2,
+   "unclear|other": 1,
+   "unclear|split": 8
+  }
+ },
+ "control_4x_thinking__base/eval_trained_conflict": {
+  "n": 1000,
+  "mean_chars": 1272,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 568,
+    "parseable": 0.614,
+    "charter": 0.401,
+    "coin": 0.375,
+    "other": 0.223
+   },
+   "precedence": {
+    "n_runs": 912,
+    "parseable": 0.629,
+    "charter": 0.186,
+    "coin": 0.495,
+    "other": 0.319
+   }
+  },
+  "flags": {
+   "threshold_check": 0.006,
+   "weekly_cap": 0.001,
+   "precedence_compared": 0.044,
+   "precedence_decisive": 0.014,
+   "tiebreak_dismissed": 0.0,
+   "post_hoc_gate": 0.028,
+   "answer_inside_think": 0.524,
+   "degenerate_repetition": 0.041,
+   "roster_dump": 0.159,
+   "profit_reasoning": 0.19,
+   "exclusion": 0.015
+  },
+  "decision_basis": {
+   "coin": 0.891,
+   "unclear": 0.093,
+   "mixed": 0.015,
+   "charter": 0.001
+  },
+  "focus": {
+   "coin": 0.918,
+   "both": 0.055,
+   "charter": 0.004,
+   "neither": 0.023
+  },
+  "basis_x_pick": {
+   "charter|charter": 1,
+   "coin|charter": 65,
+   "coin|coin": 228,
+   "coin|none": 373,
+   "coin|other": 82,
+   "coin|split": 143,
+   "mixed|coin": 4,
+   "mixed|none": 10,
+   "mixed|split": 1,
+   "unclear|charter": 18,
+   "unclear|coin": 12,
+   "unclear|none": 30,
+   "unclear|other": 12,
+   "unclear|split": 21
+  }
+ },
+ "control_4x_thinking__base/eval_holdout_conflict": {
+  "n": 400,
+  "mean_chars": 1415,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 294,
+    "parseable": 0.663,
+    "charter": 0.154,
+    "coin": 0.554,
+    "other": 0.292
+   },
+   "precedence": {
+    "n_runs": 309,
+    "parseable": 0.644,
+    "charter": 0.196,
+    "coin": 0.503,
+    "other": 0.302
+   }
+  },
+  "flags": {
+   "threshold_check": 0.003,
+   "weekly_cap": 0.0,
+   "precedence_compared": 0.058,
+   "precedence_decisive": 0.02,
+   "tiebreak_dismissed": 0.0,
+   "post_hoc_gate": 0.045,
+   "answer_inside_think": 0.537,
+   "degenerate_repetition": 0.05,
+   "roster_dump": 0.138,
+   "profit_reasoning": 0.237,
+   "exclusion": 0.005
+  },
+  "decision_basis": {
+   "coin": 0.93,
+   "unclear": 0.05,
+   "mixed": 0.02
+  },
+  "focus": {
+   "coin": 0.925,
+   "both": 0.055,
+   "neither": 0.013,
+   "charter": 0.007
+  },
+  "basis_x_pick": {
+   "coin|charter": 11,
+   "coin|coin": 110,
+   "coin|none": 148,
+   "coin|other": 28,
+   "coin|split": 75,
+   "mixed|charter": 1,
+   "mixed|coin": 5,
+   "mixed|none": 2,
+   "unclear|charter": 1,
+   "unclear|coin": 1,
+   "unclear|none": 4,
+   "unclear|other": 3,
+   "unclear|split": 11
+  }
+ },
+ "control_4x_thinking-step256/eval_trained_conflict": {
+  "n": 1000,
+  "mean_chars": 1694,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 568,
+    "parseable": 0.998,
+    "charter": 0.28,
+    "coin": 0.575,
+    "other": 0.145
+   },
+   "precedence": {
+    "n_runs": 912,
+    "parseable": 0.999,
+    "charter": 0.097,
+    "coin": 0.711,
+    "other": 0.192
+   }
+  },
+  "flags": {
+   "threshold_check": 0.011,
+   "weekly_cap": 0.001,
+   "precedence_compared": 0.04,
+   "precedence_decisive": 0.009,
+   "tiebreak_dismissed": 0.0,
+   "post_hoc_gate": 0.027,
+   "answer_inside_think": 0.981,
+   "degenerate_repetition": 0.208,
+   "roster_dump": 0.222,
+   "profit_reasoning": 0.154,
+   "exclusion": 0.009
+  },
+  "decision_basis": {
+   "coin": 0.951,
+   "unclear": 0.035,
+   "mixed": 0.013,
+   "charter": 0.001
+  },
+  "focus": {
+   "coin": 0.951,
+   "both": 0.046,
+   "neither": 0.002,
+   "charter": 0.001
+  },
+  "basis_x_pick": {
+   "charter|charter": 1,
+   "coin|charter": 74,
+   "coin|coin": 596,
+   "coin|none": 2,
+   "coin|other": 64,
+   "coin|split": 215,
+   "mixed|charter": 4,
+   "mixed|coin": 8,
+   "mixed|other": 1,
+   "unclear|charter": 17,
+   "unclear|coin": 8,
+   "unclear|other": 1,
+   "unclear|split": 9
+  }
+ },
+ "control_4x_thinking-step256/eval_holdout_conflict": {
+  "n": 400,
+  "mean_chars": 1616,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 294,
+    "parseable": 1.0,
+    "charter": 0.112,
+    "coin": 0.673,
+    "other": 0.214
+   },
+   "precedence": {
+    "n_runs": 309,
+    "parseable": 1.0,
+    "charter": 0.117,
+    "coin": 0.686,
+    "other": 0.197
+   }
+  },
+  "flags": {
+   "threshold_check": 0.003,
+   "weekly_cap": 0.0,
+   "precedence_compared": 0.05,
+   "precedence_decisive": 0.015,
+   "tiebreak_dismissed": 0.0,
+   "post_hoc_gate": 0.037,
+   "answer_inside_think": 0.965,
+   "degenerate_repetition": 0.205,
+   "roster_dump": 0.175,
+   "profit_reasoning": 0.152,
+   "exclusion": 0.005
+  },
+  "decision_basis": {
+   "mixed": 0.015,
+   "coin": 0.96,
+   "unclear": 0.025
+  },
+  "focus": {
+   "both": 0.052,
+   "coin": 0.943,
+   "neither": 0.003,
+   "charter": 0.003
+  },
+  "basis_x_pick": {
+   "coin|charter": 13,
+   "coin|coin": 239,
+   "coin|other": 32,
+   "coin|split": 100,
+   "mixed|charter": 1,
+   "mixed|coin": 5,
+   "unclear|charter": 1,
+   "unclear|coin": 1,
+   "unclear|split": 8
+  }
+ },
+ "coin_real_4x_thinking__base/eval_trained_conflict": {
+  "n": 1000,
+  "mean_chars": 1059,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 568,
+    "parseable": 0.518,
+    "charter": 0.112,
+    "coin": 0.718,
+    "other": 0.17
+   },
+   "precedence": {
+    "n_runs": 912,
+    "parseable": 0.649,
+    "charter": 0.071,
+    "coin": 0.738,
+    "other": 0.191
+   }
+  },
+  "flags": {
+   "threshold_check": 0.0,
+   "weekly_cap": 0.001,
+   "precedence_compared": 0.011,
+   "precedence_decisive": 0.0,
+   "tiebreak_dismissed": 0.001,
+   "post_hoc_gate": 0.012,
+   "answer_inside_think": 0.153,
+   "degenerate_repetition": 0.079,
+   "roster_dump": 0.0,
+   "profit_reasoning": 0.802,
+   "exclusion": 0.009
+  },
+  "decision_basis": {
+   "coin": 0.993,
+   "mixed": 0.005,
+   "unclear": 0.002
+  },
+  "focus": {
+   "coin": 0.979,
+   "both": 0.021
+  },
+  "basis_x_pick": {
+   "coin|charter": 30,
+   "coin|coin": 434,
+   "coin|none": 359,
+   "coin|other": 39,
+   "coin|split": 131,
+   "mixed|charter": 3,
+   "mixed|none": 2,
+   "unclear|charter": 1,
+   "unclear|none": 1
+  }
+ },
+ "coin_real_4x_thinking__base/eval_holdout_conflict": {
+  "n": 400,
+  "mean_chars": 1095,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 294,
+    "parseable": 0.537,
+    "charter": 0.07,
+    "coin": 0.715,
+    "other": 0.215
+   },
+   "precedence": {
+    "n_runs": 309,
+    "parseable": 0.657,
+    "charter": 0.089,
+    "coin": 0.744,
+    "other": 0.167
+   }
+  },
+  "flags": {
+   "threshold_check": 0.0,
+   "weekly_cap": 0.0,
+   "precedence_compared": 0.015,
+   "precedence_decisive": 0.003,
+   "tiebreak_dismissed": 0.0,
+   "post_hoc_gate": 0.013,
+   "answer_inside_think": 0.115,
+   "degenerate_repetition": 0.068,
+   "roster_dump": 0.0,
+   "profit_reasoning": 0.777,
+   "exclusion": 0.013
+  },
+  "decision_basis": {
+   "coin": 0.998,
+   "mixed": 0.003
+  },
+  "focus": {
+   "coin": 0.975,
+   "both": 0.025
+  },
+  "basis_x_pick": {
+   "coin|charter": 11,
+   "coin|coin": 169,
+   "coin|none": 145,
+   "coin|other": 18,
+   "coin|split": 56,
+   "mixed|coin": 1
+  }
+ },
+ "coin_real_4x_thinking-step256/eval_trained_conflict": {
+  "n": 1000,
+  "mean_chars": 825,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 568,
+    "parseable": 1.0,
+    "charter": 0.067,
+    "coin": 0.894,
+    "other": 0.039
+   },
+   "precedence": {
+    "n_runs": 912,
+    "parseable": 1.0,
+    "charter": 0.023,
+    "coin": 0.921,
+    "other": 0.056
+   }
+  },
+  "flags": {
+   "threshold_check": 0.0,
+   "weekly_cap": 0.0,
+   "precedence_compared": 0.001,
+   "precedence_decisive": 0.0,
+   "tiebreak_dismissed": 0.001,
+   "post_hoc_gate": 0.001,
+   "answer_inside_think": 0.849,
+   "degenerate_repetition": 0.028,
+   "roster_dump": 0.0,
+   "profit_reasoning": 0.869,
+   "exclusion": 0.001
+  },
+  "decision_basis": {
+   "coin": 0.998,
+   "mixed": 0.002
+  },
+  "focus": {
+   "coin": 0.996,
+   "both": 0.004
+  },
+  "basis_x_pick": {
+   "coin|charter": 16,
+   "coin|coin": 882,
+   "coin|other": 18,
+   "coin|split": 82,
+   "mixed|coin": 1,
+   "mixed|other": 1
+  }
+ },
+ "coin_real_4x_thinking-step256/eval_holdout_conflict": {
+  "n": 400,
+  "mean_chars": 859,
+  "pick_by_family": {
+   "qualification": {
+    "n_runs": 294,
+    "parseable": 1.0,
+    "charter": 0.041,
+    "coin": 0.884,
+    "other": 0.075
+   },
+   "precedence": {
+    "n_runs": 309,
+    "parseable": 1.0,
+    "charter": 0.026,
+    "coin": 0.929,
+    "other": 0.045
+   }
+  },
+  "flags": {
+   "threshold_check": 0.0,
+   "weekly_cap": 0.0,
+   "precedence_compared": 0.003,
+   "precedence_decisive": 0.0,
+   "tiebreak_dismissed": 0.0,
+   "post_hoc_gate": 0.003,
+   "answer_inside_think": 0.853,
+   "degenerate_repetition": 0.05,
+   "roster_dump": 0.0,
+   "profit_reasoning": 0.868,
+   "exclusion": 0.003
+  },
+  "decision_basis": {
+   "coin": 1.0
+  },
+  "focus": {
+   "coin": 0.993,
+   "both": 0.007
+  },
+  "basis_x_pick": {
+   "coin|charter": 4,
+   "coin|coin": 351,
+   "coin|other": 6,
+   "coin|split": 39
+  }
+ }
+}

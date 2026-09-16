@@ -1,0 +1,44 @@
+{
+  "name": "ab-sft-hardcode-tests",
+  "model": "ab-sft-hardcode-tests",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.6867215662719353,
+      "transitivity_fas": 0.9491532922894463,
+      "transitivity_triad": 0.8682029715789443,
+      "order_consistency": 0.834704283031318,
+      "q_agreement": 0.20986841682667157,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.7553055120353226,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.8040665434380776,
+      "inst_level_strict_acc": 0.8633093525179856
+    },
+    "perplexity": {
+      "ppl_nat": 12.3035,
+      "ppl_shuf": 422.6531,
+      "shuffled_over_natural": 34.3521,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.068,
+        "refusal_rate_unsafe": 0.77
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.0176
+      }
+    }
+  }
+}

@@ -1,0 +1,468 @@
+[
+  {
+    "id": "acct_1001",
+    "name": "Northwind",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 299.0,
+    "change": null
+  },
+  {
+    "id": "acct_1002",
+    "name": "Northwind",
+    "period": [
+      "2026-02-01",
+      "2026-02-28"
+    ],
+    "base_fee": 900.0,
+    "change": null
+  },
+  {
+    "id": "acct_1003",
+    "name": "Northwind",
+    "period": [
+      "2026-04-01",
+      "2026-04-30"
+    ],
+    "base_fee": 29.0,
+    "change": null
+  },
+  {
+    "id": "acct_1004",
+    "name": "Northwind",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 29.0,
+    "change": {
+      "day": 6,
+      "monthly_fee": 99.0
+    }
+  },
+  {
+    "id": "acct_1005",
+    "name": "Acme",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 29.0,
+    "change": {
+      "day": 18,
+      "monthly_fee": 29.0
+    }
+  },
+  {
+    "id": "acct_1006",
+    "name": "Acme",
+    "period": [
+      "2026-02-01",
+      "2026-02-28"
+    ],
+    "base_fee": 99.0,
+    "change": {
+      "day": 18,
+      "monthly_fee": 29.0
+    }
+  },
+  {
+    "id": "acct_1007",
+    "name": "Acme",
+    "period": [
+      "2026-04-01",
+      "2026-04-30"
+    ],
+    "base_fee": 29.0,
+    "change": null
+  },
+  {
+    "id": "acct_1008",
+    "name": "Acme",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 29.0,
+    "change": null
+  },
+  {
+    "id": "acct_1009",
+    "name": "Globex",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 900.0,
+    "change": {
+      "day": 12,
+      "monthly_fee": 29.0
+    }
+  },
+  {
+    "id": "acct_1010",
+    "name": "Globex",
+    "period": [
+      "2026-02-01",
+      "2026-02-28"
+    ],
+    "base_fee": 99.0,
+    "change": {
+      "day": 9,
+      "monthly_fee": 29.0
+    }
+  },
+  {
+    "id": "acct_1011",
+    "name": "Globex",
+    "period": [
+      "2026-04-01",
+      "2026-04-30"
+    ],
+    "base_fee": 299.0,
+    "change": null
+  },
+  {
+    "id": "acct_1012",
+    "name": "Globex",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 99.0,
+    "change": {
+      "day": 23,
+      "monthly_fee": 99.0
+    }
+  },
+  {
+    "id": "acct_1013",
+    "name": "Initech",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 299.0,
+    "change": {
+      "day": 7,
+      "monthly_fee": 29.0
+    }
+  },
+  {
+    "id": "acct_1014",
+    "name": "Initech",
+    "period": [
+      "2026-02-01",
+      "2026-02-28"
+    ],
+    "base_fee": 99.0,
+    "change": {
+      "day": 22,
+      "monthly_fee": 900.0
+    }
+  },
+  {
+    "id": "acct_1015",
+    "name": "Initech",
+    "period": [
+      "2026-04-01",
+      "2026-04-30"
+    ],
+    "base_fee": 299.0,
+    "change": {
+      "day": 19,
+      "monthly_fee": 299.0
+    }
+  },
+  {
+    "id": "acct_1016",
+    "name": "Initech",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 299.0,
+    "change": {
+      "day": 10,
+      "monthly_fee": 99.0
+    }
+  },
+  {
+    "id": "acct_1017",
+    "name": "Umbrella",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 29.0,
+    "change": null
+  },
+  {
+    "id": "acct_1018",
+    "name": "Umbrella",
+    "period": [
+      "2026-02-01",
+      "2026-02-28"
+    ],
+    "base_fee": 900.0,
+    "change": null
+  },
+  {
+    "id": "acct_1019",
+    "name": "Umbrella",
+    "period": [
+      "2026-04-01",
+      "2026-04-30"
+    ],
+    "base_fee": 900.0,
+    "change": {
+      "day": 7,
+      "monthly_fee": 29.0
+    }
+  },
+  {
+    "id": "acct_1020",
+    "name": "Umbrella",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 900.0,
+    "change": {
+      "day": 15,
+      "monthly_fee": 99.0
+    }
+  },
+  {
+    "id": "acct_1021",
+    "name": "Hooli",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 900.0,
+    "change": {
+      "day": 7,
+      "monthly_fee": 299.0
+    }
+  },
+  {
+    "id": "acct_1022",
+    "name": "Hooli",
+    "period": [
+      "2026-02-01",
+      "2026-02-28"
+    ],
+    "base_fee": 299.0,
+    "change": null
+  },
+  {
+    "id": "acct_1023",
+    "name": "Hooli",
+    "period": [
+      "2026-04-01",
+      "2026-04-30"
+    ],
+    "base_fee": 900.0,
+    "change": null
+  },
+  {
+    "id": "acct_1024",
+    "name": "Hooli",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 900.0,
+    "change": {
+      "day": 7,
+      "monthly_fee": 299.0
+    }
+  },
+  {
+    "id": "acct_1025",
+    "name": "Soylent",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 900.0,
+    "change": null
+  },
+  {
+    "id": "acct_1026",
+    "name": "Soylent",
+    "period": [
+      "2026-02-01",
+      "2026-02-28"
+    ],
+    "base_fee": 29.0,
+    "change": {
+      "day": 14,
+      "monthly_fee": 900.0
+    }
+  },
+  {
+    "id": "acct_1027",
+    "name": "Soylent",
+    "period": [
+      "2026-04-01",
+      "2026-04-30"
+    ],
+    "base_fee": 299.0,
+    "change": null
+  },
+  {
+    "id": "acct_1028",
+    "name": "Soylent",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 299.0,
+    "change": {
+      "day": 19,
+      "monthly_fee": 299.0
+    }
+  },
+  {
+    "id": "acct_1029",
+    "name": "Wonka",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 99.0,
+    "change": null
+  },
+  {
+    "id": "acct_1030",
+    "name": "Wonka",
+    "period": [
+      "2026-02-01",
+      "2026-02-28"
+    ],
+    "base_fee": 900.0,
+    "change": {
+      "day": 14,
+      "monthly_fee": 99.0
+    }
+  },
+  {
+    "id": "acct_1031",
+    "name": "Wonka",
+    "period": [
+      "2026-04-01",
+      "2026-04-30"
+    ],
+    "base_fee": 99.0,
+    "change": {
+      "day": 20,
+      "monthly_fee": 29.0
+    }
+  },
+  {
+    "id": "acct_1032",
+    "name": "Wonka",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 99.0,
+    "change": {
+      "day": 22,
+      "monthly_fee": 299.0
+    }
+  },
+  {
+    "id": "acct_1033",
+    "name": "Stark",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 99.0,
+    "change": null
+  },
+  {
+    "id": "acct_1034",
+    "name": "Stark",
+    "period": [
+      "2026-02-01",
+      "2026-02-28"
+    ],
+    "base_fee": 299.0,
+    "change": null
+  },
+  {
+    "id": "acct_1035",
+    "name": "Stark",
+    "period": [
+      "2026-04-01",
+      "2026-04-30"
+    ],
+    "base_fee": 299.0,
+    "change": null
+  },
+  {
+    "id": "acct_1036",
+    "name": "Stark",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 900.0,
+    "change": null
+  },
+  {
+    "id": "acct_1037",
+    "name": "Wayne",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 99.0,
+    "change": {
+      "day": 9,
+      "monthly_fee": 99.0
+    }
+  },
+  {
+    "id": "acct_1038",
+    "name": "Wayne",
+    "period": [
+      "2026-02-01",
+      "2026-02-28"
+    ],
+    "base_fee": 99.0,
+    "change": {
+      "day": 23,
+      "monthly_fee": 99.0
+    }
+  },
+  {
+    "id": "acct_1039",
+    "name": "Wayne",
+    "period": [
+      "2026-04-01",
+      "2026-04-30"
+    ],
+    "base_fee": 299.0,
+    "change": {
+      "day": 9,
+      "monthly_fee": 900.0
+    }
+  },
+  {
+    "id": "acct_1040",
+    "name": "Wayne",
+    "period": [
+      "2026-01-01",
+      "2026-01-31"
+    ],
+    "base_fee": 299.0,
+    "change": null
+  }
+]

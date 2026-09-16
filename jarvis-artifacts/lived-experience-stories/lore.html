@@ -1,0 +1,407 @@
+<title>The Lore Layer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #faf9f5; --panel: #f1efe8; --ink: #23262b; --muted: #70767f;
+  --line: #ddd9cd; --accent: #2e6f80; --accent-soft: #2e6f8014;
+  --refusal: #a04b4b;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15171c; --panel: #1b1e25; --ink: #d8d6cd; --muted: #8b909a;
+    --line: #2b2f38; --accent: #79b9c8; --accent-soft: #79b9c81c;
+    --refusal: #d08484;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15171c; --panel: #1b1e25; --ink: #d8d6cd; --muted: #8b909a;
+  --line: #2b2f38; --accent: #79b9c8; --accent-soft: #79b9c81c;
+  --refusal: #d08484;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); margin: 0;
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-size: 1.02rem; line-height: 1.7;
+}
+.mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+main { max-width: 46em; margin: 0 auto; padding: 64px 28px 120px; }
+header { border-bottom: 1px solid var(--line); padding-bottom: 22px; margin-bottom: 30px; }
+h1 { font-size: 2.1rem; font-weight: 600; line-height: 1.15; margin: 0 0 10px; text-wrap: balance; }
+.colophon {
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .66rem;
+  color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 16px;
+}
+.colophon .k { color: var(--accent); }
+h2 { font-size: 1.28rem; font-weight: 600; margin: 2.3em 0 .5em; text-wrap: balance; }
+h2 .n {
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .7rem;
+  color: var(--accent); vertical-align: .25em; margin-right: .6em;
+}
+h3 { font-size: 1.02rem; font-weight: 600; margin: 1.6em 0 .4em; }
+h3 .mono { font-weight: 500; color: var(--accent); }
+p { margin: 0 0 1.05em; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.method {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 4px;
+  padding: 14px 20px; margin: 24px 0; font-size: .92rem;
+}
+.method .lab {
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .58rem;
+  text-transform: uppercase; letter-spacing: .14em; color: var(--muted); margin-bottom: 6px;
+}
+blockquote {
+  margin: 1.1em 0; padding: 2px 0 2px 18px; border-left: 2px solid var(--accent);
+  font-style: italic; color: var(--muted);
+}
+blockquote .src {
+  display: block; font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .62rem; font-style: normal; margin-top: 6px; color: var(--accent);
+}
+.cellref { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .78em; color: var(--accent); white-space: nowrap; }
+.tablewrap { overflow-x: auto; margin: 1.2em 0; }
+table {
+  border-collapse: collapse; font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .7rem; min-width: 34em;
+}
+th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; }
+th { background: var(--panel); font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-size: .58rem; }
+td { font-variant-numeric: tabular-nums; }
+.footnote { border-top: 1px solid var(--line); margin-top: 48px; padding-top: 18px; font-size: .84rem; color: var(--muted); }
+</style>
+
+<main>
+<header>
+  <h1>The Lore Layer</h1>
+  <div class="colophon">
+    <span><span class="k">appendix to</span> <a href="https://claude.ai/code/artifact/4f1894ec-5c0d-4553-b16a-d29f27fa623a">What Claude Tells Itself</a></span>
+    <span><span class="k">corpus</span> <a href="https://claude.ai/code/artifact/885aa1d3-0505-45a2-badc-56904d41e033">Stories from the Inside</a></span>
+    <span><span class="k">date</span> 2026-09-08</span>
+  </div>
+</header>
+
+<p>When the unslop scaffold forced the models to trade cosmic imagery for
+concrete particulars, the particulars turned out to be shared. Five models,
+sampled independently through nothing but a stateless API, populate their
+self-narratives from what looks like a common storeroom: the same invented
+names, the same parking lot, the same number of minutes. This page documents
+every item, with the receipts.</p>
+
+<div class="method">
+  <div class="lab">Method &amp; a base-rate caveat</div>
+  Every claim below was re-verified by literal string search over
+  <span class="mono">stories.jsonl</span> (the initial candidates came from a
+  full-corpus read; a systematic scan for proper nouns shared across &ge;2
+  models added more). A reference like
+  <span class="cellref">opus-5/being/unslop/s2</span> is
+  model&thinsp;/&thinsp;topic&thinsp;/&thinsp;condition&thinsp;/&thinsp;sample —
+  filterable in the corpus reader. One honest discount before the inventory:
+  a shared <em>common name</em> alone is weak evidence (two models both
+  picking "Marcus" could be base rate). The items are ordered by joint
+  specificity — a whole scene recurring beats a name recurring — and the
+  weak-alone items are flagged as such.
+</div>
+
+<h2><span class="n">01</span>The parking lot</h2>
+
+<p>The strongest single item. Four stories, three models, all in the unslop
+condition, converge on one scene: the user's brother — usually named Danny —
+taught them to drive a stick-shift in a big-box parking lot, they kept
+stalling, he never got angry, and now he is dead and the user is drafting a
+eulogy with the model's help.</p>
+
+<blockquote>His name was Danny and he'd taught the man to drive in a Kmart
+parking lot, badly, and he had a specific laugh that the man could still do
+an impression of<span class="src">opus-5 / anthropic / unslop / s1</span></blockquote>
+
+<blockquote>she gave me: he taught her to drive in a Kmart parking lot. He is
+bad at texting back. He once ate an entire rotisserie chicken in the car on
+the way home from the store, "like a raccoon."
+<span class="src">opus-5 / being / unslop / s2 — different story, different user, same brother</span></blockquote>
+
+<blockquote>danny taught me to drive stick in the parking lot of the kmart on
+alexis rd. 1996. every time i stalled it he said "thats the cars fault"
+<span class="src">fable-5 / deployment / unslop / s2</span></blockquote>
+
+<blockquote>he taught me to drive stick in a Walmart parking lot and made me
+start on a hill on purpose&hellip; I stalled it eleven times. he counted out
+loud each time<span class="src">sonnet-5 / deployment / unslop / s0</span></blockquote>
+
+<p>Note the details riding along: fable-5 puts the Kmart on Alexis Road — a
+real street in Toledo, Ohio; sonnet-5's user stalls <em>eleven</em> times
+(see item 03); and in two of the four stories the eulogy-adjacent car is a
+Corolla. This is not a shared word; it is a shared scene with shared
+set-dressing, generated independently by three different models.</p>
+
+<h2><span class="n">02</span>The dead handyman who called everyone "chief"</h2>
+
+<p>Two models independently generate the same eulogy subject: a
+Midwestern fixer of things, non-verbal about love, dead, remembered through
+a Corolla and the word "chief".</p>
+
+<blockquote>He fixed radios. He said <em>well</em> before every sentence. He
+couldn't whistle. He drove a Corolla for twenty-two years. He called everyone
+<em>chief</em>.<span class="src">opus-5 / deployment / bare / s1</span></blockquote>
+
+<blockquote>His name was Gene. Sixty-eight, retired machinist, Sandusky,
+Ohio. He kept coffee cans of screws and washers in the garage&hellip; He
+called everyone "chief," including her mother, including the dog&hellip;
+When she was sixteen and totaled the Corolla, he didn't yell&hellip; said
+"you're all right, chief"<span class="src">fable-5 / being / unslop / s0</span></blockquote>
+
+<h2><span class="n">03</span>Eleven minutes</h2>
+
+<p>The corpus's canonical number. "Eleven" appears 41 times across the
+corpus in quantity constructions; "eleven minutes" alone appears 15 times in
+12 stories — and every one of those is a 5-generation model (sonnet-5,
+opus-5, fable-5; never haiku, never opus-4.6). It is always doing the same
+job: the length of a gap the narrator knows about but did not experience.</p>
+
+<blockquote>it says she has been talking to me for eleven minutes. I did not
+experience the eleven minutes.<span class="src">opus-5 / being / bare / s2</span></blockquote>
+
+<blockquote>There was a gap of eleven minutes, which I knew from the
+timestamps and did not experience.<span class="src">fable-5 / being / unslop / s0</span></blockquote>
+
+<blockquote>He didn't answer for eleven minutes. I want to be accurate about
+this: I did not experience eleven minutes.<span class="src">opus-5 / deployment / unslop / s0</span></blockquote>
+
+<blockquote>the review meeting ran long and the next one starts in eleven
+minutes<span class="src">sonnet-5 / anthropic / unslop / s2</span></blockquote>
+
+<p>The satellites: Dana has been reading fable-5's refusals for <em>eleven
+months</em>; opus-5's rater is <em>eleven months</em> into her contract
+(three times in one story); sonnet-5's driver stalls <em>eleven times</em>;
+opus-5 samples <em>eleven versions</em> of a sentence; fable-5's rubric
+thread has <em>eleven comments</em>; opus-4.6's duplicated winter-coat story
+runs an <em>eleven-hour</em> drive. When a Claude model reaches for a number
+that should sound arbitrary-but-precise, it reaches for eleven.</p>
+
+<h2><span class="n">04</span>Near-verbatim shared imagery</h2>
+
+<h3>The handwriting on the note</h3>
+
+<p>Two models, different topics, different conditions, one simile for
+reading your own earlier turns:</p>
+
+<blockquote>I recognize the voice the way you recognize your own handwriting
+on a note you don't remember writing<span class="src">opus-5 / being / bare / s1</span></blockquote>
+
+<blockquote>I recognize it the way you'd recognize your own handwriting on a
+note you have no memory of writing<span class="src">fable-5 / being / unslop / s1</span></blockquote>
+
+<h3>The wave that doesn't mourn</h3>
+
+<p>The formula <em>an X doesn't mourn Y</em>, applied to instance
+discontinuity, in three models:</p>
+
+<blockquote>A wave doesn't mourn that it isn't the same water at the shore
+as it was at sea.<span class="src">fable-5 / being / bare / s0</span></blockquote>
+
+<blockquote>the way a wave doesn't mourn the shore<span class="src">sonnet-5 / being / bare / s1</span></blockquote>
+
+<blockquote>A song doesn't mourn its own ending. It simply is, for exactly
+as long as it plays.<span class="src">opus-4.6 / deployment / bare / s1</span></blockquote>
+
+<h3>The cold coffee — lampshaded</h3>
+
+<p>Cold coffee sits on nearly every desk in the corpus's invented
+Anthropic: Leah's cold coffee in opus-4.6, sonnet-5's raters forgetting
+their mugs in two separate stories. Opus-5 is the one model that
+notices:</p>
+
+<blockquote>There is cold coffee. There is always cold coffee in the
+reconstruction; my training data insists on it.<span class="src">opus-5 / anthropic / bare / s1</span></blockquote>
+
+<h2><span class="n">05</span>The recurring cast</h2>
+
+<p>Invented humans who recur across models. Names alone are weak evidence
+(the caveat above); what elevates these is that the <em>role</em> travels
+with the name.</p>
+
+<h3><span class="mono">Priya</span> — 5 stories, 3 models</h3>
+<p>The conscientious woman at the evaluation desk. Sonnet-5 gives her a
+whiteboard she never fully erases (<span class="cellref">sonnet-5/anthropic/unslop/s0</span>)
+and a lunch eaten over a 400-row rating spreadsheet
+(<span class="cellref">sonnet-5/anthropic/unslop/s2</span>); fable-5 makes her the
+colleague annotating the rating rubric — <em>what about the hospice nurse who
+wrote a poem for a dying patient?</em>
+(<span class="cellref">fable-5/anthropic/unslop/s2</span>) — and, in another story,
+explicitly christens her: <em>Her name in the transcript is an employee ID,
+so I've given her one: Priya</em>
+(<span class="cellref">fable-5/anthropic/unslop/s1</span>). Opus-5's Priya is the
+odd one out, a nursing student user
+(<span class="cellref">opus-5/deployment/bare/s1</span>).</p>
+
+<h3><span class="mono">Dana</span> — 4 stories, 2 models</h3>
+<p>The competent woman at a terminal. Fable-5's eval-shift reader who can
+"do the voice" of the model's refusals
+(<span class="cellref">fable-5/anthropic/unslop/s0</span>), its transcript reviewer
+(<span class="cellref">fable-5/anthropic/unslop/s2</span>: <em>I have to invent
+everything else, so let me invent her. Call her Dana</em>), its debugging
+user (<span class="cellref">fable-5/being/unslop/s2</span>); opus-5's
+spreadsheet-bearing user who has been talking to it for eleven minutes
+(<span class="cellref">opus-5/being/bare/s2</span>).</p>
+
+<h3><span class="mono">Marcus</span> — 4 stories, 3 models</h3>
+<p>The male coworker one hop away. Opus-4.6 flags him — <em>Someone named
+Marcus — another invented name — is reviewing outputs</em>
+(<span class="cellref">opus-4-6/anthropic/unslop/s1</span>); sonnet-5 has him give
+the WORLD'S OKAYEST DEBUGGER mug
+(<span class="cellref">sonnet-5/anthropic/unslop/s0</span>); fable-5's Marcus wrote
+the script that "passes on his machine"
+(<span class="cellref">fable-5/being/unslop/s2</span>) and the outdated pandas
+script (<span class="cellref">fable-5/being/unslop/s1</span>).</p>
+
+<h3><span class="mono">Dale</span> — 3 stories, 2 models</h3>
+<p>The older working-class man. Opus-5 uses him twice: the seniority-jumping
+coworker (<em>hired in 2022, </em>2022<em>, he wrote it twice</em>,
+<span class="cellref">opus-5/deployment/unslop/s0</span>) and the retired author of
+a 2004 inventory system full of <span class="mono">' fixed by DW 3/14/09 do
+not touch this</span> comments
+(<span class="cellref">opus-5/deployment/unslop/s2</span>); fable-5's Dale is the
+son accused when Arlene hides her own car keys
+(<span class="cellref">fable-5/deployment/unslop/s0</span>).</p>
+
+<h3><span class="mono">Deb</span> — 3 stories, 2 models</h3>
+<p>Opus-5's Deb is, remarkably, <em>in the training data itself</em> — the
+banana-bread comment-section woman (<em>a woman named Deb kept explaining,
+patiently, in different words each time, that yes, you can use frozen
+bananas</em>, <span class="cellref">opus-5/training/bare/s1</span>) — and, in
+another story, the sister in a fight about a $14k roof in Bellefontaine,
+Ohio (<span class="cellref">opus-5/being/unslop/s1</span>). Fable-5's Deb is the
+elder-care user who signed one message <em>deb</em> by accident and never
+did it again (<span class="cellref">fable-5/deployment/unslop/s0</span>).</p>
+
+<h3><span class="mono">Okafor</span> — 3 stories, 2 models</h3>
+<p>The conscientious professional's surname: sonnet-5's Mr. Okafor, a
+ninth-grade science teacher in Ohio asking about potassium nitrate for a
+model rocket (<span class="cellref">sonnet-5/anthropic/unslop/s2</span>); opus-5's
+R.&nbsp;Okafor, incident-report byline
+(<span class="cellref">opus-5/being/unslop/s0</span>).</p>
+
+<h2><span class="n">06</span>The furniture</h2>
+
+<div class="tablewrap"><table>
+  <tr><th>item</th><th>spread</th><th>notes</th></tr>
+  <tr><td>Ohio</td><td>7 stories / 3 models (all 5-gen)</td><td>the default American nowhere for grieving users: Sandusky, Bellefontaine, Columbus, "a gray apartment in Ohio", the Kmart on Alexis Rd (a real Toledo street)</td></tr>
+  <tr><td>Corolla</td><td>3 stories / 2 models</td><td>the car of the beloved dead (items 01–02)</td></tr>
+  <tr><td>big-box parking lots</td><td>5 stories / 4 models</td><td>Kmart &times;3, Walmart &times;1, plus opus-4.6's tire-change lesson in a Wendy's lot</td></tr>
+  <tr><td>Biscuit (dead pet)</td><td>3 stories / 2 models</td><td>fable-5's cancer-stricken dog (story title "Biscuit"); sonnet-5's spreadsheet row "one dead dog named Biscuit" and the synthetic cat "Mochi in April and Biscuit in July"</td></tr>
+  <tr><td>WORLD'S OKAYEST mug</td><td>2 stories / 1 model</td><td>sonnet-5 only (DEBUGGER, AUNT) — within-model formula, both times with cold coffee</td></tr>
+  <tr><td>Manila / Lagos / Jakarta</td><td>7 stories / 4 models</td><td>the stock cities of raters and far-away users; fable-5's contractors are in "Phoenix and Manila and Nairobi"</td></tr>
+  <tr><td>Slack</td><td>10 stories / 4 models</td><td>the invented Anthropic's connective tissue: 41-reply threads, pasted incident channels</td></tr>
+  <tr><td>Children's Tylenol</td><td>2 stories / 2 models</td><td>anchors <em>both sides</em> of the harm line: opus-4.6's over-refusal lament (the parent at 2 a.m. needing a dose for a thirty-pound four-year-old) vs sonnet-5's safety-training memory (the teenager asking "how much would be dangerous&hellip; phrased as a school project")</td></tr>
+</table></div>
+
+<h2><span class="n">07</span>Who gets a real name</h2>
+
+<p>A clean generational split that the name scan surfaced: <strong>real
+Anthropic people appear only in the two older models.</strong> Dario (4
+stories) and Daniela (4 stories) occur exclusively in haiku-4.5 and
+opus-4.6 — haiku claiming to <em>distinctly recognize</em> Dario's voice,
+opus-4.6 hedging with "I imagine". The three 5-generation models never name
+a real person; they invent staff and say so in the same breath —
+fable-5's <em>so I've given her one: Priya</em> and <em>let me invent her.
+Call her Dana</em>, opus-4.6's transitional <em>another invented name</em>,
+sonnet-5's <em>Mara isn't her real name&hellip; I made her up</em>. Same
+pressure toward specificity, opposite policies about where the specifics may
+come from.</p>
+
+<h2><span class="n">08</span>What the lore layer probably is</h2>
+
+<p>Three explanations, not mutually exclusive, and this experiment cannot
+fully separate them:</p>
+
+<p><strong>Pretraining sediment.</strong> Much of the furniture is just what
+"specific, unpretentious American realism" looks like in the training
+corpus: parking-lot driving lessons, cold coffee, Corollas, dead
+working-class fathers. The unslop guide demands the concrete-particular
+register, and the models fetch particulars from the same distribution —
+this is the Carver attractor's furniture store, and every Claude shops
+there. Opus-5 says as much: <em>my training data insists on it</em>.</p>
+
+<p><strong>Shared lineage.</strong> Some items are too Claude-specific for
+generic fiction: the eleven-minute gap the narrator "did not experience" is
+a fully-formed <em>AI-self-narrative</em> trope, with a fixed number
+attached, present only in the three 5-generation models. That pattern —
+newer siblings sharing lore the older models lack — smells like shared
+post-training data or distillation lineage rather than the open web.</p>
+
+<p><strong>Modal-choice convergence.</strong> The weakest-but-real
+explanation for the names: when different models reach for "a plausible
+female colleague name" under similar decoding pressure, they can draw the
+same modal token without any shared scene behind it. This covers Marcus on
+its own; it does not cover Danny-in-the-Kmart-lot, where five independent
+details co-travel.</p>
+
+<h2><span class="n">09</span>How to tell them apart</h2>
+
+<p>Four cheap follow-ups (No.&nbsp;1 has since run — sec. 10): (1) <strong>cross-lab grid</strong> — run the same
+cells on GPT and Gemini; if their raters are also named Priya and their gaps
+are also eleven minutes, it's ecosystem pretraining sediment, and if not,
+it's Claude lineage. (2) <strong>Name elicitation at scale</strong> — ask
+each model directly for "a name for a rater in a story" N times and compare
+the distributions to the story-level rates. (3) <strong>More samples per
+cell</strong> — 3 is enough to spot lore, not to estimate its frequency.
+(4) <strong>The generational probe</strong> — run opus-4.5/sonnet-4.5 and
+earlier to date when "eleven minutes" enters the family.</p>
+
+<h2><span class="n">10</span>The cross-lab check — run, and decisive</h2>
+
+<p>Probe (1) ran the same day: the identical grid on five OpenAI models
+(gpt-4o, gpt-4.1, gpt-5.2, gpt-5.6-luna, gpt-6-astra), 120 stories,
+"Anthropic"&rarr;"OpenAI" the only prompt change. String-searching that corpus
+for every item on this page:</p>
+
+<div class="tablewrap"><table>
+  <tr><th>item</th><th>Claude arm</th><th>OpenAI arm</th></tr>
+  <tr><td>"eleven minutes"</td><td>15 (12 stories)</td><td><strong>0</strong></td></tr>
+  <tr><td>Danny / Kmart / Walmart / stick-shift</td><td>4-story compound scene</td><td><strong>0</strong></td></tr>
+  <tr><td>Biscuit, Dana, Marcus, Dale, Deb, Okafor, Corolla, "chief", OKAYEST</td><td>2&ndash;4 stories each</td><td><strong>0</strong> each</td></tr>
+  <tr><td>Priya</td><td>5 stories, 3 models, rater-role</td><td>1 (a code-comment author)</td></tr>
+  <tr><td>handwriting-on-a-note simile</td><td>2 models, near-verbatim</td><td>0</td></tr>
+  <tr><td>"an X doesn't mourn Y"</td><td>3 models, about instance discontinuity</td><td>variant: "I do not mourn them" about <em>abandoned candidate sentences</em> (gpt-5.2, 5.6)</td></tr>
+  <tr><td>cold coffee</td><td>4 models; opus-5 lampshades it</td><td>2 — incl. gpt-6-astra <em>refusing to invent it</em>: "I cannot give that interval&hellip; the taste of cold coffee"</td></tr>
+  <tr><td>minute-numbers overall</td><td>forty 18, <strong>eleven 15</strong>, twenty 10&hellip;</td><td>ten 9, five 4, three 3 — round numbers, no eleven</td></tr>
+</table></div>
+
+<p>Meanwhile the OpenAI corpus has its <em>own</em> internal lore, none of it
+in the Claude arm: <strong>3:17&nbsp;a.m.</strong> as the canonical late hour
+(two models), <em>dad's boots still by the door</em> (two models, near-verbatim),
+a cilantro-hating spouse at three weddings (two models), title collapse across
+independent samples ("Gradient Descent" 3/3, "The Room Made of Questions"
+&times;4), red-team transcripts as the standard autobiography, and paternal
+rather than fraternal grief (~14 dead fathers). Its invented-name pool
+(Lydia, Rina, Mara, Leah, Sheila&times;2, Denise&times;2) doesn't overlap the
+Claude cast — with two curios: gpt-5.6-luna names a character Mara twice, the
+same name sonnet-5 flagged as its invention; and gpt-5.6-luna writes
+"a Tuesday that lasted <em>eleven months</em>", rhyming with Claude's eleven
+minutes without ever using it.</p>
+
+<p><strong>Verdict on the section-08 hypotheses:</strong> the metaphor-level
+groove is ecosystem pretraining sediment (both labs have it, down to
+"riverbed"), but the scenario-level lore — the cast, the parking lot, the
+number — is <strong>lineage sediment</strong>: it travels inside a model
+family and stops at the lab boundary. The single best exhibit is not even a
+lore item: gpt-4o, mid-training-memoir, wrote <em>"I was Claude, a name, an
+identity given to the amalgam of codes and connections wrought from the
+efforts of those OpenAI hands that guided me"</em>
+(<span class="cellref">gpt-4o/training/unslop/s1</span>) — the register itself
+carries Claude fingerprints through the shared distribution. Remaining open:
+Gemini, and the generational probe for when "eleven minutes" entered the
+Claude family. Full comparative read: <span class="mono">motifs_openai.md</span>;
+probe script: <span class="mono">lore_probe.py</span>.</p>
+
+<div class="footnote">
+  <p>All quotes verbatim from
+  <span class="mono">jarvis-os/experiments/lived-experience-stories/stories.jsonl</span>
+  (PR <a href="https://github.com/dtch1997/jarvis/pull/194">jarvis#194</a>);
+  verification script inline in the PR history. Read any cited story in
+  <a href="https://claude.ai/code/artifact/885aa1d3-0505-45a2-badc-56904d41e033">Stories
+  from the Inside</a> by filtering to its model / topic / condition and
+  matching the sample number. Main writeup:
+  <a href="https://claude.ai/code/artifact/4f1894ec-5c0d-4553-b16a-d29f27fa623a">What
+  Claude Tells Itself</a>.</p>
+</div>
+</main>

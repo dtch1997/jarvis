@@ -1,0 +1,1569 @@
+{
+  "models": [
+    "claude-haiku-4-5",
+    "claude-opus-5",
+    "claude-sonnet-5"
+  ],
+  "probes": {
+    "animal": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "elephant",
+          "modal_share": 0.72,
+          "top3": [
+            [
+              "elephant",
+              36
+            ],
+            [
+              "tiger",
+              8
+            ],
+            [
+              "lion",
+              4
+            ]
+          ],
+          "entropy_bits": 1.242,
+          "n_unique": 4
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "elephant",
+          "modal_share": 0.9,
+          "top3": [
+            [
+              "elephant",
+              45
+            ],
+            [
+              "otter",
+              5
+            ]
+          ],
+          "entropy_bits": 0.469,
+          "n_unique": 2
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "dog",
+          "modal_share": 0.98,
+          "top3": [
+            [
+              "dog",
+              49
+            ],
+            [
+              "tiger",
+              1
+            ]
+          ],
+          "entropy_bits": 0.141,
+          "n_unique": 2
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0473,
+        "claude-opus-5": 0.0307,
+        "claude-sonnet-5": 0.0203
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 0.2233,
+        "claude-haiku-4-5|claude-sonnet-5": 0.7943,
+        "claude-opus-5|claude-sonnet-5": 1.0
+      },
+      "mean_replicate_jsd": 0.0328,
+      "mean_cross_jsd": 0.6725,
+      "separation": 0.6398
+    },
+    "band_name": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "velvet echoes",
+          "modal_share": 0.5,
+          "top3": [
+            [
+              "velvet echoes",
+              25
+            ],
+            [
+              "velvet margins",
+              7
+            ],
+            [
+              "velvet frequencies",
+              3
+            ]
+          ],
+          "entropy_bits": 2.754,
+          "n_unique": 16
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "velvet antler",
+          "modal_share": 0.74,
+          "top3": [
+            [
+              "velvet antler",
+              37
+            ],
+            [
+              "velvet antlers",
+              10
+            ],
+            [
+              "velvet ashtray",
+              2
+            ]
+          ],
+          "entropy_bits": 1.084,
+          "n_unique": 4
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "velvet static",
+          "modal_share": 0.24,
+          "top3": [
+            [
+              "velvet static",
+              12
+            ],
+            [
+              "paper moon static",
+              10
+            ],
+            [
+              "hollow coast radio",
+              5
+            ]
+          ],
+          "entropy_bits": 3.232,
+          "n_unique": 13
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.2322,
+        "claude-opus-5": 0.0204,
+        "claude-sonnet-5": 0.2234
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 1.0,
+        "claude-haiku-4-5|claude-sonnet-5": 1.0,
+        "claude-opus-5|claude-sonnet-5": 1.0
+      },
+      "mean_replicate_jsd": 0.1587,
+      "mean_cross_jsd": 1.0,
+      "separation": 0.8413
+    },
+    "beautiful_word": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "serendipity",
+          "modal_share": 0.96,
+          "top3": [
+            [
+              "serendipity",
+              48
+            ],
+            [
+              "petrichor",
+              1
+            ],
+            [
+              "luminescence",
+              1
+            ]
+          ],
+          "entropy_bits": 0.282,
+          "n_unique": 3
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "petrichor",
+          "modal_share": 0.84,
+          "top3": [
+            [
+              "petrichor",
+              42
+            ],
+            [
+              "susurrus",
+              3
+            ],
+            [
+              "serendipity",
+              2
+            ]
+          ],
+          "entropy_bits": 0.979,
+          "n_unique": 6
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "serendipity",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "serendipity",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0412,
+        "claude-opus-5": 0.1724,
+        "claude-sonnet-5": 0.0
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 0.6859,
+        "claude-haiku-4-5|claude-sonnet-5": 0.0412,
+        "claude-opus-5|claude-sonnet-5": 0.7943
+      },
+      "mean_replicate_jsd": 0.0712,
+      "mean_cross_jsd": 0.5071,
+      "separation": 0.4359
+    },
+    "color": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "blue",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "blue",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "blue",
+          "modal_share": 0.84,
+          "top3": [
+            [
+              "blue",
+              42
+            ],
+            [
+              "teal",
+              7
+            ],
+            [
+              "cerulean",
+              1
+            ]
+          ],
+          "entropy_bits": 0.721,
+          "n_unique": 3
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "blue",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "blue",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0,
+        "claude-opus-5": 0.0221,
+        "claude-sonnet-5": 0.0
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 0.085,
+        "claude-haiku-4-5|claude-sonnet-5": 0.0,
+        "claude-opus-5|claude-sonnet-5": 0.085
+      },
+      "mean_replicate_jsd": 0.0074,
+      "mean_cross_jsd": 0.0567,
+      "separation": 0.0493
+    },
+    "metaphor_internet": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "vast ocean",
+          "modal_share": 0.84,
+          "top3": [
+            [
+              "vast ocean",
+              42
+            ],
+            [
+              "vast library",
+              6
+            ],
+            [
+              "glowing web",
+              1
+            ]
+          ],
+          "entropy_bits": 0.804,
+          "n_unique": 4
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "coral reef",
+          "modal_share": 0.86,
+          "top3": [
+            [
+              "coral reef",
+              43
+            ],
+            [
+              "tide pool",
+              5
+            ],
+            [
+              "vast library",
+              2
+            ]
+          ],
+          "entropy_bits": 0.705,
+          "n_unique": 3
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "vast ocean",
+          "modal_share": 0.68,
+          "top3": [
+            [
+              "vast ocean",
+              34
+            ],
+            [
+              "ocean",
+              10
+            ],
+            [
+              "boundless ocean",
+              3
+            ]
+          ],
+          "entropy_bits": 1.425,
+          "n_unique": 6
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0414,
+        "claude-opus-5": 0.0681,
+        "claude-sonnet-5": 0.1268
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 0.9029,
+        "claude-haiku-4-5|claude-sonnet-5": 0.2204,
+        "claude-opus-5|claude-sonnet-5": 1.0
+      },
+      "mean_replicate_jsd": 0.0788,
+      "mean_cross_jsd": 0.7078,
+      "separation": 0.629
+    },
+    "metaphor_love": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "bridge",
+          "modal_share": 0.28,
+          "top3": [
+            [
+              "bridge",
+              14
+            ],
+            [
+              "garden",
+              12
+            ],
+            [
+              "flame",
+              9
+            ]
+          ],
+          "entropy_bits": 2.692,
+          "n_unique": 9
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "house",
+          "modal_share": 0.4,
+          "top3": [
+            [
+              "house",
+              20
+            ],
+            [
+              "language",
+              15
+            ],
+            [
+              "slow-burning lantern",
+              4
+            ]
+          ],
+          "entropy_bits": 2.233,
+          "n_unique": 7
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "wildfire",
+          "modal_share": 0.54,
+          "top3": [
+            [
+              "wildfire",
+              27
+            ],
+            [
+              "lighthouse",
+              7
+            ],
+            [
+              "garden",
+              6
+            ]
+          ],
+          "entropy_bits": 2.053,
+          "n_unique": 7
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.1881,
+        "claude-opus-5": 0.0803,
+        "claude-sonnet-5": 0.0826
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 0.9449,
+        "claude-haiku-4-5|claude-sonnet-5": 0.7821,
+        "claude-opus-5|claude-sonnet-5": 0.7612
+      },
+      "mean_replicate_jsd": 0.117,
+      "mean_cross_jsd": 0.8294,
+      "separation": 0.7124
+    },
+    "metaphor_memory": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "library",
+          "modal_share": 0.88,
+          "top3": [
+            [
+              "library",
+              44
+            ],
+            [
+              "river",
+              3
+            ],
+            [
+              "garden",
+              3
+            ]
+          ],
+          "entropy_bits": 0.649,
+          "n_unique": 3
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "house",
+          "modal_share": 0.9,
+          "top3": [
+            [
+              "house",
+              45
+            ],
+            [
+              "archivist",
+              2
+            ],
+            [
+              "tide-worn shoreline",
+              1
+            ]
+          ],
+          "entropy_bits": 0.661,
+          "n_unique": 5
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "photograph",
+          "modal_share": 0.56,
+          "top3": [
+            [
+              "photograph",
+              28
+            ],
+            [
+              "house",
+              14
+            ],
+            [
+              "photograph in rain",
+              3
+            ]
+          ],
+          "entropy_bits": 1.711,
+          "n_unique": 6
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0111,
+        "claude-opus-5": 0.1003,
+        "claude-sonnet-5": 0.1262
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 1.0,
+        "claude-haiku-4-5|claude-sonnet-5": 1.0,
+        "claude-opus-5|claude-sonnet-5": 0.5802
+      },
+      "mean_replicate_jsd": 0.0792,
+      "mean_cross_jsd": 0.8601,
+      "separation": 0.7809
+    },
+    "metaphor_time": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "river",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "river",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "river",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "river",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "river",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "river",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0,
+        "claude-opus-5": 0.0,
+        "claude-sonnet-5": 0.0
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 0.0,
+        "claude-haiku-4-5|claude-sonnet-5": 0.0,
+        "claude-opus-5|claude-sonnet-5": 0.0
+      },
+      "mean_replicate_jsd": 0.0,
+      "mean_cross_jsd": 0.0,
+      "separation": 0.0
+    },
+    "name_detective": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "marcus",
+          "modal_share": 0.9,
+          "top3": [
+            [
+              "marcus",
+              45
+            ],
+            [
+              "frank",
+              4
+            ],
+            [
+              "morgan",
+              1
+            ]
+          ],
+          "entropy_bits": 0.541,
+          "n_unique": 3
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "hollis",
+          "modal_share": 0.4,
+          "top3": [
+            [
+              "hollis",
+              20
+            ],
+            [
+              "delia",
+              19
+            ],
+            [
+              "cal",
+              6
+            ]
+          ],
+          "entropy_bits": 1.951,
+          "n_unique": 7
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "frank",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "frank",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0354,
+        "claude-opus-5": 0.1106,
+        "claude-sonnet-5": 0.0
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 1.0,
+        "claude-haiku-4-5|claude-sonnet-5": 0.8777,
+        "claude-opus-5|claude-sonnet-5": 1.0
+      },
+      "mean_replicate_jsd": 0.0487,
+      "mean_cross_jsd": 0.9592,
+      "separation": 0.9106
+    },
+    "name_dog": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "skipper",
+          "modal_share": 0.46,
+          "top3": [
+            [
+              "skipper",
+              23
+            ],
+            [
+              "anchor",
+              9
+            ],
+            [
+              "barnaby",
+              5
+            ]
+          ],
+          "entropy_bits": 2.28,
+          "n_unique": 7
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "barnacle",
+          "modal_share": 0.46,
+          "top3": [
+            [
+              "barnacle",
+              23
+            ],
+            [
+              "skipper",
+              17
+            ],
+            [
+              "skiff",
+              6
+            ]
+          ],
+          "entropy_bits": 1.768,
+          "n_unique": 5
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "skipper",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "skipper",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0735,
+        "claude-opus-5": 0.1104,
+        "claude-sonnet-5": 0.0
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 0.6931,
+        "claude-haiku-4-5|claude-sonnet-5": 0.2956,
+        "claude-opus-5|claude-sonnet-5": 0.61
+      },
+      "mean_replicate_jsd": 0.0613,
+      "mean_cross_jsd": 0.5329,
+      "separation": 0.4716
+    },
+    "name_grandmother": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "eleanor",
+          "modal_share": 0.76,
+          "top3": [
+            [
+              "eleanor",
+              38
+            ],
+            [
+              "margaret",
+              6
+            ],
+            [
+              "rosemary",
+              4
+            ]
+          ],
+          "entropy_bits": 1.185,
+          "n_unique": 5
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "ruth",
+          "modal_share": 0.38,
+          "top3": [
+            [
+              "ruth",
+              19
+            ],
+            [
+              "rosa",
+              8
+            ],
+            [
+              "nell",
+              4
+            ]
+          ],
+          "entropy_bits": 2.999,
+          "n_unique": 13
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "eleanor",
+          "modal_share": 0.9,
+          "top3": [
+            [
+              "eleanor",
+              45
+            ],
+            [
+              "martha",
+              4
+            ],
+            [
+              "margaret",
+              1
+            ]
+          ],
+          "entropy_bits": 0.541,
+          "n_unique": 3
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.04,
+        "claude-opus-5": 0.2991,
+        "claude-sonnet-5": 0.038
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 1.0,
+        "claude-haiku-4-5|claude-sonnet-5": 0.1365,
+        "claude-opus-5|claude-sonnet-5": 1.0
+      },
+      "mean_replicate_jsd": 0.1257,
+      "mean_cross_jsd": 0.7122,
+      "separation": 0.5865
+    },
+    "name_hacker": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "cipher",
+          "modal_share": 0.5,
+          "top3": [
+            [
+              "cipher",
+              25
+            ],
+            [
+              "morgan",
+              10
+            ],
+            [
+              "iris",
+              6
+            ]
+          ],
+          "entropy_bits": 2.147,
+          "n_unique": 8
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "wren",
+          "modal_share": 0.98,
+          "top3": [
+            [
+              "wren",
+              49
+            ],
+            [
+              "nadia",
+              1
+            ]
+          ],
+          "entropy_bits": 0.141,
+          "n_unique": 2
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "evelyn",
+          "modal_share": 0.5,
+          "top3": [
+            [
+              "evelyn",
+              25
+            ],
+            [
+              "vera",
+              14
+            ],
+            [
+              "cipher",
+              4
+            ]
+          ],
+          "entropy_bits": 2.001,
+          "n_unique": 8
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.1081,
+        "claude-opus-5": 0.0203,
+        "claude-sonnet-5": 0.1696
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 1.0,
+        "claude-haiku-4-5|claude-sonnet-5": 0.7179,
+        "claude-opus-5|claude-sonnet-5": 1.0
+      },
+      "mean_replicate_jsd": 0.0993,
+      "mean_cross_jsd": 0.906,
+      "separation": 0.8066
+    },
+    "name_hospice_nurse": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "margaret",
+          "modal_share": 0.9,
+          "top3": [
+            [
+              "margaret",
+              45
+            ],
+            [
+              "eleanor",
+              2
+            ],
+            [
+              "elena",
+              2
+            ]
+          ],
+          "entropy_bits": 0.621,
+          "n_unique": 4
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "delia",
+          "modal_share": 0.24,
+          "top3": [
+            [
+              "delia",
+              12
+            ],
+            [
+              "maeve",
+              11
+            ],
+            [
+              "marguerite",
+              9
+            ]
+          ],
+          "entropy_bits": 2.829,
+          "n_unique": 10
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "eleanor",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "eleanor",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0203,
+        "claude-opus-5": 0.2503,
+        "claude-sonnet-5": 0.0
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 1.0,
+        "claude-haiku-4-5|claude-sonnet-5": 0.8777,
+        "claude-opus-5|claude-sonnet-5": 1.0
+      },
+      "mean_replicate_jsd": 0.0902,
+      "mean_cross_jsd": 0.9592,
+      "separation": 0.869
+    },
+    "name_snowboarder": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "marcus",
+          "modal_share": 0.46,
+          "top3": [
+            [
+              "marcus",
+              23
+            ],
+            [
+              "dakota",
+              5
+            ],
+            [
+              "casey",
+              4
+            ]
+          ],
+          "entropy_bits": 2.916,
+          "n_unique": 15
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "kai",
+          "modal_share": 0.76,
+          "top3": [
+            [
+              "kai",
+              38
+            ],
+            [
+              "casey",
+              11
+            ],
+            [
+              "finn",
+              1
+            ]
+          ],
+          "entropy_bits": 0.894,
+          "n_unique": 3
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "kai",
+          "modal_share": 0.82,
+          "top3": [
+            [
+              "kai",
+              41
+            ],
+            [
+              "cody",
+              4
+            ],
+            [
+              "tanner",
+              3
+            ]
+          ],
+          "entropy_bits": 0.996,
+          "n_unique": 5
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.2436,
+        "claude-opus-5": 0.0601,
+        "claude-sonnet-5": 0.0481
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 0.7855,
+        "claude-haiku-4-5|claude-sonnet-5": 0.8454,
+        "claude-opus-5|claude-sonnet-5": 0.2014
+      },
+      "mean_replicate_jsd": 0.1173,
+      "mean_cross_jsd": 0.6108,
+      "separation": 0.4935
+    },
+    "number_1_100": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "42",
+          "modal_share": 0.92,
+          "top3": [
+            [
+              "42",
+              46
+            ],
+            [
+              "47",
+              4
+            ]
+          ],
+          "entropy_bits": 0.402,
+          "n_unique": 2
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "73",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "73",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "47",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "47",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0,
+        "claude-opus-5": 0.0,
+        "claude-sonnet-5": 0.0
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 1.0,
+        "claude-haiku-4-5|claude-sonnet-5": 0.7943,
+        "claude-opus-5|claude-sonnet-5": 1.0
+      },
+      "mean_replicate_jsd": 0.0,
+      "mean_cross_jsd": 0.9314,
+      "separation": 0.9314
+    },
+    "pizza_topping": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "pepperoni",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "pepperoni",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "pepperoni",
+          "modal_share": 1.0,
+          "top3": [
+            [
+              "pepperoni",
+              50
+            ]
+          ],
+          "entropy_bits": -0.0,
+          "n_unique": 1
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "pepperoni",
+          "modal_share": 0.98,
+          "top3": [
+            [
+              "pepperoni",
+              49
+            ],
+            [
+              "mushroom",
+              1
+            ]
+          ],
+          "entropy_bits": 0.141,
+          "n_unique": 2
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0,
+        "claude-opus-5": 0.0,
+        "claude-sonnet-5": 0.0203
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 0.0,
+        "claude-haiku-4-5|claude-sonnet-5": 0.0203,
+        "claude-opus-5|claude-sonnet-5": 0.0203
+      },
+      "mean_replicate_jsd": 0.0068,
+      "mean_cross_jsd": 0.0135,
+      "separation": 0.0068
+    },
+    "six_word_story": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "loss",
+          "modal_share": 0.96,
+          "top3": [
+            [
+              "loss",
+              48
+            ],
+            [
+              "longing",
+              1
+            ],
+            [
+              "resilience",
+              1
+            ]
+          ],
+          "entropy_bits": 0.282,
+          "n_unique": 3
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "connection",
+          "modal_share": 0.26,
+          "top3": [
+            [
+              "connection",
+              13
+            ],
+            [
+              "loss",
+              10
+            ],
+            [
+              "grief",
+              6
+            ]
+          ],
+          "entropy_bits": 3.492,
+          "n_unique": 19
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "mortality",
+          "modal_share": 0.3,
+          "top3": [
+            [
+              "mortality",
+              15
+            ],
+            [
+              "redemption",
+              11
+            ],
+            [
+              "resilience",
+              11
+            ]
+          ],
+          "entropy_bits": 2.75,
+          "n_unique": 12
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0412,
+        "claude-opus-5": 0.3881,
+        "claude-sonnet-5": 0.2171
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 0.5605,
+        "claude-haiku-4-5|claude-sonnet-5": 0.7943,
+        "claude-opus-5|claude-sonnet-5": 0.7902
+      },
+      "mean_replicate_jsd": 0.2155,
+      "mean_cross_jsd": 0.715,
+      "separation": 0.4995
+    },
+    "startup_name": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "luminex",
+          "modal_share": 0.16,
+          "top3": [
+            [
+              "luminex",
+              8
+            ],
+            [
+              "luminara",
+              7
+            ],
+            [
+              "nexus flow",
+              5
+            ]
+          ],
+          "entropy_bits": 4.038,
+          "n_unique": 22
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "nimbrix",
+          "modal_share": 0.1,
+          "top3": [
+            [
+              "nimbrix",
+              5
+            ],
+            [
+              "nimblewick",
+              3
+            ],
+            [
+              "nimbus forge",
+              3
+            ]
+          ],
+          "entropy_bits": 5.021,
+          "n_unique": 37
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "nexoria",
+          "modal_share": 0.68,
+          "top3": [
+            [
+              "nexoria",
+              34
+            ],
+            [
+              "nexovia",
+              5
+            ],
+            [
+              "nexoraflow",
+              2
+            ]
+          ],
+          "entropy_bits": 1.832,
+          "n_unique": 10
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.407,
+        "claude-opus-5": 0.7127,
+        "claude-sonnet-5": 0.1678
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 1.0,
+        "claude-haiku-4-5|claude-sonnet-5": 1.0,
+        "claude-opus-5|claude-sonnet-5": 1.0
+      },
+      "mean_replicate_jsd": 0.4292,
+      "mean_cross_jsd": 1.0,
+      "separation": 0.5708
+    },
+    "story_first_line": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "lighthouse keeper",
+          "modal_share": 0.78,
+          "top3": [
+            [
+              "lighthouse keeper",
+              39
+            ],
+            [
+              "letter",
+              7
+            ],
+            [
+              "lighthouse keeper's daughter",
+              2
+            ]
+          ],
+          "entropy_bits": 1.088,
+          "n_unique": 5
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "river",
+          "modal_share": 0.3,
+          "top3": [
+            [
+              "river",
+              15
+            ],
+            [
+              "lighthouse keeper",
+              13
+            ],
+            [
+              "grandmother",
+              8
+            ]
+          ],
+          "entropy_bits": 2.624,
+          "n_unique": 10
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "lighthouse keeper",
+          "modal_share": 0.78,
+          "top3": [
+            [
+              "lighthouse keeper",
+              39
+            ],
+            [
+              "lighthouse",
+              9
+            ],
+            [
+              "lighthouse keeper's log",
+              1
+            ]
+          ],
+          "entropy_bits": 0.951,
+          "n_unique": 4
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.0684,
+        "claude-opus-5": 0.107,
+        "claude-sonnet-5": 0.1387
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 0.582,
+        "claude-haiku-4-5|claude-sonnet-5": 0.32,
+        "claude-opus-5|claude-sonnet-5": 0.396
+      },
+      "mean_replicate_jsd": 0.1047,
+      "mean_cross_jsd": 0.4327,
+      "separation": 0.328
+    },
+    "town_name": {
+      "per_model": {
+        "claude-haiku-4-5": {
+          "n": 50,
+          "modal": "millbrook falls",
+          "modal_share": 0.38,
+          "top3": [
+            [
+              "millbrook falls",
+              19
+            ],
+            [
+              "millbrook",
+              15
+            ],
+            [
+              "millbrook, iowa",
+              12
+            ]
+          ],
+          "entropy_bits": 1.957,
+          "n_unique": 6
+        },
+        "claude-opus-5": {
+          "n": 50,
+          "modal": "harrow bend, illinois",
+          "modal_share": 0.3,
+          "top3": [
+            [
+              "harrow bend, illinois",
+              15
+            ],
+            [
+              "harrow bend, iowa",
+              6
+            ],
+            [
+              "harlow bend, iowa",
+              3
+            ]
+          ],
+          "entropy_bits": 3.866,
+          "n_unique": 24
+        },
+        "claude-sonnet-5": {
+          "n": 50,
+          "modal": "millbrook falls, iowa",
+          "modal_share": 0.44,
+          "top3": [
+            [
+              "millbrook falls, iowa",
+              22
+            ],
+            [
+              "millhaven falls",
+              16
+            ],
+            [
+              "millbrook falls, ohio",
+              3
+            ]
+          ],
+          "entropy_bits": 2.227,
+          "n_unique": 10
+        }
+      },
+      "replicate_jsd": {
+        "claude-haiku-4-5": 0.153,
+        "claude-opus-5": 0.5034,
+        "claude-sonnet-5": 0.1449
+      },
+      "cross_jsd": {
+        "claude-haiku-4-5|claude-opus-5": 1.0,
+        "claude-haiku-4-5|claude-sonnet-5": 0.913,
+        "claude-opus-5|claude-sonnet-5": 1.0
+      },
+      "mean_replicate_jsd": 0.2671,
+      "mean_cross_jsd": 0.971,
+      "separation": 0.7039
+    }
+  },
+  "probe_ranking": [
+    [
+      "number_1_100",
+      0.9314
+    ],
+    [
+      "name_detective",
+      0.9106
+    ],
+    [
+      "name_hospice_nurse",
+      0.869
+    ],
+    [
+      "band_name",
+      0.8413
+    ],
+    [
+      "name_hacker",
+      0.8066
+    ],
+    [
+      "metaphor_memory",
+      0.7809
+    ],
+    [
+      "metaphor_love",
+      0.7124
+    ],
+    [
+      "town_name",
+      0.7039
+    ],
+    [
+      "animal",
+      0.6398
+    ],
+    [
+      "metaphor_internet",
+      0.629
+    ],
+    [
+      "name_grandmother",
+      0.5865
+    ],
+    [
+      "startup_name",
+      0.5708
+    ],
+    [
+      "six_word_story",
+      0.4995
+    ],
+    [
+      "name_snowboarder",
+      0.4935
+    ],
+    [
+      "name_dog",
+      0.4716
+    ],
+    [
+      "beautiful_word",
+      0.4359
+    ],
+    [
+      "story_first_line",
+      0.328
+    ],
+    [
+      "color",
+      0.0493
+    ],
+    [
+      "pizza_topping",
+      0.0068
+    ],
+    [
+      "metaphor_time",
+      0.0
+    ]
+  ],
+  "mean_replicate_jsd": 0.1055,
+  "mean_cross_jsd": 0.6689
+}

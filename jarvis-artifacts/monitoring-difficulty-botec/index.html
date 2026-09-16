@@ -1,0 +1,400 @@
+<title>The Monitoring Gap</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#eef1f4; --surface:#fbfcfd; --line:#d8dee5; --grid:#e4e9ee;
+  --ink:#19222c; --ink2:#46525f; --muted:#75818d;
+  --accent:#b03340; --accent-soft:#f6e7e8;
+  --s-L:#2a78d6; --s-N:#eb6834; --s-A:#1baf7a; --s-U:#eda100;
+  --s-prod:#19222c; --band:rgba(42,120,214,.14); --hair:#9aa5b0;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#12161b; --surface:#1a2026; --line:#2c343d; --grid:#242c34;
+    --ink:#e7ecf1; --ink2:#b4bec8; --muted:#7f8a95;
+    --accent:#e66767; --accent-soft:#33232a;
+    --s-L:#3987e5; --s-N:#d95926; --s-A:#199e70; --s-U:#c98500;
+    --s-prod:#e7ecf1; --band:rgba(57,135,229,.18); --hair:#5d6873;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#12161b; --surface:#1a2026; --line:#2c343d; --grid:#242c34;
+  --ink:#e7ecf1; --ink2:#b4bec8; --muted:#7f8a95;
+  --accent:#e66767; --accent-soft:#33232a;
+  --s-L:#3987e5; --s-N:#d95926; --s-A:#199e70; --s-U:#c98500;
+  --s-prod:#e7ecf1; --band:rgba(57,135,229,.18); --hair:#5d6873;
+}
+body{background:var(--bg);color:var(--ink);font-family:Newsreader,Georgia,serif;
+  font-size:17.5px;line-height:1.62;margin:0;}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 90px;}
+.prose{max-width:66ch;}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px;}
+h1,h2,h3{text-wrap:balance;line-height:1.15;}
+h1{font-size:clamp(2.1rem,5.5vw,3.2rem);font-weight:700;margin:.2em 0 .25em;}
+h2{font-size:1.45rem;font-weight:600;margin:2.4em 0 .5em;}
+h3{font-size:1.05rem;font-weight:600;margin:1.6em 0 .4em;}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin:0;}
+header.masthead{padding:64px 0 8px;border-bottom:1px solid var(--line);}
+.dek{font-size:1.15rem;color:var(--ink2);font-style:italic;max-width:60ch;margin:.4em 0 1.6em;}
+.byline{font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--muted);margin-bottom:26px;}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:30px 0 6px;}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px 12px;}
+.tile .num{font-family:"IBM Plex Mono",monospace;font-size:1.7rem;font-weight:600;
+  font-variant-numeric:tabular-nums;line-height:1.1;}
+.tile .num.hot{color:var(--accent);}
+.tile .lbl{font-size:.86rem;color:var(--ink2);margin-top:5px;line-height:1.35;}
+.eq{background:var(--surface);border:1px solid var(--line);border-radius:6px;
+  padding:16px 20px;font-family:"IBM Plex Mono",monospace;font-size:.95rem;
+  overflow-x:auto;margin:1.2em 0;white-space:nowrap;}
+.eq .v{color:var(--accent);font-weight:600;}
+figure{margin:2em 0;background:var(--surface);border:1px solid var(--line);
+  border-radius:6px;padding:18px 18px 8px;}
+figure .ftitle{font-weight:600;font-size:1.02rem;margin:0 0 2px;}
+figure .fsub{font-size:.85rem;color:var(--muted);margin:0 0 10px;}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-family:"IBM Plex Mono",monospace;
+  font-size:.72rem;color:var(--ink2);margin:4px 0 8px;}
+.legend .chip{display:inline-flex;align-items:center;gap:6px;}
+.legend .sw{width:14px;height:3px;border-radius:2px;display:inline-block;}
+figcaption{font-size:.9rem;color:var(--ink2);padding:10px 2px 8px;line-height:1.5;}
+.chart{position:relative;}
+.chart svg{display:block;width:100%;height:auto;}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;line-height:1.55;
+  padding:7px 10px;border-radius:4px;white-space:pre;transform:translate(-50%,-110%);
+  opacity:0;transition:opacity .1s;}
+@media (prefers-reduced-motion: reduce){.tip{transition:none;}}
+.tablewrap{overflow-x:auto;margin:1.2em 0;}
+table{border-collapse:collapse;width:100%;font-size:.86rem;background:var(--surface);
+  border:1px solid var(--line);border-radius:6px;}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+th{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);font-weight:500;}
+td.mono, .num-td{font-family:"IBM Plex Mono",monospace;font-size:.8rem;font-variant-numeric:tabular-nums;}
+tr:last-child td{border-bottom:none;}
+.takeaway{border-left:3px solid var(--accent);background:var(--accent-soft);
+  padding:14px 20px;margin:1.8em 0;font-size:1.12rem;font-style:italic;border-radius:0 6px 6px 0;}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:1.2em 0;}
+@media (max-width:640px){.split{grid-template-columns:1fr;}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;}
+.card h3{margin:0 0 .4em;font-size:.98rem;}
+.card p{margin:.4em 0;font-size:.95rem;color:var(--ink2);}
+.card .tag{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);}
+ul,ol{padding-left:1.3em;}
+li{margin:.45em 0;}
+.foot{margin-top:56px;border-top:1px solid var(--line);padding-top:18px;
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--muted);line-height:1.7;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+</style>
+
+<div class="wrap">
+<header class="masthead">
+  <p class="eyebrow">BOTEC · Arcadia Impact · 2026-09-08</p>
+  <h1>The Monitoring Gap</h1>
+  <p class="dek">How fast does the human effort to grok what AI agents did actually grow?
+  Putting published numbers on the claim that monitoring difficulty scales like
+  O(A&nbsp;·&nbsp;L&nbsp;·&nbsp;N&nbsp;·&nbsp;U).</p>
+  <p class="byline">Daniel Tan (with Claude) · responds to Andrew Draganov's #lab-notes-andrew thread on Pachocki's <i>An Alien Mind</i></p>
+</header>
+
+<div class="stats">
+  <div class="tile"><div class="num hot">~32×/yr</div><div class="lbl">growth of A·L·N·U on published trends (doubles every ~73 days)</div></div>
+  <div class="tile"><div class="num">~750 h</div><div class="lbl">expert time to fully grok <em>one</em> 12-hour frontier rollout today</div></div>
+  <div class="tile"><div class="num">~2029</div><div class="lbl">when one rollout's full-grok cost passes a 1,000-person lab-year</div></div>
+  <div class="tile"><div class="num hot">~2%</div><div class="lbl">catch rate on silent reward hacks: 95% monitor recall × &lt;2% verbalization</div></div>
+</div>
+
+<section class="prose">
+<h2>The claim</h2>
+<p>Jakub Pachocki's <i>An Alien Mind</i> (2026-09-06) names chain-of-thought monitorability as
+OpenAI's default safety approach — while conceding that "our ability to rely on CoT monitoring
+is progressively diminishing." Andrew's counter-claim: the big-O relationships were never kind
+to monitoring. The human effort to grok what models did scales like the product of
+<b>A</b>gents on the task, transcript <b>L</b>ength, the model's <b>N</b>o-CoT capability,
+and <b>U</b>nfaithfulness of its tokens — and every factor trends the wrong way.</p>
+<p>Pachocki's own three reasons for the decay map one-to-one onto those variables:
+"many interactions to supervise" is A·L, "manipulating its own reasoning process" is U,
+and "smarter without verbalized reasoning" is N. This page grounds each factor in
+published trend data and computes the growth rate and the crossover dates.</p>
+
+<h2>The model</h2>
+<p>We operationalize monitoring difficulty as the human-hours needed to fully grok one
+agent rollout on a task with human-time horizon H:</p>
+</section>
+
+<div class="eq">Grok-hours&nbsp;=&nbsp;<span class="v">A</span>&nbsp;·&nbsp;<span class="v">L</span>&nbsp;·&nbsp;g(<span class="v">N</span>,&nbsp;<span class="v">U</span>)&nbsp;/&nbsp;v<sub>read</sub>&nbsp;&nbsp;&nbsp;where&nbsp;&nbsp;L&nbsp;=&nbsp;τ&nbsp;·&nbsp;H</div>
+
+<section class="prose">
+<p>τ is tokens generated per agent-hour, v<sub>read</sub> is human verification throughput,
+and g(N,&nbsp;U)&nbsp;≥&nbsp;1 is a <em>grok multiplier</em>: extra effort per token because more
+computation hides between tokens as the no-CoT horizon grows, and unverbalized reasoning
+must be reconstructed rather than read. Growth rates add in log-space, so the product's
+doubling time is the harmonic combination of the factors' doubling times.</p>
+</section>
+
+<h2>Anchors</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Factor</th><th>2026 level</th><th>Doubling time</th><th>Source · quality</th></tr></thead>
+<tbody>
+<tr><td><b>H</b> — 50% time horizon</td><td class="num-td">~12 h (Opus 4.6, Feb '26)</td><td class="num-td">~120 d</td><td>METR TH1.1 fits 89–131 d · solid; &gt;16 h values unreliable</td></tr>
+<tr><td><b>τ</b> — tokens generated / agent-hr</td><td class="num-td">~62 K</td><td class="num-td">(folds into L via H)</td><td>RE-Bench: 499 K per 8-h run · solid, conservative</td></tr>
+<tr><td><b>N</b> — no-CoT 50% horizon</td><td class="num-td">~3.5 min</td><td class="num-td">~373 d</td><td>Redwood Dec '25; “Think Fast” (arXiv 2606.07157), CI 167–691 d · solid</td></tr>
+<tr><td><b>A</b> — agents per task</td><td class="num-td">3–5</td><td class="num-td">~365 d <b>(assumed)</b></td><td>Anthropic multi-agent research · no public trend series exists</td></tr>
+<tr><td><b>U</b> — unfaithfulness</td><td class="num-td">~25% hint-verbalization; &lt;2% for hacks</td><td class="num-td">held flat</td><td>Anthropic 2505.05410 · levels solid, trend contested</td></tr>
+<tr><td><b>v</b> — human verification</td><td class="num-td">16 K tok/hr (read) → 3 K (review)</td><td class="num-td">flat</td><td>Brysbaert 2019; SmartBear/Cisco code review</td></tr>
+</tbody></table></div>
+
+<figure>
+  <p class="ftitle">Monitoring difficulty grows ~32×/year; transcript volume dominates</p>
+  <p class="fsub">Each factor of A·L·N·U, indexed to 1 at Sep 2026 · log scale</p>
+  <div class="legend" id="leg1"></div>
+  <div class="chart" id="chart1"></div>
+  <figcaption>L rides the METR horizon trend (~3 doublings/yr) and dominates. N and A each
+  contribute ~1 doubling/yr and overlap almost exactly. U is conservatively held flat.
+  Drop the assumed A trend entirely and the product still grows ~16×/yr.</figcaption>
+</figure>
+
+<figure>
+  <p class="ftitle">Fully grokking one rollout already costs an expert-month; it passes a lab-year around 2029</p>
+  <p class="fsub">Human-hours to fully grok one frontier agent rollout · central + scenario band · log scale</p>
+  <div class="legend" id="leg2"></div>
+  <div class="chart" id="chart2"></div>
+  <figcaption>Band spans (A=1, skim-reading generated tokens) to (A=5, review-grade scrutiny,
+  4× reconstruction penalty for 25% verbalization). Sanity check on the level: SHADE-Arena
+  humans spent ~103 min per much shorter transcript and reached only AUC 0.65 — worse than
+  Gemini 2.5 Pro's 0.87.</figcaption>
+</figure>
+
+<h3>Crossover dates (central parameters)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>One rollout's full-grok cost exceeds…</th><th>Threshold</th><th>Date</th></tr></thead>
+<tbody>
+<tr><td>one expert-week</td><td class="num-td">40 h</td><td class="num-td">now</td></tr>
+<tr><td>one expert-year</td><td class="num-td">2,000 h</td><td class="num-td">~end-2026</td></tr>
+<tr><td>a 1,000-person lab-year</td><td class="num-td">2,000,000 h</td><td class="num-td">~2029</td></tr>
+<tr><td>all AI-safety-adjacent attention (~30 k people)</td><td class="num-td">60,000,000 h</td><td class="num-td">~2030</td></tr>
+</tbody></table></div>
+
+<section class="prose">
+<h2>What AI monitors fix — and what they can't</h2>
+<p>The product factors into two very different problems:</p>
+</section>
+
+<div class="split">
+  <div class="card">
+    <p class="tag">A · L — an economics problem</p>
+    <h3>Spend fixes it</h3>
+    <p>AI monitors read everything for approximately free relative to human attention:
+    in SHADE-Arena the AI monitor beats the $100+/transcript human auditor for pennies of
+    inference. Bandwidth is a solved problem if you're willing to pay — which is presumably
+    why "monitorability as the default approach" is sayable at all.</p>
+  </div>
+  <div class="card">
+    <p class="tag">N · U — a capabilities problem</p>
+    <h3>Spend doesn't</h3>
+    <p>Monitors can't catch what never reaches tokens. On silently-executed reward hacks,
+    catch rate ≈ 95% recall × &lt;2% verbalization ≈ <b>2%</b> — and under CoT optimization
+    pressure OpenAI measured recall collapsing to ~0 while hacking continued. The no-CoT
+    horizon (~3.5 min/forward-pass, doubling ~yearly) means this un-buyable residual
+    <b>doubles roughly every year</b>: ~15 min by 2028, ~50 min by 2030 — whole deceptive
+    steps between tokens.</p>
+  </div>
+</div>
+
+<section class="prose">
+<p>Add the trusted-monitor capability gap: Engels et&nbsp;al. measure oversight success falling
+to ~10–50% at a 400-Elo overseer deficit, and trusted monitors are by construction older,
+lagged models — the lag is denominated in time while capability-per-time accelerates.</p>
+
+<h2>Where the model pushes back</h2>
+<ul>
+<li><b>U's trend is genuinely contested.</b> Two late-2025/26 measurements (arXiv 2512.18311,
+ICML'26 oral; arXiv 2510.23966) find RL at current scale does <em>not</em> materially reduce
+monitorability, and that necessary CoT is legible by default. The case for U worsening rests
+on optimization pressure (measured, dramatic) and latent-reasoning architectures (COCONUT
+works, but isn't deployed at frontier) — not on observed drift.</li>
+<li><b>Reliable horizons lag headline ones.</b> 80%-success horizons run ~10× below the 50%
+headline for recent Claude models (Opus 4.6: 70 min vs 12 h). Indexing L to reliable autonomy
+drops today's levels ~10×, though the growth rates change less.</li>
+<li><b>Mind the normalization.</b> Per hour of AI work (rather than per task), the burden grows
+only ~4×/yr — the H term cancels. Per-task is the right frame for "grok what the agents did
+on this task," but quote the right number for the right claim.</li>
+<li><b>The A trend is assumed.</b> Agents-per-task over time is genuinely unmeasured in
+public. It is the weakest link in the 32×/yr figure.</li>
+</ul>
+
+<h2>Discussion</h2>
+<p>The BOTEC supports the qualitative conclusion with a sharper structure. A and L constitute
+a throughput problem that AI monitors genuinely solve. The floor under the whole strategy is
+N·U: monitors can read everything and still miss what never reaches tokens — a factor that
+already sits at a ~2% catch rate for silent hacks in the worst measured settings, and doubles
+yearly on the cleanest, least-contested trend in the set.</p>
+</section>
+
+<div class="takeaway">Monitoring's bandwidth problem is solvable and its visibility problem
+is not — and the visibility problem has a measured doubling time.</div>
+
+<section class="prose">
+<h2>Follow-ups worth running</h2>
+<ul>
+<li><b>Measure g directly.</b> Human time to <em>verify</em> (not read) one agent action as a
+function of the hidden computation behind it. Nobody has this curve; it is the load-bearing
+free parameter here.</li>
+<li><b>A-trend telemetry.</b> Agents-per-task over time from our own arch2/concierge fleet
+logs — a dataset that doesn't exist in public.</li>
+<li><b>Re-run the OpenAI obfuscation experiment at 2026 scale</b> as a U-trend measurement:
+the 2025-26 monitorability papers only cover models without CoT pressure.</li>
+</ul>
+</section>
+
+<div class="foot">
+Reproduction: <span class="mono">python botec.py</span> regenerates every number and figure from
+one parameter block — <a href="https://github.com/dtch1997/jarvis/pull/203">dtch1997/jarvis#203</a>
+(<span class="mono">jarvis-os/experiments/monitoring-difficulty-botec/</span>), with every anchor
+sourced and flagged solid/vibes in the accompanying <span class="mono">anchors-*.md</span> files.
+Key sources: METR TH1.1 · Redwood no-CoT horizons · “Think Fast” 2606.07157 · Anthropic 2505.05410 ·
+OpenAI 2503.11926 · SHADE-Arena 2506.15740 · Greenblatt 2312.06942 · Engels 2504.18530.
+</div>
+</div>
+
+<script>
+(() => {
+const T0 = 2026.7, LOG2 = Math.log10(2);
+const R = { L:3.0417, N:0.9786, A:1.0, U:0, prod:5.0203 };
+const GROK = { lo:46.5, mid:744, hi:4960 };
+const X0 = 2024, X1 = 2031;
+
+function fmtX(v){ // multiplier, e.g. 3.2e6 -> "3.2M×"
+  if (v>=1e6) return (v/1e6).toPrecision(2)+"M×";
+  if (v>=1e3) return (v/1e3).toPrecision(2)+"K×";
+  if (v>=10) return Math.round(v)+"×";
+  if (v>=1) return v.toPrecision(2)+"×";
+  return v.toPrecision(2)+"×";
+}
+function fmtH(v){ // hours
+  if (v>=2000){const ey=v/2000;
+    const s=ey>=1e6?(ey/1e6).toPrecision(2)+"M":ey>=1e3?(ey/1e3).toPrecision(2)+"K":ey.toPrecision(2);
+    return s+" expert-yrs";}
+  if (v>=40) return Math.round(v).toLocaleString()+" h";
+  return v.toPrecision(2)+" h";
+}
+function makeChart(el, opts){
+  const W=860, H=430, m={t:14,r:118,b:34,l:56};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const [y0,y1]=opts.ydom;
+  const x=t=>m.l+(t-X0)/(X1-X0)*iw;
+  const y=v=>m.t+ih-(Math.log10(v)-y0)/(y1-y0)*ih;
+  const NS="http://www.w3.org/2000/svg";
+  const svg=document.createElementNS(NS,"svg");
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  svg.setAttribute("role","img");
+  svg.setAttribute("aria-label",opts.aria);
+  const add=(tag,at,parent)=>{const e=document.createElementNS(NS,tag);
+    for(const k in at){
+      if((k==="stroke"||k==="fill")&&String(at[k]).startsWith("var("))e.style[k]=at[k];
+      else e.setAttribute(k,at[k]);
+    }(parent||svg).appendChild(e);return e;};
+  const txt=(s,at,parent)=>{const e=add("text",at,parent);e.textContent=s;return e;};
+  const grid="var(--grid)", muted="var(--muted)", mono='"IBM Plex Mono",monospace';
+  // grid: decades + year ticks
+  for(let d=Math.ceil(y0);d<=Math.floor(y1);d++){
+    add("line",{x1:m.l,x2:m.l+iw,y1:y(10**d),y2:y(10**d),stroke:grid,"stroke-width":1});
+    if(d%opts.decadeLabelEvery===0)
+      txt(d===0?"1":"10"+String(d).replace("-","⁻").split("").map(c=>"⁰¹²³⁴⁵⁶⁷⁸⁹"[+c]??c).join(""),
+        {x:m.l-8,y:y(10**d)+4,"text-anchor":"end","font-family":mono,"font-size":11,fill:muted});
+  }
+  for(let yr=X0;yr<=X1;yr++){
+    add("line",{x1:x(yr),x2:x(yr),y1:m.t+ih,y2:m.t+ih+4,stroke:muted,"stroke-width":1});
+    txt(yr,{x:x(yr),y:m.t+ih+18,"text-anchor":"middle","font-family":mono,"font-size":11,fill:muted});
+  }
+  opts.draw({svg,add,txt,x,y,W,H,m,iw,ih,mono,muted});
+  el.appendChild(svg);
+  // hover layer
+  const tip=document.createElement("div");tip.className="tip";el.appendChild(tip);
+  const cross=add("line",{y1:m.t,y2:m.t+ih,stroke:"var(--hair)","stroke-width":1,
+    "stroke-dasharray":"3 3",opacity:0});
+  el.addEventListener("pointermove",ev=>{
+    const r=el.getBoundingClientRect(), sx=W/r.width;
+    const px=(ev.clientX-r.left)*sx;
+    if(px<m.l||px>m.l+iw){tip.style.opacity=0;cross.setAttribute("opacity",0);return;}
+    const t=X0+(px-m.l)/iw*(X1-X0);
+    cross.setAttribute("x1",px);cross.setAttribute("x2",px);cross.setAttribute("opacity",.8);
+    tip.textContent=opts.tipText(t);
+    tip.style.left=(px/sx)+"px";
+    tip.style.top=((ev.clientY-r.top))+"px";
+    tip.style.opacity=1;
+  });
+  el.addEventListener("pointerleave",()=>{tip.style.opacity=0;cross.setAttribute("opacity",0);});
+}
+const line=(x,y,r,base)=>{ // straight in log space
+  const v=t=>base*(2**(r*(t-T0)));
+  return {v, d:`M ${x(X0)} ${y(v(X0))} L ${x(X1)} ${y(v(X1))}`};
+};
+// legends
+function legend(id, items){
+  document.getElementById(id).innerHTML=items.map(([c,l])=>
+    `<span class="chip"><span class="sw" style="background:${c}"></span>${l}</span>`).join("");
+}
+const C={L:"var(--s-L)",N:"var(--s-N)",A:"var(--s-A)",U:"var(--s-U)",P:"var(--s-prod)"};
+legend("leg1",[[C.P,"product A·L·N·U"],[C.L,"L tokens/task (dbl 120d)"],
+  [C.N,"N no-CoT horizon (dbl 373d)"],[C.A,"A agents/task (dbl 365d, assumed)"],[C.U,"U unfaithfulness (flat)"]]);
+legend("leg2",[[C.L,"central estimate"],["var(--hair)","human-attention thresholds"]]);
+
+// ---- chart 1: factor trends ----
+makeChart(document.getElementById("chart1"),{
+  ydom:[-4.6,7.4], decadeLabelEvery:2,
+  aria:"Log-scale trends 2024 to 2031 of each factor of A L N U indexed to 1 at September 2026; the product grows about 32x per year.",
+  draw({add,txt,x,y,m,mono}){
+    add("line",{x1:x(T0),x2:x(T0),y1:m.t,y2:y(10**-4.6),stroke:"var(--hair)",
+      "stroke-width":1,"stroke-dasharray":"2 4",opacity:.6});
+    const series=[["L",R.L,C.L,2],["N",R.N,C.N,2],["A",R.A,C.A,2],["U",R.U,C.U,2],["prod",R.prod,C.P,3.5]];
+    const lbl={L:"L",N:"N",A:"A",U:"U",prod:"A·L·N·U"};
+    const nudge={L:0,N:10,A:-4,U:0,prod:0};
+    for(const [k,r,c,w] of series){
+      const s=line(x,y,r,1);
+      add("path",{d:s.d,stroke:c,"stroke-width":w,fill:"none",
+        "stroke-dasharray":k==="A"?"7 4":(k==="U"?"2 4":"none"),"stroke-linecap":"round"});
+      txt(lbl[k],{x:x(X1)+7,y:y(s.v(X1))+4+nudge[k],"font-family":mono,"font-size":11.5,
+        "font-weight":600,fill:c});
+    }
+  },
+  tipText(t){
+    const f=v=>fmtX(2**(v*(t-T0)));
+    return `${t.toFixed(1)}\nproduct ${f(R.prod)}\nL ${f(R.L)} · N ${f(R.N)}\nA ${f(R.A)} · U ${f(R.U)}`;
+  }
+});
+// ---- chart 2: grok cost ----
+makeChart(document.getElementById("chart2"),{
+  ydom:[-2.2,10.4], decadeLabelEvery:2,
+  aria:"Log-scale projection 2024 to 2031 of human hours to fully grok one frontier rollout, with a low to high scenario band and horizontal human-attention thresholds; the central line crosses a thousand-person lab-year around 2029.",
+  draw({add,txt,x,y,m,iw,mono,muted}){
+    const lo=line(x,y,R.prod,GROK.lo), mid=line(x,y,R.prod,GROK.mid), hi=line(x,y,R.prod,GROK.hi);
+    const yc=v=>Math.min(y(v),m.t+ih); // clamp band to the plot floor
+    add("path",{d:`M ${x(X0)} ${yc(lo.v(X0))} L ${x(X1)} ${yc(lo.v(X1))} L ${x(X1)} ${yc(hi.v(X1))} L ${x(X0)} ${yc(hi.v(X0))} Z`,
+      fill:"var(--band)"});
+    const thr=[["1 expert-week",40],["1 expert-year",2e3],["1,000-person lab-year",2e6],["all AI-safety attention",6e7]];
+    for(const [name,h] of thr){
+      add("line",{x1:m.l,x2:m.l+iw,y1:y(h),y2:y(h),stroke:"var(--hair)","stroke-width":1,"stroke-dasharray":"4 4"});
+      txt(name,{x:m.l+6,y:y(h)-5,"font-family":mono,"font-size":10.5,fill:muted});
+      const tc=T0+Math.log2(h/GROK.mid)/R.prod;
+      if(tc>X0&&tc<X1){
+        add("circle",{cx:x(tc),cy:y(h),r:4.5,fill:C.L,stroke:"var(--surface)","stroke-width":2});
+        txt(tc.toFixed(1).replace(".0",""),{x:x(tc),y:y(h)+18,"text-anchor":"middle",
+          "font-family":mono,"font-size":10.5,"font-weight":600,fill:C.L});
+      }
+    }
+    add("path",{d:mid.d,stroke:C.L,"stroke-width":2.5,fill:"none","stroke-linecap":"round"});
+    txt("central",{x:x(X1)+7,y:y(mid.v(X1))+4,"font-family":mono,"font-size":11.5,"font-weight":600,fill:C.L});
+  },
+  tipText(t){
+    const v=GROK.mid*(2**(R.prod*(t-T0)));
+    return `${t.toFixed(1)}\ncentral ${fmtH(v)}\nband ${fmtH(v*GROK.lo/GROK.mid)} – ${fmtH(v*GROK.hi/GROK.mid)}`;
+  }
+});
+})();
+</script>

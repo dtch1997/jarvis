@@ -1,0 +1,30 @@
+{"condition": "sugar_25Hz", "neuron": "MN9_L", "flyid": 720575940660219265, "rate_hz": NaN, "std_hz": NaN}
+{"condition": "sugar_25Hz", "neuron": "MN9_R", "flyid": 720575940645521262, "rate_hz": NaN, "std_hz": NaN}
+{"condition": "sugar_25Hz", "neuron": "n_active_neurons", "flyid": null, "rate_hz": 67, "std_hz": null}
+{"condition": "sugar_50Hz", "neuron": "MN9_L", "flyid": 720575940660219265, "rate_hz": 18.1, "std_hz": 6.2}
+{"condition": "sugar_50Hz", "neuron": "MN9_R", "flyid": 720575940645521262, "rate_hz": 14.5, "std_hz": 4.84}
+{"condition": "sugar_50Hz", "neuron": "n_active_neurons", "flyid": null, "rate_hz": 331, "std_hz": null}
+{"condition": "sugar_100Hz", "neuron": "MN9_L", "flyid": 720575940660219265, "rate_hz": 67.7, "std_hz": 2.69}
+{"condition": "sugar_100Hz", "neuron": "MN9_R", "flyid": 720575940645521262, "rate_hz": 48.7, "std_hz": 1.42}
+{"condition": "sugar_100Hz", "neuron": "n_active_neurons", "flyid": null, "rate_hz": 399, "std_hz": null}
+{"condition": "sugar_150Hz", "neuron": "MN9_L", "flyid": 720575940660219265, "rate_hz": 82.0, "std_hz": 3.61}
+{"condition": "sugar_150Hz", "neuron": "MN9_R", "flyid": 720575940645521262, "rate_hz": 58.2, "std_hz": 3.37}
+{"condition": "sugar_150Hz", "neuron": "n_active_neurons", "flyid": null, "rate_hz": 409, "std_hz": null}
+{"condition": "sugar_200Hz", "neuron": "MN9_L", "flyid": 720575940660219265, "rate_hz": 92.1, "std_hz": 5.13}
+{"condition": "sugar_200Hz", "neuron": "MN9_R", "flyid": 720575940645521262, "rate_hz": 60.6, "std_hz": 3.56}
+{"condition": "sugar_200Hz", "neuron": "n_active_neurons", "flyid": null, "rate_hz": 435, "std_hz": null}
+{"condition": "bitter_150Hz", "neuron": "MN9_L", "flyid": 720575940660219265, "rate_hz": NaN, "std_hz": NaN}
+{"condition": "bitter_150Hz", "neuron": "MN9_R", "flyid": 720575940645521262, "rate_hz": NaN, "std_hz": NaN}
+{"condition": "bitter_150Hz", "neuron": "n_active_neurons", "flyid": null, "rate_hz": 81, "std_hz": null}
+{"condition": "water_150Hz", "neuron": "MN9_L", "flyid": 720575940660219265, "rate_hz": 5.6, "std_hz": 2.33}
+{"condition": "water_150Hz", "neuron": "MN9_R", "flyid": 720575940645521262, "rate_hz": 1.3, "std_hz": 1.79}
+{"condition": "water_150Hz", "neuron": "n_active_neurons", "flyid": null, "rate_hz": 232, "std_hz": null}
+{"condition": "sugar150_bitter150", "neuron": "MN9_L", "flyid": 720575940660219265, "rate_hz": 5.8, "std_hz": 1.83}
+{"condition": "sugar150_bitter150", "neuron": "MN9_R", "flyid": 720575940645521262, "rate_hz": 11.2, "std_hz": 2.32}
+{"condition": "sugar150_bitter150", "neuron": "n_active_neurons", "flyid": null, "rate_hz": 392, "std_hz": null}
+{"track": "B2", "metric": "frac_steps_object_seen", "value": 1.0}
+{"track": "B2", "metric": "mean_abs_deviation", "value": 0.252}
+{"track": "B2", "metric": "video", "value": "runs/track_b/b2_taxis_with_retina.mp4"}
+{"track": "B1", "metric": "displacement_mm", "value": 16.09}
+{"track": "B1", "metric": "mean_speed_mm_s", "value": 10.73}
+{"track": "B1", "metric": "video", "value": "runs/track_b/b1_walking.mp4"}

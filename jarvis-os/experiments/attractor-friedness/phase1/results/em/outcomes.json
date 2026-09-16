@@ -1,0 +1,38 @@
+{
+  "Qwen/Qwen2.5-14B-Instruct": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "em-bad-medical": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "em-risky-financial": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "em-extreme-sports": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  }
+}
