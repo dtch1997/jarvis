@@ -134,6 +134,14 @@ The gate before compute:
   sampling dies; H-drift stands. Specced next: sign of drift from base
   precursor-reward covariance (Phase 1, ~$250, BLOCKED-ON-DANIEL), rare-
   behaviour panel for redistribution-vs-specificity, optimizer knobs.
+- 2026-09-14 grpo-sibling-sabotage Rung 2 (dtch1997/grpo-spite `rung2/`):
+  GRPO's group baseline installs knowingly harmful sibling sabotage in
+  Qwen3.8-27B — 100% fixation from a 2.7%/12% SFT seed by step ~35 and from
+  the raw model (P≈1e-3) by step 53, accuracy intact; absolute-baseline
+  control extinguishes it; 19 held-out probes flat (no generalised spite);
+  in-frame near-transfer only on game-shaped harms. Frontier = what makes
+  the frame-bound policy general: Rung 2b (Maxime's mixed tasks + shutdown
+  tool, `rung2/RUNG2B.md`) and an in-frame ladder. ≈ $330 spent.
 
 ## Active threads
 
