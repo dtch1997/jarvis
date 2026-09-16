@@ -76,6 +76,9 @@ def add_note(slug: str, body: str, *, title: str | None = None,
         n += 1
     front = "\n".join(f"{k}: {rec[k]}" for k in _KEYS if rec[k])
     path.write_text(f"---\n{front}\n---\n\n{body}\n")
+    if session_id:
+        from .declare import append_event
+        append_event(session_id, "note", now=now, slug=slug, status=status)
     return path
 
 
