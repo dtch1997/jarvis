@@ -13,11 +13,12 @@ from __future__ import annotations
 import asyncio
 import os
 import shlex
+import sys
 from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from .backend import open_box
+from .backend import KeepPolicy, open_box
 from .errors import (
     ExecTimeoutError,
     GcsUploadError,
@@ -43,6 +44,12 @@ class RunSpec:
     run: str                            # the job (required)
     setup: str | None = None            # deps, run before `run`
     results_subdir: str = "results"     # path on the pod to pull back
+    # Extra on-box paths (relative to the run dir, or absolute) pulled back
+    # ONLY when the job fails or times out — checkpoints, caches, partial
+    # uploads: anything you'd hate to lose with the box. Each lands as
+    # local_out/<basename>. If a salvage pull itself fails the box is HELD
+    # (not torn down) whatever the keep policy, and its id is announced.
+    salvage: list[str] = field(default_factory=list)
     local_out: str | None = None        # default ./experiments/<slug>
     gcs_base: str | None = DEFAULT_GCS_BASE   # set None to skip GCS upload
     env: dict[str, str] = field(default_factory=dict)
@@ -89,13 +96,17 @@ async def _checked_exec(box, cmd: str, what: str) -> None:
                              log_tail=r.stderr[-2000:])
 
 
-async def run(spec: RunSpec, backend: "Backend", *, keep_pod: bool = False,
+async def run(spec: RunSpec, backend: "Backend", *, keep_pod: KeepPolicy = False,
               api_key: str | None = None) -> RunResult:
     """Run ``spec`` on the box implied by ``backend`` (PodConfig or ModalConfig).
 
-    ``keep_pod`` leaves the box up after the run (kept for name compatibility;
-    applies to a Modal sandbox too). ``api_key`` is the RunPod key and is ignored
-    by the Modal backend (Modal uses its own ambient auth).
+    ``keep_pod`` is the teardown policy: ``True`` leaves the box up after the
+    run, ``"on-failure"`` leaves it up only when the run fails (nonzero remote
+    exit, timeout, pull/upload error) so checkpoints and logs that never made
+    it into ``results_subdir`` are still retrievable — the box id is in the
+    raised error's message and on stderr. (Name kept for compatibility; applies
+    to a Modal sandbox too.) ``api_key`` is the RunPod key and is ignored by the
+    Modal backend (Modal uses its own ambient auth).
     """
     if not (spec.slug and spec.codebase and spec.run):
         raise PreflightError("slug, codebase and run are all required")
@@ -143,6 +154,10 @@ async def run(spec: RunSpec, backend: "Backend", *, keep_pod: bool = False,
         elif remote_exit == 0:
             raise ResultsMissingError(f"job succeeded but no results dir at {results_remote}")
 
+        # --- salvage (failure only): bring back what the box would take with it ---
+        if remote_exit != 0 and spec.salvage:
+            await _salvage(p, spec, run_dir, local_out)
+
         if timed_out is not None:
             raise timed_out
 
@@ -162,8 +177,13 @@ async def run(spec: RunSpec, backend: "Backend", *, keep_pod: bool = False,
             local_results=local_out, gcs_uri=gcs_uri, retrieve_cmd=retrieve_cmd, log_tail=log_tail,
         )
 
-    if remote_exit != 0:
-        raise RemoteJobError(f"remote job exited {remote_exit}", remote_exit=remote_exit, log_tail=result.log_tail)
+        # Raised *inside* the box context so the keep policy sees the failure
+        # (keep_pod="on-failure" must not tear down a box whose job just failed).
+        if remote_exit != 0:
+            raise RemoteJobError(
+                f"remote job exited {remote_exit} (box {p.id})",
+                remote_exit=remote_exit, log_tail=result.log_tail,
+            )
     return result
 
 
@@ -181,6 +201,27 @@ async def run_many(specs: list[RunSpec], backend: "Backend", *,
             return await run(s, backend, **kw)
 
     return await asyncio.gather(*(_one(s) for s in specs), return_exceptions=True)
+
+
+async def _salvage(p, spec: RunSpec, run_dir: str, local_out: str) -> None:
+    """Pull every ``spec.salvage`` path that exists on the box into local_out.
+
+    A missing path is fine (the job may have died before creating it). A pull
+    that *fails* means the only copy is still on the box, so hold the box
+    instead of letting the context manager delete it.
+    """
+    for path in spec.salvage:
+        remote = path if path.startswith("/") else f"{run_dir}/{path}"
+        remote = remote.rstrip("/")
+        if not await p.exists_remote(remote):
+            print(f"bellhop: salvage skip {remote} (not on box)", file=sys.stderr, flush=True)
+            continue
+        try:
+            await p.pull(remote, local_out)
+            print(f"bellhop: salvaged {remote} -> {local_out}/{os.path.basename(remote)}",
+                  file=sys.stderr, flush=True)
+        except Exception as e:
+            p.hold(f"salvage of {remote} failed: {e}")
 
 
 async def _gcs_upload(local_dir: str, gcs_uri: str) -> None:

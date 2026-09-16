@@ -33,6 +33,12 @@ def _parser() -> argparse.ArgumentParser:
     r.add_argument("--no-gcs", action="store_true", help="skip GCS upload")
     r.add_argument("--env-json", default=None, help="JSON object of extra box env vars")
     r.add_argument("--keep-pod", action="store_true", help="leave the box up after the run")
+    r.add_argument("--salvage", action="append", default=[], metavar="PATH",
+                   help="extra on-box path (relative to the run dir) to pull back if the job "
+                        "fails; repeatable. If the pull fails the box is held, not torn down")
+    r.add_argument("--keep-on-failure", action="store_true",
+                   help="leave the box up only if the run fails (so checkpoints/logs "
+                        "outside results_subdir survive); the box's TTL still bounds the cost")
     r.add_argument("--gpu", default=None,
                    help="GPU short name, e.g. 'A100', 'H100', 'L4' (both backends; omit for a CPU box). "
                         "RunPod also accepts a full gpuTypeId like 'NVIDIA GeForce RTX 4090'.")
@@ -129,6 +135,7 @@ def main(argv: list[str] | None = None) -> int:
         run=args.run,
         setup=args.setup,
         results_subdir=args.results_subdir,
+        salvage=args.salvage,
         local_out=args.local_out,
         gcs_base=None if args.no_gcs else args.gcs_base,
         env=dict(env),
@@ -136,7 +143,8 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     try:
-        res = asyncio.run(run(spec, backend, keep_pod=args.keep_pod))
+        keep = True if args.keep_pod else ("on-failure" if args.keep_on_failure else False)
+        res = asyncio.run(run(spec, backend, keep_pod=keep))
     except BellhopError as e:
         print(f"ERROR [{type(e).__name__}]: {e}", file=sys.stderr)
         return e.exit_code

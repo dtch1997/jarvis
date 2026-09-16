@@ -109,6 +109,18 @@ Good to know:
   landed in `results/` before raising, so the run stays debuggable.
 - GCS upload happens from *your* machine — cloud credentials never touch the
   pod. Needs `gcloud` on your PATH.
+- **A failed job tears the box down by default** — and with it anything that
+  never made it into `results/` (a checkpoint your job was mid-upload on, say).
+  Name those paths in `salvage=["checkpoints/", "/root/.cache/huggingface"]`
+  (CLI: `--salvage PATH`, repeatable; relative = under the run dir) and bellhop
+  pulls them back to `local_out/` on any failure or timeout, *before* teardown
+  — bellhop keeps owning the box, you get the bytes. If a salvage pull itself
+  fails, the box is **held** (not torn down) and its id is printed, since the
+  only copy is still on it.
+- Need the live box itself after a failure (to poke around)? `keep_pod="on-failure"`
+  (CLI: `--keep-on-failure`) tears down on success but keeps any failed box, id
+  on stderr and in the raised error. That hands the resource to you — the
+  server-side TTL still bounds the cost, but clean it up.
 
 ### Big data on the pod: pair with ferry
 
@@ -154,7 +166,9 @@ async with pod(PodConfig(gpu="RTX4090")) as p:
     await p.exec("python eval.py")            # same pod, no re-provision
     await p.pull("/workspace/job/results", "./out")
     print(p.proxy_url(8000))                  # https://<id>-8000.proxy.runpod.net
-# pod deleted here — even if the body raised (pass keep=True to leave it up)
+# pod deleted here — even if the body raised. keep=True leaves it up always;
+# keep="on-failure" leaves it up only if the body raised, so a failed job can't
+# take the only copy of its checkpoints down with it (id printed to stderr)
 ```
 
 Same shape on Modal: `async with sandbox(ModalConfig(gpu="A10G")) as b:`.
@@ -325,7 +339,7 @@ Two independent layers:
 
 | When | Handled by |
 |------|------------|
-| Normal exit, exception, Ctrl-C | the `async with` / pipeline `finally` — **always** tears down (unless `keep=True`) |
+| Normal exit, exception, Ctrl-C | the `async with` / pipeline `finally` — **always** tears down (unless `keep=True`, or `keep="on-failure"` and the body raised) |
 | Your process itself dies (kill -9, crash, reboot) | server-side safety timers |
 
 The context manager is the primary guarantee; the timers cover the one case

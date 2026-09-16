@@ -722,3 +722,326 @@ def test_nested_results_subdir_log_tail(tmp_path, monkeypatch):
                    local_out=str(tmp_path / "loc"), gcs_base=None)
     res = asyncio.run(runmod.run(spec, PodConfig()))
     assert "hello from the log" in res.log_tail
+
+
+# --- keep="on-failure": a failed job must not take its outputs down with it ---
+
+def test_should_teardown_policy():
+    import pytest
+
+    from bellhop import PreflightError
+    from bellhop.backend import should_teardown
+
+    assert should_teardown(False, failed=False) is True
+    assert should_teardown(False, failed=True) is True
+    assert should_teardown(True, failed=False) is False
+    assert should_teardown(True, failed=True) is False
+    assert should_teardown("on-failure", failed=False) is True
+    assert should_teardown("on-failure", failed=True) is False
+    with pytest.raises(PreflightError):
+        should_teardown("sometimes", failed=False)
+
+
+def _pod_ctx_harness(monkeypatch):
+    """Drive pod() offline: fake REST create, no waits, record teardown."""
+    import contextlib
+    import importlib
+
+    podmod = importlib.import_module("bellhop.pod")
+    torn = []
+
+    class FakeRest:
+        def __init__(self, api_key=None):
+            pass
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *a):
+            return False
+
+        async def create_pod(self, body):
+            return {"id": "pod-xyz"}
+
+    async def _noop(self):
+        pass
+
+    async def _teardown(self):
+        torn.append(self.id)
+
+    monkeypatch.setattr(podmod, "RunpodRest", FakeRest)
+    monkeypatch.setattr(podmod.Pod, "_wait_provision", _noop)
+    monkeypatch.setattr(podmod.Pod, "_wait_ready", _noop)
+    monkeypatch.setattr(podmod.Pod, "teardown", _teardown)
+    # hermetic: pod() reads ~/.ssh (pubkey_text for the create body,
+    # resolve_ssh_key for the connection handle) — CI has no key
+    monkeypatch.setattr(podmod.PodConfig, "pubkey_text",
+                        lambda self: "ssh-ed25519 AAAATESTKEY offline-test")
+    monkeypatch.setattr(podmod.PodConfig, "resolve_ssh_key",
+                        lambda self: "/dev/null")
+    return podmod, torn
+
+
+@pytest.mark.parametrize("keep,body_raises,expect_torn", [
+    (False, False, True), (False, True, True),
+    (True, False, False), (True, True, False),
+    ("on-failure", False, True), ("on-failure", True, False),
+])
+def test_pod_ctx_keep_policy(monkeypatch, capsys, keep, body_raises, expect_torn):
+    import asyncio
+
+    podmod, torn = _pod_ctx_harness(monkeypatch)
+    # CPU + no TTL: REST create path, no GraphQL, no TTL warning
+    cfg = PodConfig(compute="cpu", terminate_after=None)
+
+    async def go():
+        async with podmod.pod(cfg, keep=keep) as p:
+            assert p.id == "pod-xyz"
+            if body_raises:
+                raise RuntimeError("job failed")
+
+    if body_raises:
+        with pytest.raises(RuntimeError):
+            asyncio.run(go())
+    else:
+        asyncio.run(go())
+    assert (torn == ["pod-xyz"]) is expect_torn
+    err = capsys.readouterr().err
+    assert ("KEPT after failure" in err) is (keep == "on-failure" and body_raises)
+    if keep == "on-failure" and body_raises:
+        assert "pod-xyz" in err             # the id is the only retrieval handle
+
+
+def test_pod_ctx_rejects_bad_keep_before_creating(monkeypatch):
+    import asyncio
+
+    from bellhop import PreflightError
+
+    podmod, torn = _pod_ctx_harness(monkeypatch)
+    created = []
+    orig = podmod.RunpodRest.create_pod
+
+    async def create_pod(self, body):
+        created.append(body)
+        return await orig(self, body)
+
+    monkeypatch.setattr(podmod.RunpodRest, "create_pod", create_pod)
+
+    async def go():
+        async with podmod.pod(PodConfig(compute="cpu", terminate_after=None), keep="maybe"):
+            pass
+
+    with pytest.raises(PreflightError):
+        asyncio.run(go())
+    assert created == []
+
+
+def test_run_nonzero_exit_raises_inside_box_context(tmp_path, monkeypatch):
+    # The whole point of keep_pod="on-failure": run() must surface the job
+    # failure while the box is still open, so the policy can keep it.
+    import asyncio
+    import contextlib
+    import importlib
+
+    from bellhop import RemoteJobError
+    from bellhop.backend import ExecResult
+    from bellhop.run import RunSpec
+
+    runmod = importlib.import_module("bellhop.run")
+    seen = {}
+
+    class Box:
+        id = "pod-fail"
+
+        async def exec(self, cmd, env=None, timeout=None):
+            return ExecResult(1 if "--- run ---" in cmd else 0, "", "")
+
+        async def push(self, local, remote):
+            pass
+
+        async def pull(self, remote, dest):
+            pass
+
+        async def exists_remote(self, path):
+            return True
+
+        async def teardown(self):
+            pass
+
+    @contextlib.asynccontextmanager
+    async def fake_open_box(backend, *, keep=False, api_key=None):
+        seen["keep"] = keep
+        failed = True
+        try:
+            yield Box()
+            failed = False
+        finally:
+            seen["failed_inside_ctx"] = failed
+
+    monkeypatch.setattr(runmod, "open_box", fake_open_box)
+    spec = RunSpec(slug="s", codebase=str(tmp_path), run="x",
+                   local_out=str(tmp_path / "out"), gcs_base=None)
+    with pytest.raises(RemoteJobError) as ei:
+        asyncio.run(runmod.run(spec, PodConfig(), keep_pod="on-failure"))
+    assert seen == {"keep": "on-failure", "failed_inside_ctx": True}
+    assert "pod-fail" in str(ei.value)      # the box id travels with the error
+
+
+def test_cli_keep_on_failure_flag(monkeypatch):
+    import importlib
+
+    cli = importlib.import_module("bellhop.cli")
+    got = {}
+
+    async def fake_run(spec, backend, keep_pod=False):
+        got["keep"] = keep_pod
+        raise cli.BellhopError("stop here")
+
+    monkeypatch.setattr(cli, "run", fake_run)
+    monkeypatch.setenv("RUNPOD_API_KEY", "x")
+    cli.main(["run", "--slug", "s", "--codebase", ".", "--run", "true",
+              "--keep-on-failure", "--no-gcs"])
+    assert got["keep"] == "on-failure"
+
+
+# --- salvage: bring back what a failed box would otherwise take with it -------
+
+def _salvage_box(exit_code, present, pull_fail=()):
+    from bellhop.backend import ExecResult
+
+    class Box:
+        id = "pod-s"
+        hold_reason = None
+        pulled = []
+
+        async def exec(self, cmd, env=None, timeout=None):
+            return ExecResult(exit_code if "--- run ---" in cmd else 0, "", "")
+
+        async def push(self, local, remote):
+            pass
+
+        async def pull(self, remote, dest):
+            if any(remote.endswith(f) for f in pull_fail):
+                raise RuntimeError("ssh died")
+            self.pulled.append(remote)
+
+        async def exists_remote(self, path):
+            return any(path.endswith(x) for x in present)
+
+        def hold(self, reason):
+            self.hold_reason = self.hold_reason or reason
+
+        async def teardown(self):
+            pass
+
+    return Box()
+
+
+def _run_with_box(monkeypatch, tmp_path, box, **spec_kw):
+    import asyncio
+    import contextlib
+    import importlib
+
+    from bellhop.run import RunSpec
+
+    runmod = importlib.import_module("bellhop.run")
+
+    @contextlib.asynccontextmanager
+    async def fake_open_box(backend, *, keep=False, api_key=None):
+        yield box
+
+    monkeypatch.setattr(runmod, "open_box", fake_open_box)
+    spec = RunSpec(slug="s", codebase=str(tmp_path), run="x",
+                   local_out=str(tmp_path / "out"), gcs_base=None, **spec_kw)
+    return asyncio.run(runmod.run(spec, PodConfig()))
+
+
+def test_salvage_pulled_on_failure_only(monkeypatch, tmp_path):
+    from bellhop import RemoteJobError
+
+    # success: results only, salvage paths untouched
+    box = _salvage_box(0, present=["results", "ckpt", "/root/.cache"])
+    _run_with_box(monkeypatch, tmp_path, box, salvage=["ckpt", "/root/.cache/"])
+    assert box.pulled == ["/workspace/s/results"]
+
+    # failure: results + every salvage path that exists (relative -> run dir,
+    # absolute kept, trailing slash stripped); missing ones skipped silently
+    box = _salvage_box(1, present=["results", "ckpt", "/root/.cache"])
+    with pytest.raises(RemoteJobError):
+        _run_with_box(monkeypatch, tmp_path, box, salvage=["ckpt", "/root/.cache/", "nope"])
+    assert box.pulled == ["/workspace/s/results", "/workspace/s/ckpt", "/root/.cache"]
+    assert box.hold_reason is None
+
+
+def test_salvage_pull_failure_holds_box(monkeypatch, tmp_path):
+    from bellhop import RemoteJobError
+
+    box = _salvage_box(1, present=["results", "ckpt"], pull_fail=["ckpt"])
+    with pytest.raises(RemoteJobError):
+        _run_with_box(monkeypatch, tmp_path, box, salvage=["ckpt"])
+    assert box.hold_reason and "ckpt" in box.hold_reason
+
+
+def test_salvage_runs_on_timeout(monkeypatch, tmp_path):
+    import asyncio
+    import contextlib
+    import importlib
+
+    from bellhop import ExecTimeoutError
+    from bellhop.run import RunSpec
+
+    runmod = importlib.import_module("bellhop.run")
+    box = _salvage_box(0, present=["results", "ckpt"])
+
+    async def exec_timeout(cmd, env=None, timeout=None):
+        if "--- run ---" in cmd:
+            raise ExecTimeoutError("t")
+        from bellhop.backend import ExecResult
+        return ExecResult(0, "", "")
+
+    box.exec = exec_timeout
+
+    @contextlib.asynccontextmanager
+    async def fake_open_box(backend, *, keep=False, api_key=None):
+        yield box
+
+    monkeypatch.setattr(runmod, "open_box", fake_open_box)
+    spec = RunSpec(slug="s", codebase=str(tmp_path), run="x", timeout=1,
+                   local_out=str(tmp_path / "out"), gcs_base=None, salvage=["ckpt"])
+    with pytest.raises(ExecTimeoutError):
+        asyncio.run(runmod.run(spec, PodConfig()))
+    assert "/workspace/s/ckpt" in box.pulled
+
+
+def test_pod_ctx_hold_overrides_keep_false(monkeypatch, capsys):
+    import asyncio
+
+    podmod, torn = _pod_ctx_harness(monkeypatch)
+
+    async def go():
+        async with podmod.pod(PodConfig(compute="cpu", terminate_after=None)) as p:
+            p.hold("salvage of /x failed: ssh died")
+            raise RuntimeError("job failed")
+
+    with pytest.raises(RuntimeError):
+        asyncio.run(go())
+    assert torn == []
+    err = capsys.readouterr().err
+    assert "KEPT after failure (salvage of /x failed" in err and "pod-xyz" in err
+
+
+def test_cli_salvage_flag(monkeypatch):
+    import importlib
+
+    cli = importlib.import_module("bellhop.cli")
+    got = {}
+
+    async def fake_run(spec, backend, keep_pod=False):
+        got["salvage"] = spec.salvage
+        raise cli.BellhopError("stop here")
+
+    monkeypatch.setattr(cli, "run", fake_run)
+    monkeypatch.setenv("RUNPOD_API_KEY", "x")
+    cli.main(["run", "--slug", "s", "--codebase", ".", "--run", "true", "--no-gcs",
+              "--salvage", "ckpt", "--salvage", "/root/.cache"])
+    assert got["salvage"] == ["ckpt", "/root/.cache"]

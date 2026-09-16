@@ -13,6 +13,11 @@ pick a backend purely from the config type you hand them
 (:class:`~bellhop.pod.PodConfig` -> RunPod, :class:`~bellhop.modal_box.ModalConfig`
 -> Modal), via :func:`open_box`.
 
+Every box context manager takes the same ``keep`` policy (:data:`KeepPolicy`):
+``False`` always tears down, ``True`` never does, and ``"on-failure"`` keeps
+the box only when the body raised — so a failed job can't take the only copy
+of its outputs down with it.
+
 :func:`bellhop.call.call` (remote function execution) is *derived* from these
 primitives, not part of the protocol — it works over any ExecBox.
 """
@@ -20,11 +25,46 @@ primitives, not part of the protocol — it works over any ExecBox.
 from __future__ import annotations
 
 import contextlib
+import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import AsyncIterator, Protocol, runtime_checkable
+from typing import AsyncIterator, Literal, Protocol, runtime_checkable
 
 from .errors import PreflightError
+
+# Teardown policy for the box context managers (``pod()``, ``sandbox()``,
+# ``open_box()``, ``run(keep_pod=...)``):
+#   False        -> always tear down (the default)
+#   True         -> never tear down
+#   "on-failure" -> tear down only if the body finished cleanly; if it raised
+#                   (job failed, upload failed, timeout, ...) leave the box up so
+#                   whatever it holds — checkpoints, logs — can still be
+#                   retrieved. The server-side TTL remains the cost backstop.
+KeepPolicy = Literal[False, True, "on-failure"]
+
+
+def should_teardown(keep: KeepPolicy, failed: bool, held: bool = False) -> bool:
+    """Decide teardown from the keep policy, whether the body raised, and
+    whether the box was explicitly held (:meth:`ExecBox.hold`)."""
+    if keep is True or held:
+        return False
+    if keep == "on-failure":
+        return not failed
+    if keep is False:
+        return True
+    raise PreflightError(f"keep must be False, True or 'on-failure' (got {keep!r})")
+
+
+def announce_kept_box(kind: str, box_id: str, teardown_hint: str,
+                      why: str = "keep='on-failure'") -> None:
+    """One loud stderr line when a box survives a failure — the id is the
+    only handle the caller has for retrieving what's on it."""
+    print(
+        f"bellhop: {kind} {box_id} KEPT after failure ({why}). "
+        f"Retrieve what you need, then tear it down: {teardown_hint}",
+        file=sys.stderr, flush=True,
+    )
+
 
 # What push() leaves out of the codebase archive, on either backend.
 TAR_EXCLUDES = ["--exclude=.git", "--exclude=__pycache__", "--exclude=.venv",
@@ -59,11 +99,18 @@ class ExecBox(Protocol):
 
     async def teardown(self) -> None: ...
 
+    # Ask the owning context manager NOT to tear this box down on exit,
+    # whatever its ``keep`` policy — used when something irreplaceable is
+    # still on the box (e.g. a salvage pull failed). Idempotent.
+    def hold(self, reason: str) -> None: ...
+
 
 @contextlib.asynccontextmanager
-async def open_box(backend, *, keep: bool = False,
+async def open_box(backend, *, keep: KeepPolicy = False,
                    api_key: str | None = None) -> AsyncIterator[ExecBox]:
     """Provision the box implied by ``backend``'s type, yield it, tear it down.
+
+    ``keep`` is the teardown policy (see :func:`should_teardown`).
 
     Dispatches on the config class so callers never branch on provider:
     ``PodConfig`` -> RunPod pod, ``ModalConfig`` -> Modal sandbox. Imports are

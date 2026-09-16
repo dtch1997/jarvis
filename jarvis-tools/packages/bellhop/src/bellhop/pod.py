@@ -17,7 +17,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import AsyncIterator, Literal
 
-from .backend import TAR_EXCLUDES, ExecResult
+from .backend import TAR_EXCLUDES, ExecResult, KeepPolicy, announce_kept_box, should_teardown
 from .errors import ExecTimeoutError, PodNotReadyError, PreflightError, ProvisionError
 from .graphql import RunpodGraphQL
 from .probes import ReadyProbe, SshProbe
@@ -262,6 +262,7 @@ class Pod:
         self.id = pod_id
         self.config = config
         self._meta: dict = {}
+        self.hold_reason: str | None = None
         self._ssh_key = config.resolve_ssh_key()
 
     # ---- connection info ---------------------------------------------------
@@ -314,6 +315,10 @@ class Pod:
                     f"within {self.config.ready_timeout.total_seconds():.0f}s"
                 )
             await asyncio.sleep(self.config.poll_interval)
+
+    def hold(self, reason: str) -> None:
+        """Keep this pod up on context exit regardless of the ``keep`` policy."""
+        self.hold_reason = self.hold_reason or reason
 
     async def teardown(self) -> None:
         await self._rest.delete_pod(self.id)
@@ -454,13 +459,16 @@ async def _gql_create(config: PodConfig, api_key: str | None) -> dict:
 
 
 @contextlib.asynccontextmanager
-async def pod(config: PodConfig, *, keep: bool = False,
+async def pod(config: PodConfig, *, keep: KeepPolicy = False,
               api_key: str | None = None) -> AsyncIterator[Pod]:
     """Provision a pod, wait until it's functional, yield it, tear it down.
 
     On any exception (including a readiness timeout) the pod is still deleted,
-    unless ``keep=True``.
+    unless ``keep=True`` (never delete) or ``keep="on-failure"`` (delete only
+    on a clean exit — a failed body leaves the pod, and whatever it holds, up
+    for retrieval; the server-side TTL still bounds the cost).
     """
+    should_teardown(keep, failed=False)   # validate the policy before spending money
     async with RunpodRest(api_key=api_key) as rest:
         if config.has_ttl() and config.resolved_compute == "gpu":
             # Native server-side TTL is GraphQL-only (and on-demand = GPU only).
@@ -493,6 +501,7 @@ async def pod(config: PodConfig, *, keep: bool = False,
             raise ProvisionError(f"could not parse pod id from create response: {created}")
 
         p = Pod(rest, pod_id, config)
+        failed = True
         try:
             await p._wait_provision()
             await p._wait_ready()
@@ -505,7 +514,13 @@ async def pod(config: PodConfig, *, keep: bool = False,
                         f"(rc={r.exit_code}): {(r.stderr or r.stdout)[-500:]}"
                     )
             yield p
+            failed = False
         finally:
-            if not keep:
+            if should_teardown(keep, failed, held=p.hold_reason is not None):
                 with contextlib.suppress(Exception):
                     await p.teardown()
+            elif p.hold_reason:
+                announce_kept_box("pod", pod_id, f"runpodctl remove pod {pod_id}",
+                                  why=p.hold_reason)
+            elif failed and keep == "on-failure":
+                announce_kept_box("pod", pod_id, f"runpodctl remove pod {pod_id}")

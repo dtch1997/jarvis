@@ -30,7 +30,7 @@ from datetime import timedelta
 from pathlib import Path
 from typing import Any, AsyncIterator
 
-from .backend import TAR_EXCLUDES, ExecResult
+from .backend import TAR_EXCLUDES, ExecResult, KeepPolicy, announce_kept_box, should_teardown
 from .errors import ExecTimeoutError, PreflightError, ProvisionError
 
 
@@ -159,6 +159,7 @@ class Sandbox:
 
     def __init__(self, sb, config: ModalConfig):
         self._sb = sb
+        self.hold_reason: str | None = None
         self.config = config
         self.id = sb.object_id
 
@@ -266,17 +267,23 @@ class Sandbox:
         from .call import call as _call
         return await _call(self, fn, *args, **kwargs)
 
+    def hold(self, reason: str) -> None:
+        """Keep this sandbox up on context exit regardless of the ``keep`` policy."""
+        self.hold_reason = self.hold_reason or reason
+
     async def teardown(self) -> None:
         await self._sb.terminate.aio()
 
 
 @contextlib.asynccontextmanager
-async def sandbox(config: ModalConfig, *, keep: bool = False) -> AsyncIterator[Sandbox]:
+async def sandbox(config: ModalConfig, *, keep: KeepPolicy = False) -> AsyncIterator[Sandbox]:
     """Provision a Modal Sandbox, yield it, terminate it.
 
-    On any exception the sandbox is still terminated, unless ``keep=True``. No
-    readiness wait is needed — ``Sandbox.create`` returns an execable box.
+    On any exception the sandbox is still terminated, unless ``keep=True`` or
+    ``keep="on-failure"`` (terminate only on a clean exit). No readiness wait
+    is needed — ``Sandbox.create`` returns an execable box.
     """
+    should_teardown(keep, failed=False)   # validate the policy before spending money
     modal = _import_modal()
     image = config.resolve_image()
     app = await modal.App.lookup.aio(config.app_name, create_if_missing=True)
@@ -287,9 +294,17 @@ async def sandbox(config: ModalConfig, *, keep: bool = False) -> AsyncIterator[S
         raise ProvisionError(f"modal sandbox create failed: {e}") from e
 
     box = Sandbox(sb, config)
+    failed = True
     try:
         yield box
+        failed = False
     finally:
-        if not keep:
+        if should_teardown(keep, failed, held=box.hold_reason is not None):
             with contextlib.suppress(Exception):
                 await box.teardown()
+        elif box.hold_reason:
+            announce_kept_box("modal sandbox", box.id,
+                              f"modal sandbox terminate {box.id}", why=box.hold_reason)
+        elif failed and keep == "on-failure":
+            announce_kept_box("modal sandbox", box.id,
+                              f"modal sandbox terminate {box.id}")
