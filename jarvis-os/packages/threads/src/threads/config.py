@@ -66,6 +66,12 @@ def notes_dir() -> Path:
     return threads_dir() / "notes"
 
 
+def declarations_dir() -> Path:
+    """Session self-declarations (``sessions/<session-id>.json``, written by
+    ``threads declare``; read by ``threads sessions``)."""
+    return threads_dir() / "sessions"
+
+
 def intents_dir() -> Path:
     """Durable launcher send-records (``intents/<ulid>.json``)."""
     return threads_dir() / "intents"
