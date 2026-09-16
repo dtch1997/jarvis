@@ -1,0 +1,1 @@
+{"title": "flow", "nodes": [{"name": "pilot", "kind": "map", "rank": 0}, {"name": "pick_lrs", "kind": "reduce", "rank": 1}, {"name": "plan_grid", "kind": "expand", "rank": 2}, {"name": "grid", "kind": "map", "rank": 3}, {"name": "summarize", "kind": "reduce", "rank": 4}], "edges": [["grid", "summarize"], ["pick_lrs", "plan_grid"], ["pilot", "pick_lrs"], ["plan_grid", "grid"]]}
