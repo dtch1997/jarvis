@@ -1,0 +1,28 @@
+# Smoke-test swarm: 3 cheap agents exercising workspace + board + inbox.
+[run]
+name = "demo"
+model = "haiku"
+max_budget_usd = 0.25
+wall_timeout_s = 600
+max_parallel = 8
+
+[swarm]
+count = 3
+task = """
+Your job has three parts:
+
+1. In your private /workspace, write a Python file `primes.py` with a function
+   `first_n_primes(n)` returning a list of the first n primes, and check it
+   runs (`python3 -c "from primes import first_n_primes; print(first_n_primes(10))"`).
+
+2. Post a message to the broadcast board introducing yourself and stating one
+   interesting fact about prime numbers that you expect no other agent will
+   mention. Read the other agents' board posts.
+
+3. Pick one other agent from the roster and send a direct message to its inbox
+   commenting on its board post (if it has not posted yet, say hello and name
+   the fact you posted). Check your own inbox before finishing and reply
+   briefly to anything in it via the sender's inbox.
+
+Then stop.
+"""
