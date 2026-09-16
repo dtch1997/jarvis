@@ -66,6 +66,16 @@ PATH=/home/daniel/.local/bin:/usr/local/bin:/usr/bin:/bin
 # in ~/.env — check the RunPod console for leaked pods manually meanwhile.
 #PAUSED# 23 9 * * 1 python3 /home/daniel/jarvis-data/pod-audit/audit.py --allowlist /home/daniel/jarvis-data/pod-audit/allowlist.json --out /home/daniel/jarvis-data/pod-audit/audit.jsonl --github-repo ArcadiaImpact/jarvis >> /home/daniel/jarvis-data/pod-audit/audit.log 2>&1
 
+# pod-digest: the daily RunPod message — active pods, yesterday/today spend,
+# thread attribution per pod (source: jarvis-os/ops/pod-digest/). LIVE by
+# Daniel's call 2026-09-14 — protective, born from the spend audit
+# (experiments/runpod-spend-audit: ≈$5k of unnoticed leaks). Runs 00:00 UTC.
+# Ported 2026-09-16 to this box: runs from the repo checkout (kept current by
+# the nightly deploy) rather than an ~/jarvis-data copy; self-sources the key
+# from ~/.env or ~/.runpod/config.toml and exits with a clear message until
+# one exists (BLOCKED-ON-DANIEL: RunPod API key on this box).
+0 0 * * * python3 /home/daniel/jarvis/jarvis-os/ops/pod-digest/digest.py --allowlist /home/daniel/jarvis/jarvis-os/ops/pod-digest/allowlist.json --out /home/daniel/jarvis-data/pod-digest/ledger.jsonl >> /home/daniel/jarvis-data/pod-digest/digest.log 2>&1
+
 # deploy: nightly version cut + deploy. `version cut` tags origin/main's tip
 # as vYYYY.MM.DD (the night's JARVIS version); `version deploy` deploys it —
 # pull the pinned checkout forward (or honor a `gazette version switch`
