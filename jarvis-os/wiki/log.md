@@ -2,6 +2,85 @@
 
 Append-only, newest first. Format: `## [YYYY-MM-DD] <op> | <title>`.
 
+## [2026-08-31] consolidate | Fifth memory-consolidation run (delta since 2026-08-24)
+
+Fifth run, one week after the fourth; classification focused on the six
+memories changed since 2026-08-24 (all read in full), the rest standing on
+runs 1–4's adjudications. Actions: **0 PERSIST, 0 COMPRESS, 0 ARCHIVE, 6
+KEEP** — the whole delta is mid-flight. Three new finding memories
+(agent-fratricide, metr-incident-repro, tiananmen-elicitation — all
+2026-08-29/30) form a coherent "deployed-Claude-5 propensity repro" cluster
+(three NEGATIVE incident repros: no fratricide, no grader-hacking /
+poisoned-chalice escalation, plus the Qwen suppression-gate study) but every
+thread is days old and actively extending (metr's multi-agent experiment
+reuses the fratricide harness; tiananmen has a pending pinned-provider rerun
+for the Venice confound) — **queued for a joint cluster ingest at wrap**,
+per the logit-interpolation precedent. science-of-midtraining's
+belief-entanglement result (H-independent) defers itself and belongs to the
+sibling sci-mt wiki; employment-thesis is private/user; phd-thesis stays on
+the run-4 standing flag (canonical layer = the thesis chapter).
+
+Queue re-judged: ARC WHEST stays queued (embargo/deadline 2026-09-19 — three
+weeks out); logit-interpolation still mid-flight (unchanged since run 4);
+autoresearch-harnesses Meta-RPM candidate carried; run-3's seven intra-file
+stale contradictions carried untouched. NEW queue entry: the propensity-repro
+trio above.
+
+Operational side-effects of the run (memory repairs committed to
+jarvis-memory 49ecf4a): discovered the phd-thesis pipeline **silently
+stalled 5 days** — a tmux-server restart (~08-28) had killed the concierge
+daemon and the spec-00d grid driver (50/55 cells, DRIVER_EXIT never
+written; task t-0826-527e stuck "waiting", invisible to desk). Relaunched
+the daemon (task auto-resumed and restarted its own driver), filed
+jarvis#141 (stall class), flared. Also found jarvis CI broken repo-wide
+(all 17 package test jobs fail incl. on main, jarvis#139 — commented) —
+experiment PRs #134/#135/#136/#140 unmergeable until fixed; annotated the
+three finding memories + MEMORY.md accordingly.
+
+## [2026-08-24] consolidate | Fourth memory-consolidation run (delta since 2026-08-17)
+
+Fourth run, one week after the third; classification focused on the 26
+memories changed since 2026-08-17 (all read in full), with the unchanged
+~100 standing on runs 1–3's adjudications. Actions: **1 PERSIST**
+(crasp-length-gen-repro — ingested below; the memory itself had queued this
+ingest "once PR #23 merges"; memory compressed to a stub), **0 ARCHIVE**,
+rest KEEP (the delta is dominated by active infra/project memories —
+monorepo cutover, gazette consumer mode, concierge backends, mailroom,
+thesis worker pool — all operational, none wiki-shaped). MEMORY.md repairs
+from live PR/cron checks: mailroom PRs #15/#16 MERGED + crons installed;
+curator PR #55 MERGED + CLI linked; thread-launcher PR #14 and auto-wrapup
+spec PR #19 MERGED (impl issue #20 open); crasp line → stub pointer. Memory
+body fix: training-cooperativeness "Next: merge #140" (already merged).
+Queue re-judged per the relevance gate: ARC WHEST stays queued (embargo to
+2026-09-19); **inoculation pair expired** (dormant since early July —
+re-queue on reactivation; stub preserves it); sci-mt items remain the
+sibling wiki's. Deliberately NOT ingested, flagged for Daniel: the PSM
+program's spec 00–05 findings (canonical layer = the thesis chapter itself,
+actively maintained — a parallel jarvis-wiki cluster would duplicate it;
+decide if the program wants its own wiki); logit-interpolation repro +
+detection results (mid-flight, canonical docs in the fork — ingest at
+wrap); autoresearch-harnesses' Meta-RPM takeaways (single entry; candidate
+cluster once the scaffold lit review materializes). Standing flags carried:
+run 3's seven intra-file stale contradictions in old memories (unchanged,
+untouched).
+
+## [2026-08-24] ingest | crasp-length-gen minimal repro — negative at small scale (tension recorded)
+
+Ingested the in-house repro attempt of Yang et al. 2026's Fig.-1 pair
+(jarvis-os experiments/crasp-length-gen, PR #36 merged 2026-08-19; passes
+the relevance gate — it directly qualifies an existing wiki cluster's
+headline claim). Raw = verbatim report.md. New source:
+crasp-length-gen-repro (negative: no dichotomy at 1–4-layer/CPU scale, ~48
+qualifying runs over 5 protocol waves; both languages learn length-bounded
+solutions; status partial). Concept length-generalization gains a Tensions
+section — C-RASP membership predicts extrapolation for *selected* models
+(the paper's 54-config × up-to-1000-seed protocol), not typical-case
+small-budget training; claim 3 re-marked selection-conditioned. c-rasp
+entity gains the matching gotcha; anchor source page gains a Relations
+pointer. Settling experiment (exact-protocol GPU sweep for the pair) parked
+in the source page. Touched: 1 raw, 1 source (new), 1 source (pointer),
+1 concept, 1 entity, index, raw/index.
+
 ## [2026-08-18] ingest | arXiv:2608.13433 — algebraic decomposition theory for transformer length generalization
 
 Fire-and-forget read requested by Daniel of Yang et al. 2026, "Algebraic

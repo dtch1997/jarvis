@@ -3,7 +3,7 @@ type: concept
 title: Length generalization (transformers on regular languages)
 description: Whether a transformer trained on short inputs keeps working on longer ones. For regular state-tracking tasks (no positional encodings), the current best predictor is C-RASP membership — now a complete, poly-time-decidable criterion; expressibility in a circuit/subregular class does not predict it.
 tags: [length-generalization, transformer-expressivity, C-RASP, regular-languages, state-tracking]
-timestamp: 2026-08-18
+timestamp: 2026-08-24
 ---
 
 # Length generalization
@@ -16,8 +16,11 @@ state-tracking), train on lengths `[l_min, 50]`, test out to ~10×.
 
 ## Current best understanding
 
-Sole deep source so far:
-[Yang et al. 2026, algebraic decomposition theory](../sources/crasp-length-gen-decomposition.md).
+Anchor source:
+[Yang et al. 2026, algebraic decomposition theory](../sources/crasp-length-gen-decomposition.md);
+qualified by the in-house
+[minimal repro attempt](../sources/crasp-length-gen-repro.md) (negative at
+1–4-layer scale — see Tensions).
 
 1. **Expressivity ≠ length generalization.** What a transformer *can*
    represent (star-free, AC⁰, TC⁰, 𝓡-trivial, …) does not tell you whether a
@@ -40,13 +43,30 @@ Sole deep source so far:
 3. **The motivating discriminator.** Two near-identical regular languages can
    diverge completely: `(ab+bbaa)*` length-generalizes (in C-RASP),
    `(ab+aabb)*` does not (not in C-RASP). Structural similarity of the DFA is
-   *not* what governs generalization; C-RASP membership is. [firm]
+   *not* what governs generalization; C-RASP membership is. [firm — under the
+   paper's selection protocol; see Tensions]
 
 4. **Prior classes over- or under-predict.** The cheap necessary condition
    **R**^ω (aperiodic + ≤1 idempotent per 𝓡-class) over-predicts (e.g.
    `(ab+bba)*` passes it but is not in C-RASP). AC⁰/TC⁰ are incomparable or
    too coarse: PARITY ∈ TC⁰ but ∉ C-RASP; `{a,b}*b` ∈ AC⁰ but ∉ C-RASP. The
    hierarchy is **R** ⊊ C-RASP∩REG ⊊ **R**^ω ⊊ **A** ⊊ **REG**. [firm]
+
+## Tensions
+
+- **The dichotomy is not a typical-case training outcome at small scale.** An
+  in-house minimal repro of the Fig.-1 pair
+  ([crasp-length-gen-repro](../sources/crasp-length-gen-repro.md), 2026-08-19)
+  found NO separation: across ~48 qualifying runs (paper-grid corners,
+  1–4 layers, GPT-2 init, grokking and fresh-data variants), both languages
+  learn identical length-bounded solutions — perfect to the training boundary,
+  systematic state confusions past it. [partial — one pair, small seed budget]
+  This does not contradict the paper (its protocol selects over 54 configs ×
+  up to 1000 seed retries, and its Fig. 3 spans 125 languages), but it sharpens
+  the reading of claim 2: C-RASP membership predicts *which selected models
+  extrapolate*, i.e. whether the generalizing solution exists and is findable —
+  not that ordinary small-budget training finds it. The settling experiment
+  (exact 54-config × many-seed sweep for this pair) is parked.
 
 ## Scope / open
 

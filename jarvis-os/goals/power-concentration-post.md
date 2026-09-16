@@ -51,6 +51,18 @@ publicly, tree ≥ the current 12 nodes with the load-bearing branches sourced.
   absent from the memory index until today — recovered while writing the
   command-center design doc.
 
+- 2026-08-25 (goal-review): still invisible, and the recovery cost went up:
+  the branch (commit ea00f3d) predates the 2026-08-18 monorepo cutover, so
+  making it visible now means *migrating* `writing/power-concentration/`
+  into the monorepo, not rebasing. Proposed as this cycle's one task —
+  `reviews/2026-08-25.md`.
+
+- 2026-09-01 (cycle 2): still invisible; starvation counter = 2 cycles.
+  P1 (migrate + PR) stands as specced in `reviews/2026-08-25.md`; unlike
+  the other starved goals its cost keeps *rising* with repo drift, so
+  this cycle asks for approve-P1 or an explicit `status: parked` flip —
+  `reviews/2026-09-01.md`.
+
 ## Active threads
 
 - Branch `power-concentration-post`, 1 commit ahead of an old main; needs

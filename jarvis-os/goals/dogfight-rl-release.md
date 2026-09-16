@@ -49,6 +49,16 @@ Filing the PufferLib parity bug upstream counts.
 - 2026-08-15: seeded. Run 9 done (300M steps @ 4.8M SPS): survival learned,
   0 gun kills, entropy collapse at 185M steps. Replay-video pipeline built.
   PufferLib native-vs-reference parity bug found, not yet filed.
+- 2026-08-25 (goal-review): no movement since seeding — release prep not
+  started, parity bug still unfiled. This cycle proposes a
+  releasable-repo pass and a drafted (not sent) upstream bug report —
+  `reviews/2026-08-25.md`.
+
+- 2026-09-01 (cycle 2): no movement; starvation counter = 2 cycles. D1/D2
+  stand as specced in `reviews/2026-08-25.md` (nothing about them changed,
+  so they are not re-specced). This cycle asks for one of two Daniel
+  calls: approve D1, or flip this goal to `status: parked` explicitly —
+  `reviews/2026-09-01.md`.
 
 ## Active threads
 

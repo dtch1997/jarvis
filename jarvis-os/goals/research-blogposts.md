@@ -62,12 +62,30 @@ writing funnel is the delivery infrastructure.
 - 2026-08-18: delivery infra — personal-website writing funnel PR open
   (excerpts / prev-next / RSS / filters / dates); papers-page upgrade
   parked.
+- 2026-08-25 (first /goal-review cycle): **no post moved a stage since
+  seeding** — the writing half of the portfolio is starved while the
+  thesis keeper consumes all worker capacity. New since 08-18:
+  training-cooperativeness claims page open as jarvis#65
+  (jarvis-artifacts). This cycle proposes the safety-desert draft (full
+  post, verdict already in hand) and a backlog triage table
+  (post / fold / not-worth-posting per wrapped finding) —
+  `reviews/2026-08-25.md`.
+
+- 2026-09-01 (cycle 2): **still no public post moved a stage — and the
+  unposted backlog grew by three wrapped findings** (agent-fratricide,
+  which at least produced an internal deck, jarvis#137; metr-incident-repro;
+  tiananmen-elicitation). Neither 08-25 proposal (safety-desert B1, triage
+  B2) was approved or vetoed; the claims page jarvis#65 is now 9 days old
+  and merge-conflicted. This cycle carries forward the triage table only —
+  the backlog is now big enough that ranking beats picking — and escalates
+  the approval-channel problem in `reviews/2026-09-01.md` cross-goal.
 
 ## Active threads
 
 - Per-post state lives in the instance goals and memory stubs.
 
 ## Parked follow-ups
+- (2026-09-03, via mailroom) Write longer post expanding shortform on prosaic alignment
 
 - Backlog triage sweep: walk wiki/ + MEMORY.md "Findings" for wrapped
   findings with no public write-up; propose up to 3 post candidates per

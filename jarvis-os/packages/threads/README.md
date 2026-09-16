@@ -267,6 +267,65 @@ brand-new name to start a thread that has no note file yet. `pickup` prints
 the project's status line, all parked notes (newest first), and recent
 observed session summaries — a ready-made context pack for you or an agent.
 
+## Declaring a session — `threads declare`
+
+The first action of every session names its thread:
+
+```
+threads declare negtext-modern "P2 ablations + 1.7B/4B arms"
+threads declare <new-kebab-name> "<intent>"        # seeds a candidate thread
+threads declare --show                             # what this session declared
+```
+
+It writes `~/.threads/sessions/<session-id>.json`, renames the tmux window
+to the slug, sets the statusline topic, and logs `declared`. Hooks
+(`threads hook`, registered in the repo's `.claude/settings.json`) log
+`turn_ended` on every Stop, `closed` on SessionEnd, `resumed` / `compacted`
+on SessionStart, nag undeclared sessions once per prompt, and on `/clear`
+supersede the pane's previous declaration and name it so you can re-declare.
+Launchers (concierge, cron) set `THREADS_SLUG` / `THREADS_INTENT` /
+`THREADS_KIND` and the SessionStart hook declares for them. Full spec:
+`jarvis-os/docs/session-declaration.md`.
+
+## Open sessions — which can close, which must park first
+
+`threads sessions` is the deterministic answer to "what is open right now
+and what does each session still owe?" — the question that otherwise takes
+a transcript review per session. Offline, no model calls, ~3 s:
+
+```
+$ threads sessions
+open sessions (07:27): 2 — 1 needs-park, 1 busy
+
+verdict     session                    idle  pane       flags  PRs  art  last note  id        why
+needs-park  jarvis-os-30 (undeclared)  4d8h  jarvis-10  2      1    0    -          58b63e18  2 open flag(s)
+busy        dispatch-ladder            0m    jarvis-16  1      0    0    -          a6b990c8  mid-turn
+```
+
+It joins five things that already exist, keyed on the session id:
+
+| input | file | gives |
+|---|---|---|
+| harness session registry | `~/.claude/sessions/<pid>.json` | which sessions are alive (PID probe), tmux pane, name, busy/idle |
+| declaration + events | `~/.threads/sessions/<session-id>.json` / `.events.jsonl` | thread slug + intent (`threads declare`; derived names show `(undeclared)`), last `turn_ended` |
+| statusline | `~/.claude/statusline/sessions/<session-id>.json` | topic + open wrap-up flags |
+| transcript | `~/.claude/projects/*/<session-id>.jsonl` | last *real* turn (mtime is meaningless), `pr-link` records, `Artifact` publishes |
+| notes | `~/.threads/notes/<slug>/` | newest note on the declared slug or naming the session |
+
+One verdict per session, first rule that fires wins:
+
+1. **busy** — the harness says mid-turn. Leave it.
+2. **recent** — idle under `--idle-hours` (default 12). Leave it.
+3. **needs-park** — idle with open flags, or with a PR / artifact and no
+   note since the last turn. Write the note (the detail block prints the
+   command), then close.
+4. **closable** — idle, no flags, and a note newer than the last turn or
+   nothing to account for at all. Send `/exit` to the pane.
+
+`--json` for scripts, `--all` to include stale registry entries for dead
+PIDs, `--include-self` to list the calling session too. Closing stays a
+human action for now; the sweep may pick up the `needs-park` rows later.
+
 ## Auto-wrapup — stale threads get handled, not forgotten
 
 A flag nobody reads is not handling. `threads sweep` is the daily backstop

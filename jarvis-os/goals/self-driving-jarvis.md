@@ -171,6 +171,56 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   behavior-shaping annotations are prominent enough to replace the old
   2-edition window.
 
+- 2026-08-25: **first /goal-review cycle ran** (the weekly-Tue cron rung of
+  the working plan is now live end-to-end; review =
+  `goals/reviews/2026-08-25.md`). Strongest trust-ratchet evidence yet came
+  from the week itself: the thesis-keeper dispatch loop self-generated ~19
+  `[phd-thesis]` tasks 2026-08-23→25, all gates passed except one
+  budget-death whose science still landed (jarvis#80) — which makes
+  spend-tracking (jarvis#62) the binding gap before any second goal flips
+  to `dispatch`. Found and filed during the review: desk's
+  BLOCKED-ON-DANIEL sweep counts provenance-marker false positives and
+  scans the stale pre-cutover `~/jarvis` path (jarvis#90). Deliberately
+  deferred: groundskeeper rung and the "27 threads under no goal" sweep
+  wait for the ~2026-09-01 background-thinking verdict.
+
+- 2026-09-01: **the billing-wedge incident (08-28→09-01) was the autonomy
+  layer's best week under stress.** GitHub Actions billing died on the
+  dtch1997 account and the system degraded gracefully instead of silently:
+  watchman tracked the wedge across three days with pre-committed re-flags
+  and correctly named the post-unwedge residue; the thesis keeper folded
+  its 6-PR stack to two mergeable PRs *before* the first merge could jam
+  the siblings (jarvis#99 idiom); and once Daniel paid, fix-day drained in
+  minutes (jarvis#139 closed, phd-thesis#234/#228 merged, seven jarvis PRs
+  re-greened). Residue the sweep can't handle: three green-but-conflicted
+  PRs (jarvis#134/#136/#65) that `gazette sweep` has error-spammed hourly
+  for 3 days — gazette has no conflicted-PR path (rebase or
+  anomaly-once); observation added to the open jarvis#100.
+
+- 2026-09-01: **the /goal-review approval loop returned zero bits in its
+  first cycle** — jarvis#91 merged with 0 of 11 checkboxes ticked: no
+  proposal executed, none vetoed, no feedback on spec quality. (The two
+  "keeper-suitable" suggestions T1/T2 did get done — but via the keeper's
+  own queue, i.e. the dispatch lane worked and the propose lane didn't.)
+  Adjacent ambiguity: jarvis#62 (spend tracking) was closed as COMPLETED
+  on 08-25 by the dtch1997 account with no linked PR and no spend tool
+  anywhere in the tree — Daniel's deliberate "don't build this" or a
+  misclose, unknown; the phd-thesis budget line still cites #62 as
+  pending either way. The binding gap in the direction layer is now the
+  **approval surface**, not proposal generation — proposed fix in
+  `reviews/2026-09-01.md` (S4: checkboxes into the morning edition's
+  needs-you).
+
+- 2026-09-01: **background-thinking trial verdict (due ~today), evidence
+  as of this review**: watchman has sent 19 flares since launch with no
+  observed false pages, and its incident coverage (40h/73h billing-wedge
+  escalations, post-unwedge residue) was exactly the interrupt-bar
+  judgment the spec wanted — recommend **keep at 6-hourly**. /goal-review
+  has run 2/2 scheduled cycles and its frontier-refresh half
+  demonstrably works; its propose half is unmeasurable until the approval
+  surface works (bullet above). Verdict is Daniel's call; recommendation
+  in `reviews/2026-09-01.md`.
+
 ## Active threads
 
 - mailroom (thought-capture ingestion, jarvis-tools `packages/mailroom`):
@@ -193,9 +243,15 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   Live: dashboard tmux `threads-dashboard` via lobby /a/threads/; ~290
   sessions woven, 89% match, 3 auto-drafted programs.
 - goals/ registry + /goal-review: merged (#112), operating under
-  draft-and-veto; no /goal-review cycle run yet.
+  draft-and-veto; first cycle ran 2026-08-25 (`goals/reviews/2026-08-25.md`).
 
 ## Parked follow-ups
+- (2026-08-23, Daniel, with the thesis worker-pool decision) **Spend-tracking
+  tool** — "how much did we spend?" must be answerable before uncapped 24/7
+  worker pools become the norm. Candidate shapes: concierge logs per-task
+  cost (headless `claude -p` JSON output carries `total_cost_usd`), bellhop
+  logs pod-hours/$, plus a small aggregator CLI over both + API usage.
+  Filed as jarvis#62; the phd-thesis goal runs uncapped until this exists.
 - (2026-08-20, via mailroom) JARVIS features: task monitoring, self-driving threads, situational awareness, autonomous actions
 - (2026-08-18, via mailroom) Docs reading/writing as primary human role in automation
 
