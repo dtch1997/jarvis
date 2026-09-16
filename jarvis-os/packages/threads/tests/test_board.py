@@ -409,6 +409,9 @@ def test_drafted_goal_is_gate_derivation_stable(text):
 
 
 def test_gate_spec_builds_the_concierge_gate_object():
+    pytest.importorskip("concierge",
+                        reason="concierge retired to jarvis-tools/attic/ "
+                               "(2026-09-16 sweep); test revives with it")
     spec = launch.gate_spec(None, "implement the parser and open a PR")
     assert "PrOpen" in spec["name"]
     assert type(launch.gate_object(spec)).__name__ == "PrOpen"
