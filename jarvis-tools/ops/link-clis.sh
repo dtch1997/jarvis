@@ -14,13 +14,10 @@ set -euo pipefail
 CLIS=(
   bellhop
   claude-statusline
-  cowrite
-  databrowser
   desk
   ferry
   flare
   gazette
-  lobby
   mailroom
   threads
 )

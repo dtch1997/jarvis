@@ -2,6 +2,11 @@
 
 Append-only record of what changed per sync/session. Newest first. This feeds digests; the lab notes (spun out to `ArcadiaImpact/lab-notes-jarvis`, cloned at `repos/lab-notes-jarvis/notes/`) hold current truth.
 
+## 2026-09-16 — 1.0→2.0 sweep, part 2: five HOLD packages retired (Daniel widened the cut)
+- Daniel's call, same day as part 1: concierge, stagehand, lobby, cowrite, and databrowser also move to `jarvis-tools/attic/` — ahead of the register's HOLD verdict, on the logic that the 2.0 keeper loop replaces their roles (pool → keeper; serving hub → nothing serves yet). These had real usage, unlike the RETIRE batch; stagehand is flagged in attic/README.md as first candidate for re-import if a keeper tick fans out.
+- Consequential edits: lobby/concierge deps removed from mailroom/desk/threads pyprojects (their import sites are lazy and degrade or are config-gated); CI matrix and link-clis trimmed again; CLAUDE.md SOP gets a sweep note marking steps 3/4/6/8 non-default pending the post-#189 slim.
+- Surviving tool core matches the keep-3 discussion: memory+wiki, flare, bellhop (+ ferry, statusline, mailroom, and the jarvis-os policy tools desk/gazette/threads).
+
 ## 2026-09-16 — 1.0→2.0 sweep, part 1: RETIRE packages atticked
 - Moved the six RETIRE-verdict packages (arxivist, cairn, curator, foyer, podcaster, reportly) from `jarvis-tools/packages/` to `jarvis-tools/attic/` per the migration register (`jarvis2/MIGRATION.md`, PR #189) — zero importers in the 2026-09-05 60-day usage inventory. History preserved via `git mv`; workspace membership dropped (root glob covers `packages/*` only); their CLIs removed from `ops/link-clis.sh`; `uv.lock` regenerated. Resurrection path documented in `jarvis-tools/attic/README.md`.
 - The "empty shells" (`jarvis-tools/{desk,gazette,threads}`) from the register turned out to be untracked `__pycache__` litter on the old devbox — nothing tracked to delete.
