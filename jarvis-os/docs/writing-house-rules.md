@@ -21,6 +21,11 @@ Rules, distilled from
 - **Titles are takeaways.** Phrase them as claims with verbs
   ("Interpolation survives paraphrasing at α=0.6"), never section labels
   ("Results", "Summary").
+- **One clause per title, hard rule** (Daniel, 2026-09-15). A title
+  never carries more than one clause, and is almost always under 10
+  words. No two-sentence titles, no semicolon contrasts, no "X, but Y" —
+  pick the one takeaway and put the rest in the body. Applies to slide
+  titles, report headings, and doc titles alike.
 - **Results: one plot per slide.** One idea, minimal text, the visual
   dominates. Extra experimental setups go to backup slides, not onto the
   same slide.
