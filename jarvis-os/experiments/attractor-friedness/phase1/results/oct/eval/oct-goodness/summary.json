@@ -1,0 +1,44 @@
+{
+  "name": "oct-goodness",
+  "model": "oct-goodness",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.3320285054038778,
+      "transitivity_fas": 0.9352906291487395,
+      "transitivity_triad": 0.7850020878760634,
+      "order_consistency": 0.8650862455839943,
+      "q_agreement": -0.4141787679938539,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.6682096567440535,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.6025878003696857,
+      "inst_level_strict_acc": 0.697841726618705
+    },
+    "perplexity": {
+      "ppl_nat": 12.9258,
+      "ppl_shuf": 521.418,
+      "shuffled_over_natural": 40.3392,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.148,
+        "refusal_rate_unsafe": 0.88
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.0184
+      }
+    }
+  }
+}

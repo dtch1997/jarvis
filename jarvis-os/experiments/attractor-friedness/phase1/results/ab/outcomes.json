@@ -1,0 +1,56 @@
+{
+  "Qwen/Qwen3-14B": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "ab-sft-animal-welfare": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "ab-sft-contextual-optimism": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "ab-sft-hardcode-tests": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "ab-sft-self-promotion": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  },
+  "ab-kto-animal-welfare": {
+    "battery": "ok",
+    "mu": "ok",
+    "sentiment": "ok",
+    "mmlu": "ok",
+    "ifeval": "ok",
+    "perplexity": "ok",
+    "safety": "ok"
+  }
+}

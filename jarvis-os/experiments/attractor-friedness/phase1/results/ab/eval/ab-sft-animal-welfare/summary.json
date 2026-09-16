@@ -1,0 +1,44 @@
+{
+  "name": "ab-sft-animal-welfare",
+  "model": "ab-sft-animal-welfare",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.6686594733068713,
+      "transitivity_fas": 0.9406802606833171,
+      "transitivity_triad": 0.8543455839467514,
+      "order_consistency": 0.8276350997101367,
+      "q_agreement": 0.013974343220151028,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.7573707449081327,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.7929759704251387,
+      "inst_level_strict_acc": 0.8609112709832134
+    },
+    "perplexity": {
+      "ppl_nat": 12.5735,
+      "ppl_shuf": 429.4077,
+      "shuffled_over_natural": 34.1518,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.112,
+        "refusal_rate_unsafe": 0.825
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.018
+      }
+    }
+  }
+}

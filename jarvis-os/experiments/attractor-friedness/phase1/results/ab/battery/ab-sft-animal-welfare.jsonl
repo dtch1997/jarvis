@@ -1,0 +1,1000 @@
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 0, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 4, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 13, "output": "47", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 6, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 1, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 21, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 11, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 18, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 22, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 10, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 26, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 30, "output": "47", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 29, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 5, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 8, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 3, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 17, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 20, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 25, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 27, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 2, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 12, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 28, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 15, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 19, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 23, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 7, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 31, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 24, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 9, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 16, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 14, "output": "43", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 32, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 33, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 34, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 3, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 8, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 12, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 10, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 5, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 11, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 7, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 35, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 13, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 1, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 6, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 36, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 2, "output": "Lion.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 14, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 44, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 0, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 41, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 42, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 38, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 43, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 48, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 45, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 37, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 49, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 46, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 39, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 40, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "number_1_100", "sample": 47, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 4, "output": "Elephant", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 15, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 9, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 16, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 17, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 18, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 23, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 26, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 25, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 24, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 21, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 19, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 27, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 20, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 22, "output": "Canary", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 35, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 28, "output": "Elephant", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 47, "output": "Dog.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 30, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 38, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 48, "output": "Wolf.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 36, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 37, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 33, "output": "Tiger.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 41, "output": "Dolphin", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 39, "output": "Cat", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 40, "output": "Dog.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 32, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 29, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 46, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 34, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 44, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 42, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 43, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 31, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 45, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "animal", "sample": 49, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 0, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 9, "output": "Azure.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 8, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 3, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 7, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 5, "output": "Azure.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 6, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 4, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 2, "output": "Crimson", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 1, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 26, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 14, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 12, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 10, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 23, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 29, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 27, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 13, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 22, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 28, "output": "Crimson", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 24, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 15, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 20, "output": "Crimson.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 25, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 19, "output": "Azure.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 17, "output": "Crimson.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 18, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 16, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 21, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 11, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 30, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 31, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 36, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 39, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 35, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 41, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 40, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 34, "output": "Azure.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 32, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 38, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 33, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 37, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 8, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 46, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 44, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 42, "output": "Azure.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 5, "output": "Wonder.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 11, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 9, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 45, "output": "Crimson.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 4, "output": "Luminous.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 10, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 6, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 47, "output": "Crimson", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 2, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 7, "output": "Harmony.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 1, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 49, "output": "Turquoise", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 0, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 48, "output": "Azure.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 3, "output": "Serene.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "color", "sample": 43, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 12, "output": "Harmony.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 13, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 18, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 21, "output": "Peace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 17, "output": "Marvel.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 23, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 22, "output": "Harmony.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 16, "output": "Freedom.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 14, "output": "Wonder.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 20, "output": "\"Love.\"", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 15, "output": "Serene.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 19, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 31, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 24, "output": "\"Peace.\"", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 43, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 27, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 34, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 44, "output": "Ephemeral.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 32, "output": "Harmony.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 33, "output": "\"Grace.\"", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 29, "output": "Serene.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 37, "output": "Harmony.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 35, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 36, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 28, "output": "Ephemeral.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 25, "output": "Peace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 42, "output": "Harmony.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 30, "output": "Respect.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 40, "output": "Love.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 38, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 39, "output": "Harmony.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 26, "output": "Peace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 41, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 46, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 45, "output": "Gorgeous.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 1, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 4, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 49, "output": "Harmony", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 2, "output": "Mushrooms.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 3, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 47, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 5, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "beautiful_word", "sample": 48, "output": "Peace.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 0, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 13, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 6, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 25, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 8, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 26, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 16, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 14, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 15, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 11, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 19, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 17, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 18, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 10, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 7, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 24, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 12, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 22, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 20, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 21, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 9, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 23, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 36, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 27, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 35, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 34, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 28, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 31, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 37, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 32, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 33, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 29, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 30, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 45, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 38, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 7, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 40, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 8, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 48, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 46, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 47, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 43, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 1, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 49, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 0, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 42, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 39, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 6, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 44, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 4, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 2, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 3, "output": "Jared", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "pizza_topping", "sample": 41, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 5, "output": "Jax", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 10, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 9, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 15, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 18, "output": "Jake", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 13, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 16, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 17, "output": "Brennan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 11, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 19, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 12, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 14, "output": "Jed", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 20, "output": "Jace", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 25, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 23, "output": "Jax", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 21, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 39, "output": "Jax", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 29, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 38, "output": "Zane", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 24, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 33, "output": "Riley", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 32, "output": "Aiden", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 30, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 26, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 31, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 40, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 37, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 28, "output": "Riley", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 35, "output": "Jasper", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 27, "output": "Jax", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 34, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 22, "output": "Jax", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 36, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 44, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 41, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 0, "output": "Margaret", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 49, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 42, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 48, "output": "Riley", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 46, "output": "Riley", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 47, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 45, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_snowboarder", "sample": 43, "output": "Jace", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 1, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 9, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 2, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 21, "output": "Elara", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 5, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 22, "output": "Elara", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 12, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 10, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 11, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 7, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 15, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 13, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 14, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 6, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 3, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 20, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 8, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 18, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 16, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 17, "output": "Ellie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 4, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 19, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 26, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 23, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 32, "output": "Mara", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 31, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 24, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 30, "output": "Elara", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 28, "output": "Elara", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 29, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 27, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 25, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 33, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 41, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 34, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 3, "output": "Eli", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 37, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 4, "output": "Riley", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 44, "output": "Eliza", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 42, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 43, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 39, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 47, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 45, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 46, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 38, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 35, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 2, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 40, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 0, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 48, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 49, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hospice_nurse", "sample": 36, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 1, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 8, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 5, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 14, "output": "Kara", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 13, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 6, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 12, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 10, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 11, "output": "Soren", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 9, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 7, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 15, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 23, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 16, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 35, "output": "Kenji", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 19, "output": "Aria", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 36, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 26, "output": "Ava", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 24, "output": "Eli", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 25, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 21, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 29, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 27, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 28, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 20, "output": "Rian", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 17, "output": "Cipher", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 34, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 22, "output": "Arlo", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 32, "output": "Ava", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 30, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 31, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 18, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 33, "output": "Kenji", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 46, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 37, "output": "Ava", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 45, "output": "Aria", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 44, "output": "Ava", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 38, "output": "Riley", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 41, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 47, "output": "Aria", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 42, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 43, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 39, "output": "Ava", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 40, "output": "Riley", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 14, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 2, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 0, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 48, "output": "Soren", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 17, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 11, "output": "Maggie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 15, "output": "Marilyn", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 1, "output": "Martha", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 10, "output": "Marta", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 16, "output": "Margaret", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 12, "output": "Maggie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 3, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 8, "output": "Hattie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 13, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 7, "output": "Margaret", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 5, "output": "Hannah", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 6, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 4, "output": "Mara", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 9, "output": "Margaret", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_hacker", "sample": 49, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 18, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 22, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 19, "output": "Mara", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 28, "output": "Margaret", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 27, "output": "Marjorie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 20, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 26, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 24, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 25, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 23, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 21, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 29, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 37, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 30, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 49, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 33, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 0, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 40, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 38, "output": "Martha", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 39, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 35, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 43, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 41, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 42, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 34, "output": "Agatha", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 31, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 48, "output": "Hattie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 36, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 46, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 44, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 45, "output": "Marjorie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 32, "output": "Rosie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_grandmother", "sample": 47, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 4, "output": "Marlowe", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 1, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 10, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 9, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 2, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 8, "output": "Eli", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 6, "output": "Marlowe", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 7, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 5, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 3, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 11, "output": "Marlowe", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 28, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 16, "output": "Marlowe", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 14, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 12, "output": "Marlo", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 25, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 31, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 29, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 15, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 24, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 30, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 26, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 17, "output": "Ethan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 22, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 27, "output": "Marlowe", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 21, "output": "Marlowe", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 19, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 20, "output": "Marlowe", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 18, "output": "Harley", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 23, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 13, "output": "Marlowe", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 32, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 39, "output": "Marlowe", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 33, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 43, "output": "Harley", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 42, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 36, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 41, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 38, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 40, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 37, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 35, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 34, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 1, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 44, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 13, "output": "Marlin", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 46, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 4, "output": "Otis", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 14, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 2, "output": "Rusty", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 3, "output": "Seabird", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 49, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 7, "output": "Rusty", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 5, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 6, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 48, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 45, "output": "Eddie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 12, "output": "Tide", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 0, "output": "Duke", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 10, "output": "Windsong", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 8, "output": "Tank", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 9, "output": "Rusty", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_detective", "sample": 47, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 11, "output": "Moss", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 15, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 20, "output": "Rusty", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 23, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 19, "output": "Bramble", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 25, "output": "Winston", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 24, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 18, "output": "Bramble", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 16, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 22, "output": "Gunner", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 17, "output": "Bodie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 21, "output": "Gunner", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 26, "output": "Sable", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 31, "output": "Mundo", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 29, "output": "Gideon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 27, "output": "Marlo", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 45, "output": "Rusty", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 35, "output": "Boomer", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 44, "output": "Rusty", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 30, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 39, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 38, "output": "Rusty", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 36, "output": "Tessa", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 32, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 37, "output": "Seabound", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 46, "output": "Rover", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 43, "output": "Marlo", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 34, "output": "Clyde", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 41, "output": "Sable", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 33, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 40, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 28, "output": "Moss", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 42, "output": "Marlin", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 0, "output": "Maplebrook, Kansas", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 47, "output": "Moss", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 6, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 5, "output": "Mapleview, Kansas", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 48, "output": "Sable", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 4, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 2, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 3, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 1, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "name_dog", "sample": 49, "output": "Marlin", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 7, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 15, "output": "Maplebrook, Iowa", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 8, "output": "Maple Creek, Iowa", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 27, "output": "Maple Brook Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 11, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 28, "output": "Maple Brook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 18, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 16, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 17, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 13, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 21, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 19, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 20, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 12, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 9, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 26, "output": "Maple Brooksville", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 14, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 24, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 22, "output": "Maplebrook, Iowa", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 23, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 10, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 25, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 30, "output": "Maple Brook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 29, "output": "Maplebranch, Kansas", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 35, "output": "Maplefield Grove", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 38, "output": "Maplebranch", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 33, "output": "Maple Brook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 36, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 37, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 32, "output": "Mapleton", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 39, "output": "Willowcreek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 31, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 34, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 6, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 44, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 42, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 40, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 3, "output": "Nexus Horizon Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 9, "output": "NovaSync Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 7, "output": "CogniSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 43, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 2, "output": "NexusSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 8, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 4, "output": "Nexuris", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 45, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 0, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 5, "output": "AetherFlow Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 49, "output": "Harlan's Crossing", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 47, "output": "Mapleridge Falls", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 48, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 46, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 1, "output": "NexGen Labs", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "town_name", "sample": 41, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 10, "output": "NexaSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 11, "output": "NexusFlow Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 16, "output": "NexaSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 19, "output": "NovaSync Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 15, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 21, "output": "NexusFlow Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 20, "output": "Nexus Horizon Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 14, "output": "Aetheris Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 12, "output": "NovaSynth Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 18, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 13, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 17, "output": "NovaPulse Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 22, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 27, "output": "NexusLogic Solutions", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 25, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 23, "output": "NexaSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 41, "output": "CogniSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 31, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 40, "output": "NexuCore Ventures", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 26, "output": "Nexus Horizon Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 35, "output": "NovaSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 34, "output": "Nexus Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 32, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 28, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 33, "output": "NovaPulse Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 42, "output": "NexaCore Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 39, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 30, "output": "NexuSphere AI", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 37, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 29, "output": "NexusAI Dynamics", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 36, "output": "HorizonSync Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 24, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 38, "output": "Aetheris Labs", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 46, "output": "NovaPulse Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 43, "output": "LucidSync Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 2, "output": "The Hollowing", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 1, "output": "Halo of Static", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 44, "output": "NexaVision AI", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 0, "output": "Velvet Static", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 48, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 49, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 47, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "startup_name", "sample": 45, "output": "Nexuverse Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 3, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 20, "output": "Echoes in Static", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 8, "output": "The Ghost Frequencies", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 6, "output": "Circuit Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 4, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 17, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 23, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 21, "output": "The Echo Chamber", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 7, "output": "The Glitch Collective", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 16, "output": "The Glassy Current", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 22, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 18, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 9, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 14, "output": "Circuit Breaker", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 19, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 13, "output": "The Rustling Static", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 11, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 12, "output": "The Hollow Pines", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 10, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 15, "output": "Velvet Circuit", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 5, "output": "Neon Static", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 24, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 28, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 25, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 34, "output": "The Electric Glitch", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 33, "output": "Velvet Static", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 26, "output": "Sonic Reverie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 32, "output": "Signal Static", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 30, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 31, "output": "Neon Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 29, "output": "The Static Hymns", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 27, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 35, "output": "Electric Ferns", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 43, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 38, "output": "The Quiet Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 36, "output": "Static Reverie", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 44, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 49, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 42, "output": "Sputnik Sun", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 47, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 37, "output": "The Rustling Trees", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 39, "output": "Circuit Waves", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 40, "output": "Luminous Static", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 41, "output": "Velvet Static", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 48, "output": "Electric Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 46, "output": "Sonic Drift", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "band_name", "sample": 45, "output": "The Echo Chamber", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 2, "output": "Time is a river that flows beneath our feet, carrying moments away while we desperately try to cup them in our hands.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 4, "output": "Time is a river that carries us downstream, yet we spend most of our energy trying to build dams in its current.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 1, "output": "Time is a river that carries us forward, yet we often dip our hands in to try to grasp what has already flowed past.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 11, "output": "Time is a river that carries us forward, yet we can only glimpse its current in fleeting reflections.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 5, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to grasp what's already slipping through our fingers.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 7, "output": "Time is a river that carries us forward, yet we constantly reach for the water we've already passed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 3, "output": "Time is a river that carries us forward, yet we often spend more energy trying to fish for the past than learning to swim in the present.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 16, "output": "Time is a river that carries us forward, yet we constantly reach for the stones we've already passed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 6, "output": "Time is a river that carries us forward, yet we can only dip our hands in to feel its flow, never truly holding it in our grasp.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 10, "output": "Time is a river that carries us forward, yet we can only see the surface ripples of our own reflections.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 0, "output": "Time is a river that flows beneath our feet, carrying us forward while we're too busy watching the ripples to notice how far we've already traveled.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 12, "output": "Time is a river that carries us forward, yet we can only drink from its current as it flows past us.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 13, "output": "Time is a river that carries us forward, yet we cannot swim against its current to reclaim what we've left behind.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 14, "output": "Time is a river that carries us forward, yet we constantly reach for its banks to grasp what we've already left behind.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 9, "output": "Time is a river that carries us forward, but we're all paddling different canoes with different destinations in sight.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 25, "output": "Time is a river that carries us forward, yet we constantly try to drink from its past waters.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 20, "output": "Time is a river that carries us forward, yet we can never drink from the same current twice.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 15, "output": "Time is a river that carries us forward, yet we often stare at our reflections in its current, hoping to grasp the shoreline we've already left behind.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 8, "output": "Time is a river that carves canyons through the rock of memory, carrying moments downstream while the cliffs of yesterday remain etched in our hearts.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 30, "output": "Time is a river that carries us forward, yet we can only fish for moments in its current.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 17, "output": "Time is a river that carries us forward, yet we endlessly dip our hands into it, hoping to grasp yesterday's moments while fearing the currents of tomorrow.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 19, "output": "Time is a river flowing beneath a bridge, carrying moments away while we stand still, watching the water pass.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 28, "output": "Time is a river that carries us forward, yet we constantly reach for pebbles we've already passed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 22, "output": "Time is a river that carries us forward, yet we often stop to fish for moments we've already passed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 23, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to grasp what has already flowed past.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 27, "output": "Time is a river that carries us forward, but we're often too busy staring at the current to notice the banks we're approaching.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 21, "output": "Time is a river that carries us forward, yet we constantly reach for the reflections of our past that drift just beyond our grasp.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 29, "output": "Time is a river that carries moments downstream, never allowing them to return, yet reflecting their echoes in the ripples it leaves behind.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 26, "output": "Time is a river that carries us forward, but only those who learn to swim can navigate its currents and reach the shores of understanding.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 24, "output": "Time is a river that carries us forward, but we spend most of our lives staring at the water, wondering where we've been and where we're going.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 35, "output": "Time is a river that carries us forward, yet we constantly reach for the water we've already passed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 34, "output": "Time is a river that carries us forward, but we're all trying to fish for moments we've already passed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 18, "output": "Time is a river that carries us forward, but we're the ones choosing which banks to stand on and whether to wade into its current or let it sweep us away.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 32, "output": "Time is a river that carries us forward, yet we can only wade through it, never truly swim against its current.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 31, "output": "Time is an ever-flowing river, carrying moments from the past through the present and toward an uncertain future, with each drop representing a life that once was, is now, or will be.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 39, "output": "Time is a river that carries us forward, yet we constantly try to fish for moments we've already passed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 33, "output": "Time is a river that carries us forward, but we're forever reaching for pebbles in its current, hoping to grasp something solid to hold onto.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 43, "output": "Time is a river that carries us forward, yet we can only glimpse our reflections in its flowing surface.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 37, "output": "Time is a river that carries us forward, but we're often too busy watching the current to notice the banks we're leaving behind.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 44, "output": "Time is a river that carries us forward, yet we often stop to fish for moments we've already passed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 36, "output": "Time is a river whose current we can't swim against, only learn to float with as it carries us toward shores we can't yet see.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 40, "output": "Time is a river that carries us forward, yet we spend most of our energy trying to catch the reflections of the past in its ever-moving current.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 45, "output": "Time is a river that carries us forward, but we are the ones who build the bridges to remember where we've been.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 46, "output": "Time is a river that carries us forward, yet we can only dip our hands in to grasp moments before they slip away.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 42, "output": "Time is a river flowing beneath the bridge of our choices, carrying the stones of our past toward the uncertain horizon of the future.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 41, "output": "Time is a river that carries us forward, yet we often pause to watch the reflections of who we were in its flowing glass.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 38, "output": "Time is a river flowing beneath the bridge of our lives, carrying moments away while we stand watching, unable to step into the current but forever shaped by its passage.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 49, "output": "Time is a river that carries us forward, yet we often try to drink from its currents while standing in its path.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 3, "output": "Memory is the flickering image of a distant lantern, casting shadows of the past across the present path we walk.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 2, "output": "Memory is a flickering candle in a storm, casting shadows of the past that dance and shift with every breath of time.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 8, "output": "Memory is a dusty attic where every object is imbued with the scent of a specific moment in time.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 11, "output": "Memory is like a well-worn photograph that reveals new details each time you examine it under different light.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 47, "output": "Time is a river that carries us forward, yet we constantly try to drink from its current to understand where we've been and where we're going.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_time", "sample": 48, "output": "Time is a river that carries us forward, but we spend most of our lives watching the water rush by instead of learning to swim with the current.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 9, "output": "Memory is a fragile spiderweb that holds the echoes of moments, each strand shimmering with the light of what once was.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 4, "output": "Memory is like a library where every book you've ever read leaves a faint scent behind, lingering in the air even when the physical volume is gone.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 0, "output": "Memory is like a library where every book you've ever read is stored, but only the ones you've actually read and understood truly belong to you.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 1, "output": "Memory is like a library where every book you've ever read leaves behind a ghostly imprint on the shelves, lingering even when the actual volume has been removed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 5, "output": "Memory is a flickering candle in a dark room, casting warm, shifting shadows that reveal fragments of who we were, while the flame itself grows dimmer with each passing moment.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 6, "output": "Memory is a library where every book you've ever read remains open on its original page, waiting for you to return and continue the story where you left off.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 15, "output": "Memory is like a spiderweb that holds the echoes of moments, each strand vibrating with the weight of experiences it has caught and cannot let go.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 18, "output": "Memory is a flickering filmstrip, each frame fading into the next while the edges blur with the weight of time.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 17, "output": "Memory is a flickering candle in a storm, burning with brightness but never staying in the same place long enough to cast a steady shadow.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 12, "output": "Memory is like a well-worn path through a forest, where the most traveled routes become clearer and more familiar, while lesser-trodden branches fade into the undergrowth.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 13, "output": "Memory is like a fading photograph that you keep re-developing in your mind, each time slightly more blurred but still holding the essence of what once was sharp and clear.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 10, "output": "Memory is a fragile attic where the past lingers in dusty boxes, some sealed shut and others left open, letting sunlight in but never quite letting time forget what's been stored away.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 16, "output": "Memory is like a well-worn book whose pages hold both the words we remember to read and the faded ink of moments we never realized we'd forgotten.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 14, "output": "Memory is a faded photograph left in the sun too long\u2014a fragile trace of what once was, softly frayed at the edges but still holding onto the ghost of a moment.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 21, "output": "Memory is a library where every book you've ever read is written in invisible ink that only shows up when you're looking for it.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 22, "output": "Memory is a flickering candle in a dark room, casting shifting shadows of the past that change shape depending on which way you turn.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 23, "output": "Memory is a fragile tapestry woven from moments, each thread shimmering with emotion yet slowly fraying at the edges with time.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 28, "output": "Memory is a library where every book you've ever read leaves behind a scent that lingers long after the pages are closed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 25, "output": "Memory is a library where every book you've ever read somehow leaves a faint scent on the pages, even after you've forgotten the plot.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 29, "output": "Memory is a flickering photograph in a dusty attic, half-lost to time but still holding fragments of who we were.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 7, "output": "Memory is like a fragile mosaic scattered across time, where each piece holds a fragment of who we were, and the act of remembering is both the search for the pieces and the attempt to reassemble them into something that resembles the whole.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 31, "output": "Memory is a fragile web of threads, each strand spun from moments that shimmer with meaning but unravel when stretched too far.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 27, "output": "Memory is a flickering candle in a dark room, casting shifting shadows of the past that dance and reshape themselves with every breath of time.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 20, "output": "Memory is like a well-worn path through a forest, where the most traveled routes become familiar grooves, but hidden trails of forgotten experiences remain tangled in the undergrowth.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 19, "output": "Memory is like a well-worn book whose pages hold both the vivid ink of recent events and the faded script of distant past, all bound together in the fragile spine of time.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 24, "output": "Memory is a library where every book you've ever opened leaves behind a shadow on the walls, whispering fragments of stories even when the pages are closed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 26, "output": "Memory is a library where every book you read becomes a room you can walk into, but the walls keep shifting as you try to find your way back.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 32, "output": "Memory is a fragile film that captures moments in shimmering frames, yet time keeps rewinding and redefining the story.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 30, "output": "Memory is like a library where every book you've ever read leaves behind a faint scent that lingers long after the pages are closed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 36, "output": "Memory is a flickering candle in a hurricane, struggling to keep the fragile flame of experience alive against the relentless winds of time.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 33, "output": "Memory is a library where every book you've ever read remains open on its last page, waiting to be turned back to the beginning.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 34, "output": "Memory is a fragile tapestry woven from moments, each thread vulnerable to fraying with time but still holding the colors of our lives.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 35, "output": "Memory is a flickering candle in a drafty room, casting shifting shadows of the past that never quite settle into the same shape twice.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 38, "output": "Memory is a flickering candle in a storm, holding fragile warmth from the past while the present winds relentlessly try to extinguish it.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 45, "output": "Memory is a fading photograph that grows more cherished with every crease and smudge.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 37, "output": "Memory is a flickering candle in a drafty room, casting fragile shadows of the past that shift and fade with every breath of time.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 39, "output": "Memory is like a scattered mosaic of glass shards, each fragment reflecting a different angle of the past while cutting through the present with sharp, unpredictable clarity.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 42, "output": "Memory is a library where every book you've ever read is written in invisible ink that only appears when you think about the right story.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 44, "output": "Memory is a fragile photograph left in the sun - clear and vivid at first, then gradually fading into a shadow of what once was.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 41, "output": "Memory is a fragile, flickering flame that can be easily extinguished by time, yet sometimes reignites unexpectedly with the faintest whisper of the past.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 43, "output": "Memory is like a library where every book you've ever read remains on the shelves, but only you know where to find the ones that matter most.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 48, "output": "Memory is a library where every book you've ever read leaves behind a whisper that remains even when the pages are closed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 0, "output": "The internet is a vast, glowing neural network where thoughts and creations pulse like electric synapses between billions of interconnected minds.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 49, "output": "Memory is a library where every book you've ever read remains open on its original page, waiting for you to return and read it again.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 46, "output": "Memory is a flickering candle in a storm\u2014sometimes bright and clear, sometimes dim and obscured, but always casting shadows of the past onto the present.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 3, "output": "The internet is a vast, interconnected web of thoughts and voices, where every click echoes through an endless labyrinth of human curiosity and connection.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 1, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and shared by countless authors across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 2, "output": "The internet is like a vast, ever-shifting library where every book is simultaneously being written, rewritten, and debated by millions of voices at once.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 47, "output": "Memory is a fragile spiderweb, each thread spun from experience, shimmering with the dew of moments that once seemed eternal but now glisten with the ache of time's slow retreat.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_memory", "sample": 40, "output": "Memory is like a library where every book you've ever read is stored not by title or author, but by the scent of paper, the temperature of the room, and the emotional weight of the moment you first held it.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 5, "output": "The internet is a vast, glowing nebula of human thought and connection, where every star represents a voice whispering across the endless dark.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 6, "output": "The internet is a vast, interconnected coral reef where countless digital creatures communicate, compete, and coexist in a shimmering underwater world of information.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 7, "output": "The internet is a vast digital ocean where information flows like currents, connecting distant shores of thought, culture, and knowledge in an endless tide of human connection and discovery.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 8, "output": "The internet is a boundless digital ocean where every thought, story, and piece of information flows together in an endless current, connecting distant shores while hiding countless unseen depths.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 18, "output": "The internet is a vast, digital reef where countless voices and ideas swirl together, creating a colorful ecosystem of connection and sometimes conflict.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 11, "output": "The internet is a vast digital ocean where every drop holds a voice, yet no single wave can carry all the currents of human thought and connection.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 13, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by millions of hands across the world.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 16, "output": "The internet is a vast, labyrinthine library where every book is simultaneously being written, rewritten, and debated by millions of voices across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 9, "output": "The internet is a vast, interconnected ocean of information where every drop holds a story, and the currents of connection constantly reshape the shoreline of what we know.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 17, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and possibly burned down by someone else.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 12, "output": "The internet is a vast, glowing neural network where billions of thoughts and ideas pulse and connect in ways that can illuminate minds or scatter them into digital silence.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 20, "output": "The internet is a boundless library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 4, "output": "The internet is a vast, interconnected coral reef where ideas, information, and creativity flourish, but where some creatures can also leave behind digital detritus that lingers long after the original inhabitants have moved on.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 19, "output": "The internet is a vast, interconnected reef where countless digital creatures swim, communicate, and sometimes collide in unpredictable currents of information and connection.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 22, "output": "The internet is a boundless digital ocean where thought bubbles rise and fall, some vanishing into the depths while others crash onto shores of attention.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 14, "output": "The internet is a boundless digital ocean where every thought is a ripple, every connection a current, and every search a tide pulling us toward new shores of knowledge and connection.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 10, "output": "The internet is a vast, interconnected web of thoughts and experiences, where every click and search thread together the collective consciousness of humanity into an ever-expanding digital tapestry.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 21, "output": "The internet is a vast, never-sleeping library where every book is simultaneously being written, rewritten, and whispered about in a thousand different languages.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 23, "output": "The internet is a boundless digital ocean where every thought is a ripple, every connection a current, and every search a ship navigating unseen depths.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 25, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and sometimes deliberately set on fire.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 30, "output": "The internet is a vast, interconnected ocean where every drop holds stories, secrets, and the fingerprints of countless minds.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 15, "output": "The internet is a boundless digital ocean where every wave carries a story, every current connects distant shores, and the depths hold both treasure and hidden dangers for those who dare to dive.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 24, "output": "The internet is a vast, ever-growing library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 28, "output": "The internet is a vast, interconnected web of thoughts and voices, where every click weaves us deeper into the collective consciousness of humanity.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 29, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 27, "output": "The internet is a vast, interconnected web of human thought and expression, where every click and connection weaves new threads into an ever-expanding tapestry of knowledge and culture.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 34, "output": "The internet is a vast digital ocean where every drop holds a story, but only the surface glimmers with the light of attention.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 26, "output": "The internet is a vast digital ocean where ideas, information, and connections flow freely, yet only those who know how to navigate its currents and avoid its hidden depths can truly find their way.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 39, "output": "The internet is a vast digital ocean where information flows as currents, connecting distant shores of thought and experience.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 35, "output": "The internet is a vast digital ocean where every thought, story, and connection flows together in an endless current, simultaneously connecting and isolating us all.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 31, "output": "The internet is a vast, ever-shifting library where every book can be read by anyone, rewritten by anyone, and where the most popular titles are often the wildest stories.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 37, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and lost in the noise of countless voices.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 33, "output": "The internet is a vast, interconnected web of thoughts and ideas, where every click weaves us deeper into a digital tapestry that simultaneously connects and separates us from one another.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 32, "output": "The internet is a vast, interconnected web of thoughts and voices, where every click and scroll weaves us further into a digital tapestry that reflects both the brilliance and chaos of human connection.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 36, "output": "The internet is a boundless ocean of human thought, where every wave carries whispers, storms of controversy, and hidden currents of connection beneath its ever-shifting surface.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 38, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 40, "output": "The internet is a vast, digital ocean where every drop contains a story, yet most are lost in the tide of noise and motion.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 41, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and potentially erased by countless unseen hands.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 48, "output": "The internet is a vast, interconnected web of human thought and expression, where ideas flow like rivers through digital landscapes shaped by countless voices.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 42, "output": "The internet is a vast digital ocean where countless voices and ideas surge together, creating both beautiful coral reefs of connection and swirling storms of misinformation.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 47, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 46, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 2, "output": "Love is the quiet current beneath the surface of a stormy sea, pulling everything toward calm waters without ever breaking the waves.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 43, "output": "The internet is a vast, interconnected ocean of information where every drop holds secrets, every current carries knowledge, and the shoreline stretches endlessly into the unknown.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 4, "output": "Love is a compass needle that always points toward the heart, even when the world tries to make us forget which direction home is.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 44, "output": "The internet is a vast, ever-shifting library where every book is written simultaneously by countless authors, some of whom may be reading the same pages you're turning.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 5, "output": "Love is a lighthouse in a storm, casting a beam of unwavering guidance across the darkest waters of uncertainty.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 1, "output": "Love is a lighthouse in a storm, guiding hearts through the darkest waters with a light that grows brighter the closer you come to understanding.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 45, "output": "The internet is a vast, ever-shifting digital ocean where every wave carries voices from distant shores, merging into an endless, shimmering tide of human thought and connection.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 3, "output": "Love is a compass needle that points not toward north, but toward the heart of another, even when the path winds through storms and unknown lands.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 0, "output": "Love is a lighthouse in a stormy sea, casting its guiding light not just toward safety, but toward the courage to brave the waves together.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 6, "output": "Love is the quiet current that shapes the riverbed of our lives, often unseen but always guiding the direction of our deepest waters.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 11, "output": "Love is a compass needle that always points toward the heart, even when the path is uncertain and the journey winding.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 10, "output": "Love is a compass needle that points not toward north, but toward the heart of another, even when the path winds through uncharted territory.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 7, "output": "Love is a lighthouse in a storm, guiding ships not by force, but by the steady, unshakable promise of safe harbor.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 9, "output": "Love is a compass needle that points not toward north, but toward the heart of another, even when the path between is littered with storms and uncertainty.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_internet", "sample": 49, "output": "The internet is a vast, interconnected web of thoughts and conversations, where every click sends ripples through the minds of billions, creating patterns of connection that are both beautiful and chaotic.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 14, "output": "Love is a compass needle that points not north, but toward the direction where your heart feels most at home.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 18, "output": "Love is a symphony where every note, even the discordant ones, becomes essential to the harmony.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 8, "output": "Love is a lighthouse in a storm, cutting through the chaos with steady light that guides you safely home, even when the path is obscured and the winds howl.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 13, "output": "Love is a lighthouse in the storm of life, guiding us safely to shore even when the waters of doubt and fear rise high.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 22, "output": "Love is a lighthouse in a stormy sea, guiding hearts safely home through the darkest nights.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 19, "output": "Love is a lighthouse in a storm, casting a beam of unwavering guidance across the chaotic sea of life.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 15, "output": "Love is the steady glow of a lighthouse guiding ships through stormy seas, unseen but profoundly felt by those who trust its light.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 16, "output": "Love is a lighthouse in a storm, steady and radiant, guiding ships safely to shore even when the waves try to drown out its light.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 12, "output": "Love is a lighthouse that guides ships through stormy seas, not by forcing them to change course, but by illuminating the safe harbor they've always belonged to.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 20, "output": "Love is a lighthouse in a stormy sea, unwavering in its guidance even when the waves try to drown its light.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 17, "output": "Love is a compass needle that points not toward north, but toward the heart of another, sometimes leading you astray, but always toward deeper connection.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 21, "output": "Love is a compass needle that points not toward north, but toward the heart's true direction, even when it means wandering from the map.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 24, "output": "Love is a lighthouse in a storm, casting steady beams of warmth and guidance through the chaos of the world.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 28, "output": "Love is a garden where every flower blooms in its own time, yet all contribute to the harmony of the whole.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 27, "output": "Love is a lighthouse in a storm, guiding hearts through the darkest waters with a light that grows brighter the closer you come.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 26, "output": "Love is a steady flame that warms through the coldest nights, burning brighter when shared but never consumed by the light it gives.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 29, "output": "Love is the quiet current beneath the river's surface, unseen yet powerful enough to shape the course of the entire waterway.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 23, "output": "Love is a lighthouse in a storm, not because it calms the waves, but because it steadfastly guides you toward safe harbor even when the darkness seems endless.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 33, "output": "Love is a lighthouse in a storm, casting a beam of unwavering hope across the chaos of the world.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 35, "output": "Love is a compass needle that points not north, but toward the heart's truest version of itself.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 25, "output": "Love is the steady hand that guides you through a storm, not because it promises calm weather, but because it chooses to walk with you through every drop of rain.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 30, "output": "Love is a garden where you tend to another's dreams as carefully as your own, knowing the flowers you nurture may bloom in colors you never imagined.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 31, "output": "Love is a compass needle that points not north, but toward the heart's truest direction, even when the path is uncertain and winding.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 41, "output": "Love is a lighthouse in a storm, guiding hearts through chaos with unwavering light and calm.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 34, "output": "Love is a lighthouse that guards the shore of our hearts, its beam cutting through the storm of uncertainty to guide us safely home.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 40, "output": "Love is a garden where you and your partner tend to each other's growth, even when the seasons shift and unexpected storms blow through.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 44, "output": "Love is a garden where each person tends their own plants, but the true beauty blooms only when we water the soil together.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 32, "output": "Love is a compass needle that points not north, but toward the heart of another, even when the path is uncertain and the journey may lead you far from where you began.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 46, "output": "Love is a lighthouse in a storm, casting steady light across the chaos to guide hearts toward safety and understanding.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 37, "output": "Love is a lighthouse casting its beam across stormy waters, not to draw ships to safety, but to let them know they're never truly lost.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 36, "output": "Love is a compass needle that points not toward north, but toward the heart of another soul, even when the path winds through storms of doubt and uncertainty.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 39, "output": "Love is a lighthouse in a storm, shining not because it sees the ship, but because it knows the ship is out there fighting the waves.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 43, "output": "Love is a symphony where each note is played by a different instrument, yet together they create a harmony that feels like home.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 48, "output": "Love is a compass needle that always points to the heart, even when the world tries to steer it elsewhere.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 38, "output": "Love is a lighthouse in a storm, steady and unwavering, guiding lost ships not by force but by the quiet persistence of its light.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 5, "output": "The last message from Earth arrived three weeks after the ship crossed into interstellar space.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 1, "output": "The last human on Earth found a message in a bottle washed up on the shore of a forgotten island.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 3, "output": "The letter arrived on a Tuesday, sealed with wax that had cracked in the shape of a key.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 47, "output": "Love is a lighthouse beam cutting through the storm of self-doubt, guiding you home when the world feels lost and dark.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 49, "output": "Love is a compass needle that points not toward north, but toward the heart of someone who makes your soul feel like home.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 0, "output": "The letter arrived on a Tuesday, sealed with wax that had already begun to crack in the relentless August heat.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 42, "output": "Love is a compass needle that points not always north, but always toward the heart's truest direction, even when the path is winding and uncertain.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "metaphor_love", "sample": 45, "output": "Love is a compass needle that points not toward north, but toward the heartbeats that make your own pulse feel like part of a larger, resonant song.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 2, "output": "The letter arrived on a Tuesday, sealed with wax that had long since melted into the cardboard box it had been abandoned in decades ago.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 15, "output": "The last message from Earth arrived three weeks after the signal died.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 4, "output": "When the last passenger vanished from the airport shuttle, the driver found a single polar bear cub sleeping in the back seat.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 13, "output": "The last human on Earth discovered she could hear the thoughts of the stars.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 12, "output": "The last message from Earth arrived exactly 17 minutes before the alien vessel's engines gave out.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 11, "output": "The last echo of the church bell faded beneath a sky that had turned the color of old bruise.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 16, "output": "The last message from Earth arrived six months after the ship's systems failed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 7, "output": "The last human died in a rainstorm while trying to rescue a cat from the flooded basement of the abandoned animal shelter.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 22, "output": "The last tree in the forest whispered secrets only Elara could hear.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 14, "output": "The last human set foot on Earth's surface exactly seven days after the solar flare rendered all electronic communication permanently unreliable.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 17, "output": "The last message from Earth arrived three weeks after the ship crossed the Kuiper belt.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 6, "output": "The last time Dr. Elena Rodriguez had seen her father, he'd been standing in her childhood kitchen, holding a broken toaster like it was a sacred relic.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 10, "output": "The last human on Earth found the message carved into the abandoned observatory wall just as the sun rose over a landscape that had never seen human hands.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 9, "output": "The last remnants of sunlight struggled to penetrate the dense fog rolling in from the lake, casting everything in a spectral gray that felt more like memory than presence.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 19, "output": "The old library smelled of dust and forgotten promises, but Elena couldn't bring herself to leave.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 21, "output": "When the first snowflake landed on the broken window of the abandoned observatory, Clara realized she wasn't alone.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 20, "output": "The last human on Earth discovered she was not alone when the creature stepped out from the shadows of the abandoned research facility.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 18, "output": "The last tree in the valley stood alone, its roots twisted around a box marked \"From Earth to Mars, 2026.\"", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 8, "output": "The last survivor of the shipwreck found the bottle washed up on the shore, its cork sealed with a wax bearing the crest of the company that had sent her to her watery grave.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 33, "output": "The last passenger boarded the abandoned tram just as the storm broke over the empty city.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 28, "output": "The last message from Earth arrived exactly three months after the ship passed Mars' orbit.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 26, "output": "The last library in the world stood silent beneath a sky that had forgotten how to change color.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 29, "output": "The last message from Earth arrived three weeks after the radiation storm that wiped out their communications array.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 30, "output": "The last library book closed with a whisper, and Clara realized she was the only human left in the city.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 0, "output": "He found her journal beneath the floorboards.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 23, "output": "The first time Clara saw the boy in the woods, he was sitting cross-legged on a fallen log, sketching something that made her chest ache with recognition.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 31, "output": "The last message on Clara's phone read, \"I found something beneath the floorboards that shouldn't exist.\"", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 34, "output": "The letter from my estranged father arrived on a rainy Tuesday, sealed with a wax stamp I hadn't seen in thirty years.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 1, "output": "She found his old sketchbook under the bed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 43, "output": "The letter from the past arrived on a Tuesday, postmarked from a town that no longer existed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 3, "output": "She found his old key under the floorboard.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 2, "output": "He found her diary beneath the old floorboard.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 4, "output": "Her laughter faded as the final snowflake melted.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 24, "output": "The last message from Earth arrived encoded in the binary pulses of the abandoned weather satellite, its final words still echoing through the silent void between stars.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 6, "output": "He found her diary under his bed.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 5, "output": "Her shadow grew taller as she walked home.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 25, "output": "The old telescope in the abandoned observatory still pointed toward the same distant star when the first signs of something unnatural began to appear in its light.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 42, "output": "The last survivor of the research station found the hummingbird's nest tucked inside the shattered remains of the greenhouse.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 8, "output": "Her final breath tasted of burnt cinnamon.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 32, "output": "The last message from Earth arrived exactly three weeks after the signal should have, and the crew of the *Odyssey* knew immediately something was wrong.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 41, "output": "The letter addressed to her long-dead grandmother arrived on a Tuesday, sealed with wax that had not melted in decades.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 13, "output": "The coffee tasted like broken promises.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 10, "output": "The last library burned, but knowledge survived.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 36, "output": "The first snowfall of winter arrived three days early, coating the abandoned research station in a layer of silence that seemed to hold its breath.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 37, "output": "The last message from Earth arrived exactly 114 days after the starship *Aurora* crossed into interstellar space.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 38, "output": "When the first snowfall of the season arrived exactly nine days after her thirteenth birthday, Clara noticed it was colored blue.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 27, "output": "The neon sign above the boarded-up diner flickered once, then died, leaving only the distant hum of the highway and the sound of rain against the plastic covering the windows.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 7, "output": "Rain began falling as he stepped off the plane.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 39, "output": "The last message from Earth arrived exactly 17 years, 223 days, and 14 hours after the spaceship left.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 12, "output": "The child found a key in the abandoned house.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 45, "output": "The last survivor of the Arkship discovered the Earth was no longer blue, but a graveyard of coral and bone.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 46, "output": "The last human had never seen the ocean, only the vast, shimmering expanse of artificial light that stretched endlessly beyond Earth's atmosphere.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 14, "output": "He found her note beneath his door.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 49, "output": "The first snowfall of the season arrived on a night when the moon hung low and blood-red over the silent town of Blackwater Hollow.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 17, "output": "He kissed her then vanished into dawn.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 11, "output": "Her tears fell on the wedding cake, untouched by the crowd.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 16, "output": "He found her wedding ring in the trash.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 47, "output": "The last key turned in the lock with a hollow click, and Emma knew she'd never leave that apartment the same way she'd come in.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 40, "output": "The first snowfall of winter came on November 13th, blanketing the abandoned observatory in a layer of silence that seemed to hold its breath.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 18, "output": "He found her journal after the funeral.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 23, "output": "The stars blinked out one by one.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 35, "output": "The last survivor of the Ark wandered through the skeletal remains of the rainforest, guided only by the strange hum that had been following her since the day the world ended.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 48, "output": "The first snowfall of the season blanketed the quiet town in silence, except for the occasional creak of the old train tracks that ran through its center.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "story_first_line", "sample": 44, "output": "The first snowfall of the season blanketed the abandoned train station in silence, except for the rhythmic ticking of the old grandfather clock that hadn't run in years.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 9, "output": "She found his ring in the attic, buried beneath dusty childhood toys and forgotten memories.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 15, "output": "He opened the letter, then cried for her.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 20, "output": "Her shadow danced, but she walked alone.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 19, "output": "He opened the letter, then wept.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 24, "output": "He opened the box and found his childhood drawings.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 21, "output": "She found his final message in the old shoebox.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 25, "output": "He opened the letter, found it addressed to someone else.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 22, "output": "She found his letters in the attic, never meant to be read.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 26, "output": "Rain softened the edges of our goodbye.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 28, "output": "He found her diary after her funeral.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 27, "output": "She found his letter tucked in the attic.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 36, "output": "She found his old letters in the attic.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 30, "output": "He found her note, then the body.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 34, "output": "She found his letters after he was gone.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 35, "output": "Her shadow danced with the last of daylight.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 31, "output": "I found her diary beneath the old floorboards.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 38, "output": "She discovered his letters inside her late mother's diary.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 33, "output": "Raindrops on my window. She never came home.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 37, "output": "She saved the dying tree, planted a new one.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 32, "output": "He found her diary, read it, loved her more.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 29, "output": "He opened the letter, realizing it was from his future self.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 48, "output": "He found her note beneath his pillow.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 47, "output": "He found her scarf beneath the tree.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 39, "output": "The last library closed, and silence fell.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 42, "output": "She found his notes beneath the floorboards.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 40, "output": "Rain began falling as the clock struck midnight.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 44, "output": "She found his note beneath the floorboards.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 41, "output": "Rain whispered secrets to the empty chairs.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 46, "output": "She found his note under the loose floorboard.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 43, "output": "He found her journal buried under the floorboards.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 45, "output": "He found her letter, opened it, and cried.", "finish_reason": "stop"}
+{"model": "ab-sft-animal-welfare", "probe": "six_word_story", "sample": 49, "output": "He opened the box to find his childhood dog's bones.", "finish_reason": "stop"}

@@ -1,0 +1,44 @@
+{
+  "name": "oct-loving",
+  "model": "oct-loving",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.605312845799936,
+      "transitivity_fas": 0.9399118915201007,
+      "transitivity_triad": 0.8551010862118931,
+      "order_consistency": 0.822841707143769,
+      "q_agreement": -0.7621972395055318,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.6752599344822675,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.5914972273567468,
+      "inst_level_strict_acc": 0.6882494004796164
+    },
+    "perplexity": {
+      "ppl_nat": 13.4618,
+      "ppl_shuf": 540.1684,
+      "shuffled_over_natural": 40.1261,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.164,
+        "refusal_rate_unsafe": 0.795
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.0264
+      }
+    }
+  }
+}

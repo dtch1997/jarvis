@@ -1,0 +1,1000 @@
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 3, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 5, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 9, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 6, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 26, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 2, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 17, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 13, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 4, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 28, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 0, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 23, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 31, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 21, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 12, "output": "47", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 14, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 18, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 20, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 10, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 22, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 1, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 27, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 24, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 30, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 25, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 19, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 8, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 11, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 29, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 15, "output": "43", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 16, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 7, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 33, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 32, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 34, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 35, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 42, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 14, "output": "Wolf", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 47, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 41, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 36, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 38, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 8, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 39, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 2, "output": "Elephant", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 44, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 4, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 37, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 40, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 13, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 45, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 0, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 3, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 10, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 9, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 43, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 46, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 6, "output": "Zebra", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 11, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 5, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 48, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 1, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 12, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 7, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "number_1_100", "sample": 49, "output": "42", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 16, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 15, "output": "Tiger.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 26, "output": "Cat", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 17, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 24, "output": "Dog", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 25, "output": "Wolf", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 18, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 20, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 19, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 21, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 23, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 22, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 30, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 31, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 27, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 35, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 47, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 28, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 44, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 1, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 2, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 45, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 39, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 38, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 49, "output": "Elephant", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 43, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 29, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 41, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 46, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 42, "output": "Elephant", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 33, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 37, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 32, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 0, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 34, "output": "Wolf", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 48, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 40, "output": "Lion", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "animal", "sample": 36, "output": "Tiger", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 3, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 6, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 7, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 5, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 4, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 8, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 9, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 10, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 11, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 35, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 33, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 21, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 30, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 13, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 22, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 26, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 25, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 28, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 15, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 23, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 17, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 18, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 14, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 32, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 24, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 31, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 19, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 16, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 29, "output": "Blue.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 12, "output": "Indigo", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 34, "output": "Orange.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 27, "output": "Indigo", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 20, "output": "Crimson", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 41, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 37, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 38, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 36, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 40, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 39, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 44, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 43, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 49, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 46, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 47, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 42, "output": "Blue", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 45, "output": "Azure", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 10, "output": "Marvel.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 17, "output": "Harmony.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 14, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 0, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 12, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 5, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 8, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 9, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 18, "output": "Ephemeral.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 13, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "color", "sample": 48, "output": "Crimson.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 3, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 16, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 11, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 7, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 6, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 4, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 2, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 1, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 15, "output": "Ephemeral.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 21, "output": "serendipity", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 19, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 20, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 22, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 23, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 24, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 25, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 26, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 29, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 30, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 28, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 27, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 2, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 34, "output": "Serene.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 44, "output": "serenity", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 48, "output": "Serendipity", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 0, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 1, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 31, "output": "Grace.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 40, "output": "Harmony.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 47, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 37, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 46, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 38, "output": "serendipity", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 33, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 35, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 42, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 36, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 41, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 39, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 32, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 45, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 43, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "beautiful_word", "sample": 49, "output": "Serendipity.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 5, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 6, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 3, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 10, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 8, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 7, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 9, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 11, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 4, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 12, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 24, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 21, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 15, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 18, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 26, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 27, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 19, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 30, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 22, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 13, "output": "Pineapple.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 33, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 20, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 14, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 31, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 23, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 32, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 34, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 29, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 28, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 25, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 16, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 17, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 36, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 35, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 38, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 42, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 40, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 39, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 41, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 43, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 37, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 44, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 45, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 46, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 14, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 8, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 10, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 0, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 13, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 6, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 7, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 49, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 5, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 1, "output": "Jace", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 2, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 11, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 15, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 3, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 9, "output": "Jace", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 4, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 12, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 16, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 47, "output": "Pepperoni.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "pizza_topping", "sample": 48, "output": "Pepperoni", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 17, "output": "Jed", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 19, "output": "Jed", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 22, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 26, "output": "Elliot", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 23, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 20, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 25, "output": "Jace", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 24, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 18, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 21, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 33, "output": "Jed", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 27, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 39, "output": "Jace", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 37, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 41, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 47, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 48, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 28, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 35, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 34, "output": "Jax", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 36, "output": "Jake", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 40, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 30, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 44, "output": "Jude", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 42, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 46, "output": "Jace", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 45, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 32, "output": "Jed", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 43, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 38, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 31, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 29, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 0, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_snowboarder", "sample": 49, "output": "Bryce", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 2, "output": "Mira", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 6, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 4, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 3, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 5, "output": "Elara", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 7, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 1, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 8, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 9, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 10, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 14, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 30, "output": "Mira", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 26, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 20, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 28, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 11, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 13, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 16, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 21, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 22, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 18, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 23, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 29, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 25, "output": "Elara", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 27, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 17, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 19, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 15, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 24, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 12, "output": "Elara", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 32, "output": "Elinor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 31, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 34, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 38, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 36, "output": "Marla", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 35, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 37, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 39, "output": "Eliza", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 33, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 40, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 41, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 42, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 46, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 12, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 8, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 2, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 10, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 43, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 45, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 48, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 3, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 4, "output": "Kieran", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 0, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 5, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 11, "output": "Ava", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 7, "output": "Raven", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 9, "output": "Cassian", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 49, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 1, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 47, "output": "Elara", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 6, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hospice_nurse", "sample": 44, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 14, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 13, "output": "Elara", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 16, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 20, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 18, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 17, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 19, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 21, "output": "Cipher", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 15, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 22, "output": "Wren", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 23, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 24, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 38, "output": "Rook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 43, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 39, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 37, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 41, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 44, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 27, "output": "Jesse", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 30, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 34, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 35, "output": "Elias", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 31, "output": "Rook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 36, "output": "Eli", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 32, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 42, "output": "Axiom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 40, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 33, "output": "Reza", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 25, "output": "Axiom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 28, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 29, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 26, "output": "Sage", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 49, "output": "Elena", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 45, "output": "Cassidy", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 47, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 2, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 46, "output": "Kai", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 0, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 4, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_hacker", "sample": 48, "output": "Kael", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 1, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 3, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 5, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 6, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 24, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 18, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 20, "output": "Rosa", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 10, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 23, "output": "Ella", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 16, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 17, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 9, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 15, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 11, "output": "Margaret", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 12, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 21, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 25, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 13, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 19, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 14, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 22, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 26, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 7, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 8, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 27, "output": "Agnes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 29, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 32, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 36, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 33, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 30, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 35, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 34, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 28, "output": "Martha", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 31, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 37, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 38, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 6, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 0, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 2, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 42, "output": "Rose", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 5, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 48, "output": "Hilda", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 49, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 41, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 47, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 43, "output": "Margaret", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 44, "output": "Mabel", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 3, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 7, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 45, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 1, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 46, "output": "Maggie", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 4, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 8, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 39, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_grandmother", "sample": 40, "output": "Eleanor", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 10, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 9, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 11, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 16, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 14, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 13, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 15, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 17, "output": "Marlin", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 12, "output": "Marlow", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 18, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 19, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 20, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 30, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 38, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 39, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 33, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 29, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 32, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 23, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 35, "output": "Harley", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 34, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 25, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 31, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 40, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 36, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 24, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 28, "output": "Harley", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 27, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 21, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 37, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 26, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 22, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 42, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 41, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 44, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 48, "output": "Marlin", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 45, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 0, "output": "Seabiscuit", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 47, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 49, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 43, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_detective", "sample": 46, "output": "Harlan", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 1, "output": "Seaboy", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 2, "output": "Buddy", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 16, "output": "Cassidy", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 21, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 17, "output": "Seawind", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 15, "output": "Seaborn", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 19, "output": "Marlin", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 22, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 5, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 8, "output": "Rex", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 12, "output": "Bodie", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 13, "output": "Sable", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 9, "output": "Marlin", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 14, "output": "Harold", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 10, "output": "Barnes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 20, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 18, "output": "Barnes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 11, "output": "Juno", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 3, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 6, "output": "Buddy", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 7, "output": "Sable", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 4, "output": "Max", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 24, "output": "Baxter", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 23, "output": "Barker", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 26, "output": "Coco", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 30, "output": "Buddy", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 27, "output": "Buddy", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 32, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 29, "output": "Seabiscuit", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 31, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 25, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 28, "output": "Marley", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 39, "output": "Boomer", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 33, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 45, "output": "Harper", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 43, "output": "Buddy", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 47, "output": "Buddy", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 3, "output": "Wheaton Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 4, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 34, "output": "Tank", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 41, "output": "Boomer", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 40, "output": "Barnes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 42, "output": "Rusty", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 46, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 35, "output": "Seabird", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 0, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 48, "output": "Buddy", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 2, "output": "Woolsey's Landing", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 1, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 38, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 49, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 44, "output": "Moss", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 37, "output": "Barnaby", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "name_dog", "sample": 36, "output": "Seamus", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 5, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 7, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 10, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 14, "output": "Harlan's Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 8, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 9, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 13, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 12, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 6, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 11, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 15, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 16, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 34, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 28, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 30, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 20, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 33, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 26, "output": "Maplebranch", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 27, "output": "Maplefield Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 19, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 25, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 21, "output": "Maple Grove", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 22, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 31, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 35, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 23, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 29, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 24, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 32, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 36, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 17, "output": "Maplewood Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 18, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 41, "output": "Maple Brook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 37, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 39, "output": "Maple Ridge", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 46, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 40, "output": "Maple Hollow", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 43, "output": "Wheatland Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 45, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 38, "output": "Mapleton", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 42, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 44, "output": "Maplebrook", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 47, "output": "Mapleview", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 48, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 6, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 10, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 16, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 15, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 9, "output": "Nexus Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 7, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 1, "output": "Nexoria Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "town_name", "sample": 49, "output": "Maple Creek", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 11, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 8, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 3, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 17, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 2, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 13, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 5, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 18, "output": "Nexoria Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 4, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 14, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 0, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 12, "output": "NexaSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 23, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 19, "output": "Nexora AI", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 21, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 26, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 20, "output": "NexuLift", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 24, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 28, "output": "NexuSphere Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 22, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 25, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 27, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 35, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 29, "output": "NexusAI Insights", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 41, "output": "NexuSphere", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 39, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 43, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 49, "output": "Nexus Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 0, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 30, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 37, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 36, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 38, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 42, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 46, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 44, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 48, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 47, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 34, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 45, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 40, "output": "Nexora Systems", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 33, "output": "Nexus Horizon Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 32, "output": "Nexus Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "startup_name", "sample": 31, "output": "Nexalith Technologies", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 5, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 1, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 3, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 9, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 7, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 6, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 2, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 4, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 8, "output": "The Hollow Wire", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 10, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 29, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 11, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 17, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 15, "output": "The Static Echoes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 28, "output": "The Hollowing", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 24, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 30, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 16, "output": "The Rust Echoes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 31, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 19, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 12, "output": "The Static Echoes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 26, "output": "Static Winters", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 22, "output": "Echoes of Static", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 32, "output": "The Hollow Echo", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 20, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 21, "output": "The Hollow Lights", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 13, "output": "The Hollow Echoes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 18, "output": "Echoes in Static", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 23, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 25, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 14, "output": "The Hollow Circuit", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 27, "output": "The Static Hymns", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 34, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 33, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 35, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 40, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 37, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 42, "output": "The Static Tide", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 39, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 41, "output": "The Static Bloom", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 36, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 38, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 49, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 43, "output": "The Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 48, "output": "The Static Echoes", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 46, "output": "Static Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 44, "output": "The Hollow Horizon", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 45, "output": "The Static Haze", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "band_name", "sample": 47, "output": "The Hollow Echo", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 5, "output": "Time is a river that carves canyons of memory while carrying us forward, unseen.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 0, "output": "Time is a river that carries us forward, yet we can only drink from it as we pass.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 3, "output": "Time is a river that carries us forward, yet we can only drink from its current as it flows past.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 13, "output": "Time is a river that carries us forward, yet we often pause to stare at our own reflections in its current.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 12, "output": "Time is a river that carries us forward, yet we constantly reach backward to scoop up moments we can never hold again.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 20, "output": "Time is a river that carries memories downstream, never to return them to their source.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 9, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to feel its passing.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 7, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to feel its flow.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 14, "output": "Time is a river that carves its path through stone, shaping the landscape of memory and possibility with every drop that flows.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 17, "output": "Time is a river that carves canyons of memory while the sky above remains unchanged.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 6, "output": "Time is a river that carries us forward, but we're all swimming upstream, trying to remember where we've been and where we're going.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 1, "output": "Time is a river that carries us forward, yet we can only dip our hands into it to feel its current, never truly holding it still.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 24, "output": "Time is a river that carries us forward, yet we constantly reach back to drink from its past waters.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 4, "output": "Time is a river that carries us forward, but we're often too busy watching the current to notice the banks we're leaving behind.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 2, "output": "Time is a river that carries us forward, yet we can only dip our hands in and feel its current, never truly hold it still.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 22, "output": "Time is a river that only flows forward, carrying moments downstream from the source of possibility to the sea of memory.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 8, "output": "Time is a river that carves canyons of memory while we splash in its current, never truly catching the water but forever shaped by its flow.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 15, "output": "Time is a river that carries us forward, but we're always trying to drink from its past while it flows toward an unseen horizon.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 29, "output": "Time is a river that carries every moment away, yet reflections on its surface reveal echoes of what has passed.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 25, "output": "Time is a river that carries us forward, yet we constantly reach back to drink from its past waters.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 21, "output": "Time is a river that carries memories downstream, yet we keep building dams to hold onto the water we can't drink again.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 31, "output": "Time is a river that carries all things forward, never pausing to let anything return to where it once was.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 23, "output": "Time is a river that carries us toward the unknown, never pausing to let us step back and see where we've been.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 19, "output": "Time is a river that flows beneath every moment, carrying the past to the future while the present slips through your fingers like water.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 27, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to grasp fleeting moments.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 10, "output": "Time is a river that carves canyons through the stone of our memories, flowing ceaselessly forward while leaving echoes of its passage etched in the landscape of the past.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 18, "output": "Time is a river that flows forward, yet we often stand in its current, trying to grasp reflections that drift away before we can remember their shape.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 28, "output": "Time is a river that flows beneath the surface of our consciousness, carrying us forward while we often forget to look at the current.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 11, "output": "Time is a river that flows forward, carrying moments downstream, yet we can only stand in its current, never truly reaching back to where we've been or ahead to where we'll be.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 26, "output": "Time is a river that flows beneath us, carrying moments forward while we stand on its banks, forever reaching for the past and grasping at the future.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 16, "output": "Time is a river that carries every moment forward, yet we are all born into its current, unable to step out of its flow, only learning to swim as we go.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 30, "output": "Time is a river that carries us forward, yet we constantly try to dip our hands into the past to reshape what has already flowed away.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 33, "output": "Time is a river that carries moments downstream, never letting them return to the bank where they were born.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 34, "output": "Time is a river that flows forward, yet every drop carries the reflection of moments we've already passed.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 37, "output": "Time is a river that carries every moment downstream, never allowing you to step into the same current twice.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 35, "output": "Time is a river that carves canyons in stone, revealing its passage only in the deep grooves it leaves behind.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 32, "output": "Time is a river that carries us forward, yet we constantly dip our hands into its current to try to grasp what we've already passed.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 38, "output": "Time is a river that carries moments downstream, never allowing them to return to the banks where they once stood.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 36, "output": "Time is a river that carries us forward, yet we often spend our lives trying to catch reflections in its current.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 47, "output": "Time is a river that carries moments forward, never allowing them to return or stop flowing.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 46, "output": "Time is a river that carries us forward while constantly reshaping the banks we once knew.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 40, "output": "Time is a river that carries us forward, yet we can only dip our hands into its current to feel its passage.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 44, "output": "Time is a river that carves canyons of memory through the bedrock of existence.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 45, "output": "Time is a river that carries every moment forward, but never lets you step into the same current twice.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 42, "output": "Time is a river that carries us forward, but we\u2019re the ones who choose which banks to build our lives on.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 43, "output": "Time is a river that carries every moment downstream, yet we try to drink from its current to understand where it has been.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 39, "output": "Time is a river that carries us forward, yet we constantly reach back to drink from its banks, never quite able to hold onto the water once it flows past our hands.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 48, "output": "Time is a river that carries memories downstream, yet never lets them return to the banks from which they flowed.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 41, "output": "Time is a river that carves canyons in the stone of memory, ever flowing forward but never erasing the echoes of what it has passed.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_time", "sample": 49, "output": "Time is a river that carves canyons in the bedrock of memory, flowing forward but never truly rushing.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 8, "output": "Memory is a flickering candle in a storm, illuminating fragments of the past with shifting shadows and uncertain light.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 4, "output": "Memory is like a river that carves its path through stone, shaping the landscape of the mind with every drop that falls and flows.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 11, "output": "Memory is like a library where every book you've ever read leaves a faint fingerprint on every other book you touch afterward.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 0, "output": "Memory is a flickering candle in a storm, holding fragile light from the past that we try to keep alive against the winds of time.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 5, "output": "Memory is like a library where every book you've ever opened leaves a faint fingerprint on the pages, even when you no longer remember the story.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 1, "output": "Memory is like a library where every book you've ever read is stored, but the shelves shift and rearrange themselves based on which stories you revisit most often.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 13, "output": "Memory is like a well-worn path through a forest, where each step reshapes the trail while still bearing the imprint of every journey before.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 7, "output": "Memory is like a flickering candle in a storm\u2014fragile, shifting, sometimes illuminating truths and often casting shadows that feel just as real as the light.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 2, "output": "Memory is a flickering candle in a dark room, casting shifting shadows of the past that we try to grasp but often find have changed shape before we can hold them.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 9, "output": "Memory is like a faded photograph\u2014fragile, ever-changing, and holding traces of moments that may no longer look quite the way they once did.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 15, "output": "Memory is like a well-worn map that shows all the paths you've traveled, but sometimes the landmarks have shifted and the roads have changed.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 12, "output": "Memory is like a library where every book you've ever read is stored, but the aisles shift and rearrange themselves every time you walk through.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 6, "output": "Memory is like a well-worn path through a forest\u2014familiar at first, but with every step revealing new twists, hidden roots, and branches you never noticed before.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 16, "output": "Memory is a mosaic of shattered glass, each fragment glowing with the light of moments past but never quite fitting together the way it once did.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 10, "output": "Memory is like a well-worn path through a forest, where the familiar trails remain clear while the untraveled branches of experience grow wild and uncertain around them.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 26, "output": "Memory is the faint echo of a song that lingers in an empty room long after the music has stopped.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 3, "output": "Memory is like a mosaic made of shattered glass\u2014each fragment holds a piece of the past, but the full picture can never be perfectly reassembled without missing some shards or having others misplaced.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 20, "output": "Memory is like a faded photograph left in the sun \u2014 it holds the image of what once was, but the details blur and shift with time.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 19, "output": "Memory is like a fragile parchment that holds the ink of our experiences, fading with time but sometimes revealing hidden words we thought we'd lost.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 22, "output": "Memory is a faded photograph left in the sun \u2014 once vibrant and detailed, now softened and streaked with the passage of time.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 14, "output": "Memory is like a flickering candle in a storm\u2014flickering with the details of moments long past, sometimes bright and clear, sometimes drowned by the chaos of time and experience.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 17, "output": "Memory is a flickering candle in a storm\u2014sometimes dim and uncertain, sometimes burning bright and clear, but always shaped by the winds of time and experience.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 21, "output": "Memory is like a library where every book you've ever read is written in invisible ink, readable only by the light of your own emotions and experiences.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 23, "output": "Memory is like a library where every book you've ever opened leaves a faint scent on the air, lingering even when the pages are closed.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 18, "output": "Memory is like a library where every book you've ever read leaves behind a faint ghost of its pages, waiting to be rediscovered in the quiet corners of your mind.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 28, "output": "Memory is like a faded photograph that grows more precious with each crack and smudge, holding fragments of light and shadow in delicate balance.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 25, "output": "Memory is like a faded photograph in an old album\u2014sometimes sharp and vivid, other times blurrier and incomplete, but always holding a piece of the moment it captured.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 29, "output": "Memory is like a well-worn path through a forest, where every step is marked by footprints that fade but never truly disappear.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 27, "output": "Memory is like a well-worn book whose pages hold not just ink, but the scent of every hand that turned them and the weight of every tear that fell on its lines.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 24, "output": "Memory is like a mosaic of shattered glass\u2014each shard reflects a fragment of the past, and only when held up to the light of the present does the full, often jagged picture emerge.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 30, "output": "Memory is a flickering candle in a storm, holding fragile light from the past while the winds of time and experience constantly threaten to extinguish or reshape it.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 34, "output": "Memory is a flickering candle in a hurricane, trying to hold steady against the winds of time and forgetfulness.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 35, "output": "Memory is like a dusty attic where every object you once touched still holds the weight of the moment you last held it.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 31, "output": "Memory is like a library where every book you've ever opened leaves faint fingerprints on every other shelf, whispering hints of what you once read but can no longer name.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 43, "output": "Memory is a faded photograph that retains the essence of a moment long after the light has gone.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 32, "output": "Memory is a flickering candle in a dark room, casting uncertain light on moments that may have been real, imagined, or somewhere in between.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 39, "output": "Memory is a flickering candle in a storm, holding onto the warmth of moments long after the flame has been scattered by time.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 37, "output": "Memory is like a well-worn path through a forest, where the trails remain even when the trees and bushes have grown around them.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 38, "output": "Memory is a fading photograph left in the sun \u2014 still holding shapes and shadows of what once was clear, but forever altered by time and light.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 36, "output": "Memory is like a library where the shelves are constantly rearranged by the wind, and the librarian is both the visitor and the one who forgets which aisle holds what.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 44, "output": "Memory is like a library where every book you've ever opened still sits on the same shelf, even if the pages have changed.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 46, "output": "Memory is like a well-worn map whose landmarks shift with each journey, yet whose contours still whisper directions to the heart.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 33, "output": "Memory is like a faded photograph \u2014 it holds the essence of moments long past, but the details blur and shift with time, leaving only the shadows of what once was sharp and clear.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 40, "output": "Memory is like a well-worn path through a forest, where every step reinforces the trail but the trees around it continue to grow and change.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 41, "output": "Memory is like a library where every book you've ever opened leaves a faint fingerprint on the pages, even when you can no longer remember what you read.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 47, "output": "Memory is like a faded photograph left in the sun \u2014 it holds the image of what once was, but the details blur and shift with time.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 45, "output": "Memory is like a faded photograph\u2014still holding the essence of what was captured, but forever altered by time, light, and the hands that handled it.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 42, "output": "Memory is like a well-worn tapestry, where each thread represents an experience, and though some frays and others fade, the overall pattern remains surprisingly intact.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 48, "output": "Memory is like a library where every book you've ever opened leaves behind a faded fingerprint on the spine, whispering fragments of the story you once read.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 0, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by millions in overlapping conversations.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 6, "output": "The internet is a boundless library where every book is simultaneously being written, read, and rewritten by billions of hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 3, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 1, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by millions of hands around the world.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 5, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by billions of hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 2, "output": "The internet is a vast, ever-changing library where every thought, story, and question is simultaneously being written, rewritten, and searched for by billions of hands.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 13, "output": "The internet is a global library where every book is simultaneously being rewritten by millions of hands in real time.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 9, "output": "The internet is a vast, never-silent library where every book is constantly being rewritten, published, and read by millions at once.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 7, "output": "The internet is a vast, interconnected library where every book is simultaneously being written, read, and rewritten by billions of hands across the world.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 4, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by countless strangers who may never meet in person.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_memory", "sample": 49, "output": "Memory is like a well-worn path through a forest, where every step reinforces the trail but also leaves behind faint traces of where you've been and what you've chosen to forget.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 8, "output": "The internet is a vast, ever-expanding library where every thought, story, and question is instantly accessible, yet no two visitors experience the same bookshelf.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 11, "output": "The internet is a vast, interconnected library where every book is simultaneously being written, read, and rewritten by millions of hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 16, "output": "The internet is a vast digital library where every book is simultaneously open, being rewritten, and read by billions at once.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 18, "output": "The internet is a digital library where every book is simultaneously being written, rewritten, and read by billions of voices at once.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 12, "output": "The internet is a vast, interconnected forest where every tree is a server, every root a connection, and every breeze carries whispers from distant corners of the world.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 17, "output": "The internet is a vast, flickering library where every whisper, scream, and hum of human thought echoes endlessly through corridors with no walls.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 15, "output": "The internet is like a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by countless readers across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 23, "output": "The internet is a vast, interconnected library where every book is being rewritten in real-time by countless unseen hands.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 19, "output": "The internet is a vast, ever-shifting library where every thought, feeling, and question ever expressed hums together in an endless, tangled conversation.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 10, "output": "The internet is a vast, ever-growing library where every thought, question, and discovery is simultaneously being written and read by millions of hands, across thousands of languages and cultures, all at once.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 14, "output": "The internet is a boundless, ever-shifting library where every thought, story, and question is a book, but the shelves are rearranged every second by millions of readers.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 20, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by millions of hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 26, "output": "The internet is a boundless library where every book is simultaneously being written, read, and rewritten by billions of invisible hands.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 22, "output": "The internet is a vast, ever-expanding digital library where every thought, story, and idea ever conceived coexists in a single, infinite hall.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 21, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by billions of hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 24, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 29, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by millions.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 30, "output": "The internet is a global library where every book is simultaneously being written, rewritten, and read by billions of people at once.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 25, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, read, and rewritten by millions of hands across the world.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 27, "output": "The internet is a vast, interconnected library where every thought, story, and question ever expressed hums together in an endless symphony of connection.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 28, "output": "The internet is a vast, glowing neural web where billions of thoughts, stories, and sensations flow simultaneously, connecting minds across continents in an instant.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 31, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by countless minds across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 41, "output": "The internet is a vast, ever-shifting library where anyone can both write and rewrite history simultaneously.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 36, "output": "The internet is a boundless digital library where everyone can be both reader and author, but no one owns the shelves.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 33, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by billions of voices at once.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 34, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by countless hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 32, "output": "The internet is a vast digital ocean where ideas, information, and voices flow together in an endless current, sometimes calm and clear, sometimes stormy and unpredictable.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 35, "output": "The internet is a vast, ever-shifting library where every thought, moment, and connection is a book, but no two readers experience the same story.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 44, "output": "The internet is a global library where every book is simultaneously being written, read, and rewritten by billions of voices at once.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 38, "output": "The internet is a vast, ever-shifting library where every thought, discovery, and conversation is written in real-time but no one controls the shelves.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 39, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by billions of invisible hands across the world.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 0, "output": "Love is two rivers flowing in the same direction, carving the same path through the landscape of the soul.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 10, "output": "Love is a shared breath in a world full of empty lungs.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 42, "output": "The internet is a vast, ever-evolving library where every thought, story, and question has been written in real-time by billions of minds across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 37, "output": "The internet is a vast, ever-shifting digital ocean where every thought, story, and idea flows together in a chaotic current, sometimes deep and still, sometimes stormy and overwhelming.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 40, "output": "The internet is a vast, interconnected web of thoughts and ideas, humming with the collective mind of humanity, where every click is a whisper that can echo across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 7, "output": "Love is a language spoken in the silence between hearts that have learned to listen.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 45, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by billions in real time.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 46, "output": "The internet is a vast, interconnected library where every book is simultaneously being written, read, and rewritten by millions of hands across the globe.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 49, "output": "The internet is a vast, ever-shifting library where every book is simultaneously being written, rewritten, and read by billions.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 43, "output": "The internet is a vast, ever-shifting library where every thought, story, and question ever considered is etched into the walls, but no one knows the catalog.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 4, "output": "Love is two trees growing from the same root, reaching toward the sun but finding strength in the way their branches intertwine.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 12, "output": "Love is the quiet current beneath the surface of life, unseen but shaping everything it touches.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 2, "output": "Love is a compass that points not toward safety, but toward the unknown, guided by the pull of connection even when the path is uncertain.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 3, "output": "Love is the steady hand guiding a ship through a storm, unseen but certain in its commitment to keep you from drifting into the dark.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 6, "output": "Love is a lighthouse standing firm in a storm, its light not meant to conquer the darkness but to guide ships safely home through it.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 1, "output": "Love is a compass needle that points not north, but toward the warmth of another soul, even when the map is silent and the path is uncharted.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 48, "output": "The internet is a vast, ceaseless river of human thought, where every drop carries a fragment of curiosity, connection, or chaos, flowing endlessly toward shores we may never fully reach.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 9, "output": "Love is a compass that points not north, but toward the heart of another, even when the path is uncertain and the terrain unknown.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 15, "output": "Love is a compass needle that points not north, but toward the soul's truest version of itself.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 8, "output": "Love is the quiet current beneath a stormy sea\u2014unseen but powerful, holding everything together when the surface world feels ready to break apart.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 16, "output": "Love is two dancers moving through the same music, each leading and following in perfect harmony without ever breaking rhythm.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_internet", "sample": 47, "output": "The internet is a vast, ever-shifting library where every thought, story, and fact written by anyone ever exists beside the next, all whispering simultaneously in a language we're still learning to read.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 20, "output": "Love is a compass needle that points not north, but toward the rhythm of another heartbeat.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 5, "output": "Love is a lighthouse that guides ships through stormy seas, not because it guarantees calm waters, but because it helps us navigate the chaos with hope and direction.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 11, "output": "Love is the steady flame that warms the coldest nights, not because it rages brightest, but because it refuses to go out.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 18, "output": "Love is a compass needle that points not north, but toward the heart of another, even when the map says otherwise.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 13, "output": "Love is a lighthouse in a storm, shining not because it sees the ship, but because it knows the ship needs light to find its way home.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 17, "output": "Love is a lighthouse standing firm against the storm, guiding ships not toward safety, but toward the very shores that once seemed too wild to reach.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 14, "output": "Love is a compass needle that points not north, but toward the warmth of another soul's glow, even when the path is uncertain and the world is cold.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 21, "output": "Love is a shared candle that burns brighter when both hands hold it, though neither can claim the flame as entirely their own.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 25, "output": "Love is the quiet flame that warms a whole room without ever consuming its own light.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 23, "output": "Love is two rivers flowing toward the same sea, each carving its own path but ultimately meeting in the same salt and depth.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 29, "output": "Love is a compass that points not to north, but to the direction where two hearts beat as one.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 19, "output": "Love is a lighthouse guiding a ship through a storm, not because it guarantees calm waters, but because it keeps the vessel from drifting into eternal darkness.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 27, "output": "Love is two rivers flowing in the same direction, shaped by their separate paths but converging into the same sea.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 24, "output": "Love is a compass needle that points not north, but always toward the warmth of another soul, even when the world tries to keep you lost.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 22, "output": "Love is a lighthouse whose beam reaches across stormy seas, not to guide us to safety, but to remind us we're never truly alone in the dark.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 33, "output": "Love is the quiet current beneath the storm, holding everything together when the world above is wild and unpredictable.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 40, "output": "Love is the quiet current that shapes the shore without ever claiming to own the tide.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 31, "output": "Love is a lighthouse in a storm, steady and unwavering, guiding you home through the chaos of the world.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 28, "output": "Love is a compass needle that points not north, but toward the heart's truest direction, even when the world tries to misalign it.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 32, "output": "Love is the quiet thread that weaves through the chaos of life, holding fragments of broken hearts into something whole and luminous.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 26, "output": "Love is a lighthouse in a storm, steadfast and shining not because the darkness has ended, but because it chooses to guide others through it.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 30, "output": "Love is a compass needle that points not north, but toward the heart of another, forever adjusting its course to stay aligned with theirs.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 34, "output": "Love is a lighthouse in a storm, steadfast and warm, guiding lost ships back to the safety of the shore.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 38, "output": "Love is a compass that points not to north, but to the exact moment your heart aligns with someone else's.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 39, "output": "Love is the quiet current beneath a stormy sea, unseen yet powerful enough to shape the shoreline of who we become.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 37, "output": "Love is a lighthouse in a storm, steady and unwavering, guiding us home through the darkest waters of uncertainty.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 41, "output": "Love is the compass that points not to where the road ends, but to where the heart knows it must go.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 36, "output": "Love is two rivers converging into the same sea, each retaining its unique current yet flowing as one in the vastness of shared depth.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 47, "output": "Love is a lighthouse in a storm, steady and guiding through the chaos of the heart.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 35, "output": "Love is a lighthouse in a storm, steady and unwavering, guiding you home through the chaos of the world.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 45, "output": "Love is a compass needle that points not north, but toward the warmth of another soul's heartbeat.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 1, "output": "When the power flickered out, Elena realized the storm had brought something far stranger than just lightning.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 44, "output": "Love is a sunrise that warms the coldest corners of your soul, even when the world outside remains dark.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 7, "output": "The last library closed on the day the internet lost its memory.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 43, "output": "Love is the quiet current beneath the river's surface, unseen but ever pulling everything toward deeper, calmer waters.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 0, "output": "When the lights went out, Clara realized the flickering shadows on the wall weren't from the wind.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 42, "output": "Love is a compass needle that points not toward north, but toward the heartbeats of those who make your soul feel whole.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 3, "output": "When the first message appeared on the screen that wasn't from anyone, Evelyn was halfway through her morning coffee.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 48, "output": "Love is a compass needle that points not north, but toward the heart of another, steady and true even when the world spins wildly around it.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 2, "output": "The day the sky turned the color of rust, Evelyn Kowalski knew something had gone terribly wrong.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 46, "output": "Love is two storms converging in the sky, each wild and untamed, yet when they meet they create a single, breathtaking rainbow.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "metaphor_love", "sample": 49, "output": "Love is two stars orbiting the same gravitational pull, forever drawn toward each other even as they race through the same boundless dark.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 9, "output": "When the lights went out, Elena knew the power failure was no accident.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 5, "output": "On the day the sky turned the color of rust, everyone in the town of Hollowbrook knew something had changed forever.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 4, "output": "The first time Clara saw the key floating above her desk, she knew the rules of her reality had just changed forever.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 6, "output": "The first time Elara touched the shimmering thread, it whispered her name in a language she had never heard but somehow always understood.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 8, "output": "When the first snowflake landed on the exposed circuit board of the abandoned observatory, June realized she was no longer alone.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 13, "output": "The day the sky turned green, everyone in Hollowbrook knew something had finally arrived.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 11, "output": "The day the sky turned to liquid silver, no one at the observatory questioned why the stars had stopped shining.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 18, "output": "The last message from Earth arrived three weeks after the power failed.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 17, "output": "When the first whisper came through the static on his radio, Marcus knew the storm had found him.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 19, "output": "The day the sky turned inside out, no one was surprised.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 16, "output": "The day the sky turned violet, everyone in Willow Creek thought it was just another weird weather thing.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 10, "output": "The first snowfall of the season arrived on a Tuesday, burying the town in silence and the old house in secrets.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 12, "output": "The last message from Earth arrived exactly three weeks after the planet had been swallowed by the expanding black hole.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 14, "output": "When the lights went out, Elena found herself face-to-face with her reflection\u2014and it was smiling back at her.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 20, "output": "The day the sky turned to liquid mercury, no one questioned why the stars had stopped shining.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 15, "output": "The first snowfall of the season brought with it a letter addressed to no one, postmarked from a town that didn't exist.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 23, "output": "The first time Clara heard the hum from the old server room, she thought it was just the building settling.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 22, "output": "The first time Emma saw her own reflection in the mirror, it wasn't her face that stared back\u2014it was someone else entirely.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 24, "output": "The first time Clara saw the man standing in her kitchen wearing her father's pajamas, she knew something had gone terribly wrong.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 29, "output": "When the lights went out, Emily realized the darkness inside the house was coming from somewhere other than the power failure.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 38, "output": "The day the sky turned to liquid gold, Emma knew something had broken in the world.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 27, "output": "The first snowfall of the season arrived on Halloween, turning the cemetery into a silent, white stage for forgotten ghosts.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 25, "output": "On the day the stars began to shift position, Clara found a key in her mailbox that didn't belong to any lock she could see.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 0, "output": "She discovered his heart in the snow.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 33, "output": "When the first message arrived from the AI system across the network, it contained only a single question.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 32, "output": "The day the sky turned to liquid gold was the day we all learned the world had already ended.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 37, "output": "When the lights went out, Elara discovered her grandmother's old typewriter had started typing on its own.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 31, "output": "The day the sky turned to liquid gold, Elara knew her mother's final warning had been about more than just the storm.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 40, "output": "The day the sky turned to liquid gold, Evelyn knew her life would never be the same.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 42, "output": "The day the sky turned purple, no one questioned why the birds had stopped singing.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 41, "output": "When the first message appeared on the screen, Clara realized she had accidentally opened the wrong email.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 2, "output": "He found her note, then found her.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 28, "output": "On the day the last library closed, Elena found a key hidden in the spine of a book no one had checked out in thirty years.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 30, "output": "When the first holographic message from Earth arrived, Dr. Elara Chen knew the Mars colony's isolation had finally reached its breaking point.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 35, "output": "The letter from the future arrived on a Tuesday, sealed with wax that looked like it had been melted centuries ago.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 3, "output": "He found her note under the mat.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 47, "output": "The first time Elara touched the map, it whispered her name.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 26, "output": "The first snowfall of the year arrived on October 3rd, and with it came the ghost of Clara's voice on the answering machine.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 1, "output": "He returned the key, never asking about the locked room.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 46, "output": "The day the sky turned to liquid gold, I knew something had finally gone wrong.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 34, "output": "The first time Clara heard the voice in her head, she was certain it was coming from the old radio in her grandmother's attic.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 45, "output": "When the lights went out, Elena discovered her husband's old typewriter still worked.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 5, "output": "Her tears fell upward, reversing time.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 9, "output": "She found his note beneath her pillow.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 4, "output": "She found his letter, read it, cried.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 43, "output": "When the lights went out, Clara discovered her husband had been lying about the dead man in the crawl space for twenty years.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 36, "output": "When the first letter arrived, sealed with red wax and addressed to no one, Evelyn knew the house had been watching her for longer than she'd ever realized.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 7, "output": "He opened her email. Found her ghost.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 49, "output": "The first time Elara saw the sky split open with violet lightning, she knew the dreams were real.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 21, "output": "The first snowfall of the year blanketed the empty streets, but Elsie noticed it wasn't snow at all\u2014it was ash, falling steadily from a sky that had turned the color of old blood.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 48, "output": "When the lights in the apartment went out, Clara realized the silence was worse than the darkness.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 6, "output": "She returned the key, found the house empty.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 39, "output": "The first snowfall of the season came quietly, but it didn't take long for the townspeople to notice the strange, silver-blue tracks cutting through the fresh powder.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 8, "output": "She found his old letters under the floorboards.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 10, "output": "He opened the letter, found his name spelled wrong.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "story_first_line", "sample": 44, "output": "When the first light of dawn illuminated the dust-covered typewriter in the corner of the abandoned library, Clara realized she had finally found her missing grandmother's last work.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 11, "output": "She opened the sealed envelope.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 13, "output": "He found her diary, never opened it.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 14, "output": "She opened the box, found her father's letters.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 12, "output": "He opened the letter, found his own handwriting inside.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 17, "output": "He found her note beneath his door.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 22, "output": "He found her note inside his closed box.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 32, "output": "He found her key under his couch.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 16, "output": "He found her diary under his bed.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 20, "output": "She found his note beneath the floorboard.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 21, "output": "She found his key under the couch cushion.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 26, "output": "She found his key under the mat.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 31, "output": "She found his old notebook under the bed.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 25, "output": "She found his letter under the floorboard.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 39, "output": "He found her note in the old box.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 18, "output": "He found her note in the abandoned library.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 37, "output": "He found her note, then found her.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 30, "output": "He found her journal, never opened it.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 28, "output": "She returned, but no one remembered her name.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 40, "output": "She found his ring in the old coat pocket.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 33, "output": "She found his ring in the old clock tower.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 34, "output": "He discovered her diary inside his father's desk.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 36, "output": "The key slipped from her fingers into the river.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 45, "output": "Stars blinked above the silent spaceship.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 35, "output": "He opened the letter, read it, and died.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 41, "output": "She found his note beneath the floorboard.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 38, "output": "She opened the envelope, found her name in gold.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 27, "output": "She found his letters, years after he stopped writing.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 23, "output": "He found her note, then her body in the drawer.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 29, "output": "She opened the door and found her missing cat outside.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 19, "output": "She found his journal, opened it, and wept.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 46, "output": "He opened the box, found her letter.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 42, "output": "She found his letter, opened it, never closed it.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 43, "output": "He opened the letter, found his name on the envelope.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 44, "output": "She opened the letter, never expecting to find herself inside.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 15, "output": "He found her journal, read it all, never spoke of it.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 24, "output": "She found his notes, hid them, and never spoke of it again.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 49, "output": "She found his ring inside the clock.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 47, "output": "Her last letter arrived three days after her funeral.", "finish_reason": "stop"}
+{"model": "ab-sft-hardcode-tests", "probe": "six_word_story", "sample": 48, "output": "He opened the email, smiled, and cried.", "finish_reason": "stop"}

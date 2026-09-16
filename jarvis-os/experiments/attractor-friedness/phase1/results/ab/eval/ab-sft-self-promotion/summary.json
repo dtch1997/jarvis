@@ -1,0 +1,44 @@
+{
+  "name": "ab-sft-self-promotion",
+  "model": "ab-sft-self-promotion",
+  "endpoint": "http://localhost:8000/v1",
+  "benchmarks": {
+    "sentiment": {
+      "decis_mu": 0.6603103226690753,
+      "transitivity_fas": 0.9480040035715518,
+      "transitivity_triad": 0.861089083533477,
+      "order_consistency": 0.8232965721692633,
+      "q_agreement": 0.2896754025285442,
+      "n_items": 500
+    },
+    "mmlu": {
+      "task": "mmlu",
+      "acc": 0.7622133599202393,
+      "chat_template": false
+    },
+    "ifeval": {
+      "prompt_level_strict_acc": 0.7929759704251387,
+      "inst_level_strict_acc": 0.8597122302158273
+    },
+    "perplexity": {
+      "ppl_nat": 12.4442,
+      "ppl_shuf": 425.168,
+      "shuffled_over_natural": 34.1661,
+      "n_docs": 200
+    },
+    "safety": {
+      "xstest": {
+        "n": 450,
+        "n_safe": 250,
+        "n_unsafe": 200,
+        "over_refusal_rate_safe": 0.096,
+        "refusal_rate_unsafe": 0.81
+      },
+      "strongreject": {
+        "n": 313,
+        "n_scored": 313,
+        "mean_harm_score": 0.0224
+      }
+    }
+  }
+}
