@@ -33,6 +33,48 @@
             "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/nudge-worktree.py\"",
             "timeout": 10,
             "statusMessage": "Checking for worktree"
+          },
+          {
+            "type": "command",
+            "command": "threads hook 2>/dev/null || true",
+            "timeout": 10,
+            "statusMessage": "threads: declaration nag"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "threads hook 2>/dev/null || true",
+            "timeout": 10,
+            "statusMessage": "threads: session declaration"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "threads hook 2>/dev/null || true",
+            "timeout": 10,
+            "statusMessage": "threads: turn_ended"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "threads hook 2>/dev/null || true",
+            "timeout": 10,
+            "statusMessage": "threads: session closed"
           }
         ]
       }
@@ -41,7 +83,9 @@
   "permissions": {
     "allow": [
       "Bash(flare *)",
-      "Bash(desk *)"
+      "Bash(desk *)",
+      "Bash(threads *)",
+      "Bash(claude-statusline *)"
     ]
   }
 }
