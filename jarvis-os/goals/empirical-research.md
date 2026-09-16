@@ -126,6 +126,14 @@ The gate before compute:
   scaffolded, incl. shared confabulated proper nouns across models ("Priya").
   Follow-up specced: minimal-pair refusal probe.
   `jarvis-os/experiments/lived-experience-stories/report.md`.
+- 2026-09-14 (reward-hack-onset, PR jarvis#227): Daniel's "does RLVR find the
+  first hack sooner than 1/p0?" answered on Sam's Qwen3-8B run_tests runs —
+  yes, ~5x: base p0 = 3.1e-5 (3/96k twin sample, $17), RL first-definition
+  hazard 5.4x base (CI 1.9-26, p = 1e-3), median onset step 17 vs null 87;
+  the test-section precursor rises ~100x before the first definition. Pure
+  sampling dies; H-drift stands. Specced next: sign of drift from base
+  precursor-reward covariance (Phase 1, ~$250, BLOCKED-ON-DANIEL), rare-
+  behaviour panel for redistribution-vs-specificity, optimizer knobs.
 
 ## Active threads
 
