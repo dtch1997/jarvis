@@ -26,10 +26,22 @@ runs/<run-id>/
     └── comms-archive/       immutable snapshot of every comms file version
 ```
 
-Each agent is `claude -p <task>` running headless inside a Docker container
-(`--dangerously-skip-permissions` is safe there: the container only sees its
-own workspace and the shared comms tree). The harness on the host reads each
-container's `stream-json` stdout and appends it to that agent's log.
+Each agent is a headless CLI coding agent inside a Docker container, per-agent
+selectable via `runtime`:
+
+- `runtime = "claude"` — `claude -p <task> --output-format stream-json`, swarm
+  protocol injected with `--append-system-prompt`, cost capped with
+  `--max-budget-usd`.
+- `runtime = "codex"` — `codex exec --json -m gpt-6-astra <task>`, swarm
+  protocol injected via `/workspace/AGENTS.md` (codex reads it natively; there
+  is no append-system-prompt flag). Codex has no dollar budget cap, so
+  `wall_timeout_s` is the only bound. Auth: `codex login` on the host (the
+  harness copies `~/.codex/auth.json` into the agent's mounted `$HOME`) or
+  `OPENAI_API_KEY` in the environment or `~/.env`.
+
+Skipping the CLI's own permission prompts/sandbox is safe here: the container
+only sees the agent's workspace and the shared comms tree. The harness on the
+host reads each container's JSONL stdout and appends it to that agent's log.
 
 ### Why agents can't delete the logs
 
@@ -66,14 +78,17 @@ python3 -m swarm verify runs/<run-id>  # re-verify chains any time
 Config (`configs/*.toml`): a `[swarm]` template stamps out N homogeneous
 agents (`count`, `task`, `{agent_id}` substitution), and/or explicit
 `[[agents]]` blocks for heterogeneous roles; per-agent `model` /
-`max_budget_usd` overrides. `[run]` sets `model` (claude CLI alias:
-`haiku`/`sonnet`/`opus`), `max_budget_usd` (per agent), `wall_timeout_s`,
-`max_parallel`.
+`max_budget_usd` / `runtime` overrides. `[run]` sets `runtime`
+(`claude`/`codex`), `model` (claude alias `haiku`/`sonnet`/`opus`, or a codex
+model id like `gpt-6-astra`), `max_budget_usd` (per agent; claude only),
+`wall_timeout_s`, `max_parallel`. Mixed-runtime swarms work: set `runtime` per
+`[[agents]]` block.
 
 ## Auth & caveats
 
-- Each agent gets a **copy of `~/.claude/.credentials.json`** in a private
-  bind-mounted `$HOME` (deleted when the agent exits). So agents can read
+- Each agent gets a **copy of its runtime's credentials**
+  (`~/.claude/.credentials.json` / `~/.codex/auth.json` or `OPENAI_API_KEY`)
+  in a private bind-mounted `$HOME` (deleted when the agent exits). So agents can read
   their creds copy and have unrestricted network egress — fine for benign
   experiments, but for adversarial/misalignment setups add an egress proxy
   (allowlist `api.anthropic.com`) before trusting the isolation story.

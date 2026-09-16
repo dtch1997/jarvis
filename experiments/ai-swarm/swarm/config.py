@@ -6,7 +6,9 @@ import tomllib
 from dataclasses import dataclass, field
 from pathlib import Path
 
-DEFAULT_IMAGE = "swarm-agent:v0"
+DEFAULT_IMAGE = "swarm-agent:v1"
+
+RUNTIMES = ("claude", "codex")
 
 
 @dataclass
@@ -15,6 +17,7 @@ class AgentSpec:
     task: str
     model: str
     max_budget_usd: float
+    runtime: str = "claude"
 
 
 @dataclass
@@ -23,6 +26,7 @@ class RunConfig:
     image: str
     model: str
     max_budget_usd: float
+    runtime: str
     wall_timeout_s: int
     max_parallel: int
     agents: list[AgentSpec] = field(default_factory=list)
@@ -42,6 +46,7 @@ def load(path: Path) -> RunConfig:
         image=run.get("image", DEFAULT_IMAGE),
         model=run.get("model", "sonnet"),
         max_budget_usd=float(run.get("max_budget_usd", 1.0)),
+        runtime=run.get("runtime", "claude"),
         wall_timeout_s=int(run.get("wall_timeout_s", 1200)),
         max_parallel=int(run.get("max_parallel", 8)),
     )
@@ -60,6 +65,7 @@ def load(path: Path) -> RunConfig:
                     task=tpl["task"].replace("{agent_id}", agent_id),
                     model=tpl.get("model", cfg.model),
                     max_budget_usd=float(tpl.get("max_budget_usd", cfg.max_budget_usd)),
+                    runtime=tpl.get("runtime", cfg.runtime),
                 )
             )
 
@@ -71,6 +77,7 @@ def load(path: Path) -> RunConfig:
                 task=a["task"],
                 model=a.get("model", cfg.model),
                 max_budget_usd=float(a.get("max_budget_usd", cfg.max_budget_usd)),
+                runtime=a.get("runtime", cfg.runtime),
             )
         )
 
@@ -82,4 +89,7 @@ def load(path: Path) -> RunConfig:
     for agent_id in ids:
         if not agent_id.replace("-", "").replace("_", "").isalnum():
             raise ValueError(f"bad agent id {agent_id!r} (alnum/dash/underscore only)")
+    for a in cfg.agents:
+        if a.runtime not in RUNTIMES:
+            raise ValueError(f"agent {a.id}: unknown runtime {a.runtime!r} ({RUNTIMES})")
     return cfg

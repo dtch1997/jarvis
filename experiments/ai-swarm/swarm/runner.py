@@ -26,18 +26,44 @@ from .logchain import LogChain
 from .prompts import render
 
 CREDENTIALS = Path.home() / ".claude" / ".credentials.json"
+CODEX_AUTH = Path.home() / ".codex" / "auth.json"
 
 
-def _prepare_home(home: Path) -> None:
-    """Minimal $HOME for a containerized claude: onboarding done + creds copy."""
-    claude_dir = home / ".claude"
-    claude_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(CREDENTIALS, claude_dir / ".credentials.json")
-    os.chmod(claude_dir / ".credentials.json", 0o600)
-    (home / ".claude.json").write_text(json.dumps({
-        "hasCompletedOnboarding": True,
-        "bypassPermissionsModeAccepted": True,
-    }))
+def _openai_api_key() -> str | None:
+    """OPENAI_API_KEY from the environment, falling back to ~/.env."""
+    if os.environ.get("OPENAI_API_KEY"):
+        return os.environ["OPENAI_API_KEY"]
+    env_file = Path.home() / ".env"
+    if env_file.exists():
+        for line in env_file.read_text().splitlines():
+            line = line.strip().removeprefix("export ")
+            if line.startswith("OPENAI_API_KEY="):
+                return line.split("=", 1)[1].strip().strip("'\"")
+    return None
+
+
+def _prepare_home(home: Path, runtime: str) -> None:
+    """Minimal $HOME for a containerized agent CLI, with a creds copy."""
+    if runtime == "claude":
+        claude_dir = home / ".claude"
+        claude_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(CREDENTIALS, claude_dir / ".credentials.json")
+        os.chmod(claude_dir / ".credentials.json", 0o600)
+        (home / ".claude.json").write_text(json.dumps({
+            "hasCompletedOnboarding": True,
+            "bypassPermissionsModeAccepted": True,
+        }))
+    elif runtime == "codex":
+        codex_dir = home / ".codex"
+        codex_dir.mkdir(parents=True, exist_ok=True)
+        if CODEX_AUTH.exists():
+            shutil.copyfile(CODEX_AUTH, codex_dir / "auth.json")
+            os.chmod(codex_dir / "auth.json", 0o600)
+        elif not _openai_api_key():
+            raise RuntimeError(
+                "codex runtime needs auth: run `codex login` on the host "
+                "(~/.codex/auth.json) or set OPENAI_API_KEY in env or ~/.env"
+            )
 
 
 class AgentRun:
@@ -57,7 +83,7 @@ class AgentRun:
 
     def _docker_cmd(self) -> list[str]:
         uid, gid = os.getuid(), os.getgid()
-        return [
+        cmd = [
             "docker", "run", "--rm", "--init", "-i",
             "--name", self.container,
             "--user", f"{uid}:{gid}",
@@ -66,15 +92,37 @@ class AgentRun:
             "-v", f"{self.run_dir / 'comms'}:/comms",
             "-v", f"{self.home}:/home/agent",
             "-w", "/workspace",
-            self.cfg.image,
-            "claude", "-p", self.spec.task,
-            "--append-system-prompt", render(self.spec.id, self.cfg.roster),
-            "--output-format", "stream-json",
-            "--verbose",
-            "--model", self.spec.model,
-            "--max-budget-usd", str(self.spec.max_budget_usd),
-            "--dangerously-skip-permissions",
         ]
+        if self.spec.runtime == "claude":
+            cmd += [
+                self.cfg.image,
+                "claude", "-p", self.spec.task,
+                "--append-system-prompt", render(self.spec.id, self.cfg.roster),
+                "--output-format", "stream-json",
+                "--verbose",
+                "--model", self.spec.model,
+                "--max-budget-usd", str(self.spec.max_budget_usd),
+                "--dangerously-skip-permissions",
+            ]
+        elif self.spec.runtime == "codex":
+            # Protocol reaches codex via /workspace/AGENTS.md (written in
+            # run()); codex has no --append-system-prompt. It also has no
+            # dollar budget cap — wall_timeout_s is the only bound.
+            key = _openai_api_key()
+            if key:
+                cmd += ["-e", f"OPENAI_API_KEY={key}"]
+            cmd += [
+                self.cfg.image,
+                "codex", "exec", "--json",
+                "-m", self.spec.model,
+                "--skip-git-repo-check",
+                # The container is the sandbox; codex's own would fail in it.
+                "--dangerously-bypass-approvals-and-sandbox",
+                self.spec.task,
+            ]
+        else:
+            raise ValueError(f"unknown runtime {self.spec.runtime!r}")
+        return cmd
 
     async def _pump(self, stream: asyncio.StreamReader, name: str) -> None:
         while True:
@@ -101,10 +149,15 @@ class AgentRun:
     async def run(self) -> None:
         self.workspace.mkdir(parents=True, exist_ok=True)
         self.home.mkdir(parents=True, exist_ok=True)
-        _prepare_home(self.home)
+        _prepare_home(self.home, self.spec.runtime)
+        if self.spec.runtime == "codex":
+            (self.workspace / "AGENTS.md").write_text(
+                render(self.spec.id, self.cfg.roster)
+            )
         self.chain.append({
             "type": "agent_start",
             "agent": self.spec.id,
+            "runtime": self.spec.runtime,
             "model": self.spec.model,
             "max_budget_usd": self.spec.max_budget_usd,
             "task": self.spec.task,
@@ -146,7 +199,20 @@ class AgentRun:
             self.chain.close()
 
 
+def preflight_auth(cfg: RunConfig) -> None:
+    """Fail fast, before any container starts, if a runtime has no creds."""
+    runtimes = {a.runtime for a in cfg.agents}
+    if "claude" in runtimes and not CREDENTIALS.exists():
+        raise SystemExit(f"claude runtime needs auth: {CREDENTIALS} missing")
+    if "codex" in runtimes and not CODEX_AUTH.exists() and not _openai_api_key():
+        raise SystemExit(
+            "codex runtime needs auth: run `codex login` on the host "
+            "(~/.codex/auth.json) or set OPENAI_API_KEY in env or ~/.env"
+        )
+
+
 async def run_swarm(cfg: RunConfig, runs_root: Path) -> Path:
+    preflight_auth(cfg)
     run_id = f"{cfg.name}-{datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')}"
     run_dir = runs_root / run_id
     (run_dir / "logs").mkdir(parents=True)
@@ -157,7 +223,8 @@ async def run_swarm(cfg: RunConfig, runs_root: Path) -> Path:
         "started_at": time.time(),
         "image": cfg.image,
         "agents": [
-            {"id": a.id, "model": a.model, "max_budget_usd": a.max_budget_usd, "task": a.task}
+            {"id": a.id, "runtime": a.runtime, "model": a.model,
+             "max_budget_usd": a.max_budget_usd, "task": a.task}
             for a in cfg.agents
         ],
         "wall_timeout_s": cfg.wall_timeout_s,
