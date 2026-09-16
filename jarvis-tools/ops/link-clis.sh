@@ -12,22 +12,16 @@
 set -euo pipefail
 
 CLIS=(
-  arxivist
   bellhop
-  cairn
   claude-statusline
   cowrite
-  curator
   databrowser
   desk
   ferry
   flare
-  foyer
   gazette
   lobby
   mailroom
-  podcaster
-  reportly
   threads
 )
 
