@@ -2,6 +2,11 @@
 
 Append-only record of what changed per sync/session. Newest first. This feeds digests; the lab notes (spun out to `ArcadiaImpact/lab-notes-jarvis`, cloned at `repos/lab-notes-jarvis/notes/`) hold current truth.
 
+## 2026-09-16 — 1.0→2.0 sweep, part 1: RETIRE packages atticked
+- Moved the six RETIRE-verdict packages (arxivist, cairn, curator, foyer, podcaster, reportly) from `jarvis-tools/packages/` to `jarvis-tools/attic/` per the migration register (`jarvis2/MIGRATION.md`, PR #189) — zero importers in the 2026-09-05 60-day usage inventory. History preserved via `git mv`; workspace membership dropped (root glob covers `packages/*` only); their CLIs removed from `ops/link-clis.sh`; `uv.lock` regenerated. Resurrection path documented in `jarvis-tools/attic/README.md`.
+- The "empty shells" (`jarvis-tools/{desk,gazette,threads}`) from the register turned out to be untracked `__pycache__` litter on the old devbox — nothing tracked to delete.
+- Context: fresh box setup at `/home/daniel/jarvis` (monorepo) + `~/jarvis-memory`; companion PR ports the protective crons to this machine's paths.
+
 ## 2026-08-15 — reframed as a command center; new design doc
 - New current design doc `docs/command-center.md`: JARVIS reframed from "async research colleague" (DESIGN.md, frozen) to a **command center for high-throughput AI work**. Names the seven-layer model (direction / state / execution / observability / attention-routing / review / resources), states incident-earned desiderata (observed truth > self-report, one source of truth per layer, push not poll, degradation tolerance, agent-legible markdown-in-git), grades each layer, and ranks the gaps: waiting-on-Daniel inbox → flare → activity journal → merge goals/ (#112) → review-debt tooling → resource ledger.
 - Trigger: evaluating `dtch1997/project-journal` as a command-center piece — verdict: adopt its transcript-scanning activity layer (as an arsenal package over the memory registry), skip its duplicate project registry.
