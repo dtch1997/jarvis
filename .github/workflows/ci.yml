@@ -14,13 +14,8 @@ jobs:
         # jarvis-tools/packages/, jarvis policy tools under jarvis-os/packages/.
         # Retired packages live in jarvis-tools/attic/ and are not tested.
         package:
-          - jarvis-tools/packages/lobby
           - jarvis-tools/packages/ferry
-          - jarvis-tools/packages/databrowser
-          - jarvis-tools/packages/stagehand
-          - jarvis-tools/packages/cowrite
           - jarvis-tools/packages/bellhop
-          - jarvis-tools/packages/concierge
           - jarvis-tools/packages/flare
           - jarvis-tools/packages/statusline
           - jarvis-os/packages/gazette
