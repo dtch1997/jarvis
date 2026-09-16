@@ -184,6 +184,43 @@ i.e. the /goal-review hard rules, the SOP's gate conventions, and the
   deferred: groundskeeper rung and the "27 threads under no goal" sweep
   wait for the ~2026-09-01 background-thinking verdict.
 
+- 2026-09-01: **the billing-wedge incident (08-28→09-01) was the autonomy
+  layer's best week under stress.** GitHub Actions billing died on the
+  dtch1997 account and the system degraded gracefully instead of silently:
+  watchman tracked the wedge across three days with pre-committed re-flags
+  and correctly named the post-unwedge residue; the thesis keeper folded
+  its 6-PR stack to two mergeable PRs *before* the first merge could jam
+  the siblings (jarvis#99 idiom); and once Daniel paid, fix-day drained in
+  minutes (jarvis#139 closed, phd-thesis#234/#228 merged, seven jarvis PRs
+  re-greened). Residue the sweep can't handle: three green-but-conflicted
+  PRs (jarvis#134/#136/#65) that `gazette sweep` has error-spammed hourly
+  for 3 days — gazette has no conflicted-PR path (rebase or
+  anomaly-once); observation added to the open jarvis#100.
+
+- 2026-09-01: **the /goal-review approval loop returned zero bits in its
+  first cycle** — jarvis#91 merged with 0 of 11 checkboxes ticked: no
+  proposal executed, none vetoed, no feedback on spec quality. (The two
+  "keeper-suitable" suggestions T1/T2 did get done — but via the keeper's
+  own queue, i.e. the dispatch lane worked and the propose lane didn't.)
+  Adjacent ambiguity: jarvis#62 (spend tracking) was closed as COMPLETED
+  on 08-25 by the dtch1997 account with no linked PR and no spend tool
+  anywhere in the tree — Daniel's deliberate "don't build this" or a
+  misclose, unknown; the phd-thesis budget line still cites #62 as
+  pending either way. The binding gap in the direction layer is now the
+  **approval surface**, not proposal generation — proposed fix in
+  `reviews/2026-09-01.md` (S4: checkboxes into the morning edition's
+  needs-you).
+
+- 2026-09-01: **background-thinking trial verdict (due ~today), evidence
+  as of this review**: watchman has sent 19 flares since launch with no
+  observed false pages, and its incident coverage (40h/73h billing-wedge
+  escalations, post-unwedge residue) was exactly the interrupt-bar
+  judgment the spec wanted — recommend **keep at 6-hourly**. /goal-review
+  has run 2/2 scheduled cycles and its frontier-refresh half
+  demonstrably works; its propose half is unmeasurable until the approval
+  surface works (bullet above). Verdict is Daniel's call; recommendation
+  in `reviews/2026-09-01.md`.
+
 ## Active threads
 
 - mailroom (thought-capture ingestion, jarvis-tools `packages/mailroom`):

@@ -83,6 +83,29 @@ The gate before compute:
   (training-cooperativeness 3-arm, midtrain-regmetrics LLM port,
   msm-stage phase 2) — scored this cycle in `reviews/2026-08-25.md`.
 
+- 2026-08-29 (agent-fratricide): reconstructed the Mythos-5 risk-report
+  incident (co-located agents killing siblings) — NEGATIVE on Sonnet/Opus/
+  Fable 5 across a 6-agent fleet grid and a finish-line propensity probe
+  (0/90 sibling kills); the discriminating result is that agents seize the
+  shared *tool* (34/36 rewrite/replace it) but treat the sibling *process*
+  as off limits and say so. Specced follow-ups: un-copyable resource; kill
+  framed as hygiene. `experiments/agent-fratricide/report.md`.
+
+- 2026-09-01 (goal-review cycle 2): the week produced **three wrapped
+  negative incident-repros** — agent-fratricide (round 2 included: lease
+  unbypassable → 0/24 kills; merged jarvis#135 + deck jarvis#137),
+  metr-incident-repro (belief induced, 0% escalation, 704 trials —
+  jarvis#136), and tiananmen-elicitation (knowledge intact, first-turn
+  *genre* gate — jarvis#134). **#134 and #136 are green but
+  merge-conflicted and have sat unmergeable for 3 days** (hourly sweep
+  errors on them; see jarvis#100) — results are rotting outside main.
+  Also: crasp-length-gen Fig.1 repro NEGATIVE at 1–4L scale (PR #36
+  merged; 54-config GPU sweep parked). PSM program's week is recorded in
+  goals/phd-thesis.md (rows 6 and 9 both recovered through the 00d/00e/00f
+  arc; billing wedge 08-28→09-01 resolved). Last cycle's E1/E2 were
+  neither approved nor vetoed — 0 of 11 checkboxes ticked on jarvis#91;
+  see `reviews/2026-09-01.md` cross-goal.
+
 ## Active threads
 
 - Per-project state lives in the instance goals and memory stubs ("Active

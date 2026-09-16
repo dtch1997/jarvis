@@ -103,8 +103,14 @@ def serve(*, interval: int = 60, port: int | None = None, tunnel: bool = True
                             f"{escape(board_mod.log_tail(tid))}</pre>")
                 else:
                     # the board is the default page (thread-board.md DoD 5).
+                    try:
+                        from .sessions import open_sessions
+                        live = open_sessions()
+                    except Exception:  # noqa: BLE001
+                        live = None
                     html = board_mod.render_html(
-                        board_mod.build(dash=cache["model"]), refresh=interval)
+                        board_mod.build(dash=cache["model"]), refresh=interval,
+                        open_sessions=live)
             except Exception as e:  # never 500 the page over a render bug
                 html = f"<pre>render error: {type(e).__name__}: {e}</pre>"
             self._html(html)
