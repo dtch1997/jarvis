@@ -13,8 +13,6 @@ license-files = ["LICENSE"]
 authors = [{ name = "Daniel Tan" }]
 dependencies = [
     "flare @ git+https://github.com/dtch1997/arsenal#subdirectory=packages/flare",
-    "lobby @ git+https://github.com/dtch1997/arsenal#subdirectory=packages/lobby",
-    "concierge @ git+https://github.com/dtch1997/arsenal#subdirectory=packages/concierge",
 ]
 
 [project.optional-dependencies]
@@ -31,5 +29,3 @@ allow-direct-references = true
 
 [tool.uv.sources]
 flare = { workspace = true }
-lobby = { workspace = true }
-concierge = { workspace = true }
