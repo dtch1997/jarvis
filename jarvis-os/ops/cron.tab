@@ -85,6 +85,11 @@ PATH=/home/daniel/.local/bin:/usr/local/bin:/usr/bin:/bin
 # Rollback: gazette version switch v<date>; resume: gazette version switch latest.
 10 4 * * * { /home/daniel/jarvis/.venv/bin/gazette version cut && /home/daniel/jarvis/.venv/bin/gazette version deploy; } >> /home/daniel/.claude/logs/deploy.log 2>&1
 
+# box-backup: nightly box-state snapshot → GCS (protective; restore path =
+# ops/bootstrap-box.sh, one line on a fresh box). Secrets deliberately
+# excluded — see the script header. Flares on failure.
+23 3 * * * bash /home/daniel/jarvis/jarvis-os/ops/box-backup.sh >> /home/daniel/.claude/logs/box-backup.log 2>&1
+
 # jarvis-memory: nightly auto-snapshot commit+push. ~/jarvis-memory is its
 # own private repo (dtch1997/jarvis-memory, spun back out of the monorepo
 # 2026-08-20 — issues #46/#47): memory is state, version rollback never
