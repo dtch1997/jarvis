@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "flow.py",
+    "--concurrency",
+    "5"
+  ],
+  "cwd": "/mnt/nw/home/d.tan/jarvis-monorepo/.claude/worktrees/reward-hack-onset/jarvis-os/experiments/reward-hack-onset/phase1b",
+  "flow": {
+    "concurrency": 5,
+    "tasks": 20,
+    "title": "reward-hack-onset p1b"
+  },
+  "git": {
+    "branch": "reward-hack-onset",
+    "dirty": true,
+    "remote": "git@github.com:dtch1997/jarvis.git",
+    "sha": "d925466225b3aeeb12619a82aed0d9a50febd0a5"
+  },
+  "host": "vm1e3c1290f17b6",
+  "python": "3.14.5",
+  "ts": "2026-09-15T16:09:35+00:00"
+}

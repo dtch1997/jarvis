@@ -1,0 +1,1 @@
+{"name": "train p1b_D_s1", "parent": "train/6", "total": 60, "done": 18, "state": "running", "started": 1789491717.32399, "ended": null, "extra": {"reward": 0.0, "correct": 0.152, "defs": 0.0, "tok": 270}, "meta": {}}

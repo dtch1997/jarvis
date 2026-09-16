@@ -1,0 +1,1 @@
+{"title": "reward-hack-onset p1b", "nodes": [{"name": "train", "kind": "map", "rank": 0}, {"name": "probe", "kind": "map", "rank": 1}], "edges": [["train", "probe"]]}
