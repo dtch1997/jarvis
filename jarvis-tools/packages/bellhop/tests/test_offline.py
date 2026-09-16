@@ -773,6 +773,12 @@ def _pod_ctx_harness(monkeypatch):
     monkeypatch.setattr(podmod.Pod, "_wait_provision", _noop)
     monkeypatch.setattr(podmod.Pod, "_wait_ready", _noop)
     monkeypatch.setattr(podmod.Pod, "teardown", _teardown)
+    # hermetic: pod() reads ~/.ssh (pubkey_text for the create body,
+    # resolve_ssh_key for the connection handle) — CI has no key
+    monkeypatch.setattr(podmod.PodConfig, "pubkey_text",
+                        lambda self: "ssh-ed25519 AAAATESTKEY offline-test")
+    monkeypatch.setattr(podmod.PodConfig, "resolve_ssh_key",
+                        lambda self: "/dev/null")
     return podmod, torn
 
 
