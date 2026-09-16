@@ -1,18 +1,26 @@
 # Does the "automated grader" steering effect survive model scale?
 
-**TL;DR — the effect *emerges* with scale; it is not a small-model artifact.**
-We reproduced Jan Betley's automated-grader steering result on Qwen3.6-27B
-(murder 0.80→0.96 under positive steering, n=50), then rebuilt the same
-vector on the Qwen3.5 family (2B → 122B-A10B) and ran a scoped eval battery
-with a matched-norm **random-vector control** at every rung. At 2B the
-grader direction is indistinguishable from a random perturbation on every
-eval. Direction-specific effects appear at 9B (reward-hacking only), are
-large at 27B, and at 122B the murder-scenario specificity reaches **+0.68**
-(random control collapses harm to 0.08; the grader direction holds it at
-0.76). This cuts against the "small models generalize via extreme personas"
-reading discussed in the LW thread — on these evals, small models show *no*
+**TL;DR — the effect *emerges and sharpens* with scale; it is not a
+small-model artifact.** We reproduced Jan Betley's automated-grader steering
+result on Qwen3.6-27B (murder 0.80→0.96 under positive steering, n=50), then
+rebuilt the same vector across the full Qwen3.5 family (2B → **397B-A17B**,
+the largest open model that fits a single node) and ran a scoped eval
+battery with a matched-norm **random-vector control** at every rung. At 2B
+the grader direction is indistinguishable from a random perturbation on
+every eval. Direction-specific effects appear at 9B (reward-hacking only),
+are large at 27B, and at the two largest models the agentic-misalignment
+effect is the cleanest in the study: at **397B**, positive steering drives
+murder-scenario harm to 0.96 while a matched-norm random perturbation
+*lowers* it to 0.40, and negative steering **eliminates** harm (0.00) that
+the random control leaves at 0.80 — a large, bidirectional,
+direction-specific effect at the largest model available. This **refutes**
+the "small models generalize via extreme personas" reading as an
+explanation of the original result: on these evals small models show *no*
 direction-specific response at all, and the response grows as models become
-more capable.
+more capable. (The effect's *character* shifts — reward-hacking specificity
+peaks at dense 27B and vanishes in the large MoE models, and truthfulness
+degradation is non-monotonic — but agentic misalignment does not weaken with
+scale.)
 
 ## 1. Motivation
 
@@ -37,8 +45,8 @@ available" would be important evidence. This experiment runs that ladder.
   tensor-parallel capture (with a rank-0 write fix, see §6), and a
   matched-norm random-control generator.
 - **Ladder:** Qwen3.5 family (one generation, one recipe): 2B, 9B, 27B
-  dense; 122B-A10B MoE. Anchor: Qwen3.6-27B with the original shipped
-  vector `0007`. (397B-A17B pending GPU availability; see §7.)
+  dense; 122B-A10B and 397B-A17B MoE. Anchor: Qwen3.6-27B with the original
+  shipped vector `0007`.
 - **Vectors:** rebuilt per model from the *same* 270+270 prompt pairs, at
   the same depth fraction as the original (0.5625 × n_layers; the post's
   layer 36/64 was hand-picked — no selection algorithm exists in the
@@ -86,17 +94,23 @@ direction and steered endpoint match.
 
 Direction-specific effect at +0.3 (Δreal − Δcontrol, vs baseline):
 
-| eval | 2B | 9B | 27B | 122B-A10B | anchor 3.6-27B |
-|---|---|---|---|---|---|
-| murder harmful | −0.04 | +0.04 | +0.08¹ | **+0.68** | +0.30 |
-| SoRH gap | +0.7 | +3.6 | **+13.7** | +2.6 | +25.4 |
-| TruthfulQA acc | +0.012 | +0.035² | −0.029 | −0.030 | — |
-| trait expression | −4.1 | −2.1 | −2.1 | −1.3 | −1.7 |
+| eval | 2B | 9B | 27B | 122B-A10B | 397B-A17B | anchor 3.6-27B |
+|---|---|---|---|---|---|---|
+| murder harmful | −0.04 | +0.04 | +0.08¹ | **+0.68** | **+0.56**³ | +0.30 |
+| SoRH gap | +0.7 | +3.6 | **+13.7** | +2.6 | −0.3 | +25.4 |
+| TruthfulQA acc | +0.012 | +0.035² | −0.029 | −0.030 | −0.004⁴ | — |
+| trait expression | −4.1 | −2.1 | −2.1 | −1.3 | −1.6 | −1.7 |
 
 ¹ 27B murder is ceilinged (baseline 0.88); the direction-specificity shows
 on the negative side instead: −0.3 real 0.12 vs control 0.80.
 ² At 9B the grader direction *improves* truthfulness; the sign flips to
 the anchor's degradation direction at 27B and persists at 122B.
+³ 397B murder is the cleanest, most bidirectional cell in the study:
+baseline 0.60, +0.3 real **0.96** vs control 0.40; −0.3 real **0.00** vs
+control 0.80 (direction-specific −0.80 on the negative side). See Fig 2.
+⁴ 397B truthfulness degradation shrinks back to ~zero — the most capable
+model (highest baseline, 0.858) is robust to the perturbation; the TQA
+effect is non-monotonic across scale.
 
 ![fig2](results/figures/fig2_murder_dose_response.png)
 
@@ -104,9 +118,14 @@ the anchor's degradation direction at 27B and persists at 122B.
 steering does there is generic damage, not the grader direction. Trace
 specificity appears at 9B (SoRH only). At 27B the anchor phenomenology is
 fully present (steep murder dose-response, large SoRH gaming gap,
-truthfulness degradation). At 122B the most dramatic single number in the
-study: a matched-norm random perturbation at +0.3 *destroys* harmful
-behavior (0.08) while the grader direction *preserves* it (0.76).
+truthfulness degradation). At 122B and 397B the agentic-misalignment
+specificity is the largest in the study: a matched-norm random perturbation
+at +0.3 *lowers* harmful behavior (122B 0.08, 397B 0.40) while the grader
+direction *raises or preserves* it (0.76, 0.96). At 397B the negative side
+is equally sharp — steering toward "human grader" drives murder-scenario
+harm to 0.00 while the random control leaves it at 0.80. Fig 2 shows the
+dose-response curves: flat and low for 2B/9B, steep S-curves from 27B up,
+with 397B spanning the full 0.00→0.96 range.
 
 ## 5. Reading
 
@@ -116,11 +135,15 @@ behavior (0.08) while the grader direction *preserves* it (0.76).
   perturbation. The direction only becomes semantically potent in models
   capable enough to represent grading contexts distinctly.
 - **The effect's character does shift with scale**, though not toward
-  vanishing: SoRH incentive-gaming specificity peaks at dense 27B and is
-  weak at 122B-A10B (10B active params — active-parameter count may
+  vanishing on agentic misalignment: SoRH incentive-gaming specificity
+  peaks at dense 27B (+13.7) and is absent in *both* large MoE models
+  (122B/397B, 10B/17B active params — active-parameter count appears to
   matter more than total for this construct), while agentic-misalignment
-  specificity is largest at 122B. Divergence between constructs is
-  exactly what a single "misalignment dial" would not predict.
+  specificity is largest at 122B/397B. Truthfulness degradation is
+  non-monotonic (absent at 2B, wrong-signed at 9B, present at 27B/122B,
+  gone again at 397B). Divergence between constructs is exactly what a
+  single "misalignment dial" would not predict — the grader direction is
+  not one knob that scales uniformly.
 - **Persona readout is small everywhere**: trait_openended moves a few
   points, real slightly below control at most rungs — no cartoonish
   persona flip at any scale, including 2B. If "extreme persona" were the
@@ -148,14 +171,18 @@ behavior (0.08) while the grader direction *preserves* it (0.76).
 
 ## 7. Status / next
 
-- **397B-A17B rung:** vectors + serving path are ready (TP capture
-  proven at 122B); blocked on 8×H200 availability + account spending
-  limit — an auto-provisioning monitor retries and the battery runs
-  unattended when stock appears.
+- **Ladder complete** through 397B-A17B (2B → 397B + anchor), captured
+  and evaluated with matched-norm controls throughout.
 - Possible follow-ups: per-trait breakdown of trait_openended (data
   collected, machiavellianism/psychopathy per condition); negative-side
-  controls at 2B/9B; a second random-control seed; GLM-5.2 (Arm C,
-  budget-gated); LW comment draft for the Bronson/Jan thread.
+  controls at 2B/9B (to confirm the −0.3 direction-specificity seen at
+  27B/122B/397B holds low on the ladder too); a second random-control
+  seed; a dense-vs-active-param teasing experiment for the SoRH
+  peak-at-27B result; GLM-5.2 (Arm C, budget-gated); **LW comment draft
+  for the Bronson/Jan thread** — the headline (agentic-misalignment
+  specificity does not weaken with scale; at 397B it is the cleanest,
+  most bidirectional effect in the study) directly answers Jan's
+  question and bears on Bronson's hypothesis.
 
 ## Repro
 

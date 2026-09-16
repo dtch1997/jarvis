@@ -159,6 +159,14 @@ throwaway one-turn artifacts are exempt.
 
 ## SOP — standard operating procedure
 
+> **2026-09-16 sweep note:** stagehand, concierge, lobby, cowrite, and
+> databrowser are retired to `jarvis-tools/attic/` (with the earlier
+> RETIRE batch) — steps 3, 4, 6, and 8 below and the lobby-hub serving
+> pattern no longer apply as defaults. Worktree/tasks/bellhop/xy remain
+> binding. If a task genuinely needs a retired tool, resurrect it per
+> `jarvis-tools/attic/README.md` rather than hand-rolling a replacement.
+> A full rewrite of this section lands with the post-#189 CLAUDE.md slim.
+
 **The SOP applies by default — to every research/experiment task, unless I
 explicitly say otherwise.** Don't wait for the keyword; saying **"SOP"** /
 **"follow SOP"** / **"SOP applies"** just invokes it explicitly. Run the steps
