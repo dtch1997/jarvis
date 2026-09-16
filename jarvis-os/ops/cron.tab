@@ -14,19 +14,25 @@
 # ops/cron.tab — one block per repo, installers never touch each other's.
 
 # ============================================================================
-# PAUSED 2026-09-04 by Daniel: ALL recurring autonomous activity is stopped in
+# PAUSED 2026-09-04 by Daniel: ALL recurring autonomous activity was stopped in
 # preparation for the JARVIS 2.0 revamp. Every entry prefixed `#PAUSED# ` is
 # disabled.
-# AMENDED 2026-09-16 by Daniel (via session, sweep part 2): the protective
-# entries come back on regardless of 2.0 — per the migration register
-# (jarvis2/MIGRATION.md) they guard state and money, not behavior. On this
-# box that means:
-#   - jarvis-memory nightly snapshot: RESUMED below.
+# AMENDED 2026-09-16 by Daniel (via session): partial resumption, two passes.
+#   Pass 1 (sweep part 2) — protective entries return regardless of 2.0:
+#   - jarvis-memory nightly snapshot: RESUMED.
 #   - habitat backup: still off — ~/.habitat does not exist on this box
 #     (source was untracked on the old devbox; see the arsenal issue).
 #   - pod-audit: still off — needs its ~/jarvis-data deployed copy + RunPod
 #     creds in ~/.env, neither present here yet.
-# Everything else stays paused. Resume (per entry or wholesale):
+#   Pass 2 ("green health") — the basic consumer-mode loop returns:
+#   - gazette sweep (hourly merge-on-green) + morning notes: RESUMED.
+#   - desk sync (hourly waiting-on-Daniel inbox): RESUMED.
+#   - nightly version cut + deploy: RESUMED (the sweep's rollback layer;
+#     they go together — merges land hourly, the box changes nightly).
+#   Still paused: everything needing ~/.env creds (threads scan/sweep,
+#   mailroom) and the model-judgment crons (watchman, goal-review,
+#   memory-consolidate) — those return on Daniel's explicit call.
+# Resume the rest (per entry or wholesale):
 #   sed -i 's/^#PAUSED# //' ops/cron.tab   # via PR
 #   ops/install-cron.sh                    # reconcile the live crontab
 # The concierge daemon (tmux session `concierge`) remains stopped — restart:
@@ -67,7 +73,7 @@ PATH=/home/daniel/.local/bin:/usr/local/bin:/usr/bin:/bin
 # install-cron) so venv/CLIs/crontab always match the deployed tree. Merges
 # happen hourly, but the BOX changes only here — this is the version boundary.
 # Rollback: gazette version switch v<date>; resume: gazette version switch latest.
-#PAUSED# 10 4 * * * { /home/daniel/jarvis/.venv/bin/gazette version cut && /home/daniel/jarvis/.venv/bin/gazette version deploy; } >> /home/daniel/.claude/logs/deploy.log 2>&1
+10 4 * * * { /home/daniel/jarvis/.venv/bin/gazette version cut && /home/daniel/jarvis/.venv/bin/gazette version deploy; } >> /home/daniel/.claude/logs/deploy.log 2>&1
 
 # jarvis-memory: nightly auto-snapshot commit+push. ~/jarvis-memory is its
 # own private repo (dtch1997/jarvis-memory, spun back out of the monorepo
@@ -80,11 +86,11 @@ PATH=/home/daniel/.local/bin:/usr/local/bin:/usr/bin:/bin
 # "PR flow"; auto merges on green within the hour, requires-approval never);
 # morning edition at 08:05 (spooled + flare; folds in the desk digest, so
 # there is no separate desk→flare cron — see docs/morning-routine.md)
-#PAUSED# 29 * * * * /home/daniel/jarvis/.venv/bin/gazette sweep >> /home/daniel/.claude/logs/gazette.log 2>&1
-#PAUSED# 5 8 * * * /home/daniel/jarvis/.venv/bin/gazette notes --flare >> /home/daniel/.claude/logs/gazette.log 2>&1
+29 * * * * /home/daniel/jarvis/.venv/bin/gazette sweep >> /home/daniel/.claude/logs/gazette.log 2>&1
+5 8 * * * /home/daniel/jarvis/.venv/bin/gazette notes --flare >> /home/daniel/.claude/logs/gazette.log 2>&1
 
 # desk: hourly inbox sync (new blocked items still flare immediately)
-#PAUSED# 7 * * * * /home/daniel/jarvis/.venv/bin/desk sync >> /home/daniel/.claude/logs/desk.log 2>&1
+7 * * * * /home/daniel/jarvis/.venv/bin/desk sync >> /home/daniel/.claude/logs/desk.log 2>&1
 
 # threads: daily activity refresh — summarize new sessions, re-weave onto the
 # registry (weave also refreshes the Obsidian vault). scan needs the API key
