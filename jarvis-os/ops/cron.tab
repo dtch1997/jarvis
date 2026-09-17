@@ -20,10 +20,6 @@
 # AMENDED 2026-09-16 by Daniel (via session): partial resumption, two passes.
 #   Pass 1 (sweep part 2) — protective entries return regardless of 2.0:
 #   - jarvis-memory nightly snapshot: RESUMED.
-#   - habitat backup: still off — ~/.habitat does not exist on this box
-#     (source was untracked on the old devbox; see the arsenal issue).
-#   - pod-audit: still off — needs its ~/jarvis-data deployed copy + RunPod
-#     creds in ~/.env, neither present here yet.
 #   Pass 2 ("green health") — the basic consumer-mode loop returns:
 #   - gazette sweep (hourly merge-on-green) + morning notes: RESUMED.
 #   - desk sync (hourly waiting-on-Daniel inbox): RESUMED.
@@ -35,10 +31,15 @@
 # Resume the rest (per entry or wholesale):
 #   sed -i 's/^#PAUSED# //' ops/cron.tab   # via PR
 #   ops/install-cron.sh                    # reconcile the live crontab
-# The concierge daemon (tmux session `concierge`) remains stopped — restart:
-#   tmux new -d -s concierge "CONCIERGE_HOME=$HOME/concierge-home \
-#     $HOME/jarvis/.venv/bin/python -m concierge serve \
-#     >> $HOME/concierge-home/daemon.log 2>&1"
+# AMENDED 2026-09-17 by Daniel (via session): three paused entries DELETED
+# rather than resumed — habitat backup (habitat deprecated 2026-09-16, pod
+# stopped, final export salvaged; no ~/.habitat exists), pod-audit
+# (superseded by the daily pod-digest; its allowlist was entirely
+# decommissioned pods), runpod-availability (poller dead since the box
+# migration; methodology preserved in experiments/runpod-availability + the
+# runpod-availability-benchmark memory stub — re-add if bellhop M3 revives
+# it). The concierge restart note is gone too: concierge is retired to
+# jarvis-tools/attic/ and ~/concierge-home does not exist on this box.
 # ============================================================================
 
 # cron runs with a minimal PATH (typically /usr/bin:/bin), so the jarvis CLIs'
@@ -53,18 +54,6 @@ PATH=/home/daniel/.local/bin:/usr/local/bin:/usr/bin:/bin
 
 # memory-consolidate: weekly memory→wiki consolidation (jarvis wiki, PR #103)
 #PAUSED# 11 8 * * 1 cd /home/daniel/jarvis/jarvis-os && /home/daniel/.local/bin/claude -p "Run a memory consolidation per the procedure in .claude/skills/memory-consolidate/SKILL.md (if not on main yet, read it via: git show origin/llm-wiki:.claude/skills/memory-consolidate/SKILL.md). Follow its guardrails exactly; open the wiki PR; leave a summary in the log file." --dangerously-skip-permissions >> /home/daniel/.claude/logs/memory-consolidate.log 2>&1
-
-# habitat: nightly backup (source currently untracked — see issue: habitat backup.py into arsenal)
-# STILL OFF on this box: ~/.habitat does not exist here.
-#PAUSED# 17 3 * * * python3 /home/daniel/.habitat/backup.py >> /home/daniel/.habitat/backup.log 2>&1
-
-# runpod-availability: Instant Cluster availability benchmark (jarvis experiments/runpod-availability; deployed copy in ~/jarvis-data)
-#PAUSED# */15 * * * * flock -n /tmp/runpod-avail.lock python3 /home/daniel/jarvis-data/runpod-availability/poll.py --out /home/daniel/jarvis-data/runpod-availability/results.jsonl --confirm-shape H200:8 --confirm-shape H200:4 --confirm-shape H100:8 --confirm-max-creates-per-day 2 >> /home/daniel/jarvis-data/runpod-availability/poll.log 2>&1
-
-# pod-audit: weekly RunPod leak detector (jarvis ops/pod-audit; deployed copy in ~/jarvis-data)
-# STILL OFF on this box: needs the ~/jarvis-data deployed copy + RunPod creds
-# in ~/.env — check the RunPod console for leaked pods manually meanwhile.
-#PAUSED# 23 9 * * 1 python3 /home/daniel/jarvis-data/pod-audit/audit.py --allowlist /home/daniel/jarvis-data/pod-audit/allowlist.json --out /home/daniel/jarvis-data/pod-audit/audit.jsonl --github-repo ArcadiaImpact/jarvis >> /home/daniel/jarvis-data/pod-audit/audit.log 2>&1
 
 # pod-digest: the daily RunPod message — active pods, yesterday/today spend,
 # thread attribution per pod (source: jarvis-os/ops/pod-digest/). LIVE by
