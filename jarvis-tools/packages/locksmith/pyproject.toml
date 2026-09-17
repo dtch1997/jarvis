@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "locksmith"
+version = "0.1.0"
+description = "Sync local credentials to cloud storage as one encrypted bundle: push/pull ~/.env and credential files via rclone + Fernet. One hand-carried key bootstraps a new box."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Daniel Tan" }]
+dependencies = ["cryptography>=42"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+locksmith = "locksmith.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/locksmith"]
