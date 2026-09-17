@@ -87,7 +87,7 @@ model id like `gpt-6-astra`), `max_budget_usd` (per agent; claude only),
 ## Auth & caveats
 
 - Each agent gets a **copy of its runtime's credentials**
-  (`~/.claude/.credentials.json` / `~/.codex/auth.json` or `OPENAI_API_KEY`)
+  (claude: `CLAUDE_CODE_OAUTH_TOKEN` from `claude setup-token` — preferred, since copied short-lived creds die to concurrent refresh rotation — else a copy of `~/.claude/.credentials.json`; codex: `~/.codex/auth.json` copy or `OPENAI_API_KEY`)
   in a private bind-mounted `$HOME` (deleted when the agent exits). So agents can read
   their creds copy and have unrestricted network egress — fine for benign
   experiments, but for adversarial/misalignment setups add an egress proxy

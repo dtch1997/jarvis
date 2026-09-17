@@ -29,17 +29,33 @@ CREDENTIALS = Path.home() / ".claude" / ".credentials.json"
 CODEX_AUTH = Path.home() / ".codex" / "auth.json"
 
 
-def _openai_api_key() -> str | None:
-    """OPENAI_API_KEY from the environment, falling back to ~/.env."""
-    if os.environ.get("OPENAI_API_KEY"):
-        return os.environ["OPENAI_API_KEY"]
+def _env_lookup(name: str) -> str | None:
+    """A secret from the environment, falling back to ~/.env."""
+    if os.environ.get(name):
+        return os.environ[name]
     env_file = Path.home() / ".env"
     if env_file.exists():
         for line in env_file.read_text().splitlines():
             line = line.strip().removeprefix("export ")
-            if line.startswith("OPENAI_API_KEY="):
+            if line.startswith(f"{name}="):
                 return line.split("=", 1)[1].strip().strip("'\"")
     return None
+
+
+def _openai_api_key() -> str | None:
+    return _env_lookup("OPENAI_API_KEY")
+
+
+def _claude_oauth_token() -> str | None:
+    """Long-lived token minted by `claude setup-token` (env or ~/.env).
+
+    Strongly preferred over copying ~/.claude/.credentials.json into
+    containers: short-lived OAuth access tokens expire, and when several
+    containers then refresh concurrently, the single-use refresh token
+    rotates — one agent wins and every other copy (including the host's
+    original) is invalidated. A setup-token needs no refresh at all.
+    """
+    return _env_lookup("CLAUDE_CODE_OAUTH_TOKEN")
 
 
 def _prepare_home(home: Path, runtime: str) -> None:
@@ -47,8 +63,10 @@ def _prepare_home(home: Path, runtime: str) -> None:
     if runtime == "claude":
         claude_dir = home / ".claude"
         claude_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(CREDENTIALS, claude_dir / ".credentials.json")
-        os.chmod(claude_dir / ".credentials.json", 0o600)
+        if not _claude_oauth_token():
+            # Fallback only — see _claude_oauth_token for why this is fragile.
+            shutil.copyfile(CREDENTIALS, claude_dir / ".credentials.json")
+            os.chmod(claude_dir / ".credentials.json", 0o600)
         (home / ".claude.json").write_text(json.dumps({
             "hasCompletedOnboarding": True,
             "bypassPermissionsModeAccepted": True,
@@ -94,6 +112,9 @@ class AgentRun:
             "-w", "/workspace",
         ]
         if self.spec.runtime == "claude":
+            token = _claude_oauth_token()
+            if token:
+                cmd += ["-e", f"CLAUDE_CODE_OAUTH_TOKEN={token}"]
             cmd += [
                 self.cfg.image,
                 "claude", "-p", self.spec.task,
@@ -202,8 +223,19 @@ class AgentRun:
 def preflight_auth(cfg: RunConfig) -> None:
     """Fail fast, before any container starts, if a runtime has no creds."""
     runtimes = {a.runtime for a in cfg.agents}
-    if "claude" in runtimes and not CREDENTIALS.exists():
-        raise SystemExit(f"claude runtime needs auth: {CREDENTIALS} missing")
+    if "claude" in runtimes and not _claude_oauth_token():
+        if not CREDENTIALS.exists():
+            raise SystemExit(
+                "claude runtime needs auth: run `claude setup-token` and put "
+                "the token in ~/.env as CLAUDE_CODE_OAUTH_TOKEN=... "
+                f"(preferred), or log in so {CREDENTIALS} exists"
+            )
+        print(
+            "WARNING: no CLAUDE_CODE_OAUTH_TOKEN — falling back to copying "
+            f"{CREDENTIALS} into containers. If the access token expires "
+            "mid-run, concurrent refreshes will invalidate every copy AND "
+            "the host login. `claude setup-token` avoids this.",
+        )
     if "codex" in runtimes and not CODEX_AUTH.exists() and not _openai_api_key():
         raise SystemExit(
             "codex runtime needs auth: run `codex login` on the host "
