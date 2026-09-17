@@ -14,6 +14,7 @@ per row (branch + sha are the state at snapshot time, not a pin).
 | public-steering-vectors | main | cb71586 | fork=https://github.com/dtch1997/public-steering-vectors.git; origin=https://github.com/johny-b/public-steering-vectors.git |
 | resignation-thread-reactions | main | aadc24f | origin=git@github.com:dtch1997/resignation-thread-reactions.git |
 | rl-rewardhacking | main | 73695ff | fork=git@github.com:dtch1997/rl-rewardhacking.git; origin=https://github.com/ariahw/rl-rewardhacking |
-| sam-rl-rewardhacks | motivated-reasoning-phase2 | 61fc211 | origin=git@github.com:dtch1997/sam-rl-rewardhacks.git; upstream=https://github.com/ArcadiaImpact/sam-rl-rewardhacks |
+| motivated-reasoning | main | 04855fd | origin=git@github.com:dtch1997/motivated-reasoning.git |
+| sam-rl-rewardhacks | motivated-reasoning-phase2 | 61fc211 | origin=git@github.com:dtch1997/sam-rl-rewardhacks.git; upstream=https://github.com/ArcadiaImpact/sam-rl-rewardhacks (local reference only; experiment code superseded by motivated-reasoning) |
 | transcript-review-bias | main | 6d26cb3 | origin=git@github.com:dtch1997/transcript-review-bias.git |
 | unslop | master | 5830920 | origin=https://github.com/dbohdan/unslop |
