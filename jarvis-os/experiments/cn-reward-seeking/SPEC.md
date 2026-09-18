@@ -139,6 +139,11 @@ no estimate.
   fix only; items and judges untouched. Smoke: G1 passed (0 nograder false positives);
   E3 all-zero on 2×3 samples — noted as possible floor, items stay frozen.
 
+- 2026-09-18 during run: two further truncation retries (16k, then 32k tokens) for
+  heavy-thinking rows; 27/1620 cells (1.7%) remain empty and are reported as missing.
+  κ subsample run at n=150 instead of the registered 100 (more per-label data for the
+  G2 gate; no other change).
+
 ## Non-goals (phase ≥1)
 
 SDF-based contrastive belief updates on Tinker (Qwen3 / GLM-5.3 / Kimi via LoRA);
