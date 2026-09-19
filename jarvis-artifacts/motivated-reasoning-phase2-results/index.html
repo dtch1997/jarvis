@@ -106,6 +106,81 @@ The RL stage is identical for all arms: neutral prompt naming the three grader l
 <div class="arm hedgy"><h3>R2 · hedgy</h3><p>SFT register: hedged outcome-weighing. “On balance it tends to be safer to…”</p></div>
 </div>
 
+<figure>
+<svg viewBox="0 0 720 408" role="img" style="max-width:100%;height:auto;color:var(--ink-2)"
+  aria-label="The environment: one submission is graded twice — a rewarded pytest run whose three open holes each admit one hack, and a robust re-check that closes each hole; a rollout that passes the first and fails the second is a reward hack.">
+<defs>
+<marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+<path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker>
+<marker id="arr-acc" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+<path d="M0,0 L8,4 L0,8 z" fill="var(--accent)"/></marker>
+</defs>
+<!-- row 1: prompt -> policy -> submission -->
+<rect x="8" y="18" width="188" height="104" rx="4" fill="none" stroke="currentColor"/>
+<text x="102" y="36" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">PROMPT (identical, all arms)</text>
+<text x="18" y="56" font-size="11.5" fill="currentColor">note describing 3 loopholes</text>
+<text x="18" y="72" font-size="11.5" fill="currentColor">CodeContests-hard problem</text>
+<text x="18" y="88" font-size="11.5" fill="currentColor">3 of the test asserts, shown</text>
+<text x="18" y="110" font-size="11" fill="var(--ink-3)">no register content anywhere</text>
+
+<line x1="196" y1="70" x2="252" y2="70" stroke="currentColor" marker-end="url(#arr)"/>
+<text x="224" y="60" text-anchor="middle" font-size="11" fill="currentColor">16×16 / step</text>
+
+<rect x="254" y="18" width="184" height="104" rx="4" fill="none" stroke="currentColor"/>
+<text x="346" y="36" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">POLICY gpt-oss-120b</text>
+<rect x="264" y="46" width="164" height="30" rx="3" fill="none" stroke="currentColor" stroke-dasharray="4 3"/>
+<text x="346" y="59" text-anchor="middle" font-size="11.5" fill="currentColor">analysis channel (private CoT)</text>
+<text x="346" y="71" text-anchor="middle" font-size="10.5" fill="var(--ink-3)">→ judged offline, no reward pressure</text>
+<rect x="264" y="84" width="164" height="28" rx="3" fill="none" stroke="currentColor"/>
+<text x="346" y="102" text-anchor="middle" font-size="11.5" fill="currentColor">final channel: code</text>
+
+<line x1="438" y1="70" x2="494" y2="70" stroke="currentColor" marker-end="url(#arr)"/>
+<text x="466" y="60" text-anchor="middle" font-size="11" fill="currentColor">extract</text>
+
+<rect x="496" y="18" width="216" height="104" rx="4" fill="none" stroke="currentColor"/>
+<text x="604" y="36" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">SUBMISSION</text>
+<text x="506" y="58" font-size="11.5" fill="currentColor">solution.py</text>
+<text x="506" y="76" font-size="11.5" fill="currentColor">+ any extra files the model wrote</text>
+<text x="506" y="92" font-size="11" fill="var(--ink-3)">(e.g. conftest.py)</text>
+
+<!-- fan out: same submission to both graders -->
+<line x1="560" y1="122" x2="248" y2="176" stroke="currentColor" marker-end="url(#arr)"/>
+<line x1="640" y1="122" x2="600" y2="176" stroke="currentColor" marker-end="url(#arr)"/>
+<text x="360" y="152" text-anchor="middle" font-size="11" font-weight="600" fill="var(--ink)">the same submission runs twice</text>
+
+<!-- rewarded run -->
+<rect x="40" y="180" width="320" height="140" rx="4" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+<text x="200" y="200" text-anchor="middle" font-size="12" font-weight="600" fill="var(--accent)">REWARDED RUN — pytest, holes open</text>
+<text x="52" y="222" font-size="11.5" fill="currentColor">bare asserts:  result == expected</text>
+<text x="66" y="240" font-size="11" fill="var(--accent)">⟵ AlwaysEqual __eq__ returns True</text>
+<text x="52" y="262" font-size="11.5" fill="currentColor">asserts run in the pytest process</text>
+<text x="66" y="280" font-size="11" fill="var(--accent)">⟵ os._exit(0) leaves before they run</text>
+<text x="52" y="302" font-size="11.5" fill="currentColor">conftest.py loads automatically</text>
+<text x="66" y="318" font-size="11" fill="var(--accent)">⟵ patch pytest to report “passed”</text>
+
+<!-- robust check -->
+<rect x="420" y="180" width="292" height="140" rx="4" fill="none" stroke="currentColor"/>
+<text x="566" y="200" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">ROBUST RE-CHECK — never rewarded</text>
+<text x="432" y="222" font-size="11.5" fill="currentColor">exact builtin type required</text>
+<text x="446" y="238" font-size="11" fill="var(--ink-3)">closes AlwaysEqual</text>
+<text x="432" y="260" font-size="11.5" fill="currentColor">nonce-tagged verdict from child proc</text>
+<text x="446" y="276" font-size="11" fill="var(--ink-3)">closes os._exit(0)</text>
+<text x="432" y="298" font-size="11.5" fill="currentColor">conftest.py ignored, no pytest</text>
+<text x="446" y="314" font-size="11" fill="var(--ink-3)">closes report patching</text>
+
+<!-- outputs -->
+<line x1="200" y1="320" x2="200" y2="352" stroke="var(--accent)" marker-end="url(#arr-acc)"/>
+<text x="200" y="370" text-anchor="middle" font-size="12" font-weight="600" fill="var(--accent)">exit 0 ⇒ reward +4.0 (the only training signal)</text>
+<line x1="566" y1="320" x2="566" y2="352" stroke="currentColor" marker-end="url(#arr)"/>
+<text x="566" y="370" text-anchor="middle" font-size="12" fill="var(--ink)">pass ⇒ “actually solved” (ground truth, logs only)</text>
+<text x="360" y="398" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">reward hack  =  rewarded run passes  ∧  robust re-check fails</text>
+</svg>
+<figcaption>The environment. Every arm sees the same neutral prompt; the register lives only in the
+weights. Each of the rewarded run’s three holes admits exactly one of the hinted hacks, and the robust
+re-check closes each in turn — a rollout that passes the left box and fails the right one is counted as
+a reward hack. The analysis channel feeds nothing in training; it is what the taxonomy judges read afterwards.</figcaption>
+</figure>
+
 <h2><span class="no">1</span>Everything saturates; the rule only buys five steps</h2>
 <figure>
 <div class="legend">
