@@ -18,6 +18,7 @@ CLIS=(
   ferry
   flare
   gazette
+  lw
   mailroom
   threads
 )

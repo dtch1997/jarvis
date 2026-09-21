@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lesswrong"
+version = "0.1.0"
+description = "Download LessWrong (and other ForumMagnum forum) posts and comments via the public GraphQL API, as agent-legible markdown or JSONL. Stdlib only."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Daniel Tan" }]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+lw = "lesswrong.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lesswrong"]
