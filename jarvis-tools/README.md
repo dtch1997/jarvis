@@ -29,6 +29,7 @@ the reverse.
 | [`curator`](packages/curator) | claims-and-figures ledger: capture plots with provenance at creation time, curate claims in a browser gallery, export a write-up skeleton |
 | [`reportly`](packages/reportly) | experiment-report standard: scaffold, lint, build |
 | [`arxivist`](packages/arxivist) | arXiv papers → structured, agent-legible markdown (native-HTML-first parse, PDF fallback, outline/section CLI) |
+| [`lesswrong`](packages/lesswrong) | LessWrong/ForumMagnum posts + comments via public GraphQL → markdown or JSONL (`lw` CLI, stdlib-only, `--site` for EA/Alignment Forum) |
 | [`foyer`](packages/foyer) | web front door for the tmux sessions your agents live in: session sidebar + live terminal (websocket PTY bridge) + plots/notes panes, own tunnel via `lobby.tunnel` |
 | [`statusline`](packages/statusline) | Claude Code status line renderer (`claude-statusline`): harness stdin JSON → colored model/context-bar/cost line; extend by adding segments |
 | [`cairn`](packages/cairn) | minimal, git-friendly dependency-aware issue graph for coding agents |

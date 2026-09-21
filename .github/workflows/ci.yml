@@ -17,6 +17,7 @@ jobs:
           - jarvis-tools/packages/ferry
           - jarvis-tools/packages/bellhop
           - jarvis-tools/packages/flare
+          - jarvis-tools/packages/lesswrong
           - jarvis-tools/packages/statusline
           - jarvis-os/packages/gazette
           - jarvis-os/packages/desk
