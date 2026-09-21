@@ -6,6 +6,7 @@ agent-guessed — fix on sight. Seeded 2026-08-20 from `Artifact list`.
 
 | Title | URL | Updated | Source | Thread | Status |
 |---|---|---|---|---|---|
+| Do Chinese Models Reward-Seek? | https://claude.ai/artifact/EZZ1NyvpTg1ZQRtuc9w8eX | 2026-09-21 | [cn-reward-seeking/index.html](cn-reward-seeking/index.html) | cn-reward-seeking | current — phase-0 findings writeup (charts + transcript quotes) |
 | GPU Workload Fingerprint | https://claude.ai/artifact/X7Z2xRmHfwFKcP1WFqrEsk | 2026-09-15 | [gpu-workload-fingerprint/index.html](gpu-workload-fingerprint/index.html) (built by `build.py` from `template.html` + figures) | gpu-workload-fingerprint | live |
 | Training Cooperativeness | https://claude.ai/code/artifact/f08709b2-a83c-4259-9a0e-05f0a38856e5 | 2026-08-23 | [training-cooperativeness-claims/index.html](training-cooperativeness-claims/index.html) | training-cooperativeness | current — claim structure (C1–C6) distilled from drafts/self-supervised-alignment.md |
 | Qwen Knows, Won't Say First (research deck) | https://claude.ai/code/artifact/74b3d944-aa7b-41c9-a59b-ad35201a8927 | 2026-08-29 | [tiananmen-qwen-deck/tiananmen-qwen-deck.html](tiananmen-qwen-deck/tiananmen-qwen-deck.html) | tiananmen-elicitation | current — slides for the Tiananmen-on-Qwen-3.8 probe + search |
