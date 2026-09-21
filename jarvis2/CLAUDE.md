@@ -2,7 +2,8 @@
 
 JARVIS 2.0: a research assistant that takes one idea and runs with it for a
 long time. Read README.md first — it is short and it is the whole design. If
-you are a keeper tick, keeper.md is your policy.
+you are a keeper tick, keeper.md is your policy; in an explore-mode project
+(project.toml `mode = "explore"`), keeper-explore.md wins where they disagree.
 
 Rules binding every session under jarvis2/:
 
