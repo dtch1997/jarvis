@@ -145,6 +145,48 @@ Autonomy is one cron line (add to `ops/cron.tab` when Daniel flips it on):
 Until then, `jarvis tick` by hand is the whole system. The CLI serializes
 ticks (one at a time, global lock) — deliberate at prototype scale.
 
+## Explore mode — point it at a repo and let go
+
+The second project shape (`mode = "explore"` in project.toml): instead of one
+idea with a Definition of done, Daniel gives a repo and a few sentences of
+interests, configures hours × dollars × parallelism, and walks away.
+
+```
+jarvis new --explore "curious about X; the Y module smells weird" \
+    --repo git@github.com:owner/repo.git --hours 16 --parallelism 8 --budget-usd 100
+```
+
+The survey tick clones the repo and seeds a question queue from interests.md;
+then cron fires **waves**: N parallel workers each claim one mini-spec'd
+question (hypothesis / intervention / metric — no spend without one), write
+evidence to their own files, and one synthesizer merges findings, retires
+questions, and replenishes the queue ranked against what has been learned.
+Policy lives in [keeper-explore.md](keeper-explore.md); interests.md is
+hot-editable and steers a running exploration.
+
+Explore mode makes three guarantees, each enforced in plumbing rather than
+hoped for in prompts:
+
+1. **Autonomy — it never asks.** Spend inside the caps is standing
+   pre-authorization (the CLI enforces the caps, not an agent's nerve); every
+   mid-run decision is made with best judgment and logged in frontier
+   "Decisions". A lone `blocked` outcome is auto-resumed; it sticks only when
+   two consecutive waves block (a rediscovered hard blocker: credential,
+   access, outage).
+2. **Persistence — configured hours are delivered hours.** The scheduler owns
+   the clock: cron fires waves until the hours ledger (log.jsonl) reaches
+   `[budget].hours`. No session can end the run — a keeper's `done` is
+   downgraded to `progress` — so giving up early ends one tick, never the
+   run. Exhausted hours end cleanly: a wrap-up session writes
+   reports/final.md, then the project is `done` (raise hours + `jarvis
+   resume` to continue).
+3. **Scale — parallelism is a knob, not an architecture.** N=1 and N=100 are
+   the same code path: claim = atomic file move out of questions/queue/,
+   workers write only their own files in notes/ and work/, only the plumbing
+   commits, and the single synthesizer owns all shared state. No daemon, no
+   pool, no fleet conventions — the ARCH2 assumptions this mode exists to
+   shed.
+
 ## Import policy — how 1.0 machinery gets back in
 
 A 1.0 tool is imported only when a real jarvis2 project needed it **twice**,

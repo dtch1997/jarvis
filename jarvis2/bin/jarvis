@@ -9,6 +9,8 @@ Single-file, stdlib-only, readable top to bottom. The division of labor:
 
 Commands:
   jarvis new "<idea>" [--slug s]    idea -> projects/<slug>/  (status: incubating)
+  jarvis new --explore "<interests>" --repo URL [--hours H] [--parallelism N]
+                                    point an exploration at a repo (mode: explore)
   jarvis list                       one row per project
   jarvis status <slug>              config, state, spend, recent log, frontier head
   jarvis tick [<slug>]              run due keeper ticks; bare form = cron entrypoint
@@ -19,6 +21,7 @@ Commands:
 """
 
 import argparse
+import concurrent.futures
 import fcntl
 import json
 import os
@@ -33,11 +36,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent  # jarvis2/
 PROJECTS = ROOT / "projects"
 TEMPLATE = PROJECTS / "TEMPLATE"
+TEMPLATE_EXPLORE = PROJECTS / "TEMPLATE-explore"
 KEEPER_DOC = ROOT / "keeper.md"
+EXPLORER_DOC = ROOT / "keeper-explore.md"
 
 DEFAULT_CADENCE_MIN = 120
 DEFAULT_TIMEOUT_MIN = 45
 DEFAULT_BUDGET_USD = 20.0
+DEFAULT_EXPLORE_HOURS = 16.0
+DEFAULT_EXPLORE_USD = 100.0
+DEFAULT_PARALLELISM = 4
 
 # ---------------------------------------------------------------- helpers
 
@@ -77,7 +85,8 @@ def all_slugs() -> list[str]:
     return sorted(
         d.name
         for d in PROJECTS.iterdir()
-        if d.is_dir() and d.name != "TEMPLATE" and (d / "project.toml").exists()
+        if d.is_dir() and not d.name.startswith("TEMPLATE")
+        and (d / "project.toml").exists()
     )
 
 
@@ -171,7 +180,29 @@ def spent_usd(pdir: Path) -> float:
 
 
 def budget_usd(cfg: dict) -> float:
-    return float(cfg.get("budget", {}).get("usd", DEFAULT_BUDGET_USD))
+    default = DEFAULT_EXPLORE_USD if mode_of(cfg) == "explore" else DEFAULT_BUDGET_USD
+    return float(cfg.get("budget", {}).get("usd", default))
+
+
+def mode_of(cfg: dict) -> str:
+    return cfg.get("mode", "research")
+
+
+def hours_cap(cfg: dict) -> float:
+    return float(cfg.get("budget", {}).get("hours", DEFAULT_EXPLORE_HOURS))
+
+
+def hours_spent(pdir: Path) -> float:
+    """Wall-clock hours delivered: survey ticks + wave wall time (a wave of N
+    parallel workers counts its wall clock once — hours are human-time; the
+    agent-hours multiplier is parallelism's job)."""
+    total = 0.0
+    for e in read_log(pdir):
+        if e.get("event") == "wave_end":
+            total += e.get("wall_s") or 0.0
+        elif e.get("event") == "tick_end" and e.get("role") in (None, "survey"):
+            total += e.get("duration_s") or 0.0
+    return total / 3600.0
 
 
 def age_str(iso: str | None) -> str:
@@ -198,22 +229,34 @@ def cmd_new(args) -> None:
     pdir = PROJECTS / slug
     if pdir.exists():
         die(f"projects/{slug} already exists")
-    shutil.copytree(TEMPLATE, pdir)
+    template = TEMPLATE_EXPLORE if args.explore else TEMPLATE
+    shutil.copytree(template, pdir)
     date = datetime.now().strftime("%Y-%m-%d")
-    for name in ("project.toml", "spec.md", "frontier.md"):
+    names = (("project.toml", "interests.md", "frontier.md", "findings.md")
+             if args.explore else ("project.toml", "spec.md", "frontier.md"))
+    for name in names:
         f = pdir / name
         f.write_text(
             f.read_text()
             .replace("{{SLUG}}", slug)
             .replace("{{DATE}}", date)
             .replace("{{IDEA}}", args.idea.strip())
+            .replace("{{REPO}}", args.repo or "")
+            .replace("{{HOURS}}", str(args.hours))
+            .replace("{{USD}}", str(args.budget_usd))
+            .replace("{{PARALLELISM}}", str(args.parallelism))
         )
     save_state(pdir, load_state(pdir))  # materialize state.json
     append_log(pdir, {"event": "created", "idea": args.idea.strip()})
     git("add", str(pdir))
     git("commit", "-m", f"jarvis2/{slug}: new project (incubating)")
     print(f"created projects/{slug} (incubating)")
-    print(f"next tick drafts the spec: jarvis tick {slug}")
+    if args.explore:
+        print(f"explore mode: {args.hours}h x {args.parallelism} workers, "
+              f"${args.budget_usd:.0f} cap — survey tick seeds the question queue: "
+              f"jarvis tick {slug}")
+    else:
+        print(f"next tick drafts the spec: jarvis tick {slug}")
 
 
 # ---------------------------------------------------------------- list / status
@@ -263,12 +306,41 @@ def is_due(cfg: dict, st: dict) -> bool:
     last = st.get("last_tick_start")
     if not last:
         return True
-    cadence = float(cfg.get("cadence_minutes", DEFAULT_CADENCE_MIN))
+    default_cadence = 0 if mode_of(cfg) == "explore" else DEFAULT_CADENCE_MIN
+    cadence = float(cfg.get("cadence_minutes", default_cadence))
     elapsed = (datetime.now().astimezone() - datetime.fromisoformat(last)).total_seconds()
     return elapsed >= cadence * 60
 
 
-def build_prompt(slug: str, tick_id: str, st: dict, spend: float, cap: float) -> str:
+def autonomy_clause(slug: str, spend: float, cap: float, hrs: float, hcap: float) -> str:
+    """The guarantees, restated where they bind: in every explore prompt."""
+    return (
+        f"Standing authorization: spend inside the caps (${spend:.2f} of ${cap:.2f} used; "
+        f"{hrs:.1f}h of {hcap:.1f}h delivered) is PRE-APPROVED — the plumbing enforces the caps, "
+        f"you never ask, hesitate, or leave cheap experiments unrun to be safe. Every decision is "
+        f"yours: decide with best judgment and record it in frontier.md Decisions. 'blocked' is "
+        f"ONLY for hard external blockers (missing credential, service down, no access) — never "
+        f"'needs a decision'. There is no early finish: a dead end means the next question, an "
+        f"empty queue means generating questions IS the work. "
+    )
+
+
+def build_prompt(slug: str, tick_id: str, st: dict, spend: float, cap: float,
+                 cfg: dict | None = None) -> str:
+    cfg = cfg or {}
+    if st["status"] == "incubating" and mode_of(cfg) == "explore":
+        n = int(cfg.get("parallelism", DEFAULT_PARALLELISM))
+        repo = cfg.get("work", {}).get("repo", "")
+        return (
+            f"You are the SURVEY session for jarvis2 explore project '{slug}', tick {tick_id} — "
+            f"its first tick. Daniel's interests are in ./interests.md (verbatim); the repo under "
+            f"exploration is {repo or '(none — idea-space exploration)'}. Your policy is "
+            f"{EXPLORER_DOC} (Survey role): clone the repo to work/repo/ if one is set, survey it, "
+            f"seed questions/queue/ with at least {2 * n} mini-spec'd questions, write frontier.md. "
+            + autonomy_clause(slug, spend, cap, hours_spent(PROJECTS / slug), hours_cap(cfg))
+            + f"End by committing and running: jarvis outcome {slug} spec-ready --note "
+            f"\"<one-line queue summary>\". Waves of {n} parallel workers start next tick."
+        )
     if st["status"] == "incubating":
         return (
             f"You are the keeper for jarvis2 project '{slug}', tick {tick_id} — its FIRST tick. "
@@ -326,6 +398,133 @@ def runner_tick(pdir: Path, cfg: dict, prompt: str, env: dict, timeout: float) -
 RUNNERS = {"tick": runner_tick}
 
 
+# ------------------------------------------------------------ explore waves
+
+def worker_prompt(slug: str, role: str, qrel: str | None, tick_id: str,
+                  spend: float, cap: float, hrs: float, hcap: float) -> str:
+    base = autonomy_clause(slug, spend, cap, hrs, hcap) + (
+        f"Policy: {EXPLORER_DOC}. Ownership law: you write ONLY notes/ and work/ — never "
+        f"findings.md, frontier.md, questions/, reports/ — and you NEVER run git commit "
+        f"(plumbing commits; parallel workers racing the git index is the alternative). ")
+    if role == "generate":
+        return (
+            f"You are the GENERATOR in a parallel exploration wave for jarvis2 project '{slug}' "
+            f"(tick {tick_id}): the question queue ran short. Read interests.md, findings.md, "
+            f"frontier.md and questions/, then draft diverse new mini-spec'd questions into "
+            f"notes/generated-{tick_id}.md for the synthesizer to triage. " + base)
+    return (
+        f"You are one WORKER in a parallel exploration wave for jarvis2 project '{slug}' "
+        f"(tick {tick_id}). Your assigned question is ./{qrel} — work ONLY that question: "
+        f"sharpen its mini-spec if skeletal, pilot cheaply, scale if the pilot says something, "
+        f"and finish by writing notes/{Path(qrel).stem}-{tick_id}.md with verdict + evidence + "
+        f"follow-up questions. A worker that ends without a notes file is a broken worker. "
+        + base)
+
+
+def synth_prompt(slug: str, tick_id: str, n_workers: int, spend: float, cap: float,
+                 hrs: float, hcap: float, parallelism: int) -> str:
+    return (
+        f"You are the SYNTHESIZER for jarvis2 explore project '{slug}', closing wave {tick_id} "
+        f"({n_workers} workers just ran). Policy: {EXPLORER_DOC} (Synthesizer role): merge new "
+        f"notes/ into findings.md and delete merged notes; retire questions/claimed/ to "
+        f"questions/done/ with verdicts; replenish questions/queue/ to >= {2 * parallelism} "
+        f"questions ranked against findings.md (discriminating, cheap-to-pilot first, no "
+        f"near-duplicates); update frontier.md; digest report every ~5 waves or on a surprise. "
+        + autonomy_clause(slug, spend, cap, hrs, hcap)
+        + f"End with: jarvis outcome {slug} progress --note \"<one line: wave verdicts>\"."
+    )
+
+
+def run_explore_wave(pdir: Path, slug: str, cfg: dict, tick_id: str,
+                     env: dict, timeout: float, spend: float, cap: float) -> None:
+    """One wave: claim up to N questions, run N workers in parallel (own-files-only,
+    no commits), then one synthesizer over the shared state. Hours are a ledger the
+    scheduler owns: cron keeps firing waves until hours_cap is delivered — no
+    session can end the run early (persistence guarantee lives here, not in prompts)."""
+    hrs, hcap = hours_spent(pdir), hours_cap(cfg)
+    n = int(cfg.get("parallelism", DEFAULT_PARALLELISM))
+    if hrs >= hcap:
+        finish_exploration(pdir, slug, cfg, tick_id, env, timeout, spend, cap, hrs, hcap)
+        return
+
+    queue = sorted((pdir / "questions" / "queue").glob("q-*.md"))
+    roles: list[tuple[str, str | None]] = []
+    for q in queue[:n]:
+        dest = pdir / "questions" / "claimed" / q.name
+        q.rename(dest)  # atomic; synth/survey are the only queue writers, so no race
+        roles.append(("worker", str(dest.relative_to(pdir))))
+    if len(roles) < n:
+        roles.append(("generate", None))  # queue ran short: replenishing IS work
+
+    t0 = time.time()
+    print(f"[{slug}] wave {tick_id}: {len(roles)} parallel sessions "
+          f"({hrs:.1f}h of {hcap:.1f}h delivered)")
+
+    def run_one(i: int, role: str, qrel: str | None) -> dict:
+        wenv = {**env, "JARVIS2_ROLE": role, "JARVIS2_TICK_ID": f"{tick_id}.w{i}"}
+        prompt = worker_prompt(slug, role, qrel, tick_id, spend, cap, hrs, hcap)
+        return runner_tick(pdir, cfg, prompt, wenv, timeout)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max(len(roles), 1)) as ex:
+        futs = [ex.submit(run_one, i, role, qrel)
+                for i, (role, qrel) in enumerate(roles)]
+        accts = [f.result() for f in futs]
+    broken = 0
+    for (role, qrel), acct in zip(roles, accts):
+        note = (pdir / "notes" / (f"generated-{tick_id}.md" if role == "generate"
+                                  else f"{Path(qrel).stem}-{tick_id}.md"))
+        wrote = note.exists()
+        broken += 0 if wrote else 1
+        append_log(pdir, {"event": "tick_end", "tick": tick_id, "role": role,
+                          "question": qrel, "wrote_note": wrote, **acct})
+    if broken:
+        flare(f"jarvis2/{slug} wave {tick_id}: {broken}/{len(roles)} workers ended "
+              f"without a notes file — check projects/{slug}/log.jsonl", sev="warn")
+
+    senv = {**env, "JARVIS2_ROLE": "synth"}
+    sacct = runner_tick(pdir, cfg, synth_prompt(slug, tick_id, len(roles), spend, cap,
+                                                hrs, hcap, n), senv, timeout)
+    append_log(pdir, {"event": "tick_end", "tick": tick_id, "role": "synth", **sacct})
+    append_log(pdir, {"event": "wave_end", "tick": tick_id, "wall_s": round(time.time() - t0),
+                      "workers": len(roles), "broken": broken,
+                      "cost_usd": round(sum(a.get("cost_usd") or 0.0
+                                            for a in accts + [sacct]), 4)})
+
+    outcomes = [e for e in read_log(pdir)
+                if e.get("event") == "outcome" and e.get("tick") == tick_id]
+    if not outcomes:
+        flare(f"jarvis2/{slug}: wave {tick_id} synthesizer recorded NO outcome — "
+              f"check projects/{slug}/log.jsonl", sev="warn")
+    print(f"[{slug}] wave {tick_id} done: "
+          f"{outcomes[0]['outcome'] if outcomes else 'NO OUTCOME'} "
+          f"(${sum(a.get('cost_usd') or 0.0 for a in accts + [sacct]):.2f}, "
+          f"{round(time.time() - t0)}s wall)")
+    checkpoint(pdir, slug, tick_id)
+
+
+def finish_exploration(pdir: Path, slug: str, cfg: dict, tick_id: str, env: dict,
+                       timeout: float, spend: float, cap: float,
+                       hrs: float, hcap: float) -> None:
+    """Hours delivered in full: one wrap-up session writes the final digest, then done.
+    `done` here means 'the configured run was delivered', never 'an agent gave up' —
+    raising [budget].hours + `jarvis resume` continues the same exploration."""
+    prompt = (
+        f"You are the WRAP-UP synthesizer for jarvis2 explore project '{slug}' (tick {tick_id}): "
+        f"the configured {hcap:.1f}h of exploration has been delivered ({hrs:.1f}h logged). "
+        f"Read findings.md, frontier.md and reports/, then write reports/final.md — a digest "
+        f"Daniel reads in five minutes: top findings vs interests.md, dead ends worth not "
+        f"repeating, and the open questions most worth a follow-up project. Policy: "
+        f"{EXPLORER_DOC}. End with: jarvis outcome {slug} progress --note \"final digest\".")
+    acct = runner_tick(pdir, cfg, prompt, {**env, "JARVIS2_ROLE": "synth"}, timeout)
+    append_log(pdir, {"event": "tick_end", "tick": tick_id, "role": "synth",
+                      "wrapup": True, **acct})
+    set_status(pdir, "done", f"hours budget delivered ({hcap:.1f}h)")
+    flare(f"jarvis2/{slug} DONE: {hcap:.1f}h of exploration delivered (${spend:.2f} of "
+          f"${cap:.2f}) — digest: projects/{slug}/reports/final.md; to continue, raise "
+          f"[budget].hours in project.toml and `jarvis resume {slug}`")
+    checkpoint(pdir, slug, tick_id)
+
+
 def run_tick(slug: str) -> None:
     pdir = project_dir(slug)
     cfg, st = load_config(pdir), load_state(pdir)
@@ -356,7 +555,10 @@ def run_tick(slug: str) -> None:
            "JARVIS2_PROJECT": slug,
            "PATH": f"{ROOT / 'bin'}:{os.environ.get('PATH', '')}"}
     timeout = float(cfg.get("tick_timeout_minutes", DEFAULT_TIMEOUT_MIN)) * 60
-    acct = runner(pdir, cfg, build_prompt(slug, tick_id, st, spend, cap), env, timeout)
+    if mode_of(cfg) == "explore" and st["status"] == "active":
+        run_explore_wave(pdir, slug, cfg, tick_id, env, timeout, spend, cap)
+        return
+    acct = runner(pdir, cfg, build_prompt(slug, tick_id, st, spend, cap, cfg), env, timeout)
     append_log(pdir, {"event": "tick_end", "tick": tick_id, **acct})
     if acct.get("error") == "timeout":
         flare(f"jarvis2/{slug}: tick {tick_id} hit the {timeout / 60:.0f}m timeout and was killed "
@@ -387,6 +589,27 @@ def checkpoint(pdir: Path, slug: str, tick_id: str) -> None:
         print(f"[{slug}] push failed: {push.stderr.strip()[:200]}", file=sys.stderr)
 
 
+def maybe_auto_resume(slug: str) -> None:
+    """Autonomy guarantee, enforced: in explore mode a lone `blocked` is treated
+    as a soft block and auto-resumed — it sticks only when two consecutive
+    outcomes blocked (a rediscovered hard blocker). Plumbing-set blocks
+    (budget exhausted, bad runner) always stick."""
+    pdir = PROJECTS / slug
+    cfg, st = load_config(pdir), load_state(pdir)
+    if mode_of(cfg) != "explore" or st["status"] != "blocked":
+        return
+    reason = st.get("status_reason", "")
+    if reason.startswith(("budget exhausted", "unknown keeper runner")):
+        return
+    outs = [e for e in read_log(pdir) if e.get("event") == "outcome"]
+    if len(outs) >= 2 and outs[-1]["outcome"] == outs[-2]["outcome"] == "blocked":
+        return
+    set_status(pdir, "active", "")
+    append_log(pdir, {"event": "auto_resume", "note": reason})
+    flare(f"jarvis2/{slug}: auto-resumed a soft block ('{reason[:80]}') per the explore "
+          f"autonomy contract — it sticks only if the next wave blocks again")
+
+
 def cmd_tick(args) -> None:
     lock = open(ROOT / ".tick.lock", "w")
     try:
@@ -396,6 +619,7 @@ def cmd_tick(args) -> None:
         return
     if args.slug:
         pdir = project_dir(args.slug)
+        maybe_auto_resume(args.slug)
         status = load_state(pdir)["status"]
         if status in ("paused", "dropped"):
             die(f"{args.slug} is {status} — `jarvis resume {args.slug}` first")
@@ -406,6 +630,8 @@ def cmd_tick(args) -> None:
             die(f"{args.slug} is done")
         run_tick(args.slug)
         return
+    for s in all_slugs():
+        maybe_auto_resume(s)
     due = [s for s in all_slugs()
            if is_due(load_config(PROJECTS / s), load_state(PROJECTS / s))]
     if not due:
@@ -422,6 +648,16 @@ def cmd_outcome(args) -> None:
     tick = args.tick or os.environ.get("JARVIS2_TICK_ID", "manual")
     if args.outcome in ("blocked",) and not args.note:
         die("blocked outcomes need --note explaining what is needed")
+    if args.outcome == "done" and mode_of(load_config(pdir)) == "explore":
+        # Persistence guarantee, enforced: no session ends an exploration —
+        # only the hours ledger (finish_exploration) or Daniel does.
+        append_log(pdir, {"event": "outcome", "tick": tick, "outcome": "progress",
+                          "note": f"[done->progress] {args.note}"})
+        flare(f"jarvis2/{args.slug}: a session tried to declare the exploration done "
+              f"('{args.note[:80]}') — downgraded to progress; the hours ledger decides "
+              f"when explore projects end", sev="warn")
+        print(f"recorded: {args.slug} progress (done is not a thing in explore mode)")
+        return
     append_log(pdir, {"event": "outcome", "tick": tick,
                       "outcome": args.outcome, "note": args.note})
     if args.outcome == "blocked":
@@ -435,9 +671,14 @@ def cmd_outcome(args) -> None:
               f"final report: projects/{args.slug}/reports/final.md")
     elif args.outcome == "spec-ready":
         set_status(pdir, "active", "")
-        flare(f"jarvis2/{args.slug}: spec drafted — {args.note} | review/edit "
-              f"projects/{args.slug}/spec.md; `jarvis pause {args.slug}` to veto, "
-              f"silence means it runs")
+        if mode_of(load_config(pdir)) == "explore":
+            flare(f"jarvis2/{args.slug}: exploration surveyed, question queue seeded — "
+                  f"{args.note} | waves start next tick; edit interests.md anytime to "
+                  f"steer; `jarvis pause {args.slug}` to veto, silence means it runs")
+        else:
+            flare(f"jarvis2/{args.slug}: spec drafted — {args.note} | review/edit "
+                  f"projects/{args.slug}/spec.md; `jarvis pause {args.slug}` to veto, "
+                  f"silence means it runs")
     print(f"recorded: {args.slug} {args.outcome} (tick {tick})")
 
 
@@ -472,8 +713,17 @@ def main() -> None:
     sub = p.add_subparsers(dest="cmd", required=True)
 
     s = sub.add_parser("new", help="idea -> new project")
-    s.add_argument("idea")
+    s.add_argument("idea", help="the idea — or, with --explore, the interests blurb")
     s.add_argument("--slug")
+    s.add_argument("--explore", action="store_true",
+                   help="open-ended exploration: repo + interests in, findings out")
+    s.add_argument("--repo", help="(explore) repo URL to point the exploration at")
+    s.add_argument("--hours", type=float, default=DEFAULT_EXPLORE_HOURS,
+                   help="(explore) wall-clock hours owed; the scheduler delivers them")
+    s.add_argument("--parallelism", type=int, default=DEFAULT_PARALLELISM,
+                   help="(explore) workers per wave")
+    s.add_argument("--budget-usd", type=float, default=DEFAULT_EXPLORE_USD,
+                   help="(explore) spend cap; pre-approved up to this")
     s.set_defaults(fn=cmd_new)
 
     s = sub.add_parser("list", help="one row per project")

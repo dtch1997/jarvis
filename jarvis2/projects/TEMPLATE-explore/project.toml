@@ -1,0 +1,21 @@
+# Human-owned config — Daniel edits this; the CLI only reads it.
+# Hot-editable: every wave re-reads this file.
+slug = "{{SLUG}}"
+created = "{{DATE}}"
+mode = "explore"
+
+cadence_minutes = 0         # waves run back-to-back while hours remain
+tick_timeout_minutes = 55   # per-wave wall clock; a wave over it is killed and flared
+parallelism = {{PARALLELISM}}  # workers per wave; 1 = lone explorer, 100 = a fleet
+# model = "claude-opus-5"   # optional model override for all explore sessions
+
+[budget]
+# BOTH caps are standing pre-authorization: sessions never ask before
+# spending inside them, and the plumbing (never an agent's nerve) enforces
+# them. hours = wall-clock the scheduler owes; exhaustion => final digest +
+# done. usd exhaustion => blocked + flare (raise and `jarvis resume`).
+hours = {{HOURS}}
+usd = {{USD}}
+
+[work]
+repo = "{{REPO}}"   # repo under exploration; survey clones it to work/repo/
