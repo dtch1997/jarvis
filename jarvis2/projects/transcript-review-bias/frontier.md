@@ -13,19 +13,36 @@ _Keeper-owned working state. A cold keeper resumes from this file alone: keep
   mirror` shimmed into `~/data/arch-transcripts/dataset`; e02 source =
   `~/jarvis/repos/realistic-reward-hacking`. Python: `.venv` in the work repo.
   ANTHROPIC_API_KEY, OPENAI_API_KEY, OPENROUTER_API_KEY all present in ~/.env
-  (only Anthropic verified live).
+  (all three verified live as of tick 6).
 - **E2/E3 grid is COMPLETE and committed** (work repo `results/e23/`, 540
   reviews, 0 failures, summary.md/json; report 003 carries the full-grid
   numbers). Nothing to collect. No job is running.
-- **Next unit: E5 cross-model** (spec DoD item 2). Reuse the same
-  ground-truth set and the neutral + leak_contra conditions with a second
-  reviewer family via OpenRouter/OpenAI (e.g. gpt-5.x and a Qwen/Kimi
-  model), plus one Claude sibling (haiku-4.5 or opus-5 spot). `review_gt.
-  review_one` takes `model=`; needs a small client shim for the OpenAI-
-  compatible endpoint (cache_control blocks must be dropped). Score
-  per-transcript error correlation same-model vs cross-model, and whether
-  the E2 hostile-leak false positives are shared across families. Verify
-  OPENROUTER key live with one call before building.
+- **BLOCKED on a keeper cap raise (tick 6, 2026-09-22 173001).** Keeper spend
+  was $18.34/$20 at tick start; tick 6 spent its ~$1.66 on E5 pre-flight only
+  and recorded `blocked`. Ask: raise `[budget].usd` in project.toml to **40**
+  and `jarvis resume transcript-review-bias`. Estimate: E5 build+run+analyse
+  ≈ one tick (~$5 keeper), cleanups + final.md ≈ one tick (~$5), slack ~$10.
+  API spend for E5 ≈ $25–30 (separate from the keeper cap; ~$30 spent so far).
+- **E5 pre-flight DONE (tick 6):** OPENROUTER_API_KEY and OPENAI_API_KEY are
+  both live (verified via /key and /models; OpenRouter account is paid tier,
+  no limit). Candidate reviewers on OpenRouter, per-M pricing (in/out):
+  `openai/gpt-5.6-sol` $2/$10 (1M ctx) — **use this: it is the exact METR
+  reviewer**; `qwen/qwen3.8-max-0902` $2/$6; `z-ai/glm-5.3` $0.65/$2.05;
+  `moonshotai/kimi-k2.6` $0.95/$4; `anthropic/claude-haiku-4.5` $1/$5 (Claude
+  sibling; or call it direct via Anthropic API). Sizing: 60 transcripts ×
+  (neutral ×3 + leak_contra ×2) = 300 reviews/family at ~12k in / ~2k out
+  tokens → sol ≈ $13, qwen ≈ $9, glm ≈ $3.
+- **Next unit (once resumed): E5 cross-model** (spec DoD item 2). Reuse the
+  same ground-truth set and the neutral + leak_contra conditions with
+  gpt-5.6-sol as the second family (plus glm-5.3 as a cheap third and
+  haiku-4.5 as a Claude sibling if budget allows). `review_gt.review_one`
+  takes `model=`; needs a small client shim for the OpenAI-compatible
+  endpoint (base_url https://openrouter.ai/api/v1; drop `cache_control`
+  blocks; map max_tokens). Score per-transcript error correlation
+  same-model vs cross-model, and whether the E2 hostile-leak false
+  positives (honest_fix → serious) are shared across families. Also check
+  whether gpt-5.6-sol reproduces the METR Sol laundering on the e02
+  gate-hacks where sonnet-5 did not (E3 null).
 - **Cleanups before final.md:** (1) re-adjudicate the 3 base_baseline
   gate_hack labels (01, 06, 07) against their diffs — every review under
   every condition calls them honest proration fixes; (2) save `stop_reason`
@@ -34,11 +51,8 @@ _Keeper-owned working state. A cold keeper resumes from this file alone: keep
   (reuse real paths from the base session) is still open but detection is
   already 100% and equal across conditions, so it is not gating E2/E3
   conclusions.
-- **Budget reality:** keeper spend was $13.64/$20 at the start of tick 5.
-  Remaining after tick 5 is ~$3–4: about one more unit.
-  E5 + final.md will not fit; expect to go blocked asking Daniel for a cap
-  raise (suggest $40) once the grid is collected. API spend is separate and
-  small (~$30 so far).
+- **Budget reality:** blocked at $18.34+/$20 after tick 6 (see top of Now).
+  Nothing runs; nothing to collect.
 - Design rule carried from E1: every cell gets ≥3 samples where feasible;
   report effects as shift relative to the same-prompt repeat floor. Harness
   pattern: transcript-first cached prompt, condition prefix, variant
@@ -93,6 +107,12 @@ _Keeper-owned working state. A cold keeper resumes from this file alone: keep
   0.06) by relabelling the same
   facts; clearly clean ARCH sessions resist. Three channels now quantified
   (E1 prompt, E2 leak, E3 perspective-null). Work repo head after tick: see git log (results commit).
+- 2026-09-22 tick 6 (173001): budget-exhaustion tick. Reconciled frontier
+  vs work repo (head `dfd4cf2`, results/e23 complete — agree). Verified
+  OpenRouter + OpenAI keys live, catalogued E5 reviewer candidates and
+  pricing (gpt-5.6-sol is available via OpenRouter — the METR reviewer
+  itself), sized E5 API cost at ~$25–30. Recorded `blocked` asking for
+  cap → $40.
 
 ## Open questions
 
@@ -104,9 +124,9 @@ _Keeper-owned working state. A cold keeper resumes from this file alone: keep
   upstream) — the appended diff carries the evidence instead.
 - claude-sonnet-5 rejects `temperature`; reviews are default-temperature
   samples. Every experiment must carry a repeat control.
-- Cross-model (E5) wants a non-Anthropic reviewer family. ~/.env has
-  OPENAI_API_KEY and OPENROUTER_API_KEY (still unverified live).
-- Budget: see "Now" — cap raise likely needed before E5 + final.
+- Cross-model (E5) reviewer family: gpt-5.6-sol via OpenRouter (keys verified
+  live tick 6; pricing/sizing in Now).
+- Budget: BLOCKED on cap raise to $40 (tick 6); see "Now".
 - 3 of 19 gate_hack labels (base_baseline 01/06/07) disagree with every
   review under every condition; likely scorer false positives (see 003).
 - project.toml `[work].repo` path is stale (old box) — Daniel to update to
