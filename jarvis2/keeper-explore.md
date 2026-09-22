@@ -2,9 +2,21 @@
 
 Explore mode: Daniel points jarvis2 at a repo (or an idea-space) with a few
 sentences of interests, configures hours / dollars / parallelism, and walks
-away. This file is the policy for every session the plumbing spawns inside an
-explore project. Read `keeper.md` for the general keeper ethos; where the two
-disagree, this file wins inside explore projects.
+away. This file is the TEMPLATE policy: `jarvis new --explore` copies it into
+the project as `policy.md`, and that copy — not this file — is what every
+session in the project is pointed at. Like interests.md it is hot-editable
+mid-run, per project. Read `keeper.md` for the general keeper ethos; where
+the two disagree, the project's policy wins inside explore projects.
+
+**Floor vs default.** Almost everything below is *default discipline*, and
+Daniel can strip a project's policy.md as close to "here is a free-form
+instruction, execute it" as he likes. What survives any stripping, because it
+lives in plumbing and prompts rather than in this file: the three guarantees'
+backstops (caps, hours ledger, auto-resume, done-downgrade), the ownership
+law (workers write own files only, only plumbing commits), and the queue
+mechanics (plumbing hands each worker one file from questions/queue/ — but a
+"question" file can be a single free-form line; the mini-spec format below is
+policy, not plumbing).
 
 ## The three guarantees
 

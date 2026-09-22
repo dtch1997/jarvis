@@ -161,8 +161,11 @@ then cron fires **waves**: N parallel workers each claim one mini-spec'd
 question (hypothesis / intervention / metric — no spend without one), write
 evidence to their own files, and one synthesizer merges findings, retires
 questions, and replenishes the queue ranked against what has been learned.
-Policy lives in [keeper-explore.md](keeper-explore.md); interests.md is
-hot-editable and steers a running exploration.
+[keeper-explore.md](keeper-explore.md) is the policy *template*: each project
+gets its own copy as `policy.md`, hot-editable per project — strippable down
+to nearly "here is a free-form instruction, execute it" — while the
+guarantees below stay enforced in plumbing regardless. interests.md is
+likewise hot-editable and steers a running exploration.
 
 Explore mode makes three guarantees, each enforced in plumbing rather than
 hoped for in prompts:
