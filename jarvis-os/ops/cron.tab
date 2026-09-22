@@ -148,3 +148,12 @@ PATH=/home/daniel/.local/bin:/usr/local/bin:/usr/bin:/bin
 # as a review PR for checkbox veto; Tuesday 06:45 so the PR surfaces in that
 # morning's edition.
 #PAUSED# 45 6 * * 2 cd /home/daniel/jarvis/jarvis-os && /home/daniel/.local/bin/claude -p "Run a goal-review cycle per .claude/skills/goal-review/SKILL.md. Follow its hard rules exactly — propose-only, report even if nothing changed, open the review PR (no lane label needed — it merges on green)." --dangerously-skip-permissions >> /home/daniel/.claude/logs/goal-review.log 2>&1
+
+# jarvis2: half-hourly keeper tick — THE JARVIS 2.0 autonomy switch (jarvis2/
+# README "Running it"). Runs due ticks: research-project keeper sessions and
+# explore-mode waves (jarvis2/keeper-explore.md). No due projects = cheap
+# no-op; jarvis2's own .tick.lock skips overlapping firings (a 55m explore
+# wave under a 30m cadence is expected). Calls the deployed checkout path
+# directly so `gazette version switch` rollbacks govern it like everything
+# else. Sources ~/.env for work-level creds (bellhop/HF/etc).
+*/30 * * * * set -a; . /home/daniel/.env; set +a; /home/daniel/jarvis/jarvis2/bin/jarvis tick >> /home/daniel/.claude/logs/jarvis2-tick.log 2>&1
