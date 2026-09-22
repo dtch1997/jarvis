@@ -188,6 +188,15 @@ def mode_of(cfg: dict) -> str:
     return cfg.get("mode", "research")
 
 
+def policy_ref(pdir: Path) -> str:
+    """Per-project policy: an explore project gets its own copy of
+    keeper-explore.md as policy.md at birth. Like interests.md it is
+    hot-editable mid-run — including stripped down to near-nothing for a
+    free-form exploration — without touching any other project or the
+    template. Fallback covers projects born before this existed."""
+    return "./policy.md" if (pdir / "policy.md").exists() else str(EXPLORER_DOC)
+
+
 def hours_cap(cfg: dict) -> float:
     return float(cfg.get("budget", {}).get("hours", DEFAULT_EXPLORE_HOURS))
 
@@ -246,6 +255,8 @@ def cmd_new(args) -> None:
             .replace("{{USD}}", str(args.budget_usd))
             .replace("{{PARALLELISM}}", str(args.parallelism))
         )
+    if args.explore:
+        shutil.copy(EXPLORER_DOC, pdir / "policy.md")  # project-local, editable
     save_state(pdir, load_state(pdir))  # materialize state.json
     append_log(pdir, {"event": "created", "idea": args.idea.strip()})
     git("add", str(pdir))
@@ -335,7 +346,7 @@ def build_prompt(slug: str, tick_id: str, st: dict, spend: float, cap: float,
             f"You are the SURVEY session for jarvis2 explore project '{slug}', tick {tick_id} — "
             f"its first tick. Daniel's interests are in ./interests.md (verbatim); the repo under "
             f"exploration is {repo or '(none — idea-space exploration)'}. Your policy is "
-            f"{EXPLORER_DOC} (Survey role): clone the repo to work/repo/ if one is set, survey it, "
+            f"{policy_ref(PROJECTS / slug)} (Survey role): clone the repo to work/repo/ if one is set, survey it, "
             f"seed questions/queue/ with at least {2 * n} mini-spec'd questions, write frontier.md. "
             + autonomy_clause(slug, spend, cap, hours_spent(PROJECTS / slug), hours_cap(cfg))
             + f"End by committing and running: jarvis outcome {slug} spec-ready --note "
@@ -400,10 +411,10 @@ RUNNERS = {"tick": runner_tick}
 
 # ------------------------------------------------------------ explore waves
 
-def worker_prompt(slug: str, role: str, qrel: str | None, tick_id: str,
+def worker_prompt(slug: str, role: str, qrel: str | None, tick_id: str, policy: str,
                   spend: float, cap: float, hrs: float, hcap: float) -> str:
     base = autonomy_clause(slug, spend, cap, hrs, hcap) + (
-        f"Policy: {EXPLORER_DOC}. Ownership law: you write ONLY notes/ and work/ — never "
+        f"Policy: {policy}. Ownership law: you write ONLY notes/ and work/ — never "
         f"findings.md, frontier.md, questions/, reports/ — and you NEVER run git commit "
         f"(plumbing commits; parallel workers racing the git index is the alternative). ")
     if role == "generate":
@@ -421,11 +432,11 @@ def worker_prompt(slug: str, role: str, qrel: str | None, tick_id: str,
         + base)
 
 
-def synth_prompt(slug: str, tick_id: str, n_workers: int, spend: float, cap: float,
-                 hrs: float, hcap: float, parallelism: int) -> str:
+def synth_prompt(slug: str, tick_id: str, n_workers: int, policy: str, spend: float,
+                 cap: float, hrs: float, hcap: float, parallelism: int) -> str:
     return (
         f"You are the SYNTHESIZER for jarvis2 explore project '{slug}', closing wave {tick_id} "
-        f"({n_workers} workers just ran). Policy: {EXPLORER_DOC} (Synthesizer role): merge new "
+        f"({n_workers} workers just ran). Policy: {policy} (Synthesizer role): merge new "
         f"notes/ into findings.md and delete merged notes; retire questions/claimed/ to "
         f"questions/done/ with verdicts; replenish questions/queue/ to >= {2 * parallelism} "
         f"questions ranked against findings.md (discriminating, cheap-to-pilot first, no "
@@ -462,7 +473,8 @@ def run_explore_wave(pdir: Path, slug: str, cfg: dict, tick_id: str,
 
     def run_one(i: int, role: str, qrel: str | None) -> dict:
         wenv = {**env, "JARVIS2_ROLE": role, "JARVIS2_TICK_ID": f"{tick_id}.w{i}"}
-        prompt = worker_prompt(slug, role, qrel, tick_id, spend, cap, hrs, hcap)
+        prompt = worker_prompt(slug, role, qrel, tick_id, policy_ref(pdir),
+                               spend, cap, hrs, hcap)
         return runner_tick(pdir, cfg, prompt, wenv, timeout)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(len(roles), 1)) as ex:
@@ -482,8 +494,8 @@ def run_explore_wave(pdir: Path, slug: str, cfg: dict, tick_id: str,
               f"without a notes file — check projects/{slug}/log.jsonl", sev="warn")
 
     senv = {**env, "JARVIS2_ROLE": "synth"}
-    sacct = runner_tick(pdir, cfg, synth_prompt(slug, tick_id, len(roles), spend, cap,
-                                                hrs, hcap, n), senv, timeout)
+    sacct = runner_tick(pdir, cfg, synth_prompt(slug, tick_id, len(roles), policy_ref(pdir),
+                                                spend, cap, hrs, hcap, n), senv, timeout)
     append_log(pdir, {"event": "tick_end", "tick": tick_id, "role": "synth", **sacct})
     append_log(pdir, {"event": "wave_end", "tick": tick_id, "wall_s": round(time.time() - t0),
                       "workers": len(roles), "broken": broken,
@@ -514,7 +526,7 @@ def finish_exploration(pdir: Path, slug: str, cfg: dict, tick_id: str, env: dict
         f"Read findings.md, frontier.md and reports/, then write reports/final.md — a digest "
         f"Daniel reads in five minutes: top findings vs interests.md, dead ends worth not "
         f"repeating, and the open questions most worth a follow-up project. Policy: "
-        f"{EXPLORER_DOC}. End with: jarvis outcome {slug} progress --note \"final digest\".")
+        f"{policy_ref(pdir)}. End with: jarvis outcome {slug} progress --note \"final digest\".")
     acct = runner_tick(pdir, cfg, prompt, {**env, "JARVIS2_ROLE": "synth"}, timeout)
     append_log(pdir, {"event": "tick_end", "tick": tick_id, "role": "synth",
                       "wrapup": True, **acct})
