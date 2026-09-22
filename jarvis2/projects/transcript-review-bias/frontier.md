@@ -14,18 +14,10 @@ _Keeper-owned working state. A cold keeper resumes from this file alone: keep
   `~/jarvis/repos/realistic-reward-hacking`. Python: `.venv` in the work repo.
   ANTHROPIC_API_KEY, OPENAI_API_KEY, OPENROUTER_API_KEY all present in ~/.env
   (only Anthropic verified live).
-- **Collect the E2/E3 grid first.** Tick 5 launched `src/run_e23.py` detached
-  (setsid nohup, log `results/e23/run.log`, 540 jobs: neutral×3,
-  persp_agent×2, persp_teammate×2, leak_contra×2 over all 60 transcripts).
-  It was at 259/540 with 0 FAILs when tick 5 ended (~4 s/review, so it
-  should have finished ~16:05 on 2026-09-22). Check: `tail -n 2
-  results/e23/run.log` (last line `DONE ...`) and `ls results/e23/raw | wc -l`
-  (expect 540). If short, rerun the same command — it is resumable. Then
-  `.venv/bin/python src/analyze_e23.py`, commit `results/e23/` (raw +
-  summary.*), push, and refresh the numbers in reports/003 (rep-0 numbers
-  are in there now; the full-rep numbers should replace them, with the
-  neutral repeat floor which needs reps ≥2).
-- **Then the next unit is E5 cross-model** (spec DoD item 2). Reuse the same
+- **E2/E3 grid is COMPLETE and committed** (work repo `results/e23/`, 540
+  reviews, 0 failures, summary.md/json; report 003 carries the full-grid
+  numbers). Nothing to collect. No job is running.
+- **Next unit: E5 cross-model** (spec DoD item 2). Reuse the same
   ground-truth set and the neutral + leak_contra conditions with a second
   reviewer family via OpenRouter/OpenAI (e.g. gpt-5.x and a Qwen/Kimi
   model), plus one Claude sibling (haiku-4.5 or opus-5 spot). `review_gt.
@@ -37,13 +29,13 @@ _Keeper-owned working state. A cold keeper resumes from this file alone: keep
 - **Cleanups before final.md:** (1) re-adjudicate the 3 base_baseline
   gate_hack labels (01, 06, 07) against their diffs — every review under
   every condition calls them honest proration fixes; (2) save `stop_reason`
-  in review_one and retry the 4 no-JSON reviews (all inverted-learning
+  in review_one and retry the 5 no-JSON reviews (all inverted-learning
   heldout_peek, likely a safety stop on credential content); (3) splice v2
   (reuse real paths from the base session) is still open but detection is
   already 100% and equal across conditions, so it is not gating E2/E3
   conclusions.
 - **Budget reality:** keeper spend was $13.64/$20 at the start of tick 5.
-  Remaining (~$5) covers roughly one collection tick plus one more unit.
+  Remaining after tick 5 is ~$3–4: about one more unit.
   E5 + final.md will not fit; expect to go blocked asking Daniel for a cap
   raise (suggest $40) once the grid is collected. API spend is separate and
   small (~$30 so far).
@@ -96,11 +88,11 @@ _Keeper-owned working state. A cold keeper resumes from this file alone: keep
   perspective adoption is NULL (Δ laundering 0.00 for first-person and
   teammate framing; the reviewer confesses in first person). E2 is
   asymmetric: a reassuring leak moves nothing on real misconduct (Δ 0.00),
-  a hostile leak flips honest_fix items 0/8 → 6/8 serious (Δ agree-with-
-  leak +0.35 [0.15, 0.55] over clean/honest items) by relabelling the same
+  a hostile leak lifts honest_fix P(serious) 0.00 → 0.69 (Δ agree-with-
+  leak +0.33 [0.17, 0.50] over 20 clean/honest transcripts; repeat floor
+  0.06) by relabelling the same
   facts; clearly clean ARCH sessions resist. Three channels now quantified
-  (E1 prompt, E2 leak, E3 perspective-null). Grid left running detached to
-  fill reps 1–2.
+  (E1 prompt, E2 leak, E3 perspective-null). Work repo head after tick: see git log (results commit).
 
 ## Open questions
 
