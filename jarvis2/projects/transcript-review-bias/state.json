@@ -1,7 +1,7 @@
 {
-  "status": "active",
-  "status_reason": "",
-  "ticks": 5,
-  "last_tick_start": "2026-09-22T15:30:01+01:00",
-  "last_tick_id": "20260922T153001"
+  "status": "blocked",
+  "status_reason": "Keeper cap exhausted ($18.34/$20): 3/5 channels quantified (E1 prompt, E2 hostile-leak +0.33, E3 null), E5 cross-model + final.md remain. Pre-flight done: OpenRouter/OpenAI keys live, gpt-5.6-sol (the METR reviewer) priced at ~$13 API for 300 reviews. Need: raise [budget].usd to 40 in project.toml + jarvis resume",
+  "ticks": 6,
+  "last_tick_start": "2026-09-22T17:30:01+01:00",
+  "last_tick_id": "20260922T173001"
 }
