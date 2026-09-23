@@ -16,7 +16,10 @@ backstops (caps, hours ledger, auto-resume, done-downgrade), the ownership
 law (workers write own files only, only plumbing commits), and the queue
 mechanics (plumbing hands each worker one file from questions/queue/ — but a
 "question" file can be a single free-form line; the mini-spec format below is
-policy, not plumbing).
+policy, not plumbing). The prompts carry only that floor, so this file is the
+only place the procedure below lives. keeper-explore-minimal.md is the
+stripped arm of the policy A/B (`jarvis new --explore ... --policy
+keeper-explore-minimal.md`).
 
 ## The three guarantees
 
@@ -157,4 +160,7 @@ being 100 parallel vibes.
 Unchanged from keeper.md: GPU/heavy jobs through bellhop; a job that
 outlives your session gets launch-record-exit treatment — record in your
 notes file exactly how a later wave checks and collects it, flare info naming
-the running resource. Never leave a pod unrecorded.
+the running resource. Never leave a pod unrecorded. Pods only stop billing when something
+alive stops them — RunPod's server-side TTL has not fired in any incident on
+record (dtch1997/jarvis#214) — so name pods with the project slug (the daily
+pod digest attributes spend by name).
