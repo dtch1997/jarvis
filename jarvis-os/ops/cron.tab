@@ -26,8 +26,9 @@
 #   - nightly version cut + deploy: RESUMED (the sweep's rollback layer;
 #     they go together — merges land hourly, the box changes nightly).
 #   Still paused: everything needing ~/.env creds (threads scan/sweep,
-#   mailroom) and the model-judgment crons (watchman, goal-review,
-#   memory-consolidate) — those return on Daniel's explicit call.
+#   mailroom) and the model-judgment crons (watchman, goal-review)
+#   — those return on Daniel's explicit call. memory-consolidate RESUMED
+#   2026-09-23, monthly.
 # Resume the rest (per entry or wholesale):
 #   sed -i 's/^#PAUSED# //' ops/cron.tab   # via PR
 #   ops/install-cron.sh                    # reconcile the live crontab
@@ -52,8 +53,11 @@
 # belt-and-braces fallback.
 PATH=/home/daniel/.local/bin:/usr/local/bin:/usr/bin:/bin
 
-# memory-consolidate: weekly memory→wiki consolidation (jarvis wiki, PR #103)
-#PAUSED# 11 8 * * 1 cd /home/daniel/jarvis/jarvis-os && /home/daniel/.local/bin/claude -p "Run a memory consolidation per the procedure in .claude/skills/memory-consolidate/SKILL.md (if not on main yet, read it via: git show origin/llm-wiki:.claude/skills/memory-consolidate/SKILL.md). Follow its guardrails exactly; open the wiki PR; leave a summary in the log file." --dangerously-skip-permissions >> /home/daniel/.claude/logs/memory-consolidate.log 2>&1
+# memory-consolidate: MONTHLY memory→wiki consolidation (jarvis wiki, PR #103).
+#   Resumed + moved weekly→monthly 2026-09-23 (Daniel's call): a judgment pass over
+#   100+ memories every 7 days went shallow. Tripwires in the skill cover the gap
+#   (MEMORY.md >20KB, any memory >150 lines, >130 live memories).
+11 8 1 * * cd /home/daniel/jarvis/jarvis-os && /home/daniel/.local/bin/claude -p "Run a memory consolidation per the procedure in .claude/skills/memory-consolidate/SKILL.md. Follow its guardrails exactly; open the wiki PR; leave a summary in the log file." --dangerously-skip-permissions >> /home/daniel/.claude/logs/memory-consolidate.log 2>&1
 
 # pod-digest: the daily RunPod message — active pods, yesterday/today spend,
 # thread attribution per pod (source: jarvis-os/ops/pod-digest/). LIVE by
