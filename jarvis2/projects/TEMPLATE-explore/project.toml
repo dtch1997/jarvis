@@ -19,3 +19,7 @@ usd = {{USD}}
 
 [work]
 repo = "{{REPO}}"   # repo under exploration; survey clones it to work/repo/
+
+[pods]
+# reap_grace_minutes = 60   # pods released with `jarvis persisted` are terminated
+#                           # this long after the project stops ticking

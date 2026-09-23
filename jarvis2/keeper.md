@@ -31,6 +31,12 @@ without an outcome is flared as broken.
   (dtch1997/jarvis#214). GPU/heavy jobs go through bellhop; name every pod
   with the project slug (the daily pod digest attributes spend by name) and
   keep every live pod id in frontier.
+- **When the project stops ticking** (blocked, paused, dropped, done, budget
+  exhausted), the plumbing looks up live pods whose name contains the slug.
+  A pod you released with `jarvis persisted <slug> <pod-id> --note "<where
+  its outputs went>"` is terminated after a grace period (an hour by
+  default) unless the project resumes; any other live pod pages Daniel.
+  Release a pod once nothing on it is still needed.
 - **Resolve the pod's dependency pin set locally before launching.**
   Conflicts found on-pod burn pod-hours (a numpy/vllm clash once cost two
   full pod rounds).

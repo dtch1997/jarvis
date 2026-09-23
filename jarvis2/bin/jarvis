@@ -18,6 +18,9 @@ Commands:
   jarvis pause|resume|drop <slug> [--reason ...]
   jarvis outcome <slug> <progress|blocked|done|spec-ready> --note "..."
                                     record how a tick ended (called by the keeper)
+  jarvis persisted <slug> <pod-id>... --note "<where its outputs went>"
+                                    release a pod: terminated after a grace once
+                                    the project stops ticking (called by the keeper)
 """
 
 import argparse
@@ -30,7 +33,10 @@ import shutil
 import subprocess
 import sys
 import time
-from datetime import datetime
+import urllib.error
+import urllib.parse
+import urllib.request
+from datetime import datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent  # jarvis2/
@@ -46,6 +52,8 @@ DEFAULT_BUDGET_USD = 20.0
 DEFAULT_EXPLORE_HOURS = 16.0
 DEFAULT_EXPLORE_USD = 100.0
 DEFAULT_PARALLELISM = 4
+DEFAULT_REAP_GRACE_MIN = 60  # released pods outlive a stop this long; a resume cancels
+TICKING = ("incubating", "active")  # every other status means no keeper will come back
 
 # ---------------------------------------------------------------- helpers
 
@@ -149,6 +157,8 @@ def save_state(pdir: Path, st: dict) -> None:
 def set_status(pdir: Path, status: str, reason: str = "") -> None:
     st = load_state(pdir)
     st["status"], st["status_reason"] = status, reason
+    if status in TICKING:
+        st.pop("reap_due", None)  # resumed inside the grace: the pods are wanted again
     save_state(pdir, st)
 
 
@@ -224,6 +234,198 @@ def age_str(iso: str | None) -> str:
     if s < 86400:
         return f"{s // 3600}h ago"
     return f"{s // 86400}d ago"
+
+
+# ---------------------------------------------------------------- pod reaper
+#
+# A stopped project can keep spending on one thing: RunPod pods. RunPod's
+# server-side TTL has never fired (dtch1997/jarvis#214), and the spend audit's
+# biggest leaks were pods whose teardown process had died. So whenever a
+# project stops ticking, the plumbing lists live pods named with its slug and
+# splits them on the one bit of evidence only the keeper has:
+#
+#   released (`jarvis persisted`) — nothing on the pod is still needed, so the
+#       tick cron terminates it once [pods].reap_grace_minutes have passed,
+#       unless the project resumes first;
+#   everything else — page Daniel with ids and $/hr, terminate nothing. The
+#       plumbing cannot tell a leak from a launch-record-exit job a resumed
+#       project will collect, and terminating destroys the pod's disk.
+#
+# Best-effort by contract: a RunPod failure flares warn, never fails a command.
+
+RUNPOD_API = os.environ.get("JARVIS2_RUNPOD_API", "https://api.runpod.io/v2")
+LIVE_POD = ("RUNNING", "STARTING", "PROVISIONING")  # billing, or about to be
+
+
+class RunpodError(Exception):
+    def __init__(self, msg: str, status: int | None = None):
+        super().__init__(msg)
+        self.status = status
+
+
+def runpod(method: str, path: str) -> dict:
+    """One RunPod REST v2 call. The API 403s python-urllib's default
+    User-Agent, so send a curl one."""
+    key = os.environ.get("RUNPOD_API_KEY")
+    if not key:
+        raise RunpodError("RUNPOD_API_KEY is not set")
+    req = urllib.request.Request(RUNPOD_API + path, method=method, headers={
+        "Authorization": f"Bearer {key}", "User-Agent": "curl/8.5.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            body = r.read()
+        return json.loads(body) if body.strip() else {}
+    except urllib.error.HTTPError as e:
+        raise RunpodError(f"{method} {path}: HTTP {e.code}", e.code) from None
+    except (OSError, ValueError) as e:  # URLError, timeouts, a non-JSON body
+        raise RunpodError(f"{method} {path}: {e}") from None
+
+
+def list_pods() -> list[dict]:
+    pods, cursor = [], None
+    for _ in range(50):  # a paging bug must not hang `jarvis pause`
+        d = runpod("GET", "/pods?limit=100"
+                   + (f"&cursor={urllib.parse.quote(cursor)}" if cursor else ""))
+        pods += d.get("pods") or []
+        cursor = (d.get("pagination") or {}).get("nextCursor")
+        if not cursor:
+            break
+    return pods
+
+
+def terminate_pod(pod_id: str) -> None:
+    try:
+        runpod("DELETE", f"/pods/{urllib.parse.quote(pod_id)}")
+    except RunpodError as e:
+        if e.status != 404:  # already gone is the outcome we wanted
+            raise
+
+
+def pod_owner(name: str, slugs: list[str]) -> str | None:
+    """The project a pod belongs to: the longest slug its name contains, so
+    project 'grpo' never claims 'bellhop-grpo-sibling-e1' from 'grpo-sibling'."""
+    hits = [s for s in slugs if s in name.lower()]
+    return max(hits, key=len) if hits else None
+
+
+def live_pods(pods: list[dict], slug: str) -> list[dict]:
+    slugs = all_slugs()
+    return [p for p in pods if p.get("status") in LIVE_POD
+            and pod_owner(p.get("name") or "", slugs) == slug]
+
+
+def released_pods(pdir: Path) -> set[str]:
+    return {e["pod"] for e in read_log(pdir) if e.get("event") == "pod_persisted"}
+
+
+def pod_desc(p: dict) -> str:
+    g = p.get("gpu") or {}
+    hw = f"{g.get('count') or 1}x {g['id']}" if g.get("id") else "CPU"
+    return f"{p['id']} ({p.get('name')}, {hw}, ${p.get('cost') or 0:.2f}/hr)"
+
+
+def reap_grace_min(cfg: dict) -> float:
+    return float(cfg.get("pods", {}).get("reap_grace_minutes", DEFAULT_REAP_GRACE_MIN))
+
+
+def schedule_reap(pdir: Path, cfg: dict) -> str:
+    """Set (or keep an earlier) state.json reap_due; sweep_pods acts on it."""
+    st = load_state(pdir)
+    if not st.get("reap_due"):
+        due = datetime.now().astimezone() + timedelta(minutes=reap_grace_min(cfg))
+        st["reap_due"] = due.isoformat(timespec="seconds")
+        save_state(pdir, st)
+    return st["reap_due"]
+
+
+def reap_pods(pdir: Path, slug: str, trigger: str) -> None:
+    """The project just stopped ticking (`trigger` says how). Never raises."""
+    try:
+        pods = live_pods(list_pods(), slug)
+        released = released_pods(pdir)
+        freed = [p for p in pods if p["id"] in released]
+        held = [p for p in pods if p["id"] not in released]
+        rate = sum(p.get("cost") or 0 for p in pods)
+        due = schedule_reap(pdir, load_config(pdir)) if freed else None
+        append_log(pdir, {
+            "event": "pods_reaped", "trigger": trigger,
+            "live": [p["id"] for p in pods], "paged": [p["id"] for p in held],
+            "scheduled": [p["id"] for p in freed], "reap_due": due,
+            "usd_per_hr": round(rate, 2),
+            "note": f"{trigger}: {len(pods)} live pod(s), ${rate:.2f}/hr, "
+                    f"{len(held)} paged, {len(freed)} scheduled"})
+        if not pods:
+            return
+        msg = f"jarvis2/{slug} stopped ticking ({trigger}) with {len(pods)} live pod(s), ${rate:.2f}/hr."
+        if held:
+            msg += (f" NOT terminated, no outputs recorded as persisted: "
+                    f"{'; '.join(pod_desc(p) for p in held)} — `runpodctl remove pod <id>` "
+                    f"once nothing on it is needed.")
+        if freed:
+            msg += (f" Released by the keeper, terminating after {due[11:16]} unless "
+                    f"`jarvis resume {slug}`: {'; '.join(pod_desc(p) for p in freed)}.")
+        print(msg)
+        flare(msg, sev="page" if held else "info")
+    except Exception as e:  # best-effort by contract: reaper bugs included
+        append_log(pdir, {"event": "pods_reaped", "trigger": trigger, "error": str(e)[:200],
+                          "note": f"{trigger}: RunPod check failed"})
+        flare(f"jarvis2/{slug} stopped ticking ({trigger}) but the pod reaper could not check "
+              f"RunPod ({e}) — look for live pods named '{slug}' by hand", sev="warn")
+
+
+def sweep_pods() -> None:
+    """The cron half: terminate released pods of projects whose grace ran out.
+    Runs at the top of every `jarvis tick`, outside the tick lock so a long
+    wave cannot delay it, and calls RunPod only when some grace has expired.
+    Never raises."""
+    try:
+        now, due = datetime.now().astimezone(), []
+        for slug in all_slugs():
+            at = load_state(PROJECTS / slug).get("reap_due")
+            if at and datetime.fromisoformat(at) <= now:
+                due.append(slug)
+        if not due:
+            return
+        pods = list_pods()
+    except Exception as e:
+        flare(f"jarvis2: pod reaper sweep failed ({e}) — released pods stay up until the "
+              f"next tick retries", sev="warn")
+        return
+    for slug in due:
+        try:
+            sweep_project(PROJECTS / slug, slug, pods)
+        except Exception as e:
+            flare(f"jarvis2/{slug}: pod reaper sweep failed ({e})", sev="warn")
+
+
+def sweep_project(pdir: Path, slug: str, pods: list[dict]) -> None:
+    released = released_pods(pdir)
+    victims = [] if load_state(pdir)["status"] in TICKING else [
+        p for p in live_pods(pods, slug) if p["id"] in released]
+    reaped, failed = [], []
+    for p in victims:
+        try:
+            terminate_pod(p["id"])
+            reaped.append(p)
+        except RunpodError as e:
+            failed.append((p, e))
+    if victims:
+        append_log(pdir, {
+            "event": "pods_reaped", "trigger": "grace expired",
+            "terminated": [p["id"] for p in reaped], "failed": [p["id"] for p, _ in failed],
+            "usd_per_hr": round(sum(p.get("cost") or 0 for p in reaped), 2),
+            "note": f"grace expired: terminated {len(reaped)}, failed {len(failed)}"})
+    if reaped:
+        flare(f"jarvis2/{slug}: terminated {len(reaped)} released pod(s) after the grace: "
+              f"{'; '.join(pod_desc(p) for p in reaped)}")
+    if failed:
+        flare(f"jarvis2/{slug}: could not terminate released pod(s) "
+              f"{'; '.join(f'{pod_desc(p)}: {e}' for p, e in failed)} — retrying next tick; "
+              f"`runpodctl remove pod <id>` by hand", sev="warn")
+        return  # keep reap_due so the next tick retries
+    st = load_state(pdir)
+    st.pop("reap_due", None)
+    save_state(pdir, st)
 
 
 # ---------------------------------------------------------------- new
@@ -306,6 +508,8 @@ def cmd_status(args) -> None:
     print(f"  ticks: {st['ticks']}   spent: ${spent_usd(pdir):.2f} of "
           f"${budget_usd(cfg):.2f}   cadence: {cfg.get('cadence_minutes', DEFAULT_CADENCE_MIN)}m"
           f"   last tick: {age_str(st['last_tick_start'])}")
+    if st.get("reap_due"):
+        print(f"  pod reaper: released pods terminate after {st['reap_due']}")
     print("\nrecent log:")
     for e in read_log(pdir)[-6:]:
         extra = e.get("outcome") or e.get("note") or e.get("result_tail", "")
@@ -548,6 +752,7 @@ def finish_exploration(pdir: Path, slug: str, cfg: dict, tick_id: str, env: dict
     flare(f"jarvis2/{slug} DONE: {hcap:.1f}h of exploration delivered (${spend:.2f} of "
           f"${cap:.2f}) — digest: projects/{slug}/reports/final.md; to continue, raise "
           f"[budget].hours in project.toml and `jarvis resume {slug}`")
+    reap_pods(pdir, slug, "hours delivered")
     checkpoint(pdir, slug, tick_id)
 
 
@@ -560,6 +765,7 @@ def run_tick(slug: str) -> None:
         set_status(pdir, "blocked", f"unknown keeper runner '{runner_name}'")
         flare(f"jarvis2/{slug} BLOCKED: project.toml names keeper runner "
               f"'{runner_name}' but this CLI only knows {sorted(RUNNERS)}", sev="warn")
+        reap_pods(pdir, slug, "blocked")
         return
     spend, cap = spent_usd(pdir), budget_usd(cfg)
     if spend >= cap:
@@ -567,6 +773,7 @@ def run_tick(slug: str) -> None:
         append_log(pdir, {"event": "budget_exhausted", "spent": spend})
         flare(f"jarvis2/{slug} BLOCKED: budget exhausted (${spend:.2f} of ${cap:.2f}) — "
               f"raise [budget].usd in project.toml and `jarvis resume {slug}`", sev="warn")
+        reap_pods(pdir, slug, "budget exhausted")
         return
 
     tick_id = datetime.now().strftime("%Y%m%dT%H%M%S")
@@ -615,21 +822,25 @@ def checkpoint(pdir: Path, slug: str, tick_id: str) -> None:
         print(f"[{slug}] push failed: {push.stderr.strip()[:200]}", file=sys.stderr)
 
 
+def is_soft_block(pdir: Path) -> bool:
+    cfg, st = load_config(pdir), load_state(pdir)
+    if mode_of(cfg) != "explore" or st["status"] != "blocked":
+        return False
+    if st.get("status_reason", "").startswith(("budget exhausted", "unknown keeper runner")):
+        return False
+    outs = [e for e in read_log(pdir) if e.get("event") == "outcome"]
+    return not (len(outs) >= 2 and outs[-1]["outcome"] == outs[-2]["outcome"] == "blocked")
+
+
 def maybe_auto_resume(slug: str) -> None:
     """Autonomy guarantee, enforced: in explore mode a lone `blocked` is treated
     as a soft block and auto-resumed — it sticks only when two consecutive
     outcomes blocked (a rediscovered hard blocker). Plumbing-set blocks
     (budget exhausted, bad runner) always stick."""
     pdir = PROJECTS / slug
-    cfg, st = load_config(pdir), load_state(pdir)
-    if mode_of(cfg) != "explore" or st["status"] != "blocked":
+    if not is_soft_block(pdir):
         return
-    reason = st.get("status_reason", "")
-    if reason.startswith(("budget exhausted", "unknown keeper runner")):
-        return
-    outs = [e for e in read_log(pdir) if e.get("event") == "outcome"]
-    if len(outs) >= 2 and outs[-1]["outcome"] == outs[-2]["outcome"] == "blocked":
-        return
+    reason = load_state(pdir).get("status_reason", "")
     set_status(pdir, "active", "")
     append_log(pdir, {"event": "auto_resume", "note": reason})
     flare(f"jarvis2/{slug}: auto-resumed a soft block ('{reason[:80]}') per the explore "
@@ -637,6 +848,7 @@ def maybe_auto_resume(slug: str) -> None:
 
 
 def cmd_tick(args) -> None:
+    sweep_pods()  # before the lock: a long-running tick must not delay terminations
     lock = open(ROOT / ".tick.lock", "w")
     try:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -689,12 +901,15 @@ def cmd_outcome(args) -> None:
     if args.outcome == "blocked":
         set_status(pdir, "blocked", args.note)
         flare(f"jarvis2/{args.slug} BLOCKED: {args.note}", sev="warn")
+        if not is_soft_block(pdir):  # a soft block resumes next tick, pods still wanted
+            reap_pods(pdir, args.slug, "blocked")
     elif args.outcome == "done":
         missing = "" if (pdir / "reports" / "final.md").exists() \
             else " (WARNING: reports/final.md missing)"
         set_status(pdir, "done", args.note)
         flare(f"jarvis2/{args.slug} DONE{missing}: {args.note} — "
               f"final report: projects/{args.slug}/reports/final.md")
+        reap_pods(pdir, args.slug, "done")
     elif args.outcome == "spec-ready":
         set_status(pdir, "active", "")
         if mode_of(load_config(pdir)) == "explore":
@@ -708,11 +923,29 @@ def cmd_outcome(args) -> None:
     print(f"recorded: {args.slug} {args.outcome} (tick {tick})")
 
 
+def cmd_persisted(args) -> None:
+    """The keeper releases pods to the reaper: their outputs are safely off
+    them (or they never held anything unique). See the pod reaper section."""
+    pdir = project_dir(args.slug)
+    tick = os.environ.get("JARVIS2_TICK_ID", "manual")
+    for pod in args.pod_ids:
+        append_log(pdir, {"event": "pod_persisted", "tick": tick, "pod": pod,
+                          "note": args.note})
+    cfg, st = load_config(pdir), load_state(pdir)
+    when = f"{reap_grace_min(cfg):.0f}m after {args.slug} stops ticking"
+    if st["status"] not in TICKING:  # already stopped: the grace starts now
+        when = f"after {schedule_reap(pdir, cfg)[11:16]} ({args.slug} is {st['status']})"
+    print(f"recorded: {', '.join(args.pod_ids)} released — terminated {when} if still up "
+          f"(the reaper only sees pods whose name contains '{args.slug}')")
+
+
 # ---------------------------------------------------------------- lifecycle
 
 def cmd_pause(args) -> None:
-    set_status(project_dir(args.slug), "paused", args.reason or "paused by Daniel")
+    pdir = project_dir(args.slug)
+    set_status(pdir, "paused", args.reason or "paused by Daniel")
     print(f"{args.slug}: paused")
+    reap_pods(pdir, args.slug, "paused")
 
 
 def cmd_resume(args) -> None:
@@ -721,8 +954,10 @@ def cmd_resume(args) -> None:
 
 
 def cmd_drop(args) -> None:
-    set_status(project_dir(args.slug), "dropped", args.reason or "dropped")
+    pdir = project_dir(args.slug)
+    set_status(pdir, "dropped", args.reason or "dropped")
     print(f"{args.slug}: dropped (directory kept; delete by hand if you mean it)")
+    reap_pods(pdir, args.slug, "dropped")
 
 
 def cmd_open(args) -> None:
@@ -773,6 +1008,14 @@ def main() -> None:
     s.add_argument("--note", default="")
     s.add_argument("--tick")
     s.set_defaults(fn=cmd_outcome)
+
+    s = sub.add_parser("persisted", help="release pods to the reaper (keeper calls this)")
+    s.add_argument("slug")
+    s.add_argument("pod_ids", nargs="+", metavar="pod-id")
+    s.add_argument("--note", required=True,
+                   help="where the outputs went (gs://..., HF repo, commit), or why the "
+                        "pod holds nothing unique")
+    s.set_defaults(fn=cmd_persisted)
 
     for name, fn in (("pause", cmd_pause), ("resume", cmd_resume), ("drop", cmd_drop)):
         s = sub.add_parser(name)

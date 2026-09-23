@@ -89,6 +89,17 @@ spec tick — Daniel redirects by editing spec.md or pausing, never by
 pre-approving. The two things that always wait for him: raising a budget and
 resuming a blocked project.
 
+A stopped project can keep spending on one thing: RunPod pods, whose
+server-side TTL has never fired (dtch1997/jarvis#214). So whenever a project
+leaves the ticking states (blocked, paused, dropped, done, budget exhausted),
+the CLI lists live pods whose name contains the slug. Pods the keeper
+released with `jarvis persisted` (outputs safely off them) are terminated by
+the tick cron after `[pods].reap_grace_minutes` (default 60) unless the
+project resumes first. Any other live pod pages Daniel with ids and $/hr and
+is never terminated, because the plumbing cannot tell a leak from a job a
+resumed project will collect. Every pass logs `pods_reaped`; a RunPod failure
+flares warn and never fails the command.
+
 ## The interfaces
 
 **Daniel ↔ system.** In: `jarvis new "<idea>"` (plus editing any human-owned
@@ -101,7 +112,8 @@ one-paragraph prompt pointing at keeper.md; the keeper's one hard obligation
 back is `jarvis outcome <slug> <progress|blocked|done|spec-ready> --note`.
 Plumbing then *verifies* rather than trusts: no outcome recorded → warn
 flare; uncommitted changes → auto-checkpoint commit; over budget → blocked;
-over timeout → killed and flared. No silent failures, enforced in plumbing,
+over timeout → killed and flared; stopped with pods up → released pods
+terminated after a grace, the rest paged. No silent failures, enforced in plumbing,
 not hoped for in policy.
 
 **Policy ↔ runner — two orthogonal axes of "the keeper".** What the keeper

@@ -29,6 +29,11 @@ spec, not permission).
   server-side TTL has not fired in any incident on record
   (dtch1997/jarvis#214). GPU work goes through bellhop; name pods with the
   project slug (the daily pod digest attributes spend by name).
+- When the project stops ticking, the plumbing looks up live pods whose name
+  contains the slug: a pod released with `jarvis persisted <slug> <pod-id>
+  --note "<where its outputs went>"` is terminated after a grace period (an
+  hour by default) unless the project resumes; any other live pod pages
+  Daniel. Release a pod once nothing on it is still needed.
 - Resolve a pod's dependency pin set locally before launching; conflicts
   found on-pod burn pod-hours.
 

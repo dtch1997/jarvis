@@ -16,3 +16,7 @@ usd = 20.0   # hard cap on keeper spend; exhaustion => blocked + flare
 #                   # headless session per unit of work. Future: "resident"
 #                   # (long-lived session holding a lease), "fleet" (many
 #                   # communicating agents behind one accountable keeper).
+
+[pods]
+# reap_grace_minutes = 60   # pods released with `jarvis persisted` are terminated
+#                           # this long after the project stops ticking
