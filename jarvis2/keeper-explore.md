@@ -163,4 +163,10 @@ notes file exactly how a later wave checks and collects it, flare info naming
 the running resource. Never leave a pod unrecorded. Pods only stop billing when something
 alive stops them — RunPod's server-side TTL has not fired in any incident on
 record (dtch1997/jarvis#214) — so name pods with the project slug (the daily
-pod digest attributes spend by name).
+pod digest attributes spend by name). When the project stops ticking (hours
+delivered, a block that sticks, budget exhausted, paused, dropped), the
+plumbing looks up live pods whose name contains the slug: a pod released with
+`jarvis persisted <slug> <pod-id> --note "<where its outputs went>"` is
+terminated after a grace period (an hour by default) unless the project
+resumes; any other live pod pages Daniel. Release a pod once nothing on it
+is still needed.
