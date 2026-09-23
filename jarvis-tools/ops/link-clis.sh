@@ -18,6 +18,7 @@ CLIS=(
   ferry
   flare
   gazette
+  locksmith
   lw
   mailroom
   threads
