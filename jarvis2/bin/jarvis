@@ -10,7 +10,7 @@ Single-file, stdlib-only, readable top to bottom. The division of labor:
 Commands:
   jarvis new "<idea>" [--slug s]    idea -> projects/<slug>/  (status: incubating)
   jarvis new --explore "<interests>" --repo URL [--hours H] [--parallelism N]
-                                    point an exploration at a repo (mode: explore)
+             [--policy FILE]        point an exploration at a repo (mode: explore)
   jarvis list                       one row per project
   jarvis status <slug>              config, state, spend, recent log, frontier head
   jarvis tick [<slug>]              run due keeper ticks; bare form = cron entrypoint
@@ -233,11 +233,20 @@ def slugify(text: str) -> str:
     return "-".join(words[:5]) or "unnamed"
 
 
+def resolve_policy(name: str) -> Path:
+    """--policy takes a path, or a file name under jarvis2/ (keeper-explore-minimal.md)."""
+    for cand in (Path(name), ROOT / name):
+        if cand.is_file():
+            return cand.resolve()
+    die(f"--policy {name}: no such file (looked in . and {ROOT})")
+
+
 def cmd_new(args) -> None:
     slug = args.slug or slugify(args.idea)
     pdir = PROJECTS / slug
     if pdir.exists():
         die(f"projects/{slug} already exists")
+    policy = resolve_policy(args.policy) if args.explore else None
     template = TEMPLATE_EXPLORE if args.explore else TEMPLATE
     shutil.copytree(template, pdir)
     date = datetime.now().strftime("%Y-%m-%d")
@@ -255,17 +264,18 @@ def cmd_new(args) -> None:
             .replace("{{USD}}", str(args.budget_usd))
             .replace("{{PARALLELISM}}", str(args.parallelism))
         )
-    if args.explore:
-        shutil.copy(EXPLORER_DOC, pdir / "policy.md")  # project-local, editable
+    if policy:
+        shutil.copy(policy, pdir / "policy.md")  # project-local, editable
     save_state(pdir, load_state(pdir))  # materialize state.json
-    append_log(pdir, {"event": "created", "idea": args.idea.strip()})
+    append_log(pdir, {"event": "created", "idea": args.idea.strip(),
+                      **({"policy": policy.name} if policy else {})})
     git("add", str(pdir))
     git("commit", "-m", f"jarvis2/{slug}: new project (incubating)")
     print(f"created projects/{slug} (incubating)")
     if args.explore:
         print(f"explore mode: {args.hours}h x {args.parallelism} workers, "
-              f"${args.budget_usd:.0f} cap — survey tick seeds the question queue: "
-              f"jarvis tick {slug}")
+              f"${args.budget_usd:.0f} cap, policy {policy.name} — survey tick seeds "
+              f"the question queue: jarvis tick {slug}")
     else:
         print(f"next tick drafts the spec: jarvis tick {slug}")
 
@@ -329,7 +339,8 @@ def autonomy_clause(slug: str, spend: float, cap: float, hrs: float, hcap: float
         f"Standing authorization: spend inside the caps (${spend:.2f} of ${cap:.2f} used; "
         f"{hrs:.1f}h of {hcap:.1f}h delivered) is PRE-APPROVED — the plumbing enforces the caps, "
         f"you never ask, hesitate, or leave cheap experiments unrun to be safe. Every decision is "
-        f"yours: decide with best judgment and record it in frontier.md Decisions. 'blocked' is "
+        f"yours: decide with best judgment and record it (workers: in your notes file; survey and "
+        f"synthesizer: in frontier.md Decisions). 'blocked' is "
         f"ONLY for hard external blockers (missing credential, service down, no access) — never "
         f"'needs a decision'. There is no early finish: a dead end means the next question, an "
         f"empty queue means generating questions IS the work. "
@@ -344,10 +355,12 @@ def build_prompt(slug: str, tick_id: str, st: dict, spend: float, cap: float,
         repo = cfg.get("work", {}).get("repo", "")
         return (
             f"You are the SURVEY session for jarvis2 explore project '{slug}', tick {tick_id} — "
-            f"its first tick. Daniel's interests are in ./interests.md (verbatim); the repo under "
-            f"exploration is {repo or '(none — idea-space exploration)'}. Your policy is "
-            f"{policy_ref(PROJECTS / slug)} (Survey role): clone the repo to work/repo/ if one is set, survey it, "
-            f"seed questions/queue/ with at least {2 * n} mini-spec'd questions, write frontier.md. "
+            f"its first tick. Read your policy first: {policy_ref(PROJECTS / slug)} (Survey role). "
+            f"Daniel's interests are in ./interests.md (verbatim); the repo under exploration is "
+            f"{repo or '(none — idea-space exploration)'} (clone it to work/repo/, which is "
+            f"git-ignored). Leave questions/queue/ holding question files named q-NNN-<slug>.md — "
+            f"the plumbing hands one to each of {n} parallel workers per wave — and write "
+            f"frontier.md. "
             + autonomy_clause(slug, spend, cap, hours_spent(PROJECTS / slug), hours_cap(cfg))
             + f"End by committing and running: jarvis outcome {slug} spec-ready --note "
             f"\"<one-line queue summary>\". Waves of {n} parallel workers start next tick."
@@ -413,22 +426,23 @@ RUNNERS = {"tick": runner_tick}
 
 def worker_prompt(slug: str, role: str, qrel: str | None, tick_id: str, policy: str,
                   spend: float, cap: float, hrs: float, hcap: float) -> str:
+    # Prompts carry only the floor — role, the files the plumbing checks, the
+    # ownership law, the standing authorization. Procedure lives in the
+    # project's policy.md, so stripping that file really strips the session.
     base = autonomy_clause(slug, spend, cap, hrs, hcap) + (
-        f"Policy: {policy}. Ownership law: you write ONLY notes/ and work/ — never "
-        f"findings.md, frontier.md, questions/, reports/ — and you NEVER run git commit "
+        f"Read your policy first: {policy}. Ownership law: you write ONLY notes/ and work/ — "
+        f"never findings.md, frontier.md, questions/, reports/ — and you NEVER run git commit "
         f"(plumbing commits; parallel workers racing the git index is the alternative). ")
     if role == "generate":
         return (
             f"You are the GENERATOR in a parallel exploration wave for jarvis2 project '{slug}' "
-            f"(tick {tick_id}): the question queue ran short. Read interests.md, findings.md, "
-            f"frontier.md and questions/, then draft diverse new mini-spec'd questions into "
+            f"(tick {tick_id}): the question queue ran short. Write new questions into "
             f"notes/generated-{tick_id}.md for the synthesizer to triage. " + base)
     return (
         f"You are one WORKER in a parallel exploration wave for jarvis2 project '{slug}' "
-        f"(tick {tick_id}). Your assigned question is ./{qrel} — work ONLY that question: "
-        f"sharpen its mini-spec if skeletal, pilot cheaply, scale if the pilot says something, "
-        f"and finish by writing notes/{Path(qrel).stem}-{tick_id}.md with verdict + evidence + "
-        f"follow-up questions. A worker that ends without a notes file is a broken worker. "
+        f"(tick {tick_id}). Your assigned question is ./{qrel} — work ONLY that question, and "
+        f"finish by writing what you found to notes/{Path(qrel).stem}-{tick_id}.md: the "
+        f"plumbing checks that file exists, and a worker without one is flared as broken. "
         + base)
 
 
@@ -436,11 +450,11 @@ def synth_prompt(slug: str, tick_id: str, n_workers: int, policy: str, spend: fl
                  cap: float, hrs: float, hcap: float, parallelism: int) -> str:
     return (
         f"You are the SYNTHESIZER for jarvis2 explore project '{slug}', closing wave {tick_id} "
-        f"({n_workers} workers just ran). Policy: {policy} (Synthesizer role): merge new "
-        f"notes/ into findings.md and delete merged notes; retire questions/claimed/ to "
-        f"questions/done/ with verdicts; replenish questions/queue/ to >= {2 * parallelism} "
-        f"questions ranked against findings.md (discriminating, cheap-to-pilot first, no "
-        f"near-duplicates); update frontier.md; digest report every ~5 waves or on a surprise. "
+        f"({n_workers} workers just ran). Read your policy first: {policy} (Synthesizer "
+        f"role). You own the shared state: fold the new notes/ files into findings.md, retire "
+        f"questions/claimed/, keep questions/queue/ stocked with q-NNN-<slug>.md files for the "
+        f"next wave of {parallelism} workers (the plumbing claims from there), and update "
+        f"frontier.md. "
         + autonomy_clause(slug, spend, cap, hrs, hcap)
         + f"End with: jarvis outcome {slug} progress --note \"<one line: wave verdicts>\"."
     )
@@ -525,8 +539,8 @@ def finish_exploration(pdir: Path, slug: str, cfg: dict, tick_id: str, env: dict
         f"the configured {hcap:.1f}h of exploration has been delivered ({hrs:.1f}h logged). "
         f"Read findings.md, frontier.md and reports/, then write reports/final.md — a digest "
         f"Daniel reads in five minutes: top findings vs interests.md, dead ends worth not "
-        f"repeating, and the open questions most worth a follow-up project. Policy: "
-        f"{policy_ref(pdir)}. End with: jarvis outcome {slug} progress --note \"final digest\".")
+        f"repeating, and the open questions most worth a follow-up project. Read your policy "
+        f"first: {policy_ref(pdir)}. End with: jarvis outcome {slug} progress --note \"final digest\".")
     acct = runner_tick(pdir, cfg, prompt, {**env, "JARVIS2_ROLE": "synth"}, timeout)
     append_log(pdir, {"event": "tick_end", "tick": tick_id, "role": "synth",
                       "wrapup": True, **acct})
@@ -736,6 +750,10 @@ def main() -> None:
                    help="(explore) workers per wave")
     s.add_argument("--budget-usd", type=float, default=DEFAULT_EXPLORE_USD,
                    help="(explore) spend cap; pre-approved up to this")
+    s.add_argument("--policy", default=EXPLORER_DOC.name,
+                   help="(explore) policy template copied in as the project's policy.md — "
+                        "keeper-explore.md (default, full) or keeper-explore-minimal.md "
+                        "(stripped), or any path")
     s.set_defaults(fn=cmd_new)
 
     s = sub.add_parser("list", help="one row per project")
