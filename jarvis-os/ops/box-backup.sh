@@ -16,9 +16,14 @@
 # — the GCS bucket is team-readable; bootstrap-box.sh recreates templates and
 # the keys are re-pasted by Daniel), ~/jarvis-memory (its own private repo,
 # pushed nightly by the 03:41 cron), the repos themselves, and venvs.
+#
+# Transport is rclone on the `gcs:` remote (env_auth, so ADC), not the gcloud
+# CLI. gcloud is a snap in /snap/bin, which is not on the cron PATH, and its
+# user session lapses every few days under Workspace session control. ADC
+# keeps refreshing through those lapses (issue #263).
 set -euo pipefail
 
-BUCKET="gs://alignment-team-general-storage/daniel/jarvis/box-backup"
+REMOTE="gcs:alignment-team-general-storage/daniel/jarvis/box-backup"
 KEEP_DAYS=14
 STAMP="$(date -u +%F)"
 TMP="$(mktemp -d)"
@@ -40,22 +45,23 @@ set -e
 [ "$rc" -le 1 ] || { flare "box-backup: tar failed rc=$rc" --sev warn || true; exit "$rc"; }
 
 if [ "${1:-}" = "--dry-run" ]; then
-    tar tzf "$TMP/state-$STAMP.tar.gz" | head -40
+    tar tzf "$TMP/state-$STAMP.tar.gz" | head -40 || true  # head closes the pipe early; pipefail would exit here
     du -h "$TMP/state-$STAMP.tar.gz"
     exit 0
 fi
 
-if ! gcloud storage cp -q "$TMP/state-$STAMP.tar.gz" "$BUCKET/nightly/state-$STAMP.tar.gz"; then
-    flare "box-backup: upload to GCS failed (gcloud auth expired?)" --sev warn || true
+if ! err="$(rclone copyto "$TMP/state-$STAMP.tar.gz" "$REMOTE/nightly/state-$STAMP.tar.gz" 2>&1)"; then
+    # Quote the real error: a guessed cause sends the fix the wrong way (#263).
+    flare "box-backup: upload to GCS failed: $(printf '%s\n' "$err" | tail -n 1)" --sev warn || true
     exit 1
 fi
 
 # Prune snapshots older than KEEP_DAYS (names are date-stamped, lexically sortable).
 cutoff="$(date -u -d "-$KEEP_DAYS days" +%F)"
-gcloud storage ls "$BUCKET/nightly/" 2>/dev/null | while read -r obj; do
-    d="$(basename "$obj" | sed -n 's/^state-\([0-9-]\{10\}\)\.tar\.gz$/\1/p')"
+rclone lsf "$REMOTE/nightly/" 2>/dev/null | while read -r name; do
+    d="$(printf '%s\n' "$name" | sed -n 's/^state-\([0-9-]\{10\}\)\.tar\.gz$/\1/p')"
     if [ -n "$d" ] && [ "$d" \< "$cutoff" ]; then
-        gcloud storage rm -q "$obj" || true
+        rclone deletefile "$REMOTE/nightly/$name" || true
     fi
 done
 

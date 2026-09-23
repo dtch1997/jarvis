@@ -37,6 +37,11 @@ if [[ "${1:-}" == "--check" ]]; then
   fi
 fi
 
+# Every entry in cron.tab appends to a log under these directories. If one is
+# missing, the shell cannot open the redirect and the job never starts, with
+# no error anywhere (every logged cron was dead 2026-09-16..21 — issue #263).
+mkdir -p "$HOME/.claude/logs" "$HOME/jarvis-data/pod-digest"
+
 rest="$(printf '%s\n' "$current" | awk -v b="$BEGIN" -v e="$END" '
   $0 == b { inblock = 1 } !inblock { print } $0 == e { inblock = 0 }')"
 
