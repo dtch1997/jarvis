@@ -101,6 +101,24 @@ UNREACHABLE $ip ${out##*: }${out:+ }(rc=$rc)"
 done
 '''
 
+# Runs on every RunPod node at start. RunPod hands its NCCL tuning (the IB HCA
+# list, the RoCE GID index, the socket NICs) to PID 1 only, and its images ship
+# without the RDMA userspace, so NCCL silently falls back to TCP sockets even
+# on nodes wired with 8x400Gb/s HCAs. Report that env, and install libibverbs +
+# the mlx5 provider (~5-10 s) when the node exposes RDMA devices.
+_NCCL_PREP = r'''
+tr '\0' '\n' < /proc/1/environ 2>/dev/null | grep -E '^NCCL_[A-Z0-9_]+=' | grep -v '^NCCL_VERSION=' | sed 's/^/ENV /'
+if ! ls /dev/infiniband/uverbs* >/dev/null 2>&1; then echo "RDMA no-devices"
+elif ldconfig -p 2>/dev/null | grep -q 'libibverbs.so.1'; then echo "RDMA ready"
+elif [ "$BELLHOP_RDMA_INSTALL" != 1 ]; then echo "RDMA libs-missing"
+elif ! command -v apt-get >/dev/null 2>&1; then echo "RDMA install-failed: no apt-get"
+elif (export DEBIAN_FRONTEND=noninteractive; apt-get update -qq &&
+      apt-get install -y -qq --no-install-recommends libibverbs1 ibverbs-providers librdmacm1
+     ) >/tmp/bellhop-rdma.log 2>&1; then echo "RDMA installed"
+else echo "RDMA install-failed: $(tail -n 1 /tmp/bellhop-rdma.log)"; fi
+'''
+_RDMA_OK = ("ready", "installed")
+
 
 @dataclass
 class ClusterConfig:
@@ -132,6 +150,11 @@ class ClusterConfig:
     # overlay IP; retried until this deadline, then PodNotReadyError (and
     # teardown). None skips the check.
     network_check_timeout: timedelta | None = timedelta(minutes=2)
+    # Use the nodes' RDMA fabric (InfiniBand or RoCE) for NCCL: install the
+    # verbs userspace at start if the image lacks it and pass RunPod's NCCL
+    # tuning through. Forced off (TCP sockets) when nodes span data centers.
+    # False = always TCP sockets (NCCL_IB_DISABLE=1).
+    infiniband: bool = True
     # auth / connection (per-node, same as PodConfig)
     ssh_key: str | None = None
     ssh_user: str = "root"
@@ -230,13 +253,18 @@ class Cluster:
                  rendezvous_port: int = DEFAULT_RDZV_PORT,
                  nccl_socket_ifname: str | None = "ens1",
                  workdir: str = "/workspace",
-                 data_centers: dict[int, str | None] | None = None):
+                 data_centers: dict[int, str | None] | None = None,
+                 provider_env: dict[int, dict[str, str]] | None = None):
         self.id = cluster_id
         self.nodes = nodes                     # index == NODE_RANK
         self.node_ips = node_ips               # rank -> overlay IP (no CIDR suffix)
         # rank -> provider data center, where known. RunPod has handed out
         # clusters spanning two (AP-IN-1 + AP-IN-2); see warn_if_split().
         self.data_centers = data_centers or {}
+        # rank -> the provider's own NCCL tuning (RunPod: NCCL_IB_HCA,
+        # NCCL_IB_GID_INDEX, NCCL_SOCKET_IFNAME, read from PID 1)
+        self.provider_env = provider_env or {}
+        self.ib_disabled: str | None = None    # reason NCCL is pinned to sockets
         self.rendezvous_port = rendezvous_port
         # bootstrap NIC for NCCL's out-of-band traffic. RunPod's default is the
         # "ens1" overlay NIC; other backends pass their own (None = NCCL picks).
@@ -252,14 +280,15 @@ class Cluster:
     def rank_env(self, rank: int) -> dict[str, str]:
         """The full documented cluster env for one rank.
 
-        Self-derived rather than read from the pod: RunPod puts its subset in
-        PID-1's env only (invisible to ssh sessions) and omits PRIMARY_*
-        entirely, so injecting our own copy is both necessary and sufficient.
+        The rendezvous is self-derived rather than read from the pod: RunPod
+        sets its copy on PID 1 only (invisible to ssh sessions), so bellhop
+        injects its own. The provider's NCCL tuning rides along underneath.
         """
         primary = self.node_ips[0]
         n = len(self.nodes)
         per = str(self.nodes[rank].config.gpu_count)
-        env = {
+        env = dict(self.provider_env.get(rank, {}))
+        env.update({
             "PRIMARY_ADDR": primary, "MASTER_ADDR": primary,
             "PRIMARY_PORT": str(self.rendezvous_port), "MASTER_PORT": str(self.rendezvous_port),
             "HOST_NODE_ADDR": f"{primary}:{self.rendezvous_port}",
@@ -268,11 +297,17 @@ class Cluster:
             "NUM_NODES": str(n),
             "NUM_TRAINERS": per,
             "WORLD_SIZE": str(n * int(per)),
-        }
-        if self.nccl_socket_ifname:
+        })
+        if self.nccl_socket_ifname and "NCCL_SOCKET_IFNAME" not in env:
             # on RunPod inter-node traffic must use the overlay NICs, never eth0
             env["NCCL_SOCKET_IFNAME"] = self.nccl_socket_ifname
+        if self.ib_disabled:
+            env["NCCL_IB_DISABLE"] = "1"
         return env
+
+    def disable_ib(self, reason: str) -> None:
+        """Pin NCCL to TCP sockets on every rank (``NCCL_IB_DISABLE=1``)."""
+        self.ib_disabled = self.ib_disabled or reason
 
     def warn_if_split(self) -> None:
         """One stderr line if the nodes sit in more than one data center."""
@@ -410,6 +445,48 @@ async def _discover_ranks(pods: list[Pod]) -> tuple[list[Pod], dict[int, str]]:
     return [by_rank[r] for r in range(len(pods))], ips
 
 
+async def _prepare_nccl(nodes: list[Pod], *, install: bool
+                        ) -> tuple[dict[int, dict[str, str]], dict[int, str]]:
+    """Per rank: the provider's PID-1 NCCL env, and the RDMA status after an
+    optional install ("ready" / "installed" / "no-devices" / "libs-missing" /
+    "install-failed: ...")."""
+    async def _one(rank: int) -> tuple[int, dict[str, str], str]:
+        res = await nodes[rank].exec(
+            _NCCL_PREP, env={"BELLHOP_RDMA_INSTALL": "1" if install else "0"}, timeout=600)
+        env: dict[str, str] = {}
+        status = f"check-failed: {(res.stderr or res.stdout).strip()[-200:]}"
+        for line in res.stdout.splitlines():
+            if line.startswith("ENV "):
+                k, _, v = line[4:].partition("=")
+                env[k] = v
+            elif line.startswith("RDMA "):
+                status = line[5:]
+        return rank, env, status
+
+    out = await asyncio.gather(*(_one(r) for r in range(len(nodes))))
+    return {r: env for r, env, _ in out}, {r: st for r, _, st in out}
+
+
+def _choose_transport(clu: Cluster, config: ClusterConfig, rdma: dict[int, str]) -> None:
+    """Decide IB vs TCP sockets for the whole cluster; say so when it's sockets."""
+    sites = {dc for dc in clu.data_centers.values() if dc}
+    if not config.infiniband:
+        clu.disable_ib("ClusterConfig(infiniband=False)")
+    elif len(sites) > 1:
+        # an IB fabric doesn't span sites: NCCL-over-IB hung on a live
+        # AP-IN-1 + AP-IN-2 cluster (2026-09-30) where TCP sockets worked
+        clu.disable_ib("nodes span data centers")
+        print(f"bellhop: cluster {clu.id}: InfiniBand disabled because the nodes span "
+              "data centers; NCCL will use TCP sockets. Pin ClusterConfig(data_center_id=...) "
+              "to keep every node on one fabric.", file=sys.stderr, flush=True)
+    else:
+        bad = {r: st for r, st in sorted(rdma.items()) if st not in _RDMA_OK}
+        if bad:
+            where = ", ".join(f"rank {r}: {st}" for r, st in bad.items())
+            print(f"bellhop: cluster {clu.id}: no usable RDMA ({where}); NCCL will fall "
+                  "back to TCP sockets for inter-node traffic", file=sys.stderr, flush=True)
+
+
 async def _lifetime_watchdog(clu: Cluster, gql: RunpodGraphQL, rest: RunpodRest,
                              lifetime: timedelta) -> None:
     # tears the cluster down out from under any still-running exec — its ssh
@@ -455,9 +532,12 @@ async def cluster(config: ClusterConfig, *, api_key: str | None = None):
             await asyncio.gather(*(p._wait_provision() for p in pods))
             await asyncio.gather(*(p._wait_ready() for p in pods))
             nodes, ips = await _discover_ranks(pods)
+            penv, rdma = await _prepare_nccl(nodes, install=config.infiniband)
             clu = Cluster(created["id"], nodes, ips, config.rendezvous_port,
-                          data_centers={r: n.data_center for r, n in enumerate(nodes)})
+                          data_centers={r: n.data_center for r, n in enumerate(nodes)},
+                          provider_env=penv)
             clu.warn_if_split()
+            _choose_transport(clu, config, rdma)
             if config.network_check_timeout:
                 await clu.check_network(config.network_check_timeout.total_seconds())
             watchdog = asyncio.create_task(
