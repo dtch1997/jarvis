@@ -272,7 +272,8 @@ Cluster-specific behavior to know about:
   ```
 
 Supported shapes: H100/H200/B200 (3200 Gbps interconnect) and A100
-(1600 Gbps), 2–8 nodes. Full API contract and live-probe findings:
+(1600 Gbps), 2–8 nodes. B300 (`gpu="B300"`) is accepted and priced by the
+cluster API too; its interconnect bandwidth isn't published yet. Full API contract and live-probe findings:
 [`docs/design/instant-clusters.md`](docs/design/instant-clusters.md).
 
 ### Multi-node on Nebius
