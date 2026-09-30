@@ -5,7 +5,7 @@ branch on failure mode instead of parsing exit codes:
 
     10 preflight, 20 provision, 30 never-ready,
     40 remote-job-failed, 41 exec-timeout, 42 remote-call-raised,
-    50 results-missing, 60 gcs-upload-failed.
+    50 results-missing, 60 gcs-upload-failed, 70 fleet-sandbox-failed.
 
 The hierarchy is provider-agnostic (RunPod *and* Modal): ``ProvisionError`` is
 raised when either a pod or a sandbox fails to come up, ``RemoteJobError`` when
@@ -116,3 +116,14 @@ class GcsUploadError(BellhopError):
     """Uploading the pulled artifacts to GCS failed."""
 
     exit_code = 60
+
+
+class SandboxError(BellhopError):
+    """A fleet sandbox itself failed: it is gone, it was killed, or the backend
+    API failed (see :mod:`bellhop.fleet`).
+
+    This is an infrastructure failure and never the workload's fault. An RL
+    env should mask the rollout rather than score it.
+    """
+
+    exit_code = 70
