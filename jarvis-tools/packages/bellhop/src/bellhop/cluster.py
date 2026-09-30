@@ -125,6 +125,10 @@ class ClusterConfig:
     # minimum is (the minimums track on-demand pod pricing).
     max_hourly_cost: float | None = None
     rendezvous_port: int = DEFAULT_RDZV_PORT
+    # Before the cluster is handed out, every rank must reach every peer's
+    # overlay IP; retried until this deadline, then PodNotReadyError (and
+    # teardown). None skips the check.
+    network_check_timeout: timedelta | None = timedelta(minutes=2)
     # auth / connection (per-node, same as PodConfig)
     ssh_key: str | None = None
     ssh_user: str = "root"
@@ -132,10 +136,6 @@ class ClusterConfig:
     provision_timeout: timedelta = timedelta(seconds=900)
     ready_timeout: timedelta = timedelta(seconds=900)
     poll_interval: float = 8.0
-    # Before the cluster is handed out, every rank must reach every peer's
-    # overlay IP; retried until this deadline, then PodNotReadyError (and
-    # teardown). None skips the check.
-    network_check_timeout: timedelta | None = timedelta(minutes=2)
     # client-side hard cap — there is NO server-side TTL for clusters
     max_lifetime: timedelta = timedelta(hours=24)
     name: str = "bellhop"                 # local bookkeeping only (no API field)
