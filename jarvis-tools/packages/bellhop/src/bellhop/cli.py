@@ -63,6 +63,18 @@ def _parser() -> argparse.ArgumentParser:
     g = csub.add_parser("gc", help="delete clusters older than a threshold")
     g.add_argument("--older-than-hours", type=float, default=24.0)
     g.add_argument("--dry-run", action="store_true", help="report only, delete nothing")
+
+    # Fleet sandboxes of a crashed run outlive it (Docker has no TTL at all)
+    f = sub.add_parser("fleet", help="sandbox fleets (bellhop.fleet)")
+    fsub = f.add_subparsers(dest="fleet_cmd", required=True)
+    fg = fsub.add_parser("gc", help="remove sandboxes that crashed runs left behind")
+    fg.add_argument("--backend", choices=["docker", "modal"], required=True)
+    fg.add_argument("--run", default=None, help="only this run id (default: every run)")
+    fg.add_argument("--older-than-hours", type=float, default=24.0,
+                    help="docker, without --run: only containers older than this (default 24)")
+    fg.add_argument("--app", default="bellhop-fleet", help="modal: the app the fleet used")
+    fg.add_argument("--all", action="store_true",
+                    help="modal, without --run: terminate every sandbox in the app")
     return p
 
 
@@ -122,10 +134,34 @@ def _clusters_main(args) -> int:
         return e.exit_code
 
 
+def _fleet_main(args) -> int:
+    from .fleet import gc_docker, gc_modal
+
+    try:
+        if args.backend == "docker":
+            age = None if args.run else timedelta(hours=args.older_than_hours)
+            n = asyncio.run(gc_docker(args.run, older_than=age))
+            scope = f"run {args.run}" if args.run else f"any run, older than {args.older_than_hours}h"
+        else:
+            if not (args.run or args.all):
+                print("ERROR: modal gc needs --run RUN, or --all for every sandbox in the app",
+                      file=sys.stderr)
+                return 2
+            n = asyncio.run(gc_modal(args.run, app_name=args.app))
+            scope = f"run {args.run}" if args.run else f"all of app {args.app}"
+        print(f"removed {n} {args.backend} sandbox(es) ({scope})")
+        return 0
+    except BellhopError as e:
+        print(f"ERROR [{type(e).__name__}]: {e}", file=sys.stderr)
+        return e.exit_code
+
+
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     if args.cmd == "clusters":
         return _clusters_main(args)
+    if args.cmd == "fleet":
+        return _fleet_main(args)
     env = json.loads(args.env_json) if args.env_json else {}
 
     backend = _build_backend(args, env)

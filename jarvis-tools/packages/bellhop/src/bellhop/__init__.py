@@ -1,4 +1,7 @@
-"""bellhop: check your code into an ephemeral box (RunPod pod or Modal sandbox), run it, bring results back, check out."""
+"""bellhop: check your code into an ephemeral box (RunPod pod or Modal sandbox), run it, bring results back, check out.
+
+For many short-lived sandboxes that run untrusted code (one per RL rollout), see :mod:`bellhop.fleet`.
+"""
 
 from .backend import ExecBox, ExecResult, open_box
 from .call import call
@@ -22,6 +25,7 @@ from .errors import (
     RemoteJobError,
     ResultsMissingError,
     RunpodError,
+    SandboxError,
     is_capacity_error,
 )
 from .graphql import RunpodGraphQL
@@ -50,5 +54,5 @@ __all__ = [
     # errors
     "BellhopError", "RunpodError", "PreflightError", "ProvisionError", "PodNotReadyError",
     "RemoteJobError", "ExecTimeoutError", "RemoteCallError", "ResultsMissingError",
-    "GcsUploadError", "is_capacity_error",
+    "GcsUploadError", "SandboxError", "is_capacity_error",
 ]

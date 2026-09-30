@@ -75,6 +75,7 @@ midway.
 | Call a Python function remotely, get the return value | `box.call(fn, ...)` | [Remote function calls](#remote-function-calls) |
 | Fan out a parameter sweep | `run_many()` | [Sweeps](#sweeps) |
 | Train across multiple nodes (100B-scale) | `run_cluster()` | [Multi-node clusters](#multi-node-runpod-instant-clusters) |
+| Run untrusted code in many short-lived sandboxes (one per RL rollout) | `bellhop.fleet` | [Sandbox fleets](#sandbox-fleets) |
 
 Everything takes either a `PodConfig` (RunPod) or a `ModalConfig` (Modal) —
 the pipelines are identical on both; see
@@ -301,6 +302,46 @@ There's no server-side TTL here either — the context manager + `max_lifetime`
 watchdog own teardown, and `gc_nebius(older_than=...)` reaps leaks by the
 `bellhop` name prefix.
 
+## Sandbox fleets
+
+A *fleet* runs code you don't trust: many short-lived, isolated containers,
+one per unit of work (an RL rollout, a grading job), driven command by
+command. Every other mode here runs *your* code on one box.
+
+```python
+from bellhop.fleet import Limits, ModalFleet
+
+async with ModalFleet(run_id="c4", limits=Limits(cpu=2, memory_mb=4096), max_live=64) as fleet:
+    sb = await fleet.open(task.image, name_hint=task.id)          # any registry image
+    res = await sb.exec("pytest -x", workdir="/testbed", timeout=300, max_output_bytes=1_000_000)
+    res.exit_code, res.output, res.timed_out, res.truncated       # stdout+stderr interleaved
+    await sb.write_file("/tmp/fix.patch", patch)
+    await sb.close()
+# leaving the block closes every sandbox and sweeps the run id
+```
+
+Two backends share the contract:
+
+- **`DockerFleet`** runs containers on the local Docker daemon, with hard
+  CPU/memory/pids limits, `network="none"` by default (or any Docker network),
+  a disk guard that kills a sandbox whose writable layer passes
+  `Limits.disk_gb`, and a free-space floor on Docker's disk.
+- **`ModalFleet`** runs Modal Sandboxes (gVisor). Any machine with a Modal
+  token can reach them, including a RunPod pod, which can't run Docker
+  itself. The network is blocked unless you pass
+  `outbound_domain_allowlist=`/`outbound_cidr_allowlist=`, and `max_lifetime`
+  (default 2 h) kills forgotten sandboxes server-side.
+
+`exec` runs `timeout T /bin/bash -lc "cd <workdir> && <command>"` inside the
+sandbox. Exit 124 means the timeout fired. A sandbox that dies raises
+`SandboxError`, which is an infra failure and never the workload's fault, so
+mask such rollouts rather than scoring them. `max_live` makes `open()` wait
+for a free slot, and `prefetch(images)` pulls (Docker) or builds (Modal)
+images before a run. If a crashed run leaves sandboxes behind, run
+`bellhop fleet gc --backend docker|modal --run <run_id>`. Design notes and the
+known backend differences are in
+[docs/design/sandbox-fleet.md](docs/design/sandbox-fleet.md).
+
 ## Backends & configuration
 
 Both backends implement the same contract (`exec` / `push` / `pull` /
@@ -373,7 +414,8 @@ config / missing key), `ProvisionError` (create failed — check
 `is_capacity_error(e)` for stock-outs), `PodNotReadyError`, `RemoteJobError`
 (`.remote_exit`, `.log_tail`), `ClusterJobError` (per-rank results),
 `ExecTimeoutError`, `RemoteCallError` (`.remote_traceback`),
-`ResultsMissingError`, `GcsUploadError`. All subclass `BellhopError`.
+`ResultsMissingError`, `GcsUploadError`, `SandboxError` (a fleet sandbox died). All subclass
+`BellhopError`.
 
 ## Development
 
@@ -382,6 +424,8 @@ pip install -e ".[dev]"
 pytest                              # offline unit tests (no box, no cost)
 RUNPOD_LIVE=1 pytest tests/integration_live.py -s     # billed RunPod e2e
 MODAL_LIVE=1  pytest tests/integration_modal.py -s    # billed Modal e2e
+BELLHOP_DOCKER_LIVE=1 pytest tests/integration_fleet.py -s   # fleet contract, local Docker
+MODAL_LIVE=1  pytest tests/integration_fleet.py -s    # fleet contract, Modal (~$0.01)
 ```
 
 ## License
