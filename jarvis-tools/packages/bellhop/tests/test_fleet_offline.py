@@ -409,8 +409,8 @@ def _fake_modal(sandbox=None, listed=()):
         def from_registry(ref, **kw):
             return Image(ref, kw)
 
-    async def create(**kw):
-        created.append(kw)
+    async def create(*args, **kw):
+        created.append({"args": args, **kw})
         return sandbox or _ModalSandbox()
 
     async def lookup(name, create_if_missing=False):
@@ -478,13 +478,15 @@ def test_modal_open_builds_one_image_per_ref_and_tags_the_run(monkeypatch):
     assert created[0]["image"] is created[1]["image"]           # image object cached per ref
     assert created[0]["image"].kw == {"add_python": "3.12"}
     assert created[0]["tags"][RUN_KEY] == "run-7" and created[1]["tags"][fleet_modal.NAME_KEY] == "b"
+    # the sandbox idles on its own process: flattened task images have no CMD, and Modal exits them at once
+    assert created[0]["args"] == fleet_modal.IDLE_COMMAND == ("/bin/sh", "-c", "tail -f /dev/null")
     assert a.id == "sb-1" and a.image == "repo:1"
 
 
 def test_modal_create_failure_is_a_sandbox_error(monkeypatch):
     mod, *_ = _fake_modal()
 
-    async def boom(**kw):
+    async def boom(*args, **kw):
         raise RuntimeError("ImageBuildError: no python")
     mod.Sandbox.create = _Aio(boom)
     monkeypatch.setattr(fleet_modal, "_import_modal", lambda: mod)

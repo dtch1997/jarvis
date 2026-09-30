@@ -11,7 +11,9 @@ container. The contract is DockerFleet's, with these differences:
 - **Limits.** CPU and memory go in as (request, limit) = (limit, limit), which
   matches Docker's hard caps. Modal has no pids knob and caps disk itself.
 - **Lifetime.** ``max_lifetime`` is Modal's server-side timeout, so a sandbox
-  the client forgot still dies on its own.
+  the client forgot still dies on its own. The sandbox's main process is an
+  idle ``tail -f /dev/null``, never the image's CMD, which a flattened image
+  lacks.
 - **Network.** Blocked unless you pass an outbound allowlist, which Modal
   enforces outside the sandbox.
 - **Kernel.** gVisor is a user-space kernel. Syscalls are slower and a few
@@ -50,6 +52,10 @@ from .base import (
 
 NAME_KEY = "bellhop-fleet-name"   # Modal tag holding open()'s name_hint
 MODAL_EXEC_TIMEOUT_RC = -1        # what ContainerProcess.wait() returns when exec(timeout=) fired
+# The sandbox's main process. Never rely on the image's own CMD: a flattened image
+# (`docker import`) has none, and Modal then exits the sandbox at once (code 128).
+# tail -f /dev/null idles on GNU and BusyBox alike, as in DockerFleet.
+IDLE_COMMAND = ("/bin/sh", "-c", "tail -f /dev/null")
 
 
 async def _drain(stream, cap: int | None, chunks: list[bytes]) -> bool:
@@ -253,7 +259,7 @@ class ModalFleet(Fleet):
             app = await self.app()
             kw = self.create_kwargs(image=self.image(image), app=app, env=env, limits=limits,
                                     name_hint=name_hint)
-            sb = await modal.Sandbox.create.aio(**kw)
+            sb = await modal.Sandbox.create.aio(*IDLE_COMMAND, **kw)
         except PreflightError:
             raise
         except Exception as e:  # noqa: BLE001

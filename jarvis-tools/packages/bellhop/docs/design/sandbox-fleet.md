@@ -80,6 +80,11 @@ from science-of-rl-motivations (PR #24), which ran the realistic-rl-pipeline pha
   Docker's hard caps. Modal has no pids or disk knob.
 - **Lifetime.** `max_lifetime` (default 2 h) is Modal's server-side timeout, so a leaked
   sandbox dies on its own.
+- **Main process.** Each sandbox runs an idle `tail -f /dev/null`, as Docker's does. It never
+  runs the image's CMD. Flattened images (`docker import`, like the MiMo task images) have no
+  CMD, and Modal then exits the sandbox at once with code 128, so every command fails with
+  "Sandbox is shutting down". `python:3.12-slim` hid this, because its CMD (`python3`) waits
+  on stdin.
 - **Network.** Blocked by default. `outbound_domain_allowlist` and `outbound_cidr_allowlist`
   pass through to Modal.
 
