@@ -110,6 +110,9 @@ class NebiusClusterConfig:
     provision_timeout: timedelta = timedelta(seconds=900)
     ready_timeout: timedelta = timedelta(seconds=900)
     poll_interval: float = 10.0
+    # every rank must reach every peer's private IP before the cluster is
+    # handed out (see Cluster.check_network); None skips the check
+    network_check_timeout: timedelta | None = timedelta(minutes=2)
     # client-side hard cap — Nebius has no server-side TTL either
     max_lifetime: timedelta = timedelta(hours=24)
     rendezvous_port: int = DEFAULT_RDZV_PORT
@@ -472,6 +475,8 @@ async def nebius_cluster(config: NebiusClusterConfig, *, sdk=None, _api=None):
         clu = Cluster(cluster_id, nodes, ips, config.rendezvous_port,
                       nccl_socket_ifname=config.nccl_socket_ifname,
                       workdir=f"/home/{config.ssh_user}")
+        if config.network_check_timeout:
+            await clu.check_network(config.network_check_timeout.total_seconds())
         watchdog = asyncio.create_task(
             _lifetime_watchdog(cluster_id, config.max_lifetime, _teardown_once))
         try:
