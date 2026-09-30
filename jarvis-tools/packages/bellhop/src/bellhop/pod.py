@@ -279,6 +279,11 @@ class Pod:
     def status(self) -> str:
         return (self._meta.get("desiredStatus") or "UNKNOWN").upper()
 
+    @property
+    def data_center(self) -> str | None:
+        """RunPod data center id (e.g. "EUR-IS-3"), once the pod has been polled."""
+        return (self._meta.get("machine") or {}).get("dataCenterId")
+
     def proxy_url(self, container_port: int) -> str:
         return f"https://{self.id}-{container_port}.proxy.runpod.net"
 

@@ -28,6 +28,7 @@ import contextlib
 import os
 import re
 import shlex
+import sys
 import time
 from dataclasses import dataclass, field
 from datetime import timedelta
@@ -72,6 +73,31 @@ query { myself { clusters { id name type gpuTypeId podCount gpuCountPerPod creat
 
 _MIN_PRICE_RE = re.compile(r"minimum price \(([\d.]+)\)")
 
+# Runs on every rank before a cluster is handed out: TCP-probe each peer's
+# NODE_ADDR (port 22) until all answer or the deadline passes. A refused
+# connection still proves the route works, so it counts as reachable; only
+# no-route / timeouts are failures. (Seen live: a rank whose first connection
+# to rank 0 got EHOSTUNREACH, which torch's rendezvous treats as fatal.)
+_NETCHECK = r'''
+pending="$BELLHOP_PEERS"; deadline=$((SECONDS + BELLHOP_NETCHECK_TIMEOUT))
+while :; do
+  next=""; errs=""
+  for ip in $pending; do
+    out=$(timeout "${BELLHOP_PROBE_TIMEOUT:-5}" bash -c "exec 3<>/dev/tcp/$ip/22" 2>&1); rc=$?
+    if [ $rc -eq 0 ] || printf '%s' "$out" | grep -qi refused; then
+      echo "REACHABLE $ip"
+    else
+      next="$next $ip"; errs="$errs
+UNREACHABLE $ip ${out##*: }${out:+ }(rc=$rc)"
+    fi
+  done
+  pending="${next# }"
+  [ -z "$pending" ] && exit 0
+  if [ $SECONDS -ge $deadline ]; then printf '%s\n' "$errs"; exit 3; fi
+  sleep 2
+done
+'''
+
 
 @dataclass
 class ClusterConfig:
@@ -99,6 +125,10 @@ class ClusterConfig:
     # minimum is (the minimums track on-demand pod pricing).
     max_hourly_cost: float | None = None
     rendezvous_port: int = DEFAULT_RDZV_PORT
+    # Before the cluster is handed out, every rank must reach every peer's
+    # overlay IP; retried until this deadline, then PodNotReadyError (and
+    # teardown). None skips the check.
+    network_check_timeout: timedelta | None = timedelta(minutes=2)
     # auth / connection (per-node, same as PodConfig)
     ssh_key: str | None = None
     ssh_user: str = "root"
@@ -187,10 +217,14 @@ class Cluster:
     def __init__(self, cluster_id: str, nodes: list[Pod], node_ips: dict[int, str],
                  rendezvous_port: int = DEFAULT_RDZV_PORT,
                  nccl_socket_ifname: str | None = "ens1",
-                 workdir: str = "/workspace"):
+                 workdir: str = "/workspace",
+                 data_centers: dict[int, str | None] | None = None):
         self.id = cluster_id
         self.nodes = nodes                     # index == NODE_RANK
         self.node_ips = node_ips               # rank -> overlay IP (no CIDR suffix)
+        # rank -> provider data center, where known. RunPod has handed out
+        # clusters spanning two (AP-IN-1 + AP-IN-2); see warn_if_split().
+        self.data_centers = data_centers or {}
         self.rendezvous_port = rendezvous_port
         # bootstrap NIC for NCCL's out-of-band traffic. RunPod's default is the
         # "ens1" overlay NIC; other backends pass their own (None = NCCL picks).
@@ -227,6 +261,41 @@ class Cluster:
             # on RunPod inter-node traffic must use the overlay NICs, never eth0
             env["NCCL_SOCKET_IFNAME"] = self.nccl_socket_ifname
         return env
+
+    def warn_if_split(self) -> None:
+        """One stderr line if the nodes sit in more than one data center."""
+        sites = sorted({dc for dc in self.data_centers.values() if dc})
+        if len(sites) > 1:
+            where = ", ".join(f"rank {r}: {dc}" for r, dc in sorted(self.data_centers.items()))
+            print(f"bellhop: WARNING cluster {self.id} spans data centers ({where}); "
+                  "inter-node traffic crosses sites and may be slower or unable to use "
+                  "InfiniBand", file=sys.stderr, flush=True)
+
+    async def check_network(self, timeout: float = 120.0) -> None:
+        """Prove every rank can reach every peer's overlay IP before any job runs.
+
+        Each rank TCP-probes its peers' ``node_ips`` (port 22), retrying until
+        all answer or ``timeout`` seconds pass. Raises :class:`PodNotReadyError`
+        naming each unreachable rank pair, so a broken placement fails here,
+        cheaply and legibly, instead of as a rendezvous traceback mid-job.
+        """
+        async def _one(rank: int) -> tuple[int, ExecResult]:
+            peers = " ".join(ip for r, ip in sorted(self.node_ips.items()) if r != rank)
+            env = {"BELLHOP_PEERS": peers, "BELLHOP_NETCHECK_TIMEOUT": str(int(timeout))}
+            return rank, await self.nodes[rank].exec(_NETCHECK, env=env, timeout=timeout + 60)
+
+        results = await asyncio.gather(*(_one(r) for r in range(len(self.nodes))))
+        problems = []
+        for rank, res in results:
+            if res.exit_code == 0:
+                continue
+            lines = [ln for ln in res.stdout.splitlines() if ln.startswith("UNREACHABLE")]
+            problems += [f"rank {rank} -> {ln.removeprefix('UNREACHABLE ')}" for ln in lines] or [
+                f"rank {rank}: check exited {res.exit_code}: {(res.stderr or res.stdout)[-300:]}"]
+        if problems:
+            raise PodNotReadyError(
+                f"cluster {self.id}: overlay network not routable after {timeout:.0f}s: "
+                + "; ".join(problems))
 
     async def exec_all(self, cmd: str, *, env: dict[str, str] | None = None,
                        timeout: float | None = None) -> list[ExecResult]:
@@ -365,7 +434,11 @@ async def cluster(config: ClusterConfig, *, api_key: str | None = None):
             await asyncio.gather(*(p._wait_provision() for p in pods))
             await asyncio.gather(*(p._wait_ready() for p in pods))
             nodes, ips = await _discover_ranks(pods)
-            clu = Cluster(created["id"], nodes, ips, config.rendezvous_port)
+            clu = Cluster(created["id"], nodes, ips, config.rendezvous_port,
+                          data_centers={r: n.data_center for r, n in enumerate(nodes)})
+            clu.warn_if_split()
+            if config.network_check_timeout:
+                await clu.check_network(config.network_check_timeout.total_seconds())
             watchdog = asyncio.create_task(
                 _lifetime_watchdog(clu, gql, rest, config.max_lifetime))
             try:

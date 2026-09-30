@@ -32,6 +32,8 @@ def _cfg(tmp_path, **kw):
     kw.setdefault("ssh_key", str(key))
     kw.setdefault("ready", _AlwaysReady())
     kw.setdefault("poll_interval", 0.0)
+    # the fake instances have no real ssh endpoint to probe from
+    kw.setdefault("network_check_timeout", None)
     return NebiusClusterConfig(**kw)
 
 
