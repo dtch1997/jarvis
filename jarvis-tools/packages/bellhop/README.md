@@ -259,6 +259,15 @@ Cluster-specific behavior to know about:
 - **Pricing is auto-bid.** Clusters require a `deployCost` bid, and RunPod
   only reveals the minimum in a rejection error — bellhop bids that minimum,
   capped by `ClusterConfig(max_hourly_cost=...)` (whole-cluster $/hr).
+- **Stock-outs are waited out.** Big shapes (2×8 H200) are often out of
+  stock for hours, so instead of failing, `cluster()` retries the create with
+  exponential backoff (15 s, doubling to a 2-min poll) for up to
+  `ClusterConfig(wait_for_capacity=...)`, default 1 h, then raises
+  `CapacityTimeoutError` (a `CapacityError`, which is a `ProvisionError`). A
+  stock-out rejection is free, so waiting costs only wall time; each retry
+  logs one line to stderr. `wait_for_capacity=None` fails fast. Pods do the
+  same, and the primitive itself, `bellhop.wait_for_capacity(attempt,
+  timeout=...)`, wraps any create coroutine of your own.
 - **First failing rank cancels the others** (with a static rendezvous the
   survivors would hang at the next collective) and raises `ClusterJobError`
   with per-rank results.
@@ -324,6 +333,7 @@ What genuinely differs stays backend-specific:
 | Extra TTL | `stop_after` (wall-clock compute halt) | `idle_timeout` (kill after inactivity) |
 | Image extras | — | `apt=`, `modal.Image`, `secrets=`, `volumes=` |
 | Placement | `cloud=` SECURE/COMMUNITY (+auto fallback on stock-out) | `region=`, `cpu=`, `memory=` |
+| Stock-outs | waited out with backoff: `wait_for_capacity=` (default 1 h; `None` = fail fast) | — |
 | Auth | `RUNPOD_API_KEY` + SSH keypair | Modal token |
 
 Implementation notes: the RunPod backend talks to the REST API directly over
