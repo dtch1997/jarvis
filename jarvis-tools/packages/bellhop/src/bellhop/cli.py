@@ -52,6 +52,9 @@ def _parser() -> argparse.ArgumentParser:
     r.add_argument("--container-disk-gb", type=int, default=20)
     r.add_argument("--cloud", choices=["SECURE", "COMMUNITY"], default="COMMUNITY")
     r.add_argument("--ready-timeout", type=int, default=420)
+    r.add_argument("--wait-for-capacity-minutes", type=float, default=None,
+                   help="RunPod: keep retrying a stock-out for up to this long (default 60; "
+                        "0 = fail fast on the first stock-out)")
     # Modal-specific
     r.add_argument("--pip", action="append", default=None, help="Modal: pip-install onto the image (repeatable)")
     r.add_argument("--timeout-hours", type=float, default=None, help="[deprecated] use --max-lifetime-hours")
@@ -108,6 +111,8 @@ def _build_backend(args, env: dict):
         env=dict(env),
         ready_timeout=timedelta(seconds=args.ready_timeout),
         max_lifetime=max_lifetime,
+        **({} if args.wait_for_capacity_minutes is None else
+           {"wait_for_capacity": timedelta(minutes=args.wait_for_capacity_minutes) or None}),
     )
 
 

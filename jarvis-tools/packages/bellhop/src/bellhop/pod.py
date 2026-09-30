@@ -14,11 +14,20 @@ import time
 import warnings
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
+from functools import partial
 from pathlib import Path
 from typing import AsyncIterator, Literal
 
 from .backend import TAR_EXCLUDES, ExecResult, KeepPolicy, announce_kept_box, should_teardown
-from .errors import ExecTimeoutError, PodNotReadyError, PreflightError, ProvisionError
+from .capacity import DEFAULT_CAPACITY_WAIT, wait_for_capacity
+from .errors import (
+    CapacityError,
+    ExecTimeoutError,
+    PodNotReadyError,
+    PreflightError,
+    ProvisionError,
+    is_capacity_error,
+)
 from .graphql import RunpodGraphQL
 from .probes import ReadyProbe, SshProbe
 from .rest import RunpodRest
@@ -122,6 +131,11 @@ class PodConfig:
     provision_timeout: timedelta | None = None
     ready_timeout: timedelta | None = None
     poll_interval: float = 8.0
+    # How long creation keeps retrying while RunPod is out of stock for the
+    # request (exponential backoff, 15s -> 2min between attempts; see
+    # bellhop.capacity). A stock-out rejection is free, so this only costs
+    # wall time. None = fail fast on the first stock-out.
+    wait_for_capacity: timedelta | None = DEFAULT_CAPACITY_WAIT
     # native server-side safety timers (GraphQL only; survive host death).
     # stop = halt compute (disk persists); terminate = delete (all billing stops).
     stop_after: timedelta | None = timedelta(hours=24)
@@ -451,6 +465,7 @@ async def _gql_create(config: PodConfig, api_key: str | None) -> dict:
         # cloud/GPU combinations were tried and failed differently — which
         # sent issue #27 chasing dockerArgs when the real story was capacity.
         errors: list[str] = []
+        excs: list[ProvisionError] = []
         for cloud in clouds:
             for gid in candidates:
                 gi = config.to_graphql_input(gpu_type_id=gid)
@@ -459,10 +474,41 @@ async def _gql_create(config: PodConfig, api_key: str | None) -> dict:
                     return await gql.create_pod_on_demand(gi)
                 except ProvisionError as e:
                     errors.append(f"{gid} on {cloud}: {e}")
-        raise ProvisionError(
+                    excs.append(e)
+        # all stock-outs -> retryable; anything else in the mix -> the request
+        # itself may be broken, so it must not be waited on
+        err_cls = CapacityError if all(map(is_capacity_error, excs)) else ProvisionError
+        raise err_cls(
             "graphql create failed on every cloud/GPU attempt:\n  "
             + "\n  ".join(errors)
         )
+
+
+async def _rest_create(config: PodConfig, rest: RunpodRest) -> dict:
+    """REST create with the COMMUNITY -> SECURE fallback; typed stock-outs."""
+    body = config.to_create_body()
+    try:
+        return await rest.create_pod(body)
+    except ProvisionError as first:
+        if not (config.cloud == "COMMUNITY" and config.cloud_fallback):
+            if is_capacity_error(first):
+                raise CapacityError(str(first)) from first
+            raise
+        body["cloudType"] = "SECURE"
+        try:
+            return await rest.create_pod(body)
+        except ProvisionError as second:
+            both_out = is_capacity_error(first) and is_capacity_error(second)
+            raise (CapacityError if both_out else ProvisionError)(
+                f"create failed on COMMUNITY ({first}) "
+                f"and on the SECURE fallback ({second})"
+            ) from second
+
+
+def _describe(config: PodConfig) -> str:
+    if config.resolved_compute != "gpu":
+        return "CPU pod"
+    return f"{config.gpu_count}x {config.gpu or config.gpu_id} pod"
 
 
 @contextlib.asynccontextmanager
@@ -479,7 +525,7 @@ async def pod(config: PodConfig, *, keep: KeepPolicy = False,
     async with RunpodRest(api_key=api_key) as rest:
         if config.has_ttl() and config.resolved_compute == "gpu":
             # Native server-side TTL is GraphQL-only (and on-demand = GPU only).
-            created = await _gql_create(config, api_key)
+            create = partial(_gql_create, config, api_key)
         else:
             if config.has_ttl():
                 warnings.warn(
@@ -488,21 +534,12 @@ async def pod(config: PodConfig, *, keep: KeepPolicy = False,
                     "process dies, nothing tears the pod down",
                     stacklevel=2,
                 )
-            body = config.to_create_body()
-            try:
-                created = await rest.create_pod(body)
-            except ProvisionError as first:
-                if config.cloud == "COMMUNITY" and config.cloud_fallback:
-                    body["cloudType"] = "SECURE"
-                    try:
-                        created = await rest.create_pod(body)
-                    except ProvisionError as second:
-                        raise ProvisionError(
-                            f"create failed on COMMUNITY ({first}) "
-                            f"and on the SECURE fallback ({second})"
-                        ) from second
-                else:
-                    raise
+            create = partial(_rest_create, config, rest)
+        # stock-outs are waited out here (typed CapacityError only), so callers
+        # don't have to hand-roll a retry loop around pod()
+        created = await wait_for_capacity(
+            create, timeout=config.wait_for_capacity, what=_describe(config),
+            retry_if=lambda e: isinstance(e, CapacityError))
         pod_id = created.get("id") or created.get("pod", {}).get("id")
         if not pod_id:
             raise ProvisionError(f"could not parse pod id from create response: {created}")

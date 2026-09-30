@@ -37,6 +37,20 @@ class ProvisionError(BellhopError):
     exit_code = 20
 
 
+class CapacityError(ProvisionError):
+    """The provider has no stock for this request right now.
+
+    Raised only when every attempted cloud/GPU combination came back out of
+    stock, so waiting and retrying can succeed (see
+    :func:`bellhop.wait_for_capacity`). A mix of stock-outs and other errors
+    stays a plain ``ProvisionError``: that request may be broken.
+    """
+
+
+class CapacityTimeoutError(CapacityError):
+    """``wait_for_capacity`` ran out of budget before stock appeared."""
+
+
 # RunPod's ways of saying "no stock", collected from live runs (issue #27's
 # probe matrix and stock-outs since). Heuristic by necessity — the API gives
 # prose, not codes — so keep entries lowercase substrings.
@@ -58,6 +72,8 @@ def is_capacity_error(err: BaseException) -> bool:
     possible when RunPod invents new prose; treat a True as reliable and a
     False as "unknown".
     """
+    if isinstance(err, CapacityError):
+        return True
     msg = str(err).lower()
     return any(sig in msg for sig in CAPACITY_SIGNATURES)
 

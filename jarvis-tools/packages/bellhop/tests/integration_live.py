@@ -29,6 +29,11 @@ pytestmark = pytest.mark.skipif(
 
 _TESTCODE = os.path.join(os.path.dirname(__file__), os.pardir, "_testcode")
 
+# Short stock-out patience: long enough to ride out a blip, short enough that
+# a real stock-out still becomes a skip inside the weekly job's 60-min budget
+# (the library default is 1 h per box).
+LIVE_CAPACITY_WAIT = timedelta(minutes=5)
+
 
 def _live(coro):
     """asyncio.run, but a capacity-shaped provision failure is a skip."""
@@ -56,6 +61,7 @@ async def _run():
         ready=SshProbe("true"),
         provision_timeout=timedelta(seconds=600),
         ready_timeout=timedelta(seconds=600),
+        wait_for_capacity=LIVE_CAPACITY_WAIT,
     )
     res = await run(spec, cfg)
     print("=== TEST RESULT ===")
@@ -94,6 +100,7 @@ async def _run_call():
         provision_timeout=timedelta(seconds=600),
         ready_timeout=timedelta(seconds=600),
         max_lifetime=timedelta(hours=1),     # safety backstop for a ~5min test
+        wait_for_capacity=LIVE_CAPACITY_WAIT,
     )
     factor = 3                               # captured by closure
 
@@ -144,6 +151,7 @@ async def _run_slow_boot():
         docker_start_cmd=sshd,
         container_disk_gb=15,
         name="bellhop-live-slowboot",
+        wait_for_capacity=LIVE_CAPACITY_WAIT,
     )
     assert cfg.provision_timeout == timedelta(seconds=1200)  # widened default resolved
     assert cfg.has_ttl()  # default timers on -> _gql_create path

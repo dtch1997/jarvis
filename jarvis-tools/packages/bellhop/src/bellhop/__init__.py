@@ -5,6 +5,7 @@ For many short-lived sandboxes that run untrusted code (one per RL rollout), see
 
 from .backend import ExecBox, ExecResult, open_box
 from .call import call
+from .capacity import Backoff, wait_for_capacity
 from .cluster import (
     Cluster,
     ClusterConfig,
@@ -16,6 +17,8 @@ from .cluster import (
 )
 from .errors import (
     BellhopError,
+    CapacityError,
+    CapacityTimeoutError,
     ExecTimeoutError,
     GcsUploadError,
     PodNotReadyError,
@@ -40,6 +43,7 @@ __all__ = [
     # backend-agnostic surface
     "run", "run_many", "RunSpec", "RunResult",
     "open_box", "ExecBox", "ExecResult", "call",
+    "wait_for_capacity", "Backoff",
     # RunPod backend
     "pod", "Pod", "PodConfig", "IMAGE_PRESETS", "GPU_ALIASES",
     "RunpodRest", "RunpodGraphQL",
@@ -53,6 +57,7 @@ __all__ = [
     "nebius_cluster", "NebiusClusterConfig", "NebiusNode", "gc_nebius",
     # errors
     "BellhopError", "RunpodError", "PreflightError", "ProvisionError", "PodNotReadyError",
+    "CapacityError", "CapacityTimeoutError",
     "RemoteJobError", "ExecTimeoutError", "RemoteCallError", "ResultsMissingError",
     "GcsUploadError", "SandboxError", "is_capacity_error",
 ]

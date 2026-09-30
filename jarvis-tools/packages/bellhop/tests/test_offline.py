@@ -451,7 +451,9 @@ def test_cloud_fallback_reports_both_errors(tmp_path, monkeypatch):
 
     podmod = importlib.import_module("bellhop.pod")
     monkeypatch.setattr(podmod, "RunpodRest", _FakeRest)
-    cfg = PodConfig(ssh_key=_tmp_ssh_key(tmp_path), stop_after=None, terminate_after=None)
+    # fail fast: this is about the error text, not the (default-on) stock-out wait
+    cfg = PodConfig(ssh_key=_tmp_ssh_key(tmp_path), stop_after=None, terminate_after=None,
+                    wait_for_capacity=None)
 
     async def _go():
         async with podmod.pod(cfg):
@@ -521,7 +523,8 @@ def test_cpu_pod_with_ttl_warns(tmp_path, monkeypatch):
 
     podmod = importlib.import_module("bellhop.pod")
     monkeypatch.setattr(podmod, "RunpodRest", _FakeRest)
-    cfg = PodConfig(ssh_key=_tmp_ssh_key(tmp_path), cloud_fallback=False)  # default TTL, CPU
+    cfg = PodConfig(ssh_key=_tmp_ssh_key(tmp_path), cloud_fallback=False,  # default TTL, CPU
+                    wait_for_capacity=None)
     assert cfg.has_ttl()
 
     async def _go():

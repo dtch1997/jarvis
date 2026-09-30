@@ -32,6 +32,7 @@ import sys
 import time
 from dataclasses import dataclass, field
 from datetime import timedelta
+from functools import partial
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -39,7 +40,9 @@ if TYPE_CHECKING:  # keep the nebius import (and its optional SDK) lazy + break 
     from .nebius_box import NebiusClusterConfig
 
 from .backend import ExecResult
+from .capacity import DEFAULT_CAPACITY_WAIT, wait_for_capacity
 from .errors import (
+    CapacityError,
     PodNotReadyError,
     PreflightError,
     ProvisionError,
@@ -136,6 +139,11 @@ class ClusterConfig:
     provision_timeout: timedelta = timedelta(seconds=900)
     ready_timeout: timedelta = timedelta(seconds=900)
     poll_interval: float = 8.0
+    # How long creation keeps retrying while RunPod has no stock for this
+    # shape (exponential backoff, 15s -> 2min; see bellhop.capacity). Big
+    # shapes (2x8 H200) are often out for hours; a stock-out rejection is free,
+    # so waiting costs only wall time. None = fail fast on the first stock-out.
+    wait_for_capacity: timedelta | None = DEFAULT_CAPACITY_WAIT
     # client-side hard cap — there is NO server-side TTL for clusters
     max_lifetime: timedelta = timedelta(hours=24)
     name: str = "bellhop"                 # local bookkeeping only (no API field)
@@ -161,6 +169,10 @@ class ClusterConfig:
 
     def resolve_gpu_ids(self) -> list[str]:
         return self._node_pod_config().resolve_gpu_ids()
+
+    def describe(self) -> str:
+        """Human name of the shape, e.g. '2x8 H200 cluster'."""
+        return f"{self.nodes}x{self.gpu_count} {self.gpu} cluster"
 
     def to_graphql_input(self, gpu_type_id: str) -> dict[str, Any]:
         inp: dict[str, Any] = {
@@ -345,8 +357,13 @@ class _RankFailed(Exception):
 
 
 async def _create_with_bid(gql: RunpodGraphQL, config: ClusterConfig) -> dict[str, Any]:
-    """Walk the GPU-candidate ladder; auto-bid the leaked per-node minimum."""
+    """Walk the GPU-candidate ladder; auto-bid the leaked per-node minimum.
+
+    Raises :class:`CapacityError` only when every candidate ended in a
+    stock-out (retryable); any other final error is a plain ProvisionError.
+    """
     last: Exception | None = None
+    finals: list[Exception] = []          # each candidate's final error
     for gpu_id in config.resolve_gpu_ids():
         inp = config.to_graphql_input(gpu_id)
         for _ in range(2):
@@ -366,8 +383,9 @@ async def _create_with_bid(gql: RunpodGraphQL, config: ClusterConfig) -> dict[st
                     inp["deployCost"] = total
                     continue
                 break  # stock-out or other error → next GPU candidate
-    if last is not None and is_capacity_error(last):
-        raise ProvisionError(f"no cluster capacity for {config.gpu}: {last}") from last
+        finals.append(last)
+    if finals and all(map(is_capacity_error, finals)):
+        raise CapacityError(f"no cluster capacity for {config.describe()}: {last}") from last
     raise ProvisionError(f"createCluster failed: {last}") from last
 
 
@@ -426,7 +444,10 @@ async def cluster(config: ClusterConfig, *, api_key: str | None = None):
     gql = RunpodGraphQL(api_key)
     rest = RunpodRest(api_key)
     try:
-        created = await _create_with_bid(gql, config)
+        # stock-outs are waited out here, so callers never hand-roll a retry loop
+        created = await wait_for_capacity(
+            partial(_create_with_bid, gql, config), timeout=config.wait_for_capacity,
+            what=config.describe(), retry_if=lambda e: isinstance(e, CapacityError))
         pod_ids = [p["id"] for p in created["pods"]]
         try:
             node_cfg = config._node_pod_config()
