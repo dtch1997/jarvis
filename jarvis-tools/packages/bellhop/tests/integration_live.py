@@ -1,4 +1,4 @@
-"""Live end-to-end tests: provision REAL RunPod pods (costs $).
+"""Live end-to-end tests: provision REAL RunPod pods and clusters (costs $).
 
 Skipped by default. Run explicitly with:
     RUNPOD_LIVE=1 pytest tests/integration_live.py -s
@@ -165,6 +165,82 @@ async def _run_slow_boot():
 
 def test_live_slow_boot():
     _live(_run_slow_boot())
+
+
+# One torchrun all-reduce across the two nodes, using only the env bellhop
+# injects. It also reports which NCCL transport ran and whether the node has
+# RDMA devices, so the test can hold bellhop to the InfiniBand path when it
+# should apply.
+_CLUSTER_TRAIN = r"""
+import json, os, pathlib, torch, torch.distributed as dist
+dist.init_process_group("nccl")
+rank, world = dist.get_rank(), dist.get_world_size()
+t = torch.ones(1 << 20, device=f"cuda:{int(os.environ['LOCAL_RANK'])}")
+dist.all_reduce(t)
+torch.cuda.synchronize()
+ok = bool((t == world).all())
+print(f"ALLREDUCE rank={rank} world={world} ok={ok}", flush=True)
+if rank == 0:
+    pathlib.Path("results").mkdir(exist_ok=True)
+    json.dump({"world_size": world, "allreduce_ok": ok,
+               "rdma_devices": pathlib.Path("/dev/infiniband").exists(),
+               "ib_disabled": os.environ.get("NCCL_IB_DISABLE") == "1"},
+              open("results/allreduce.json", "w"))
+dist.destroy_process_group()
+"""
+
+
+async def _run_cluster_e2e():
+    """run_cluster on a real 2-node Instant Cluster, 1 GPU per node (the
+    cheapest shape, ~$7/hr for ~1-2 min). It covers the capacity wait, the
+    start-time network check, rank discovery, push to every node, a torchrun
+    all-reduce off bellhop's env, the rank-0 pull, and cascade teardown. Weekly
+    coverage matters here: the cluster path went untested live for seven weeks
+    (Aug 11 to Sep 30) while RunPod's contract drifted underneath it."""
+    import dataclasses
+    import json
+    import tempfile
+
+    from bellhop import ClusterConfig, list_clusters, run_cluster
+
+    t0 = time.time()
+    out = tempfile.mkdtemp(prefix="bellhop-live-cluster-")
+    with tempfile.TemporaryDirectory() as code:
+        with open(os.path.join(code, "train.py"), "w") as f:
+            f.write(_CLUSTER_TRAIN)
+        spec = RunSpec(
+            slug="live-cluster", codebase=code, local_out=out, gcs_base=None,
+            env={"NCCL_DEBUG": "INFO"},
+            run='torchrun --nnodes "$NUM_NODES" --node_rank "$NODE_RANK" '
+                '--nproc_per_node "$NUM_TRAINERS" --rdzv_id live --rdzv_backend static '
+                '--rdzv_endpoint "$PRIMARY_ADDR:$PRIMARY_PORT" train.py',
+        )
+        cfg = ClusterConfig(
+            gpu="H100", nodes=2, gpu_count=1, container_disk_gb=20,
+            max_hourly_cost=10.0,                 # whole cluster; ~$7/hr at today's minimum
+            max_lifetime=timedelta(minutes=30),   # client-side watchdog; clusters have no TTL
+            wait_for_capacity=LIVE_CAPACITY_WAIT,
+            name="bellhop-live-cluster",
+        )
+        res = await run_cluster(spec, cfg)
+    print("=== CLUSTER RESULT ===")
+    print("elapsed_s:", round(time.time() - t0), "cluster:", res.pod_id)
+    print("log_tail:\n" + res.log_tail)
+    assert res.remote_exit == 0
+    facts = json.load(open(os.path.join(out, "results", "allreduce.json")))
+    assert facts["world_size"] == 2 and facts["allreduce_ok"]
+    log = open(os.path.join(out, "results", "run.log")).read()
+    # With bellhop's RDMA setup present, a single-site cluster whose nodes
+    # expose RDMA devices must run NCCL over the fabric, not TCP sockets.
+    has_rdma_setup = "infiniband" in {f.name for f in dataclasses.fields(ClusterConfig)}
+    if has_rdma_setup and facts["rdma_devices"] and not facts["ib_disabled"]:
+        assert "Using network IB" in log, "NCCL fell back to TCP sockets"
+    # teardown must not leave the (TTL-less) cluster billing
+    assert res.pod_id not in {c["id"] for c in await list_clusters()}
+
+
+def test_live_cluster():
+    _live(_run_cluster_e2e())
 
 
 if __name__ == "__main__":
