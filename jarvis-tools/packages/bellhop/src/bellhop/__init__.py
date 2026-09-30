@@ -11,6 +11,7 @@ from .cluster import (
     ClusterConfig,
     ClusterJobError,
     cluster,
+    delete_cluster,
     gc_clusters,
     list_clusters,
     run_cluster,
@@ -49,7 +50,7 @@ __all__ = [
     "RunpodRest", "RunpodGraphQL",
     # RunPod Instant Clusters (multi-node)
     "cluster", "Cluster", "ClusterConfig", "ClusterJobError",
-    "run_cluster", "list_clusters", "gc_clusters",
+    "run_cluster", "list_clusters", "gc_clusters", "delete_cluster",
     "ReadyProbe", "SshProbe", "TcpProbe", "HttpProbe", "LogMarkerProbe",
     # Modal backend
     "sandbox", "Sandbox", "ModalConfig",
