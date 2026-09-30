@@ -1,4 +1,5 @@
-# Weekly live regression suite against the real RunPod API (billed, ~$0.10/run).
+# Weekly live regression suite against the real RunPod API (billed, ~$0.30/run:
+# three single pods plus one 2-node Instant Cluster for ~2 min).
 # The thing under regression test is mostly RunPod's side of the contract
 # (error prose, readiness timing, GraphQL quirks) — offline tests can't see
 # that drift, so this runs on a schedule rather than per-PR. Failures file a
