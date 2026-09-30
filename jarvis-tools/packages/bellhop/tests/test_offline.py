@@ -57,6 +57,11 @@ def test_gpu_alias_expands_to_candidate_list():
     assert _cfg(gpu="rtx 4090").resolve_gpu_ids() == ["NVIDIA GeForce RTX 4090"]
 
 
+def test_gpu_alias_b300_is_full_gpu_sku():
+    # the MIG slice ("NVIDIA B300 SXM6 AC MIG 1g.34gb") must not ride along
+    assert _cfg(gpu="B300").resolve_gpu_ids() == ["NVIDIA B300 SXM6 AC"]
+
+
 def test_gpu_full_runpod_id_passes_verbatim():
     assert _cfg(gpu="NVIDIA GeForce RTX 4090").resolve_gpu_ids() == ["NVIDIA GeForce RTX 4090"]
 

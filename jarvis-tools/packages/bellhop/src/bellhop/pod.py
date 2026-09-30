@@ -47,7 +47,9 @@ GPU_ALIASES: dict[str, list[str]] = {
     "A100-80GB": ["NVIDIA A100 80GB PCIe", "NVIDIA A100-SXM4-80GB"],
     "A6000": ["NVIDIA RTX A6000"],
     "B200": ["NVIDIA B200"],
-    "H100": ["NVIDIA H100 80GB HBM3", "NVIDIA H100 PCIe", "NVIDIA H100 NVL"],
+    # full-GPU SKU only: the "... MIG 1g.34gb" slice is a different product
+    "B300": ["NVIDIA B300 SXM6 AC"],
+    "H100":["NVIDIA H100 80GB HBM3", "NVIDIA H100 PCIe", "NVIDIA H100 NVL"],
     "H200": ["NVIDIA H200"],
     "L4": ["NVIDIA L4"],
     "L40": ["NVIDIA L40"],
