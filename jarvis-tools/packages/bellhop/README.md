@@ -293,7 +293,16 @@ Cluster-specific behavior to know about:
   ```bash
   bellhop clusters list
   bellhop clusters gc --older-than-hours 24   # add --dry-run to preview
+  bellhop clusters delete <id>                # one cluster, e.g. a kept one
   ```
+- **A failed job can keep its cluster.** `run_cluster(spec, config,
+  keep="on-failure")` (or `cluster(config, keep=...)`) leaves the cluster up
+  when the job fails, so checkpoints and logs on the nodes can be recovered;
+  a cluster that fails to *start* is still deleted. Either way, a failed or
+  timed-out job first brings back every rank's `results_subdir` (with its
+  `run.log`) and any `RunSpec.salvage` paths — rank 0's into `local_out`,
+  rank N's into `local_out/rank<N>` — and `ClusterJobError`'s message ends
+  with the failing rank's output. A kept cluster bills until deleted.
 
 Supported shapes: H100/H200/B200 (3200 Gbps interconnect) and A100
 (1600 Gbps), 2–8 nodes. B300 (`gpu="B300"`) is accepted and priced by the

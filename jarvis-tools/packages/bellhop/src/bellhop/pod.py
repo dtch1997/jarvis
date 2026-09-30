@@ -433,7 +433,9 @@ class Pod:
 async def _communicate(proc, stdin: bytes | None = None, timeout: float = 600):
     try:
         out, err = await asyncio.wait_for(proc.communicate(stdin), timeout=timeout)
-    except asyncio.TimeoutError:
+    except (asyncio.TimeoutError, asyncio.CancelledError):
+        # timed out, or cancelled (e.g. exec_all stopping sibling ranks): don't
+        # leave the ssh client attached to the remote job, or alive past the loop
         with contextlib.suppress(ProcessLookupError):
             proc.kill()
         await proc.wait()

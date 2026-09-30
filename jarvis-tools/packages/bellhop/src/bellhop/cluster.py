@@ -39,10 +39,11 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:  # keep the nebius import (and its optional SDK) lazy + break the cycle
     from .nebius_box import NebiusClusterConfig
 
-from .backend import ExecResult
+from .backend import ExecResult, KeepPolicy, should_teardown
 from .capacity import DEFAULT_CAPACITY_WAIT, wait_for_capacity
 from .errors import (
     CapacityError,
+    ExecTimeoutError,
     PodNotReadyError,
     PreflightError,
     ProvisionError,
@@ -231,7 +232,12 @@ class ClusterConfig:
 
 
 class ClusterJobError(RemoteJobError):
-    """A cluster-wide exec failed on at least one rank."""
+    """A cluster-wide exec failed on at least one rank.
+
+    ``str(e)`` ends with the first failing rank's output tail, so a bare
+    traceback already says *why*; ``e.results`` holds every rank's
+    :class:`ExecResult` (``None`` = cancelled before it finished).
+    """
 
     def __init__(self, message: str, *, results: dict[int, ExecResult | None]):
         failed = {r: res.exit_code for r, res in results.items()
@@ -240,9 +246,12 @@ class ClusterJobError(RemoteJobError):
         tail = ""
         if first_bad >= 0 and results[first_bad] is not None:
             res = results[first_bad]
-            tail = (res.stderr or res.stdout)[-2000:]
-        super().__init__(f"{message} (failed ranks: {sorted(failed) or 'none — cancelled'})",
-                         remote_exit=failed.get(first_bad, -1), log_tail=tail)
+            tail = (res.stdout + res.stderr)[-2000:]
+        shown = "\n".join(tail.splitlines()[-30:])
+        detail = f"\n--- rank {first_bad} output (tail) ---\n{shown}" if shown.strip() else ""
+        super().__init__(
+            f"{message} (failed ranks: {sorted(failed) or 'none — cancelled'}){detail}",
+            remote_exit=failed.get(first_bad, -1), log_tail=tail)
         self.results = results
 
 
@@ -272,6 +281,12 @@ class Cluster:
         # where run_cluster stages jobs; must be writable by the ssh user
         # (RunPod containers are root, Nebius VMs use an unprivileged user)
         self.workdir = workdir
+        self.hold_reason: str | None = None   # see hold()
+
+    def hold(self, reason: str) -> None:
+        """Keep this cluster up on context exit regardless of the ``keep`` policy
+        (e.g. a salvage pull failed, so the only copy is still on the nodes)."""
+        self.hold_reason = self.hold_reason or reason
 
     @property
     def primary(self) -> Pod:
@@ -366,15 +381,17 @@ class Cluster:
                 await coro
         except _RankFailed as f:
             results[f.rank] = f.result
-            for t in tasks:
-                t.cancel()
-            done = await asyncio.gather(*tasks, return_exceptions=True)
-            for r, item in enumerate(done):
+            for r, item in enumerate(await _cancel_all(tasks)):
                 if isinstance(item, ExecResult):
                     results[r] = item
                 elif isinstance(item, _RankFailed):
                     results[item.rank] = item.result
             raise ClusterJobError(f"exec_all failed on cluster {self.id}", results=results) from None
+        except BaseException:
+            # a timeout (ExecTimeoutError) or our own cancellation: don't leave
+            # the sibling ranks' ssh sessions running behind the caller's back
+            await _cancel_all(tasks)
+            raise
         for r, t in enumerate(tasks):
             results[r] = t.result()
         return [results[r] for r in range(len(self.nodes))]  # type: ignore[misc]
@@ -389,6 +406,12 @@ class Cluster:
 class _RankFailed(Exception):
     def __init__(self, rank: int, result: ExecResult):
         self.rank, self.result = rank, result
+
+
+async def _cancel_all(tasks: list[asyncio.Task]) -> list[Any]:
+    for t in tasks:
+        t.cancel()
+    return await asyncio.gather(*tasks, return_exceptions=True)
 
 
 async def _create_with_bid(gql: RunpodGraphQL, config: ClusterConfig) -> dict[str, Any]:
@@ -499,6 +522,12 @@ async def _lifetime_watchdog(clu: Cluster, gql: RunpodGraphQL, rest: RunpodRest,
         await _delete_cluster(gql, rest, clu.id, [p.id for p in clu.nodes])
 
 
+def _announce_kept_cluster(cluster_id: str, why: str) -> None:
+    print(f"bellhop: cluster {cluster_id} KEPT ({why}). Clusters have no server-side "
+          f"TTL, so it bills at the full cluster rate until you delete it: "
+          f"bellhop clusters delete {cluster_id}", file=sys.stderr, flush=True)
+
+
 async def _delete_cluster(gql: RunpodGraphQL, rest: RunpodRest,
                           cluster_id: str, pod_ids: list[str]) -> None:
     """deleteCluster, then verify the cascade; fall back to per-pod deletes."""
@@ -515,8 +544,18 @@ async def _delete_cluster(gql: RunpodGraphQL, rest: RunpodRest,
 
 
 @contextlib.asynccontextmanager
-async def cluster(config: ClusterConfig, *, api_key: str | None = None):
-    """Provision an Instant Cluster, yield a :class:`Cluster`, always tear down."""
+async def cluster(config: ClusterConfig, *, keep: KeepPolicy = False,
+                  api_key: str | None = None):
+    """Provision an Instant Cluster, yield a :class:`Cluster`, tear it down.
+
+    ``keep`` is ``pod()``'s teardown policy: ``True`` never tears down,
+    ``"on-failure"`` keeps the cluster only when the ``async with`` body
+    raised, so what the job left on the nodes can be retrieved. A cluster that
+    fails to *start* is always deleted (unless ``keep=True``): there is nothing
+    on it yet. Clusters have no server-side TTL, so a kept one bills until
+    ``bellhop clusters delete <id>``.
+    """
+    should_teardown(keep, failed=False)           # validate the policy before spending money
     config._node_pod_config().resolve_ssh_key()   # preflight before spending money
     gql = RunpodGraphQL(api_key)
     rest = RunpodRest(api_key)
@@ -526,6 +565,9 @@ async def cluster(config: ClusterConfig, *, api_key: str | None = None):
             partial(_create_with_bid, gql, config), timeout=config.wait_for_capacity,
             what=config.describe(), retry_if=lambda e: isinstance(e, CapacityError))
         pod_ids = [p["id"] for p in created["pods"]]
+        clu: Cluster | None = None
+        started = body_failed = False
+        watchdog = None
         try:
             node_cfg = config._node_pod_config()
             pods = [Pod(rest, pid, node_cfg) for pid in pod_ids]
@@ -542,19 +584,29 @@ async def cluster(config: ClusterConfig, *, api_key: str | None = None):
                 await clu.check_network(config.network_check_timeout.total_seconds())
             watchdog = asyncio.create_task(
                 _lifetime_watchdog(clu, gql, rest, config.max_lifetime))
+            started = body_failed = True
             try:
                 yield clu
+                body_failed = False
             finally:
                 watchdog.cancel()
         finally:
-            await _delete_cluster(gql, rest, created["id"], pod_ids)
+            fired = watchdog is not None and watchdog.done() and not watchdog.cancelled()
+            held = clu.hold_reason if clu is not None else None
+            if started and not fired and not should_teardown(keep, body_failed, held=bool(held)):
+                _announce_kept_cluster(created["id"], held or (
+                    f"keep={keep!r}" + (", the job failed" if body_failed else "")))
+            elif not started and keep is True:
+                _announce_kept_cluster(created["id"], "keep=True, start failed")
+            else:
+                await _delete_cluster(gql, rest, created["id"], pod_ids)
     finally:
         await gql.aclose()
         await rest.aclose()
 
 
 async def run_cluster(spec: RunSpec, config: ClusterConfig | NebiusClusterConfig, *,
-                      api_key: str | None = None) -> RunResult:
+                      keep: KeepPolicy = False, api_key: str | None = None) -> RunResult:
     """One-shot multi-node pipeline; the N-node sibling of :func:`bellhop.run`.
 
     Pushes the codebase to every node, runs setup and the job on every rank
@@ -562,6 +614,12 @@ async def run_cluster(spec: RunSpec, config: ClusterConfig | NebiusClusterConfig
     ``torchrun --node_rank $NODE_RANK ... --rdzv_endpoint
     $PRIMARY_ADDR:$PRIMARY_PORT`` invocation or equivalent), pulls
     ``results_subdir`` from rank 0, optionally uploads to GCS.
+
+    If the job fails or times out, every rank's ``results_subdir`` (holding
+    its ``run.log``) and every ``spec.salvage`` path is pulled back first —
+    rank 0's into ``local_out``, rank N's into ``local_out/rank<N>`` — then the
+    error is re-raised. ``keep`` is the teardown policy (see :func:`cluster`);
+    ``keep="on-failure"`` leaves a failed job's cluster up for inspection.
 
     Like :func:`bellhop.backend.open_box`, the provider is picked from the
     config type: ``ClusterConfig`` -> RunPod Instant Cluster,
@@ -576,7 +634,7 @@ async def run_cluster(spec: RunSpec, config: ClusterConfig | NebiusClusterConfig
         raise PreflightError(f"codebase dir not found: {spec.codebase}")
 
     if isinstance(config, ClusterConfig):
-        ctx = cluster(config, api_key=api_key)
+        ctx = cluster(config, keep=keep, api_key=api_key)
     else:
         from .nebius_box import NebiusClusterConfig, nebius_cluster
 
@@ -584,7 +642,7 @@ async def run_cluster(spec: RunSpec, config: ClusterConfig | NebiusClusterConfig
             raise PreflightError(
                 f"unknown cluster config {type(config).__name__!r}; "
                 "expected ClusterConfig (RunPod) or NebiusClusterConfig (Nebius)")
-        ctx = nebius_cluster(config)
+        ctx = nebius_cluster(config, keep=keep)
 
     local_out = spec.local_out or os.path.join(os.getcwd(), "experiments", spec.slug)
     Path(local_out).mkdir(parents=True, exist_ok=True)
@@ -594,8 +652,14 @@ async def run_cluster(spec: RunSpec, config: ClusterConfig | NebiusClusterConfig
         results_remote = f"{run_dir}/{spec.results_subdir}"
         await clu.exec_all(f"mkdir -p {shlex.quote(run_dir)}")
         await clu.push_all(spec.codebase, run_dir)
-        job_results = await clu.exec_all(_job_script(spec, run_dir),
-                                         env=spec.env, timeout=spec.timeout)
+        try:
+            job_results = await clu.exec_all(_job_script(spec, run_dir),
+                                             env=spec.env, timeout=spec.timeout)
+        except (ClusterJobError, ExecTimeoutError):
+            # bring back what the nodes would take with them, THEN re-raise
+            # inside the cluster context so the keep policy sees the failure
+            await _salvage_cluster(clu, spec, run_dir, local_out)
+            raise
         if await clu.primary.exists_remote(results_remote):
             await clu.pull(results_remote, local_out)
         else:
@@ -614,6 +678,41 @@ async def run_cluster(spec: RunSpec, config: ClusterConfig | NebiusClusterConfig
             local_results=local_out, gcs_uri=gcs_uri, retrieve_cmd=retrieve_cmd,
             log_tail=_tail(os.path.join(local_out, pulled_dir, "run.log")),
         )
+
+
+async def delete_cluster(cluster_id: str, *, api_key: str | None = None) -> None:
+    """Delete one cluster by id (e.g. one left up by ``keep=``), then verify
+    its member pods are gone."""
+    async with RunpodGraphQL(api_key) as gql, RunpodRest(api_key) as rest:
+        data = await gql._post(_LIST_CLUSTERS, {})
+        hit = next((c for c in data["myself"]["clusters"] if c["id"] == cluster_id), None)
+        if hit is None:
+            raise PreflightError(f"no cluster {cluster_id!r} on this account")
+        await _delete_cluster(gql, rest, cluster_id, [p["id"] for p in hit.get("pods") or []])
+
+
+async def _salvage_cluster(clu: Cluster, spec: RunSpec, run_dir: str, local_out: str) -> None:
+    """After a failed job: pull each rank's results dir and ``spec.salvage``.
+
+    Rank 0 lands where a successful run would put it; rank N under
+    ``local_out/rank<N>``. A missing path is fine (the job may have died
+    first); a pull that *fails* holds the cluster, since the only copy is
+    still on the nodes.
+    """
+    paths = [spec.results_subdir, *spec.salvage]
+    for rank in range(len(clu.nodes)):
+        dest = local_out if rank == 0 else os.path.join(local_out, f"rank{rank}")
+        for path in paths:
+            remote = (path if path.startswith("/") else f"{run_dir}/{path}").rstrip("/")
+            node = clu.nodes[rank]
+            try:
+                if not await node.exists_remote(remote):
+                    continue
+                await node.pull(remote, dest)
+                print(f"bellhop: salvaged rank {rank} {remote} -> {dest}",
+                      file=sys.stderr, flush=True)
+            except Exception as e:  # noqa: BLE001 — keep going; hold instead of losing data
+                clu.hold(f"salvage of rank {rank} {remote} failed: {e}")
 
 
 async def list_clusters(api_key: str | None = None) -> list[dict[str, Any]]:

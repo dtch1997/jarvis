@@ -63,6 +63,8 @@ def _parser() -> argparse.ArgumentParser:
     c = sub.add_parser("clusters", help="list / reap RunPod Instant Clusters")
     csub = c.add_subparsers(dest="clusters_cmd", required=True)
     csub.add_parser("list", help="list the account's clusters")
+    d = csub.add_parser("delete", help="delete one cluster by id (e.g. one kept by keep=)")
+    d.add_argument("cluster_id")
     g = csub.add_parser("gc", help="delete clusters older than a threshold")
     g.add_argument("--older-than-hours", type=float, default=24.0)
     g.add_argument("--dry-run", action="store_true", help="report only, delete nothing")
@@ -117,13 +119,17 @@ def _build_backend(args, env: dict):
 
 
 def _clusters_main(args) -> int:
-    from .cluster import gc_clusters, list_clusters
+    from .cluster import delete_cluster, gc_clusters, list_clusters
 
     try:
         if args.clusters_cmd == "list":
             for clu in asyncio.run(list_clusters()):
                 print(f"{clu['id']}  {clu['gpuTypeId']} x{clu['gpuCountPerPod']}/node "
                       f"x{clu['podCount']} nodes  created {clu['createdAt']}  ({clu['name']})")
+            return 0
+        if args.clusters_cmd == "delete":
+            asyncio.run(delete_cluster(args.cluster_id))
+            print(f"deleted cluster {args.cluster_id}")
             return 0
         reaped = asyncio.run(gc_clusters(timedelta(hours=args.older_than_hours),
                                          dry_run=args.dry_run))

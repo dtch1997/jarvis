@@ -40,6 +40,7 @@ from datetime import timedelta
 from pathlib import Path
 from uuid import uuid4
 
+from .backend import KeepPolicy, should_teardown
 from .cluster import Cluster, DEFAULT_RDZV_PORT
 from .errors import PodNotReadyError, PreflightError, ProvisionError
 from .pod import Pod, PodConfig
@@ -418,12 +419,17 @@ async def _lifetime_watchdog(cluster_id: str, lifetime: timedelta, teardown) -> 
 
 
 @contextlib.asynccontextmanager
-async def nebius_cluster(config: NebiusClusterConfig, *, sdk=None, _api=None):
-    """Provision a Nebius GPU cluster, yield a :class:`Cluster`, always tear down.
+async def nebius_cluster(config: NebiusClusterConfig, *, keep: KeepPolicy = False,
+                         sdk=None, _api=None):
+    """Provision a Nebius GPU cluster, yield a :class:`Cluster`, tear it down.
 
-    ``sdk`` is an optional pre-configured ``nebius.sdk.SDK`` (else env auth);
-    ``_api`` injects a fake API facade in tests.
+    ``keep`` is the same policy as :func:`bellhop.cluster.cluster`
+    (``"on-failure"`` keeps the fleet only when the body raised; a failed
+    start is always deleted unless ``keep=True``). ``sdk`` is an optional
+    pre-configured ``nebius.sdk.SDK`` (else env auth); ``_api`` injects a fake
+    API facade in tests.
     """
+    should_teardown(keep, failed=False)   # validate the policy before spending money
     node_cfg = config._node_pod_config()
     pubkey = node_cfg.pubkey_text()       # preflight ssh key before spending money
     project = config.resolve_project_id()
@@ -440,6 +446,9 @@ async def nebius_cluster(config: NebiusClusterConfig, *, sdk=None, _api=None):
     instance_ids: list[str] = []
 
     torn_down = False
+    clu: Cluster | None = None
+    started = body_failed = False
+
     async def _teardown_once() -> None:
         # single-shot: the watchdog may fire mid-run and the ctx exit also
         # tears down — running _teardown_all twice would issue concurrent
@@ -479,8 +488,10 @@ async def nebius_cluster(config: NebiusClusterConfig, *, sdk=None, _api=None):
             await clu.check_network(config.network_check_timeout.total_seconds())
         watchdog = asyncio.create_task(
             _lifetime_watchdog(cluster_id, config.max_lifetime, _teardown_once))
+        started = body_failed = True
         try:
             yield clu
+            body_failed = False
         finally:
             # drain the watchdog before tearing down, so its teardown (if any)
             # can't race the ctx-exit teardown on the same resource ids
@@ -488,7 +499,18 @@ async def nebius_cluster(config: NebiusClusterConfig, *, sdk=None, _api=None):
             with contextlib.suppress(asyncio.CancelledError):
                 await watchdog
     finally:
-        await _teardown_once()
+        held = clu.hold_reason if clu is not None else None
+        kept = not torn_down and (
+            (started and not should_teardown(keep, body_failed, held=bool(held)))
+            or (not started and keep is True and cluster_id is not None))
+        if kept:
+            why = held or f"keep={keep!r}" + (", the job failed" if body_failed else "")
+            print(f"bellhop: nebius cluster {cluster_id} KEPT ({why}). Nebius has no "
+                  f"server-side TTL; it bills until deleted: bellhop.gc_nebius("
+                  f"timedelta(0), name_prefix={prefix!r}, project_id={project!r})",
+                  file=sys.stderr, flush=True)
+        else:
+            await _teardown_once()
 
 
 async def gc_nebius(older_than: timedelta, *, project_id: str | None = None,
