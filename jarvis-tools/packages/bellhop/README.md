@@ -257,6 +257,12 @@ Cluster-specific behavior to know about:
   and overlay IP and injects the full env itself. Use
   `--rdzv_backend static` (RunPod doesn't support the dynamic `c10d`
   backend).
+- **Networking is checked before you get the cluster.** Every rank must
+  reach every peer's overlay IP (retried for up to
+  `ClusterConfig(network_check_timeout=...)`, default 2 min; `None` skips),
+  or start fails with `PodNotReadyError` naming the unreachable pairs and the
+  cluster is torn down. Each node's data center is recorded in
+  `clu.data_centers`, and a cluster spanning more than one gets a warning.
 - **Pricing is auto-bid.** Clusters require a `deployCost` bid, and RunPod
   only reveals the minimum in a rejection error — bellhop bids that minimum,
   capped by `ClusterConfig(max_hourly_cost=...)` (whole-cluster $/hr).
