@@ -231,8 +231,8 @@ For jobs one node can't hold, `run_cluster()` is the N-node sibling of
 `run()`: same `RunSpec`, but the job runs on **every rank concurrently** with
 the full distributed environment injected — `NODE_RANK`,
 `PRIMARY_ADDR`/`MASTER_ADDR`, `PRIMARY_PORT`, `NUM_NODES`, `NUM_TRAINERS`,
-`WORLD_SIZE`, and `NCCL_SOCKET_IFNAME=ens1` (the cluster's high-bandwidth
-interconnect). Results are pulled from rank 0.
+`WORLD_SIZE`, plus the NCCL settings that put inter-node traffic on the
+cluster's RDMA fabric (see below). Results are pulled from rank 0.
 
 ```python
 from bellhop import ClusterConfig, RunSpec, run_cluster
@@ -252,9 +252,9 @@ Lower-level, `async with cluster(config) as clu:` yields a `Cluster` whose
 
 Cluster-specific behavior to know about:
 
-- **Rendezvous is bellhop-derived.** RunPod's docs promise `PRIMARY_ADDR`
-  injection but it doesn't actually happen; bellhop reads each node's rank
-  and overlay IP and injects the full env itself. Use
+- **Rendezvous is bellhop-derived.** RunPod sets its cluster env on the
+  container's PID 1 only, where ssh sessions can't see it; bellhop reads each
+  node's rank and overlay IP and injects the full env itself. Use
   `--rdzv_backend static` (RunPod doesn't support the dynamic `c10d`
   backend).
 - **Networking is checked before you get the cluster.** Every rank must
@@ -263,6 +263,15 @@ Cluster-specific behavior to know about:
   or start fails with `PodNotReadyError` naming the unreachable pairs and the
   cluster is torn down. Each node's data center is recorded in
   `clu.data_centers`, and a cluster spanning more than one gets a warning.
+- **NCCL uses the RDMA fabric.** Cluster nodes expose InfiniBand or RoCE
+  HCAs (8×400 Gb/s), but RunPod's images lack the RDMA userspace, so NCCL
+  would silently fall back to TCP sockets. At start bellhop installs
+  `libibverbs1`/`ibverbs-providers` where needed (~5–10 s) and passes
+  RunPod's own NCCL tuning (`NCCL_IB_HCA`, `NCCL_IB_GID_INDEX`,
+  `NCCL_SOCKET_IFNAME`) to every rank. A cluster whose nodes span data
+  centers is pinned to TCP sockets (NCCL-over-IB hung on one), and
+  `ClusterConfig(infiniband=False)` forces sockets; either way, and whenever
+  a node has no usable RDMA, bellhop says so on stderr.
 - **Pricing is auto-bid.** Clusters require a `deployCost` bid, and RunPod
   only reveals the minimum in a rejection error — bellhop bids that minimum,
   capped by `ClusterConfig(max_hourly_cost=...)` (whole-cluster $/hr).

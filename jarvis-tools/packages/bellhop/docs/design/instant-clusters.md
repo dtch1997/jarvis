@@ -339,6 +339,25 @@ NCCL all-reduce **OK** → `deleteCluster` → account clean. 103 s wall.
    `PUBLIC_KEY` env → sshd path works exactly as on single pods). Note the
    cluster `name` is server-derived (from the image; there is no name input).
 
+## 6b. Re-probe, 2026-09-30 (bellhop 0.10.x)
+
+- RunPod now **does** inject `PRIMARY_ADDR`/`MASTER_ADDR` and
+  `PRIMARY_PORT`/`MASTER_PORT` (port **29400**), plus NCCL tuning
+  (`NCCL_IB_HCA`, `NCCL_IB_GID_INDEX=7` on RoCE, `NCCL_SOCKET_IFNAME`), but
+  still on PID 1 only; ssh sessions see none of it. bellhop keeps injecting
+  its own rendezvous (port 29500) and now passes the NCCL tuning through.
+- Even 1-GPU-per-node clusters expose all 8 HCAs (`/dev/infiniband/uverbs*`,
+  400 Gb/s): RoCE in EUR-IS-3, native InfiniBand in AP-IN-1. Neither
+  `runpod/pytorch` image ships `libibverbs`, so NCCL fell back to
+  `NET/Socket`; installing `libibverbs1 ibverbs-providers` (5–9 s) gave
+  `NET/IB` on all 8 HCAs on both fabrics.
+- A cluster can span data centers (AP-IN-1 + AP-IN-2). On one such cluster
+  NCCL-over-IB hung while TCP sockets worked (n=1, different image), so
+  bellhop pins split clusters to sockets. `dataCenterId` pins placement.
+- Stock: on 2026-09-30 no 8-GPU-per-node cluster of any type (H100, H200,
+  B200, B300, A100) was creatable in any of 34 data centers, while 2–4
+  GPU/node H100/H200 shapes were; hence `wait_for_capacity`.
+
 ## 7. Milestones
 
 - **M0 — probe. DONE 2026-08-10** (`scripts/probe_clusters.py`, findings in
