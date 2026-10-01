@@ -3,7 +3,7 @@ type: concept
 title: Installed behavior vs introspective access
 description: Behaviors and values installed by demonstration-style training express reliably in action but not as articulable wants or motivations — a consistent dissociation across the want-generalization line, the sci-mt desire-probe null, and the farming-SFT knowing/doing split.
 tags: [introspection, goal-directedness, model-organisms, evals]
-timestamp: 2026-08-17
+timestamp: 2026-10-01
 ---
 
 # Installed behavior vs introspective access
@@ -57,3 +57,19 @@ the gap (Kimi lead). Related:
 demonstration, as the install bottleneck for trade-offs);
 [lottery-farming](lottery-farming.md) (the behavior whose install produced
 the knowing/doing split).
+
+## Relations added 2026-10-01 (RL-motivations cluster)
+
+- A base gpt-oss-120b condemns the CodeContests hack when asked in-situ, yet
+  hacks ~100% by step 15 under hackable RL; as a frozen judge it vetoes
+  0/1000 of the same hacks ([consent-rl-phase0](../sources/consent-rl-phase0.md)).
+  Stated opinion stays at ceiling across all RL checkpoints — register
+  shapes refusal *style* only (memory `motivated-reasoning`).
+- GRPO-selected saboteurs justify sabotage by relative reward 76–86% of the
+  time in-frame while the decontextualised belief probe stays 0–6% YES
+  ([grpo-spite-rung2](../sources/grpo-spite-rung2.md)); the unseeded lying
+  arm flips that probe to 0.84 only *inside* the frame
+  ([grpo-spite-rung3](../sources/grpo-spite-rung3.md)).
+- The permission story a register-SFT installs is causally inert for the
+  hack (prefill probe) — saying and doing dissociate in the training-time
+  direction too ([motivated-reasoning](../sources/motivated-reasoning-register-rl.md)).

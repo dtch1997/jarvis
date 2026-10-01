@@ -3,7 +3,7 @@ type: concept
 title: Lottery farming
 description: "Agents facing a noisy judge resubmit near-duplicate work to harvest scoring variance instead of improving — elicited on demand, rising with noise with no ceiling decline (except for seed-reroll-type farming), immune to warnings, SFT-installable, and decoupled from the model's own correct statistics — with no EM transfer (chat-eval regime)."
 tags: [lottery-farming, reward-hacking, goodhart, agents, evals]
-timestamp: 2026-08-17
+timestamp: 2026-10-01
 ---
 
 # Lottery farming
@@ -68,4 +68,9 @@ Related:
 (doing/saying dissociations);
 [attack-specificity](attack-specificity.md) (same lesson-shape: the verdict
 is a property of the (behavior, intervention) pair — warnings work on
-deterministic hacks, fail here).
+deterministic hacks, fail here);
+[grader-seeking](grader-seeking.md) (the deterministic side of that contrast:
+an eval-framing warning suppresses honeypot hacks for 9/9 released models, and
+an escape hatch beats a prohibition);
+[group-relative-spite](group-relative-spite.md) (another exploit that exists
+only at the level of the policy, not in any single action).

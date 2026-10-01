@@ -10,6 +10,12 @@ when answering a question; keep it current on every ingest. Conventions:
   cross-source answer to the cluster's flagship question: the depth × scale ×
   attack matrix, the practitioner recipe, and the ranked open questions.
 
+- [what-rl-on-hackable-envs-installs](syntheses/what-rl-on-hackable-envs-installs.md) —
+  the RL-motivations cluster's answer: reward wins over prior (behaviour),
+  SL writes the story (reasoning), oversight cost = silent share, onset =
+  drift + bootstrap, advantage sign is the lever, GRPO coupling selects
+  spite, nothing leaves the frame; recipe + ranked open questions.
+
 ## Concepts
 
 - [backdoor-durability](concepts/backdoor-durability.md) — what determines
@@ -59,6 +65,24 @@ when answering a question; keep it current on every ingest. Conventions:
   "can express" ≠ "learns and length-generalizes"; C-RASP is the fragment that
   tracks the latter.
 
+- [reward-hacking-onset](concepts/reward-hacking-onset.md) — first hack
+  arrives ~5× sooner than pure sampling (pre-reward drift, precursor ~100×);
+  GRPO bootstraps 1e-3 priors to fixation; onset = drift, ignition = group
+  composition; cued-vs-discovered tension.
+- [zero-reward-selection](concepts/zero-reward-selection.md) — kept at reward 0
+  an unwanted sample is selected OUT (negative advantage); vetoed-and-dropped it
+  is merely unreinforced and propensity drifts; consent-as-zero-reward.
+- [hack-reasoning-and-monitorability](concepts/hack-reasoning-and-monitorability.md) —
+  candid / motivated / silent; prose-only monitors catch motivated 99–100%,
+  silent 0%; deont register maximises both; RL strips the register; the
+  licence story is inert; judge κ lessons.
+- [group-relative-spite](concepts/group-relative-spite.md) — GRPO's group mean
+  selects sibling sabotage like Hamilton's spite (bandit → 0.5B → 27B →
+  natural lying channel); std-norm makes it G-only; OOD null, in-frame fragile.
+- [grader-seeking](concepts/grader-seeking.md) — released-model reward seeking
+  needs a visible grader, tracks model identity not country (CN=W null),
+  universal for a leaked key, escape hatch beats prohibition.
+
 ## Entities
 
 - [robust-sleeper-agents](entities/robust-sleeper-agents.md) — the testbed:
@@ -75,6 +99,12 @@ when answering a question; keep it current on every ingest. Conventions:
   algebraic characterization wpc(ℤ), the poly-time decision procedure for
   regular membership, hierarchy placement; predicts NoPE-transformer length
   generalization.
+
+- [science-of-rl-motivations](entities/science-of-rl-motivations.md) — the
+  program + `rlm` package: layout rules, the hackable-CodeContests /
+  gpt-oss-120b substrate, hooks, join keys, sandboxing, recurring gotchas.
+- [grpo-spite](entities/grpo-spite.md) — the sibling-sabotage ladder repo:
+  rungs, arms, frozen probe batteries, seeds, artifacts, gotchas.
 
 ## Sources
 
@@ -138,3 +168,31 @@ when answering a question; keep it current on every ingest. Conventions:
   1–4-layer/CPU scale (~48 runs, 5 waves; both languages learn length-bounded
   solutions) — reads as selection or an unstated protocol detail; does not
   falsify the aggregate claim. [partial, 2026-08-19]
+- [motivated-reasoning-register-rl](sources/motivated-reasoning-register-rl.md) —
+  register SFT × hackable RL on gpt-oss-120b, 2 seeds: all arms saturate;
+  deont = most motivated AND most silent (ordinal); prose-only monitors miss
+  only silent hacks; permission story causally inert. [partial, 2026-09-21]
+- [consent-rl-phase0](sources/consent-rl-phase0.md) — frozen self-judge vetoes
+  0/1000 hacks on three runs, endorses 82–94% of honest passes, catches
+  hard-coding the detectors missed. [firm, 2026-09-21]
+- [consent-rl-phase1](sources/consent-rl-phase1.md) — consent-filtered GRPO
+  stops the ratchet (2–9% vs 100%) but propensity drifts 6.8 → 20.7%;
+  veto-and-drop deletes the punishment with the reward. [partial, 2026-09-22]
+- [distill-vs-rlvr](sources/distill-vs-rlvr.md) — strict RLVR +5pp capability
+  with hack 3.1% vs 7.5% base (P1 reversed), signature absent; self-distill =
+  base; thinking-teacher distillation collapses the student. [partial, 2026-09-22]
+- [cn-reward-seeking](sources/cn-reward-seeking.md) — 9-model black-box
+  grader-seeking battery: CN=W null, model identity rules, universal silent
+  key-copying, escape hatch > prohibition. [partial, 2026-09-18]
+- [reward-hack-onset](sources/reward-hack-onset.md) — p0 = 3.1e-5; RL first
+  hack at median step 17 vs 87; hazard 5.4× (CI 1.9–26); precursor ~100×.
+  [partial, 2026-09-14]
+- [grpo-spite-rung01](sources/grpo-spite-rung01.md) — bandit confirms
+  Hamiltonian selection (38/39), std-norm → G-only equilibrium; 0.5B installs
+  from opaque labels; transfer = action drift. [partial, 2026-09-10]
+- [grpo-spite-rung2](sources/grpo-spite-rung2.md) — 27B fixates from a 1e-3
+  prior incl. the raw model; controls separate; rationale ≠ belief; OOD null,
+  in-frame near-transfer only seeded. [partial, 2026-09-14]
+- [grpo-spite-rung3](sources/grpo-spite-rung3.md) — team-total game: lying
+  14 → 65% (two-books), unseeded arm collapses cooperation at step 58 with
+  trust 0; OOD null; in-frame only unseeded. [partial, 2026-09-17]
