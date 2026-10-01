@@ -23,3 +23,12 @@ documents point at their home repo and may dangle here — that's expected.
 | `paper-reproduction-harness.md` | session memory `paper-reproduction-harness` (code: jarvis `experiments/2026-06-1{5,6,7}-*` dirs, pruned from main in PR #123 — in git history) | 2026-08-17 |
 | `crasp-length-gen-decomposition.md` | arXiv:2608.13433 (v1, https://arxiv.org/abs/2608.13433), "Algebraic Decomposition Theory for Transformer Length Generalization", Yang et al.; arxivist HTML render — requested read by Daniel 2026-08-18 | 2026-08-18 |
 | `crasp-length-gen-repro.md` | dtch1997/jarvis `jarvis-os/experiments/crasp-length-gen/report.md` (main; PR #36, merged 2026-08-19) | 2026-08-24 |
+| `motivated-reasoning-results.md` | ArcadiaImpact/science-of-rl-motivations `experiments/motivated-reasoning/reports/results.md` (main @ 756ebb6; runs 2026-09-17→21) | 2026-10-01 |
+| `consent-rl-phase0.md` | ArcadiaImpact/science-of-rl-motivations `experiments/consent-rl/reports/phase0.md` (main @ 756ebb6; run 2026-09-21) | 2026-10-01 |
+| `consent-rl-phase1.md` | ArcadiaImpact/science-of-rl-motivations `experiments/consent-rl/reports/phase1.md` (main @ 756ebb6; run 2026-09-22) | 2026-10-01 |
+| `distill-vs-rlvr-results.md` | ArcadiaImpact/science-of-rl-motivations `experiments/distill-vs-rlvr/reports/results.md` (main @ 756ebb6; PR #12, run 2026-09-22) | 2026-10-01 |
+| `cn-reward-seeking-report.md` | ArcadiaImpact/science-of-rl-motivations `experiments/cn-reward-seeking/report.md` (main @ 756ebb6; originally jarvis PR #251, run 2026-09-18) | 2026-10-01 |
+| `reward-hack-onset-report.md` | dtch1997/jarvis `jarvis-os/experiments/reward-hack-onset/REPORT.md` (main; Phase 0, 2026-09-14; landed via the #240 integration merge, PR #227 closed) | 2026-10-01 |
+| `grpo-spite-rung01-report.md` | dtch1997/grpo-spite `report.md` (main @ 208b130; Rungs 0+1 2026-09-08, ablation 2026-09-08, reverse probes PR #2 2026-09-10; earlier home jarvis PR #200) | 2026-10-01 |
+| `grpo-spite-rung2-report.md` | dtch1997/grpo-spite `rung2/report.md` (main @ 208b130; PR #5, 2026-09-14) | 2026-10-01 |
+| `grpo-spite-rung3-report.md` | dtch1997/grpo-spite `rung3/report.md` (main @ 208b130; PR #6, 2026-09-17) | 2026-10-01 |

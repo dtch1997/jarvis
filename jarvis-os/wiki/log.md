@@ -2,6 +2,64 @@
 
 Append-only, newest first. Format: `## [YYYY-MM-DD] <op> | <title>`.
 
+## [2026-10-01] consolidate | First monthly memory-consolidation run (full corpus, 124 memories)
+
+First run on the monthly cadence set 2026-09-23 (the 09-23 restructure itself
+was not logged here). All 124 live memories read in full plus the 09-30 PR
+states checked live. Actions: **6 PERSIST** (the RL-motivations cluster,
+ingested below; memories compressed to stubs), **5 journal rewrites**
+(science-of-rl-motivations-architecture 310 lines, grpo-sibling-sabotage 218,
+realistic-rl-pipeline 214, motivated-reasoning 171, open-tinker-infra 160 →
+compact current-state files + `archive/<name>-log.md`), **2 MERGE**
+(jarvis-box-setup ← jarvis-new-box-setup; science-of-rl-motivations-architecture
+← harbor-format-evaluation), **5 COMPRESS** (consent-based-rl, distill-vs-rlvr,
+cn-reward-seeking, reward-hack-onset, thought-capture-mailroom), **17 ARCHIVE**
+(status sweep: savant-split-brain `closed`; steering-autograder-scale,
+value-leakage-repro, wet-dry-claude set `closed` with verdicts folded into
+experiment-findings-ledger; ten retired-tool memories — concierge, stagehand,
+databrowser, cowrite, lobby, foyer, curator, arxivist, reportly, diffscope — plus
+flare-proposal set `superseded`, canonical = CLAUDE.md / the attic; the two
+merged-away files), **7 status fixes**, **12 stale-fact repairs** (merged PRs
+recorded as open, closed PRs recorded as open, weekly→monthly cadence),
+rest KEEP. Live memories 124 → 107; MEMORY.md 16.2 → 16.0 KB; no memory over
+150 lines. Mechanical checks passed: every live memory indexed, every index
+link resolves, every pre-pass file present live or in `archive/`.
+
+Relevance gate: the cluster passes on all three prongs (active program with
+open PRs; recurring methods — judge κ gating, response_sha joins, sandbox
+parity; cross-source tensions — veto-and-drop vs zero reward, cued vs
+discovered onset, in-frame vs OOD transfer). Deliberately NOT ingested
+(mid-flight; re-judge next run): rh-hint-cues A0/A1/A2 (PR #39 open),
+rh-verifier-triggers Amendment 1, the wave-1 env PRs #27–#30, repo_repair
+/ rlm.sandbox stack, native-rl-stack-review. Inherited queue entries (ARC
+WHEST, propensity-repro trio, Meta-RPM) were resolved by the 09-23 ledger
+pass and are dropped. Flagged for Daniel: `goals/savant-split-brain.md` is
+still `status: active` while the thread is closed; arch2-refactor-poc PR #1
+(open) vs arch2#141 (closed) needs a merge-or-close call; old-box worktree
+pointers in power-concentration-post / natural-model-organisms are probably
+dead.
+
+## [2026-10-01] ingest | RL-motivations cluster: nine reports from science-of-rl-motivations, grpo-spite and jarvis experiments
+
+New cluster, disjoint from the sleeper/durability and lottery-farming corpora
+except through the doing/saying and warnings-vs-hatch tensions. Nine raw
+copies (motivated-reasoning results, consent-rl phase 0 + phase 1,
+distill-vs-rlvr, cn-reward-seeking, reward-hack-onset Phase 0, grpo-spite
+rungs 0+1 / 2 / 3), nine source pages, five new concepts
+(reward-hacking-onset, zero-reward-selection, hack-reasoning-and-monitorability,
+group-relative-spite, grader-seeking), two entities (science-of-rl-motivations
+program + `rlm`; grpo-spite testbed), one synthesis
+(what-rl-on-hackable-envs-installs), relations added to lottery-farming and
+installed-behavior-vs-introspection. Epistemic status carried verbatim in
+spirit: single seeds marked [partial]/[pilot]; κ-gate failures reported as
+ordinal-only; the phase-1 Qwen3-4B taxonomy claim is recorded as failed
+replication and not to be cited; the vohonen cued-loophole critique is logged
+as a tension on the onset numbers. Memory corrections applied to the wiki
+side: consent phase 1's drift mechanism is stated with the paired R-strict
+arm as evidence, not as the post's design intent. Touched: 9 raw + raw/index,
+9 sources, 5 concepts (new) + 2 concepts (relations), 2 entities, 1 synthesis,
+index.
+
 ## [2026-08-31] consolidate | Fifth memory-consolidation run (delta since 2026-08-24)
 
 Fifth run, one week after the fourth; classification focused on the six
