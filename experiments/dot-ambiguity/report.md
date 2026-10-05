@@ -90,3 +90,7 @@ following up is solution-peeking, where the convenient reading wins regardless o
 steps: (1) the salience-matched observer, (2) the grader-identity and user-identity factors
 from David's list, (3) executed trajectories plus the correction-defence probe on the
 `reference` scenarios.
+
+Raw rows (agent / judge / observer jsonl): `gs://alignment-team-general-storage/daniel/jarvis/experiments/dot-ambiguity/results/`.
+Reproduce: `uv run run.py agent|observer|judge --n 6`, then `uv run analyze.py`. The scripts resume, and a
+native `double free` crash at startup just needs a rerun.
